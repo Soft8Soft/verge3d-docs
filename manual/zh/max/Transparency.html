@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Verge3D for 3ds Max: Transparency - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn what kinds of transparency can be enabled for 3ds Max materials and used in Verge3D."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Transparency / 3ds Max</h1>
+
+    <p>
+    Here we show how to enable transparency for Standard, Physical and glTF-compliant PBR materials in 3ds Max.
+    </p>
+
+    <ul>
+      <li><a href="manual/zh/max/Transparency.html#blended_vs_masked">Blended vs Masked</a></li>
+      <li><a href="manual/zh/max/Transparency.html#alpha_add">Additive Composing (aka No Depth Writes)</a></li>
+      <li><a href="manual/zh/max/Transparency.html#standard_materials">Transparency for Standard Materials</a></li>
+      <li><a href="manual/zh/max/Transparency.html#physical_materials">Transparency for Physical Materials</a></li>
+      <li><a href="manual/zh/max/Transparency.html#gltf_materials">Transparency for glTF-compliant PBR Materials</a></li>
+    </ul>
+
+    [anchor:blended_vs_masked]
+
+    <h2>Blended vs Masked</h2>
+
+    <p>
+    Being a real-time 3D engine, Verge3D offers two main methods to handle transparent objects: alpha blending and alpha clipping (usually with an image mask). Blending enables combining a translucent foreground color with a background color, using the foreground color's alpha as blending factor. Clipping, on the other hand, simply discards all pixels with alpha less than some predefined threshold (usually 0.5).
+    </p>
+
+    <img src="files/transparency-common/blending-vs-clipping.jpg">
+
+    <p>
+    Blending enables for smooth transitions, generally looks nicer but computationally more expensive than clipping. It may also produce z-sorting artifacts when polygons appear to be rendered in wrong order. Clipping works best for visualizing numerous small objects (such as grass or tree leaves). It also produces hard edges without any transitions which may be aliased.
+    </p>
+
+    <p>
+    Use <strong>Alpha Mode</strong> dropdown in material settings to choose between blending and masking.
+    </p>
+
+    <img src="files/transparency-max/alpha-mode.jpg" class="centered" style="max-width: 338px">
+
+    [anchor:alpha_add]
+
+    <h2>Additive Composing (aka No Depth Writes)</h2>
+
+    <p>
+      Verge3D also offers a special mode for disabling writing to the depth buffer while rendering. This results in polygons being excluded from pixel depth comparison. Such polygons are composited in additive manner, which sometimes can help get rid of blending artifacts.
+    </p>
+
+    <img src="files/transparency-common/no-depth-writes.jpg">
+
+    <p>
+      Select *Add* or *Blend* in the *Alpha Mode* dropdown and uncheck the *Depth Write* option in material settings to enable this mode. In addition, you'll need to increase the *Rendering Order* value in object settings to make you transparent object rendered above all.
+    </p>
+
+    [anchor:standard_materials]
+
+    <h2>Transparency for Standard Materials</h2>
+
+    <p>
+    Transparency in standard materials can be tweaked using <strong>Opacity</strong> in material settings.
+    </p>
+
+    <img src="files/transparency-max/standard-simple.jpg">
+
+    <p>
+    The <strong>Opacity</strong> input of standard materials can be used to create interesting dependencies for better realism.
+    </p>
+
+    <img src="files/transparency-max/standard-falloff.jpg">
+
+    <p>
+    An image with transparency information in its alpha channel can be used as input. A separate alpha image can also be used instead.
+    </p>
+
+    <img src="files/transparency-max/texture-settings-standard.jpg">
+
+    <p>
+    Use the <strong>Alpha Mode</strong> dropdown to choose between transparency modes.
+    </p>
+
+    [anchor:physical_materials]
+
+    <h2>Transparency for Physical Materials</h2>
+
+    <p>
+    Transparency of physical materials can be tweaked using the material setting of the same name.
+    </p>
+
+    <img src="files/transparency-max/physical-transparency.jpg">
+
+    <p>
+    Any combination of maps and images can be used to influence the transparency via the <strong>Transparency Map</strong> input.
+    </p>
+
+    <img src="files/transparency-max/physical-transparency-with-map.jpg">
+
+    <p>
+    Use the <strong>Alpha Mode</strong> dropdown to choose between transparency modes.
+    </p>
+
+    [anchor:gltf_materials]
+
+    <h2>Transparency for glTF-compliant PBR Materials</h2>
+
+    <p>
+    In order to enable transparency for such materials, one should use a <i>separate</i> alpha map connected with the <strong>Transparency Map</strong> input of the physical material.
+    </p>
+
+    <img src="files/transparency-max/gltf-pbr-transparency.jpg">
+
+    <p>
+    Use the <strong>Alpha Mode</strong> dropdown to choose between transparency modes.
+    </p>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

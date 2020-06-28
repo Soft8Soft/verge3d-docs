@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Verge3D for Maya: Materials - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn what kinds of Maya materials are supported in Verge3D and how to configure them to create good-looking 3D web interactives."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Materials / Maya</h1>
+
+    <p>Verge3D for Maya supports the following types of materials:</p>
+
+    <ul>
+      <li>
+        Based on Arnold's <a href="manual/zh/maya/Materials.html#aiStandardSurface">aiStandardSurface</a> shaders
+      </li>
+      <li>
+        <a href="manual/zh/maya/Materials.html#StandardSurface">StandardSurface</a> (Maya 2020 only)
+      </li>
+      <li>
+        Approximated <a href="manual/zh/maya/Materials.html#Lambert">Lambert, Phong, Blinn, StingrayPBS</a>
+      </li>
+    </ul>
+
+
+    [anchor:aiStandardSurface]
+
+    <h2>Arnold aiStandardSurface shaders</h2>
+
+    <p>
+      This shader comes with Arnold for Maya (MtoA) and can represent many real-world materials (such as metals, plastics, glass, wood etc) by using physically-based shading model.
+    </p>
+
+    <img src="files/materials-maya/ai-standard-surface-overview.jpg" class="centered">
+
+    <p>The following aiStandardSurface settings are supported in Verge3D:</p>
+
+    <h3>Base Panel</h3>
+    <ul>
+      <li>Weight or (Base input in Hypershade)</li>
+      <li>Color or (Base Color input in Hypershade)</li>
+      <li>Metalness</li>
+    </ul>
+
+    <h3>Specular Panel</h3>
+    <ul>
+      <li>Roughness (Specular Roughness input in Hypershade)</li>
+    </ul>
+
+    <h3>Emission Panel</h3>
+    <ul>
+      <li>Weight (Emission input in Hypershade)</li>
+      <li>Color (Emission Color input in Hypershade)</li>
+    </ul>
+
+    <h3>Geometry Panel</h3>
+    <ul>
+      <li>Opacity</li>
+      <li>Bump Mapping (Normal Camera input in Hypershade)</li>
+    </ul>
+
+    <p>In addition, when dealing with Ambient Occlusion, you might also want to use *Weight* value from the *Specular* panel to make you Maya viewport look consistent with Verge3D rendering.</p>
+
+    <h3>Creating PBR material for general use</h3>
+
+    <p>Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
+
+    <ol>
+      <li>Assign *aiStandardSurface* to your model.</li>
+      <li>Open the Hypershade editor, find and select this material in the *Browser* panel.</li>
+      <li>Create a *file* node with Base Color texture. Make sure that the *Color Space* setting of this node is set to *sRGB*.</li>
+      <li>Connect *Out Color* output of this texture to *Base Color* input of *aiStandardSurface* node.</li>
+      <li>Create a *file* node with ORM texture. This texture should contain 3 channels with AO (red), Roughness (green) and Metalness (blue) info. Make sure that the *Color Space* setting of this node is set to *Raw*.</li>
+      <li>Connect R channel of the ORM texture to *Base* and *Specular* inputs of the *aiStandardSurface* node to simulate the ambient occlusion effect.</li>
+      <li>Connect G channel of the ORM texture to *Specular Roughness* input of the *aiStandardSurface* node.</li>
+      <li>Connect B channel of the ORM texture to *Metalness* input of the *aiStandardSurface* node.</li>
+      <li>Create *file* and *bump2d* nodes with Normal Map texture. Make sure that the *Color Space* setting of the file node is set to *Raw* and the *Use as* setting of the bump node is set to *Tangent Space Normals*.</li>
+      <li>Connect *file* to *bump2d* node and *bump2d* node to *Normal Camera* input of the *aiStandardSurface* node.
+    </ol>
+
+    <p>This is how the material should look in the Hypershade editor:</p>
+
+    <img src="files/materials-maya/pbr-example.jpg" class="centered">
+
+    <h3>Additional Verge3D Settings</h3>
+
+    <p>You can tweak your aiStandardSurface materials by using the following settings located on *Verge3D* panel:</p>
+
+    <img src="files/materials-maya/verge3d-settings.jpg" class="centered" style="max-width: 411px">
+
+    <p>*Alpha Mode* - select transparency mode: *Auto*, *Opaque*, *Blend* or *Mask*.</p>
+    <p>*Two Sided* - make your material two-sided. By default, Verge3D renders only front side of materials, enable this option to render their reverse side as well.</p>
+    <p>*Depth Write* - render material depth in depth buffer. Use this option for transparent materials to make them rendered in additive manner.</p>
+    <p>*Depth Test* - perform depth test calculations when rendering your material. Disabling depth test is useful when rendering objects inside semi-transparent objects to prevent them from being culled by the covering objects.</p>
+    <p>*Dithering* - reduce banding artifacts by using pixel dithering.</p>
+    <p>*Direct Light Occlusion* - this parameter controls the influence of the ambient occlusion texture attributed to Directional, Point and Spot lights. According to the glTF standard, ambient occlusion only affects indirect lighting (aka image-based lighting). This parameter, therefore, extends glTF by including explicitly available (“direct”) lights as well. By default, it is set to 1 meaning that AO is consistent with what we see in Maya viewport. If set to 0, it will behave in the old fashion, as glTF standard dictates.</p>
+
+
+    [anchor:StandardSurface]
+
+    <h2>Standard Surface</h2>
+
+    <p>
+      *Standard Surface* shader was introduced in Maya 2020. It's based on and very similar to aiStandardSurface.
+    </p>
+
+    <p>
+      Since it's better supported in Maya Viewport 2.0 and does not require Arnold plug-in to be installed, we recommend it for use when authoring your Verge3D content in Maya 2020 or above.
+    </p>
+
+    [anchor:Lambert]
+
+    <h2>Lambert, Phong, Blinn, StingrayPBS</h2>
+
+    <p>
+      These materials will be approximated by PBR shading model during export to Verge3D. Since they are not consistent with Verge3D renderer and have limited functionality, we don't recommend using them in production.
+    </p>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

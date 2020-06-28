@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>App - Verge3D User Manual - Soft8Soft</title>
+    <meta name="description" content="App is the main class to create and manage your Verge3D applications using JavaScript."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      App class allows you to set up your 3D application more easily. It
+      includes code to init WebGL renderer, load glTF scenes, auto-start
+      animations as well as logic for basic camera controls.
+    </p>
+
+    <h2>Example</h2>
+
+    <code>
+    // loaded GLTF 2.0 asset
+    var url = 'template.gltf';
+
+    // construct a new application with simple rotating preloader
+    var app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
+
+    // load main scene
+    app.loadScene(url, function() {
+        app.enableControls();
+        app.run();
+        runCode();
+    });
+
+    function runCode() {
+        // place your own code here
+    }
+    </code>
+
+    <h2>Constructor</h2>
+
+    <h3>[name](container, ctxSettings, preloader)</h3>
+    <p>
+      container - the id of an HTML-element or the HTML-element itself to contain the canvas.<br />
+      ctxSettings - the WebGL context attributes to be passed in the <strong>canvas.getContext()</strong> method.<br />
+      preloader - the instance of application's [page:Preloader Preloader] class.<br />
+    </p>
+
+    <p>This constructor does the following:</p>
+
+    <ol>
+      <li>Creates a new container element (if necessary).</li>
+      <li>Checks whether WebGL technology is supported, if not displays an error dialog.</li>
+      <li>Initializes an application clock.</li>
+      <li>Creates a new 3D canvas with WebGL 1.0 or WebGL 2.0 context and adds it to the container element.</li>
+      <li>Initializes a GLTF loader.</li>
+      <li>Adds an app instance to <strong>v3d.apps</strong> list (in case of non-modularized engine).</li>
+    </ol>
+
+    <h2>Properties</h2>
+
+    <h3>[property:Array actions]</h3>
+
+    <p>Array of [page:AnimationAction animation actions] used to schedule app animations. Instead of accessing this list directly you can also use the [page:SceneUtils.getAnimationActionByName getAnimationActionByName] method to search for an action by its clip name.</p>
+
+    <h3>[property:Boolean clearBkgOnLoad]</h3>
+
+    <p>Set the scene background to *null* after loading a glTF scene. Default is *false*.</p>
+
+    <h3>[property:HTMLElement container]</h3>
+
+    <p>A container element. This is a parent element for 3D Canvas used for rendering operations.</p>
+
+    <h3>[property:Scene scene]</h3>
+
+    <p>Application main scene.</p>
+
+    <h3>[property:Camera camera]</h3>
+
+    <p>Application main camera.</p>
+
+    <h3>[property:Clock clock]</h3>
+
+    <p>Application clock object.</p>
+
+    <h3>[property:Array compileCallbacks]</h3>
+
+    <p>Array of functions which will be called just before shader compilation. Shader compilation occurs during scene loading right after all assets (glTF metadata, binary, textures) has been fetched.</p>
+
+    <p>Use compile callback to enable post-processing or add fog, since adding these effects in runtime can negatively affect performance.</p>
+
+    <code>
+
+    function initFog(appInstance) {
+        appInstance.scene.fog = new v3d.FogExp2('green', 0.01);
+    }
+
+    // loaded GLTF 2.0 asset
+    var url = 'my_scene.gltf';
+
+    // construct a new application with simple rotating preloader
+    var app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
+
+    // initialize fog just before shader compilation
+    app.compileCallbacks.push(initFog);
+
+    // load main scene
+    app.loadScene(url, function() {
+        app.enableControls();
+        app.run();
+    });
+
+    </code>
+
+
+    <h3>[property:null controls]</h3>
+
+    <p>Application main camera controls object.</p>
+
+    <h3>[property:Number frame]</h3>
+
+    <p>Current rendering frame of the application.</p>
+
+    <h3>[property:Number frameRateDivider]</h3>
+
+    <p>Application FPS divider. Use [page:.setFrameRateDivider setFrameDivider] to set this value.</p>
+
+    <h3>[property:AnimationMixer mixer]</h3>
+
+    <p>Mixer used to play animations loaded from glTF data.</p>
+
+    <h3>[property:HTMLElement preloader]</h3>
+
+    <p>App preloader element (exists only during scene loading)</p>
+
+    <h3>[property:WebGLRenderer renderer]</h3>
+
+    <p>Application WebGL renderer.</p>
+
+    <h3>[property:Array renderCallbacks]</h3>
+
+    <p>Array of functions which will be called every time when rendering begins.</p>
+
+    <h3>[property:GLTFLoader loader]</h3>
+
+    <p>Application glTF loader.</p>
+
+    <h3>[property:Number worldCubemapRes]</h3>
+
+    <p>Resolution of the cubemap texture representing the world material. Default is 1024.</p>
+
+    <h3>[property:Material worldMaterial]</h3>
+
+    <p>Material used to generate world environment.</p>
+
+    <h3>[property:Array xrControllers]</h3>
+
+    <p>Array of controller objects for the active WebXR session.</p>
+
+    <h3>[property:XRSession xrSession]</h3>
+
+    <p>Active WebXR session.</p>
+
+
+
+    <h2>Methods</h2>
+
+    <h3>[method:null animate]()</h3>
+    <p>
+      Handler for scene updates: rendering, animations and camera controls. Do not change unless you know what you are doing.
+    </p>
+
+    <h3>[method:null appendScene](url, loadCb, progressCb, errorCb, loadCameras, loadLights)</h3>
+    <p>
+      Append the scene from the specified glTF file to the current scene. The loadCb
+      callback will receive the loaded scene as a parameter after the loading is finished.<br/><br/>
+      If there is no active scene in the application, then nothing will be appended.<br/><br/>
+
+      Such parameters as *loadCameras* and *loadLights* are used to specify if
+      cameras and lights will be appended from the loaded scene. Both parameters
+      are *true* by default.
+    </p>
+
+    <h3>[method:null cleanup]()</h3>
+    <p>
+      <span style="color:#f00">Deprecated.</span> Use [page:.dispose dispose]
+      or [page:.unload unload] instead.
+    </p>
+
+    <h3>[method:null disablePostprocessing](keepOutline)</h3>
+    <p>
+      Disable all post-processing effects (except outline when keepOutline=true).
+    </p>
+
+    <h3>[method:null disableRendering](after)</h3>
+    <p>
+      Disable graphics updates in the animation loop after the given amount of frames (specify 0 to disable immediately). The controls and the animation mixer will keep being updated and the render callbacks will keep being called.
+    </p>
+
+    <h3>[method:null disableSSAA]()</h3>
+    <p>
+      Disable supersample anti-aliasing.
+    </p>
+
+    <h3>[method:null dispose]()</h3>
+    <p>
+      Unloads the scene and cleans up the application data.
+    </p>
+
+    <h3>[method:null enableControls]()</h3>
+    <p>
+      Enable controls for the main app camera. Depending on the control type specified for the camera this method will give you  'ORBIT', 'FLYING' or static camera.
+    </p>
+
+    <h3>[method:null enablePostprocessing](effects)</h3>
+    <p>
+      Enable the given post-processing effects.
+    </p>
+
+    <h3>[method:null enableRendering]()</h3>
+    <p>
+      Enable graphics updates in the animation loop.
+    </p>
+
+    <h3>[method:null enableSSAA](sampleLevel, iterative)</h3>
+    <p>
+      Enable supersample anti-aliasing. The number of samples is calculated as 2^sampleLevel (e.g specify 4 to enable 16x SSAA).
+    </p>
+
+    <h3>[method:Camera getCamera]()</h3>
+    <p>
+      Returns main app camera.
+    </p>
+
+    <h3>[method:number getHeight]()</h3>
+    <p>
+      Return calculated container element height.
+    </p>
+
+    <h3>[method:number getWidth]()</h3>
+    <p>
+      Return calculated container element width.
+    </p>
+
+    <h3>[method:null initPostprocessing]()</h3>
+    <p>
+      Handler for app post-processing initialization. Do not change unless you know what you are doing.
+    </p>
+
+    <h3>[method:null hideFPS]()</h3>
+    <p>
+      Hide frame rate counter.
+    </p>
+
+    <h3>[method:null load](url, loadOkCb, loadErrorCb, autoStart)</h3>
+    <p>
+      <span style="color:#f00">Deprecated.</span> Use [page:.loadScene loadScene]
+      instead.<br/><br/>
+      Load the glTF scene. The loadOkCb callback will receive the loaded scene as
+      a parameter after the loading is finished.<br/><br/>
+
+      If there already is an active scene (e.g. loaded before via the [page:.load load]
+      method), then use [page:.unload unload] first to avoid conflicts between the
+      existed scene and the loaded one.
+    </p>
+
+    <h3>[method:null loadScene](url, loadCb, progressCb, errorCb)</h3>
+    <p>
+      Load the glTF scene. The loadCb callback will receive the loaded scene as
+      a parameter after the loading is finished.<br/><br/>
+
+      If there already is an active scene (e.g. loaded before via the
+      [page:.loadScene loadScene] method), then use [page:.unload unload] first to
+      avoid conflicts between the existed scene and the loaded one.
+    </p>
+
+    <h3>[method:null onResize]()</h3>
+    <p>
+      Handler for canvas resize event. Do not change unless you know what you are doing.
+    </p>
+
+    <h3>[method:null printPerformanceInfo](delta)</h3>
+    <p>
+      Estimate and print out rendering performance profile. delta is an optional period of estimation (default 1).
+    </p>
+
+    <h3>[method:null render]()</h3>
+    <p>
+      Handler for scene rendering. Do not change unless you know what you are doing.
+    </p>
+
+    <h3>[method:null run]()</h3>
+    <p>
+      Starts the application by removing the preloader and starting the
+      rendering cycle.
+    </p>
+
+    <h3>[method:null setFrameRateDivider]([param:Integer divider])</h3>
+    <p>
+      Lowers the maximum frame by dividing it by a specified integer number. By default the engine tries to render scenes at 60 frames per second. If the divider is set to 2, for example, the FPS will be topped out to 30.
+    </p>
+
+    <h3>[method:null showFPS]()</h3>
+    <p>
+      Show frame rate counter.
+    </p>
+
+    <h3>[method:null unload]([page:Object3D rootObj])</h3>
+    <p>
+      [page:Object3D rootObj] -- (optional) an object to unload along with its
+      children; if no object is given or the given object is the main application
+      scene then the method performs full scene cleanup.<br/><br/>
+
+      Unloads either a part or the whole scene depending on the parameters.
+    </p>
+
+    <h3>[method:null updateEnvironment]([page:Material wMat])</h3>
+    <p>
+      Update world environment from the specified material.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

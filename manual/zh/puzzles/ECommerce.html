@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>E-Commerce - Verge3D Puzzles Reference - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="These puzzles are used for implementing WooCommerce product 3D views and configurators, as well as for creating standalone order/inquiry forms."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>E-Commerce Puzzles</h1>
+
+    <p>
+    These puzzles are used for implementing WooCommerce 3D product views and configurators, as well as for creating standalone order/inquiry forms.
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce.jpg">
+
+    [anchor:woo_connect]
+
+    <h4>"connect to WooCommerce"</h4>
+
+    <p>Connect to WooCommerce system to start receiving product information.</p>
+
+    <img src="files/puzzles/puzzles-ecommerce-connect-to-woocommerce.jpg">
+
+    <p>See <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial</a> for more details.</p>
+
+
+
+    [anchor:woo_product_info]
+
+    <h4>"product info"</h4>
+
+    <p>Returns a <a href="manual/zh/puzzles/Dictionaries.html">dictionary</a> with product information retrieved by the *connect to WooCommerce* puzzle. This dictionary (a JavaScript object) contains the following fields:</p>
+
+    <p><ul>
+      <li>*price* - price for the product option selected by the customer, e.g. 12.</li>
+      <li>*quantity* - quantity of the product items selected by the customer, e.g. 2.</li>
+      <li>*sku* - stock keeping unit for the product option selected by the customer.</li>
+      <li>*name* - the name of the product as it will be seen in the shop cart, e.g. "Spinner - Yellow, Large".</li>
+      <li>*attributes* - a dictionary with attribute names/values pairs for the product option selected by the customer, e.g. {color: "Yellow", size: "Large"}.</li>
+      <li>*weight* - physical product weight for the product option selected by the customer.</li>
+      <li>*length*, *width*, *height* - physical product dimensions for the product option selected by the customer.</li>
+      <li>*type* - product type as specified in WooCommerce admin panel, one of the following: "variable", "simple", "group" or "external".</li>
+      <li>*children* - only available for "group" products. Includes information on the per-subproduct basis.</li>
+      <li>*status* - server response: "ok" or "error".</li>
+    </ul></p>
+
+    <img src="files/puzzles/puzzles-ecommerce-product-info.jpg">
+
+
+    [anchor:woo_product_attribute]
+
+    <h4>"product attribute"</h4>
+
+    <p>Returns the value for an attribute of the product option selected by the customer, e.g. "Yellow".</p>
+
+    <img src="files/puzzles/puzzles-ecommerce-product-attribute.jpg">
+
+    <p>See <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial</a> for more details.</p>
+
+
+
+    [anchor:place_order]
+
+    <h4>"place order"</h4>
+
+    <p>
+    Composes a hidden order form with the "title", "contents" and "total price" fields and an optional screenshot and submits this form to a specified URL according to the specification explicated in the Wordpress Plugin section. By default the order form is submitted to the <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">demo ordering page</a>.
+    </p>
+
+    <p>
+    Verge3D comes with a free Wordpress plug-in that is able to handle requests submitted by this puzzle. Upon receiving such a request, this Wordpress plug-in renders a page with an extended form supplemented with contact and comments fields, the embedded screenshot and a captcha. Filled out form is finally submitted by the customer and a new order is created in Wordpress admin interface. Both the customer and the sales manager are notified about the order by e-mail.
+    </p>
+
+    <p>
+    Please refer to the Wordpress Plugin section of this Manual for setup information.
+    </p>
+
+    <p>
+    Be sure to enable screenshots in the <a href="manual/zh/puzzles/Initialization.html#configure_application" target="_parent">configure application</a> puzzle otherwise the screenshot may be rendered in black.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-place-order.jpg">
+
+
+  </article></body>
+</html>

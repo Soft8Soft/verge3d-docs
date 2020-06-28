@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Verge3D for Blender: Animation - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This page contains the information about Blender's animation types supported in Verge3D."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+
+  <body><article>
+
+  <h1>Animation / Blender</h1>
+
+  <p>
+  This page contains the information about Blender's animation types which can be used with Verge3D, as well as supported playback options and means to control the animation interactively.
+  </p>
+
+
+  <h2>Contents</h2>
+
+
+  <ul>
+    <li><a href="manual/zh/blender/Animation.html#Setting_Up_Blender">Setting Up in Blender</a>
+      <ul>
+        <li><a href="manual/zh/blender/Animation.html#Whole_Object_Animation">Whole-Object Animation</a></li>
+        <li><a href="manual/zh/blender/Animation.html#Skeletal_Animation">Skeletal Animation</a></li>
+        <li><a href="manual/zh/blender/Animation.html#Shape_Key_Animation">Shape Key Animation</a></li>
+        <li><a href="manual/zh/blender/Animation.html#Material_Animation">Material Animation</a></li>
+        <li><a href="manual/zh/blender/Animation.html#Procedural_Animation">Procedural Animation</a></li>
+      </ul>
+    </li>
+    <li><a href="manual/zh/blender/Animation.html#Playback_Options">Playback Options</a>
+      <ul>
+        <li><a href="manual/zh/blender/Animation.html#Verge3D_Per_Object_Settings">Verge3D Per-Object Settings</a></li>
+        <li><a href="manual/zh/blender/Animation.html#Interpolation">Interpolation</a></li>
+        <li><a href="manual/zh/blender/Animation.html#Frame_Rate">Frame Rate</a></li>
+      </ul>
+    </li>
+    <li><a href="manual/zh/blender/Animation.html#Animation_Control_with_Puzzles">Animation Control with Puzzles</a>
+    </li>
+  </ul>
+
+
+  [anchor:Setting_Up_Blender]
+
+  <h2>Setting Up in Blender</h2>
+
+
+  [anchor:Whole_Object_Animation]
+
+  <h3>Whole-Object Animation</h3>
+
+  <p>
+  Animation keyframes can be added in standard ways in Blender, by using Object > Animation > Insert Keyframe... menu (or with the shortcut *I*), selecting another frame on the timeline, moving/rotating/scaling an object to a new position and adding a new animation keyframe for this position.
+  </p>
+
+  <img src="files/animation-blender/insert-keyframe.jpg" alt="Inserting keyframes in Verge3D for Blender" class="centered" style="max-width: 1000px">
+
+
+  <p>See also the following tutorial:</p>
+
+  <iframe width="1000" height="562" style="width: 1000px; height: 562px;" class="centered" src="https://www.youtube.com/embed/doifPffYc_o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
+  [anchor:Skeletal_Animation]
+
+  <h3>Skeletal Animation</h3>
+
+  <p>
+  An object can be skinned in Blender with an <a href="https://docs.blender.org/manual/zh/latest/animation/armatures/index.html" target="_blank">Armature</a> object. Verge3D support maximum 4 weights per bone (4 most influential weights are selected, others are ignored). The armature's bones can be animated in *Pose Mode* (Ctrl-Tab), by using Pose > Animation > Insert Keyframe... menu (or with the shortcut *I*), selecting another frame on the timeline, moving/rotating/scaling a bone to a new position and adding a new animation keyframe for this position.
+  </p>
+
+  <img src="files/animation-blender/skeletal-animation.jpg" alt="Inserting keyframes for skeletal animation in Verge3D for Blender" class="centered" style="max-width: 1000px">
+
+
+  [anchor:Shape_Key_Animation]
+
+  <h3>Shape Key Animation</h3>
+
+  <p>
+  You can add <a href="manual/zh/blender/Morphing.html">shape keys</a> to an object in standard ways in Blender (click on the link for more details).
+  </p>
+
+  <img src="files/animation-blender/shape-key-animation.jpg" alt="Shape key animation in Verge3D for Blender" class="centered" style="max-width: 889px">
+
+  <p>
+  The values for shape keys can be animated in Blender, by right-clicking on a value field and selecting *Insert Keyframe* (or by hovering the cursor over it and using the shortcut *I*), selecting another frame on the timeline, setting a new value in the field and adding a new animation keyframe for this value.
+  </p>
+
+  <img src="files/animation-blender/shape-key-animation-insert-keyframe.jpg" alt="Inserting keyframes for shape key animation in Verge3D for Blender" class="centered" style="max-width: 199px">
+
+
+  [anchor:Material_Animation]
+
+  <h3>Material Animation</h3>
+
+  <p>
+  Unlike with Blender, you can only animate a material parameter by first connecting it to a *Value* or *RGB* node.
+  </p>
+
+  <img src="files/animation-blender/node-material-animation.jpg" alt="Node material animation in Verge3D for Blender" class="centered" style="max-width: 1000px">
+
+  <p>
+  The values or colors specified by these nodes can be animated in Blender, by right-clicking on a node and selecting *Insert Keyframe* (or by hovering the cursor over it and using the shortcut *I*), selecting another frame on the timeline, setting a new value or color and adding a new animation keyframe for it.
+  </p>
+
+  <img src="files/animation-blender/node-material-animation-insert-keyframes.jpg" alt="Inserting keyframes for node material animation in Verge3D for Blender" class="centered" style="max-width: 200px">
+
+
+  [anchor:Procedural_Animation]
+
+  <h3>Procedural Animation</h3>
+
+  <p>
+  Instead of playing back some animation which was pre-made in Blender, you can use Puzzles or JavaScript to modify coordinates or some other parameters with time. Particulurly, the <a href="manual/zh/puzzles/Animation.html#animate_param">animate param</a> puzzle (based on the Tween.js library) is a convenient way to create your own animation on the fly.
+  </p>
+
+  <img src="files/puzzles/puzzles-animation-animate-param.jpg" alt="Using the animate param puzzle to create animation in Verge3D for Blender" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Playback_Options]
+
+  <h2>Playback Options</h2>
+
+
+  [anchor:Verge3D_Per_Object_Settings]
+
+  <h3>Verge3D Per-Object Settings</h3>
+
+  <p>
+  Each object in Blender is assigned with Verge3D settings, including the settings for animation playback.
+  </p>
+
+  <img src="files/animation-blender/blender-verge3d-animation-settings.jpg" alt="Verge3D for Blender animation settings panel" class="centered" style="max-width: 403px">
+
+  <p>
+  Animation settings:
+  </p>
+  <p>
+  <ul>
+  <li>
+  *Auto Start* - whether this object's animation will start after the scene is loaded.
+  </li>
+  <li>
+  *Loop Mode* - playback mode: *Repeat* - plays from the start to the end and repeats, *Once* - plays one time and stops, *Ping Pong* - plays from the start to the end and then in reverse.
+  </li>
+  <li>
+  *Repeat Infinitely* - whether this object's animation will be played all over again. Valid only for *Repeat* and *Ping Pong* modes.
+  </li>
+  <li>
+  *Repeat Count* - how many times the animation will be played. Valid only for *Repeat* and *Ping Pong* modes if *Repeat Infinitely* is disabled.
+  </li>
+  <li>
+  *Offset* - how many frames will be skipped before the animation starts.
+  </li>
+  </ul>
+  </p>
+
+
+  [anchor:Interpolation]
+
+  <h3>Interpolation</h3>
+
+  <p>
+  The menu for switching keyframe interpolation is invoked with right click on the timeline window in Blender (shortcut *T*).
+  </p>
+
+  <img src="files/animation-blender/interpolation.jpg" alt="Keyframe interpolation in Verge3D for Blender" class="centered" style="max-width: 1000px">
+
+  <p>
+  All interpolation modes available in Blender for animation keyframes are supported by Verge3D.
+  </p>
+
+
+  [anchor:Frame_Rate]
+
+  <h3>Frame Rate</h3>
+
+  <p>
+  The frame rate value (default - 24 fps) which affect the playback speed can be changed in the *Output Properties* tab.
+  </p>
+
+  <img src="files/animation-blender/frame-rate.jpg" alt="Frame rate selector in Verge3D for Blender" class="centered" style="max-width: 389px">
+
+
+  [anchor:Animation_Control_with_Puzzles]
+
+  <h2>Animation Control with Puzzles</h2>
+
+  <p>
+  You can use <a href="manual/zh/puzzles/Animation.html">animation puzzles</a> for playing back a pre-made animation (click on the link for more details).
+  </p>
+
+  <img src="files/puzzles/puzzles-animation.jpg" alt="Animation puzzles of Verge3D" class="centered" style="max-width: 1000px">
+
+  <p>See also the following tutorial:</p>
+
+  <iframe width="1000" height="562" style="width: 1000px; height: 562px;" class="centered" src="https://www.youtube.com/embed/a9ROAbtwXYk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  <p></p>
+
+  <p>
+  Animation can also be implemented with other visual scripting blocks - see <a href="manual/zh/puzzles/Camera.html">Camera</a> and <a href="manual/zh/puzzles/Time.html">Time</a> puzzles.
+  </p>
+
+  <h2>Got Questions?</h2>
+
+  <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+
+  </article></body>
+</html>

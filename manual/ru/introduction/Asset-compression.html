@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Verge3D Asset Compression - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Verge3D supports loading assets compressed using the XZ/LZMA compression. Find out how to enable this feature on this page."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Asset Compression</h1>
+
+    <p>
+    In Verge3D, scene files may be compressed using the highly effective LZMA2 compression algorithm, thus allowing to significantly reduce the size of the files. At the same time, LZMA2 offers fast decompression on the browser side. Typical compression rates observed for Verge3D scenes are: 20x for the <strong>.gltf</strong> files and 6x for the <strong>.bin</strong> files.
+    </p>
+
+    [contents]
+
+
+    [anchor:When_Compress_Files]
+
+    <h2>When Compress Files</h2>
+
+    <p>
+      Using asset compression is especially recommended in the following cases:
+      <ul>
+        <li>.gltf/.bin or .glb scene files are relatively big so that the effect from compression is significant
+          in terms of size reduction;</li>
+        <li>you expect slow connections and every kilobyte counts;</li>
+        <li>the standard server-side GZIP compression is not enabled or not satisfactory, or
+          you don't even have any access to the server to setup GZIP for Verge3D scene files.</li>
+      </ul>
+    </p>
+
+    <img src="files/asset_compression/compression_chart.png" class="centered with-caption" style="max-width: 630px;">
+    <span class="img-caption">Size comparison for a sample file: raw vs GZIP-compressed vs LZMA2-compressed</span>
+
+    [anchor:Exporting_Compressed_Files]
+
+    <h2>Exporting Compressed Files</h2>
+
+    <p>
+    Verge3D supports loading of scene files compressed in the <strong>.xz</strong> file format, which incorporates the LZMA2 compression algorithm. To enable creating <strong>.xz</strong> files automatically upon export, you can simply turn on the corresponding option in the export settings.
+    </p>
+
+    <p>Blender:</p>
+
+    <img src="files/asset_compression/lzma-blender.jpg" class="centered" style="max-width: 525px">
+
+    <p>3ds Max:</p>
+
+    <img src="files/asset_compression/lzma-max.jpg" class="centered" style="max-width: 709px">
+
+    <p>Maya:</p>
+
+    <img src="files/asset_compression/lzma-maya.jpg" class="centered" style="max-width: 708px">
+
+
+    [anchor:Using_Compressed_Files]
+
+    <h2>Using Compressed Files</h2>
+
+    <p>
+      The compressed <strong>.xz</strong> files (for example, <i>my_awesome_app.gltf.xz</i> and <i>my_awesome_app.bin.xz</i>) should appear near the original ones. What is left is to enable loading them in your app. To do this, go to Puzzles...
+    </p>
+
+    <img src="files/beginner_guide/app-manager-app-buttons-puzzles.png" class="centered" style="max-width: 1000px">
+
+    </p>
+    ...and switch to the <strong>init</strong> tab:
+    </p>
+
+    <img src="files/asset_compression/puzzles-init.jpg" class="centered" style="max-width: 600px">
+
+    <p>
+        Drag out the <strong>configure application</strong> puzzle from the <strong>Initialization</strong> category, if it is not already present in the workspace, and turn on the <strong>compressed assets</strong> checkbox on it:
+    </p>
+
+    <img src="files/asset_compression/puzzles-configure-app.jpg" class="centered" style="max-width: 850px">
+
+    <p>
+      Finally, click the <strong>Save</strong> button. That's it!
+    </p>
+
+
+    [anchor:Checking_Your_Files]
+
+    <h2>Checking Your Files</h2>
+
+    <p>
+      To ensure that your app now actually loads compressed assets, run your app (either from App Manager or from a website where it is deployed). Open the browser console and switch to the <strong>Network</strong> tab.
+    </p>
+
+    <img src="files/asset_compression/console-check.jpg" class="centered">
+
+    <p>
+      Reload your app so that the console starts displaying files from the beginning. Find the scene files in the list - if everything is ok, they should end with <strong>.xz</strong>.
+    </p>
+
+    <p>
+      The browser console can usually be opened with the F12 key (Chrome, Firefox on Windows, Linux). On Mac use the View > Developer > JavaScript Console menu (Option-Cmd-J) in Chrome, or the Develop > Show Error Console menu (Option-Cmd-C) in Safari.
+    </p>
+
+
+    [anchor:Code_Based_or_Player_Based_Apps]
+
+    <h2>Code-Based or Player-Based Apps</h2>
+
+    <p>If you don't want to use Puzzles for some reason, follow these steps to enable asset compression for your apps.</p>
+
+    <p>
+      For <strong>Code-Based</strong> applications simply change
+
+      <code>
+        var url = 'my_awesome_app.gltf';
+      </code>
+      to:
+      <code>
+        var url = 'my_awesome_app.gltf.xz';
+      </code>
+
+      in <i>your_awesome_app.js</i> file.
+
+    </p>
+
+    <p>
+      For Player-based applications that have a scene <strong>.gltf</strong> file specified in the URL as follows:
+      <code class="language-html">
+        https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf
+      </code>
+      you can simply replace it with the path to the compressed <strong>.gltf.xz</strong> file:
+      <code class="language-html">
+        https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf.xz
+      </code>
+    </p>
+
+    <p>
+      The same applies to <strong>.glb</strong> and <strong>.glb.xz</strong> files if they are used instead of <strong>.gltf/.bin</strong>.
+    </p>
+
+
+    [anchor:Archivers]
+
+    <h2>Archivers</h2>
+
+    <p>
+       Alternatively, you can create <strong>.xz</strong> files using archive utilities as
+      <strong>7-Zip</strong>, <strong>XZ Utils</strong> or others.
+    </p>
+
+    <p>
+      Verge3D implementation of an .xz decompressor puts some restrictions on compressed files
+      due to optimization purposes, so not every .xz file can be loaded. .tar.xz files are also
+      not supported. Considering this, it's recommended to use settings described below.
+    </p>
+
+
+    [anchor:windows]
+
+    <h3>Windows</h3>
+
+    <p>
+      1) A popular file archiver <a href="https://www.7-zip.org/download.html">7-Zip</a>
+      can be used for creating .xz files.
+    </p>
+
+    <p>
+      To compress a file you can right click it, and then choose "7-Zip" -> "Add to arcive..." - this
+      opens the corresponding dialog window:
+    </p>
+
+    <img src="files/asset_compression/7zip_add_to_archive.png" class="centered" style="max-width: 630px;">
+
+    <p>
+      The archivation settings should look like this:
+      <ul>
+        <li>Archive format: xz</li>
+        <li>Compression level: any (Normal, Maximum and Ultra give best results)</li>
+        <li>Compression method: LZMA2 (the only available option)</li>
+        <li>Dictionary size: up to 8 MB - the more the better (more than 8MB is
+          not supported by the engine)</li>
+      </ul>
+      The rest of options can be left by default.
+    </p>
+
+    <p>
+      Also you can use a command line version of <strong>7-Zip</strong> instead:
+
+      <code>
+        7z.exe a -m0=LZMA2:d23 scene.gltf.xz scene.gltf
+7z.exe a -m0=LZMA2:d23 scene.bin.xz scene.bin
+      </code>
+    </p>
+
+    <p>
+      2) Alternatively, you can use a special command line tool called
+      <strong>XZ Utils</strong>. Its Windows binaries are available
+      <a href="https://tukaani.org/xz/">here</a> in the <strong>Pre-built binaries</strong> section.
+    </p>
+
+    <p>
+      The usage is simple:
+      <code>
+        xz.exe -k -f -6 scene.gltf
+xz.exe -k -f -6 scene.bin
+      </code>
+    </p>
+
+
+    [anchor:linux]
+
+    <h3>Linux</h3>
+
+    <p>
+      1) A <strong>7-Zip</strong> command line port can be available out of the box or
+      from official repositories as a package named <strong>p7zip</strong>.
+    </p>
+
+    <p>
+
+      The usage is similar to the one in Windows:
+      <code>
+        7z a -m0=LZMA2:d23 scene.gltf.xz scene.gltf
+7z a -m0=LZMA2:d23 scene.bin.xz scene.bin
+      </code>
+    </p>
+
+    <p>
+      2) <strong>XZ Utils</strong> is also available out of the box or from official
+      repositories in most Linux distros.
+    </p>
+
+    <p>
+      The usage is similar to the one in Windows:
+      <code>
+        xz -k -f -6 scene.gltf
+xz -k -f -6 scene.bin
+      </code>
+    </p>
+
+
+    [anchor:macos]
+
+    <h3>macOS</h3>
+
+    <p>
+      1) A <strong>7-Zip</strong> command line port can be installed via
+      <strong>Homebrew</strong> as a package named <strong>p7zip</strong>:
+      <code>
+        $ brew update
+$ brew install p7zip
+      </code>
+      The usage is the same as in Linux.
+    </p>
+
+    <p>
+      2) <strong>XZ Utils</strong> binaries are available for macOS 10.5+
+      <a href="https://tukaani.org/xz/">here</a> in the <strong>Pre-built binaries</strong> section.
+      The usage is the same as in Linux.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

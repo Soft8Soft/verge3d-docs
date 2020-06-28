@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Verge3D conventions - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Various conventions used in the Verge3D framework."/>
+    <meta charset="utf-8">
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+        font-size: 10pt;
+      }
+      ul, ol {
+        text-align: left;
+        margin: 0px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body><article>
+    <h1>[name]</h1>
+      <h2>Summary Table</h2>
+
+      <table style="width:100%">
+        <tr>
+          <th>Blender</th>
+          <th>3ds Max</th>
+          <th>Maya</th>
+          <th>glTF</th>
+          <th>Verge3D</th>
+        </tr>
+
+        <tr>
+          <th colspan=5>Coordinate System</th>
+        </tr>
+        <tr>
+          <td colspan=2>X - right, Y - far,  Z - up</td>
+          <td colspan=3>X - right, Y - up, Z - near (OpenGL)</td>
+        </tr>
+
+        <tr>
+          <th colspan=5>2D Textures (UV)</th>
+        </tr>
+        <tr>
+          <td colspan=2>(0, 0) bottom left corner</td>
+          <td>?</td>
+          <td>(0, 0) upper left corner</td>
+          <td>
+            (0, 0) upper left corner<br>
+            Image/Video/Canvas and disabled flipping
+          </td>
+        </tr>
+
+        <tr>
+          <th colspan=5>Normal Map</th>
+        </tr>
+        <tr>
+          <td>
+            <ul>
+              <li>R [0, 255] - X [-1, 1]</li>
+              <li>G [0, 255] - Y [-1, 1]</li>
+              <li>B [0, 255] - Z [0, 1]</li>
+            </ul>
+            X - right, Y - up, Z - near (OpenGL)
+          </td>
+          <td>
+            <ul>
+              <li>R [?, ?] - X [?, ?]</li>
+              <li>G [?, ?] - Y [?, ?]</li>
+              <li>B [?, ?] - Z [?, ?]</li>
+            </ul>
+            X - right, Y - down, Z - near (DirectX)
+          </td>
+          <td>
+            <ul>
+              <li>R [?, ?] - X [?, ?]</li>
+              <li>G [?, ?] - Y [?, ?]</li>
+              <li>B [?, ?] - Z [?, ?]</li>
+            </ul>
+            X - right, Y - up, Z - near (OpenGL)
+          </td>
+          <td>
+            <ul>
+              <li>R [0, 255] - X [-1, 1]</li>
+              <li>G [0, 255] - Y [-1, 1]</li>
+              <li>B [128, 255] - Z [1/255, 1]</li>
+            </ul>
+            X - right, Y - up, Z - near (OpenGL)
+          </td>
+          <td>?</td>
+        </tr>
+
+        <tr>
+          <th colspan=5>Cube Map</th>
+        </tr>
+        <tr>
+          <td>
+            | Left -X | Back -Y | Right +X |<br>
+            | Down -Z | Up +Z   | Forward +Y |<br>
+          </td>
+          <td>N/A</td>
+          <td>N/A</td>
+          <td>N/A</td>
+          <td>
+            OpenGL:<br>
+            0  GL_TEXTURE_CUBE_MAP_POSITIVE_X<br>
+            1  GL_TEXTURE_CUBE_MAP_NEGATIVE_X<br>
+            2  GL_TEXTURE_CUBE_MAP_POSITIVE_Y<br>
+            3  GL_TEXTURE_CUBE_MAP_NEGATIVE_Y<br>
+            4  GL_TEXTURE_CUBE_MAP_POSITIVE_Z<br>
+            5  GL_TEXTURE_CUBE_MAP_NEGATIVE_Z<br>
+
+            ... with +X and -X swapped
+          </td>
+        </tr>
+
+        <tr>
+          <th colspan=5>Equirectangular Map</th>
+        </tr>
+        <tr>
+          <td>?</td>
+          <td>?</td>
+          <td>?</td>
+          <td>Generic 2D texture</td>
+          <td>Depends on exported material profile</td>
+        </tr>
+
+        <tr>
+          <th colspan=5>Occlusion, Roughness, Metalness (glTF-based)</th>
+        </tr>
+        <tr>
+          <td>
+            <b>Separate RGB</b> node<br>AO taken from textures with "...Occlusion..." name
+          </td>
+          <td>
+            Texture composed from:
+            <ul>
+              <li><b>Base Weight Map</b></li>
+              <li><b>Rougness Map</b></li>
+              <li><b>Metalness Map</b></li>
+            </ul>
+          </td>
+          <td>
+            Channels of <b>file</b> node
+          </td>
+          <td>
+            <ul>
+              <li>O - R</li>
+              <li>R - G</li>
+              <li>M - B</li>
+            </ul>
+          </td>
+          <td>
+            MeshStandardMaterial/MeshPhysicalMaterial:
+            <ul>
+              <li>.aoMap</li>
+              <li>.roughnessMap</li>
+              <li>.metalnessMap</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <th colspan=5>Transparency (glTF-based)</th>
+        </tr>
+        <tr>
+          <td>
+            <ol>
+              <li>Value Only - <b>Principled BSDF->Alpha</b></li>
+              <li>Texture Only - implicit 4 component of <b>Principled BSDF->Base Color</b> (export) and <b>Image Texture->Alpha</b> to <b>Principled BSDF->Alpha</b> (viewport)</li>
+            </ol>
+            no multiplication possible
+          </td>
+          <td>
+            <ol>
+              <li>Value Only - <b>Principled BSDF->Alpha</b></li>
+              <li>Texture Only - implicit 4 component of <b>Physical Material->Base Color</b> (export)
+                <b>Bitmap</b> to <b>Transparency Color Map</b> (viewport only)
+              </li>
+            </ol>
+            no multiplication possible?
+          </td>
+          <td>
+            alpha value only, texture not supported
+          </td>
+          <td>
+            4 component of <b>baseColorFactor</b> and <b>baseColorTexture</b>
+          </td>
+          <td>
+            MeshStandardMaterial.opacity, MeshStandardMaterial.alphaMap (green):
+          </td>
+        </tr>
+        <tr>
+          <th colspan=5>Matrices</th>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+          </td>
+          <td>
+            Post-multiplied
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+        </tr>
+        <tr>
+          <th colspan=5>Quaternions</th>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+          </td>
+          <td>
+            [x, y, z, w]
+            Post-multiplied
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+        </tr>
+      </table>
+
+      <h2>Coordinate Systems</h2>
+
+      <table>
+        <tr>
+          <th>Software / Standard</th>
+          <th>Default System</th>
+          <th>Handedness</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>3ds Max</td>
+          <td>Z-up</td>
+          <td>right</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Blender</td>
+          <td>Z-up</td>
+          <td>right</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Bullet</td>
+          <td>Y-up</td>
+          <td>right</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Cinema4D</td>
+          <td>Y-up</td>
+          <td>left</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>DirectX</td>
+          <td>Y-up</td>
+          <td>left</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Houdini</td>
+          <td>Y-up</td>
+          <td>right</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Maya</td>
+          <td>Y-up</td>
+          <td>right</td>
+          <td>configurable to Z-up right-handed</td>
+        </tr>
+        <tr>
+          <td>OpenGL/WebGL/glTF</td>
+          <td>Y-up</td>
+          <td>right</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Unity</td>
+          <td>Y-up</td>
+          <td>left</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Unreal</td>
+          <td>Z-up</td>
+          <td>left</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Verge3D</td>
+          <td>Y-up</td>
+          <td>right</td>
+          <td></td>
+        </tr>
+      </table>
+
+      <h2>References</h2>
+
+      <p><a href="http://wiki.polycount.com/wiki/Normal_Map_Technical_Details" target="_blank">Normal Maps</a></p>
+
+  </article></body>
+</html>

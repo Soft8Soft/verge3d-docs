@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Node material API reference including info on how to change material colors, values and textures."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Material] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      A custom node-based material.<br /><br />
+
+      This material used to describe custom material setups exported from Blender or 3ds Max. I can be physically based or non-physical depending on the specified node graph.
+    </p>
+
+    <h2>Examples</h2>
+
+    <p>Change material color specified in the "RGB.001" node:</p>
+    <code>
+var object = app.scene.getObjectByName("MyObj");
+var mat = object.material;
+var index = mat.nodeRGBMap['RGB.001']; // 'RGB.001' is the name of an RGB node
+mat.nodeRGB[index] = new v3d.Vector4(1, 0, 0, 1); // new color in RGBA format
+mat.needsUpdate = true;
+    </code>
+
+    <p>Change value specified in the "Value.001" node:</p>
+    <code>
+var object = app.scene.getObjectByName("Circle");
+var mat = object.material;
+var index = mat.nodeValueMap['Value.001'];
+mat.nodeValue[index] = 0.5; // new value
+mat.needsUpdate = true;
+    </code>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:Object parameters])</h3>
+    <p>
+      [page:Object parameters] - (optional) an object with one or more properties defining the material's appearance.
+      Any property of the material (including any property inherited from [page:Material]) can be passed in here.<br /><br />
+
+      The exception is the property [page:Hexadecimal color], which can be passed in as a hexadecimal
+      string and is *0xffffff* (white) by default. [page:Color.set](color) is called internally.
+    </p>
+
+    <h2>Properties</h2>
+    <p>See the base [page:Material] class for common properties.</p>
+
+    <h3>[property:DiGraph nodeGraph]</h3>
+    <p>
+      Directed graph which contains material nodes.
+    </p>
+    <h3>[property:Object additionalNodeGraphs]</h3>
+    <p>
+      Additional graphs representing node groups of the main node graph.
+    </p>
+
+    <h3>[property:String profile]</h3>
+    <p>
+      Node material profile, it can be "blender" or "max".
+    </p>
+
+    <h3>[property:Object nodeTextures]</h3>
+    <p>
+      Object with material textures. It maps texture names to [page:Texture textures]. You can use it to dynamically assign new textures to a material.
+    </p>
+
+    <h3>[property:Array nodeRGB]</h3>
+    <p>
+      Array of [page:Vector4 Vector4] values which contains color values of a material's "RGB" nodes. Please note that these colors are represented by 4-dimentional vector, not the [page:Color Color] class.
+    </p>
+    <h3>[property:Array nodeRGBMap]</h3>
+      Maps "RGB" node name to index in [page:.nodeRGB] array. Used to define which color value is to be updated, see the example listing above.
+    <p>
+    </p>
+
+    <h3>[property:Array nodeValue]</h3>
+    <p>
+      Array of float values which contain values of the material's "Value" nodes.
+    </p>
+    <h3>[property:Array nodeValueMap]</h3>
+    <p>
+      Maps "Value" node name to index in [page:.nodeValue] array. Used to define which value is to be updated, see the example listing above.
+    </p>
+
+    <h3>[property:Boolean isMeshNodeMaterial]</h3>
+    <p>
+      Used to check whether this class represent node material.<br />
+      You should not change this, as it is used internally for optimization.
+    </p>
+
+
+    <h2>Methods</h2>
+    <p>See the base [page:Material] class for common methods.</p>
+
+    <h3>[method:null updateNodeGraph]()</h3>
+    <p>
+      Generate shaders and update other material parameters based on the specified [page:.nodeGraph].
+    </p>
+
+    <h2>Static Methods</h2>
+    <h3>[method:DiGraph nodeGraphFromGLTF]([param:Object gltfNodeGraph])</h3>
+    <p>
+      Convert [page:GLTFLoader GLTF node graph] to the format used by the material's [page:.nodeGraph] property.
+    </p>
+
+    <h2>Puzzles</h2>
+    <p>
+      Use the following puzzles to manage your materials: <br />
+      [page:Puzzles.assign_material assign material] - assign the material to an object. <br />
+      [page:Puzzles.replace_texture replace texture] - replace the material's texture.
+    </p>
+    [sourceHint]
+  </body>
+</html>

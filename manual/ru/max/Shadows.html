@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Verge3D for 3ds Max: Shadows - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how to setup beautiful shadows in Verge3D for 3ds Max."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Shadows / 3ds Max</h1>
+
+    <p>
+      Here are described the settings and best practices to setup beautiful real-time shadows in Verge3D for 3ds Max.
+    </p>
+
+    <iframe class="video-480p" src="https://www.youtube.com/embed/L2SqP4MaaOQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+    [anchor:prepare_viewport]
+    <h2>Preparing Max Viewport</h2>
+    <p class="note">
+        It's recommended to set up Max's viewport as described in this section
+        to make configuring shadows easier.
+    </p>
+
+    <p>
+        Enable the following viewport options:
+    </p>
+    <ul>
+        <li>
+            *Lighting and Shadows* -> *Illuminate with Scene Lights*
+        </li>
+        <li>
+            *Lighting and Shadows* -> *Shadows*
+        </li>
+    </ul>
+
+    <img src="files/shadows-max/lighting-and-shadows-menu.jpg" class="centered" style="max-width: 652px;">
+
+
+    [anchor:shadow_filtering]
+
+    <h2>Shadow Filtering Types</h2>
+
+    <p>Shadows in Verge3D look very differently depending on what shadow map filtering algorithm is in use. The *Shadow Filtering* property located on the *Verge3D Export Settings* panel is used to specify the algorithm.</p>
+
+    <!--<img src="files/shadows-blender/shadow-filtering-settings.jpg" class="centered" style="max-width: 425px">-->
+
+
+    [anchor:shadow_filtering_basic]
+
+    <h3>Basic</h3>
+
+    <p>Disable filtering, render shadow map as is. This is the fastest method to render shadows.</p>
+
+    <img src="files/shadows-blender/shadow-filtering-basic.jpg">
+
+
+    [anchor:shadow_filtering_bilinear]
+
+    <h3>Bilinear</h3>
+
+    <p>Use bilinear filtering to smooth adjacent shadow map pixels.</p>
+
+    <img src="files/shadows-blender/shadow-filtering-bilinear.jpg">
+
+
+    [anchor:shadow_filtering_pcf]
+
+    <h3>PCF</h3>
+
+    <p>Stands for Percentage Closer Filtering. Uses multiple shadow map lookups for smoothed shadow rendering. Average quality and performance.</p>
+
+    <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
+
+
+    [anchor:shadow_filtering_pcf_bilinear]
+
+    <h3>PCF (Bilinear)</h3>
+
+    <p>Similar to PCF but uses bilinear interpolation for each shadow map lookup. Gives smoothed shadows at the expense of more computation power.</p>
+
+    <img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg">
+
+
+    [anchor:shadow_filtering_pcf_poisson_disk]
+
+    <h3>PCF (Poisson Disk)</h3>
+
+    <p>Uses pseudorandom <em>Poisson Disk Sampling</em> to eliminate shadow pixelation for PCF shadows. This was made the default setting because it corresponds the most to what you see in the 3D editor viewport. The performance is comparable to *PCF (Bilinear)* algorithm or better.</p>
+
+    <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
+
+
+    [anchor:shadow_filtering_esm]
+
+    <h3>ESM</h3>
+
+    <p>
+        Stands for Exponential Shadow Maps. Shadows are smoothest but light
+        leaks are possible. Use <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>
+        setting on lights to remove light leaks artefacts. The performance is
+        comparable to *PCF (Bilinear)* algorithm. ESM shadows can be particularly
+        tricky to set up, therefore see ESM-related issues in the
+        <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a>
+        section.
+    </p>
+
+    <img src="files/shadows-blender/shadow-filtering-esm.jpg">
+
+
+    [anchor:shadow_filtering_choose]
+
+    <h3>Which filtering type to choose?</h3>
+    <p>
+        It's recommended to try the default
+        <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson Disk)</a>
+        shadows first, because they offer good quality and performance. If you
+        need faster but less quality shadows then try
+        <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a>
+        or
+        <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a>.
+        Try <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
+        if you want more quality, soft shadows, but the drawback is that they
+        can be tricky to set up (artefact-wise) for a particular scene.
+    </p>
+
+
+    [anchor:global_settings]
+
+    <h2>Global Settings</h2>
+
+    <p>
+        Global settings for shadows are located in the *Verge3D Export Settings* menu.
+    </p>
+
+    <img src="files/shadows-max/shadow-settings-global-max.jpg" class="centered with-caption" style="max-width: 251px"></img>
+
+    <dl>
+        <dt>Shadow Filtering</dt>
+        <dd>
+            shadow map filtering algorithm. See
+            <a href="manual/ru/max/Shadows.html#shadow_filtering">above</a>.
+        </dd>
+        <dt id="esm-distance-scale">ESM Distance Scale</dt>
+        <dd>
+            ESM shadows scaling factor. Since the ESM filtering algorithm uses
+            absolute distance values, decrease the scale value if you're working
+            on a scene which is much bigger than the default cube, and increase
+            it if your scene is much smaller. Default value is 0.3. Works only for
+            <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
+            shadows.
+        </dd>
+    </dl>
+
+
+    [anchor:per_light_settings]
+
+    <h2>Per-Light Settings</h2>
+
+    <p>
+    Shadows can be enabled/disabled for each individual light using 3ds Max's native panels. Supported shadow settings are highlighted with green.
+    </p>
+
+    <img src="files/shadows-max/shadow-settings-perlight-max.jpg" class="centered with-caption" style="max-width: 349px">
+
+    <br />
+
+    <dl>
+        <dt id="target-distance">Target Distance</dt>
+        <dd>
+            can affect the distance at which shadows stop rendering. Available
+            only for spot and directional lights. Tweak it only if you deal with
+            the shadow clipping issue from the
+            <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a> section.
+        </dd>
+        <dt>On</dt>
+        <dd>
+            enable/disable shadows.
+        </dd>
+        <dt id="shadow-map-type">Shadow Map</dt>
+        <dd>
+            must be selected in the dropdown for shadows to appear in Verge3D.
+        </dd>
+        <dt id="falloff-field">Falloff/Field</dt>
+        <dd>
+            defines the shadow volume (the less the better). Available only for
+            spot and directional lights.
+        </dd>
+        <dt id="bias">Bias</dt>
+        <dd>
+            can be tweaked until you get rid of self-shadow artefacts and/or the
+            peter-panning effect.
+        </dd>
+        <dt id="size">Size</dt>
+        <dd>
+            controls how big is the shadow texture (trading between speed and
+            quality).
+        </dd>
+        <dt id="sample-range">Sample Range</dt>
+        <dd>
+            controls the blurriness ratio for shadows.
+        </dd>
+        <dt id="shadow-bias">Shadow Bias</dt>
+        <dd>
+            additional bias setting similar to
+            <a href="manual/ru/max/Shadows.html#bias">Bias</a>. Used to get rid
+            of self-shadow artefacts and/or the peter-panning effect.
+        </dd>
+        <dt id="esm-bias">ESM Bias</dt>
+        <dd>
+            bias to reduce ESM <em>light leaking</em> artefacts. Works only for
+            <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
+            shadows.
+        </dd>
+    </dl>
+
+
+    [anchor:per_object_settings]
+
+    <h2>Per-Object Settings</h2>
+
+    <p>
+    You can also enable and disable receiving and casting shadow on per-object basis.
+    </p>
+
+    <img src="files/shadows-max/object-properties.jpg" class="centered" style="max-width: 542px">
+
+    <img src="files/shadows-max/shadows-per-object-settings.jpg" class="centered" style="max-width: 400px">
+
+    <dl>
+        <dt>Receive Shadows</dt>
+        <dd>enable/disable shadow receiving for this object.</dd>
+        <dt id="cast-shadows">Cast Shadows</dt>
+        <dd>enable/disable shadow casting for this object.</dd>
+        <dd></dd>
+    </dl>
+
+    <br/>
+
+    <p>
+    You may check out the following <a href="https://www.youtube.com/watch?v=ItsmBFa3lU0" target="_blank">video</a> explaining how to setup shadows in 3ds Max.
+    </p>
+
+    <p>
+    See also Autodesk's official <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2018/ENU/3DSMax-Lighting-Shading/files/GUID-4BF878CD-5BD6-4F1A-A20B-8A6BD7D3703B-htm.html" target="_blank">documentation</a> for more information and best practices.
+    </p>
+
+
+    [anchor:troubleshooting]
+
+    <h2>Troubleshooting</h2>
+
+    <h3>Shadows in Verge3D and in the Max viewport look different</h3>
+    <ul>
+        <li>
+            Verge3D doesn't use the same shadow rendering
+            techniques as a 3d software can use - mostly for performance reasons.
+            This can include ray-traycing, various post-processing effects and
+            non-realtime methods. That's why there can be differences and
+            shadows won't look exactly the same as in the viewport.
+        </li>
+        <li>
+            Verge3D aims to resemble the Max viewport. In order to make
+            configuring shadows easier, follow the instructions described here:
+            <a href="manual/ru/max/Shadows.html#prepare_viewport">Preparing Max Viewport</a>.
+        </li>
+    </ul>
+
+    <h3>Shadows look too pixelated</h3>
+    <ul>
+        <li>
+            Use higher <a href="manual/ru/max/Shadows.html#size">Size</a> values.
+        </li>
+        <li>
+            If using directional light sources, try to decrease the
+            <a href="manual/ru/max/Shadows.html#falloff-field">Falloff/Field</a>
+            parameter as much as possible as long as it fits your scene.
+        </li>
+        <li>
+            Try to mask low resolution with soft penumbra. Such shadow
+            filtering techniques as
+            <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a>
+            and
+            <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
+            along with properly adjusted
+            <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>
+            can make pixelization less prominent.
+        </li>
+    </ul>
+
+    <h3>Shadows are visible in the Max viewport but not in Verge3D</h3>
+    <ul>
+        <li>
+            In order to enable shadows in Verge3D the
+            <a href="manual/ru/max/Shadows.html#shadow-map-type">shadow map type</a>
+            dropdown must be set to *Shadow Map*.
+        </li>
+        <li>
+            Very high <a href="manual/ru/max/Shadows.html#bias">Bias</a>,
+            <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a> and
+            sometimes <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>
+            can partially or completely remove shadows. If that's the case try
+            to lower those values.
+        </li>
+    </ul>
+
+    <h3>Shadows have artefacts</h3>
+    <img src="files/shadows-blender/self-shadow-artefacts.jpg" class="centered" style="max-width: 485px">
+    <ul>
+        <li>
+            Such artefacts are called "shadow acne" or "self-shadow artefacts".
+            Increase the <a href="manual/ru/max/Shadows.html#bias">Bias</a>
+            and/or the <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a>
+            values to get rid of them.
+        </li>
+    </ul>
+
+    <h3>Shadows have no/small penumbra</h3>
+    <ul>
+        <li>
+            In case of <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a>
+            or <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a>
+            shadows there's no control of the penumbra. Choose the other
+            <a href="manual/ru/max/Shadows.html#shadow_filtering">shadow filtering types</a>
+            instead.
+        </li>
+        <li>
+            Increase <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
+        </li>
+    </ul>
+
+    <h3>Shadows from spot and directional lights are clipped</h3>
+    <img src="files/shadows-max/shadow-artefacts-far-clipping.jpg" class="centered" style="max-width: 500px">
+    <ul>
+        <li>
+            Increase the <a href="manual/ru/max/Shadows.html#target-distance">Target Distance</a>
+            value.
+        </li>
+    </ul>
+
+    <h3>ESM shadows look faded</h3>
+    <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" class="centered" style="max-width: 500px">
+    <ul>
+        <li>
+            Increase the <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>
+            value.
+        </li>
+        <li>
+            Increase the <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
+            value.
+        </li>
+    </ul>
+
+    <h3>ESM shadows look too sharp or have no penumbra</h3>
+    <img src="files/shadows-blender/esm-sharp-shadows.jpg" class="centered" style="max-width: 500px">
+    <ul>
+        <li>
+            Increase <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
+        </li>
+        <li>
+            Decrease the <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>
+            value.
+        </li>
+        <li>
+            Decrease the <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
+            value.
+        </li>
+        <li>
+            Such artefacts can appear on a receiver object's edge.
+            <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" class="centered" style="max-width: 500px">
+            It's one of ESM drawbacks. The solution is to avoid such situations.
+        </li>
+        <li>
+            If an object receiving shadows doesn't cast shadows itself
+            (e.g. if they are disabled via <a href="manual/ru/max/Shadows.html#cast-shadows">Cast Shadows</a>),
+            then the shadows can have no penumbra at all no matter how large
+            <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>
+            is. The solution is to enable shadow casting on the receiving
+            object or use an additional shadow casting object as an underlay
+            to fix the penumbra.
+        </li>
+    </ul>
+
+    <h3>ESM Shadows have artefacts</h3>
+    <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" class="centered" style="max-width: 500px">
+    <ul>
+        <li>
+            Decrease the <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>
+            value.
+        </li>
+        <li>
+            Decrease the <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
+            value.
+        </li>
+    </ul>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

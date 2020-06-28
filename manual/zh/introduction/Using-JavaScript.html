@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Using JavaScript in Verge3D applications - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how you can extend functionality of your Verge3D applications with JavaScript code."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Using JavaScript in Verge3D Applications</h1>
+
+    <p>
+    Thanks to the Puzzles, you can implement most of the functionality found in typical WebGL applications without writing a single line of code. However, there can be special cases where you may want to use JavaScript - for example, to leverage third-party programming libraries or to implement some non-trivial feature which cannot be realized with the Puzzles alone.
+    </p>
+
+    <p>
+    You can use any text editor for adding JavaScript code, but it is more convenient to work if your editor supports syntax highlighting and line numbering, like Notepad++ or VS Code.
+    </p>
+
+
+    <ul>
+    <li><a href="manual/zh/introduction/Using-JavaScript.html#Method_1_Basic">Method #1 (Basic)</a></li>
+    <li>
+        <a href="manual/zh/introduction/Using-JavaScript.html#Method_2_Versatile">Method #2 (Versatile)</a>
+        <ul>
+        <li><a href="manual/zh/introduction/Using-JavaScript.html#From_Puzzles_to_JavaScript">From Puzzles to JavaScript</a></li>
+        <li><a href="manual/zh/introduction/Using-JavaScript.html#From_JavaScript_to_Puzzles">From JavaScript to Puzzles</a></li>
+        </ul>
+    </li>
+    <li><a href="manual/zh/introduction/Using-JavaScript.html#Method_3_Сompact">Method #3 (Сompact)</a></li>
+    <li><a href="manual/zh/introduction/Using-JavaScript.html#Method_4_Hardcore">Method #4 (Hardcore)</a></li>
+    <li><a href="manual/zh/introduction/Using-JavaScript.html#Get_Inspired_by_Puzzles">Get Inspired by Puzzles</a></li>
+    </ul>
+
+
+
+    <p><a href="manual/zh/introduction/Using-JavaScript.html#Method_1_Basic" id="Method_1_Basic" class="permalink">#</a></p>
+
+    <h2>Method #1 (Basic)</h2>
+
+    <p>
+    Suppose you created your application using the App Manager (with default configuration options), and named it <strong>my_awesome_app</strong>. Go to the <i>verge3d/applications</i> folder and then to <i>my_awesome_app</i> folder, and open the JavaScript file <i>my_awesome_app.js</i> with your favorite text editor.
+    </p>
+
+    <p>
+    Search for "runCode" - this place in the file should look something like this:
+    </p>
+
+    <code>
+function runCode(app) {
+        // add your code here, e.g. console.log('Hello, World!');
+
+}
+    </code>
+
+    <p>
+    You can add some code inside that declaration (between the curly brackets), so that it turns to:
+    </p>
+
+    <code>
+function runCode(app) {
+        // add your code here, e.g. console.log('Hello, World!');
+        console.log('Just added some JavaScript!');
+}
+    </code>
+
+    <p>
+    Now, if you save the <strong>.js</strong> file and run your app you'll notice... nothing until you open the browser console. The latter can usually be opened with the F12 key (Chrome, Firefox on Windows, Linux). On Mac use the View > Developer > JavaScript Console menu (Option-Cmd-J) in Chrome, or the Develop > Show Error Console menu (Option-Cmd-C) in Safari.
+    </p>
+
+    <img src="files/using-javascript/basics-console-log.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    With code you can change something in your scene, for example, move the default Verge3D cube (named "Box001" in 3ds Max and "Cube" in Blender)...
+    </p>
+
+    <code>
+function runCode(app) {
+        var obj = app.scene.getObjectByName('Cube');
+        obj.position.x = 2;
+}
+    </code>
+
+    <p>
+    ... or create a new material out of thin air:
+    </p>
+
+    <code>
+function runCode(app) {
+        var obj = app.scene.getObjectByName('Cube');
+        obj.material = new v3d.MeshPhongMaterial({ color: '#00BB00', emissive: '#550000' });
+}
+    </code>
+
+    <img src="files/using-javascript/basics-change-material.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    Check out <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">Verge3D code examples</a> to get inspired. Click <strong>View source</strong> button to open the code for an example.
+    </p>
+
+    <img src="files/using-javascript/basics-code-examples.jpg" class="centered" style="max-width: 1000px">
+
+
+
+    <p><a href="manual/zh/introduction/Using-JavaScript.html#Method_2_Versatile" id="Method_2_Versatile" class="permalink">#</a></p>
+
+    <h2>Method #2 (Versatile)</h2>
+
+    <p>
+    Adding your code inside the <strong>runCode</strong> function makes it executed upon application loading, once and for all. But what if you need some piece of code to be triggered by user action instead? For example, the user clicks on a 3D object and something should happen with that object.
+    </p>
+
+    <p>
+    This scenario can be implemented more easily with some help from Puzzles, rather than in pure code. You can setup capturing user events with Puzzles, and only perform special actions with code. This approach may save you a lot of time.
+    </p>
+
+
+
+    <p><a href="manual/zh/introduction/Using-JavaScript.html#From_Puzzles_to_JavaScript" id="From_Puzzles_to_JavaScript" class="permalink">#</a></p>
+
+    <h3>From Puzzles to JavaScript</h3>
+
+    <p>
+    Open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with your favorite text editor. Search for "prepareExternalInterface" and add a function inside that declaration (between the curly brackets), so that it looks like this:
+    </p>
+
+    <code>
+function prepareExternalInterface(app) {
+        app.ExternalInterface.myJSFunction = function() {
+            console.log('Running my JavaScript function!');
+        }
+}
+    </code>
+
+    <p>
+    As you can see, the function was added to the <strong>app.ExternalInterface</strong> namespace - this is crucial for Puzzles to pick it up. You can add more functions with different names to this namespace if needed.
+    </p>
+
+    <p>
+    You can now trigger your function called "myJSFunction" from puzzles. To do this, run the Puzzles editor and add a puzzle <strong>call JS function</strong> to the workspace. By default it will trigger the function with the name "myJSFunction", so if your function is named differently, make sure to change its name in this puzzle's text field.
+    </p>
+
+    <img src="files/using-javascript/external-interface-adding.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    Now if you save your Puzzles and run your app, the puzzles scenario should trigger the function that you added, and the message should appear in the browser console.
+    </p>
+
+    <img src="files/using-javascript/external-interface-running.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    More Puzzles can be added to make your function only run when the user clicks on an object.
+    </p>
+
+    <img src="files/using-javascript/external-interface-click.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    If you'd like to pass a parameter from puzzles to your JavaScript function (for example, the name of the object the user clicked on), you can modify the <strong>call JS function</strong> puzzle by adding an input socket to it.
+    </p>
+
+    <img src="files/using-javascript/external-interface-parameter.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    The code should also be modified for the function to accept a parameter as its argument:
+    </p>
+
+    <code>
+function prepareExternalInterface(app) {
+        app.ExternalInterface.myJSFunction = function(myObject) {
+            console.log(myObject);
+        }
+}
+    </code>
+
+    <p>
+    So, a code snippet that assigns a programmatically-generated material to whatever object is picked can look like this:
+    </p>
+
+    <code>
+function prepareExternalInterface(app) {
+        app.ExternalInterface.myJSFunction = function(myObject) {
+            var obj = app.scene.getObjectByName(myObject);
+            obj.material = new v3d.MeshPhongMaterial({ color: '#00DD00', emissive: '#880000' });
+        }
+}
+    </code>
+
+    <p>
+    You can also use the variant of the <a href="manual/zh/puzzles/Misc.html#call_JS_function">call JS function</a> puzzle equipped with return value and use the received result in Puzzles.
+    </p>
+
+    <img src="files/using-javascript/external-interface-example-with-return.jpg" class="centered" style="max-width: 1000px">
+
+    <code>
+function prepareExternalInterface(app) {
+        app.ExternalInterface.getMessage = function() {
+            return('Hello, Verge!');
+        }
+}
+    </code>
+
+
+
+    <p><a href="manual/zh/introduction/Using-JavaScript.html#From_JavaScript_to_Puzzles" id="From_JavaScript_to_Puzzles" class="permalink">#</a></p>
+
+    <h3>From JavaScript to Puzzles</h3>
+
+    <p>
+    The examples above trigger JavaScript functions from Puzzles, but you can make it in reverse and trigger Puzzles from JavaScript. As of version 2.15, procedures defined in Puzzles are callable from code.
+    </p>
+
+    <p>
+    Here is how it works. Suppose, you want to hide any given object with JavaScript. Then you can have a procedure named "hide" in Puzzles:
+    </p>
+
+    <img src="files/using-javascript/from-javascript-to-puzzles-example.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    ...and trigger it from any place of your code (or even from the browser console) with
+    </p>
+
+    <code>
+v3d.puzzles.procedures.hide('Cube');
+    </code>
+
+    <p>
+    or
+    </p>
+
+    <code>
+v3d.puzzles.procedures['hide']('Cube');
+    </code>
+
+    <p>
+    That's it!
+    </p>
+
+    <p><a href="manual/zh/introduction/Using-JavaScript.html#Method_3_Сompact" id="Method_3_Сompact" class="permalink">#</a></p>
+
+    <h2>Method #3 (Сompact)</h2>
+
+    <p>
+    This method will suit experienced programmers who would like to have just a minimal working code snippet to begin with.
+    </p>
+
+    <p>
+    When creating a new application, switch the <strong>App Type</strong> selector to <strong>Code-Based</strong>:
+    </p>
+
+    <img src="files/using-javascript/creating-code-based-app.jpg" class="centered" style="max-width: 351px">
+
+    <p>
+    This will result in a simpler project structure with no Puzzles editor attached to your application, and the app <strong>.js</strong> file will contain just a few lines of code:
+    </p>
+
+    <code>
+'use strict';
+
+window.addEventListener('load', function() {
+
+var app = new v3d.App('container', null,
+        new v3d.SimplePreloader({ container: 'container' }));
+
+var url = 'my_awesome_app.gltf';
+
+app.load(url, function() {
+        app.enableControls();
+        runCode();
+});
+
+function runCode() {
+        // add your code here, e.g. console.log('Hello, World!');
+
+}
+
+});
+    </code>
+
+    <p>
+    Applications of this type are very simple yet they are still capable of loading a scene in <strong>.gltf</strong> format (with preloader), and offer standard camera controls to the user.
+    </p>
+
+    <p>
+    You can proceed by adding your code inside the "runCode" function as described in Method #1. Of course, you can completely overhaul this application template instead - for example, you can discard the App class, load the scene using some other file format or setup the controls in some specific way.
+    </p>
+
+
+
+    <p><a href="manual/zh/introduction/Using-JavaScript.html#Method_4_Hardcore" id="Method_4_Hardcore" class="permalink">#</a></p>
+
+    <h2>Method #4 (Hardcore)</h2>
+
+    <p>
+    This method will suit programmers who are familiar with the Three.js library, as you basically can use the same API with Verge3D.
+    </p>
+
+    </p>
+    Copy the <strong>v3d.js</strong> file from the <i>verge3d/build</i> folder, link it to an <strong>.html</strong> file and <a href="manual/zh/programmers_guide/Programming-basics.html">start coding</a>! How did you think the <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">code examples</a> were created in the first place?
+    </p>
+
+
+
+    <p><a href="manual/zh/introduction/Using-JavaScript.html#Get_Inspired_by_Puzzles" id="Get_Inspired_by_Puzzles" class="permalink">#</a></p>
+
+    <h2>Get Inspired by Puzzles</h2>
+
+    <p>
+    This is not a method but rather a tip. In fact, when you click the *Save* button in the Puzzles editor, it will generate a self-contained, human-readable JavaScript module saved as *visual_logic.js* file in your app folder.
+    </p>
+
+
+    <img src="files/using-javascript/get-inspired-by-puzzles.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    This way you may have a working example of how certain JavaScript API methods work, and re-use the snippet generated for a puzzle of interest in your own code.
+    </p>
+
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+
+  </article></body>
+</html>

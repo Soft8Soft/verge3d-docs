@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Project structure - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how Verge3D applications are structured."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Project Structure</h1>
+
+    <p>
+    Pursuing a strong artist-friendly approach, Verge3D creates a complete set of files for a WebGL application. It is recommended not to edit most of the initialized project files, because some of them may be automatically regenerated upon certain user actions (such as export, saving Puzzles etc), while others may get overridden upon updating to new Verge3D versions.
+    </p>
+
+    [contents]
+
+
+    [anchor:Simplest_Case]
+
+    <h2>Simplest Case</h2>
+
+    <p>
+    A default project initialized with the App Manager (with default configuration parameters) looks as follows.
+    </p>
+
+    <img src="files/project-structure/project-structure-simple.jpg">
+
+    <h3>HTML, CSS and JavaScript files</h3>
+
+    <p>
+    The application core consists of the <strong>.html</strong>, <strong>.css</strong> and <strong>.js</strong> files with the same name ("my_awesome_app"), and the Verge3D runtime <strong>v3d.js</strong>. There is also a folder called <strong>media</strong> which contains small images (fullscreen button icons and a set of favicons).
+    </p>
+
+    <p>
+    Although not recommended, you can edit the core <strong>.html</strong>, <strong>.css</strong> and <strong>.js</strong> files, although a better approach for adding your own CSS and JavaScript would be creating new files and linking them to the main  <strong>.html</strong>. Be sure to cherry-pick your changes back after performing <a href="manual/ru/introduction/Updating.html">clean updating</a>.
+    </p>
+
+    <p>
+    Please notice that if you attempt to launch a Verge3D application by simply clicking on the <strong>.html</strong> file, most likely it won't run due to the browser <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">security policy</a> which forbids JavaScript from accessing files loaded not from the same domain. Please always use the App Manager, which includes a local web server, to run your apps.
+    </p>
+
+    <h3>glTF files</h3>
+
+    <p>
+    When running, an application loads a 3D scene in <strong>.gltf</strong> format first, which in turn contains file paths for further loading of the binary part of a glTF scene <strong>.bin</strong> and external textures. The <strong>.gltf</strong> and <strong>.bin</strong> files are exported using user interface menu of your favorite 3D editor (Blender, 3ds Max, or Maya).
+    </p>
+
+    <h3>Working scene files</h3>
+
+    <p>
+      Depending on the 3D editor you are using, there will be one <strong>.blend</strong>, <strong>.max</strong> or <strong>.mb</strong> file containing the default cube. This is where most work on your scenes is performed. Feel free to modify this file, rename or override it with some other file, but be certain to preserve the original name of the exported glTF file.
+    </p>
+
+    <p>
+    You can add more scene files to the app folder, for using as library files or for multi-scene applications. If your app loads multiple glTF files, don't forget to perform export from the corresponding <strong>.blend</strong>, <strong>.max</strong> or <strong>.mb</strong> files.
+    </p>
+
+    <h3>Assets</h3>
+
+    <p>
+    Textures and sounds are typically loaded by an application as external files. Make sure that you use <i>relative</i> file paths in the 3D editor of your choice for all images, and that your images are stored <i>inside</i> your application folder, otherwise there may be issues with the publication of your app.
+    </p>
+
+    <h3>Puzzles</h3>
+
+    <p>
+    When you click <strong>Save</strong> in the Puzzles editor, it will save your app puzzles in <strong>visual_logic.xml</strong>. It will also generate JavaScript code from your puzzles and save it as <strong>visual_logic.js</strong>. These files will keep being overridden every time you click the <strong>Save</strong> button, with the previous edition of the <strong>visual_logic.xml</strong> copied to the <strong>v3d_app_data/puzzles_backup</strong> folder, renamed with a time stamp. Therefore, you can always restore your puzzles from this backup by copying the <strong>.xml</strong> file to the root and renaming it back.
+    </p>
+
+
+    [anchor:Advanced_Case]
+
+    <h2>Advanced Case</h2>
+
+    <p>
+    Some Verge3D apps (such as Soft8Soft's Industrial Robot demo) may contain quite a number of additional files, which however, come from just 2 extra categories.
+    </p>
+
+    <h3>Compressed glTF files</h3>
+
+    <p>
+    If you enable <a href="manual/ru/introduction/Asset-compression.html">asset compression</a> for your app (which is always a good thing), the exporter will at first perform export as usual and then create a compressed version of glTF files. These files are automatically picked up by the application instead of the regular glTF file. There is no point in deleting the regular glTF files even if they are not used at the time, since they may be generated again in some future export operation.
+    </p>
+
+    <h3>Third-party software exports</h3>
+
+    <p>
+    Composite applications may leverage HTML layouts designed in some third-party software (such as Webflow or Google Web Designer), in which a regular Verge3D application is embedded with an <strong>iframe</strong> element. In such cases, the HTML layout can be saved to the app folder without any change to be picked up by the App Manager. Complex HTML layouts may in turn include additional CSS/JavaScript files, fonts or images, which are also needed to be stored in the app folder with their original hierarchy preserved.
+    </p>
+
+    <img src="files/project-structure/project-structure.jpg">
+
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

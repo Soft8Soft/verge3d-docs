@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>System - Verge3D Puzzles Reference - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="These puzzles may be used to retrieve and print values of variables, measure the performance, and retrieve the GPU information."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>System Puzzles</h1>
+
+    <p>
+    These puzzles may be used to perform various system functions such as printing to console, measuring performance, getting/setting rendered pixel ratio and retrieving the GPU information.
+    </p>
+
+    <img src="files/puzzles/puzzles-system.jpg">
+
+    <p><a href="manual/zh/puzzles/System.html#print_to_console" id="print_to_console" class="permalink">#</a></p>
+
+    <h4>"print to console"</h4>
+
+    <p>
+    Prints data of any type to the browser console. The latter can usually be opened with the F12 key (Chrome, Firefox on Windows, Linux). On Mac use the View > Developer > JavaScript Console menu (Option-Cmd-J) in Chrome, or the Develop > Show Error Console menu (Option-Cmd-C) in Safari.
+    </p>
+
+    <img src="files/puzzles/puzzles-system-print-console.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/System.html#print_performance_info" id="print_performance_info" class="permalink">#</a></p>
+
+    <h4>"print performance info"</h4>
+
+    <p>
+    Records a performance profile during 1 second and prints it to the browser console. The latter can usually be opened with the F12 key (Chrome, Firefox on Windows, Linux). On Mac use the View > Developer > JavaScript Console menu (Option-Cmd-J) in Chrome, or the Develop > Show Error Console menu (Option-Cmd-C) in Safari.
+    </p>
+
+    <img src="files/puzzles/puzzles-system-print-performance-info.jpg">
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#feature_available" id="feature_available" class="permalink">#</a></p>
+
+    <h4>"feature available"</h4>
+
+    <p>
+    Check if a feature selected from the drop-down is available in the user's browser.
+    </p>
+
+    <img src="files/puzzles/puzzles-system-feature-available.jpg">
+
+
+    <p><a href="manual/zh/puzzles/System.html#get_GPU" id="get_GPU" class="permalink">#</a></p>
+
+    <h4>"get GPU"</h4>
+
+    <p>
+    Outputs the user's GPU info - vendor, for example: NVIDIA Corporation, Apple Inc., Qualcomm, and GPU model, for example: GeForce GTX 1060 3GB/PCIe/SSE2, Apple A9 GPU, Adreno (TM) 330.
+    </p>
+
+    <img src="files/puzzles/puzzles-system-get-GPU.jpg">
+
+
+    <p><a href="manual/zh/puzzles/System.html#set_screen_scale" id="set_screen_scale" class="permalink">#</a></p>
+
+    <h4>"set screen scale"</h4>
+
+    <p>
+      Set screen resolution factor for the rendered canvas. Set this value higher than 1 to improve quality, 1 - default screen scale on non-retina displays.
+    </p>
+
+    <img src="files/puzzles/puzzles-system-set-screen-scale.jpg">
+
+
+    <p><a href="manual/zh/puzzles/System.html#native_screen_scale" id="native_screen_scale" class="permalink">#</a></p>
+
+    <h4>"native screen scale"</h4>
+
+    <p>
+      Native canvas resolution factor. Equal to 1 for non-retina displays.
+    </p>
+
+    <img src="files/puzzles/puzzles-system-native-screen-scale.jpg">
+
+
+    <p><a href="manual/zh/puzzles/System.html#detect_gamepad" id="detect_gamepad" class="permalink">#</a></p>
+
+    <h4>"detect gamepad device"</h4>
+
+    <p>
+      Detect gamepad devices connected to or disconnected from your system. When a new gamepad device found, the puzzles specified in the "once connected do" slot are triggered. When the device disconnected, the puzzles specified in the "once disconnected do" slot are triggered. In any case the value "gamepad index" is set and returns the device index.
+    </p>
+
+    <img src="">
+
+
+    <p><a href="manual/zh/puzzles/System.html#gamepad_index" id="gamepad_index" class="permalink">#</a></p>
+
+    <h4>"gamepad index"</h4>
+
+    <p>
+      Returns connected/disconnected gamepad device index.
+    </p>
+
+    <img src="">
+
+
+    <p><a href="manual/zh/puzzles/System.html#get_gamepad_prop" id="get_gamepad_prop" class="permalink">#</a></p>
+
+    <h4>"get gamepad property"</h4>
+
+    <p>
+      Returns a gamepad property for the device with the given index:
+    </p>
+
+    <ul>
+      <li>*connection status* — whether the device is connected (returns <em>true</em>) or disconnected (returns <em>false</em>).</li>
+      <li>*axis* — device axis position in the range <em>-1.0–1.0</em>. For example, an analog thumb stick found on all recent gamepads is represented by two axes: left–right and up–down.</li>
+      <li>*button* — device button state. Returns <em>true</em> when the button is pressed and <em>false</em> otherwise.</li>
+      <li>*analog button* — analog button state. Similar to button but can detect the amount which the button has been pressed. Returns value in the range <em>0–1</em>.</li>
+      <li>*id* — device ID string. Identifies the brand and model of the connected device.</li>
+      <li>*timestamp* — last time the axes/buttons for the gamepad were updated. You can store this value in a variable and compare with the current timestamp each frame to detect that some axis/angle was changed.</li>
+    </ul>
+
+    <img src="">
+
+    <p>To assign axes buttons in your application use the <a href="https://www.soft8soft.com/gamepad_diagnostics/gamepad_diagnostics.html" target="_blank">Gamepad Diagnostics</a> tool or follow the Standard Gamepad layout (does not work properly for all kinds of devices):</p>
+
+    <img src="files/puzzles/standard-gamepad.svg">
+
+  </article></body>
+</html>

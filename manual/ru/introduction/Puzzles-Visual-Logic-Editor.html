@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Verge3D Puzzles - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Verge3D's Puzzles editor is a powerful and intuitive tool for development of rich web applications of any complexity without any programming."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+    <style>
+      table, td {
+        border: 1px solid #2194CE;
+        border-collapse: collapse;
+        padding: 10px;
+        text-align: left;
+        min-width: 180px;
+      }
+      table {
+        margin-bottom: 20px;
+      }
+      ul {
+        margin: 10px 0px;
+      }
+    </style>
+  </head>
+  <body><article>
+
+    <h1>Visual Logic Editor, aka Puzzles</h1>
+
+    <p>
+    Verge3D Puzzles is a powerful yet easy-to-use tool for creating behavior scenarios. With Puzzles you can make your 3D content interactive and responsive to user actions.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-dark.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    If you are no coder (designer, marketer, engineer, teacher?), this tool will significantly extend your possibilities. But even if you are a seasoned programmer, you may find it very helpful both in prototyping and in production.
+    </p>
+
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+
+    [anchor:Running_Editor]
+
+    <h2>Running the Editor</h2>
+
+    <p>
+    You can start adding or editing Puzzles for an application by clicking the button in the 'operations' column on the main page:
+    </p>
+
+    <img src="files/app-manager/app-manager-run-puzzles-from-main.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    ... or by using the button on the right bar when on the application page:
+    </p>
+
+    <img src="files/app-manager/app-manager-run-puzzles-from-app-page.jpg" class="centered" style="max-width: 1000px">
+
+
+
+    [anchor:User_Interface]
+
+    <h2>User Interface</h2>
+
+
+
+    <h3>Layout</h3>
+
+    <p>
+    Puzzles are dragged out from the expandable toolbox (located on the left) to the main workspace area. The 3D rendering is contained in a floating viewport window. This window can be moved, resized, hidden, paused, and checked for FPS.
+    </p>
+
+    <img src="files/puzzles-editor/layout.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    The <a href="manual/ru/introduction/Puzzles-Visual-Logic-Editor.html#Controls">control</a> buttons for the Editor are located at the bottom bar. On the top, tabs are displayed (default tabs are called <i>init</i> and <i>main</i>).
+    </p>
+
+    <p>
+    The layout settings (tabs, viewport position and size) are saved individually for each project, making it possible to restore the settings if Puzzles are opened with another browser or workstation.
+    </p>
+
+
+
+    <h3>Viewport Resizing / Resetting</h3>
+
+    <p>
+    Drag a corner or an edge of the viewport window to resize it.
+    </p>
+
+    <img src="files/puzzles-editor/layout-resize-viewport.jpg" class="centered" style="max-width: 474px">
+
+    <p>
+    You can reset the position and size of the viewport window by selecting *Reset Viewport Dimensions* in the context menu invoked by right-clicking on an empty spot of the workspace:
+    </p>
+
+    <img src="files/puzzles-editor/layout-reset-viewport.jpg" class="centered" style="max-width: 303px">
+
+
+
+    <h3>Refreshing the Editor</h3>
+
+    <p>
+    Use the browser's standard refresh page button to reload the editor and the application running in the viewport.
+    </p>
+
+    <img src="files/puzzles-editor/controls-refresh-page.jpg" class="centered" style="max-width: 466px">
+
+    <p>
+    Any unsaved puzzles or changes will be removed, and all variables and scene objects properties will be reset to their initial values. Therefore you can use this method for cleaning up application state in the course of development iterations.
+    </p>
+
+
+
+    [anchor:Controls]
+
+    <h2>Controls</h2>
+
+
+
+    <h3>Run</h3>
+
+    <p>
+    After clicking this button, your puzzles take effect. Under the hood, the *Run* button interprets the puzzles currently present in the work space (in all tabs) and produces JavaScript code from them. The code is then executed by the browser and thus applied to the application running in the background.
+    </p>
+
+    <img src="files/puzzles-editor/controls-run.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    Most of the times, you can repeatedly click *Run* in order to immediately apply your tweaks for the puzzles. However, if you want to reset the state of your app and perform a clean run, simply use the browser's standard refresh page button instead. Once the page is refreshed, the puzzles automatically take effect. Be sure to save your changes before reloading the page otherwise they will be lost!
+    </p>
+
+
+
+    <h3>Save</h3>
+
+    <p>
+    This button saves your puzzles. Similarly to the *Run* operator, the *Save* button interprets the puzzles currently present in the work space (in all tabs) and produces JavaScript code from them. However, the code is not executed. Instead, all puzzles and the generated code are saved in the application folder for persistent storage as the files *visual_logic.xml* and *visual_logic.js*, respectively.
+    </p>
+
+    <img src="files/puzzles-editor/controls-save.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    The *Save* operator requires the local development server to be running. The server is launched automatically with the first instance of Blender, 3ds Max or Maya, but if it went down for some reason, a connection error will be displayed when you try to save your puzzles:
+    </p>
+
+    <img src="files/puzzles-editor/controls-save-error.jpg" class="centered" style="max-width: 961px">
+
+    <p>
+    In this case you should launch Blender, 3ds Max or Maya, or, if the program is already running, start the App Manager again.
+    </p>
+
+    <p>
+    See also <a href="manual/ru/introduction/Puzzles-Visual-Logic-Editor.html#Backup">Backup</a>.
+    </p>
+
+
+
+    [anchor:Tabs]
+
+    <h2>Tabs</h2>
+
+    <p>
+    You can reorder your puzzles in tabs to make them more manageable and responsive. To create a new tab, click on the "plus" button in the top bar, and enter the tab name in the text field.
+    </p>
+
+    <img src="files/puzzles-editor/tabs-create.jpg" class="centered" style="max-width: 600px">
+
+    <p>
+    Now you can add puzzles to the new tab. To move some puzzles from another tab, use the cut and paste shortcuts *Ctrl-X* / *Ctrl-V*. All tabs share the same namespace, so you can define procedures or variables in one tab and use them in another.
+    </p>
+
+    <p>
+    To delete a tab, click on the cross button near its name. Use this operation with caution as it cannot be undone except by restoring from a backup. <strong>All puzzles from a deleted tab will be destroyed!</strong>
+    </p>
+
+    <img src="files/puzzles-editor/tabs-delete.jpg" class="centered" style="max-width: 700px">
+
+    <p>
+    There is no dedicated control for renaming tabs as of version 3.0. However, you can easily rename a tab by editing the *visual_logic.xml* file in your application folder.
+    </p>
+
+    <img src="files/puzzles-editor/tabs-rename.jpg" class="centered" style="max-width: 386px">
+
+    <p>
+    Once renamed, your tab name will be updated after refreshing the editor.
+    </p>
+
+
+
+    [anchor:Right_Click_Menu_Over_Puzzle]
+
+    <h2>Right Click Menu (Over a Puzzle)</h2>
+
+    <p>
+    The context menu can be invoked by right-clicking on a puzzle (residing in the toolbox or placed in the workspace), or on the empty workspace. The menu provides the access to a bunch of very helpful operators.
+    </p>
+
+
+
+    <h3>Duplicate</h3>
+
+    <p>
+    Creates a copy of a group of puzzles. You can also use the copy and paste shortcuts *Ctrl-C* / *Ctrl-V* to do the same.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-duplicate.jpg" class="centered" style="max-width: 496px">
+
+
+
+    <h3>Add Comment / Remove Comment</h3>
+
+    <p>
+    Adds a comment to a puzzle. The comment is represented with a question mark button by clicking on which a comment window is revealed. The comment may be saved persitently in both open and closed state.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-add-comment.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    A comment can be removed by selecting *Remove Comment* in the right-click menu.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-remove-comment.jpg" class="centered" style="max-width: 430px">
+
+
+
+    <h3>Inline Inputs / External Inputs</h3>
+
+    <p>
+    By default, a puzzle can be in its inlined or external inputs form. This menu option switches between these forms. The difference is purely cosmetic, yet sometimes transforming puzzles can make them more readable and compact.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-inline-inputs-external-inputs.gif" class="centered" style="max-width: 800px">
+
+
+
+    <h3>Collapse / Expand</h3>
+
+    <p>
+    A group of puzzles can be collapsed to make it more compact.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-collapse-expand.gif" class="centered" style="max-width: 1000px">
+
+
+
+    <h3>Disable / Enable</h3>
+
+    <p>
+    Use this menu option to skip a group of puzzles from execution.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-disable-enable.gif" class="centered" style="max-width: 830px">
+
+
+
+    <h3>Delete</h3>
+
+    <p>
+    Deletes a group of puzzles. Alternatively, use the *Del* key.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-delete.jpg" class="centered" style="max-width: 736px">
+
+
+
+    <h3>Save to Library</h3>
+
+    <p>
+    Saves a group of puzzles to the <a href="manual/ru/puzzles/Library.html">Library</a> for the purpose of reusing it later.
+    </p>
+
+
+
+    <h3>Help</h3>
+
+    <p>
+    Opens the corresponding puzzle's page from the Puzzles Reference. Available both for the toolbox...
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-help-toolbox.jpg" class="centered" style="max-width: 600px">
+
+    <p>
+    ...and for puzzles in the workspace:
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-help.jpg" class="centered" style="max-width: 600px">
+
+    <p>
+    You can also access the help pages from this manual's contents window (on the right).
+    </p>
+
+    <table style="width:100%">
+      <tr>
+        <td>
+        <ul>
+        <li><a href='manual/ru/puzzles/Initialization.html'>Initialization</a></li>
+        <li><a href='manual/ru/puzzles/Events.html'>Events</a></li>
+        <li><a href='manual/ru/puzzles/Selectors.html'>Selectors</a></li>
+        <li><a href='manual/ru/puzzles/Objects.html'>Objects</a></li>
+        <li><a href='manual/ru/puzzles/Materials.html'>Materials</a></li>
+        </ul>
+        </td>
+        <td>
+        <ul>
+        <li><a href='manual/ru/puzzles/Animation.html'>Animation</a></li>
+        <li><a href='manual/ru/puzzles/Camera.html'>Camera</a></li>
+        <li><a href='manual/ru/puzzles/Scenes.html'>Scenes</a></li>
+        <li><a href='manual/ru/puzzles/Misc.html'>Misc</a></li>
+        <li><a href='manual/ru/puzzles/Time.html'>Time</a></li>
+        </ul>
+        </td>
+        <td>
+        <ul>
+        <li><a href='manual/ru/puzzles/HTML.html'>HTML</a></li>
+        <li><a href='manual/ru/puzzles/AR_VR.html'>AR/VR</a></li>
+        <li><a href='manual/ru/puzzles/Sound.html'>Sound</a></li>
+        <li><a href='manual/ru/puzzles/Physics.html'>Physics (and Constraints)</a></li>
+        <li><a href='manual/ru/puzzles/Postprocessing.html'>Post-processing</a></li>
+        </ul>
+        </td>
+        <td>
+        <ul>
+        <li><a href='manual/ru/puzzles/Logic.html'>Logic</a></li>
+        <li><a href='manual/ru/puzzles/Loops.html'>Loops</a></li>
+        <li><a href='manual/ru/puzzles/Text.html'>Text</a></li>
+        <li><a href='manual/ru/puzzles/Numbers.html'>Numbers</a></li>
+        <li><a href='manual/ru/puzzles/Lists.html'>Lists</a></li>
+        </ul>
+        </td>
+        <td>
+        <ul>
+        <li><a href='manual/ru/puzzles/Dictionaries.html'>Dictionaries</a></li>
+        <li><a href='manual/ru/puzzles/Variables.html'>Variables</a></li>
+        <li><a href='manual/ru/puzzles/Procedures.html'>Procedures</a></li>
+        <li><a href='manual/ru/puzzles/System.html'>System</a></li>
+        <li><a href='manual/ru/puzzles/Library.html'>Library</a></li>
+        </ul>
+        </td>
+      </tr>
+    </table>
+
+
+    [anchor:Right_Click_Menu_Over_Workspace]
+
+    <h2>Right Click Menu (Over the Workspace)</h2>
+
+
+
+    <h3>Undo / Redo</h3>
+
+    <p>
+    Reverses or repeats the most recently performed action. You can also use the shortcuts *Ctrl-Z* / *Ctrl-Shift-Z*.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-undo-redo.jpg" class="centered" style="max-width: 405px">
+
+
+
+    <h3>Straighten Up</h3>
+
+    <p>
+    Repositions all the puzzles in a tab so that they form a neat line.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-straighten.gif" class="centered" style="max-width: 874px">
+
+
+
+    <h3>Collapse / Expand</h3>
+
+    <p>
+    Works similarly to the single group variant, except it affects all puzzles in a tab.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-collapse-expand-all.jpg" class="centered" style="max-width: 405px">
+
+
+
+    <h3>Delete</h3>
+
+    <p>
+    Works similarly to the single group variant, except it deletes all puzzles in a tab.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-right-click-menu-delete-all.jpg" class="centered" style="max-width: 405px">
+
+
+
+    <h3>Reset Viewport Dimensions</h3>
+
+    <p>
+    Resets the position and the dimensions of the viewport window to better fit the screen resolution.
+    </p>
+
+    <img src="files/puzzles-editor/layout-reset-viewport.jpg" class="centered" style="max-width: 303px">
+
+
+
+    [anchor:Backup]
+
+    <h2>Backup</h2>
+
+    <p>
+    Every time you click the *Save* button, the previously saved file *visual_logic.xml* is copied to the folder called *v3d_app_data/puzzles_backup* with a time stamp added to the file name.
+    </p>
+
+    <img src="files/puzzles-editor/puzzles-editor-backup.jpg" class="centered" style="max-width: 682px">
+
+    <p>
+    This allows you to restore any of the previously saved revisions of your puzzles when you need it. Simply copy a file back to the application folder root and remove the time stamp from its name. Your puzzles will be updated after refreshing the editor.
+    </p>
+
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

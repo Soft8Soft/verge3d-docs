@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>AR/VR Development - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how you can enable Augmented Reality (AR) and Virtual Reality (VR) experience for your Verge3D applications."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>AR/VR Development</h1>
+
+    <p>Verge3D allows for creating web-based Augmented Reality (AR) and Virtual Reality (VR) experiences running on top of the in-development browser technology called *WebXR* (eXtended Reality on the Web). In addition to that you can use an older version of this technology called *WebVR* (enabled via *Legacy VR* compatibilty option, see below).</p>
+
+    <ul>
+      <li><a href="manual/zh/introduction/AR-VR-development.html#Setting_up_VR">Setting up VR</a></li>
+      <li><a href="manual/zh/introduction/AR-VR-development.html#Creating_VR_Apps">Creating VR Apps</a></li>
+      <li><a href="manual/zh/introduction/AR-VR-development.html#Setting_up_AR">Setting up AR</a></li>
+      <li><a href="manual/zh/introduction/AR-VR-development.html#Creating_AR_Apps">Creating AR Apps</a></li>
+      <li><a href="manual/zh/introduction/AR-VR-development.html#Additional_Links">Additional Links</a></li>
+    </ul>
+
+
+    [anchor:Setting_up_VR]
+
+    <h2>Setting up VR</h2>
+
+    <p>We recommend to enable the *Legacy VR* option in app creation settings in the App Manager in order to support a wider range of browsers (such as Mozilla Firefox) and devices.</p>
+
+    <img src="files/ar-vr-development/legacy-vr-app-creation-settings.jpg" class="centered" style="max-width: 350px">
+
+    <p>Cardboard devices should work out of the box in any mobile browser, both on Android and iOS.</p>
+
+    <p><a href="https://vr.google.com/daydream/" target="_blank">Google Daydream</a> works in stable Chrome browser on Android phones while HTC Vive and Oculus devices should work in both Chrome and Firefox browsers.
+
+    <!--
+    <h3>WebXR Origin Trial</h3>
+
+    <p>Instead of enabling WebXR flags in the Chrome browser, you can use the so called *origin trial tokens* to activate the flags automatically when the user launches your app. You can request these tokens for using on your website domain as described <a href="https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md" target="_blank">here</a>.</p>
+
+    <code>
+    &lt;meta http-equiv="origin-trial" content="Aop1aS3O0LG/MKmDbfhMRdlXGxB1ET...rJJScdLSaYLDCMJI5iOLQ0uwhBObX0="&gt;
+    </code>
+
+    <p>The *Standard* app template offered in the App Manager already includes an origin trial token for Verge3D Network's domain <em>cdn.soft8soft.com</em>.</p>
+    -->
+
+    <h3>HTTPS</h3>
+
+    <p>WebXR requires a secure context. Verge3D apps must be served over HTTPS/SSL, or from the localhost URL.</p>
+
+
+    [anchor:Creating_VR_Apps]
+
+    <h2>Creating VR Apps</h2>
+
+    <p>The VR mode can be set up for any Verge3D app using <a href="manual/zh/puzzles/AR_VR.html#enter_vr_mode">enter VR mode</a> puzzle.</p>
+
+    <img src="files/ar-vr-development/minimal-vr-puzzles.jpg" class="centered" style="max-width: 686px">
+
+    <p>Interaction with 3D objects is performed by using the gaze-based reticle pointer automatically provided for VR devices <i>without controllers</i> (such as cardboards).</p>
+
+    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg" class="centered" style="max-width: 1000px">
+
+    <p>For VR devices <i>with controllers</i>, interaction is performed by the virtual ray casted from the controller (only one ray is supported).</p>
+
+    <img src="files/ar-vr-development/google-daydream-vr-controller.jpg" class="centered" style="max-width: 1000px">
+
+    <p>You can use the standard <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered</a> or <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a> puzzles to capture user events. The *when clicked* puzzle is triggered after 2 seconds of interaction.</p>
+
+    <h3>Chrome Debugging</h3>
+
+    <p>For faster iterations during development of VR applications for mobile devices, you can use Chrome's <a href="manual/zh/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port forwarding</a> feature. This will save you from re-uploading it to a remote web server each time.</p>
+
+
+    [anchor:Setting_up_AR]
+
+    <h2>Setting up AR</h2>
+
+    <p>At the moment the AR part of the WebXR specification is undergoing rapid development, as such AR mode in Verge3D is considered experimental.</p>
+
+    <p>To enable augmented reality feature in your app, you need a mobile device capable of running ARCore aka Google Play Services for AR (same backend used by once popular Pokémon Go). The installation of this package is prompted automatically upon entering AR mode for the first time, if not pre-installed.</p>
+
+    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" class="centered">
+
+    <p>To activate AR in the Chrome browser type <em>chrome://flags</em> in the address bar and then find and enable these WebXR options:</p>
+
+    <img src="files/ar-vr-development/chrome-mobile-webxr-ar-flags.jpg" class="centered" style="max-width: 360px">
+
+
+    [anchor:Creating_AR_Apps]
+
+    <h2>Creating AR Apps</h2>
+
+    <p>The AR mode can be set up for any Verge3D app using the <a href="manual/zh/puzzles/AR_VR.html#enter_ar_mode">enter AR mode</a> puzzle.</p>
+
+    <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" class="centered" style="max-width: 645px">
+
+    <p>Upon entering AR mode you will be able to position your 3D content in the "real" coordinate system, which is aligned with your mobile device. In addition to that, you can detect horizontal surfaces (tables, shelves, floor etc) by using the <a href="manual/zh/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR</a> puzzle.
+
+
+    <h3>Chrome Debugging</h3>
+
+    <p>For faster iterations during development, you can use Chrome's <a href="manual/zh/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port forwarding</a> feature to run your AR app in mobile browser. This will save you from re-uploading it to a remote web server each time.</p>
+
+
+    [anchor:Additional_Links]
+
+    <h2>Additional Links</h2>
+
+    <ul>
+      <li>
+        <a href="https://github.com/immersive-web/webxr/blob/master/explainer.md" target="_blank">WebXR Device API Explained</a>
+      </li>
+      <li>
+        <a href="https://immersive-web.github.io/webxr-samples/" target="_blank">WebXR Samples</a>
+      </li>
+      <li>
+        <a href="https://immersive-web.github.io/webxr/" target="_blank">WebXR Device API specification</a>
+      </li>
+      <li>
+        <a href="https://bugs.chromium.org/p/chromium/issues/list?can=1&q=component%3ABlink%3EWebXR&sort=-modified&colspec=ID+Pri+M+Stars+ReleaseBlock+Component+Status+Owner+Summary+OS+Modified&x=m&y=releaseblock&cells=ids" target="_blank">Chrome browser development tracker</a>
+      </li>
+    </ul>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

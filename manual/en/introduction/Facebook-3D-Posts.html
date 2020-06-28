@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Facebook 3D Posts with Verge3D - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Here you will find the workflow and best practices for creating 3D Posts on Facebook using 3ds Max and Blender."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+    <h1>Facebook 3D Posts</h1>
+
+    <p>
+    <span class="red">Facebook 3D posts feature is now deprecated. Please use Facebook Apps to embed your Verge3D applications.</span>
+    </p>
+
+    <p>
+    Creating a 3D post on Facebook is straightforward: at first, you perform export in .glb format (.glb is the binary version of the glTF), and then drag and drop this file to your Facebook post composer. Below is the detailed breakdown.
+    </p>
+
+    <ul>
+    <li><a href="manual/en/introduction/Facebook-3D-Posts.html#Export_GLB_3ds_Max">Export GLB from 3ds Max</a></li>
+    <li><a href="manual/en/introduction/Facebook-3D-Posts.html#Export_GLB_Blender">Export GLB from Blender</a></li>
+    <li><a href="manual/en/introduction/Facebook-3D-Posts.html#Compose_3D_Post_in_Facebook">Compose 3D Post in Facebook</a></li>
+    <li><a href="manual/en/introduction/Facebook-3D-Posts.html#Starter_Files">Starter Files</a></li>
+    <li><a href="manual/en/introduction/Facebook-3D-Posts.html#Technical_Requirements">Technical Requirements</a></li>
+    <li><a href="manual/en/introduction/Facebook-3D-Posts.html#Optimization_Tips">Optimization Tips</a></li>
+    </ul>
+
+
+    <p><a href="manual/en/introduction/Facebook-3D-Posts.html#Export_GLB_3ds_Max" id="Export_GLB_3ds_Max" class="permalink">#</a></p>
+
+    <h2>Export GLB from 3ds Max</h2>
+
+    <p>
+    To perform export in <strong>3ds Max</strong>, go to the Verge3D menu and select "Export Facebook GLB...".
+    </p>
+
+    <img src="files/facebook-3d-posts/export-glb-max1.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    In the appeared file dialog, choose the export path and click *Save*.
+    </p>
+
+    <img src="files/facebook-3d-posts/export-glb-max2.jpg" class="centered" style="max-width: 1000px">
+
+
+    <p><a href="manual/en/introduction/Facebook-3D-Posts.html#Export_GLB_Blender" id="Export_GLB_Blender" class="permalink">#</a></p>
+
+    <h2>Export GLB from Blender</h2>
+
+    <p>
+    To perform export in <strong>Blender</strong>, go to "File > Export" and select the "Facebook GLB (.glb)" option. The generic GLB-export option "Verge3D glTF Binary (.glb)" will also work but will produce slightly less optimized files.
+    </p>
+
+    <img src="files/facebook-3d-posts/export-glb-blender.png" class="centered" style="max-width: 1000px">
+
+
+    <p><a href="manual/en/introduction/Facebook-3D-Posts.html#Compose_3D_Post_in_Facebook" id="Compose_3D_Post_in_Facebook" class="permalink">#</a></p>
+
+    <h2>Compose 3D Post in Facebook</h2>
+
+    <p>
+    Now you can just drag and drop the GLB file to your Facebook post.
+    </p>
+
+    <img src="files/facebook-3d-posts/post-fb.png" class="centered" style="max-width: 1000px">
+
+    <p>
+    In the Facebook post composer you can also choose the background to your liking.
+    </p>
+
+    <img src="files/facebook-3d-posts/3d-post-example.png" class="centered" style="max-width: 1000px">
+
+    <p>
+    Check it out how it looks on Facebook: <a href="https://www.facebook.com/soft8soft/posts/2003080113280076" target="_blank">link</a>. The source file for this model can be found in your Verge3D installation inside the "applications" folder (see below in "Starter files").
+    </p>
+
+
+     <p><a href="manual/en/introduction/Facebook-3D-Posts.html#Starter_Files" id="Starter_Files" class="permalink">#</a></p>
+
+    <h2>Starter Files</h2>
+
+    <p>
+    We provide a sample Verge3D project that has been configured with the necessary export settings, for both 3ds Max and Blender. The starter project contains exactly the same environment map that is used by Facebook for maximum consistency.
+    </p>
+
+    <img src="files/facebook-3d-posts/facebook-ready-asset-file-blender.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    It can be found inside the Verge3D <a href="https://www.soft8soft.com/get-verge3d/" target="_blank">distribution</a>, located "applications/fb_max" (3ds Max) or "applications/fb" (Blender).
+    </p>
+
+
+    <p><a href="manual/en/introduction/Facebook-3D-Posts.html#Technical_Requirements" id="Technical_Requirements" class="permalink">#</a></p>
+
+    <h2>Technical Requirements</h2>
+
+    <ul>
+    <li>
+    Facebook requires your GLB to be under 3Mb in total, the smaller the better.
+    </li>
+    <li>
+    glTF-compliant PBR materials (<a href="manual/en/introduction/Physical-material.html">3ds Max</a>, <a href="manual/en/introduction/Physical-material-Blender.html">Blender</a>) are only supported - consider converting your materials if it is not the case.
+    </li>
+    <li>
+    PNG or JPEG files must be used for textures, and must be power-of-2 in each dimension (256x512 is ok, for example).
+    </li>
+    <li>
+    Textures can be up to 4k, although Facebook developers recommend keeping them under 2k.
+    </li>
+    </ul>
+
+
+    <p><a href="manual/en/introduction/Facebook-3D-Posts.html#Optimization_Tips" id="Optimization_Tips" class="permalink">#</a></p>
+
+    <h2>Optimization Tips</h2>
+
+    <p>
+    Here are some recommendations on how to keep your GLB file below 3 Mb yet to have decent graphics.
+    </p>
+
+    <ul>
+    <li>
+    Prefer JPEG textures over PNG when you don't need transparency.
+    </li>
+    <li>
+    Consider finding an optimal compression ratio for the JPEG files.
+    </li>
+    <li>
+    Clean your asset files from any unused data. This includes auxiliary objects, animation and shape keys (which are not currently supported by Facebook anyway), unused vertex colors, UVs, etc.
+    </li>
+    </ul>
+
+  </article></body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Spotting Verge3D performance bottlenecks - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Find out how to spot and eliminate performance bottlenecks in your Verge3D-based applications."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+
+    <meta property="og:image" content="https://cdn.soft8soft.com/images/optimizing-webgl-performance.jpg">
+    <meta property="article:tag" content="performance">
+  </head>
+  <body><article>
+
+    <h1>Spotting Verge3D Performance Bottlenecks</h1>
+
+    [contents]
+
+
+    [anchor:intro]
+
+    <h2>Intro</h2>
+
+    <p>Since a broad internet audience can use your applications, your Verge3D-based apps must show good performance. For example, some classes of WebGL-capable devices may work much worse than you expect:</p>
+
+    <ul>
+      <li>Typical low-end or middle-end laptops with integrated GPUs (Intel, AMD APU graphics).</li>
+      <li>Old smartphones or tablet computers.</li>
+      <li>Mobile VR devices, such as Oculus Go or Oculus Quest. To prevent motion sickness symptoms, it's mandatory that these devices render with appropriate frame rate (60, 72, or even 90 FPS).</li>
+      <li>Devices with battery. Enormous GPU utilization quickly drains out the battery, powering mobile devices.</li>
+    </ul>
+
+    <p>To optimize efficiently, e.g., without degrading your apps' quality, you should understand basic <a href='manual/en/introduction/Optimizing-WebGL-performance.html'>asset optimization techniques</a> and be able to spot places in your app that cause slow loading and rendering. These are called <em>performance bottlenecks</em>.</p>
+
+
+    [anchor:fps]
+
+    <h2>Check your FPS</h2>
+
+    <p>FPS (frames per second, or frame rate) is a crucial quantity representing the rendering time and user experience of your app:</p>
+
+    <ul>
+      <li>&lt; 20 — your app is really slow, almost impossible to use.</li>
+      <li>20-40 — slow, but acceptable.</li>
+      <li>40-60 — good enough.</li>
+      <li>60 — ideal frame rate on desktop and mobile browsers.</li>
+      <li>&gt; 60 — frame rate you should target on VR headsets.</li>
+    </ul>
+
+    <p>Starting from version 3.2, Verge3D comes with the built-in FPS counter. You can activate it by:</p>
+
+    <ul>
+      <li>Quickly pressing *F*, *F*, *F* (triple F) on your keyboard.</li>
+      <li>Using JavaScript and the <a href="api/en/extras/App.html#showFPS">showFPS()</a> API method.</li>
+    </ul>
+
+    <p>Once activated, you can see the current FPS value (along with its range and history plot) on the small panel in the left top corner of your app's canvas:</p>
+
+    <img src="files/performance-bottlenecks/fps-counter.jpg" alt="Verge3D FPS counter window" class="centered" style="max-width: 879px;">
+
+    <p>To get legitimate values, you should measure FPS on the slowest / oldest devices you have. Also, most browsers do not allow frame rate be greater than 60 Hz (this improves frame syncing, saves your battery life, and reduces fan noise).</p>
+
+
+    [anchor:performance_profile]
+
+    <h2>Performance Profile</h2>
+
+    <p>Verge3D comes with a feature to generate performance profiles in real time. You can get a quick insight into what's happening with performance in your application and what you should do to increase it. To produce such profiles, you may use one of the following methods:</p>
+
+    <ul>
+      <li>Quickly press *P*, *P*, *P* (triple P) on your keyboard (Verge3D 3.2+).</li>
+      <li>Use the <a href="manual/en/puzzles/System.html#print_performance_info">print performance info</a> puzzle.</li>
+      <li>Use JavaScript and the <a href="api/en/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> API method.</li>
+    </ul>
+
+    <p>Wait at least 1 second while Verge3D collects profile data, then open the browser <a href="manual/en/introduction/FAQ.html#browser_console">console</a>. Check out the string in the opened console window:</p>
+
+    <code>--- Verge3D Performance Profile (1s) ---</code>
+
+    <p>Below it, the lines with collected performance information:</p>
+
+    <img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D performance profile" class="centered" style="max-width: 880px;">
+
+    <p>Here is what you can inquire from the generated performance profile:</p>
+
+    <dl>
+      <dt>Scene Loading Time</dt>
+      <dd>Time in seconds it took to load the application's <em>main</em> scene. See <a href="manual/en/introduction/Performance-Bottlenecks.html#scene_loading_time">below</a> on how to reduce it.</dd>
+
+      <dt>FPS</dt>
+      <dd>Rendering frame rate. This is the same value reported by the FPS counter.</dd>
+
+      <dt>Render Calls</dt>
+      <dd>Amount of render calls per frame. An important value that shows how many draw operations are performed during one frame. This value represents the number of different materials on your scene + various supplementary render calls such as shadows, post-processing, etc. </dd>
+
+      <dt>Triangles Rendered</dt>
+      <dd>How many triangles were rendered per frame. See more info about this value below.</dd>
+
+      <dt>Geometry Buffers</dt>
+      <dd>How many geometry buffers your app uses.</dd>
+
+      <dt>HDR Rendering</dt>
+      <dd>Whether HDR rendering switched <em>on</em> or <em>off</em>.</dd>
+
+      <dt>Pixel Ratio</dt>
+      <dd>Current (used by renderer) and device (native) pixel ratios.</dd>
+
+      <dt>Image-Based Lighting</dt>
+      <dd>Type of IBL lighting and IBL cube map tile size.</dd>
+
+      <dt>Lights</dt>
+      <dd>The number of lights in your scene.</dd>
+
+      <dt>Post-Processing</dt>
+      <dd>Scene post-processing passes (in rendering order).</dd>
+
+      <dt>Shadow Map</dt>
+      <dd>Shadow map parameters: filtering size; the number of rendered shadow maps; shadow map resolution.</dd>
+
+      <dt>Materials and Shaders</dt>
+      <dd>The list of rendered materials and shaders. Each list item contains the following info: material name (or names if they share the same shader), shader name, and rendering time per frame (measured in milliseconds).</dd>
+
+      <dt>Total Render Time</dt>
+      <dd>The total amount of time (in milliseconds) it took to render your scene.</dd>
+
+      <dt>Textures & Render Buffers</dt>
+      <dd>Textures and render buffers stats (resolutions). Textures are printed on the top of the list (prefixed with *Texture*), while render buffers printed at the bottom of the list (prefixed with *WebGLRenderTarget*).</dd>
+    </dl>
+
+
+    [anchor:performance_bottlenecks]
+
+    <h2>Common Rendering Performance Bottlenecks</h2>
+
+    <p>Here are the most frequent bottlenecks limiting your frame rate.</p>
+
+
+    [anchor:complex_materials]
+
+    <h3>Complex Materials</h3>
+
+    <p>Graphics hardware can render a limited amount of pixels per second. In most scenarios, you can't render more because your materials use lengthy and sophisticated pixel (aka fragment) shaders, which in turn require too much processing power from the GPU.</p>
+
+    <p>You can easily detect the situation with limited pixel performance by reducing or increasing the browser window size. If your frame rate (FPS) grows substantially when you reduce the size, you have such a situation.</p>
+
+    <p>The most straightforward way to increase performance is to simplify your materials. Pay attention at the top of the *Materials and Shaders* list in the <a href="manual/en/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>.
+
+    <img src="files/performance-bottlenecks/performance-profile-materials.jpg" alt="Profiling materials and shaders">
+
+    <p>In many cases, the issues with material performance happen due to slow shading nodes. See more in the <a href="manual/en/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, <a href="manual/en/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> or <a href="manual/en/maya/Materials.html#performance_considerations">Maya</a> material performance subsections.</p>
+
+    <p>You can also get rid of the shader-limited performance problem, by setting the pixel ratio &lt; 1 with the <a href="manual/en/puzzles/System.html#set_screen_scale">set screen scale</a> puzzle. This can severely impact the quality of your app, so consider it a last-hope solution.</p>
+
+
+    [anchor:postprocessing]
+
+    <h3>Post-processing</h3>
+
+    <p>Several post-processing effects can substantially reduce the performance of your apps:</p>
+
+    <ul>
+      <li>Screen-space refraction and reflection (see <a href="manual/en/puzzles/Postprocessing.html#ssr">puzzle</a>).</li>
+      <li>Ambient occlusion (see <a href="manual/en/puzzles/Postprocessing.html#ssao">puzzle</a>).</li>
+      <li>Depth-of-field (see <a href="manual/en/puzzles/Postprocessing.html#dof">puzzle</a>).</li>
+    </ul>
+
+
+    [anchor:shadows]
+
+    <h3>Shadows</h3>
+
+    <p>Complex shadow algorithms with hight shadow map sizes can also negatively affect your rendering speed.</p>
+
+    <ol>
+      <li>If you have multiple lights on your scene, disable shadows for the weakest (with low intensity) ones.</li>
+      <li>In most cases, <em>point</em> light shadows require more calculations than <em>spot</em> or <em>sun/directional</em> shadows.</li>
+      <li>Reduce shadow map size (see <a href="manual/en/blender/Shadows.html#global_settings">Blender</a>, <a href="manual/en/max/Shadows.html#per_light_settings">3ds Max</a>, <a href="manual/en/maya/Shadows.html#per_light_settings">Maya</a>).</li>
+      <li>Switch to less performance-hungry shadow filtering algorithm (see <a href="manual/en/blender/Shadows.html#shadow_filtering">Blender</a>, <a href="manual/en/max/Shadows.html#shadow_filtering">3ds Max</a>, <a href="manual/en/maya/Shadows.html#shadow_filtering">Maya</a>).</li>
+    </ol>
+
+
+    [anchor:too_much_geometry]
+
+    <h3>Too Much Geometry</h3>
+
+    <p>Too complex geometry can also affect your rendering performance. We recommend using no more than 100K triangles per model or 1M triangles per entire scene.</p>
+
+
+    [anchor:slow_ibl]
+
+    <h3>Slow Image-Based Lighting</h3>
+
+    <p>In Verge3D you can do several performance tweaks for your environment lighting:</p>
+
+    <ol>
+      <li>Reduce environment cube map tile size (see <a href="manual/en/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/en/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/en/maya/Lighting-and-Rendering.html#environment_lighting">Maya</a>). We recommend using 256 pixel cube maps for most cases.</li>
+      <li>Switch to more performance-efficient environment mode (see <a href="manual/en/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/en/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/en/maya/Lighting-and-Rendering.html#global_rendering_settings">Maya</a>).</li>
+    </ol>
+
+
+    [anchor:too_many_lights]
+
+    <h3>Too Many Lights</h3>
+
+    <p>Excessive light calculations increase the complexity of your shaders. Try to reduce their amount or switch to <a href="manual/en/introduction/Optimizing-WebGL-performance.html#HDR_Lighting">IBL-only</a> lighting.</p>
+
+
+    [anchor:too_many_render_calls]
+
+    <h3>Too Many Render Calls</h3>
+
+    <p>Hundreds of render calls significantly load your CPU. Hence you should keep that value as low as possible. In most situations, we recommend you to keep the amount of render calls below 100.</p>
+
+
+
+    [anchor:scene_loading_time]
+
+    <h2>Scene Loading Time</h2>
+
+    <p>Another thing that you need to pay attention to is the scene loading time. Users really don't like to wait too much for your application to load.</p>
+
+    <p>Here are the most frequently occurring bottlenecks that slow down your app loading.</p>
+
+
+    [anchor:large_binary_textures]
+
+    <h3>Large Binary Data or Textures</h3>
+
+    <p>Since your app assets are transferred over the network, you should minimize their size. To help you with asset optimization, there is a network inspecting tool accessible from the browser <a href="manual/en/introduction/FAQ.html#browser_console">console</a>. Simply click on the *Network* tab and reload your page.</p>
+
+    <img src="files/performance-bottlenecks/network-browser-profile.jpg" alt="Profiling network activity in Verge3D" class="centered" style="max-width: 943px;">
+
+    <p class="note">Check the browser documentation on how to use this feature: <a href="https://developers.google.com/web/tools/chrome-devtools/network" target="_blank">Chrome</a>, <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor" target="_blank">Firefox</a>, <a href="https://developer.apple.com/safari/tools/" target="_blank">Safari</a>.</p>
+
+    <p>Sort the resources by size to get the ones affecting your loading time the most. In most cases, these assets can be divided into two categories:</p>
+
+    <ol>
+      <li>*Verge3D Binary* (*.bin or *.bin.xz extensions) — contains geometry, morphing, and animation of your scene. Asset compression can significantly reduce the size of this file, always <a href="manual/en/introduction/Asset-compression.html">enable</a> it for your apps.</li>
+      <li>*Textures* (*.jpg, *.png, or *.hdr extensions) — see <a href="manual/en/introduction/Optimizing-WebGL-performance.html#Texturing">here</a> for more info on how to optimize them.</li>
+    </ol>
+
+    <p>Also, there are two dirty but highly effective methods to optimize your textures:</p>
+
+    <ol>
+      <li>Downscale your textures by reducing their dimensions by factor 2 (e.g 2048x2048 to 1024x1024 or even 512x512).</li>
+      <li>Convert all PNG textures to JPEG (even normal maps).</li>
+    </ol>
+
+
+    [anchor:shader_compilation]
+
+    <h3>Too Many or Too Complex Materials</h3>
+
+    <p>With some exceptions, each material on your scene requires compiling a pair of special programs called shaders: <em>vertex shader</em> and <em>fragment (aka pixel) shader</em>. A shader is a special program executed on your GPU to calculate various rendering entities like vertex positions, textures, lighting, reflections, refractions, etc.</p>
+
+    <p>Shader compilation is a computation-intensitive task that is performed each time your app is being loaded. If you have a lot of different materials on your scene, shader compilation can significantly increase total loading time.</p>
+
+
+    [anchor:gpu_memory_usage]
+
+    <h2>GPU Memory Usage</h2>
+
+    <p>Excessive GPU memory usage can considerably reduce performance or even crash your app. The following things consume a lot of memory.</p>
+
+    [anchor:large_textures]
+
+    <h3>Large Textures</h3>
+
+    <p>For example, a texture of size 4096x4096 alone occupies almost 90 Mb of video memory. To get all textures in your app, check out <strong>Textures & Render Buffers</strong> section in the <a href="manual/en/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>.</p>
+
+    <img src="files/performance-bottlenecks/performance-profile-textures.jpg" alt="Profiling textures in Verge3D">
+
+    <p>See also <a href="manual/en/introduction/FAQ.html#texture_memory_usage">here</a> for more info on how to calculate texture memory usage.</p>
+
+
+    [anchor:many_postprocessing_passes]
+
+    <h3>Too Many Post-Processing Passes</h3>
+
+    <p>Most post-processing effects require additional rendering buffers which consume GPU memory. Check out the bottom part of the <strong>Textures & Render Buffers</strong> list in the <a href="manual/en/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> to see all render buffers.</p>
+
+    <img src="files/performance-bottlenecks/performance-profile-render-buffers.jpg" alt="Profiling render buffers in Verge3D" class="centered" style="max-width: 816px;">
+
+
+    [anchor:large_geometry_buffers]
+
+    <h3>Large Geometry Buffers</h3>
+
+    <p>Meshes with many triangles require large geometry buffers and hence consume a lot of video memory to store them.</p>
+
+
+
+    [anchor:see_also]
+
+    <h2>See Also</h2>
+
+    <p>
+      Check out the <a href='manual/en/introduction/Optimizing-WebGL-performance.html'>Optimization Techniques</a> section for more asset optimization methods.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

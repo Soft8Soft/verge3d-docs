@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Verge3D for Maya: Animation - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Find out how to create and control animation in Verge3D for Maya. Whole-object, skeletal, blend shapes and procedural animation types explained."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+
+  <h1>Animation / Maya</h1>
+
+  <p>
+    This page contains the information about Maya's animation types which can be used with Verge3D, as well as supported playback options and means to control the animation interactively.
+  </p>
+
+
+  <h2>Contents</h2>
+
+  <ul>
+    <li><a href="manual/zh/maya/Animation.html#Setting_Up_Blender">Setting Up in Maya</a>
+      <ul>
+        <li><a href="manual/zh/maya/Animation.html#Whole_Object_Animation">Whole-Object Animation</a></li>
+        <li><a href="manual/zh/maya/Animation.html#Skeletal_Animation">Skeletal Animation</a></li>
+        <li><a href="manual/zh/maya/Animation.html#Blend_Shape_Animation">Blend Shape Animation</a></li>
+        <li><a href="manual/zh/maya/Animation.html#Material_Animation">Material Animation</a></li>
+        <li><a href="manual/zh/maya/Animation.html#Procedural_Animation">Procedural Animation</a></li>
+      </ul>
+    </li>
+    <li><a href="manual/zh/maya/Animation.html#Playback_Options">Playback Options</a>
+      <ul>
+        <li><a href="manual/zh/maya/Animation.html#Verge3D_Global_Settings">Verge3D Global Settings</a></li>
+        <li><a href="manual/zh/maya/Animation.html#Verge3D_Per_Object_Settings">Verge3D Per-Object Settings</a></li>
+        <li><a href="manual/zh/maya/Animation.html#Interpolation">Interpolation</a></li>
+        <li><a href="manual/zh/maya/Animation.html#Frame_Rate">Frame Rate</a></li>
+      </ul>
+    </li>
+    <li><a href="manual/zh/maya/Animation.html#Animation_Control_with_Puzzles">Animation Control with Puzzles</a>
+    </li>
+  </ul>
+
+
+  [anchor:Setting_Up_Blender]
+
+  <h2>Setting Up in Maya</h2>
+
+
+  [anchor:Whole_Object_Animation]
+
+  <h3>Whole-Object Animation</h3>
+
+  <p>
+    Animation keyframes can be added in standard ways in Maya, by using the <strong>Key > Set Key</strong> from the Key menu in the Animation menu set or pressing *S* on the keyboard.
+  </p>
+
+  <img src="files/animation-maya/insert-keyframe.jpg" alt="Inserting keyframes in Verge3D for Maya" class="centered" style="max-width: 419px">
+
+  <p>
+    For performance reasons we recommend setting keys separately, only for channels which are required to be animated, e.g:
+  </p>
+
+  <ul>
+    <li>*Translate* - using <strong>Key > Set Key on Translate</strong> menu or *Shift-W* hotkey.</li>
+    <li>*Rotate* - using <strong>Key > Set Key on Rotate</strong> menu or *Shift-E* hotkey.</li>
+    <li>*Scale* - using <strong>Key > Set Key on Scale</strong> menu or *Shift-R* hotkey.</li>
+  </ul>
+
+  [anchor:Skeletal_Animation]
+
+  <h3>Skeletal Animation</h3>
+
+  <p>
+    An object can be animated in Verge3D by using Maya's skeletons. Verge3D support maximum 4 weights per joint (4 most influential weights are selected, others are ignored).
+  </p>
+
+  <img src="files/animation-maya/skeletal-animation.jpg" alt="Inserting keyframes for skeletal animation in Verge3D for Maya" class="centered" style="max-width: 592px">
+
+  <p>
+    Skeletons can be animated directly by setting transformation keys on joints or by utilizing auxillary controllers such as IK handles/effectors. To animate joints indirectly, enable their *Custom Frame Range*</a> property in the attribute editor and set proper *From*/*To* as frame values. See <a href="manual/zh/maya/Animation.html#Verge3D_Per_Object_Settings">here</a> for more info.
+  </p>
+
+  [anchor:Blend_Shape_Animation]
+
+  <h3>Blend Shape Animation</h3>
+
+  <p>
+    You can add <a href="manual/zh/maya/Blend-Shapes.html">blend shapes</a> to an object in standard ways in Maya and then animate their weights using keyframes.
+  </p>
+
+  <img src="files/animation-maya/blend-shape-animation.jpg" alt="Shape key animation in Verge3D for Maya" class="centered" style="max-width: 681px">
+
+
+  [anchor:Material_Animation]
+
+  <h3>Material Animation</h3>
+
+  <p>
+    Keyframed material animation is not supported in Verge3D for Maya yet. However, by using procedural animation and the <a href='manual/zh/puzzles/Materials.html#materials_set_color'>set color</a> or <a href='manual/zh/puzzles/Materials.html#materials_set_value'>set value</a> puzzles you can manipulate material parameters in real time.
+  </p>
+
+
+  [anchor:Procedural_Animation]
+
+  <h3>Procedural Animation</h3>
+
+  <p>
+    Instead of playing back some animation which was pre-made in Maya, you can use Puzzles or JavaScript to modify coordinates or some other parameters with time. Particulurly, the <a href="manual/zh/puzzles/Animation.html#animate_param">animate param</a> puzzle (based on the Tween.js library) is a convenient way to create your own animation on the fly.
+  </p>
+
+  <img src="files/puzzles/puzzles-animation-animate-param.jpg" alt="Using the animate param puzzle to create animation in Verge3D for Maya" class="centered" style="max-width: 1000px">
+
+
+  [anchor:Playback_Options]
+
+  <h2>Playback Options</h2>
+
+  [anchor:Verge3D_Global_Settings]
+
+  <h3>Verge3D Global Animation Settings</h3>
+
+  <p>
+    By using the *Animation* section of *Verge3D Export Settings* you can assign global animation parameters which will affect all animatable objects in your scene.
+  </p>
+
+  <img src="files/animation-maya/global-animation-settings.jpg" alt="Verge3D for Maya animation settings panel" class="centered" style="max-width: 411px">
+
+  <ul>
+    <li>
+      *Export Animations* - export scene animations to be used in Verge3D.
+    </li>
+    <li>
+      *Export Within Playback Range* - by default Verge3D exporter honors per-object animation keyframe ranges. Enabling this option will force exporter to honor global playback range.
+    </li>
+    <li>
+      *Keyframes Start with 0* - edit exported animation keyframes so they always start with frame 0.
+    </li>
+  </ul>
+
+  [anchor:Verge3D_Per_Object_Settings]
+
+  <h3>Verge3D Per-Object Animation Settings</h3>
+
+  <p>
+    Each object in Maya is assigned with Verge3D settings, including the settings for animation playback.
+  </p>
+
+  <img src="files/animation-maya/object-animation-settings.jpg" alt="Verge3D for Maya animation settings panel" class="centered" style="max-width: 428px">
+
+  <p>
+    Animation settings:
+  </p>
+
+  <ul>
+    <li>
+      *Auto Start* - whether this object's animation will start after the scene is loaded.
+    </li>
+    <li>
+      *Loop Mode* - playback mode: *Repeat* - plays from the start to the end and repeats, *Once* - plays one time and stops, *Ping Pong* - plays from the start to the end and then in reverse.
+    </li>
+    <li>
+      *Repeat Infinitely* - whether this object's animation will be played all over again. Valid only for *Repeat* and *Ping Pong* modes.
+    </li>
+    <li>
+      *Repeat Count* - how many times the animation will be played. Valid only for *Repeat* and *Ping Pong* modes if *Repeat Infinitely* is disabled.
+    </li>
+    <li>
+      *Offset* - how many frames will be skipped before the animation starts.
+    </li>
+    <li>
+      *Custom Frame Range* - enable and specify *From*/*To* values to override object's keyframe ranges or global animation timeline. Activating this property will force an object to be animated even if it does not have any keyframes. This is useful to bake indirect animation such as IK handles/effectors affecting joints movements.
+    </li>
+  </ul>
+
+
+  [anchor:Frame_Rate]
+
+  <h3>Frame Rate</h3>
+
+  <p>
+    The frame rate value (default - 24 fps) which affect the playback speed can be changed using the Playback options panel, located next to the Range Slider.
+  </p>
+
+  <img src="files/animation-maya/frame-rate.jpg" alt="Frame rate selector in Verge3D for Maya" class="centered" style="max-width: 383px">
+
+
+  [anchor:Animation_Control_with_Puzzles]
+
+  <h2>Animation Control with Puzzles</h2>
+
+  <p>
+    You can use <a href="manual/zh/puzzles/Animation.html">animation puzzles</a> for playing back a pre-made animation (click on the link for more details).
+  </p>
+
+  <img src="files/puzzles/puzzles-animation.jpg" alt="Animation puzzles of Verge3D" class="centered" style="max-width: 1000px">
+
+  <p>
+    Animation can also be implemented with other visual scripting blocks - see <a href="manual/zh/puzzles/Camera.html">Camera</a> and <a href="manual/zh/puzzles/Time.html">Time</a> puzzles.
+  </p>
+
+  <h2>Got Questions?</h2>
+
+  <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

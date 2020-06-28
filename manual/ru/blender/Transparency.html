@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Verge3D for Blender: Transparency - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn what kinds of transparency can be enabled for Blender materials and used in Verge3D."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Transparency / Blender</h1>
+
+    <p>
+      Here we show how to enable transparency for EEVEE/Cycles and glTF-compliant materials in Blender.
+    </p>
+
+    [contents]
+
+
+    [anchor:blended_vs_masked]
+
+    <h2>Blended vs Masked</h2>
+
+    <p>
+      Being a real-time 3D engine, Verge3D offers two main methods to handle transparent objects: alpha blending and alpha clipping (usually with an image mask). Blending enables combining a translucent foreground color with a background color, using the foreground color's alpha as blending factor. Clipping, on the other hand, simply discards all pixels with alpha less than some predefined threshold (usually 0.5).
+    </p>
+
+    <img src="files/transparency-common/blending-vs-clipping.jpg">
+
+    <p>
+      Blending enables for smooth transitions, generally looks nicer but computationally more expensive than clipping. It may also produce z-sorting artifacts when polygons appear to be rendered in wrong order. Clipping works best for visualizing numerous small objects (such as grass or tree leaves). It also produces hard edges without any transitions which may be aliased.
+    </p>
+
+    [anchor:alpha_add]
+
+    <h2>Additive Composing (aka No Depth Writes)</h2>
+
+    <p>
+      Verge3D also offers a special mode for disabling writing to the depth buffer while rendering. This results in polygons being excluded from pixel depth comparison. Such polygons are composited in additive manner, which sometimes can help get rid of blending artifacts.
+    </p>
+
+    <img src="files/transparency-common/no-depth-writes.jpg">
+
+    <p>To enable this mode, disable the *Depth Write* option located on the *Verge3D Settings* panel.</p>
+
+    <img src="files/transparency-blender/depth-write.jpg" class="centered" style="max-width: 294px;">
+
+    [anchor:rendering_order]
+
+    <h2>Rendering Order (aka Z-index)</h2>
+
+    <p>
+      Verge3D does not perform sorting of polygons inside objects, but rather performs sorting <i>between</i> objects. This provides correct blending in most cases but sometimes one may need to forcibly change the rendering order for an object.
+    </p>
+
+    <p>
+      To modify the rendering order for a particular object, change the numeric field in the Verge3D settings panel. The smaller the index, the earlier the object will be rendered.
+    </p>
+
+    <img src="files/transparency-blender/rendering-order.jpg" class="centered" style="max-width: 306px">
+
+    <p>
+      So, if you have a transparent, continuous object in the rear and want other transparent objects in the front to render correctly, set some negative value as the rendering order of the rear object.
+    </p>
+
+    <img src="files/transparency-common/rendering-order-example.jpg">
+
+    [anchor:transparency_eevee]
+
+    <h2>Transparency for Eevee Materials</h2>
+
+    <p>
+      Transparency for Eevee materials can be enabled by using a combination of the *Transparent BSDF* and the *Mix Shader* nodes. The factor in the *Mix Shader* node can be used to define the alpha value - you can directly specify a value or create a dependency from some other nodes such as *Fresnel* for more realistic look.
+    </p>
+
+    <img src="files/transparency-blender/eevee-ztransparency.jpg">
+
+    <p>Use the *Blend Mode* dropdown to choose between transparency modes.</p>
+
+    <p>Alternatively, you can use *Alpha* input of the Principled BSDF node.</p>
+
+    <img src="files/transparency-blender/eevee-ztransparency-principled.jpg">
+
+    <p>To tweak your the material's transparency there are other options available on the *Settings* panel:</p>
+
+    <ul>
+      <li>*Shadow Mode* - transparency mode for the shadow casters. For now only *Opaque* and *None* modes are supported in Verge3D.</li>
+      <li>*Clip Threshold* - threshold for alpha clipped (masked) materials.</li>
+      <li>*Show Backface* - enable to render backside geometry of your objects.</li>
+    </ul>
+
+    [anchor:transparency_gltf]
+
+    <h2>Transparency for glTF-compliant Materials</h2>
+
+    <p>
+      In order to enable transparency for such materials, add alpha mask information to the alpha channel of the base color texture. Also you can tweak the alpha channel with the <strong>Alpha</strong> input of the Principled BSDF node.
+    </p>
+
+    <img src="files/transparency-blender/gltf-PBR-ztransparency.jpg">
+
+    <p>Use the <strong>Blend Mode</strong> dropdown to choose between transparency modes.</p>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

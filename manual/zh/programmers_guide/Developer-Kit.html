@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Verge3D Developer Kit - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how to use Developer Kit to create your own modification of Verge3D toolkit."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body><article>
+
+    <h1>Verge3D Developer Kit</h1>
+
+    <p>
+    Verge3D Developer Kit (DevKit) is a collection of examples, tools and source code which comes with <a href="https://www.soft8soft.com/product-category/enterprise-licenses/" target="_blank">Verge3D Enterprise</a> package. This collection will help you to perform various developer tasks such as:
+    </p>
+
+    <ul>
+      <li>Learn and review Verge3D toolkit internals.</li>
+      <li>Modify Verge3D and use modified versions in your own 3D apps.</li>
+      <li>Extend Verge3D API with your own classes and methods.</li>
+      <li>Add new Puzzles blocks.</li>
+      <li>Enhance Verge3D glTF exporter by adding your own data or parameters.</li>
+      <li>Develop your own product configurator or e-commerce system for WordPress by using the <em>Verge3D for WordPress</em> plugin as reference.</li>
+    </ul>
+
+    <p class="note">
+    Developer Kit is intended for seasoned programmers who wish to modify the engine. You don't need it for creating Verge3D applications with the standard set of functionality.
+    </p>
+
+    <ul>
+      <li><a href="manual/zh/programmers_guide/Developer-Kit.html#Installation">Installation</a></li>
+      <li><a href="manual/zh/programmers_guide/Developer-Kit.html#Structure">DevKit Structure</a></li>
+      <li><a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">Building Verge3D</a></li>
+      <li><a href="manual/zh/programmers_guide/Developer-Kit.html#Custom_API_Method">Adding custom JavaScript API method</a></li>
+      <li><a href="manual/zh/programmers_guide/Developer-Kit.html#Custom_API_Class">Creating custom JavaScript API class</a></li>
+      <li><a href="manual/zh/programmers_guide/Developer-Kit.html#Puzzles_Block">Creating custom Puzzles block</a></li>
+    </ul>
+
+
+    [anchor:Installation]
+
+    <h2>Installation and Configuration</h2>
+
+    <p>
+    Grab the DevKit archive from the download area of your <a href="https://www.soft8soft.com/my-account/" target="_blank">account dashboard</a>. Unpack this archive to a directory of your choice.
+    </p>
+
+    <p>
+    If you're going to build Verge3D engine or Puzzles from source code, you'll need the *npm* utility which is part of the *Node.js* runtime. You can install it by following <a href="https://nodejs.org/en/download/package-manager/" target="_blank">these instructions</a>.
+    </p>
+
+    <p>
+    Finally, go to the unpacked directory of DevKit and execute the following command to install the dependencies:
+    </p>
+
+    <code>npm install</code>
+
+
+    [anchor:Structure]
+
+    <h2>DevKit Structure</h2>
+
+    <p>
+    Freshly installed DevKit includes the following directories:
+    </p>
+
+    <table style="width:100%">
+      <tr>
+        <th>Directory</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>addons/verge3d</td>
+        <td>Source code of Blender add-on (Verge3D for Blender only).</td>
+      </tr>
+      <tr>
+        <td>build</td>
+        <td>Pre-built Verge3D engine scripts and additional modules (ammo.js, etc).</td>
+      </tr>
+      <tr>
+        <td>max_plugin</td>
+        <td>Source code of 3ds Max plugin (Verge3D for 3ds Max only).</td>
+      </tr>
+      <tr>
+        <td>maya_plugin</td>
+        <td>Source code of Maya plugin (Verge3D for Maya only).</td>
+      </tr>
+      <tr>
+        <td>puzzles</td>
+        <td>Pre-built scripts and source code of the Puzzles editor.</td>
+      </tr>
+      <tr>
+        <td>python</td>
+        <td>Python 3 runtime and utility modules.</td>
+      </tr>
+      <tr>
+        <td>src</td>
+        <td>Verge3D engine source code.</td>
+      </tr>
+      <tr>
+        <td>wordpress</td>
+        <td><em>Verge3D for WordPress</em> plugin source code.</td>
+      </tr>
+      <tr>
+        <td>xz</td>
+        <td>Source code of the XZ compression module.</td>
+      </tr>
+    </table>
+
+
+    [anchor:Building_Verge3D]
+
+    <h2>Building Verge3D</h2>
+
+    <p>Before compiling Verge3D, please make sure you installed *npm* and all required dependencies as described above.</p>
+
+    <p>
+    To compile an <em>unoptimized</em> build of Verge3D, which suits well for testing and debugging purposes, execute the following command in the DevKit directory:
+    </p>
+
+    <code>npm run build</code>
+
+    <p>
+    You can find the compiled modules inside the *build* directory of your DevKit. To test it, simply copy *v3d.js* engine module to your application inside Verge3D installation, for example:
+    </p>
+
+    <code>cp build/v3d.js ~/verge3d/applications/my_awesome_application/</code>
+
+    <p>
+    To compile an <em>optimized</em> of Verge3D (aka release version), execute the following command in the DevKit directory:
+    </p>
+
+    <code>npm run build-release</code>
+
+    <p>
+    The following commands are used to build the Puzzles logic editor. To build an <em>unoptimized</em> version type:
+    </p>
+
+    <code>npm run build-puzzles</code>
+
+    <p>To build an <em>optimized</em> version, execute:</p>
+
+    <code>npm run build-puzzles-release</code>
+
+    <p>
+    You can find the compiled Puzzles editor script inside the *puzzles* directory of your DevKit. To apply it to Verge3D, copy the entire content of this directory to the *puzzles* directory inside your Verge3D installation (replacing files which already exist there).
+    </p>
+
+
+    [anchor:Custom_API_Method]
+
+    <h2>Adding New Method to JavaScript API</h2>
+
+    <p>
+    Say, you want to add another method to the *App* class. For example, a *printHelloWorld()* method should print something to the browser console:
+    </p>
+
+    <code>App.printHelloWorld()</code>
+
+    <p>
+    The *App* class is implemented in the module located at *src/extras/App.js*. Open it and add the following code to the end of the file, just before the closing brackets of the *App* class. Don't forget to add another comma where the previous method ends.
+    </p>
+
+    <code>
+    printHelloWorld: function() {
+        console.log('Hello World!');
+    }
+    </code>
+
+    <p>
+    <a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Puzzles runtime to your Verge3D installation folder. You can now try the newly added block in the Puzzles editor.
+    </p>
+
+
+
+    [anchor:Custom_API_Class]
+
+    <h2>Adding New Class to JavaScript API</h2>
+
+    <p>
+    To supplement the Verge3D API with some custom class, create a .js file named after your class in a relevant subdirectory of DevKit's *src* folder (e.g. src/extras/MyAwesomeClass.js). In this .js file, implement your class - you can get inspired by already existing classes. Finally, register your class in the global namespace *v3d* by adding the following line in *src/v3d.js* file:
+    </p>
+
+    <code>export { MyAwesomeClass } from './extras/MyAwesomeClass.js';</code>
+
+    <p>
+    <a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Verge3D runtime to your application, and try it out in the browser console.
+    </p>
+
+    <code>
+    var myAwesomeStuff = new v3d.MyAwesomeClass();
+    myAwesomeStuff.whatEver();
+    </code>
+
+
+    [anchor:Puzzles_Block]
+
+    <h2>Adding New Puzzles</h2>
+
+    <p>
+    To create a custom Puzzles block, edit the *puzzles/src/puzzles_blocks.js* file. You can get inspired by already existing puzzles. Register it in a relevant toolbox category in the top of the file.
+    </p>
+
+    <p>
+    <a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Puzzles runtime to your Verge3D installation folder. You should now find your new puzzle in the toolbox of the Puzzles editor.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

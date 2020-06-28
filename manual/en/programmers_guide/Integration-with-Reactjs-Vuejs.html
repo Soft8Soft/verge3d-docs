@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>How to integrate a Verge3D app into a React.js/Vue.js project - Soft8Soft</title>
+    <meta charset="utf-8">
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+    <h1>Integration with React.js/Vue.js</h1>
+
+    <p>
+        One of the easiest way of integrating a Verge3D scene into your project
+        is to load it separately through an iframe element. But if you want to
+        use it directly inside your app then there could appear some difficulties
+        along the way. However, there are plenty of possible project configurations
+        with their specific issues and peculiarities. This guide can't comprehend
+        them all and only targets such popular javascript frameworks as React.js
+        and Vue.js.
+    </p>
+
+    <p>
+        Verge3D provides an example of how to make a simple "Hello, world!"
+        React or Vue project and integrate a standard Verge3D application into
+        it. The example files are located in the *manager/templates/Embeddable*
+        directory inside the Verge3D distribution.
+    </p>
+
+    [contents]
+
+
+    [anchor:Verge3D_React]
+
+    <h2>Verge3D React.js Application Example</h2>
+
+    <p>
+        Here's a simple instruction on how to create a basic React.js + Verge3D
+        application with the Create React App utility. You can find a copy of
+        this instruction in *manager/templates/Embeddable/README.md* inside the
+        Verge3D distribution.
+    </p>
+
+    <p>
+        1) Create a React.js application via the Create React App utility:
+
+    <code>
+    npx create-react-app react_v3d_app
+    </code>
+    </p>
+
+    <p>
+        2) Delete all files in the *react_v3d_app/src* directory.
+    </p>
+
+    <p>
+        3) Copy the content of the *manager/templates/Embeddable/public* Verge3D's
+        directory to *react_v3d_app/public*.
+    </p>
+
+    <p>
+        Copy the content of the *manager/templates/Embeddable/src* Verge3D's
+        directory to *react_v3d_app/src*.
+    </p>
+
+    <p>
+        Copy the engine file *build/v3d.js* to *react_v3d_app/public*.
+    </p>
+
+    <p>
+        4) Add the following script tag into *react_v3d_app/public/index.html*:
+
+    <code>
+    &lt;script src="%PUBLIC_URL%/v3d.js"&gt;&lt;/script&gt;
+    </code>
+    </p>
+
+    <p>
+        5) Create a file *react_v3d_app/src/index.js* containing the following code:
+
+    <code>
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+
+    import * as V3DApp from './v3dApp/app.js';
+    import './v3dApp/app.css';
+
+    ReactDOM.render(
+        &lt;div id={V3DApp.CONTAINER_ID}&gt;
+            &lt;div id="fullscreen_button" className="fullscreen-button fullscreen-open" title="Toggle fullscreen mode"&gt;&lt;/div&gt;
+        &lt;/div&gt;,
+        document.getElementById('root')
+    );
+
+    V3DApp.createApp();
+    </code>
+    </p>
+
+    <p>
+        6) Run the development server by executing the following command in the
+        *react_v3d_app* directory:
+
+    <code>
+    npm run start
+    </code>
+
+        By default the application now should be available at
+        <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a>.
+    </p>
+
+    [anchor:Verge3D_Vue]
+
+    <h2>Verge3D Vue.js Application Example</h2>
+
+    <p>
+        Here's a simple instruction on how to create a basic Vue.js + Verge3D
+        application with the Vue CLI utility. You can find a copy of this
+        instruction in *manager/templates/Embeddable/README.md* inside the
+        Verge3D distribution.
+    </p>
+
+    <p>
+        1) Create a Vue.js application via the Vue CLI utility:
+
+    <code>
+    npx @vue/cli create vue_v3d_app
+    </code>
+    </p>
+
+    <p>
+        2) Copy the content of the *manager/templates/Embeddable/public* Verge3D's
+        directory to *vue_v3d_app/public*.
+    </p>
+
+    <p>
+        Copy the content of the *manager/templates/Embeddable/src* Verge3D's
+        directory to *vue_v3d_app/src*.
+    </p>
+
+    <p>
+        Copy the engine file *build/v3d.js* to *vue_v3d_app/public*.
+    </p>
+
+    <p>
+        3) Add the following script tag into *vue_v3d_app/public/index.html*:
+
+    <code>
+    &lt;script src="&lt;%= BASE_URL %&gt;v3d.js"&gt;&lt;/script&gt;
+    </code>
+    </p>
+
+    <p>
+        4) Create a file *vue_v3d_app/src/components/V3DApp.vue* containing the
+        following code:
+
+    <code>
+    &lt;template&gt;
+        &lt;div :id="containerId"&gt;
+            &lt;div id="fullscreen_button" class="fullscreen-button fullscreen-open" title="Toggle fullscreen mode"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/template&gt;
+
+    &lt;script&gt;
+    import * as V3DApp from '../v3dApp/app.js';
+
+    export default {
+        name: 'V3DApp',
+
+        data: function() {
+            return {
+                containerId: V3DApp.CONTAINER_ID
+            }
+        },
+
+        mounted: function() {
+            V3DApp.createApp();
+        }
+    }
+    &lt;/script&gt;
+
+    &lt;style&gt;
+    @import '../v3dApp/app.css';
+    &lt;/style&gt;
+    </code>
+    </p>
+
+    <p>
+        5) Change *vue_v3d_app/src/App.vue* so it will look like this:
+
+    <code>
+    &lt;template&gt;
+      &lt;div id="app"&gt;
+        &lt;V3DApp&gt;&lt;/V3DApp&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;
+
+    &lt;script&gt;
+    import V3DApp from './components/V3DApp.vue';
+
+    export default {
+      name: 'App',
+      components: {
+        V3DApp
+      }
+    }
+    &lt;/script&gt;
+    </code>
+    </p>
+
+    <p>
+        6) Run the development server by executing the following command in the
+        *vue_v3d_app* directory:
+
+    <code>
+    npm run serve
+    </code>
+
+        By default the application now should be available at
+        <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>.
+    </p>
+
+  </article></body>
+</html>

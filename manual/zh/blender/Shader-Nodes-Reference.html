@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Verge3D for Blender: Shader Nodes Reference - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Information about Blender shader editor's features supported in Verge3D."/>
+    <meta content="https://cdn.soft8soft.com/images/shader_nodes_reference_blender.jpg" property="og:image">
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+
+  <h1>Shader Nodes Reference / Blender</h1>
+
+  <p>
+  To some extent, Verge3D supports almost all nodes provided by Blender's Shader Editor. However, for most tasks of web-based real-time graphics it is sufficient to use just a limited set of them. Below we only list the nodes that are used in stock Verge3D demos.
+  </p>
+
+  <p>
+  Inputs and outputs that are supported by Verge3D are marked with green check mark, while unsupported ones are marked with red one.
+  </p>
+
+
+
+  <h2>Contents</h2>
+
+  <ul>
+    <li>
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#Shader_Nodes">Shader Nodes</a>
+      <ul>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Principled_BSDF">Principled BSDF</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Diffuse_BSDF">Diffuse BSDF</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Glossy_BSDF">Glossy BSDF</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Emission">Emission</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Transparent_BSDF">Transparent BSDF</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Refraction_BSDF">Refraction BSDF</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Add_Shader">Add Shader</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Mix_Shader">Mix Shader</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#Output_Nodes">Output Nodes</a>
+      <ul>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Material_Output">Material Output</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#Input_Nodes">Input Nodes</a>
+      <ul>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Geometry">Geometry</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Attribute">Attribute</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Texture_Coordinate">Texture Coordinate</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#UV_Map">UV Map</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Fresnel">Fresnel</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Layer_Weight">Layer Weight</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#RGB">RGB</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Value">Value</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#Texture_Nodes">Texture Nodes</a>
+      <ul>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Image_Texture">Image Texture</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Gradient_Texture">Gradient Texture</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Voronoi_Texture">Voronoi Texture</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Noise_Texture">Noise Texture</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#Color_Nodes">Color Nodes</a>
+      <ul>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Mix">Mix</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#RGB_Curves">RGB Curves</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Invert">Invert</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Gamma">Gamma</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#Vector_Nodes">Vector Nodes</a>
+      <ul>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Mapping">Mapping</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Normal_Map">Normal Map</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Vector_Transform">Vector Transform</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#Converter_Nodes">Converter Nodes</a>
+      <ul>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Color_Ramp">Color Ramp</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Shader_to_RGB">Shader to RGB</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#RGB_to_BW">RGB to BW</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Math_Node">Math</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Vector_Math">Vector Math</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Combine_Separate_Nodes">Combine/Separate Nodes</a></li>
+       </ul>
+    </li>
+    <li>
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#World_Specific_Nodes">World-Specific Nodes</a>
+      <ul>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Background">Background</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#World_Output">World Output</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">Environment Texture</a></li>
+        <li><a href="manual/zh/blender/Shader-Nodes-Reference.html#Light_Path">Light Path</a></li>
+      </ul>
+    </li>
+  </ul>
+
+
+
+  [anchor:Shader_Nodes]
+
+  <h2>Shader Nodes</h2>
+
+  <p>
+  These nodes are in the core of any material, performing shading calculations for the object surface. Among them, the following nodes are used the most in Verge3D workflow:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-nodes.jpg" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Principled_BSDF]
+
+  <h3>Principled BSDF</h3>
+
+  <p>
+  This universal node implements the physically-based rendering model (aka PBR). Suitable for creating most materials for Verge3D.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-principled-bsdf.jpg" class="centered" style="max-width: 1000px">
+
+  <p>
+  By tweaking just a few options in the *Principled BSDF* node, you can quickly setup various good-looking materials. For best results, you might use an <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a> which provides reflections and image-based lighting, or just use the default cube template where the environment is set up for you.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-principled-bsdf-example.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Principled BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/principled.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Diffuse_BSDF]
+
+  <h3>Diffuse BSDF</h3>
+
+  <p>
+  This node implements the diffuse component of PBR. It is used for adding baked ambient occlusion to materials, or sometimes combined with *Glossy BSDF* node for more flexibility compared to *Principled BSDF* node.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-diffuse-bsdf.jpg" class="centered" style="max-width: 1000px">
+
+  <p>
+  In the following example, *Diffuse BSDF* is used to add baked ambient occlusion to chrome material:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/chrome-material-example.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Diffuse BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/diffuse.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Glossy_BSDF]
+
+  <h3>Glossy BSDF</h3>
+
+  <p>
+  This node implements the specular component of PBR. It is used for purely metallic surfaces, or sometimes combined with *Diffuse BSDF* node for more flexibility.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-glossy-bsdf.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Glossy BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/glossy.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Emission]
+
+  <h3>Emission</h3>
+
+  <p>
+  This node is used to represent unlit (shadeless) objects. It is also used to represent glowing objects when combined with the bloom post-effect in Verge3D.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-emission.jpg" class="centered" style="max-width: 1000px">
+
+  <p>
+  In the following simplified example, *Emission* is used for shadeless UI icons:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-emission-example.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Emission* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/emission.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Transparent_BSDF]
+
+  <h3>Transparent BSDF</h3>
+
+  <p>
+  This node implements transparent materials by mixing with other *Shader* nodes such as *Glossy BSDF*.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-transparent-bsdf.jpg" class="centered" style="max-width: 1000px">
+
+  <p>
+  In the following simplified example, *Transparent BSDF* is used for the material of front glass:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-transparent-bsdf-example.jpg" class="centered" style="max-width: 1000px">
+
+
+  </p>
+  See more information on the *Transparent BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/transparent.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Refraction_BSDF]
+
+  <h3>Refraction BSDF</h3>
+
+  <p>
+  This node implements refractive materials by using the environment map for refraction.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-refraction-bsdf.jpg" class="centered" style="max-width: 1000px">
+
+  <p>
+  Below is a simple usage example:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-refraction-bsdf-example.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Refraction BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/refraction.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Add_Shader]
+
+  <h3>Add Shader</h3>
+
+  <p>
+  This node sums up two shaders together.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-add-shader.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Add Shader* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/add.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Mix_Shader]
+
+  <h3>Mix Shader</h3>
+
+  <p>
+  This node mixes two shaders together.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/shader-mix-shader.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Mix Shader* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/mix.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Output_Nodes]
+
+  <h2>Output Nodes</h2>
+
+  <p>
+  These nodes are the end point in a shader. For *Object* materials, only the following node is available (there is also a special output node for *World* materials):
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/output-nodes.jpg" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Material_Output]
+
+  <h3>Material Output</h3>
+
+  <p>
+  This node provide shading results for the surface point.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/output-material-output.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Material Output* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/output/material.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Input_Nodes]
+
+  <h2>Input Nodes</h2>
+
+  <p>
+  These nodes provide various input information to the shader. Among them, the following nodes are used the most in Verge3D workflow:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-nodes.jpg" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Geometry]
+
+  <h3>Geometry</h3>
+
+  <p>
+  This node provides geometrical information (in world space) for the shaded point. At the moment, Verge3D supports only *Position*, *Normal*, *Incoming* and *Backfacing* sockets.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-geometry.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Geometry* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/geometry.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Attribute]
+
+  <h3>Attribute</h3>
+
+  <p>
+  This node retrieves mesh attributes. Only vertex colors are supported by Verge3D at the moment.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-attribute.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Attribute* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/attribute.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Texture_Coordinate]
+
+  <h3>Texture Coordinate</h3>
+
+  <p>
+  This node provides UV-mapped or procedurely assigned coordinates for texturing. Verge3D takes the first UV layer from the list of UV layers available on the mesh.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-texture-coordinate.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Texture Coordinate* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/texture_coordinate.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:UV_Map]
+
+  <h3>UV Map</h3>
+
+  <p>
+  This node retrieves the specified UV layer from mesh. Unlike the *Texture Coordinate* node, this node works with any UV layer available on the mesh.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-uv-map.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *UV Map* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/uv_map.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Fresnel]
+
+  <h3>Fresnel</h3>
+
+  <p>
+  This node computes the proportion of light reflected vs refracted.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-fresnel.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Fresnel* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/fresnel.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Layer_Weight]
+
+  <h3>Layer Weight</h3>
+
+  <p>
+  This node provides a mix factor thats depends on the direction upon which the object surface is observed.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-layer-weight.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Layer Weight* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/layer_weight.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:RGB]
+
+  <h3>RGB</h3>
+
+  <p>
+  This node provides a color value to the shader.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-rgb.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *RGB* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/rgb.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Value]
+
+  <h3>Value</h3>
+
+  <p>
+  This node provides a numeric value to the shader.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/input-value.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Value* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/value.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Texture_Nodes]
+
+  <h2>Texture Nodes</h2>
+
+  <p>
+  These nodes provide bitmaps to the shader. Among them, the following nodes are used the most in Verge3D workflow:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/texture-nodes.jpg" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Image_Texture]
+
+  <h3>Image Texture</h3>
+
+  <p>
+  This node provides an image file to be used as texture in the shader.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/texture-image-texture.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Image Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/textures/image.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Gradient_Texture]
+
+  <h3>Gradient Texture</h3>
+
+  <p>
+  This node provides a smoothly changing range of colors and intensities.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/texture-gradient-texture.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Gradient Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/textures/gradient.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Voronoi_Texture]
+
+  <h3>Voronoi Texture</h3>
+
+  <p>
+  This node provides a bitmap with Voronoi patterns.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/texture-voronoi-texture.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Voronoi Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/textures/voronoi.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Noise_Texture]
+
+  <h3>Noise Texture</h3>
+
+  <p>
+  This node provides a bitmap with noise patterns.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/texture-noise-texture.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Noise Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/textures/noise.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Color_Nodes]
+
+  <h2>Color Nodes</h2>
+
+  <p>
+  These nodes provides various operations on colors. Among them, the following nodes are used the most in Verge3D workflow:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/color-nodes.jpg" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Mix]
+
+  <h3>Mix</h3>
+
+  <p>
+  This node mixes two color inputs together using various blending modes.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/color-mix.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Mix* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/color/mix.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:RGB_Curves]
+
+  <h3>RGB Curves</h3>
+
+  <p>
+  This node is used for color correction and level adjustment.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/color-rgb-curves.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *RGB Curves* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/color/rgb_curves.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Invert]
+
+  <h3>Invert</h3>
+
+  <p>
+  This node inverts the color input producing a negative.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/color-invert.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Invert* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/color/invert.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Gamma]
+
+  <h3>Gamma</h3>
+
+  <p>
+  This node applies gamma correction to the color input.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/color-gamma.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Gamma* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/color/gamma.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Vector_Nodes]
+
+  <h2>Vector Nodes</h2>
+
+  <p>
+  These nodes provides various operations on vectors. Among them, the following nodes are used the most in Verge3D workflow:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/vector-nodes.jpg" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Mapping]
+
+  <h3>Mapping</h3>
+
+  <p>
+  This node is used to transform a bitmap, including shifting, rotation and scale.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/vector-mapping.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Mapping* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/vector/mapping.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Normal_Map]
+
+  <h3>Normal Map</h3>
+
+  <p>
+  This node provides the normal vector from a bitmap interpreted as normal map.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/vector-normal-map.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Normal Map* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/vector/normal_map.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Vector_Transform]
+
+  <h3>Vector Transform</h3>
+
+  <p>
+  This node is used to convert an input vector between world, camera or object coordinate spaces.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/vector-transform.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Vector Transform* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/vector/transform.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Converter_Nodes]
+
+  <h2>Converter Nodes</h2>
+
+  <p>
+  These nodes provides means for converting between data of various types. Among them, the following nodes are used the most in Verge3D workflow:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/converter-nodes.jpg" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Color_Ramp]
+
+  <h3>Color Ramp</h3>
+
+  <p>
+  This node converts values to colors by using a gradient.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/converter-color-ramp.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Color Ramp* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/converter/color_ramp.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Shader_to_RGB]
+
+  <h3>Shader to RGB</h3>
+
+  <p>
+  This node replaces shading calculation results with plain color. Typically used for non-photorealistic rendering.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/converter-shader-to-rgb.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Shader to RGB* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/converter/shader_to_rgb.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:RGB_to_BW]
+
+  <h3>RGB to BW</h3>
+
+  <p>
+  This node converts color to black and white imagery by using luminance.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/converter-rgb-to-bw.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *RGB to BW* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/converter/rgb_to_bw.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Math_Node]
+
+  <h3>Math</h3>
+
+  <p>
+  This node performs mathematical operations with numeric values:
+  </p>
+
+  <ul>
+    <li>
+    Add, Subtract, Multiply, Divide
+    </li>
+    <li>
+    Power, Logarithm, Square Root, Absolute
+    </li>
+    <li>
+    Minimum, Maximum, Less Than, Greater Than
+    </li>
+    <li>
+    Round, Floor, Ceil, Fract, Modulo
+    </li>
+    <li>
+    Sine, Cosine, Tangent, Arcsine, Arccosine, Arctangent, 2-Argument Arctangent
+    </li>
+  </ul>
+
+  <img src="files/shader-nodes-reference-blender/converter-math.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Math* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/converter/math.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Vector_Math]
+
+  <h3>Vector Math</h3>
+
+  <p>
+  This node performs operations with vectors:
+  </p>
+
+  <ul>
+    <li>
+    Add
+    </li>
+    <li>
+    Subtract
+    </li>
+    <li>
+    Average
+    </li>
+    <li>
+    Dot Product
+    </li>
+    <li>
+    Cross Product
+    </li>
+    <li>
+    Normalize
+    </li>
+  </ul>
+
+  <img src="files/shader-nodes-reference-blender/converter-vector-math.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Vector Math* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/converter/vector_math.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Combine_Separate_Nodes]
+
+  <h3>Combine/Separate Nodes</h3>
+
+  <p>
+  These nodes compose a color/vector from, or split it to, the individual channels.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/converter-combine-separate-nodes.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Combine* and *Separate* nodes in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/converter/combine_separate.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:World_Specific_Nodes]
+
+  <h2>World-Specific Nodes</h2>
+
+  <p>
+  These nodes are either available only for *World* materials (*Background*, *World Output*), or typically used with *World* materials (*Environment Texture*, *Light Path*):
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/world-specific-nodes.jpg" class="centered" style="max-width: 1000px">
+
+
+
+  [anchor:Background]
+
+  <h3>Background</h3>
+
+  <p>
+  This node is used for setting up the background color, as well as for image-based lighting and reflections. It is rarely used on its own as it would produce just a solid color. You might combine with an <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a> for best results.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/world-background.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Background* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/shader/background.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:World_Output]
+
+  <h3>World Output</h3>
+
+  <p>
+  This node is the end point of *World* materials. It represents shading results for the environment.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/world-output.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *World Output* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/output/world.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Environment_Texture]
+
+  <h3>Environment Texture</h3>
+
+  <p>
+  This node provides an image file to be used as environment texture in the shader. The images must be in equirectangular projection, and should typically be HDR, although JPEG or PNG formats can be used as well.
+  </p>
+
+  <p class="note">
+  The default cube template includes an HDR image which you may reuse in your projects.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/world-environment.jpg" class="centered" style="max-width: 1000px">
+
+  <p>
+  In the following example, a JPEG image is used to provide image-based lighting, reflections and the background, all at once.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/world-environment-example.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Environment Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/textures/environment.html" target="_blank">link</a>.
+  </p>
+
+
+
+  [anchor:Light_Path]
+
+  <h3>Light Path</h3>
+
+  <p>
+  This node provides various information of Boolean type to the shader. The *Is Camera Ray* output is supported by Verge3D with the purpose to control whether the <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a> is visible in the background.
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/world-light-path.jpg" class="centered" style="max-width: 1000px">
+
+
+  <p>
+  The following typical setup is used to provide environment lighting and reflections to the scene yet just render a white solid color in the background:
+  </p>
+
+  <img src="files/shader-nodes-reference-blender/world-specific-nodes-example.jpg" class="centered" style="max-width: 1000px">
+
+  </p>
+  See more information on the *Light Path* node in Blender Manual: <a href="https://docs.blender.org/manual/zh/latest/render/shader_nodes/input/light_path.html" target="_blank">link</a>.
+  </p>
+
+
+
+  <h2>Got Questions?</h2>
+
+  <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+
+  </article></body>
+</html>

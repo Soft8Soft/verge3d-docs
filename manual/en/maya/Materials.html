@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Verge3D for Maya: Materials - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn what kinds of Maya materials are supported in Verge3D and how to configure them to create good-looking 3D web interactives."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Materials / Maya</h1>
+
+    <p>Verge3D for Maya supports the following types of materials (shaders):</p>
+
+    <ul>
+      <li>
+        <a href="manual/en/maya/Materials.html#aiStandardSurface">aiStandardSurface</a>
+      </li>
+      <li>
+        <a href="manual/en/maya/Materials.html#standardSurface">Standard Surface</a> (Maya 2020+ only)
+      </li>
+      <li>
+        <a href="manual/en/maya/Materials.html#lambert">Lambert</a>
+      </li>
+      <li>
+        <a href="manual/en/maya/Materials.html#blinn_phong">Blinn, Phong, Phong E</a>
+      </li>
+      <li>
+        Surface Shader
+      </li>
+      <li>
+        aiMixShader
+      </li>
+      <li>
+        aiFlat
+      </li>
+    </ul>
+
+
+    <p>In addition, you can use the following texture and utility nodes:</p>
+
+    <ul>
+      <li>
+        File
+      </li>
+      <li>
+        2d Placement
+      </li>
+      <li>
+        Bump 2d
+      </li>
+      <li>
+        Ramp
+      </li>
+      <li>
+        Sampler Info
+      </li>
+      <li>
+        Layered Texture
+      </li>
+      <li>
+        aiNormalMap
+      </li>
+      <li>
+        aiFacingRatio
+      </li>
+      <li>
+        animCurveTA
+      </li>
+      <li>
+        animCurveTU
+      </li>
+    </ul>
+
+
+    [anchor:aiStandardSurface]
+
+    <h2>aiStandardSurface</h2>
+
+    <p>
+      This shader comes with Arnold for Maya (MtoA) and can represent many real-world materials (such as metals, plastics, glass, wood etc) by using physically-based shading model.
+    </p>
+
+    <img src="files/materials-maya/ai-standard-surface-overview.jpg" class="centered">
+
+    <p>The following aiStandardSurface settings are supported in Verge3D:</p>
+
+    <h3>Base Panel</h3>
+    <ul>
+      <li>Weight or (Base input in Hypershade)</li>
+      <li>Color or (Base Color input in Hypershade)</li>
+      <li>Metalness</li>
+    </ul>
+
+    <h3>Specular Panel</h3>
+    <ul>
+      <li>Weight (Specular input in Hypershade)</li>
+      <li>Color (Specular Color input in Hypershade)</li>
+      <li>Roughness (Specular Roughness input in Hypershade)</li>
+    </ul>
+
+    <h3>Emission Panel</h3>
+    <ul>
+      <li>Weight (Emission input in Hypershade)</li>
+      <li>Color (Emission Color input in Hypershade)</li>
+    </ul>
+
+    <h3>Geometry Panel</h3>
+    <ul>
+      <li>Opacity</li>
+      <li>Bump Mapping (Normal Camera input in Hypershade)</li>
+    </ul>
+
+
+    <h3>Additional Verge3D Settings</h3>
+
+    <p>You can tweak your aiStandardSurface materials by using the following settings located on *Verge3D* panel:</p>
+
+    <img src="files/materials-maya/verge3d-settings.jpg" class="centered" style="max-width: 427px">
+
+    <dl>
+      <dt>Alpha Mode</dt>
+      <dd>select transparency mode: *Auto*, *Opaque*, *Blend* or *Mask*.</dd>
+      <dt>Two Sided</dt>
+      <dd>make your material two-sided. By default, Verge3D renders only front side of materials, enable this option to render their reverse side as well.</dd>
+      <dt>Depth Write</dt>
+      <dd>render material depth in depth buffer. Use this option for transparent materials to make them rendered in additive manner.</dd>
+      <dt>Depth Test</dt>
+      <dd>perform depth test calculations when rendering your material. Disabling depth test is useful when rendering objects inside semi-transparent objects to prevent them from being culled by the covering objects.</dd>
+      <dt>Dithering</dt>
+      <dd>reduce banding artifacts by using pixel dithering.</dd>
+      <dt>glTF 2.0 Compatible</dt>
+      <dd>force the material to be glTF 2.0 compatible. See the <a href="manual/en/maya/GLTF-Materials.html">following guide</a> for more information.</dd>
+    </dl>
+
+    [anchor:standardSurface]
+
+    <h2>Standard Surface</h2>
+
+    <p>
+      *Standard Surface* shader was introduced in Maya 2020. It's based on and very similar to aiStandardSurface.
+    </p>
+
+    <p>
+      Since it's better supported in Maya Viewport 2.0 and does not require Arnold plug-in to be installed, we recommend it for use when authoring your Verge3D content in Maya 2020 or above.
+    </p>
+
+    [anchor:lambert]
+
+    <h2>Lambert</h2>
+
+    <p>
+      Basic yet highly efficient node which can be used to represent materials with no specular reflections.
+    </p>
+
+
+    [anchor:blinn_phong]
+
+    <h2>Blinn, Phong, Phong E</h2>
+
+    <p>
+      In Verge3D, these materials will be approximated by the PBR shading model, thus they might look differently compared to Maya Viewport.
+    </p>
+
+
+    [anchor:performance_considerations]
+
+    <h2>Performance Considerations</h2>
+
+    <p>Being the only choice for creating nice and realistic renders, *Standard Surface* (or *aiStandardSurface*) nevertheless require more computing power from your GPU and slows down app loading. This is especially true for scenes with lots of such materials.</p>
+
+    <p>
+      To improve performance you can tweak <a href="manual/en/maya/Lighting-and-Rendering.html#environment_lighting">Texture Resolution</a> or <a href="manual/en/maya/Lighting-and-Rendering.html#global_rendering_settings">IBL Environment Mode</a> property.
+    </p>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

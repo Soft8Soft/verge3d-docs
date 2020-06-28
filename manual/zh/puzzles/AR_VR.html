@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>AR/VR - Verge3D Puzzles Reference - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to enable and use the augmented reality and virtual reality modes in Puzzles."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>AR/VR Puzzles</h1>
+
+    <p>
+    These puzzles are used to enable web-based Augmented Reality (AR) and Virtual Reality (VR) experiences running on top of the in-development browser technology called <a href="https://github.com/immersive-web/webxr/blob/master/explainer.md" target="_blank">WebXR</a> (eXtended Reality on the Web).
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr.jpg">
+
+    <p>
+    These puzzles require your browser to support WebXR standard. In order to use the VR puzzles in other browsers, we recommend to turn on the *Legacy VR* checkbox when creating a <a href="manual/zh/introduction/Workflow.html#Project">new project</a>.
+    </p>
+
+
+
+    <p><a href="manual/zh/puzzles/AR_VR.html#check_vr_mode" id="check_vr_mode" class="permalink">#</a></p>
+
+    <h4>"check VR mode"</h4>
+
+    <p>
+    Checks the virtual reality system. If successful, the puzzles in the *if available do* are triggered. Otherwise, if the browser does not support VR or VR hardware not found, the puzzles in the *if unavailable do* slot are triggered.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-check-vr-mode.jpg">
+
+    <p>
+    For more information with regard to supported VR devices and best practices see the <a href="manual/zh/introduction/AR-VR-development.html">corresponding topic</a> of this User Manual.
+    </p>
+
+
+
+    <p><a href="manual/zh/puzzles/AR_VR.html#enter_vr_mode" id="enter_vr_mode" class="permalink">#</a></p>
+
+    <h4>"enter VR mode"</h4>
+
+    <p>
+    Enters the virtual reality mode. Puzzles placed in the *on enter do* and *on exit do* slots are triggered upon entering or exiting the VR mode. Puzzles placed in the *if unavailable do* are triggered if a VR session could not be established.
+    </p>
+
+    <p>VR camera modes:</p>
+
+    <ul>
+      <li>
+        *sitting or standing* - immobile camera positioned at some height above the ground.
+      </li>
+      <li>
+        *room* - mobile camera located inside some bounds such as room (e.g. for HTC Vive).
+      </li>
+      <li>
+        *looking around* - immobile camera positioned at zero coordinates.
+      </li>
+      <li>
+        *walking* - mobile unbounded camera.
+      </li>
+      <li>
+        *viewer locked* - immobile camera positioned at zero coordinates. All content is parented to the view.
+      </li>
+    </ul>
+
+    <p>
+    The numeric parameter *hover to click after* denotes the period of time (in seconds) for an object, over which the VR reticle is hovered, to receive a mouse click event. Default *Infinity* means no hover-to-click conversion.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-enter-vr-mode.jpg">
+
+    <p>
+    In order to properly control the camera in VR mode, be sure to snap and parent it to some empty/dummy or real object, positioned in the 3D editor of your choice, upon entering the VR mode. This is needed because the VR session has the full control over your camera, and you can move only the empty/dummy object to which the camera is parented.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-enter-vr-mode-example.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/AR_VR.html#end_vr_session" id="end_vr_session" class="permalink">#</a></p>
+
+    <h4>"end VR session"</h4>
+
+    <p>
+    Ends a virtual reality session.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-end-vr-session.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/AR_VR.html#check_ar_mode" id="check_ar_mode" class="permalink">#</a></p>
+
+    <h4>"check AR mode"</h4>
+
+    <p>
+    Checks the augmented reality system. If successful, the puzzles in the *if available do* are triggered. Otherwise, if the browser does not support AR or AR hardware not found, the puzzles in the *if unavailable do* slot are triggered.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-check-ar-mode.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/AR_VR.html#enter_ar_mode" id="enter_ar_mode" class="permalink">#</a></p>
+
+    <h4>"enter AR mode"</h4>
+
+    <p>
+    Enters the augmented reality mode. Puzzles placed in the *on enter do* and *on exit do* slots are triggered upon entering or exiting the AR mode. Puzzles placed in the *if unavailable do* are triggered if a AR session could not be established.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-enter-ar-mode.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/AR_VR.html#ar_hit_test" id="ar_hit_test" class="permalink">#</a></p>
+
+    <h4>"detect horizontal surface AR"</h4>
+
+    <p>
+      Detect horizontal surfaces in AR mode by casting a ray forward. Upon intersection, this ray will trigger puzzles in *on intersection do* slot. If no intersection occured or the device is in warming-up state the puzzles triggers *if missed do* slot.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-ar-hit-test.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/AR_VR.html#ar_hit_point" id="ar_hit_point" class="permalink">#</a></p>
+
+    <h4>"AR hit point"</h4>
+
+    <p>
+    Surface hit point coordinates.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-ar-hit-point.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/AR_VR.html#session_event" id="session_event" class="permalink">#</a></p>
+
+    <h4>"on session event"</h4>
+
+    <p>
+    Captures a VR session event generated by a VR device (e.g. a headset or controller button) and triggers puzzles specified in the *do* slot.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-on-session-event.jpg">
+
+    <p>
+    We recommend to provide a fallback for devices not supporting WebXR. For example, the following snippet will work for Google Cardboard v2 with an Android/iOS smartphone inserted.
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-on-session-event-example.jpg">
+
+
+  </article></body>
+</html>

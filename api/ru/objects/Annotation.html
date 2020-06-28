@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr; [page:AnnotationControl] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+       This class is used to create and display 2D HTML sprites called annotations. Annotation may contain an optional dialog text (or HTML layout) which appears when the user clicks on the annotation label.
+    </p>
+  
+    <img src="files/api/annotation.jpg" class="centered" style="max-width: 819px;">
+
+    <h2>Example</h2>
+
+    <code>
+var annotation = new v3d.Annotation(container, 'A', 'Hello! ...');
+app.scene.add(annotation);
+    </code>
+
+    <h2>Styles</h2>
+    <p>
+      Verge3D offers two CSS classes to define annotation look:
+      <ul>
+        <li><strong>.v3d-annotation</strong> - used for annotation labels.</li>
+        <li><strong>.v3d-annotation-dialog</strong> - used for annotation dialogs.</li>
+      </ul>
+
+      You can override these classes in your own applications. For example, to make your annotations red:
+
+      <code>
+.v3d-annotation {
+  background: red;
+}
+.v3d-annotation-dialog {
+  background: red;
+}
+      </code>
+    </p>
+
+
+    <h2>Constructor</h2>
+
+    <h3>[name](container, character, text)</h3>
+    <p>
+      <strong>container</strong> - the id of an HTML-element or the HTML-element itself which will contain the annotation.<br />
+      <strong>character</strong> - a symbol displayed inside the annotation label e.g "1", "2", "3" or "A", "B", "C". In fact, the label character can be a string of any length.<br />
+      <strong>text</strong> - a text displayed in the annotation popup dialog. This dialog appears when the user clicks on the annotation. It may contain HTML formatted text as well. Specify an empty line to disable the popup dialog feature.
+    </p>
+
+    <h2>Properties</h2>
+    <p>See the base [page:AnnotationControl] class for common properties.</p>
+
+    <h3>[property:String character]</h3>
+    <p>
+      Annotation character.
+    </p>
+
+    <h3>[property:String text]</h3>
+    <p>
+      Annotation dialog text.
+    </p>
+
+    <h3>[property:HTMLElement annotation]</h3>
+    <p>
+      Annotation label element (usually div).
+    </p>
+
+    <h3>[property:HTMLElement annotationText]</h3>
+    <p>
+      Annotation dialog element (usually div).
+    </p>
+
+    <h3>[property:Boolean annotationTextVisible]</h3>
+    <p>
+      Annotation dialog visibility flag. Calculated by the [page:AnnotationControl.update update] method.
+    </p>
+
+    <h3>[property:Boolean fadeObscured]</h3>
+    <p>
+      Fade (make semi-transparent) the annotation if obscured by other objects. Default is true.
+    </p>
+
+    <h3>[property:Boolean isAnnotation]</h3>
+    <p>
+      Used to check whether this or derived classes are annotations.<br />
+      You should not change this, as it is used internally for optimization.
+    </p>
+
+    <h2>Methods</h2>
+    <p>See the base [page:Object3D] class for common methods.</p>
+
+    <h3>[method:Annotation clone]()</h3>
+    <p>
+      Returns a clone of this Annotation object and any descendants.
+    </p>
+
+    <h3>[method:null dispose]()</h3>
+    <p>
+      Removes the HTML layout and the corresponding event listeners.
+    </p>
+
+    <h3>[method:null raycast]([param:Raycaster raycaster], [param:Array intersects])</h3>
+    <p>
+      Not implemented yet.
+    </p>
+
+    <h2>Puzzles</h2>
+    <p>
+      Use [page:Puzzles.add_annotation add annotation] or [page:Puzzles.remove_annotation remove annotation] to manage annotations in the Puzzles editor.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

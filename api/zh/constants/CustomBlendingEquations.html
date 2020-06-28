@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>自定义混合方程常量（Custom Blending Equation Constants）</h1>
+
+
+    <h2>示例</h2>
+    <p>[example:webgl_materials_blending_custom materials / blending / custom]</p>
+
+    <h2>用法</h2>
+    <p>
+      这个常量可以用于所有的材质类型。首先将材质的混合模式设置为v3d.CustomBlending，然后设置所需要的混合方程、源因子和目标因子。
+    </p>
+
+    <code>
+    var material = new v3d.MeshBasicMaterial({color: 0x00ff00});
+    material.blending = v3d.CustomBlending;
+    material.blendEquation = v3d.AddEquation; //default
+    material.blendSrc = v3d.SrcAlphaFactor; //default
+    material.blendDst = v3d.OneMinusSrcAlphaFactor; //default
+    </code>
+
+    <h2>混合方程</h2>
+    <code>
+    v3d.AddEquation
+    v3d.SubtractEquation
+    v3d.ReverseSubtractEquation
+    v3d.MinEquation
+    v3d.MaxEquation
+    </code>
+
+    <h2>源因子</h2>
+    <code>
+    v3d.ZeroFactor
+    v3d.OneFactor
+    v3d.SrcColorFactor
+    v3d.OneMinusSrcColorFactor
+    v3d.SrcAlphaFactor
+    v3d.OneMinusSrcAlphaFactor
+    v3d.DstAlphaFactor
+    v3d.OneMinusDstAlphaFactor
+    v3d.DstColorFactor
+    v3d.OneMinusDstColorFactor
+    v3d.SrcAlphaSaturateFactor
+    </code>
+
+    <h2>目标因子</h2>
+    <p>
+      所有的源因子的值，在目标因子中都是有效的。除了：<code>v3d.SrcAlphaSaturateFactor</code>
+    </p>
+
+    <h2>源代码</h2>
+
+    <p>
+      [link:https://github.com/mrdoob/three.js/blob/master/src/constants.js src/constants.js]
+    </p>
+  </body>
+</html>

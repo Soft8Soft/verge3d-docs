@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Misc - Verge3D Puzzles Reference - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to use misc puzzles to perform various operations in your 3D applications."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Miscellaneous Puzzles</h1>
+
+    <p>
+    Miscellaneous puzzles to perform various operations on a high level.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#open_web_page" id="open_web_page" class="permalink">#</a></p>
+
+    <h4>"open web page"</h4>
+
+    <p>
+    When this puzzle is triggered, a specified URL is opened in a new or in the same browser tab depending on the drop-down selection. When triggered from the Puzzles editor, it will ask for a user confirmation before leaving the tab.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-open-web-page.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#social_share_link" id="social_share_link" class="permalink">#</a></p>
+
+    <h4>"social share link"</h4>
+
+    <p>
+    Generates a link for sharing your application in popular social media.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-social-share-link.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#call_JS_function" id="call_JS_function" class="permalink">#</a></p>
+
+    <h4>"call JS function"</h4>
+
+    <p>
+    Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-call-js-function.jpg">
+
+    <p>
+    In order to add a function to JavaScript code, open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with any text editor. Search for "prepareExternalInterface" and add your function inside that declaration (between the curly brackets), so that it looks like this:
+    </p>
+
+    <code>
+function prepareExternalInterface(app) {
+        app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
+            alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
+        }
+}
+    </code>
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#when_called_from_JS" id="when_called_from_JS" class="permalink">#</a></p>
+
+    <h4>"when called from JS"</h4>
+
+    <p>
+      <span style="color:#f00">Deprecated.</span> Use the *v3d.puzzles.procedures*
+        object to directly call a procedure defined in Puzzles:
+      <code>
+function runCode(app) {
+        v3d.puzzles.procedures['myProcedure']();
+}
+      </code>
+    </p>
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#load_data" id="load_data" class="permalink">#</a></p>
+
+    <h4>"load data"</h4>
+
+    <p>
+    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/zh/puzzles/Misc.html#loaded_data">loaded data</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-load-data.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#send_data" id="send_data" class="permalink">#</a></p>
+
+    <h4>"send data"</h4>
+
+    <p>
+    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/zh/puzzles/Misc.html#loaded_data">loaded data</a> puzzle.
+    </p>
+
+
+
+    <img src="files/puzzles/puzzles-misc-send-data.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#loaded_data" id="loaded_data" class="permalink">#</a></p>
+
+    <h4>"loaded data"</h4>
+
+    <p>
+    Returns data retrieved by the <a href="manual/zh/puzzles/Misc.html#load_data">load data</a> or <a href="manual/zh/puzzles/Misc.html#send_data">send data</a> puzzles.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-loaded-data.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#read_JSON" id="read_JSON" class="permalink">#</a></p>
+
+    <h4>"read JSON"</h4>
+
+    <p>
+    Interprets text as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which are returned in a dictionary.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-read-JSON.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#read_CSV" id="read_CSV" class="permalink">#</a></p>
+
+    <h4>"read CSV"</h4>
+
+    <p>
+    Interprets text as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-read-CSV.jpg">
+
+    <p>
+    Table rows and values are accessed by their numeric indices starting from 0.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-csv-example.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#save_state" id="save_state" class="permalink">#</a></p>
+
+    <h4>"save state"</h4>
+
+    <p>
+    Saves the state of specified objects and/or the values of variables specified by their names. The objects are cloned and stored in memory. The values of the variables are retrieved and stored in memory for each specified variable name.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-save-state.jpg">
+
+    <p>
+    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/zh/puzzles/Misc.html#undo_state">undo state</a> puzzle.
+    </p>
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#undo_state" id="undo_state" class="permalink">#</a></p>
+
+    <h4>"undo state"</h4>
+
+    <p>
+    Restores the state of objects and/or variables saved with the <a href="manual/zh/puzzles/Misc.html#save_state">save state</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-undo-state.jpg">
+
+    <p>
+    If this puzzle is called several times, the states are restored from the saved sequence (if any) which makes it possible to return to any previously saved state from the stack.
+    </p>
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#all_variable_names" id="all_variable_names" class="permalink">#</a></p>
+
+    <h4>"all variable names"</h4>
+
+    <p>
+    Returns a list with the names of all variables used in Puzzles.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-all-variable-names.jpg">
+
+
+
+    <p><a href="manual/zh/puzzles/Misc.html#variable_value_by_name" id="variable_value_by_name" class="permalink">#</a></p>
+
+    <h4>"variable value by name"</h4>
+
+    <p>
+    Returns the value of a variable specified by its name. This puzzle works similarly to the standard variable value puzzle, yet does not require to select a variable from the predefined dropdown menu.
+    </p>
+
+    <img src="files/puzzles/puzzles-misc-variable-value-by-name.jpg">
+
+
+  </article></body>
+</html>

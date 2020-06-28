@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AR/VR Development - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how you can enable Augmented Reality (AR) and Virtual Reality (VR) experience for your Verge3D applications."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>AR/VR Development</h1>
+
+    <p>Verge3D allows for creating web-based Augmented Reality (AR) and Virtual Reality (VR) experiences running on top of the browser technology called *WebXR* (eXtended Reality on the Web). In addition to that you can use an older version of this technology called *WebVR* (enabled via *Legacy VR* compatibilty option, see below).</p>
+
+    <iframe class="video-480p" src="https://www.youtube.com/embed/92AMh4vV4zw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+    [anchor:virtual_reality]
+
+    <h2>Virtual Reality</h2>
+
+
+    [anchor:Setting_up_VR]
+
+    <h3>Setting Up</h3>
+
+    <p>We recommend to enable the *Legacy VR* option in app creation settings in the App Manager in order to support a wider range of browsers (such as Mozilla Firefox) and devices.</p>
+
+    <img src="files/ar-vr-development/legacy-vr-app-creation-settings.jpg" class="centered" style="max-width: 522px">
+
+    <p>Cardboard devices should work out of the box in any mobile browser, both on Android and iOS.</p>
+
+    <p>Google Daydream works in stable Chrome browser on Android phones while HTC and Oculus devices should work in both Chrome and Firefox browsers.</p>
+
+    <p class="note">
+      WebXR requires a secure context. Verge3D apps must be served over HTTPS/SSL, or from the localhost URL.
+    </p>
+
+
+    [anchor:Creating_VR_Apps]
+
+    <h3>Creating VR Apps</h3>
+
+    <p>The VR mode can be set up for any Verge3D app using <a href="manual/en/puzzles/AR_VR.html#enter_vr_mode">enter VR mode</a> puzzle.</p>
+
+    <img src="files/ar-vr-development/minimal-vr-puzzles.jpg" class="centered" style="max-width: 686px">
+
+    <p>Interaction with 3D objects is performed by using the gaze-based reticle pointer automatically provided for VR devices <i>without controllers</i> (such as cardboards).</p>
+
+    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg" class="centered" style="max-width: 1000px">
+
+    <p>For VR devices <i>with controllers</i>, interaction is performed by the virtual ray casted from the controllers.</p>
+
+    <img src="files/ar-vr-development/google-daydream-vr-controller.jpg" class="centered" style="max-width: 1000px">
+
+    <p>You can use the standard <a href="manual/en/puzzles/Events.html#when_hovered">when hovered</a> or <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> puzzles to capture user events as well as VR-specific <a href="manual/en/puzzles/AR_VR.html#session_event">on session event</a>.</p>
+
+
+
+    [anchor:augmented_reality]
+
+    <h2>Augmented Reality</h2>
+
+
+    [anchor:Setting_up_AR]
+
+    <h3>Setting Up</h3>
+
+    <p>You can run your Verge3D-based augmented reality applications on mobile devices with Anroid or iOS/iPadOS operating systems.</p>
+
+    <p class="note">
+      WebXR requires a secure context. Verge3D apps must be served over HTTPS/SSL, or from the localhost URL.
+    </p>
+
+    <h4>Android</h4>
+
+    <p>To enable augmented reality, you need an Android device which supports <a href="https://developers.google.com/ar/discover/supported-devices" target="_blank">ARCore technology</a> and latest Google Chrome browser. You also need to install Google Play Services for AR. The installation of this package is prompted automatically upon entering AR mode for the first time, if not pre-installed.</p>
+
+    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" class="centered" style="max-width: 720px">
+
+    <h4>iOS/iPadOS</h4>
+
+    <p>Mozilla's *WebXR Viewer* is a Firefox-based browser application which supports the AR technology on Apple devices (starting from iPhone 6s). Simply <a href="https://apps.apple.com/us/app/webxr-viewer/id1295998056" target="_blank">install</a> it from the App Store.</p>
+
+
+    [anchor:Creating_AR_Apps]
+
+    <h3>Creating AR Apps</h3>
+
+    <p>The AR mode can be set up for any Verge3D app using the <a href="manual/en/puzzles/AR_VR.html#enter_ar_mode">enter AR mode</a> puzzle.</p>
+
+    <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" class="centered" style="max-width: 645px">
+
+    <p>Upon entering AR mode you will be able to position your 3D content in the "real" coordinate system, which is aligned with your mobile device. In addition to that, you can detect horizontal surfaces (tables, shelves, floor etc) by using the <a href="manual/en/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR</a> puzzle.</p>
+
+    <!-- enabling transparency for AR is a hack for WebXR Viewer -->
+
+    <p>Also, to see the the real environment through your 3D canvas, you should enable the *transparent background* option in the <a href="manual/en/puzzles/Initialization.html#configure_application">configure application</a> puzzle.</p>
+
+    <img src="files/ar-vr-development/transparent-background-puzzle.jpg">
+
+
+    [anchor:chrome_debugging]
+
+    <h2>Chrome Debugging</h2>
+
+    <p>For faster iterations during development, you can use Chrome's <a href="manual/en/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port forwarding</a> feature to run your AR or VR app in mobile browser. This will save you from re-uploading it to a remote web server each time.</p>
+
+
+    [anchor:whats_next]
+
+    <h2>What's Next</h2>
+
+    <p>To find out how to script your AR/VR app with Puzzles, read the <a href="manual/en/puzzles/AR_VR.html">following</a> section. Also, check out the <a href="manual/en/introduction/Physics-Guide.html">Physics Guide</a > if you're going to simulate a realistic virtual environment with colliding objects and/or character.</p>
+
+
+    <h3>Got Questions?</h3>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

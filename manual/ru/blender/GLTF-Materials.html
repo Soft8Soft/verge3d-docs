@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Verge3D for Blender: glTF Materials (glTF 2.0-compliant PBR) - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to setup glTF-compliant PBR materials in Blender to be used with Verge3D."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>glTF Materials (glTF 2.0-compliant PBR) / Blender</h1>
+
+    <p>
+    If your content needs to be compatible with glTF 2.0 standard <a href="manual/ru/introduction/FAQ.html#gltf_materials">for some reason</a>, you can use simple material setup based on the *Principled BSDF* shader node.
+    </p>
+
+    [contents]
+
+
+
+    [anchor:texture_packing]
+
+    <h2>Texture Packing</h2>
+
+    <p>The glTF 2.0 standard requires that you pack the PBR components of materials in a single image (aka ORM texture):</p>
+
+    <ul>
+      <li>Occlusion factor is packed in the R channel.</li>
+      <li>Roughness factor is packed in the G channel.</li>
+      <li>Metalness (metallic) factor is packed in the B channel.</li>
+    </ul>
+
+
+    [anchor:setting_up]
+
+    <h2>Setting up</h2>
+
+    <p>
+      Add the *Princlipled BSDF* shader node to your material and enable the *glTF 2.0 compatible* checker located on the *Verge3D Settings* panel.
+    </p>
+
+    <img src="files/physical-material-blender/phmat_00.png" class="centered" style="max-width: 661px;">
+
+    <p>
+      You can connect texture nodes to the *Princlipled BSDF* node as described below. Note that all textures are optional and any of them can be safely omitted.
+    </p>
+
+    <img src="files/physical-material-blender/phmat_01.png" class="centered" style="max-width: 905px;">
+
+    <ul>
+      <li>
+        Connect an *Image Texture* node to the *Base Color* input of the *Principled BSDF* node. *Color Space* of the texture must be set to *sRGB*.
+      </li>
+      <li>
+        Connect *Image Texture* and *Separate RGB* nodes to the *Metallic* and *Roughness* inputs of the *Principled BSDF* node. For optimal loading and rendering of the PBR shader you should pack your occlusion, roughness and metallic textures into R, G and B channels of a single texture respectively. To enable occlusion rendering, your texture name should contain the "occlusion" substring in it. The *Color Space* setting of this texture must be set to *Non-Color*.
+      </li>
+      <li>
+        Connect a *Normal Map* texture to the *Normal* input of the *Principled BSDF* node and an *Image Texture* node to that *Normal Map* node. The *Color Space* parameter of the texture must be set to *Non-Color*. You can also tune the normal map strength by using the *Strength* option.
+      </li>
+      <li>
+        Connect an *Image Texture* node to the *Emission* input of the *Principled BSDF* node. *Color Space* of the texture must be set to *sRGB*.
+      </li>
+    </ul>
+
+    <p>You can also use the *Alpha* input to tune your material transparency.</p>
+
+    <p>
+      To see the preview of the *Principled BSDF* shader in the Blender viewport, you can set the display method of the *3D View* to *Rendering* or just preview your scene in Verge3D with the *Sneak Peak* button on the same panel.
+    </p>
+
+
+    [anchor:exporting_substance]
+
+    <h2>Exporting Textures from Substance Painter</h2>
+
+    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
+
+    <img src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
+
+    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
+
+    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
+
+    <p>
+      To facilitate exporting textures from Substance Painter and to ensure maximum capabilities within the Verge3D engine we recommend using <a href="files/physical-material-blender/Verge3D_for_Blender.spexp" target="_blank">Verge3D export preset</a>. Place this preset file to the *export-presets* folder usually located in the <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> directory (create it if does not exist).
+    </p>
+
+    <img src="files/physical-material-blender/phmat_08.png">
+
+    <p>
+      When exporting textures from Substance Painter, choose *Verge3d for Blender* the export dialog window so that all generated textures are compatible with the glTF 2.0 standard Verge3D is based on.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

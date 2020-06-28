@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>App Manager - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how you can use Verge3D App Manager."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>App Manager</h1>
+
+    <p>App Manager is an easy-to-use tool for creating and performing various operations with Verge3D applications.</p>
+
+ 
+
+    <h2>Contents</h2>
+
+    <ul>
+      <li>
+        <a href="manual/zh/introduction/App-Manager.html#Running_App_Manager">Running App Manager</a>
+        <ul>
+        <li><a href="manual/zh/introduction/App-Manager.html#From_Blender_Max_Maya">From Blender, 3ds Max or Maya</a></li>
+        <li><a href="manual/zh/introduction/App-Manager.html#Using_Desktop_Application">Using Desktop Application</a></li>
+        <li><a href="manual/zh/introduction/App-Manager.html#In_Command_Line">In Command-Line</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="manual/zh/introduction/App-Manager.html#Exploring_Applications">Exploring Applications</a>
+        <ul>
+        <li><a href="manual/zh/introduction/App-Manager.html#List_Main_Page">List on the Main Page</a></li>
+        <li><a href="manual/zh/introduction/App-Manager.html#Application_Page">Application Page</a></li>
+        </ul>
+      </li>
+      <li><a href="manual/zh/introduction/App-Manager.html#Creating_Applications">Creating Applications</a></li>
+      <li>
+        <a href="manual/zh/introduction/App-Manager.html#Operations">Operations</a>
+        <ul>
+        <li><a href="manual/zh/introduction/App-Manager.html#Edit_Puzzles">Edit Puzzles</a></li>
+        <li><a href="manual/zh/introduction/App-Manager.html#Open_Folder">Open Folder</a></li>
+        <li><a href="manual/zh/introduction/App-Manager.html#Publish">Publish</a></li>
+        <li><a href="manual/zh/introduction/App-Manager.html#Upload_Archive">Upload Archive</a></li>
+        <li><a href="manual/zh/introduction/App-Manager.html#Update">Update</a></li>
+        <li><a href="manual/zh/introduction/App-Manager.html#Move_to_Trash">Move to Trash</a></li>
+        </ul> 
+      </li>
+    </ul>
+
+    
+
+    [anchor:Running_App_Manager]
+
+    <h2>Running App Manager</h2>
+
+    <p>
+    The App Manager is implemented as web pages shown by the locally-run web server, similar to WiFi router admin panel.
+    </p>
+
+    <img src="files/app-manager/app-manager-main.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    By default, the pages are served from the address <a href="http://localhost:8668/" target="_blank">localhost:8668</a>, which you can navigate to, refresh or bookmark. The server can be launched in several ways (see below).
+    </p>
+    
+
+
+    [anchor:From_Blender_Max_Maya]
+
+    <h3>A. From Blender, 3ds Max or Maya</h3>
+
+    <p>The local web server is started automatically when you launch your 3D tool with Verge3D plug-in installed. Upon clicking on the App Manager button (Blender) or menu option (Max, Maya), the App Manager page is shown in the web browser.</p>
+
+    <img src="files/beginner_guide/app-manager-blender.jpg" class="centered" style="max-width: 951px">
+    <img src="files/beginner_guide/app-manager-max.jpg" class="centered" style="max-width: 951px">
+
+    <p>
+    If the web server happens to be down for some reason (e.g. you closed the first launched instance of your 3D editor), this operator also restarts it.
+    </p>
+
+
+
+    [anchor:Using_Desktop_Application]
+
+    <h3>B. Using Desktop Application</h3>
+
+    <p>The local web server can be launched even without Blender, 3ds Max or Maya. Simply click on the desktop icon created by the Verge3D installer (Windows-only). The App Manager page will be immediately shown in the web browser.</p>
+
+    <img src="files/app-manager/app-manager-desktop-icon.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    If the web server is already running (e.g. you launched it from the 3D editor), this desktop application just opens the App Manager in the browser.
+    </p>
+
+
+
+    [anchor:In_Command_Line]
+
+    <h3>C. In Command-Line</h3>
+
+    <p>
+    Install Python 3, e.g. from <a href="https://www.microsoft.com/en-us/p/python-38/9mssztt1n39l" target="_blank">Microsoft Store</a>. Once you have Python 3 installed, launch *Command Prompt* and type:
+    </p>
+    
+    <code>
+    cd verge3d
+    </code>
+
+    <p>
+    (or whatever path you installed Verge3D in), and then for Blender version type:
+    </p>
+
+    <code>
+    python manager\server.py BLENDER
+    </code>
+
+    <p>
+    for Max version type:
+    </p>
+
+    <code>
+    python manager\server.py MAX
+    </code>
+
+    <p>
+    or for Maya:
+    </p>
+
+    <code>
+    python manager\server.py MAYA
+    </code>
+
+    <p>
+    Finally, open up the browser and navigate to <a href="http://localhost:8668/" target="_blank">localhost:8668</a> as usual. Users of maxOS or Linux can use the same commands, only with forward slashes.
+    </p>
+
+
+
+    [anchor:Exploring_Applications]
+
+    <h2>Exploring Applications</h2>
+
+
+    
+    [anchor:List_Main_Page]
+
+    <h3>List on the Main Page</h3>
+
+    <p>
+    Upon starting or refreshing the main page, the App Manager scans the folder *applications* in the installation directory, and displays all found folders as a list. If *External applications directory* is specified in App Manager settings, the folders from inside that directory are also appended to the bottom of the list.
+    </p>
+
+    <p>
+    For each application in the list, the App Manager displays all .html, .gltf/.glb and 3D editor save files (.blend, .max, .ma/.mb) found in an application folder. These files can be viewed by clicking on their icons.
+    </p>
+
+    <img src="files/app-manager/app-manager-list-files.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    Application lines which contain too many files are expandable through the triangle icon near app name.
+    </p>
+
+    <img src="files/app-manager/app-manager-list-files-expand.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    Applications can be filtered using the search field on the top.
+    </p>
+
+    <img src="files/app-manager/app-manager-search.jpg" class="centered" style="max-width: 800px">
+
+
+
+    [anchor:Application_Page]
+
+    <h3>Application Page</h3>
+
+    <p>
+    By clicking on the application name, a more elaborate page is shown.
+    </p>
+
+    <img src="files/app-manager/app-manager-list-app-link.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    On the application page, all files are listed with their names, also runnable. The files on this page are filterable via the search input.
+    </p>
+
+    <img src="files/app-manager/app-manager-app-page.jpg" class="centered" style="max-width: 1000px">
+
+
+
+    [anchor:Creating_Applications]
+
+    <h2>Creating Applications</h2>
+
+    <p>
+    A new application can be created using the button on the left bar.
+    </p>
+
+    <img src="files/app-manager/app-manager-create.jpg" class="centered" style="max-width: 569px">
+
+    <p>
+    You may type a name for the new application, and select a template from which the app will be created. By default, 3 templates are offered: Standard Light/Dark and Code-Based. More templates can be added for choosing from.
+    </p>
+
+    <img src="files/app-manager/app-manager-create-options.jpg" class="centered" style="max-width: 522px">
+
+    <p>
+    You can also include optional modules in the application to enable Internet Explorer 11 support, add compatibility with the legacy WebVR API, or include the physics engine in the application.
+    </p>
+
+    <p>
+    Once a new application is created, there will be shown a link which you may use to go to the application page (or you may just close it).
+    </p>
+
+    <img src="files/app-manager/app-manager-created.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    The new app will start being displayed in the main list.
+    </p>
+
+    
+
+    [anchor:Operations]
+
+    <h2>Operations</h2>
+
+
+
+    [anchor:Edit_Puzzles]
+
+    <h3>Edit Puzzles</h3>
+
+    <p>
+    You can start adding or editing Puzzles for an application by clicking the button in the 'operations' column on the main page:
+    </p>
+
+    <img src="files/app-manager/app-manager-run-puzzles-from-main.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    ... or by using the button on the right bar when on the application page:
+    </p>
+
+    <img src="files/app-manager/app-manager-run-puzzles-from-app-page.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    See more information on Puzzles <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html">here</a>.
+    </p>
+
+
+
+    [anchor:Open_Folder]
+
+    <h3>Open Folder</h3>
+
+    <p>
+    You can open the application folder by clicking the button in the 'operations' column on the main page:
+    </p>
+
+    <img src="files/app-manager/app-manager-open-folder-from-main.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    ... or by using the button on the right bar when on the application page:
+    </p>
+
+    <img src="files/app-manager/app-manager-open-folder-from-app-page.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    This operation will invoke the default file manager of your operating system (e.g. File Explorer on Windows 10).
+    </p>
+
+
+
+    [anchor:Publish]
+    
+    <h3>Publish</h3>
+
+    <p>
+    You can publish an application by clicking the button in the 'operations' column on the main page:
+    </p>
+
+    <img src="files/app-manager/app-manager-publish-from-main.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    ... or by using the button on the right bar when on the application page:
+    </p>
+
+    <img src="files/app-manager/app-manager-publish-from-app-page.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    This operation will start uploading the application to Verge3D Network (operation cancellable), so that it becomes available online. 
+    </p>
+
+    <img src="files/app-manager/app-manager-publish-cancel.jpg" class="centered" style="max-width: 300px">
+
+    <p class="note">
+    If uploading fails with the message "The difference between your local system time and the server time is too large", then you should correct time on your computer and try again.
+    </p>
+  
+    <p>
+    After uploading is complete, a window will be shown from which you can copy the link to your app or the embedding code.
+    </p>
+
+    <img src="files/app-manager/app-manager-publish-complete.jpg" class="centered" style="max-width: 642px">
+
+    <p>
+    You can also use social sharing buttons and QR code generator there.
+    </p>
+
+    <img src="files/app-manager/app-manager-publish-qrcode.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    Uploaded files can be inspected or removed on the Network Directory page.
+    </p>
+
+
+
+    [anchor:Upload_Archive]
+
+    <h3>Upload Archive</h3>
+
+    <p>
+    You can upload the zip archive of an application folder by using the button on the right bar when on the application page:
+    </p>
+
+    <img src="files/app-manager/app-manager-upload-archive-from-app-page.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    This operation will zip your application folder and will upload the archive to Verge3D Network (operation cancellable), so that it becomes available for sharing with your co-workers, clients or Verge3D developers. 
+    </p>
+
+    <p class="note">
+    If uploading fails with the message "The difference between your local system time and the server time is too large", then you should correct time on your computer and try again.
+    </p>
+
+    <p>
+    After uploading is complete, a window will be shown from which you can copy the link to the zip archive.
+    </p>
+
+    <!--
+    FIX UI FIRST!
+    <img src="files/app-manager/app-manager-upload-archive-complete.jpg" class="centered" style="max-width: 642px">
+    -->
+    
+    <p>
+    Uploaded files can be inspected or removed on the Network Directory page.
+    </p>
+    
+
+
+    [anchor:Update]
+
+    <h3>Update</h3>
+
+    <p>
+    If an application is based on an older version of Verge3D, a button for updating it becomes active in the 'operations' column on the main page:
+    </p>
+
+    <img src="files/app-manager/app-manager-update-from-main.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    The button will also appear on the right bar of the application page:
+    </p>
+
+    <img src="files/app-manager/app-manager-update-from-app-page.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    See more information on updating <a href="manual/zh/introduction/Updating.html">here</a>.
+    </p>
+
+
+
+    [anchor:Move_to_Trash]
+
+    <h3>Move to Trash</h3>
+
+    <p>
+    You can delete an application by clicking the button in the 'operations' column on the main page:
+    </p>
+
+    <img src="files/app-manager/app-manager-delete-from-main.jpg" class="centered" style="max-width: 800px">
+
+    <p>
+    ... or by using the button on the right bar when on the application page:
+    </p>
+
+    <img src="files/app-manager/app-manager-delete-from-app-page.jpg" class="centered" style="max-width: 1000px">
+
+    <p>
+    The application is moved to the system Trash from which it is possible to restore it.
+    </p>
+
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

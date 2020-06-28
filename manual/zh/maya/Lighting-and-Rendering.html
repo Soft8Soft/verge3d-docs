@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Verge3D for Maya: Lighting and Rendering - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to configure environment lighting, lights and rendering settings in Verge3D for Maya."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Lighting and Rendering / Maya</h1>
+
+    <p>
+      This page contains the information about lighting, rendering and background settings which can be used with Verge3D for Maya.
+    </p>
+
+    <h2>Contents</h2>
+
+    <ul>
+      <li><a href="manual/zh/maya/Lighting-and-Rendering.html#Renderers">Renderers</a></li>
+      <li><a href="manual/zh/maya/Lighting-and-Rendering.html#Environment_Lighting">Environment Lighting</a></li>
+      <li><a href="manual/zh/maya/Lighting-and-Rendering.html#Lights">Lights</a></li>
+      <li><a href="manual/zh/maya/Lighting-and-Rendering.html#Background">Background</a></li>
+      <li><a href="manual/zh/maya/Lighting-and-Rendering.html#Settings">Per-Object Rendering Settings</a></li>
+    </ul>
+
+
+    [anchor:Renderers]
+
+    <h2>Renderers</h2>
+
+    <p>
+      Verge3D is designed to represent Maya's Viewport 2.0 hardware renderer as closely as possible. It supports physically-based shading, lights, shadows and image-based lighting (IBL).
+    </p>
+
+
+    [anchor:Environment_Lighting]
+
+    <h2>Environment Lighting</h2>
+
+    <p>
+      Environment lighting is a very important component of Verge3D graphics pipeline. You can illuminate your entire scene with just an environment map alone, without using any light objects. See the <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">Scooter demo</a> as an example of this approach.
+    </p>
+
+    <p>
+      The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. To do so, simply append Arnold's *aiSkyDomeLight* object to your scene and assign some HDR texture to it as *Color*. In addition, you may use the *Intensity* attribute to tweak intensity of your environment lighting.
+    </p>
+
+    <img src="files/lighting-maya/ai-sky-dome-light.jpg" class="centered" style="max-width: 832px">
+
+    <p>
+      When using HDR texture, make sure you set the *Color Space* setting to *Raw*.
+    </p>
+
+    <img src="files/lighting-maya/ai-sky-dome-light-setup.jpg" class="centered" style="max-width: 458px">
+
+    <p class="note">
+      You can also *aiSkyDomeLight* without any texture to simulate light coming evenly from all directions. However, it's much more efficient to use Ambient Lights for that.
+    </p>
+
+    [anchor:Lights]
+
+    <h2>Lights</h2>
+
+    <p>
+      In some cases, using just image-based lighting to illuminate your scene is not enough. If you'd like to simulate some additional light source, need dynamic shadows, or if you need to move your lights (as with car lights), you may use <a href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2020/ENU/Maya-LightingShading/files/GUID-3B4D131E-D001-4415-8BF9-250612C3A81D-htm.html" target="_blank">direct light sources</a>.
+    </p>
+
+    <p>
+      Verge3D supports the following light types:
+    </p>
+
+    <ul>
+      <li>*Ambient Lights* - *Color* and *Intensity* attributes are supported in Verge3D.</li>
+      <li>*Directional Lights* - *Color* and *Intensity* attributes are supported in Verge3D.</li>
+      <li>*Point Lights* - *Color*, *Intensity* and *Decay Rate* attributes are supported in Verge3D.</li>
+      <li>*Spot Lights* - *Color*, *Intensity*, *Decay Rate*, *Cone Angle* and *Penumbra Angle* attributes are supported in Verge3D.</li>
+    </ul>
+
+    <p>In addition, you can assign Depth Map Shadow Attributes on Directional, Point and Spot lights. See <a href="manual/zh/maya/Shadows.html">here</a> for more info.
+
+
+    [anchor:Background]
+
+    <h2>Background</h2>
+
+    <p>
+      By default Verge3D renders the same background you see in Maya's Viewport (grey in most cases). When using image-based lighting (provided by *aiSkyDomeLight* objects) you see the environment texture instead.
+    </p>
+
+
+    <p>
+      To change your background to some other color, do not edit Viewport settings in Maya, simply assign *Background Color* and enable the *Render Background* attribute on your main camera:
+    </p>
+
+    <img src="files/lighting-maya/render-background.jpg" class="centered" style="max-width: 443px">
+
+    <p class="note">
+      You can use Maya's *Render View* window or Verge3D's *Sneak Peek* feature to preview the scene with custom background.
+    </p>
+
+
+    [anchor:Settings]
+
+    <h2>Per-Object Rendering Settings</h2>
+
+    <p>
+      Verge3D supports the following additional rendering settings for your geometry objects:
+    </p>
+
+    <img src="files/lighting-maya/rendering-settings.jpg" class="centered" style="max-width: 454px">
+
+    <p>
+      *Render Order* - modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
+    </p>
+
+    <p>
+      *Frustum Culling* - enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
+    </p>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+
+  </article></body>
+</html>

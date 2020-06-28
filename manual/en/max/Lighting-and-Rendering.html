@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Verge3D for 3ds Max: Lighting and Rendering - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This page contains the information about 3ds Max' Lighting and rendering settings supported in Verge3D."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Lighting and Rendering / 3ds Max</h1>
+
+    <p>
+    This page contains the information about 3ds Max' lighting and rendering settings which can be used with Verge3D.
+    </p>
+
+    [contents]
+
+
+    [anchor:renderers]
+
+    <h2>Renderers</h2>
+
+    <p>
+    Verge3D supports two renderers provided by 3ds Max: *Scanline* (default) and *ART* (recommended). The Scanline renderer is intended for use with Standard lights and materials, while the ART is typically used with Photometric lights and Physical materials.
+    </p>
+
+    <p>
+    Choosing the right renderer is the first thing you should consider before starting to work with graphics. If you are not sure which renderer to choose, we recommend using ART. In order to set the renderer in 3ds Max, use the <a href="manual/en/max/Viewport-Render-Preview.html#Scanline_ART_Rendering">"Render Setup..."</a> window.
+    </p>
+
+
+
+    [anchor:environment_lighting]
+
+    <h2>Environment Lighting</h2>
+
+    <p>
+    Environment lighting is a very important component of Verge3D graphics pipeline based on ART/Physical materials. You may illuminate your scene with an environment map alone, without using any light objects (as in the <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">Scooter demo</a>).
+    </p>
+
+    <iframe class="video-480p" src="https://www.youtube.com/embed/TqqdzI5kgH0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>
+    The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch as shown in this <a href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">video</a>.
+    </p>
+
+
+
+    [anchor:lights]
+
+    <h2>Lights</h2>
+
+    <p>
+    If you'd like to have dynamic shadows in your scene, or if you need to move the source of light (as with car lights), you may utilize <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2020/ENU/3DSMax-Lighting-Shading/files/GUID-57B15284-C5F3-46A8-BBD3-6333FE5E80DE-htm.html" target="_blank">light objects</a>.
+    </p>
+
+    <p>
+    Verge3D supports two types of lights provided by 3ds Max: *standard* and *photometric*.
+    </p>
+
+
+
+    [anchor:standard_lights]
+
+    <h3>Standard Lights</h3>
+
+    <p>
+    Standard lights are typically used with <a href="manual/en/max/Materials-Maps-Reference.html#Standard">Standard materials</a>. Verge3D reproduces them by using 3ds Max' Scanline renderer as reference.
+    </p>
+
+
+
+    [anchor:photometric_lights]
+
+    <h3>Photometric Lights</h3>
+
+    <p>
+    Photometric lights are typically used with <a href="manual/en/max/Materials-Maps-Reference.html#Physical">Physical materials</a>. Verge3D reproduces them by using 3ds Max' ART renderer as reference. In addition, you may use Physical Camera <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2020/ENU/3DSMax-Rendering/files/GUID-E1A6D466-CABB-4C8A-97A9-0C191C69F9BD-htm.html" target="_blank">Expose Control</a> settings to tweak the brightness and color range of your renderings.
+    </p>
+
+
+    [anchor:per_object_rendering_settings]
+
+    <h2>Per-Object Rendering Settings</h2>
+
+    <img src="files/lighting-max/rendering-settings.jpg" class="centered" style="max-width: 319px">
+
+    <p>*Render Order* — modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.</p>
+
+    <p>*Frustum Culling* — enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.</p>
+
+
+    [anchor:global_rendering_settings]
+
+    <h2>Global Rendering Settings</h2>
+
+    <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (<strong>Verge3D->Export Settings...</strong> in 3ds Max menu).</p>
+
+    <img src="files/lighting-max/rendering-settings-global.jpg" class="centered" style="max-width: 252px">
+
+    <p><strong>Anti-Aliasing</strong> — select what anti-aliasing algorithm to use for the scene:</p>
+
+    <ul>
+      <li>*Auto* — use system default method.</li>
+      <li>*MSAA 4x* — prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</li>
+      <li>*MSAA 8x* — prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</li>
+      <li>*MSAA 16x* — prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</li>
+      <li>*FXAA* — force FXAA.</li>
+    </ul>
+
+    <p>*Use HDR Rendering* — enable high-dynamic-range rendering.</p>
+
+    <p>*Environment Map Size* — texture size to use for environment lighting:</p>
+
+    <ul>
+      <li>*256* — optimum quality with low memory consumption (default value).</li>
+      <li>*512* — better quality with moderate memory consumption and reduced performance. Use it to render high quality reflections e.g for rendering jewelry.</li>
+      <li>*1024* — best quality with high memory consumption and low performance (generally not recommended).</li>
+    </ul>
+
+    <p>*IBL Environment Mode*</p>
+
+    <ul>
+      <li><strong>PMREM (slow)</strong> — high quality (default value).</li>
+      <li><strong>Light Probe + Cubemap (medium)</strong> — reduced quality of image-based specular reflections, better performance.</li>
+      <li><strong>Light Probe (fast)</strong> — disabled image-based specular reflections, highest performance.</li>
+    </ul>
+
+    <p>*Object Outlining* — see below.</p>
+
+
+    [anchor:outline_rendering]
+
+    <h2>Outline Rendering</h2>
+
+    <p>
+      Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
+    </p>
+
+    <p>
+      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect in the *Verge3D Export Settings* dialog, then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
+    </p>
+
+    <p class="note">
+      The outline rendering does not work inside AR/VR sessions. Use other methods to highlight your objects, such as animation or changing material's color.
+    </p>
+
+    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+
+    <p>You can tweak outlining using the following properties:</p>
+
+    <p>*Enabled* — enable/disable the effect.</p>
+
+    <p>*Edge Strength* — outlining strength factor.</p>
+
+    <p>*Edge Glow* — intensity of additional glowing (rendered beyond the main outline edge).</p>
+
+    <p>*Edge Thickness* — outline edge thickness factor.</p>
+
+    <p>*Pulse Period* — pulse period in seconds. Specify to make the effect animated.</p>
+
+    <p>*Visible Edge Color* — visible edge color.</p>
+
+    <p>*Hidden Edge Color* — color of the outline edge being rendered behind any other scene objects.</p>
+
+    <p>*Render Hidden Edge* — enable/disable rendering of the outline edge behind other scene objects.</p>
+
+    <p class="note">Though it's possible to render glowing objects, in the most cases the outline rendering is used to improve visual clarity of your scene. If you need glowing from lamps or another bright objects, consider using the <a href="manual/en/puzzles/Postprocessing.html#bloom">bloom post-processing</a> instead.</p>
+
+
+    [anchor:exposure_control]
+
+    <h2>Exposure Control</h2>
+
+    <p>Verge3D for 3ds Max supports the following exposure control algorithms:</p>
+
+    <ul>
+      <li>*Physical Camera Exposure Control*</li>
+      <li>*Logarithmic Exposure Control*</li>
+    </ul>
+
+    <p>See the Autodesk's official <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2021/ENU/3DSMax-Rendering/files/GUID-E1A6D466-CABB-4C8A-97A9-0C191C69F9BD-htm.html" target="_blank">documentation</a> for more information on how to configure exposure controls for your scene.</p>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+
+  </article></body>
+</html>

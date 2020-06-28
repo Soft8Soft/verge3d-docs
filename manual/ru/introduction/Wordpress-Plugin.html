@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Verge3D WordPress plugin - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to setup and use the Verge3D WordPress plugin for the purposes of publishing and e-commerce."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body><article>
+    <h1>WordPress Plugin</h1>
+
+    <p>
+    Verge3D comes with a plugin for WordPress, the most popular content management system (CMS) in use (60+ million installations).
+    </p>
+    <p>Verge3D for WordPress plugin offers the following features:</p>
+    <ul>
+      <li>Application hosting and publishing (embedding).</li>
+      <li>Integration with WooCommerce system.</li>
+      <li>Persistent file storage.</li>
+      <li>Generic e-commerce system for processing customer orders, submitted using the <a href="manual/ru/puzzles/Misc.html#place_order" target="_parent">place order</a> puzzle.</li>
+      <li>Fully customizable e-commerce system for processing orders submitted in JSON format by the <a href="manual/ru/puzzles/Misc.html#send_data" target="_parent">send data</a> puzzle.</li>
+    </ul>
+    <p>These features can work independently on each other. For example, you might want just the embedding, or you can handle orders received from a Verge3D application hosted somewhere else (such as on Verge3D Network etc).</p>
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+    [anchor:Sandbox]
+
+    <h2>Plugin Sandbox</h2>
+
+    <p>To try out the features of the plugin please check out the <a href="https://sandbox.soft8soft.com" target="_blank">Verge3D for WordPress sandbox</a>. It provides a safe environment that you can use to test your Verge3D apps.</p>
+
+
+    [anchor:Installation]
+
+    <h2 id="installation">Installation</h2>
+
+    <p>Before installing the plugin, make sure you have at least WordPress 4.7. To upload applications on your server you need to have a modern browser such as Google Chrome, Firefox, Edge or Safari 11.1+.</p>
+
+    <p>To install, simply:</p>
+
+    <ul>
+      <li>Click <strong>Add New</strong> on the Plugins settings page from your WordPress admin dashboard.</li>
+      <li>Find the Verge3D plugin in the official WordPress.org <a href="https://wordpress.org/plugins/verge3d/" target="_blank">repository</a> and install it.</li>
+      <li>Activate the plugin. <strong>Verge3D</strong> menu should appear in the admin panel.</li>
+    </ul>
+
+    <p>In some cases, you might need to install the plugin from the Verge3D distribution (for example, when you're going  to try a new feature available in the pre-release version of Verge3D). To do so, follow these steps:</p>
+    <ul>
+      <li>Upload the plugin archive from <em>verge3d/wordpress/verge3d.zip</em> via WordPress admin interface.</li>
+      <li>Activate the plugin in the <strong>Plugins</strong> menu. <strong>Verge3D</strong> menu should appear in the admin panel.</li>
+    </ul>
+
+    <p>After activation, try to upload some of your apps or create a test order to verify that plugin works as expected.</p>
+
+    <p class="note">
+      Please note, that your WordPress server configuration might have tight upload limits. If you experience troubles during uploading of your apps, you need to tweak the following settings in your php.ini file:
+      <code>upload_max_filesize = 128M
+post_max_size = 128M</code>
+      Check out the official <a href="http://php.net/manual/ru/ini.core.php" target="_blank">PHP documentation</a> for more info about php.ini configuration.
+    </p>
+
+    [anchor:Uploading_Applications]
+
+    <h2>Uploading Applications</h2>
+
+    <p>Use the <strong>Applications</strong> admin menu to access <strong>Verge3D Applications</strong> screen:</p>
+    <img src="files/wordpress/app.png">
+
+    <p>To upload your app, click <strong>Edit</strong> just under an application's title, click <strong>Choose Files</strong> and select an application folder in the <strong>Update Verge3D Application</strong> form:</p>
+    <img src="files/wordpress/update_app.png" style="max-width: 819px;">
+
+    <p>On this form you can also configure iframe (canvas) size of your application and allow/deny using the fullscreen mode.</p>
+    <p>To embed Verge3D applications in your WordPress pages/posts use the following shortcode:</p>
+
+    <code>[verge3d id="YOUR_APP_ID"]</code>
+
+    <p>where <em>YOUR_APP_ID</em> is an ID of your application displayed in the table on the <strong>Verge3D Application</strong> screen.</p>
+
+    [anchor:WooCommerce]
+
+    <h2>Integrating with WooCommerce</h2>
+
+    <p>WooCommerce is a popular e-commerce system which powers over 28% of all online stores. As of version 2.16, Verge3D offers a seamless integration with WooCommerce via this WordPress plugin and e-commerce puzzles.</p>
+
+    <p>Please refer to <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial article</a> for the info on how to use this feature. You may also check out the following <a href="https://www.youtube.com/watch?v=dJdUKwSxA8c" target="_blank">video</a>.</p>
+
+    [anchor:Uploading_Files]
+
+    <h2>Uploading Files</h2>
+
+    <p>This feature allows the users to persistently store content created in Verge3D applications, such as taken screenshots, uploaded textures, and saved configurations.</p>
+
+    <p>To upload your file on the server use the following REST API method:</p>
+
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/upload_file/</code>
+
+    <p>Where HOSTNAME is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
+
+    <p>Upon success this method returns the following JSON file with the info on the uploaded file:</p>
+    <code>
+    {
+        "id": THE_ID_OF_THE_UPLOADED_FILE,
+        "link": LINK_TO_THE_UPLOADED_FILE,
+        "size": FILE_SIZE
+    }</code>
+
+    <p>Use the link provided in the request to retrieve your file or use the ID and <em>get_file</em> REST API method:</p>
+
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/get_file/ID</code>
+
+    <h3>Using Puzzles</h3>
+
+    <p>Use the <strong>send data</strong> and <strong>loaded data</strong> puzzles to upload your files. Parse the JSON fields of the API response by using the <strong>in dict ... get key ...</strong> puzzle.</p>
+    <p>The example below uploads the user-selected file specified in the "opened file" puzzle to the Soft8Soft sandbox and then saves the web address to that file in the <strong>link</strong> variable:</p>
+
+    <img src="files/wordpress/send_load_puzzles.png">
+
+    <p>To retrieve/download your files use the <strong>load data</strong> and <strong>loaded data</strong> puzzles.</p>
+
+    [anchor:Receiving_Basic_Orders]
+
+    <h2>Receiving Basic Orders</h2>
+
+    <p>To handle regular orders sent by your Verge3D applications (by the <strong>place order</strong> puzzle), add an order form to some of your WordPress page/post using the following shortcode:</p>
+
+    <code>[verge3d_order]</code>
+
+    <p>Then specify the link to that page/post as the "send to" parameter of the "place order" puzzle. Each time this puzzle is executed, your app will redirect users to your order form:</p>
+
+    <img src="files/wordpress/order_form.png" style="max-width: 500px;">
+
+    [anchor:Managing_Orders]
+
+    <h2>Managing Orders</h2>
+
+    <p>Use the <strong>E-Commerce</strong> admin menu to access <strong>E-Commerce Orders</strong> screen:</p>
+
+    <img src="files/wordpress/orders.png">
+
+    <p>The orders in this list are created automatically upon receiveing requests from Verge3D applications. You can use this screen for reviewing and managing customer orders.</p>
+
+    [anchor:Advanced_E_Commerce_Applications]
+
+    <h2>Advanced E-Commerce Applications</h2>
+
+    <p>In some cases you might want to extend the functionality of your e-commerce system. For example, if you develop a 3D configurator or require more info from your clients to handle orders properly, you need to add more data to the request as well as handle this data on the server. For such cases, you need to encode your data in the JSON format using the "send data" puzzle and then create custom template forms for your e-commerce system.</p>
+
+    <p>Say you want to create a basic table customizer. This is how your data might look like:</p>
+
+    <code>
+    {
+        "width": 120,
+        "length": 150,
+        "height": 100,
+        "color": "Redwood",
+        "title": "Custom Table",
+        "price" 100,
+        "user_name", "John Smith",
+        "user_email", "john.smith@example.com",
+        "user_phone", "+123456789"
+    }</code>
+
+    <p>You can compose this structure using the dictionary puzzles and then send it to the server using the "send data" puzzle. After that, you need to create custom templates for your order management admin page as well as emails which will be sent to your customers and sales stuff. To do so, copy the following source templates to your WP theme directory under the <em>verge3d</em> subdirectory:</p>
+
+    <code class="language-html">
+WORDPRESS/wp-content/plugins/verge3d/templates/order_admin_form.php -> THEME/verge3d
+WORDPRESS/wp-content/plugins/verge3d/templates/order_email_body.php -> THEME/verge3d
+    </code>
+
+    <p>Where WORDPRESS is the root directory of your WordPress installation and THEME is the directory of your current theme. Edit these files according to the structure specified for your order.</p>
+
+    <p>The last part is to assign a proper URL for your "send data" puzzle. This one looks like:</p>
+
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/place_order/</code>
+
+    <p>Where HOSTNAME is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
+
+    [anchor:Plug_in_Settings]
+
+    <h2>Plugin Settings</h2>
+
+    <p>Use <strong>Settings</strong> admin menu to modify the plugin global settings:</p>
+    <img src="files/wordpress/settings.png">
+
+    <p><strong>Order notification e-mail</strong> option is used to specify an e-mail address of the person responsible for managing orders. When a customer places a new order, you will be notified about this order on this e-mail.</p>
+    <p><strong>Order e-mail "From"</strong> option is used to specify a name/e-mail of a person/organisation that is responsible for communicating with the customer. This can be a sales manager e-mail, some common address such as <em>sales@yourcompany.com</em> or just a no-reply address such as <em>noreply@yourcompany.com</em>.</p>
+    <p><strong>Order e-mail PDF attachments</strong> options are used to enable PDF attachment in your order e-mails. This attachment includes order content in a printer-friendly format.</p>
+    <p>To use this feature properly you need to install Chrome/Chromium browser on your server. It will be operated in the so-called <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" target="_blank">headless mode</a> to convert HTML orders to PDF format. Specify the path to the Chrome/Chromium executable if you installed it in some custom directory or leave the path field blank if you installed it system-wide.</p>
+    <p>Please note, that it order to install Chrome system-wide you need to have admin access to the server. If you don't, download <a href="https://www.chromium.org/getting-involved/download-chromium" target="_blank">latest Chromium build</a>, unpack it in some user-accessible directory on your server and then specify the path to the Chromium executable in the path field (e.g <em>/home/ubuntu/chrome-linux/chrome)</em>.</p>
+
+    <p><strong>Enable REST APIs</strong> options are used to enable/disable the order management and persistent file storage APIs provided by the plugin.</p>
+    <p><strong>Cross-domain requests</strong> options is used to enable/disable cross-domain (originated from different hosts) requests to the REST APIs provided by the plugin.</p>
+
+    [anchor:Customizing_E_Commerce_Forms]
+
+    <h2>Customizing E-Commerce Forms</h2>
+
+    <p>To modify e-commerce forms copy the form templates located in the <em>templates</em> directory of the Verge3D plugin to your WordPress theme directory under the <em>verge3d</em> subdirectory.</p>
+
+    <p>For example, if you need to modify order email template:</p>
+
+    <code class="language-html">WORDPRESS/wp-content/plugins/verge3d/templates/order_email_body.php -> THEME/verge3d</code>
+
+    <p>Where WORDPRESS is the root directory of your WordPress installation and THEME is the directory of your current theme.</p>
+
+    <p>Here is the list of templates you can customize:</p>
+
+    <table style="width:100%">
+      <tr>
+        <th>Template File</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>order_admin_form.php</td>
+        <td>Order management form on the WordPress admin dashboard.</td>
+      </td>
+      <tr>
+        <td>order_email_body.php</td>
+        <td>Order email body template. This template used both for order notifications sent to you and to your customers.</td>
+      </td>
+      <tr>
+        <td>order_email_pdf.php</td>
+        <td>Order email PDF attachment template. This template is used to generate HTML files which will be converted to PDF and attached to order emails.</td>
+      </td>
+      <tr>
+        <td>order_form.php</td>
+        <td>Order form template. This form is displayed to you customers on the pages where <strong>[verge3d_order]</strong> shortcode is present.</td>
+      </td>
+      <tr>
+        <td>order_success.php</td>
+        <td>Message displayed when the order was accepted.</td>
+      </tr>
+      <tr>
+        <td>order_failed.php</td>
+        <td>Message displayed when the order was rejected.</td>
+      </td>
+    </table>
+
+    <h3>Security Measures</h3>
+
+    <p>When using custom forms for your e-commerce applications be sure to properly escape output data sent by your customers. Use the following <a href="https://developer.wordpress.org/plugins/security/securing-output/" target="_blank">guide</a> for more info.</p>
+
+    [anchor:E_Commerce_Protocol_Specification]
+
+    <h2>E-Commerce Protocol Specification</h2>
+
+    <p class="note">This section is intended for users with advanced server-side coding experience.</p>
+
+    <p>The "place order" puzzle uses basic protocol to handle orders. Orders are sent from the browser to server using HTTP POST requests with the following parameters:</p>
+
+    <table style="width:100%">
+      <tr>
+        <th>POST parameters</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>v3d_title</td>
+        <td>Order title. This field is used to describe the order. Since this value is of no use to customers, it is of use solely for persons that are responsible for handling orders.</td>
+      </tr>
+      <tr>
+        <td>v3d_content</td>
+        <td>Order content. This text field includes a complete order information and is visible to both the customer and the sales manager.</td>
+      </tr>
+      <tr>
+        <td>v3d_price</td>
+        <td>Order total price. It can be a number or a string, for example 99, 99.99, "$99.99".</td>
+      </tr>
+      <tr>
+        <td>v3d_screenshot</td>
+        <td>Order screenshot. This optional value must be a data URI representing an image. This value is generated by the <strong>HTMLCanvasElement.toDataURL()</strong> method.</td>
+      </tr>
+    </table>
+
+    <br>
+    <p>The more advanced JSON-based protocol uses the following set of default parameters:</p>
+
+    <table style="width:100%">
+      <tr>
+        <th>JSON fields</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>Order title. This field is used to describe the order. Since this value is of no use to customers, it is of use solely for persons that are responsible for handling orders.</td>
+      </tr>
+      <tr>
+        <td>price</td>
+        <td>Order total price. It can be a number or a string, for example 99, 99.99, "$99.99".</td>
+      </tr>
+      <tr>
+        <td>user_name</td>
+        <td>Customer's full name.</td>
+      </tr>
+      <tr>
+        <td>user_email</td>
+        <td>Customer's e-mail address.</td>
+      </tr>
+      <tr>
+        <td>user_phone</td>
+        <td>Customer's phone number.</td>
+      </tr>
+      <tr>
+        <td>user_comment</td>
+        <td>Order comments.</td>
+      </tr>
+      <tr>
+        <td>screenshot</td>
+        <td>Order screenshot. This optional value must be a data URI representing an image. This value is generated by the <strong>HTMLCanvasElement.toDataURL()</strong> method.</td>
+      </tr>
+    </table>
+
+    <br>
+    <p>Since this protocol is extensible you can add any parameters you want such as additional configuration options, product properties, shipping address, billing info, taxes, discounts etc.</p>
+
+  [anchor:Got_Questions]
+
+  <h2>Got Questions?</h2>
+
+  <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+
+  </article></body>
+</html>
