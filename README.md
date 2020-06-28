@@ -20,9 +20,9 @@ npm install
 const LANGUAGES = ['en', 'ru', 'zh', 'PUT_YOUR_LANGUAGE_HERE']
 ```
 
-5. Execute generated script:
+6. Execute generated script:
 ```
 node generate.js
 ```
 
-6. Check out the generated manual in the *output* directory.
+7. Check out the generated manual in the *output* directory.
