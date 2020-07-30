@@ -95,7 +95,7 @@ var list = {
                 "Procedures": "manual/en/puzzles/Procedures",
                 "System": "manual/en/puzzles/System",
                 "E-Commerce": "manual/en/puzzles/ECommerce",
-                "Misc": "manual/en/puzzles/Misc",
+                "Advanced": "manual/en/puzzles/Advanced",
                 "Library": "manual/en/puzzles/Library"
             },
 
@@ -162,6 +162,7 @@ var list = {
 
             "Constants": {
                 "Animation": "api/en/constants/Animation",
+                "Controls": "api/en/constants/Controls",
                 "Core": "api/en/constants/Core",
                 "CustomBlendingEquation": "api/en/constants/CustomBlendingEquations",
                 "Materials": "api/en/constants/Materials",
@@ -575,7 +576,7 @@ var list = {
                 "Procedures": "manual/ru/puzzles/Procedures",
                 "System": "manual/ru/puzzles/System",
                 "E-Commerce": "manual/ru/puzzles/ECommerce",
-                "Misc": "manual/ru/puzzles/Misc",
+                "Advanced": "manual/ru/puzzles/Advanced",
                 "Library": "manual/ru/puzzles/Library"
             },
 
@@ -1041,7 +1042,7 @@ var list = {
                 "Procedures": "manual/zh/puzzles/Procedures",
                 "System": "manual/zh/puzzles/System",
                 "E-Commerce": "manual/zh/puzzles/ECommerce",
-                "Misc": "manual/zh/puzzles/Misc",
+                "Advanced": "manual/zh/puzzles/Advanced",
                 "Library": "manual/zh/puzzles/Library"
             }
 

@@ -140,7 +140,58 @@
 
     <h3>query selector</h3>
 
-    <p>Returns the first HTML element that matches a specified CSS selector.</p>
+    <p>Returns the first HTML element that matches a specified <a href="https://www.w3schools.com/cssref/css_selectors.asp" target="_blank">CSS selector</a>.</p>
+
+    <img src="files/puzzles/puzzles-html-query-selector.jpg">
+
+
+    [anchor:create_canvas_elem]
+
+    <h3>create canvas elem</h3>
+
+    <p>Creates a canvas element with *id*, *width*, and *height* attributes. Use this puzzle with <a href="manual/en/puzzles/Materials.html#replace_texture">replace texture</a> to create canvas textures.</p>
+
+    <img src="files/puzzles/puzzles-html-create-canvas-elem.jpg">
+
+    <p>Once created, the canvas becomes available for drawing on it via JavaScript. You can update the canvas inside the runCode() function of your_app_name.js module. To do this, retrieve the canvas texture by its ID specified in the puzzle:</p>
+
+    <code>
+    var canvasTex = v3d.puzzles.canvasTextures['my_canvas'];
+    </code>
+
+    <p>After that, you can access the HTML canvas element as follows:</p>
+
+    <code>
+    var canvas = canvasTex.image;
+    </code>
+
+    <p>You can use the standard methods available for drawing on the HTML canvas. For example, the following listing draws a blue smiling face on white background:</p>
+
+    <code>
+    var ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = 'white';
+    ctx.strokeStyle = 'blue';
+
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+    ctx.moveTo(110, 75);
+    ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
+    ctx.moveTo(65, 65);
+    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
+    ctx.moveTo(95, 65);
+    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
+    ctx.stroke();
+
+    </code>
+
+    <p>Finally, if you’d like the updates to become immediately visible in the 3D rendering, you should mark the canvas texture as dynamic:</p>
+
+    <code>
+    canvasTex.needsUpdate = true;
+    </code>
 
 
     [anchor:draw_line]
@@ -198,50 +249,27 @@
     <img src="files/puzzles/puzzles-html-init-fullscreen.jpg">
 
 
+    [anchor:open_web_page]
 
-    [anchor:get_url_data]
-
-    <h3>get URL data</h3>
-
-    <p>
-    Retrieves URL data of the window to which an application is loaded:
-    </p>
+    <h3>open web page</h3>
 
     <p>
-    <ul>
-    <li>
-    *Entire URL* - text, e.g. "https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg"
-    </li>
-    <li>
-    *Parameters* - dictionary, e.g. {"image_url": "https://www.uploadserver.com/path/to/image.jpg"}
-    </li>
-    <li>
-    *Host name* - text, e.g. "www.example.com"
-    </li>
-    </ul>
-    The "in parent doc" checkbox should be enabled if the window of an external HTML document is required (in which Verge3D application's <strong>.html</strong> file is embedded using <strong>iframe</strong>).
+    When this puzzle is triggered, a specified URL is opened in a new or in the same browser tab depending on the drop-down selection. When triggered from the Puzzles editor, it will ask for a user confirmation before leaving the tab.
     </p>
 
-    <img src="files/puzzles/puzzles-html-get-url-data.jpg">
+    <img src="files/puzzles/puzzles-html-open-web-page.jpg">
+
+
+
+    [anchor:social_share_link]
+
+    <h3>social share link</h3>
 
     <p>
-    This puzzle may be useful in situations when the configuration data of an application are stored in its URL. For example, you can specify an image to be used as a texture in the following way:
+    Generates a link for sharing your application in popular social media.
     </p>
 
-    <pre class="prettyprint"><code class="language-html">
-    https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
-    </code></pre>
-
-    <p>
-    Then you can retrieve the *image_url* parameter, load and apply the texture as follows:
-    </p>
-
-    <img src="files/puzzles/puzzles-html-get-url-data-example.jpg">
-
-    <p>
-    See the *Custom Image* demo in your Verge3D distribution for a working example.
-    </p>
-
+    <img src="files/puzzles/puzzles-html-social-share-link.jpg">
 
 
     [anchor:set_url_param]
@@ -291,6 +319,54 @@
     <p>
     You should also enable screenshots for your app using the <a href="manual/en/puzzles/Initialization.html#configure_application">configure application</a> puzzle, otherwise black images will be produced.
     </p>
+
+
+
+
+
+    [anchor:get_url_data]
+
+    <h3>get URL data</h3>
+
+    <p>
+    Retrieves URL data of the window to which an application is loaded:
+    </p>
+
+    <p>
+    <ul>
+    <li>
+    *Entire URL* - text, e.g. "https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg"
+    </li>
+    <li>
+    *Parameters* - dictionary, e.g. {"image_url": "https://www.uploadserver.com/path/to/image.jpg"}
+    </li>
+    <li>
+    *Host name* - text, e.g. "www.example.com"
+    </li>
+    </ul>
+    The "in parent doc" checkbox should be enabled if the window of an external HTML document is required (in which Verge3D application's <strong>.html</strong> file is embedded using <strong>iframe</strong>).
+    </p>
+
+    <img src="files/puzzles/puzzles-html-get-url-data.jpg">
+
+    <p>
+    This puzzle may be useful in situations when the configuration data of an application are stored in its URL. For example, you can specify an image to be used as a texture in the following way:
+    </p>
+
+    <pre class="prettyprint"><code class="language-html">
+    https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
+    </code></pre>
+
+    <p>
+    Then you can retrieve the *image_url* parameter, load and apply the texture as follows:
+    </p>
+
+    <img src="files/puzzles/puzzles-html-get-url-data-example.jpg">
+
+    <p>
+    See the *Custom Image* demo in your Verge3D distribution for a working example.
+    </p>
+
 
 
 

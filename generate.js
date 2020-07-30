@@ -60,7 +60,7 @@ function generate() {
 
             var navigation = createNavigation(list, lang, section, index);
 
-            pagePromises.push(writePage(index, navigation, sitemap));
+            pagePromises.push(writePage(index, lang, navigation, sitemap));
 
             var categories = localeList[section];
 
@@ -69,7 +69,7 @@ function generate() {
 
                 for (var pageName in pages) {
                     var pageFile = pages[pageName] + '.html';
-                    pagePromises.push(writePage(pageFile, navigation, sitemap));
+                    pagePromises.push(writePage(pageFile, lang, navigation, sitemap));
                 }
             }
         }
@@ -122,7 +122,7 @@ function copyOutput(inFileOrDir, outFileOrDir) {
 }
 
 
-function writePage(pageFile, navigation, sitemap) {
+function writePage(pageFile, lang, navigation, sitemap) {
 
     return JSDOM.fromFile(path.join(__dirname, pageFile)).then(function(dom) {
 
@@ -238,7 +238,7 @@ function writePage(pageFile, navigation, sitemap) {
             <div class="copyright">© <a href="https://www.soft8soft.com/" target="_blank">Soft8Soft – 3D Solutions for the Web</a><div>Last updated on ${now.toDateString()}</div></div>
         `));
 
-        var pageText = resolveTemplates(dom.serialize(), pageTitle, pageFile);
+        var pageText = resolveTemplates(dom.serialize(), pageTitle, pageFile, lang);
 
         if (sitemap) {
             // changefreq and priority ignored by Google
@@ -291,7 +291,7 @@ function createImgLicenseData(dom) {
         return null;
 }
 
-function resolveTemplates(text, name, path) {
+function resolveTemplates(text, name, path, lang) {
 
     var pathOrigRel = path.replace(/^\//,'');
 
@@ -305,19 +305,31 @@ function resolveTemplates(text, name, path) {
 
         // remove locale
         if (section == 'manual' || section == 'api')
-            path = path.replace(/^[A-z0-9-]+\//, '');
-    }
+            path = path.replace(/^[A-z0-9-]+\//, ''); }
 
     text = text.replace(/\[name\]/gi, name);
     text = text.replace(/\[path\]/gi, path);
     text = text.replace(/\[page:([\w\.]+)\]/gi, "[page:$1 $1]"); // [page:name] to [page:name title]
     text = text.replace(/\[page:\.([\w\.]+) ([\w\.\s]+)\]/gi, "[page:" + name + ".$1 $2]"); // [page:.member title] to [page:name.member title]
-    text = text.replace(/\[page:([\w\.]+) ([\w\.\s]+)\]/gi, "<a onclick=\"window.parent.setUrlFragment('$1')\" title=\"$1\">$2</a>"); // [page:name title]
-    // text = text.replace(/\[member:.([\w]+) ([\w\.\s]+)\]/gi, "<a onclick=\"window.parent.setUrlFragment('" + name + ".$1')\" title=\"$1\">$2</a>");
+
+    // resolve [page:name title]
+    text = text.replace(/\[page:([\w\.]+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
+        return `<a href=\"${getPageURL(p1, lang)}\">${p2}</a>`;
+    });
 
     text = text.replace(/\[(member|property|method|param):([\w]+)\]/gi, "[$1:$2 $2]"); // [member:name] to [member:name title]
-    text = text.replace(/\[(?:member|property|method):([\w]+) ([\w\.\s]+)\]\s*(\(.*\))?/gi, "<a onclick=\"window.parent.setUrlFragment('" + name + ".$2')\" target=\"_parent\" title=\"" + name + ".$2\" class=\"permalink\">#</a> .<a onclick=\"window.parent.setUrlFragment('" + name + ".$2')\" id=\"$2\">$2</a> $3 : <a class=\"param\" onclick=\"window.parent.setUrlFragment('$1')\">$1</a>");
-    text = text.replace(/\[param:([\w\.]+) ([\w\.\s]+)\]/gi, "$2 : <a class=\"param\" onclick=\"window.parent.setUrlFragment('$1')\">$1</a>"); // [param:name title]
+
+    text = text.replace(/\[(?:member|property|method):([\w]+) ([\w\.\s]+)\]\s*(\(.*\))?/gi, function(match, p1, p2, p3) {
+        var urlProp = getPageURL(name + '.' + p2, lang);
+        var urlType = getPageURL(p1, lang);
+
+        return `<a href="${urlProp}" class="permalink">#</a> .<a href="${urlProp}" id="${p2}">${p2}</a> ${p3 || ''} : <a href="${urlType}" class="param">${p1}</a>`;
+
+    });
+
+    text = text.replace(/\[param:([\w\.]+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
+        return `${p2} : <a href=\"${getPageURL(p1, lang)}\" class="param">${p1}</a>`;
+    });
 
     text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, "[link:$1 $1]"); // [link:url] to [link:url title]
     text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_|\(|\)|\#|\=]+) ([\w|\:|\/|\.|\-|\_|\s]+)\]/gi, "<a href=\"$1\"  target=\"_blank\">$2</a>"); // [link:url title]
@@ -326,12 +338,16 @@ function resolveTemplates(text, name, path) {
     text = text.replace(/\[example:([\w\_]+)\]/gi, "[example:$1 $1]"); // [example:name] to [example:name title]
     text = text.replace(/\[example:([\w\_]+) ([\w\:\/\.\-\_ \s]+)\]/gi, "<a href=\"https://cdn.soft8soft.com/demo/examples/index.html#$1\"  target=\"_blank\">$2</a>"); // [example:name title]
 
-    text = text.replace(/<a class="param" onclick="window.parent.setUrlFragment\('\w+'\)">(null|this|Boolean|Object|Array|Number|String|Integer|Float|TypedArray|ArrayBuffer)<\/a>/gi, '<span class="param">$1</span>'); // remove links to primitive types
+    switch (lang) {
+    case 'ru':
+        text = text.replace(/\[sourceHint\]/gi, "<h2>Исходный файл</h2><p>О том как получить исходный код этого модуля читайте <a href=\"manual/ru/programmers_guide/How-to-obtain-Verge3D-sources.html\">тут</a>.</p>");
+        break;
+    default:
+        text = text.replace(/\[sourceHint\]/gi, "<h2>Source</h2><p>For more info on how to obtain the source code of this module see <a href=\"manual/en/programmers_guide/How-to-obtain-Verge3D-sources.html\">this page</a>.</p>");
+        break;
+    }
 
-    text = text.replace(/\[sourceHint\]/gi, "<h2>Source</h2><p>For more info on how to obtain the source code of this module see <a href=\"manual/en/programmers_guide/How-to-obtain-Verge3D-sources.html\">this page</a>.</p>");
-
-    if (text.match(/\[contents\]/))
-        text = text.replace(/\[contents\]/g, createTOC(text, pathOrigRel));
+    text = text.replace(/\[contents\]/g, function() { return createTOC(text, pathOrigRel) });
 
     text = text.replace(/\[anchor:([\w]+)\]/gi, '<p><a href="' + pathOrigRel + '#$1" id="$1" class="permalink">#</a></p>');
 
@@ -474,3 +490,55 @@ function getMeta(document, metaName, usePropertyName) {
     return '';
 }
 
+function getPageURL(pageName, lang) {
+
+    var splitPageName = decomposePageName(pageName, '.', '#');
+
+    var localeList = list[lang];
+
+    for (var section in localeList) {
+
+        var categories = localeList[section];
+
+        for (var category in categories) {
+            var pages = categories[category];
+
+            if (splitPageName[0] in pages) {
+
+                return (pages[splitPageName[0]] + '.html' + splitPageName[1]);
+
+            }
+
+        }
+
+    };
+
+    return 'javascript:;';
+
+}
+
+function decomposePageName(pageName, oldDelimiter, newDelimiter) {
+
+    // Helper function for separating the member (if existing) from the pageName
+    // For example: 'Geometry.morphTarget' can be converted to
+    // ['Geometry', '.morphTarget'] or ['Geometry', '#morphTarget']
+    // Note: According RFC 3986 no '#' allowed inside of an URL fragment!
+
+    var parts = [];
+
+    var dotIndex = pageName.indexOf(oldDelimiter);
+
+    if (dotIndex !== -1) {
+
+        parts = pageName.split(oldDelimiter);
+        parts[1] = newDelimiter + parts[1];
+
+    } else {
+
+        parts[0] = pageName;
+        parts[1] = '';
+
+    }
+
+    return parts;
+}

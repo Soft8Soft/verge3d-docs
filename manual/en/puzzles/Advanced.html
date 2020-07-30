@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Advanced Puzzles Reference - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to use puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Advanced Puzzles</h1>
+
+    <p>Use these puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more.</p>
+
+    <img src="files/puzzles/puzzles-advanced.jpg">
+
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+    [anchor:puzzles_reference]
+
+    <h2>Puzzles Reference</h2>
+
+
+    [anchor:call_JS_function]
+
+    <h3>call JS function</h3>
+
+    <p>
+    Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-call-js-function.jpg">
+
+    <p>
+    In order to add a function to JavaScript code, open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with any text editor. Search for "prepareExternalInterface" and add your function inside that declaration (between the curly brackets), so that it looks like this:
+    </p>
+
+    <code>
+function prepareExternalInterface(app) {
+        app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
+            alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
+        }
+}
+    </code>
+
+
+
+    [anchor:load_data]
+
+    <h3>load data</h3>
+
+    <p>
+    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-load-data.jpg">
+
+
+
+    [anchor:send_data]
+
+    <h3>send data</h3>
+
+    <p>
+    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
+    </p>
+
+
+
+    <img src="files/puzzles/puzzles-advanced-send-data.jpg">
+
+
+
+    [anchor:loaded_data]
+
+    <h3>loaded data</h3>
+
+    <p>
+    Returns data retrieved by the <a href="manual/en/puzzles/Advanced.html#load_data">load data</a> or <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzles.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-loaded-data.jpg">
+
+
+
+    [anchor:read_JSON]
+
+    <h3>read JSON</h3>
+
+    <p>
+    Interprets text as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which are returned in a dictionary.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-read-JSON.jpg">
+
+
+
+    [anchor:read_CSV]
+
+    <h3>read CSV</h3>
+
+    <p>
+    Interprets text as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-read-CSV.jpg">
+
+    <p>
+    Table rows and values are accessed by their numeric indices starting from 0.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-csv-example.jpg">
+
+
+
+    [anchor:save_state]
+
+    <h3>save state</h3>
+
+    <p>
+    Saves the state of specified objects and/or the values of variables specified by their names. The objects are cloned and stored in memory. The values of the variables are retrieved and stored in memory for each specified variable name.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-save-state.jpg">
+
+    <p>
+    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/en/puzzles/Advanced.html#undo_state">undo state</a> puzzle.
+    </p>
+
+
+
+    [anchor:undo_state]
+
+    <h3>undo state</h3>
+
+    <p>
+    Restores the state of objects and/or variables saved with the <a href="manual/en/puzzles/Advanced.html#save_state">save state</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-undo-state.jpg">
+
+    <p>
+    If this puzzle is called several times, the states are restored from the saved sequence (if any) which makes it possible to return to any previously saved state from the stack.
+    </p>
+
+
+
+    [anchor:all_variable_names]
+
+    <h3>all variable names</h3>
+
+    <p>
+    Returns a list with the names of all variables used in Puzzles.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-all-variable-names.jpg">
+
+
+
+    [anchor:variable_value_by_name]
+
+    <h3>variable value by name</h3>
+
+    <p>
+    Returns the value of a variable specified by its name. This puzzle works similarly to the standard variable value puzzle, yet does not require to select a variable from the predefined dropdown menu.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
+
+
+    [anchor:wait_promise]
+
+    <h3>wait promise</h3>
+
+    <p>
+    Wait for the promise to be resolved or rejected and return its value (or rejection reason) in the <a href="manual/en/puzzles/Advanced.html#promise_value">promise value</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-wait-promise.jpg">
+
+    <p>This puzzle may be required to get value of the <a href="manual/en/puzzles/Scenes.html#export_to_gltf">export to gltf</a> and <a href="manual/en/puzzles/Materials.html#generate_normal_map">generate normal map</a> puzzles. Being async puzzles by their nature, these puzzle do not return resolved values immediately. Instead, they return <em>promise</em> values which are resolved in the puzzles they are used as inputs. In some rare cases, however, this resolving does not happen. In these cases you should use *wait promise* to resolve promise values.</p>
+
+
+    [anchor:promise_value]
+
+    <h3>promise value</h3>
+
+    <p>Resolved promise value (in case of resolved promise) or error string (in case of rejected promise).</p>
+
+
+    <h2>Having Troubles with Puzzles?</h2>
+
+    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

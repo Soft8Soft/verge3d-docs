@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="utf-8" />
     <title>App - Verge3D User Manual - Soft8Soft</title>
@@ -10,6 +10,8 @@
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body>
+    [page:EventDispatcher] &rarr;
+
     <h1>[name]</h1>
 
     <p class="desc">
@@ -206,7 +208,12 @@
 
     <h3>[method:null dispose]()</h3>
     <p>
-      Unloads the scene and cleans up the application data.
+      Unloads the scene (by calling [page:.unload unload]) and disposes the
+      whole application, which includes cleaning up the application's
+      [page:WebGLRenderer renderer] and removing the canvas element from the DOM.<br/><br/>
+
+      The application is no longer usable after disposing. This approach is best
+      suited for cases where the complete clean up is needed.
     </p>
 
     <h3>[method:null enableControls]()</h3>
@@ -313,7 +320,20 @@
       children; if no object is given or the given object is the main application
       scene then the method performs full scene cleanup.<br/><br/>
 
-      Unloads either a part or the whole scene depending on the parameters.
+      Unloads either a part or the whole scene depending on the parameters.<br/><br/>
+
+      If the given *rootObj* is one of the scene objects, then this method removes
+      the given object and its descendants from the scene and also frees the
+      related resources (geometries, materials, textures, etc...). If the given
+      *rootObj* is the scene instance itself, then this method performs full
+      scene cleanup, which includes disposing all objects, the scene's environment,
+      cameras and camera controls, animations, postprocessing, internal webgl
+      objects, etc...<br/><br/>
+
+      After the application's scene was fully unloaded the [page:.loadScene loadScene]
+      method can be used to load a completely new scene. This approach is best
+      suited for loading/unloading multiple scenes without disposing the
+      whole application.
     </p>
 
     <h3>[method:null updateEnvironment]([page:Material wMat])</h3>
