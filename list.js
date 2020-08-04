@@ -484,8 +484,8 @@ var list = {
     "ru": {
         "Руководство пользователя Verge3D": {
             "Начало работы": {
-                "Beginner's Guide": "manual/ru/introduction/Beginners-Guide",
-                "Workflow": "manual/ru/introduction/Workflow",
+                "Руководство для начинающих": "manual/ru/introduction/Beginners-Guide",
+                "Рабочий процесс": "manual/ru/introduction/Workflow",
                 "App Manager": "manual/ru/introduction/App-Manager",
                 "Puzzles": "manual/ru/introduction/Puzzles-Visual-Logic-Editor",
                 "Verge3D Features": "manual/ru/introduction/Features",
