@@ -486,7 +486,7 @@ var list = {
             "Начало работы": {
                 "Руководство для начинающих": "manual/ru/introduction/Beginners-Guide",
                 "Рабочий процесс": "manual/ru/introduction/Workflow",
-                "App Manager": "manual/ru/introduction/App-Manager",
+                "App Manager (менеджер проектов)": "manual/ru/introduction/App-Manager",
                 "Puzzles": "manual/ru/introduction/Puzzles-Visual-Logic-Editor",
                 "Verge3D Features": "manual/ru/introduction/Features",
                 "Project Structure": "manual/ru/introduction/Project-Structure",
