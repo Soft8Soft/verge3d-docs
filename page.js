@@ -254,3 +254,7 @@ function displayFilteredPanel() {
 
 }
 
+window.addEventListener('DOMContentLoaded', (event) => {
+    if (window.location.href.indexOf('/ru/') > -1)
+        document.body.style.fontFamily = 'Source Sans Pro, sans-serif';
+});
