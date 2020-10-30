@@ -510,7 +510,7 @@ var list = {
 
             "Blender Artist's Guide": {
                 "Руководство для начинающих": "manual/ru/blender/Beginners-Guide",
-                "Installation": "manual/ru/blender/Installation",
+                "Установка": "manual/ru/blender/Installation",
                 "Material System Overview": "manual/ru/blender/Material-System",
                 "Lighting and Rendering": "manual/ru/blender/Lighting-and-Rendering",
                 "Camera": "manual/ru/blender/Camera",
