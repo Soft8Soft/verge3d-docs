@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hardware-Related Issues - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how to deal with hardware-related problems and restrictions."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+    <style>
+        table, td, th {
+          border: 1px solid #2194CE;
+          border-collapse: collapse;
+          padding: 10px;
+          text-align: left;
+          min-width: 180px;
+          font-size: 16px;
+        }
+        table {
+          margin-bottom: 20px;
+        }
+        th {
+          text-align: center;
+          text-decoration: none;
+          color: #0b7188;
+          font-size: 17px;
+          font-family: 'Oswald', sans-serif;
+          font-weight: normal;
+        }
+        td ul {
+          margin: 10px 0px;
+          padding-left: 20px;
+        }
+        td {
+          vertical-align: top;
+        }
+        td.centered {
+          text-align: center;
+        }
+      </style>
+  </head>
+  <body><article>
+
+    <h1>Hardware-Related Issues</h1>
+
+    <p>
+        This manual section describes typical hardware and implementation-related
+        issues that can happen during development of a WebGL application.
+    </p>
+
+    [contents]
+
+
+    [anchor:too_many_attributes]
+
+    <h2>Too Many Attributes</h2>
+
+    <p>
+        Once in a while when working on your scene you may face a problem where
+        some objects are not rendered at all and the browser console shows the
+        following error:
+    </p>
+
+    <img src="files/hardware-related-issues/too-many-attributes.jpg" class="centered" style="max-width: 846px">
+    <span class="img-caption">"Too many attributes" error in the browser console</span>
+
+    <p>
+        This error means that some objects (apparently, the ones that couldn't
+        be rendered) surpass the maximum amount of vertex attributes that can be
+        used per shader.
+    </p>
+
+    <p>
+        How many attributes an object uses depends on different factors:
+        the presence and the number of shape keys (Blender) / morph targets
+        (3ds Max) / blend shapes (Maya), the presence of skinning, certain
+        material nodes, etc...
+    </p>
+
+    <p>
+        Here's the table that explains how to calculate the number of attributes
+        used:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Number of Attributes</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="centered">3</td>
+                <td>Mandatory attributes: <b>position</b>, <b>normal</b>, <b>uv</b>.</td>
+            </tr>
+            <tr>
+                <td class="centered">+2x</td>
+                <td>
+                    Add for each shape key (Blender) / morph target (3ds Max) /
+                    blend shape target (Maya). Maximum amount of attributes for
+                    this category is capped to <b>+12</b>.
+                </td>
+            </tr>
+            <tr>
+                <td class="centered">+2</td>
+                <td>Add if the object uses skinning.</td>
+            </tr>
+            <tr>
+                <td class="centered">+1x</td>
+                <td>
+                    Add for each of the following nodes in the object's material
+                    that use different<a href="manual/en/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>
+                    vertex colors:
+                    <ul>
+                        <li>Blender: <b>Attribute</b>, <b>Vertex Color</b></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="centered">+1x</td>
+                <td>
+                    Add for each of the following nodes in the object's material
+                    that use different<a href="manual/en/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>
+                    uv maps except the first one (already covered by the mandatory
+                    <b>uv</b> attribute, see the first row):
+                    <ul>
+                        <li>Blender: <b>UV Map</b></li>
+                        <li>
+                            3ds Max: <b>Bitmap</b> (only if "Mapping Type" set to "Texture"),
+                            <b>Gradient Ramp</b>, <b>Noise</b> (only if "Mapping" set to "Explicit Map Channel")
+                        </li>
+                        <li>Maya: <b>place2dTexture</b></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="centered">+1</td>
+                <td>
+                    Add if the object's material has one of the following nodes:
+                    <ul>
+                        <li>Blender: <b>Normal Map</b>, <b>Tangent</b> (only in "UV Map" mode)</li>
+                        <li>3ds Max: <b>Normal Bump</b></li>
+                        <li>Maya: <b>aiNormalMap</b>, <b>bump2d</b> (only if the "Bump Interp" input > 0), <b>samplerInfo</b></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="centered">+1</td>
+                <td>
+                    Add if the object's material has one of the following nodes:
+                    <ul>
+                        <li>3ds Max: <b>Vertex Color</b></li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p id="attribute-table0" style="font-size: 14px;">
+        *if several nodes use the same vertex color or a uv map then all those
+        nodes count as a one node towards the limit.
+    </p>
+
+    <p>
+        Generally, it's enough to stay in the limit of <b>16</b> vertex attributes
+        (although some old / low-end devices can support only 8). Most often you
+        should be concerned only about objects that use several shape keys.
+        Other than that the amount of vertex attributes usually stays under the
+        limit for a typical object/material.
+    </p>
+
+  </article></body>
+</html>

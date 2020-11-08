@@ -28,7 +28,7 @@
     <p>The glTF 2.0 standard requires that you pack the PBR components of materials in a single image (aka ORM texture):</p>
 
     <ul>
-      <li>Occlusion factor is packed in the R channel.</li>
+      <li>Occlusion factor is packed in the R channel. It's also possible to use separate texture for occlusion, but packing allows you to use less textures and thus makes your scene more size-efficient.</li>
       <li>Roughness factor is packed in the G channel.</li>
       <li>Metalness (metallic) factor is packed in the B channel.</li>
     </ul>
@@ -36,7 +36,7 @@
 
     [anchor:setting_up]
 
-    <h2>Setting up</h2>
+    <h2>Setting Up</h2>
 
     <p>
       Add the *Princlipled BSDF* shader node to your material and enable the *glTF 2.0 compatible* checker located on the *Verge3D Settings* panel.
@@ -48,14 +48,14 @@
       You can connect texture nodes to the *Princlipled BSDF* node as described below. Note that all textures are optional and any of them can be safely omitted.
     </p>
 
-    <img src="files/physical-material-blender/phmat_01.png" class="centered" style="max-width: 905px;">
+    <img src="files/physical-material-blender/gltf-material-example.jpg" class="centered" style="max-width: 820px;">
 
     <ul>
       <li>
         Connect an *Image Texture* node to the *Base Color* input of the *Principled BSDF* node. *Color Space* of the texture must be set to *sRGB*.
       </li>
       <li>
-        Connect *Image Texture* and *Separate RGB* nodes to the *Metallic* and *Roughness* inputs of the *Principled BSDF* node. For optimal loading and rendering of the PBR shader you should pack your occlusion, roughness and metallic textures into R, G and B channels of a single texture respectively. To enable occlusion rendering, your texture name should contain the "occlusion" substring in it. The *Color Space* setting of this texture must be set to *Non-Color*.
+        Connect *Image Texture* and *Separate RGB* nodes to the *Metallic* and *Roughness* inputs of the *Principled BSDF* node. For optimal loading and rendering of the PBR shader you should pack your occlusion, roughness and metallic textures into R, G and B channels of a single texture respectively. To enable occlusion rendering, the R channel of the occlusion texture should be connected as a mix factor of the black Diffuse shader. The *Color Space* setting of this texture must be set to *Non-Color*.
       </li>
       <li>
         Connect a *Normal Map* texture to the *Normal* input of the *Principled BSDF* node and an *Image Texture* node to that *Normal Map* node. The *Color Space* parameter of the texture must be set to *Non-Color*. You can also tune the normal map strength by using the *Strength* option.
@@ -64,6 +64,10 @@
         Connect an *Image Texture* node to the *Emission* input of the *Principled BSDF* node. *Color Space* of the texture must be set to *sRGB*.
       </li>
     </ul>
+
+    <p>If you need to tune your *Base Color* texture, e.g make it darker or mix with some other color, use *Multiply* node as shown on the picture below:</p>
+
+    <img src="files/physical-material-blender/gltf-material-color-factor.jpg" class="centered" style="max-width: 844px;">
 
     <p>You can also use the *Alpha* input to tune your material transparency.</p>
 
@@ -93,6 +97,13 @@
     <p>
       When exporting textures from Substance Painter, choose *Verge3d for Blender* the export dialog window so that all generated textures are compatible with the glTF 2.0 standard Verge3D is based on.
     </p>
+
+
+    [anchor:export_to_gltf_in_runtime]
+
+    <h2>Export to glTF in Runtime</h2>
+
+    <p>With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/en/puzzles/Scenes.html#export_to_gltf">reference</a>.</p>
 
 
     <h2>Got Questions?</h2>

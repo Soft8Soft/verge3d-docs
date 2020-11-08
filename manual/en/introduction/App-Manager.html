@@ -39,7 +39,7 @@
 
     [anchor:From_Blender_Max_Maya]
 
-    <h3>A. From Blender, 3ds Max or Maya</h3>
+    <h3>A. From Blender, 3ds Max, or Maya</h3>
 
     <p>The local web server is started automatically when you launch your 3D tool with Verge3D plug-in installed. Upon clicking on the App Manager button (Blender) or menu option (Max, Maya), the App Manager page is shown in the web browser.</p>
 
@@ -56,7 +56,7 @@
 
     <h3>B. Using Desktop Application</h3>
 
-    <p>The local web server can be launched even without Blender, 3ds Max or Maya. Simply click on the desktop icon created by the Verge3D installer (Windows-only). The App Manager page will be immediately shown in the web browser.</p>
+    <p>The local web server can be launched even without running Blender, 3ds Max, or Maya. Simply click on the desktop icon created by the Verge3D installer (Windows-only). The App Manager page will be immediately shown in the web browser.</p>
 
     <img src="files/app-manager/app-manager-desktop-icon.jpg" class="centered" style="max-width: 1000px">
 
@@ -66,16 +66,16 @@
 
 
 
-    [anchor:In_Command_Line]
+    [anchor:From_Command_Line]
 
-    <h3>C. In Command-Line</h3>
+    <h3>C. From Command-Line</h3>
 
     <p>
     Install Python 3, e.g. from <a href="https://www.microsoft.com/en-us/p/python-38/9mssztt1n39l" target="_blank">Microsoft Store</a>. Once you have Python 3 installed, launch *Command Prompt* and type:
     </p>
 
     <code>
-    cd verge3d
+    cd verge3d_blender
     </code>
 
     <p>
@@ -171,7 +171,7 @@
     <img src="files/app-manager/app-manager-create.jpg" class="centered" style="max-width: 569px">
 
     <p>
-    You may type a name for the new application, and select a template from which the app will be created. By default, 3 templates are offered: Standard Light/Dark and Code-Based. More templates can be added for choosing from.
+    You may type a name for the new application, and select a template from which the app will be created. By default, 3 templates are offered: "Standard Light", "Standard Dark", and "Code-Based". You may <a href="manual/en/introduction/App-Manager.html#Templates">create and add more templates</a> for choosing from.
     </p>
 
     <img src="files/app-manager/app-manager-create-options.jpg" class="centered" style="max-width: 522px">
@@ -360,6 +360,117 @@
     <p>
     The application is moved to the system Trash from which it is possible to restore it.
     </p>
+
+
+
+    [anchor:Templates]
+
+    <h2>Templates</h2>
+   
+   
+
+    [anchor:Whats_a_Template]
+
+    <h3>What's a Template</h3>
+       
+    <p>
+    When creating a new application, you may select a template from which the app will be created. By default, 3 templates are offered: "Standard Light", "Standard Dark", and "Code-Based".
+    </p>
+    
+    <img src="files/app-manager/app-manager-templates-explanation.jpg" class="centered" style="max-width: 522px">
+
+    <p>
+    The source files for these templates can be found in the templates folder, e.g. "verge3d_blender\manager\templates". You can modify these files or create an entirely new template for use in your project.
+    </p>
+
+    <p class="note">
+    In the templates folder, there is also a hidden template called "Embeddable" which you can use for creating React.js or Vue.js applications.
+    </p>
+    
+    <p>
+    There are many possible ways to modify/improve your template. You can change the layout by editing HTML/CSS files, embed/use some JavaScript code or library, replace the UI elements or the preloader, or add some puzzles to be included in each new application by default. 
+    </p>
+
+
+
+    [anchor:Creating_Templates]
+
+    <h3>Creating Templates</h3>
+
+    <p>
+    In order to create your own template, click the button *Manage App Templates* on the left bar:
+    </p>
+
+    <img src="files/app-manager/app-manager-templates.jpg" class="centered" style="max-width: 751px">
+
+    <p>
+    In the panel shown up, click <strong>+Template</strong> and specify the name for your new template (e.g. "My Template"), then click *Apply*:
+    </p>
+
+    <img src="files/app-manager/app-manager-templates-manage.jpg" class="centered" style="max-width: 656px">
+
+    <p>
+    As a result, every time you create a new application, the option to choose your template will appear: 
+    </p>
+
+    <img src="files/app-manager/app-manager-templates-choose-created.jpg" class="centered" style="max-width: 522px">
+
+    <p>
+    By default, an empty folder will be created for your application, since no files were provided for the new template. The easiest way to start with a real template is to copy some of the existing templates (e.g. "Standard Dark") and rename the copied folder according to the name of your template (that is, "My Template"). 
+    </p>
+
+
+
+    [anchor:App_Manager_Settings]
+
+    <h2>App Manager Settings</h2>
+
+
+  
+    <p>
+    By clicking the gear button on the left bar, you can open up the panel with various settings:
+    </p>
+
+    <img src="files/app-manager/app-manager-settings.jpg" class="centered" style="max-width: 751px">
+
+    <p>
+    It looks as follows by default:
+    </p>
+
+    <img src="files/app-manager/app-manager-settings-panel.jpg" class="centered" style="max-width: 612px">
+   
+    <dl>
+
+      <dt>Notify about Verge3D updates</dt>
+
+      <dd>the App Manager will display a notification in case a new stable Verge3D version is available (enabled by default).</dd>
+
+
+      <dt>Upload app sources (models, puzzles, backups)</dt>
+
+      <dd>the <a href="manual/en/introduction/App-Manager.html#Publish">Publish</a> feature will upload the files that are normally not needed for running an application online, and as such are skipped by default. This includes .blend, .max, .ma/.mb, visual_logic.xml, and the contents of the v3d_app_data folder. You can enable this when you want to share the source files with your collegues.</dd>
+
+
+      <dt>Enable external server interface</dt>
+
+      <dd>use the IP address in your local Wi-Fi or Ethernet network instead of <a href="http://localhost:8668" target="_blank">localhost:8668</a>. You can find your computer IP address from the operating system preferences: <a href="https://www.groovypost.com/howto/find-windows-10-device-ip-address/" target="_blank">Win 10</a>, <a href="https://www.groovypost.com/howto/microsoft/windows-7/find-your-local-ip-address-windows-7-cmd/" target="_blank">Win 7</a>, <a href="https://www.wikihow.com/Find-Your-IP-Address-on-a-Mac" target="_blank">Mac</a>, <a href="https://www.linuxtrainingacademy.com/determine-public-ip-address-command-line-curl/" target="_blank">Linux</a>. Launch the App Manager by navigating to the network address, e.g.: <a href="http://192.168.1.15:8668" target="_blank">192.168.1.15:8668</a></dd>
+
+
+      <dt>Verge3D Network cache age (minutes)</dt>
+
+      <dd>set the period of time after which Verge3D Network will refresh the re-uploaded application. Set this to 0 (that is, refresh instantly) for faster iterations in developement.</dd>
+
+
+      <dt>External applications directory</dt>
+
+      <dd>use the specified absolute path (e.g. C:\Users\Alex\my_verge) for applications folder alongside the standard one (such as verge3d_blender\applications). The folders from the specified directory will be displayed in App Manager's list of applications.</dd>
+
+
+      <dt>Current theme</dt>
+
+      <dd>switch the App Manager and Puzzles editor between Light and Dark modes.</dd>
+
+    </dl>
 
 
 

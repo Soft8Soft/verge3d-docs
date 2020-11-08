@@ -30,7 +30,56 @@
     <h2>Method #1 (Basic)</h2>
 
     <p>
-    Suppose you created your application using the App Manager (with default configuration options), and named it <strong>my_awesome_app</strong>. Go to the <i>verge3d/applications</i> folder and then to <i>my_awesome_app</i> folder, and open the JavaScript file <i>my_awesome_app.js</i> with your favorite text editor.
+        The easiest way to incorporate a javascript code in your puzzles is to
+        use a special puzzle called <a href="manual/en/puzzles/Advanced.html#exec_script">exec script</a>.
+        It has a built-in fully functional text editor capable of syntax
+        highlighting, syntax checking, code folding and many other features.
+    </p>
+
+    <p>
+        What this puzzle does is execute a javascript code snippet right away.
+        The advantages of using "exec script" are:
+        <ul>
+            <li>it's a puzzles-only approach (no need to edit the project's .js files)</li>
+            <li>such code snippets can be saved into the puzzles library and easily reused in other projects</li>
+        </ul>
+    </p>
+
+    <p>
+        In order to access <a href="manual/en/puzzles/Variables.html">variable</a>
+        and <a href="manual/en/puzzles/Procedures.html">procedure</a> puzzles
+        from the inside of "exec script" you can use <b>VARS</b> and <b>PROC</b>
+        built-ins. See more details in the <a href="manual/en/puzzles/Advanced.html#exec_script">"exec script" documentation</a>.
+    </p>
+
+    <p>
+        As an example the following puzzle setup utilizing "exec script" makes
+        scene objects change their material on click:
+    </p>
+
+    <img src="files/using-javascript/basics-exec-script-example.jpg" class="centered" style="max-width: 1000px">
+
+
+
+    [anchor:Method_2_Standard]
+
+    <h2>Method #2 (Standard)</h2>
+
+    <p>
+        If you want to have more control than what the "exec script" puzzle can
+        offer then this method is for you. It supposes using of the default
+        <b>Standard</b> application template (<b>Standard Light</b> or
+        <b>Standard Dark</b>):
+    </p>
+
+    <img src="files/using-javascript/standard-app-template.jpg" class="centered" style="max-width: 522px">
+
+    <p>
+        Suppose you created your application using the App Manager (with default
+        configuration options), and named it <strong>my_awesome_app</strong>. Go
+        to the <i>verge3d/applications</i> folder and then to <i>my_awesome_app</i>
+        folder, and open the JavaScript file <i>my_awesome_app.js</i> with your
+        favorite text editor.
     </p>
 
     <p>
@@ -93,153 +142,18 @@ function runCode(app) {
 
 
 
-    [anchor:Method_2_Versatile]
-
-    <h2>Method #2 (Versatile)</h2>
-
-    <p>
-    Adding your code inside the <strong>runCode</strong> function makes it executed upon application loading, once and for all. But what if you need some piece of code to be triggered by user action instead? For example, the user clicks on a 3D object and something should happen with that object.
-    </p>
-
-    <p>
-    This scenario can be implemented more easily with some help from Puzzles, rather than in pure code. You can setup capturing user events with Puzzles, and only perform special actions with code. This approach may save you a lot of time.
-    </p>
-
-
-
-    [anchor:From_Puzzles_to_JavaScript]
-
-    <h3>From Puzzles to JavaScript</h3>
-
-    <p>
-    Open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with your favorite text editor. Search for "prepareExternalInterface" and add a function inside that declaration (between the curly brackets), so that it looks like this:
-    </p>
-
-    <code>
-function prepareExternalInterface(app) {
-        app.ExternalInterface.myJSFunction = function() {
-            console.log('Running my JavaScript function!');
-        }
-}
-    </code>
-
-    <p>
-    As you can see, the function was added to the <strong>app.ExternalInterface</strong> namespace - this is crucial for Puzzles to pick it up. You can add more functions with different names to this namespace if needed.
-    </p>
-
-    <p>
-    You can now trigger your function called "myJSFunction" from puzzles. To do this, run the Puzzles editor and add a puzzle <strong>call JS function</strong> to the workspace. By default it will trigger the function with the name "myJSFunction", so if your function is named differently, make sure to change its name in this puzzle's text field.
-    </p>
-
-    <img src="files/using-javascript/external-interface-adding.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    Now if you save your Puzzles and run your app, the puzzles scenario should trigger the function that you added, and the message should appear in the browser console.
-    </p>
-
-    <img src="files/using-javascript/external-interface-running.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    More Puzzles can be added to make your function only run when the user clicks on an object.
-    </p>
-
-    <img src="files/using-javascript/external-interface-click.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    If you'd like to pass a parameter from puzzles to your JavaScript function (for example, the name of the object the user clicked on), you can modify the <strong>call JS function</strong> puzzle by adding an input socket to it.
-    </p>
-
-    <img src="files/using-javascript/external-interface-parameter.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    The code should also be modified for the function to accept a parameter as its argument:
-    </p>
-
-    <code>
-function prepareExternalInterface(app) {
-        app.ExternalInterface.myJSFunction = function(myObject) {
-            console.log(myObject);
-        }
-}
-    </code>
-
-    <p>
-    So, a code snippet that assigns a programmatically-generated material to whatever object is picked can look like this:
-    </p>
-
-    <code>
-function prepareExternalInterface(app) {
-        app.ExternalInterface.myJSFunction = function(myObject) {
-            var obj = app.scene.getObjectByName(myObject);
-            obj.material = new v3d.MeshPhongMaterial({ color: '#00DD00', emissive: '#880000' });
-        }
-}
-    </code>
-
-    <p>
-    You can also use the variant of the <a href="manual/en/puzzles/Advanced.html#call_JS_function">call JS function</a> puzzle equipped with return value and use the received result in Puzzles.
-    </p>
-
-    <img src="files/using-javascript/external-interface-example-with-return.jpg" class="centered" style="max-width: 1000px">
-
-    <code>
-function prepareExternalInterface(app) {
-        app.ExternalInterface.getMessage = function() {
-            return('Hello, Verge!');
-        }
-}
-    </code>
-
-
-
-    [anchor:From_JavaScript_to_Puzzles]
-
-    <h3>From JavaScript to Puzzles</h3>
-
-    <p>
-    The examples above trigger JavaScript functions from Puzzles, but you can make it in reverse and trigger Puzzles from JavaScript. As of version 2.15, procedures defined in Puzzles are callable from code.
-    </p>
-
-    <p>
-    Here is how it works. Suppose, you want to hide any given object with JavaScript. Then you can have a procedure named "hide" in Puzzles:
-    </p>
-
-    <img src="files/using-javascript/from-javascript-to-puzzles-example.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    ...and trigger it from any place of your code (or even from the browser console) with
-    </p>
-
-    <code>
-v3d.puzzles.procedures.hide('Cube');
-    </code>
-
-    <p>
-    or
-    </p>
-
-    <code>
-v3d.puzzles.procedures['hide']('Cube');
-    </code>
-
-    <p>
-    That's it!
-    </p>
-
-
     [anchor:Method_3_Compact]
 
     <h2>Method #3 (Compact)</h2>
 
     <p>
-    This method will suit experienced programmers who would like to have just a minimal working code snippet to begin with.
+        This method will suit experienced programmers who would like to have
+        just a minimal working code snippet to begin with. It's pretty much the
+        same as <b>Standard</b> except you choose a different application
+        template named <b>Code-Based</b> when creating a new application:
     </p>
 
-    <p>
-    When creating a new application, switch the <strong>App Type</strong> selector to <strong>Code-Based</strong>:
-    </p>
-
-    <img src="files/using-javascript/creating-code-based-app.jpg" class="centered" style="max-width: 351px">
+    <img src="files/using-javascript/compact-app-template.jpg" class="centered" style="max-width: 522px">
 
     <p>
     This will result in a simpler project structure with no Puzzles editor attached to your application, and the app <strong>.js</strong> file will contain just a few lines of code:
@@ -273,7 +187,7 @@ function runCode() {
     </p>
 
     <p>
-    You can proceed by adding your code inside the "runCode" function as described in Method #1. Of course, you can completely overhaul this application template instead - for example, you can discard the App class, load the scene using some other file format or setup the controls in some specific way.
+    You can proceed by adding your code inside the "runCode" function as described in Method #2. Of course, you can completely overhaul this application template instead - for example, you can discard the App class, load the scene using some other file format or setup the controls in some specific way.
     </p>
 
 
