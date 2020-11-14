@@ -489,7 +489,7 @@ var list = {
                 "Рабочий процесс": "manual/ru/introduction/Workflow",
                 "App Manager (менеджер проектов)": "manual/ru/introduction/App-Manager",
                 "Визуальный редактор логики (Puzzles)": "manual/ru/introduction/Puzzles-Visual-Logic-Editor",
-                "Verge3D Features": "manual/ru/introduction/Features",
+                "Функционал Verge3D": "manual/ru/introduction/Features",
                 "Project Structure": "manual/ru/introduction/Project-Structure",
                 "Updating for New Versions": "manual/ru/introduction/Updating",
                 "FAQ": "manual/ru/introduction/FAQ",
