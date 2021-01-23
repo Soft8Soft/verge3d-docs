@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Project structure - Soft8Soft</title>
+    <title>Структура проекта- Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Learn how Verge3D applications are structured."/>
+    <meta name="description" content="Описание структуры Verge3D приложений."/>
     <base href="../../../" />
     <script src="list.js"></script>
     <script src="page.js"></script>
@@ -11,10 +11,10 @@
   </head>
   <body><article>
 
-    <h1>Project Structure</h1>
+    <h1>Структура проекта</h1>
 
     <p>
-    Pursuing a strong artist-friendly approach, Verge3D creates a complete set of files for a WebGL application. It is recommended not to edit most of the initialized project files, because some of them may be automatically regenerated upon certain user actions (such as export, saving Puzzles etc), while others may get overridden upon updating to new Verge3D versions.
+      Verge3D, в соответствии с подходом ориентированным на художников, создает полный набор файлов для приложения WebGL. Рекомендуется не редактировать большинство инициализированных файлов проекта, потому что некоторые из них могут автоматически регенерироваться при определенных действиях пользователя (таких как экспорт, сохранение пазлов и т. д.). Другие могут быть переопределены при обновлении до новых версий Verge3D.
     </p>
 
     [contents]
@@ -22,84 +22,84 @@
 
     [anchor:Simplest_Case]
 
-    <h2>Simplest Case</h2>
+    <h2>Простой кейс</h2>
 
     <p>
-    A default project initialized with the App Manager (with default configuration parameters) looks as follows.
+      Проект, инициализированный с помощью менеджера приложений (с параметрами конфигурации по умолчанию), выглядит следующим образом.
     </p>
 
     <img src="files/project-structure/project-structure-simple.jpg">
 
-    <h3>HTML, CSS and JavaScript files</h3>
+    <h3>Файлы HTML, CSS и JavaScript</h3>
 
     <p>
-    The application core consists of the <strong>.html</strong>, <strong>.css</strong> and <strong>.js</strong> files with the same name ("my_awesome_app"), and the Verge3D runtime <strong>v3d.js</strong>. There is also a folder called <strong>media</strong> which contains small images (fullscreen button icons and a set of favicons).
+      Ядро приложения состоит из файлов <strong>.html </strong>, <strong>.css </strong> и <strong>.js </strong> с тем же именем ("my_awesome_app") и среды выполнения Verge3D -  <strong> v3d.js </strong>. Также существует папка <strong> media </strong>, которая содержит небольшие изображения (иконки кнопок для полноэкранного режима и набор фавиконов).
     </p>
 
     <p>
-    Although not recommended, you can edit the core <strong>.html</strong>, <strong>.css</strong> and <strong>.js</strong> files, although a better approach for adding your own CSS and JavaScript would be creating new files and linking them to the main  <strong>.html</strong>. Be sure to cherry-pick your changes back after performing <a href="manual/ru/introduction/Updating.html">clean updating</a>.
+      Хотя это не рекомендуется, но вы можете редактировать основные файлы <strong> .html </strong>, <strong> .css </strong> и <strong> .js </strong>. Однако лучший способ - это создание своих собственных файлов CSS/JavaScript и связывание их с основным <strong>html </strong>. Обязательно восстановите свои изменения после выполнения <a href="manual/ru/introduction/Updating.html">обновления </a>.
     </p>
 
     <p>
-    Please notice that if you attempt to launch a Verge3D application by simply clicking on the <strong>.html</strong> file, most likely it won't run due to the browser <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">security policy</a> which forbids JavaScript from accessing files loaded not from the same domain. Please always use the App Manager, which includes a local web server, to run your apps.
+      Если вы попытаетесь запустить приложение Verge3D, просто кликнув по файлу <strong> .html </strong>, то скорее всего, приложение не запустится из-за <a href = "https: //en.wikipedia. .org / wiki / Same-origin_policy "target =" _ blank "> политики безопасности </a>браузера, запрещающей доступ JavaScript к файлам, загруженным не из того же домена. Пожалуйста, всегда используйте менеджер приложений, который использует локальный веб-сервер для запуска ваших приложений.
     </p>
 
-    <h3>glTF files</h3>
+    <h3>Файлы glTF</h3>
 
     <p>
-    When running, an application loads a 3D scene in <strong>.gltf</strong> format first, which in turn contains file paths for further loading of the binary part of a glTF scene <strong>.bin</strong> and external textures. The <strong>.gltf</strong> and <strong>.bin</strong> files are exported using user interface menu of your favorite 3D editor (Blender, 3ds Max, or Maya).
+      При запуске, приложение сначала загружает 3D-сцену в формате <strong> gltf </strong>, который содержит пути к файлам для дальнейшей загрузки двоичной части сцены glTF <strong> (bin) </strong> и внешних текстур. Файлы <strong> gltf </strong> и <strong> bin </strong> экспортируются с помощью меню пользовательского интерфейса вашего любимого 3D-редактора (Blender, 3ds Max или Maya).
     </p>
 
-    <h3>Working scene files</h3>
+    <h3>Файлы рабочей сцены</h3>
 
     <p>
-      Depending on the 3D editor you are using, there will be one <strong>.blend</strong>, <strong>.max</strong> or <strong>.mb</strong> file containing the default cube. This is where most work on your scenes is performed. Feel free to modify this file, rename or override it with some other file, but be certain to preserve the original name of the exported glTF file.
+      В зависимости от того, какой 3D-редактор вы используете, будет один файл <strong> .blend </strong>, <strong> .max </strong> или <strong> .mb </strong>, содержащий куб по умолчанию. Именно здесь выполняется большая часть работы над сценами. Не стесняйтесь изменять этот файл, переименовывать или заменять его каким-либо другим файлом, но обязательно сохраните исходное имя экспортированного файла glTF.
     </p>
 
     <p>
-    You can add more scene files to the app folder, for using as library files or for multi-scene applications. If your app loads multiple glTF files, don't forget to perform export from the corresponding <strong>.blend</strong>, <strong>.max</strong> or <strong>.mb</strong> files.
+      Вы можете добавить больше файлов сцены в папку приложения для использования их в качестве библиотеки или для приложений с несколькими сценами. Если ваше приложение загружает несколько файлов glTF, не забудьте выполнить экспорт из соответствующих проектов <strong> .blend </strong>, <strong> .max </strong> или <strong> .mb </strong>.
     </p>
 
-    <h3>Assets</h3>
+    <h3>Ассеты</h3>
 
     <p>
-    Textures and sounds are typically loaded by an application as external files. Make sure that you use <i>relative</i> file paths in the 3D editor of your choice for all images, and that your images are stored <i>inside</i> your application folder, otherwise there may be issues with the publication of your app.
+      Текстуры и звуки обычно загружаются приложением как внешние файлы. Убедитесь, что вы используете <i> относительные </i> пути к файлам в 3D-редакторе для всех изображений. Ваши изображения должны храниться <i> внутри </i> папки проекта, в противном случае могут возникнуть проблемы с публикацией результата.
     </p>
 
-    <h3>Puzzles</h3>
+    <h3>Пазлы</h3>
 
     <p>
-    When you click <strong>Save</strong> in the Puzzles editor, it will save your app puzzles in <strong>visual_logic.xml</strong>. It will also generate JavaScript code from your puzzles and save it as <strong>visual_logic.js</strong>. These files will keep being overridden every time you click the <strong>Save</strong> button, with the previous edition of the <strong>visual_logic.xml</strong> copied to the <strong>v3d_app_data/puzzles_backup</strong> folder, renamed with a time stamp. Therefore, you can always restore your puzzles from this backup by copying the <strong>.xml</strong> file to the root and renaming it back.
+      Когда вы нажимаете кнопку<strong> Save </strong> в редакторе пазлов, пазлы приложения сохраняются в <strong> visual_logic.xml </strong>, а сгенерированный код JavaScript сохраняется в <strong> visual_logic.js </strong>. Эти файлы будут перезаписываться каждый раз, когда вы нажимаете кнопку <strong> Save </strong>, при этом предыдущая версия <strong> visual_logic.xml </strong> копируется в папку<strong> v3d_app_data / puzzles_backup </strong>, переименованной с отметкой времени. Поэтому вы всегда можете восстановить свои наработки из этой резервной копии, скопировав файл <strong> .xml </strong> в корень и переименовав его обратно.
     </p>
 
 
     [anchor:Advanced_Case]
 
-    <h2>Advanced Case</h2>
+    <h2>Кейсы посложнее</h2>
 
     <p>
-    Some Verge3D apps (such as Soft8Soft's Industrial Robot demo) may contain quite a number of additional files, which however, come from just 2 extra categories.
+      Некоторые приложения Verge3D (например, демо-версия Soft8Soft Industrial Robot) могут содержать большое количество дополнительных файлов, которые можно разделить на две категории:
     </p>
 
-    <h3>Compressed glTF files</h3>
+    <h3>Сжатые файлы glTF</h3>
 
     <p>
-    If you enable <a href="manual/ru/introduction/Asset-compression.html">asset compression</a> for your app (which is always a good thing), the exporter will at first perform export as usual and then create a compressed version of glTF files. These files are automatically picked up by the application instead of the regular glTF file. There is no point in deleting the regular glTF files even if they are not used at the time, since they may be generated again in some future export operation.
+      Если вы включите <a href="manual/ru/introduction/Asset-compression.html"> сжатие ресурсов </a> для своего приложения (что всегда хорошо), экспортер сначала выполнит экспорт как обычно, а затем создаст сжатую версию файлов glTF. Эти файлы автоматически выбираются приложением вместо стандартного файла glTF. Нет смысла удалять несжатые файлы glTF, даже если они не используются, поскольку они снова могут быть сгенерированы в какой-то будущей операции экспорта.
     </p>
 
-    <h3>Third-party software exports</h3>
+    <h3>Дополнительные файлы сторонних приложений</h3>
 
     <p>
-    Composite applications may leverage HTML layouts designed in some third-party software (such as Webflow or Google Web Designer), in which a regular Verge3D application is embedded with an <strong>iframe</strong> element. In such cases, the HTML layout can be saved to the app folder without any change to be picked up by the App Manager. Complex HTML layouts may in turn include additional CSS/JavaScript files, fonts or images, which are also needed to be stored in the app folder with their original hierarchy preserved.
+      Сложные приложения могут использовать шаблоны HTML, разработанные в сторонних программах (например, Webflow или Google Web Designer), в которые приложение Verge3D встраивается с элементом <strong> iframe </strong>. В таких случаях шаблон HTML может быть сохранен в папке приложения без каких-либо изменений, которые будут приняты менеджером приложений. Сложные макеты HTML, в свою очередь, могут включать дополнительные файлы CSS/JavaScript, шрифты или изображения, которые также могут храниться в папке приложения со собственной иерархией.
     </p>
 
     <img src="files/project-structure/project-structure.jpg">
 
 
 
-    <h2>Got Questions?</h2>
+    <h2>Все еще есть вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задавайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>
