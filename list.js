@@ -491,7 +491,7 @@ var list = {
                 "Визуальный редактор логики (Puzzles)": "manual/ru/introduction/Puzzles-Visual-Logic-Editor",
                 "Функционал Verge3D": "manual/ru/introduction/Features",
                 "Структура проекта": "manual/ru/introduction/Project-Structure",
-                "Updating for New Versions": "manual/ru/introduction/Updating",
+                "Обновление SDK Verge3D": "manual/ru/introduction/Updating",
                 "FAQ": "manual/ru/introduction/FAQ",
                 "Useful Links": "manual/ru/introduction/Useful-links"
             },
