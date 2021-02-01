@@ -493,7 +493,7 @@ var list = {
                 "Структура проекта": "manual/ru/introduction/Project-Structure",
                 "Обновление SDK Verge3D": "manual/ru/introduction/Updating",
                 "FAQ": "manual/ru/introduction/FAQ",
-                "Useful Links": "manual/ru/introduction/Useful-links"
+                "Полезные ресурсы": "manual/ru/introduction/Useful-links"
             },
 
             "General Topics": {
