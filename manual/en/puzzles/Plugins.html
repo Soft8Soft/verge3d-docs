@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Puzzles Plugins Reference - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Custom plugins for Verge3D Puzzles."/>
+    <base href="../../../" />
+    <script src="list.js"></script>
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Plugins</h1>
+
+    <p>
+        <a href="manual/en/introduction/Puzzles-Visual-Logic-Editor.html">Verge3D Puzzles Editor</a>
+        provides the ability to load your own custom puzzles, thus making it
+        possible to extend the Editor's functionality with features you've
+        always wanted.
+    </p>
+
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+    [anchor:installing]
+
+    <h2>Installing Plugins</h2>
+
+    <p>
+        Plugins are directories with a bunch of plugin-relevant files. Plugins
+        should be placed inside Verge3D's *puzzles/plugins* folder in order to
+        be recognized by the Puzzles Editor. And that's it! After reloading the
+        Editor's page all installed plugins should appear at the bottom of the
+        Editor's toolbox right after all the standard puzzle categories.
+    </p>
+
+    <img src="files/puzzles/puzzles-plugins-ui-location.jpg" class="centered" style="max-width: 570px">
+    <span class="img-caption">Plugin categories in the toolbox</span>
+
+    <p id="example_plugin" class="note">
+        <u>For plugin developers</u><br/>
+        This helpful plugin contains examples of some typical puzzle blocks:
+        <a href="files/puzzles/ExamplePlugin.zip">ExamplePlugin.zip</a>. Just
+        unzip it into the *puzzles/plugins* folder and then check out the
+        "Example Plugin" puzzle category.
+    </p>
+
+
+    [anchor:plugin_files_overview]
+
+    <h2>Plugin Files Overview</h2>
+
+        A typical plugin is just a directory with an *init.plug* file containing
+        general plugin settings and a bunch of <b>*.block</b> files each defining a
+        single puzzle block. If your text editor supports syntax highlighting,
+        then the HTML mode should work well for both file formats.
+
+    [anchor:init_plug_file_format]
+
+    <h3>init.plug File Format</h3>
+
+    <p>
+        *init.plug* is a mandatory plugin file, which is used for specifying
+        general plugin settings. In that file you can define what the toolbox
+        entry looks like. Also you can add there some preliminary javascript
+        code for your puzzles. Here's a simple example of what you can see in an
+        *init.plug* file:
+    </p>
+
+    <code>
+    &lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;label text="My Awesome Plugin v1.0"&gt;&lt;/label&gt;
+        &lt;block type="myPuzzle"&gt;&lt;/block&gt;
+        &lt;block type="doSomethingCool"&gt;&lt;/block&gt;
+    &lt;/category&gt;
+
+    &lt;script&gt;
+    function code() {
+        return `console.log('Powered by My Awesome Plugin!');`;
+    }
+    &lt;/script&gt;
+    </code>
+
+
+    [anchor:init_plug_category]
+
+    <h4>Category</h4>
+
+    <p>
+        The *category* part is an XML tree that defines how the plugin and its
+        puzzle blocks are displayed inside the Puzzles Editor's toolbox. Although
+        it is optional, still if you don't add it into the *init.plug* file then
+        the plugin won't be loaded at all.
+        <br/><br/>
+        There are several options that you can set up via *category*:
+    </p>
+
+
+    [anchor:init_plug_toolbox_entry_name]
+
+    <h5>Toolbox Entry Name</h5>
+
+    <p class="indented">
+        Specified via the *name* attribute:
+        <code>
+&lt;category name="My Awesome Plugin"&gt;&lt;/category&gt;
+        </code>
+    </p>
+
+
+    [anchor:init_plug_toolbox_entry_color]
+
+    <h5>Toolbox Entry Color</h5>
+
+    <p class="indented">
+        Specified via the *color* attribute:
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;&lt;/category&gt;
+        </code>
+        The color can be defined in one of the following formats:
+    </p>
+
+    <ul id="color_formats">
+        <li>
+            hex triplet, e.g. <b>#f61</b> or <b>#f0562f</b>
+        </li>
+        <li>
+            hue value in range 0°-360° (within the scope of HSV color model with
+            S and V fixed to 45% and 65% respectively), e.g. <b>140</b>
+        </li>
+        <li>
+            color keywords such as <b>aqua</b>, <b>black</b>, <b>blue</b>,
+            <b>fuchsia</b>, <b>gray</b>, <b>green</b>, <b>lime</b>,
+            <b>maroon</b>, <b>navy</b>, <b>olive</b>, <b>purple</b>,
+            <b>red</b>, <b>silver</b>, <b>teal</b>, <b>white</b> and
+            <b>yellow</b>
+        </li>
+    </ul>
+
+
+    [anchor:init_plug_available_puzzles]
+
+    <h5>Available Puzzles</h5>
+
+    <div class="indented">
+        <p>
+            To make a puzzle block available in the plugin's toolbox
+            category it should be specified via the *block* element and its
+            *type* attribute. The *type* attribute can reference such puzzles as:
+        </p>
+
+        <ul>
+            <li id="available_puzzles_plugin">
+                puzzles defined by the plugin itself - in this case *type*
+                should be set according to the name of the corresponding
+                .block file inside your plugin's directory (e.g.
+                *myPuzzle* for a block file *my_awesome_plugin/myPuzzle.block*)
+                <code>
+    &lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;&lt;/block&gt;
+    &lt;/category&gt;
+                </code>
+            </li>
+            <li id="available_puzzles_stock">
+                stock puzzle blocks - *type* should be equal to the
+                type of a stock puzzle (e.g. *math_number*). This allows
+                adding stock puzzles directly into your plugin's toolbox
+                category
+                <code>
+    &lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="math_number"&gt;&lt;/block&gt;
+    &lt;/category&gt;
+                </code>
+            </li>
+            <li>
+                puzzles defined by other plugins - *type* should be in the
+                form *PLUGIN_DIRECTORY_NAME/PUZZLE_TYPE*. For example,
+                puzzles from the standard <a href="manual/en/puzzles/ECommerce.html">E-Commerce</a>
+                plugin can be referenced like this:
+                <code>
+    &lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="E-Commerce/placeOrder"&gt;&lt;/block&gt;
+    &lt;/category&gt;
+                </code>
+            </li>
+        </ul>
+
+        <p id="puzzle-xml-tree">
+            To find out the type of a certain puzzle block you can use the
+            "Print Puzzle XML Tree" option from the puzzle context menu:
+        </p>
+        <img src="files/puzzles/puzzles-plugins-print-puzzle-xml-tree.png" class="width-clear border-gray">
+
+        <p>
+            That menu option prints the puzzle XML tree into the browser console.
+            You can find there the puzzle type as well as the whole XML
+            structure, which might come in handy when setting the
+            <a href="manual/en/puzzles/Plugins.html#init_plug_default_input_field_values">default input and field values</a>.
+        </p>
+        <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree.png" class="width-clear border-gray">
+
+        <p>
+            The "Print Puzzle XML Tree" menu option provides an easy way of
+            adding a whole group of puzzle blocks to your plugin at once. This
+            is useful for creating some sort of "snippets" consisting of
+            connected puzzle blocks and putting them into your plugin, which
+            makes it a bit similar to the <a href="manual/en/puzzles/Library.html">Puzzles Library</a>.
+
+            <p>
+                The following example explains how to do that:
+            </p>
+            <ul>
+                <li>
+                    create some puzzle blocks in the Puzzles Editor:<br/>
+                    <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-1.png" class="width-clear border-gray">
+                </li>
+                <li>
+                    use right mouse click on the top/outmost block and choose
+                    "Print Puzzle XML Tree":<br/>
+                    <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-2.png" class="width-clear border-gray">
+                </li>
+                <li>
+                    go to the browser console and copy the printed element (this
+                    is what it looks like in Google Chrome):<br/>
+                    <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-3.png" class="width-clear border-gray">
+                </li>
+                <li>
+                    paste it into the *init.plug* file inside the <b>&lt;category&gt;</b>
+                    element and save the file:<br/>
+                    <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-4.png" class="width-clear border-gray">
+                </li>
+                <li>
+                    then after reloading the Puzzles Editor the copied block
+                    should appear inside the plugin's category
+                </li>
+            </ul>
+        </p>
+    </div>
+
+
+    [anchor:init_plug_puzzles_order]
+
+    <h5>Puzzles Order</h5>
+
+    <p class="indented">
+        Puzzle blocks appear in the toolbox in the order you define in the
+        *init.plug* file:
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;&lt;/block&gt;
+        &lt;block type="doSomethingCool"&gt;&lt;/block&gt;
+        &lt;!-- &lt;block type="testPuzzle"&gt;&lt;/block&gt; --&gt;
+        &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
+&lt;/category&gt;
+        </code>
+        <img src="files/puzzles/puzzles-plugins-block-order.jpg" style="max-width: 523px"></br>
+        Note how the commented out puzzle block "testPuzzle" isn't shown in the
+        toolbox.
+    </p>
+
+
+    [anchor:init_plug_text_labels]
+
+    <h5>Text Labels</h5>
+
+    <div class="indented">
+        <p>
+            You can add text labels into the toolbox category via the *label* element:
+        </p>
+
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;label text="My Awesome Plugin v1.0"&gt;&lt;/label&gt;
+        &lt;label text="Main Puzzles:"&gt;&lt;/label&gt;
+        &lt;block type="myPuzzle"&gt;&lt;/block&gt;
+        &lt;block type="doSomethingCool"&gt;&lt;/block&gt;
+        &lt;label text="Other:"&gt;&lt;/label&gt;
+        &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
+&lt;/category&gt;
+        </code>
+
+        <img src="files/puzzles/puzzles-plugins-label-elements.jpg" style="max-width: 523px"></br>
+
+        <p class="note">
+            *label* elements are not suitable for displaying multiline text, i.e.
+            no line breaks.
+        </p>
+
+        <p>
+            *label* elements can also be stylized to some extent. They support a
+            *web-class* attribute, which is intended for assigning a custom CSS
+            class to the *label* element. The CSS rules for that class can be
+            defined in *init.plug*'s *script* section. This approach is illustrated
+            in the following example:
+        </p>
+
+        <code>
+    &lt;category name="Example Plugin" color="#a52a2a"&gt;
+        &lt;label text="Example Plugin v1.0 by Soft8Soft" web-class="example-plugin__label"&gt;&lt;/label&gt;
+    &lt;/category&gt;
+
+    &lt;script&gt;
+    const styleElem = document.createElement('style');
+    styleElem.innerHTML = `
+        .example-plugin__label .blocklyFlyoutLabelText {
+            fill: #a52a2a;
+            font-style: italic;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    `;
+    document.head.appendChild(styleElem);
+    &lt;/script&gt;
+        </code>
+
+        <p>
+            And here's the result of applying the custom CSS rules:
+        </p>
+        <img src="files/puzzles/puzzles-plugins-label-elements-styled.png" class="width-clear">
+
+        <p class="note">
+            When deciding what CSS class name to put into the *web-class*
+            attribute it's recommended to consider some sort of CSS scoping, for
+            example by using a prefix unique to your puzzles plugin, i.e. in the
+            example above it's the "example-plugin" part of the
+            "example-plugin__label" class. That way you less likely accidentally
+            break any CSS classes already used on the page.
+        </p>
+    </div>
+
+
+    [anchor:init_plug_separator_elements]
+
+    <h5>Separators</h5>
+
+    <p class="indented">
+        Separators can be used to change the distance between puzzle blocks. You
+        can add separators into the toolbox category via the *sep* element. The
+        *gap* attribute specifies the gap width in pixels. The default distance
+        between blocks (when not using *sep*) equals to 24 pixels.
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;&lt;/block&gt;
+        &lt;sep gap="0"&gt;&lt;/sep&gt;
+        &lt;block type="doSomethingCool"&gt;&lt;/block&gt;
+        &lt;sep gap="80"&gt;&lt;/sep&gt;
+        &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
+&lt;/category&gt;
+        </code>
+        <img src="files/puzzles/puzzles-plugins-sep-elements.jpg" style="max-width: 523px"></br>
+    </p>
+
+
+    [anchor:init_plug_available_puzzles_init]
+
+    <h5>Puzzle Blocks Available in the "init" Tab</h5>
+
+    <p class="indented">
+        By default puzzle blocks only available in the *main* and
+        user-created tabs, but not in *init*. That's because the code generated by the *init* tab is
+        executed before a Verge3D application is loaded and fully
+        initialized. This means that puzzles intended to work with a
+        3d-scene, 3d-objects, materials, etc... are not suitable for
+        using inside *init* and can crash the application. However,
+        puzzles that don't require a 3d-scene to be available (e.g.
+        those that preload resources or set up the UI) shouldn't have such
+        problems and can be allowed in *init*.<br/><br/>
+
+        In order to make a puzzle appear in the *init* tab's toolbox you
+        need to set the *allow-init* attribute to *true* in the puzzle's *block*
+        element (this also works with *label* and *sep* elements):
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;label text="My Awesome Plugin v1.0" allow-init="true"&gt;&lt;/label&gt;
+        &lt;label text="Main Puzzles:"&gt;&lt;/label&gt;
+        &lt;block type="myPuzzle" allow-init="true"&gt;&lt;/block&gt;
+        &lt;block type="doSomethingCool"&gt;&lt;/block&gt;
+        &lt;label text="Other:"&gt;&lt;/label&gt;
+        &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
+&lt;/category&gt;
+        </code>
+        <img src="files/puzzles/puzzles-plugins-allow-init.jpg" style="max-width: 523px"></br>
+        Note how the *block* and *label* elements without *allow-init* are not
+        displayed in the toolbox.
+    </p>
+
+
+    [anchor:init_plug_default_input_field_values]
+
+    <h5>Default Input and Field Values</h5>
+
+    <p class="indented">
+        If a puzzle block has block inputs (slots for connecting other
+        puzzle blocks) and/or field inputs (non-block UI elements such
+        as selectors, checkboxes, text fields, etc...), then you can
+        specify their placeholder blocks and/or default values. This
+        feature serves two purposes: it provides a hint for users on
+        what can be plugged into an input slot, and it also makes using
+        a puzzle block a bit more convenient.<br/><br/>
+
+        Let's say that your puzzle block has an input named "myNumber".
+        Here's how you can add a placeholder block of type *math_number*
+        plugged into that slot:
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;
+            &lt;value name="myNumber"&gt;
+                &lt;block type="math_number"&gt;&lt;/block&gt;
+            &lt;/value&gt;
+        &lt;/block&gt;
+&lt;/category&gt;
+        </code>
+        And here's what it will look like:<br/>
+        <img src="files/puzzles/puzzles-plugins-default-value-input.jpg" style="max-width: 523px"><br/><br/>
+
+        A placeholder block plugged into an input slot can also be a *shadow*
+        block. *Shadow* blocks are basically the same as ordinary blocks
+        except they are automatically replaced with a block that you
+        insert into the corresponding input slot and they automatically
+        appear back when you remove that block from the slot. This makes
+        *shadow* blocks a bit easier to use than ordinary placeholder
+        blocks.<br/><br/>
+
+        *Shadow* blocks are defined almost the same way as ordinary placeholder
+        blocks, the only difference is that the *block* element is replaced with
+        the similar *shadow* element:
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;
+            &lt;value name="myNumber"&gt;
+                &lt;shadow type="math_number"&gt;&lt;/shadow&gt;
+            &lt;/value&gt;
+        &lt;/block&gt;
+&lt;/category&gt;
+        </code>
+        And it will look like this:<br/>
+        <img src="files/puzzles/puzzles-plugins-default-value-input-shadow.jpg" style="max-width: 523px"><br/><br/>
+
+        Puzzle blocks can have statement inputs, which are inputs that usually
+        wrap a series of child puzzle blocks. Let's say that your puzzle block
+        has a statement input called "myStatement". Then you can add a couple
+        of placeholder blocks into that input as follows:
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;
+            &lt;statement name="myStatement"&gt;
+                &lt;block type="addHTMLElement"&gt;
+                    &lt;next&gt;
+                        &lt;block type="setHTMLElemAttribute"&gt;&lt;/block&gt;
+                    &lt;/next&gt;
+                &lt;/block&gt;
+            &lt;/statement&gt;
+        &lt;/block&gt;
+&lt;/category&gt;
+        </code>
+        The *statement* element used here references the "myStatement" input
+        via the *name* attribute. And it also has some placeholder blocks added
+        into the input. Also, the *next* element is used here for chaining a
+        series of placeholder blocks. The result of that setup is shown below:<br/>
+        <img src="files/puzzles/puzzles-plugins-default-value-statement.jpg" style="max-width: 735px"><br/><br/>
+
+        If your puzzle block has a checkbox field named "myCheckbox",
+        then you can define its default state (*true* - enabled,
+        *false* - disabled) like this:
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;
+            &lt;field name="myCheckbox"&gt;true&lt;/field&gt;
+        &lt;/block&gt;
+&lt;/category&gt;
+        </code>
+        And here's the result:<br/>
+        <img src="files/puzzles/puzzles-plugins-default-dummy-input.jpg" style="max-width: 523px"><br/><br/>
+
+        <span id="default_input_values_compound"></span>
+        Through using placeholder blocks and default field values you
+        can define complex compound puzzles akin to what you can add into
+        <a href="manual/en/puzzles/Library.html#using_entries">the Puzzles Library</a>:
+        <img src="files/puzzles/puzzles-plugins-compound-puzzle.jpg" style="max-width: 600px"><br/>
+
+        Code in *init.plug* for the complex puzzle setup on the picture above
+        can look like this:
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;
+
+            &lt;statement name="STATEMENT_0"&gt;
+                &lt;block type="whenClicked"&gt;
+                    &lt;value name="VALUE"&gt;
+                        &lt;block type="objectList"&gt;
+                            &lt;field name="FIELDNAME"&gt;Cube&lt;/field&gt;
+                        &lt;/block&gt;
+                    &lt;/value&gt;
+                &lt;/block&gt;
+            &lt;/statement&gt;
+
+            &lt;statement name="STATEMENT_1"&gt;
+                &lt;block type="loadScene"&gt;
+                    &lt;value name="URL"&gt;
+                        &lt;block type="text"&gt;
+                            &lt;field name="TEXT"&gt;my_scene.gltf&lt;/field&gt;
+                        &lt;/block&gt;
+                    &lt;/value&gt;
+                &lt;/block&gt;
+            &lt;/statement&gt;
+
+            &lt;statement name="STATEMENT_2"&gt;
+                &lt;block type="show"&gt;
+                    &lt;value name="VALUE"&gt;
+                        &lt;block type="objectList"&gt;
+                            &lt;field name="FIELDNAME"&gt;something&lt;/field&gt;
+                        &lt;/block&gt;
+                    &lt;/value&gt;
+                &lt;/block&gt;
+            &lt;/statement&gt;
+
+        &lt;/block&gt;
+&lt;/category&gt;
+        </code>
+
+        <div class="indented">
+            <p class="note">
+                Check out the <a href="manual/en/puzzles/Plugins.html#puzzle-xml-tree">"Print Puzzle XML Tree"</a>
+                context menu option. It helps in finding out the XML structure (the
+                configuration of inputs and fields) of a puzzle block of interest.
+            </p>
+        </div>
+    </p>
+
+
+    [anchor:init_plug_toolbox_subcategories]
+
+    <h5>Toolbox Subcategories</h5>
+
+    <p class="indented">
+        A category in the Editor's toolbox can have subcategories, which
+        in their turn can also have subcategories, and so on... This
+        feature is useful if you want to organize your plugin's puzzles
+        into a tree-like structure.<br/><br/>
+
+        This can be achieved by using nested *category* elements:
+        <code>
+&lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;&lt;/block&gt;
+        &lt;category name="1" color="red"&gt;
+            &lt;category name="1.1" color="silver"&gt;
+                &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
+            &lt;/category&gt;
+        &lt;/category&gt;
+        &lt;category name="2" color="blue"&gt;
+            &lt;block type="doSomethingCool"&gt;&lt;/block&gt;
+        &lt;/category&gt;
+&lt;/category&gt;
+        </code>
+        <img src="files/puzzles/puzzles-plugins-subcategories.jpg" style="max-width: 523px"><br/>
+        Any *category* can contain both *category* and *block* elements at the same
+        time (although it's not mandatory). That way it acts like a parent for
+        subcategories and also provides a selection of puzzle blocks.
+    </p>
+
+
+    [anchor:init_plug_script]
+
+    <h4>Script</h4>
+
+    <p>
+        The <b>&lt;script&gt;</b> element is an optional part of *init.plug*. It
+        can be used to add some initialization code for your puzzles. Sometimes
+        you might need to do heavy calculations and cache some data before any
+        of your puzzles can be used - that's where <b>&lt;script&gt;</b> comes
+        to rescue.
+    </p>
+
+    <p>
+        If you define a *code()* function inside <b>&lt;script&gt;</b> it will be used to
+        generate the code that is executed once before any puzzles. The
+        *code()* function should return a string containing javascript code.
+
+        <code>
+    &lt;script&gt;
+    function code() {
+        // this line will be executed before any puzzles
+        return `console.log('Powered by My Awesome Plugin!');`;
+    }
+    &lt;/script&gt;
+        </code>
+    </p>
+
+    <p class="note">
+        The initialization code returned by the *code()* function is added into
+        the generated logic file only if the plugin's puzzles are actually used
+        in the application (added on a workspace and not being disabled).
+    </p>
+
+
+    [anchor:block_file_format]
+
+    <h3>.block File Format</h3>
+
+    <p>
+        Plugin files with the <b>.block</b> extension are used to define single
+        puzzle blocks, specifically, what a block can look like and the code
+        that it should generate if added to a workspace area. A plugin can have no
+        <b>.block</b> files at all. That can be useful if you want to create a
+        toolbox category with just <a href="manual/en/puzzles/Plugins.html#available_puzzles_stock">stock</a>
+        puzzle blocks (even including <a href="manual/en/puzzles/Plugins.html#default_input_values_compound">more complex block setups</a>).<br/><br/>
+
+        The name of a <b>.block</b> file is used to indicate which puzzle blocks
+        should be <a href="manual/en/puzzles/Plugins.html#available_puzzles_plugin">included in the plugin's toolbox category</a>.
+    </p>
+
+    <p>
+        Here's a minimal example of a <b>.block</b> file:
+        <code>
+&lt;template color="green"&gt;
+        &lt;dummy&gt;
+            &lt;label&gt;myPuzzle&lt;/label&gt;
+        &lt;/dummy&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    function code(block) {
+        return `console.log('This is my first puzzle!');`;
+    }
+&lt;/script&gt;
+        </code>
+        Here we have a <b>&lt;template&gt;</b> element which defines the appearance
+        of the puzzle block. And also there is a <b>&lt;script&gt;</b> element
+        with a *code()* function inside it. The *code()* function returns a
+        string containing the code that will be generated in place of this
+        puzzle.<br/><br/>
+
+        So, based on the example above we can expect our simple puzzle block to
+        be green and to have a text label saying "myPuzzle":<br/>
+        <img src="files/puzzles/puzzles-plugins-block-minimal-appearance.jpg" style="max-width: 523px"><br/><br/>
+
+        And if added to a workspace it should print the following message into
+        the browser console:<br/>
+        <img src="files/puzzles/puzzles-plugins-block-minimal-console.jpg" style="max-width: 523px"><br/>
+    </p>
+
+
+    [anchor:block_file_template]
+
+    <h4>Block Template</h4>
+
+    <p>
+        The appearance of a puzzle block can be defined in two ways: via the
+        <b>&lt;template&gt;</b> XML element and via the *template()* function. The
+        former variant is more simple and easy to use. For example, this is what
+        <b>&lt;template&gt;</b> of a typical puzzle can look like:
+    </p>
+
+    <code>
+&lt;template
+        color="green"
+        inline="true"
+        output="Dictionary"
+        tooltip="This is my first puzzle!"
+        help="https://soft8soft.com"
+&gt;
+        &lt;dummy name="myDummyInput"&gt;
+            &lt;label&gt;enable&lt;/label&gt;
+            &lt;checkbox name="myCheckbox"&gt;true&lt;/checkbox&gt;
+        &lt;/dummy&gt;
+
+        &lt;value name="myValueInput"&gt;
+            &lt;label&gt;input value&lt;/label&gt;
+        &lt;/value&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    function code(block) {
+        return `console.log('This is my first puzzle!');`;
+    }
+&lt;/script&gt;
+    </code>
+
+    <p>
+        The other approach is to use the *template()* function. It's a function
+        that you can define inside the <b>&lt;script&gt;</b> element. It can
+        also be used to configure the puzzle appearance but this time through
+        the <a href="https://developers.google.com/blockly/reference/overview">Blockly JavaScript API</a>
+        rather than XML elements and attributes. It receives a *block* parameter,
+        which is an instance of <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a>.<br/><br/>
+
+        The same block as in the example above can be rewritten by using the
+        *template()* function as follows:
+    </p>
+
+    <code>
+&lt;script&gt;
+function template(block) {
+        block.setColor('green');
+        block.setInputsInline(true);
+        block.setOutput(true, 'Dictionary');
+        block.setTooltip('This is a test puzzle!');
+        block.setHelpUrl('https://soft8soft.com');
+
+        block.appendDummyInput('myDummyInput')
+        .appendField('enable')
+        .appendField(new Blockly.FieldCheckbox(true), 'myCheckbox');
+
+        block.appendValueInput('myValueInput')
+        .appendField('input value');
+}
+
+function code(block) {
+        return `console.log('This is my first puzzle!');`;
+}
+&lt;/script&gt;
+    </code>
+
+    <p>
+        This approach is more flexible but requires knowledge of the
+        corresponding APIs. It's especially useful if you need to do some
+        non-trivial setup that can't be achieved via the <b>&lt;template&gt;</b>
+        element. Moreover, you can use both <b>&lt;template&gt;</b> and *template()*
+        simultaneously.
+    </p>
+
+    <p class="note">
+        This section provides examples for both <b>&lt;template&gt;</b> (*XML*)
+        and *template()* (*JS*) variants.
+    </p>
+
+    <p class="note">
+        Please, note that this section is just a brief overview of how to create
+        a custom puzzle block. For more detailed information on general
+        customization check out the Google Blockly documentation about
+        <a href="https://developers.google.com/blockly/guides/create-custom-blocks/overview">custom blocks</a>
+        and <a href="https://developers.google.com/blockly/guides/create-custom-blocks/fields/overview">fields</a>.
+    </p>
+
+
+    [anchor:block_file_template_block_color]
+
+    <h5>Block Color</h5>
+
+    <div class="indented">
+
+        <p>You can set block color to give your puzzles distinct appearance:</p>
+        <img src="files/puzzles/puzzles-plugins-template-color.png" class="width-clear border-gray">
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                Can be set via the *color* attribute:
+                <code>
+    &lt;template color="green"&gt;&lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                Can be set via <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setColour">block.setColor</a>:
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.setColor('green');
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+
+        <p>
+            Colors have to be in one of the formats described here:
+            <a href="manual/en/puzzles/Plugins.html#color_formats">color formats</a>.
+        </p>
+    </div>
+
+
+    [anchor:block_file_template_block_tooltip]
+
+    <h5>Block Tooltip</h5>
+
+    <div class="indented">
+        <p>
+            You can add a tooltip that appears when hovering above a block. The
+            tooltip is useful for providing a user with a simple description of
+            what the puzzle is intended for, how it works, what are the usage
+            tips, etc...
+        </p>
+
+        <img src="files/puzzles/puzzles-plugins-template-tooltip.png" class="width-clear border-gray">
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                Can be set via the *tooltip* attribute:
+                <code>
+    &lt;template tooltip="This is my first puzzle!"&gt;&lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                Can be set via <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setTooltip">block.setTooltip</a>:
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.setTooltip('This is my first puzzle!');
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+    </div>
+
+
+    [anchor:block_file_template_block_help_url]
+
+    <h5>Block Help URL</h5>
+
+    <div class="indented">
+
+        <p>
+            If the <a href="manual/en/puzzles/Plugins.html#block_file_template_block_tooltip">tooltip</a>
+            is not enough for documenting your puzzle you may also add a link to a
+            website with more thorough documentation. This link will be used for the
+            *Help* entry in the puzzle context menu (right click on a puzzle):
+        </p>
+
+        <img src="files/puzzles/puzzles-plugins-template-helpurl.png" class="width-clear border-gray">
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                Can be set via the *help* attribute:
+                <code>
+    &lt;template help="https://www.soft8soft.com/"&gt;&lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                Can be set via <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setHelpUrl">block.setHelpUrl</a>:
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.setHelpUrl('https://www.soft8soft.com/');
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+    </div>
+
+
+    [anchor:block_file_template_block_adding_inputs]
+
+    <h5>Adding Inputs</h5>
+
+    <div class="indented">
+        <p>
+            Puzzle blocks can contain input slots for plugging in other blocks.
+            Also they can have non-block UI elements such as checkboxes or text
+            fields. There are 3 different types of inputs: *value inputs*,
+            *statement inputs* and *dummy inputs*.
+
+            <ul>
+                <li id="adding_inputs_value">
+                    *value inputs* - are input slots that can be used for
+                    plugging in blocks having a return value (an output connection),
+                    e.g. an input with some math blocks inside it - the math blocks
+                    calculate and return some value, which can be accessed by
+                    the parent block (the block containing the input slot)
+                </li>
+                <li id="adding_inputs_statement">
+                    *statement inputs* - are inputs that can hold a group of
+                    blocks representing a series of consecutive actions, e.g.
+                    the <a href="manual/en/puzzles/Logic.html#if_else">if-else</a>
+                    puzzle has exactly that type of input for grouping puzzle
+                    blocks under the "if" or "else" conditions
+                </li>
+                <li id="adding_inputs_dummy">
+                    *dummy inputs* - these are inputs suitable only for adding
+                    non-block UI elements like checkboxes, text fields, images,
+                    etc... See <a href="manual/en/puzzles/Plugins.html#block_file_template_adding_fields">adding fields</a>
+                    for more info.
+                </li>
+            </ul>
+        </p>
+
+        <p>
+            You can see the difference between those types of inputs on the
+            picture below:
+        </p>
+
+        <img src="files/puzzles/puzzles-plugins-template-input-types.png" class="width-clear border-gray">
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                Use the <b>&lt;value&gt;</b>, <b>&lt;statement&gt;</b> and
+                <b>&lt;dummy&gt;</b> elements to add inputs. *Value* and *statement*
+                inputs must have a name (use their *name* attribute for that).
+                *Dummy* inputs usually don't need names, they are merely containers for
+                <a href="manual/en/puzzles/Plugins.html#block_file_template_adding_fields">fields</a>.
+                <code>
+    &lt;template&gt;
+        &lt;value name="myInput"&gt;&lt;/value&gt;
+
+        &lt;statement name="myStatement"&gt;&lt;/statement&gt;
+
+        &lt;dummy&gt;
+            &lt;checkbox name="myCheckbox"&gt;true&lt;/checkbox&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                Use the <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendValueInput">block.appendValueInput</a>,
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendStatementInput">block.appendStatementInput</a>
+                and <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendDummyInput">block.appendDummyInput</a>
+                methods to add inputs. *Value* and *statement* inputs must be
+                named (via the *name* attribute). *Dummy* inputs usually don't
+                need names, they are merely containers for
+                <a href="manual/en/puzzles/Plugins.html#block_file_template_adding_fields">fields</a>.
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendValueInput('myValue');
+
+        block.appendStatementInput('myStatement');
+
+        block.appendDummyInput()
+        .appendField(new Blockly.FieldCheckbox(true), 'myCheckbox');
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+    </div>
+
+
+    [anchor:block_file_template_arrangement_inputs]
+
+    <h5>Arrangement of Inputs</h5>
+
+    <div class="indented">
+        <p>
+            Block inputs can be arranged either vertically (default) or
+            horizontally.
+        </p>
+
+        <img src="files/puzzles/puzzles-plugins-inputs-inline.png" class="width-clear border-gray">
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                Can be set via the *inline* attribute, which can be either
+                *true* or *false*. *false* is for the vertical arrangement and
+                *true* is for the horizontal variant.
+                <code>
+    &lt;template inline="true"&gt;&lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                Can be set via the <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setInputsInline">block.setInputsInline</a>
+                method. The method receives a parameter, which can be either
+                *true* or *false*. *false* is for the vertical arrangement and
+                *true* is for the horizontal variant.
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.setInputsInline(true);
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+    </div>
+
+
+    [anchor:block_file_template_adding_fields]
+
+    <h5>Adding Fields</h5>
+
+    <div class="indented">
+        <p>
+            You can add such UI elements as text labels, checkboxes, drop-down lists,
+            text inputs and more into your puzzles. Those UI elements are called
+            "fields". They can be added to inputs of any type, but if you don't want
+            to additionally create input slots for puzzle blocks you should stick to
+            using <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy inputs</a>.
+        </p>
+
+        <p>
+            There are a couple of things that all fields have in common:
+            <ul>
+                <li>
+                    The ability to specify an optional *name* parameter, which is
+                    often used for referencing the field in the
+                    <a href="manual/en/puzzles/Plugins.html#block_file_code">code()</a>
+                    function in order to obtain the field's value.
+                </li>
+                <li>
+                    The ability to provide an optional default value. Still, a
+                    default value specified in *init.plug*'s
+                    <a href="manual/en/puzzles/Plugins.html#init_plug_default_input_field_values">category</a>
+                    always has a higher priority than the one defined in the
+                    puzzle template.
+                </li>
+            </ul>
+        </p>
+
+        <p>
+            Let's see how to add various fields to a puzzle.
+        </p>
+    </div>
+
+    <ul>
+        <li>
+            <p>label - a non-editable text field</p>
+
+            <img src="files/puzzles/puzzles-plugins-field-text-label.png" class="width-clear border-gray">
+
+            <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    Can be added via the <b>&lt;label&gt;</b> element nested inside a
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;template&gt;
+        &lt;dummy&gt;
+            &lt;label&gt;a text label&lt;/label&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                    </code>
+                </div>
+
+                <label>JS</label>
+                <div>
+                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldLabel">Blockly.FieldLabel</a>
+                    to a <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendDummyInput()
+        .appendField(new Blockly.FieldLabel('a text label'));
+    }
+    &lt;/script&gt;
+                    </code>
+                </div>
+            </v3d-tabs>
+        </li>
+
+        <li>
+            <p>text - an editable text field</p>
+
+            <img src="files/puzzles/puzzles-plugins-field-text.png" class="width-clear border-gray">
+
+            <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    Can be added via the <b>&lt;text&gt;</b> element nested inside a
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;template&gt;
+        &lt;dummy&gt;
+            &lt;text name="myText"&gt;default text&lt;/text&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                    </code>
+                </div>
+
+                <label>JS</label>
+                <div>
+                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldTextInput">Blockly.FieldTextInput</a>
+                    to a <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput('default text'), 'myText');
+    }
+    &lt;/script&gt;
+                    </code>
+                </div>
+            </v3d-tabs>
+        </li>
+
+        <li>
+            <p>multiline text - an editable multiline text field</p>
+
+            <img src="files/puzzles/puzzles-plugins-field-text-multiline.png" class="width-clear border-gray">
+
+            <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    Can be added via the <b>&lt;multiline&gt;</b> element nested inside a
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;template&gt;
+        &lt;dummy&gt;
+            &lt;multiline name="myTextMultiline"&gt;This is a \n multiline \n   text&lt;/multiline&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                    </code>
+                </div>
+
+                <label>JS</label>
+                <div>
+                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldMultilineInput">Blockly.FieldMultilineInput</a>
+                    to a <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendDummyInput()
+        .appendField(new Blockly.FieldMultilineInput('This is a \n multiline \n   text'), 'myTextMultiline');
+    }
+    &lt;/script&gt;
+                    </code>
+                </div>
+            </v3d-tabs>
+        </li>
+
+        <li>
+            <p>number - an editable field for numeric values</p>
+
+            <img src="files/puzzles/puzzles-plugins-field-number.png" class="width-clear border-gray">
+
+            <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    Can be added via the <b>&lt;number&gt;</b> element nested inside a
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;template&gt;
+        &lt;dummy&gt;
+            &lt;number name="myNumber"&gt;3&lt;/number&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                    </code>
+                </div>
+
+                <label>JS</label>
+                <div>
+                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldNumber">Blockly.FieldNumber</a>
+                    to a <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendDummyInput()
+        .appendField(new Blockly.FieldNumber(3), 'myNumber');
+    }
+    &lt;/script&gt;
+                    </code>
+                </div>
+            </v3d-tabs>
+        </li>
+
+        <li>
+            <p>angle - an editable field for numeric values representing angles (in degrees)</p>
+
+            <img src="files/puzzles/puzzles-plugins-field-number-angle.png" class="width-clear border-gray">
+
+            <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    Can be added via the <b>&lt;angle&gt;</b> element nested inside a
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;template&gt;
+        &lt;dummy&gt;
+            &lt;angle name="myAngle"&gt;15&lt;/angle&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                    </code>
+                </div>
+
+                <label>JS</label>
+                <div>
+                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldAngle">Blockly.FieldAngle</a>
+                    to a <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendDummyInput()
+        .appendField(new Blockly.FieldAngle(15), 'myAngle');
+    }
+    &lt;/script&gt;
+                    </code>
+                </div>
+            </v3d-tabs>
+        </li>
+
+        <li id="block_file_template_adding_fields_checkbox">
+            <p>checkbox - a typical checkbox field</p>
+
+            <img src="files/puzzles/puzzles-plugins-field-checkbox.png" class="width-clear border-gray">
+
+            <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    Can be added via the <b>&lt;checkbox&gt;</b> element nested inside a
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    The default checkbox state should be set to either *true* or
+                    *false*.
+                    <code>
+    &lt;template&gt;
+        &lt;dummy&gt;
+            &lt;checkbox name="myCheckbox"&gt;true&lt;/checkbox&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                    </code>
+                </div>
+
+                <label>JS</label>
+                <div>
+                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldCheckbox">Blockly.FieldCheckbox</a>
+                    to a <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    The default checkbox state is passed as a parameter to
+                    *Blockly.FieldCheckbox* and can be either *true* or *false*.
+                    <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendDummyInput()
+        .appendField(new Blockly.FieldCheckbox(true), 'myCheckbox');
+    }
+    &lt;/script&gt;
+                    </code>
+                </div>
+            </v3d-tabs>
+        </li>
+
+        <li id="block_file_template_adding_fields_dropdown">
+            <p>dropdown - a list of values to select from</p>
+
+            <img src="files/puzzles/puzzles-plugins-field-dropdown.png" class="width-clear border-gray">
+
+            <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    <p>
+                        Can be added via the <b>&lt;dropdown&gt;</b> element nested inside a
+                        <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                        <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                        or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    </p>
+                    <p>
+                        To create the options list add <b>&lt;option&gt;</b>
+                        elements inside <b>&lt;dropdown&gt;</b>. All
+                        <b>&lt;option&gt;</b> elements must have their *name*
+                        attribute set to a unique identifier (something that
+                        would be more suitable for using in the code, e.g.
+                        COLOR_GREEN). The text contained between the starting
+                        and closing <b>&lt;option&gt;</b> tags is used as a label
+                        displayed in the dropdown widget for that option.
+                    </p>
+                    <p>
+                        The default selected option can be set by setting an
+                        option's *default* attribute to *true*.
+                    </p>
+                    <code>
+    &lt;template&gt;
+        &lt;dummy&gt;
+            &lt;dropdown name="myDropdown"&gt;
+                &lt;option name="COLOR_GREEN"&gt;green&lt;/option&gt;
+                &lt;option name="COLOR_YELLOW" default="true"&gt;yellow&lt;/option&gt;
+                &lt;option name="COLOR_RED"&gt;red&lt;/option&gt;
+            &lt;/dropdown&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                    </code>
+                </div>
+
+                <label>JS</label>
+                <div>
+                    <p>
+                        Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                        method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldDropdown">Blockly.FieldDropdown</a>
+                        to a <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                        <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                        or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    </p>
+                    <p>
+                        The first parameter of *Blockly.FieldDropdown* can be an
+                        array of available options. Each option in its turn is also
+                        an array of 2 elements: a text for displaying in the UI (human
+                        friendly text denoting what the option is about) and a unique
+                        identifier (something that would be more suitable for using in the
+                        code, e.g. COLOR_GREEN).
+                    </p>
+                    <p>
+                        The default selected option can be set by calling the
+                        <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setValue">setValue</a>
+                        method. To specify which should be the default one
+                        simply pass the option's unique identifier as a parameter
+                        into *setValue*.
+                    </p>
+                    <code>
+    &lt;script&gt;
+    function template(block) {
+        let field = new Blockly.FieldDropdown([
+            // [ displayed text, option name ]
+            ['green', 'COLOR_GREEN'],
+            ['yellow', 'COLOR_YELLOW'],
+            ['red', 'COLOR_RED'],
+        ]);
+
+        // setting default option
+        field.setValue('COLOR_YELLOW');
+
+        block.appendDummyInput()
+        .appendField(field, 'myDropdown');
+    }
+    &lt;/script&gt;
+                    </code>
+                </div>
+            </v3d-tabs>
+        </li>
+
+        <li>
+            <p>color picker - a color picker widget</p>
+
+            <img src="files/puzzles/puzzles-plugins-field-color.png" class="width-clear border-gray">
+
+            <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    Can be added via the <b>&lt;color&gt;</b> element nested inside a
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;template&gt;
+        &lt;dummy&gt;
+            &lt;color name="myColor"&gt;#350af5&lt;/color&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+                    </code>
+                </div>
+
+                <label>JS</label>
+                <div>
+                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldColour">Blockly.FieldColor</a>
+                    to a <a href="manual/en/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value</a>
+                    or <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendDummyInput()
+        .appendField(new Blockly.FieldColor('#350af5'), 'myColor');
+    }
+    &lt;/script&gt;
+                    </code>
+                </div>
+            </v3d-tabs>
+        </li>
+    </ul>
+
+
+    [anchor:block_file_template_field_alignment]
+
+    <h5>Field Alignment</h5>
+
+    <div class="indented">
+        <p>
+
+            Field elements in a puzzle block always belong to a particular
+            input slot. Be it a single field or multiple fields per input, they
+            are always rendered following a certain layout. One thing that can
+            be changed about that is how fields are positioned inside an input,
+            specifically which side they are aligned. You can make them align
+            left (default), right and center.
+        </p>
+
+        <img src="files/puzzles/puzzles-plugins-field-alignment.png" class="width-clear border-gray">
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                To change the field alignment for a certain input use the *align*
+                attribute on the corresponding <a href="manual/en/puzzles/Plugins.html#block_file_template_block_adding_inputs">input element</a>.
+                This attribute's valid values are: *left*, *center* and *right*.
+                <code>
+    &lt;template&gt;
+        &lt;dummy align="left"&gt;&lt;/dummy&gt;
+        &lt;value align="center" name="myValueInput"&gt;&lt;/value&gt;
+        &lt;statement align="right" name="myStatementInput"&gt;&lt;/statement&gt;
+    &lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                To change the field alignment for a certain input use the
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setAlign">setAlign</a> method.
+                Its first parameter should be *Blockly.ALIGN_LEFT*,
+                *Blockly.ALIGN_CENTER* or *Blockly.ALIGN_RIGHT*.
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.appendDummyInput()
+        .setAlign(Blockly.ALIGN_LEFT);
+
+        block.appendValueInput('myValueInput')
+        .setAlign(Blockly.ALIGN_CENTER);
+
+        block.appendStatementInput('myStatementInput')
+        .setAlign(Blockly.ALIGN_RIGHT);
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+    </div>
+
+
+    [anchor:block_file_template_block_connections]
+
+    <h5>Block Connections</h5>
+
+    <div class="indented">
+        <p>
+            Puzzle blocks can have input, statement and output connections.
+            Input connections are added automatically for each input slot
+            created and serve the purpose of plugging in child blocks. See more
+            information on creating inputs here:
+            <a href="manual/en/puzzles/Plugins.html#block_file_template_block_adding_inputs">adding inputs</a>.
+            Statement (previous and next) and output connections are used for
+            connecting blocks to a parent block or sibling blocks.
+        </p>
+        <p>
+            *Previous* and *next* add connections at the top and at the bottom
+            of a puzzle block respectively, so the block can be connected from
+            below/above to other blocks that have a matching connection.
+        </p>
+        <p>
+            *Output* adds a connection at the left side of a block - this allows
+            the block to be plugged into an input slot of a parent block. The
+            output connection typically used for puzzle blocks that return a
+            value, e.g. the result of some math calculations.
+        </p>
+        <p>
+            By default a puzzle block doesn't have any connections at all. You
+            can add a single connection of any type to a puzzle block. You can
+            add even 2 statement/output connections to a block, but only the
+            following combinations are allowed: *previous* + *next* or
+            *next* + *output*.
+        </p>
+
+        <img src="files/puzzles/puzzles-plugins-output-connections.png" class="width-clear border-gray">
+
+        <p>
+            Here's how all those connections can be added to a block:
+        </p>
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                The *previous* statement connection can be enabled by setting the
+                *prev* attribute to *true*:
+                <code>
+    &lt;template prev="true"&gt;&lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                The *previous* statement connection can be enabled by calling
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setPreviousStatement">block.setPreviousStatement</a>
+                with *true* as the first parameter:
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.setPreviousStatement(true);
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                The *next* statement connection can be enabled by setting the
+                *next* attribute to *true*:
+                <code>
+    &lt;template next="true"&gt;&lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                The *next* statement connection can be enabled by calling
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setNextStatement">block.setNextStatement</a>
+                with *true* as the first parameter:
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.setNextStatement(true);
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                The *output* connection can be enabled by setting the *output*
+                attribute to an empty string:
+                <code>
+    &lt;template output=""&gt;&lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                The *output* connection can be enabled by calling
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setOutput">block.setOutput</a>
+                with *true* as the first parameter:
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        block.setOutput(true);
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+    </div>
+
+
+    [anchor:block_file_template_input_output_type_checking]
+
+    <h5>Input/Output Type Checking</h5>
+
+    <div class="indented">
+        <p>
+            By default all puzzle blocks that have suitable inputs/outputs can be
+            connected with each other. Yet, that doesn't mean all blocks should
+            be compatible. Let's say that we have a puzzle block returning an
+            array of coordinates, while some other block has an input that
+            expects an animation name. If we try to plug the first block into
+            the second one then things might not work as expected. The code
+            generated from those puzzles can be invalid and even lead to a crash.
+        </p>
+        <p>
+            Fortunately, there's a way to resolve that situation. Every input
+            and output can be assigned a type and only those blocks that have
+            matching types can be connected with each other.
+        </p>
+        <p class="note">
+            For general information about output and other connections see
+            <a href="manual/en/puzzles/Plugins.html#block_file_template_block_connections">block connections</a>.
+        </p>
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                The output type can be specified via the <b>&lt;template&gt;</b>'s
+                *output* attribute. The types that a particular input can accept
+                are defined by the input's *type* attribute.
+                <code>
+    &lt;!-- the block's output type is 'String' --&gt;
+    &lt;template output="String"&gt;
+        &lt;!-- this input accepts only blocks of type 'Number' --&gt;
+        &lt;value name="myInput" type="Number"&gt;&lt;/value&gt;
+    &lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                The output type can be assigned to a block by calling the
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setOutput">block.setOutput</a>
+                method while passing *true* as its first and the desired type as
+                its second parameter. The types that a particular input can
+                accept are set by calling the
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setCheck">setCheck</a>
+                method.
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        // this input accepts only blocks of type 'Number'
+        block.appendValueInput('myInput')
+        .setCheck('Number');
+
+        // the block's output type is 'String'
+        block.setOutput(true, 'String');
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+
+        <p>
+            In the example above the block has an input that can only accept
+            blocks of the type "Number" or of an unspecified type (if no type
+            was set via *setOutput*). The block also has the "String" output
+            type, which means that it can be only plugged into an input having
+            the "String" or an unspecified type (if no type was set via *setCheck*).
+        </p>
+        <p>
+            Inputs and outputs can also have more than one type:
+        </p>
+
+        <v3d-tabs style="width: 1000px;">
+            <label>XML</label>
+            <div>
+                In order to have multiple input/output types fill the
+                corresponding *type* and *output* attributes with multiple type
+                values separated by space:
+                <code>
+    &lt;!-- this block's output type is 'String' or 'Animation' --&gt;
+    &lt;template output="String Animation"&gt;
+        &lt;!-- this input accepts only blocks of type 'Number' or 'Object3D' --&gt;
+        &lt;value name="myInput" type="Number Object3D"&gt;&lt;/value&gt;
+    &lt;/template&gt;
+                </code>
+            </div>
+
+            <label>JS</label>
+            <div>
+                In order to have multiple input/output types provide the array of
+                types into *setCheck* and/or *setOutput* .
+                <code>
+    &lt;script&gt;
+    function template(block) {
+        // this input accepts only blocks of type 'Number' or 'Object3D'
+        block.appendValueInput('myInput')
+        .setCheck(['Number', 'Object3D']);
+
+        // this block's output type is 'String' or 'Animation'
+        block.setOutput(true, ['String', 'Animation']);
+    }
+    &lt;/script&gt;
+                </code>
+            </div>
+        </v3d-tabs>
+
+        <p>
+            Standard Verge3D puzzles use several certain input/output types, which
+            you may borrow for your puzzles as well:
+        </p>
+        <ul>
+            <li>
+                for javascript types and built-in objects there are:
+                *Number*, *String*, *Boolean*, *Dictionary* (for js objects),
+                *Array*, *Promise*
+            </li>
+            <li>
+                for scene entities: *Object3D*, *Material*, *Animation*
+            </li>
+            <li>
+                other types: *Canvas*, *Sound*, *Video*
+            </li>
+        </ul>
+        <p>
+            You are not limited with the types described above and it's even
+            encouraged to come up with your own input/output types that suit
+            your puzzles better.
+        </p>
+    </div>
+
+
+    [anchor:block_file_code]
+
+    <h4>Code Function</h4>
+
+    <p>
+        The *code()* function is used to provide javascript code that should be
+        generated for the puzzle if it's added to a workspace. Generally, this
+        is the place where you define the puzzle's logic and where you implement
+        most of the puzzle's features.
+    </p>
+
+    <p>
+        The function is expected to return a string containing js code. The way
+        it works is similar to how <a href="manual/en/puzzles/Plugins.html#init_plug_script">init.plug's code function</a>
+        works, except that in this case the code will be added and used as many
+        times as how many puzzle blocks are added to a workspace. The *code()*
+        function receives a *block* parameter - it's the same instance of
+        <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a>
+        that's used in <a href="manual/en/puzzles/Plugins.html#block_file_template">template()</a>.
+    </p>
+
+    <p>
+        Let's look at what you can do with the *code()* function.
+    </p>
+
+
+    [anchor:block_file_code_basic_code_generation]
+
+    <h5>Basic Code Generation</h5>
+
+    <p class="indented">
+        The very simple thing that *code()* can do is to return a string with a
+        couple of lines of javascript code, which will be added into the
+        resulting visual_logic.js file.<br/>
+
+        For example, the following code opens the standard browser alert dialog:
+        <code>
+    function code(block) {
+        return `alert('Test');`;
+    }
+        </code>
+
+        And here we just return a value of 1:
+        <code>
+    function code(block) {
+        return `1`;
+    }
+        </code>
+        - this example doesn't make much sense unless the block has the output
+        connection. In that case the returned value can be accessed from a
+        parent block that has this block plugged into one of the inputs.<br/><br/>
+
+        And now for a bit more advanced example:
+        <code>
+    function code(block) {
+        const fun = function() {
+            app.scene.traverse(function(obj) {
+                obj.material = new v3d.MeshBasicMaterial({
+                    color: new v3d.Color(Math.random(), Math.random(), Math.random())
+                });
+            });
+        }
+        return `(${fun})();`;
+    }
+        </code>
+        - here all objects get a new material with a randomly generated color.
+    </p>
+
+
+    [anchor:block_file_code_mitigating_code_bloat]
+
+    <h5>Mitigating Code Bloat</h5>
+
+    <p class="indented">
+        By default, a puzzle's code is copied into the generated visual_logic.js
+        file each time the puzzle is used on a workspace. It's not a problem if
+        you have just a couple of lines of code. But if the code is bulky,
+        complex and split into several functions that you might want to declare
+        only once, then the default approach becomes inefficient and causes the
+        resulting visual_logic.js file to bloat.<br/><br/>
+
+        To deal with that you can utilize a special method available inside the
+        *code()* function. It is called *Plug.provide()*. Let's demonstrate how
+        to use it with the following example:
+
+        <code>
+    function code(block) {
+        const fun = Plug.provide('myFunction', function(a, b, c) {
+            console.log(a, b, c);
+        });
+
+        return `${fun}(1, 2, 3);`;
+    }
+        </code>
+
+        Here we have a function "myFunction" defined via *Plug.provide()*,
+        which means that no matter how many times the puzzle is used on a
+        workspace, "myFunction" will be copied to visual_logic.js just once. Also,
+        the value that is actualy returned from *code()* is just <b>${fun}(1, 2, 3);</b>,
+        which is basically the function call <b>"myFunction(1, 2, 3);"</b> that
+        will be inserted into visual_logic.js for every such puzzle used on a
+        workspace. And this is what we exactly would want from our puzzle,
+        because "myFunction" only needs to be declared just once, and after that
+        it can be called multiple times.<br/><br/>
+
+        The first parameter in *Plug.provide()* should be a unique function
+        identifier. The returned variable *fun* is the name of the provided
+        function (it's usually almost the same as the value passed in the first
+        parameter, but can be different because the Puzzles Editor needs to
+        ensure that the name is valid and there's no collisions with other
+        functions/variables used on a workspace). That name (instead of the
+        original "myFunction") should be used to call the provided function -
+        that is how it's done in the part under the return statement.<br/><br/>
+    </p>
+
+
+    [anchor:block_file_code_inputs_fields]
+
+    <h5>Accessing Inputs and Fields</h5>
+
+    <p class="indented">
+        If a puzzle block has <a href="manual/en/puzzles/Plugins.html#block_file_template_adding_fields">fields</a>
+        or <a href="manual/en/puzzles/Plugins.html#block_file_template_block_adding_inputs">input slots</a>
+        defined in the <a href="manual/en/puzzles/Plugins.html#block_file_template">template()</a> function,
+        then you would most likely want them to affect what is generated inside
+        the *code()* function. For example, a
+        <a href="manual/en/puzzles/Plugins.html#block_file_template_adding_fields_checkbox">checkbox</a>
+        can enable or disable one of your puzzle's features.<br/><br/>
+
+        The API methods used to access <a href="manual/en/puzzles/Plugins.html#adding_inputs_value">value inputs</a>,
+        <a href="manual/en/puzzles/Plugins.html#adding_inputs_statement">statement inputs</a>
+        and <a href="manual/en/puzzles/Plugins.html#block_file_template_adding_fields">fields</a>
+        are namely: <a href="https://developers.google.com/blockly/reference/js/Blockly.Generator#valueToCode">Blockly.JavaScript.valueToCode</a>,
+        <a href="https://developers.google.com/blockly/reference/js/Blockly.Generator#statementToCode">Blockly.JavaScript.statementToCode</a>
+        and <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#getFieldValue">block.getFieldValue</a>.<br/><br/>
+
+        Let's make a puzzle block that has both inputs and fields. Here's the
+        full content of the .block file:
+        <code>
+    &lt;template color="green"&gt;
+        &lt;dummy&gt;
+            &lt;label&gt;myPuzzle&lt;/label&gt;
+        &lt;/dummy&gt;
+
+        &lt;value name="myValue"&gt;&lt;/value&gt;
+
+        &lt;statement name="myStatement"&gt;&lt;/statement&gt;
+
+        &lt;dummy&gt;
+            &lt;checkbox name="myCheckbox"&gt;true&lt;/checkbox&gt;
+        &lt;/dummy&gt;
+    &lt;/template&gt;
+
+    &lt;script&gt;
+    function wrapFn(contents) {
+        return `function() {${contents}}`;
+    }
+
+    function code(block) {
+        const myInput = Blockly.JavaScript.valueToCode(block, 'myValue',
+                Blockly.JavaScript.ORDER_NONE) || `''`;
+
+        const myStatement = wrapFn(Blockly.JavaScript.statementToCode(block, 'myStatement'));
+
+        const myCheckbox = block.getFieldValue('myCheckbox') === 'TRUE';
+
+        const fun = Plug.provide('myFunction', function(input, statements, checkbox) {
+            console.log('input value:', input);
+            statements(); // execute puzzles from the myStatement input
+            console.log('checkbox state:', checkbox);
+        });
+        return `${fun}(${myInput}, ${myStatement}, ${myCheckbox});`;
+    }
+    &lt;/script&gt;
+        </code>
+        In this example the block defines a value input called "myValue", a
+        statement input "myStatement" and a checkbox field "myCheckbox". We obtain
+        their values via the API described above, but before we pass them into
+        "myFunction" they undergo some noteworthy changes:
+
+        <code>
+    var myInput = Blockly.JavaScript.valueToCode(block, 'myValue', Blockly.JavaScript.ORDER_NONE) || `''`;
+        </code>
+        - an input slot might have no blocks plugged into it, so we just ensure
+        that in such a case we get an empty string by adding the *|| `''`* part
+        at the end.
+
+        <code>
+    function wrapFn(contents) {
+        return `function() {${contents}}`;
+    }
+
+    ...
+
+    var myStatement = wrapFn(Blockly.JavaScript.statementToCode(block, 'myStatement'));
+        </code>
+        - a statement input slot usually contains a group of statements. It is
+        convenient to wrap them in a function (see what *wrapFn* does) in order
+        to pass that function object as a parameter and then treat it as a
+        callback.
+
+        <code>
+    var myCheckbox = block.getFieldValue('myCheckbox') === 'TRUE';
+        </code>
+        - here the checkbox value is just compared against "TRUE" to produce a
+        boolean result.<br/><br/>
+
+        In the end, all of the values can be passed into "myFunction" as follows:
+        <code>
+    return `${fun}(${myInput}, ${myStatement}, ${myCheckbox});`;
+        </code>
+
+        So, now you are able to use them however you want:
+        <code>
+    const fun = Plug.provide('myFunction', function(input, statements, checkbox) {
+        console.log('input value:', input);
+        statements(); // execute puzzles from the myStatement input
+        console.log('checkbox state:', checkbox);
+    });
+        </code>
+    </p>
+
+    [anchor:%TOC_DECLEVEL_HACK]<h1></h1>
+    [anchor:%TOC_DECLEVEL_HACK]<h1></h1>
+
+    [anchor:plugin_errors]
+
+    <h2>Plugin and Block Errors</h2>
+
+    <p>
+        When developing or using plugins you can experience different errors
+        related to a certain puzzle block or even a whole plugin. This section
+        describes typical plugin and block errors and how to deal with them.
+    </p>
+
+    <p>
+        If something goes wrong during loading a plugin or initializing its
+        puzzle blocks, then the Puzzles Editor prints a corresponding error
+        message in the browser console. Usually, such error looks like one of
+        the following:
+    </p>
+
+    <p class="code red">
+        PluginError(PLUGIN_NAME) ...<br/>
+        BlockError(PLUGIN_NAME/BLOCK_NAME) ...<br/>
+        Puzzle "PLUGIN_NAME/BLOCK_NAME" is not defined properly. Replaced with a dummy block.
+    </p>
+
+    <p>
+        - they refer to a specific plugin and a specific block that caused the
+        error.
+    </p>
+
+    <p>
+        In case of a plugin error the whole plugin's category will most likely
+        disappear from the toolbox. In case of a block error the affected
+        blocks will be marked as invalid and will have a distinct look:
+    </p>
+
+    <img src="files/puzzles/puzzles-plugins-dummy-block.jpg" id="dummy_block_appearance" class="centered" style="max-width: 852px">
+    <span class="img-caption">An invalid puzzle in the toolbox and on a workspace</span>
+
+    <p>
+        Here's the list of the most common plugin and block errors:
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_block_error_parsing_0]
+
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error parsing .block file - "This page contains the following errors:error on line ..."</h5>
+    <p class="indented">
+        This means that there are XML errors in the corresponding .block
+        file preventing it from being parsed. For example, the missing ending
+        &lt;script&gt; tag leads to such error:
+        <code>
+    &lt;script&gt;
+    function template(block) {}
+    function code(block) {}
+        </code>
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_block_error_parsing_1]
+
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error parsing .block file - "ReferenceError (SyntaxError, TypeError, etc...) ..."</h5>
+    <p class="indented">
+        The error occurs in case if the code in the corresponding .block file's
+        &lt;script&gt; element contains a JavaScript error of the kind specified
+        in the error message.
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_block_error_validation_0]
+
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "TypeError: Child block does not have output or previous statement."</h5>
+    <p class="indented">
+        The block this error refers to has a child block plugged into it.
+        However, the child block doesn't even have an <a href="manual/en/puzzles/Plugins.html#block_file_template_block_connections">output or a previous connection</a>
+        and therefore can not be used that way. This situation may happen either
+        with puzzle blocks inside the plugin's toolbox <a href="manual/en/puzzles/Plugins.html#init_plug_category">category</a>
+        due to how they are configured in init.plug, and also this may happen
+        with blocks actually used on a workspace.
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_block_error_validation_1]
+
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "Error: Connection checks failed. Input "PARENT_INPUT_NAME" connection on "PLUGIN_NAME/BLOCK_NAME" block (id="BLOCK_ID") expected TYPE_PARENT, found TYPE_CHILD"</h5>
+    <p class="indented">
+        The block this error refers to has a child block plugged into it but the
+        parent's input slot and the child's output connection have incompatible
+        <a href="manual/en/puzzles/Plugins.html#block_file_template_input_output_type_checking">types</a>.
+        This situation may happen either with puzzle blocks inside the plugin's
+        toolbox <a href="manual/en/puzzles/Plugins.html#init_plug_category">category</a>
+        due to how they are configured in init.plug, and also this may happen
+        with blocks actually used on a workspace.
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_block_error_validation_2]
+
+    <h5>BlockError(PLUGIN_NAME/null): validation error - "TypeError: Unknown block type: PLUGIN_NAME/null"</h5>
+    <p class="indented">
+        This error means that the plugin's init.plug file refers to a block
+        with no <a href="manual/en/puzzles/Plugins.html#init_plug_available_puzzles">type attribute</a>
+        specified, which is not allowed. For example, this won't work:
+        <code>
+    &lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block&gt;&lt;/block&gt;
+    &lt;/category&gt;
+        </code>
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_block_error_validation_3]
+
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "TypeError: Unknown block type: PLUGIN_NAME/BLOCK_NAME"</h5>
+    <p class="indented">
+        This error message usually appears after one of the
+        <a href="manual/en/puzzles/Plugins.html#plugin_errors_block_error_parsing_0">"error parsing .block file"</a>
+        errors and simply indicates that the mentioned puzzle block wasn't
+        properly loaded and initialized because of the original error.
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_block_error_template]
+
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling template() function ...</h5>
+    <p class="indented">
+        The corresponding .block file either has an incorrectly defined
+        <a href="manual/en/puzzles/Plugins.html#block_file_template">&lt;template&gt;</a> element
+        or contains JavaScript errors inside its <a href="manual/en/puzzles/Plugins.html#block_file_template">template()</a>
+        function.
+        <ul>
+            <li>
+                <b>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling template() function - "TypeError: Found invalid FieldDropdown options."</b><br/>
+                This particular error means that one of the puzzle's dropdown
+                fields has an unnamed option. See
+                <a href="manual/en/puzzles/Plugins.html#block_file_template_adding_fields_dropdown">dropdown field</a>
+                for more information.
+            </li>
+        </ul>
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_block_error_code]
+
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling code() function ...</h5>
+    <p class="indented">
+        The corresponding .block file contains JavaScript errors inside its
+        <a href="manual/en/puzzles/Plugins.html#block_file_code">code()</a>
+        function.
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_plugin_error_parsing_0]
+
+    <h5>PluginError(PLUGIN_NAME): error parsing init.plug file - "This page contains the following errors:error on line ..."</h5>
+    <p class="indented">
+        This means that there are XML errors in the plugin's init.plug file
+        preventing it from being parsed. For example, the missing
+        ending &lt;category&gt; tag leads to such error:
+        <code>
+    &lt;category name="MyAwesomePlugin" color="green"&gt;
+        &lt;block type="myPuzzle"&gt;&lt;/block&gt;
+        </code>
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_plugin_error_parsing_1]
+
+    <h5>PluginError(PLUGIN_NAME): error parsing init.plug file - "ReferenceError (SyntaxError, TypeError, etc...) ..."</h5>
+    <p class="indented">
+        The error occurs in case if the code in the corresponding init.plug file's
+        &lt;script&gt; element contains a JavaScript error of the kind specified
+        in the error message.
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_plugin_error_code]
+
+    <h5>PluginError(PLUGIN_NAME): error calling code() function ...</h5>
+    <p class="indented">
+        The plugin's init.plug file contains JavaScript errors inside its
+        <a href="manual/en/puzzles/Plugins.html#init_plug_script">code()</a>
+        function.
+    </p>
+    <br/>
+
+    [anchor:plugin_errors_dummy]
+
+    <h5>Puzzle "PLUGIN_NAME/BLOCK_NAME" is not defined properly. Replaced with a dummy block.</h5>
+    <p class="indented">
+        This error message usually appears after one of BlockError and/or
+        PluginError messages and simply indicates that the mentioned puzzle
+        block wasn't properly loaded and initialized due to the original errors.
+        In order to still be able to load puzzles and maintain their operability
+        to some degree, such blocks (both in the plugin's toolbox category and
+        on a workspace) are replaced with special dummy blocks. The example of
+        what a dummy block looks like can be seen on <a href="manual/en/puzzles/Plugins.html#dummy_block_appearance">this picture</a>.
+    </p>
+    <br/>
+
+
+    [anchor:sharing_your_plugin]
+
+    <h2>Sharing your Plugin</h2>
+
+    <p>
+        Once plugin developed and tested, feel free to share it by:
+    </p>
+
+    <ul>
+        <li>Posting the link on the <a href="https://www.soft8soft.com/forums/" target="_blank">Verge3D Forums</a>.</li>
+        <li>Getting mentioned in the <a href="manual/en/introduction/Useful-links.html#third_party_plugins">Useful Links</a> directory (<a href="https://www.soft8soft.com/contact/" target="_blank">contact us</a>!).</li>
+        <li>Sharing on social media by using <strong>#verge3d</strong> hashtag.</li>
+        <li>Publishing on <a href="https://gumroad.com/" target="_blank">Gumroad</a> or similar resources.</li>
+    </ul>
+
+
+    <h2>Having Troubles with Puzzles?</h2>
+
+    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

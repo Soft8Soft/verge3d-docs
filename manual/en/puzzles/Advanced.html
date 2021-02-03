@@ -28,29 +28,6 @@
     <h2>Puzzles Reference</h2>
 
 
-    [anchor:call_JS_function]
-
-    <h3>call JS function</h3>
-
-    <p>
-    Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-call-js-function.jpg">
-
-    <p>
-    In order to add a function to JavaScript code, open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with any text editor. Search for "prepareExternalInterface" and add your function inside that declaration (between the curly brackets), so that it looks like this:
-    </p>
-
-    <code>
-function prepareExternalInterface(app) {
-        app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
-            alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
-        }
-}
-    </code>
-
-
     [anchor:exec_script]
 
     <h3>exec script</h3>
@@ -85,6 +62,31 @@ function prepareExternalInterface(app) {
             versa.
         </li>
     </ul>
+
+
+    <!-- COMPAT: < 3.5 -->
+    <a href="#" id="call_JS_function"></a>
+    [anchor:call_external_function]
+
+    <h3>call external function</h3>
+
+    <p>
+    Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-call-js-function.jpg">
+
+    <p>
+    In order to add a function to JavaScript code, open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with any text editor. Search for "prepareExternalInterface" and add your function inside that declaration (between the curly brackets), so that it looks like this:
+    </p>
+
+    <code>
+function prepareExternalInterface(app) {
+        app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
+            alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
+        }
+}
+    </code>
 
 
     [anchor:load_data]
@@ -208,6 +210,42 @@ function prepareExternalInterface(app) {
     </p>
 
     <img src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
+
+
+    [anchor:javascript_object]
+
+    <h3>JavaScript object</h3>
+
+    <p>
+      Returns a given JavaScript object.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-javascript-object.jpg">
+
+    <p>You can get the following JavaScript objects with this puzzle:</p>
+
+    <dl>
+      <dt>window</dt>
+      <dd>Return the top-level *window* object as dictionary value.</dd>
+      <dt>arguments</dt>
+      <dd>Returns the list of arguments of the currently executed function. Can be used to get arguments of Puzzles procedures or additional arguments passed to internal Puzzles callbacks (see below).</dd>
+      <dt>this</dt>
+      <dd>JavaScript *this* value.</dd>
+    </dl>
+
+    <p>The *arguments* option can be used to retrieve additional puzzles options. For example, when using <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> puzzle, you can get the internal JavaScript event which triggers the puzzle logic using the first argument of the callback executed behind the *do* slot. In the example below we use this event to get X and Y coordinates of the mouse pointer:</p>
+
+    <img src="files/puzzles/puzzles-advanced-javascript-object-example.jpg">
+
+    <p>The following puzzles support advanced options:</p>
+
+    <ul>
+      <li><a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/en/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/en/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> event which triggers puzzles in the <em>do</em> slots.</li>
+      <li><a href="manual/en/puzzles/Time.html#after">after</a>, <a href="manual/en/puzzles/Time.html#set_timer">set timer</a> — timer ID returned by the puzzles' <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> call.</li>
+      <li><a href="manual/en/puzzles/Time.html#every_frame">every frame</a> — delta time and total elapsed time.</li>
+      <li><a href="manual/en/puzzles/HTML.html#event">event</a> — event object.</li>
+      <li><a href="manual/en/puzzles/AR_VR.html#session_event">on session event</a> — WebXR event object.</li>
+    </ul>
 
 
     [anchor:wait_promise]

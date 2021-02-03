@@ -40,6 +40,9 @@
       <li>
         aiRaySwitch
       </li>
+      <li>
+        aiShadowMatte
+      </li>
     </ul>
 
 
@@ -128,6 +131,9 @@
         Unit Conversion
       </li>
       <li>
+        Vector Product
+      </li>
+      <li>
         aiFacingRatio
       </li>
       <li>
@@ -144,7 +150,7 @@
     <h2>aiStandardSurface</h2>
 
     <p>
-      This shader comes with Arnold for Maya (MtoA) and can represent many real-world materials (such as metals, plastics, glass, wood etc) by using physically-based shading model.
+      This shader comes with Arnold for Maya (MtoA) and can represent many real-world materials (such as metals, plastics, glass, wood, textile etc) by using physically-based shading model.
     </p>
 
     <img src="files/materials-maya/ai-standard-surface-overview.jpg" class="centered">
@@ -163,6 +169,27 @@
       <li>Weight (Specular input in Hypershade)</li>
       <li>Color (Specular Color input in Hypershade)</li>
       <li>Roughness (Specular Roughness input in Hypershade)</li>
+      <li>IOR (Specular IOR input in Hypershade)</li>
+    </ul>
+
+    <h3>Transmission Panel</h3>
+    <ul>
+      <li>Weight (Transmission input in Hypershade)</li>
+      <li>Color (Transmission Color input in Hypershade)</li>
+    </ul>
+
+    <h3>Coat Panel</h3>
+    <ul>
+      <li>Weight (Coat input in Hypershade)</li>
+      <li>Roughness (Coat Roughness input in Hypershade)</li>
+      <li>Normal (Coat Normal input in Hypershade)</li>
+    </ul>
+
+    <h3>Sheen Panel</h3>
+    <ul>
+      <li>Weight (Sheen input in Hypershade)</li>
+      <li>Color (Sheen Color input in Hypershade)</li>
+      <li>Roughness (Sheen Roughness input in Hypershade)</li>
     </ul>
 
     <h3>Emission Panel</h3>
@@ -173,6 +200,7 @@
 
     <h3>Geometry Panel</h3>
     <ul>
+      <li>Thin Walled</li>
       <li>Opacity</li>
       <li>Bump Mapping (Normal Camera input in Hypershade)</li>
     </ul>
@@ -186,7 +214,7 @@
 
     <dl>
       <dt>Alpha Mode</dt>
-      <dd>select transparency mode: *Auto*, *Opaque*, *Blend* or *Mask*.</dd>
+      <dd>select transparency mode: *Auto*, *Opaque*, *Blend* or *Mask*. See <a href="manual/en/maya/Transparency.html">transparency guide</a> for more info.</dd>
       <dt>Two Sided</dt>
       <dd>make your material two-sided. By default, Verge3D renders only front side of materials, enable this option to render their reverse side as well.</dd>
       <dt>Depth Write</dt>
@@ -211,6 +239,7 @@
       Since it's better supported in Maya Viewport 2.0 and does not require Arnold plug-in to be installed, we recommend it for use when authoring your Verge3D content in Maya 2020 or above.
     </p>
 
+
     [anchor:lambert]
 
     <h2>Lambert</h2>
@@ -219,6 +248,20 @@
       Basic yet highly efficient node which can be used to represent materials with no specular reflections.
     </p>
 
+    <img src="files/materials-maya/lambert.jpg">
+
+    <p>The following Lambert settings are supported in Verge3D:</p>
+
+    <ul>
+      <li>Color</li>
+      <li>Transparency</li>
+      <li>Diffuse</li>
+      <li>Bump/Normal Mapping</li>
+    </ul>
+
+    <p>
+      Verge3D settings are also supported, see <a href="manual/en/maya/Materials.html#aiStandardSurface">above</a> for more info.
+    </p>
 
     [anchor:blinn_phong]
 

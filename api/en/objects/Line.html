@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <base href="../../../" />
-    <script src="list.js"></script>
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
@@ -22,21 +21,21 @@
 
     </p>
 
+    <h2>Code Example</h2>
 
-    <h2>Example</h2>
-
-    <code>var material = new v3d.LineBasicMaterial({
+    <code>
+    const material = new v3d.LineBasicMaterial({
       color: 0x0000ff
     });
 
-    var geometry = new v3d.Geometry();
-    geometry.vertices.push(
-      new v3d.Vector3(-10, 0, 0),
-      new v3d.Vector3(0, 10, 0),
-      new v3d.Vector3(10, 0, 0)
-    );
+    const points = [];
+    points.push(new v3d.Vector3(- 10, 0, 0));
+    points.push(new v3d.Vector3(0, 10, 0));
+    points.push(new v3d.Vector3(10, 0, 0));
 
-    var line = new v3d.Line(geometry, material);
+    const geometry = new v3d.BufferGeometry().setFromPoints(points);
+
+    const line = new v3d.Line(geometry, material);
     scene.add(line);
     </code>
 
@@ -60,6 +59,17 @@
     <h3>[property:Material material]</h3>
     <p>Material for the line.</p>
 
+    <h3>[property:Array morphTargetInfluences]</h3>
+    <p>
+    An array of weights typically from 0-1 that specify how much of the morph is applied.
+    Undefined by default, but reset to a blank array by [page:.updateMorphTargets]().
+    </p>
+
+    <h3>[property:Object morphTargetDictionary]</h3>
+    <p>
+    A dictionary of morphTargets based on the morphTarget.name property.
+    Undefined by default, but rebuilt [page:.updateMorphTargets]().
+    </p>
 
     <h2>Methods</h2>
     <p>See the base [page:Object3D] class for common methods.</p>
@@ -80,6 +90,11 @@
     Returns a clone of this Line object and its descendants.
     </p>
 
+    <h3>[method:null updateMorphTargets]()</h3>
+    <p>
+    Updates the morphTargets to have no influence on the object. Resets the
+    [page:.morphTargetInfluences] and [page:.morphTargetDictionary] properties.
+    </p>
 
     [sourceHint]
   </body>

@@ -18,6 +18,7 @@ var list = {
                 "Optimization Techniques": "manual/en/introduction/Optimizing-WebGL-performance",
                 "Asset Compression": "manual/en/introduction/Asset-compression",
                 "HTML-Based User Interfaces": "manual/en/introduction/HTML-based-user-interfaces",
+                "Text Rendering": "manual/en/introduction/Text-Rendering",
                 "AR/VR Development": "manual/en/introduction/AR-VR-development",
                 "Physics Guide": "manual/en/introduction/Physics-Guide",
                 "Styling Verge3D Apps": "manual/en/introduction/Styling-Verge3D-Apps",
@@ -51,12 +52,14 @@ var list = {
                 "Lighting and Rendering": "manual/en/max/Lighting-and-Rendering",
                 "Camera": "manual/en/max/Camera",
                 "Materials and Maps": "manual/en/max/Materials-Maps-Reference",
+                "Animation": "manual/en/max/Animation",
                 "Morphing": "manual/en/max/Morphing",
                 "Shadows": "manual/en/max/Shadows",
                 "Transparency": "manual/en/max/Transparency",
                 "Viewport and Render Preview": "manual/en/max/Viewport-Render-Preview",
                 "glTF Materials": "manual/en/max/GLTF-Materials",
-                "Animation Constraints": "manual/en/max/Animation-Constraints"
+                "Animation Constraints": "manual/en/max/Animation-Constraints",
+                "Using Material Library": "manual/en/max/Material-Library"
             },
 
             "Maya Artist's Guide": {
@@ -68,7 +71,10 @@ var list = {
                 "Shadows": "manual/en/maya/Shadows",
                 "Animation": "manual/en/maya/Animation",
                 "Blend Shapes (Morphing)": "manual/en/maya/Blend-Shapes",
+                "Transparency": "manual/en/maya/Transparency",
                 "glTF Materials": "manual/en/maya/GLTF-Materials",
+                "Object Constraints": "manual/en/maya/Object-Constraints",
+                "Using Material Library": "manual/en/maya/Material-Library"
             },
 
             "Puzzles Reference": {
@@ -78,7 +84,7 @@ var list = {
                 "Objects": "manual/en/puzzles/Objects",
                 "Materials": "manual/en/puzzles/Materials",
                 "Animation (+Constraints)": "manual/en/puzzles/Animation",
-                "Camera": "manual/en/puzzles/Camera",
+                "Cameras/Lights": "manual/en/puzzles/Camera",
                 "Scenes": "manual/en/puzzles/Scenes",
                 "Time": "manual/en/puzzles/Time",
                 "HTML": "manual/en/puzzles/HTML",
@@ -96,8 +102,9 @@ var list = {
                 "Procedures": "manual/en/puzzles/Procedures",
                 "System": "manual/en/puzzles/System",
                 "Advanced": "manual/en/puzzles/Advanced",
-                "E-Commerce": "manual/en/puzzles/ECommerce",
-                "Library": "manual/en/puzzles/Library"
+                "E-Commerce Plugin": "manual/en/puzzles/ECommerce",
+                "Library": "manual/en/puzzles/Library",
+                "Plugins": "manual/en/puzzles/Plugins",
             },
 
         },
@@ -108,9 +115,9 @@ var list = {
                 "Developer Kit": "manual/en/programmers_guide/Developer-Kit",
                 "Programming Basics": "manual/en/programmers_guide/Programming-basics",
                 "Integration with React.js/Vue.js": "manual/en/programmers_guide/Integration-with-Reactjs-Vuejs",
+                "Creating Desktop Apps": "manual/en/programmers_guide/Creating-Desktop-Apps",
                 "Matrix Transformations": "manual/en/programmers_guide/Matrix-transformations",
                 "Animation System": "manual/en/programmers_guide/Animation-system",
-                "Creating Text": "manual/en/programmers_guide/Creating-text",
                 "Drawing Lines": "manual/en/programmers_guide/Drawing-lines",
                 "How to Update Things": "manual/en/programmers_guide/How-to-update-things",
                 // the page below is used in the source links throughout the API Reference
@@ -559,7 +566,7 @@ var list = {
                 "Objects": "manual/ru/puzzles/Objects",
                 "Materials": "manual/ru/puzzles/Materials",
                 "Animation": "manual/ru/puzzles/Animation",
-                "Camera": "manual/ru/puzzles/Camera",
+                "Cameras/Lights": "manual/ru/puzzles/Camera",
                 "Scenes": "manual/ru/puzzles/Scenes",
                 "Time": "manual/ru/puzzles/Time",
                 "HTML": "manual/ru/puzzles/HTML",
@@ -591,7 +598,6 @@ var list = {
                 "Integration with React.js/Vue.js": "manual/ru/programmers_guide/Integration-with-Reactjs-Vuejs",
                 "Matrix Transformations": "manual/ru/programmers_guide/Matrix-transformations",
                 "Animation System": "manual/ru/programmers_guide/Animation-system",
-                "Creating Text": "manual/ru/programmers_guide/Creating-text",
                 "Drawing Lines": "manual/ru/programmers_guide/Drawing-lines",
                 "How to Update Things": "manual/ru/programmers_guide/How-to-update-things",
                 // the page below is used in the source links throughout the API Reference
@@ -1025,7 +1031,7 @@ var list = {
                 "Objects": "manual/zh/puzzles/Objects",
                 "Materials": "manual/zh/puzzles/Materials",
                 "Animation": "manual/zh/puzzles/Animation",
-                "Camera": "manual/zh/puzzles/Camera",
+                "Cameras/Lights": "manual/zh/puzzles/Camera",
                 "Scenes": "manual/zh/puzzles/Scenes",
                 "Time": "manual/zh/puzzles/Time",
                 "HTML": "manual/zh/puzzles/HTML",
@@ -1055,7 +1061,6 @@ var list = {
                 "Programming Basics": "manual/zh/programmers_guide/Programming-basics",
                 "矩阵变换": "manual/zh/programmers_guide/Matrix-transformations",
                 "动画系统": "manual/zh/programmers_guide/Animation-system",
-                "创建一个场景": "manual/zh/programmers_guide/Creating-text",
                 "画线": "manual/zh/programmers_guide/Drawing-lines",
                 "如何更新场景": "manual/zh/programmers_guide/How-to-update-things",
                 // the page below is used in the source links throughout the API Reference
