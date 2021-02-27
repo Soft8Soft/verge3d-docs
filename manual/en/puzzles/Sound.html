@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="description" content="How to load, play and manage audio and video using Verge3D Puzzles."/>
     <base href="../../../" />
-    <script src="list.js"></script>
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
@@ -36,7 +35,7 @@
     <p>
       Loads an audio file using a specified URL. The audio is played via the HTML5
       Audio tag or WebAudio API depending on the chosen type: <b>music</b> or
-      <b>sound</b> respectively. This puzzle also adds the loaded audio to a
+      *sound*/*midi* respectively. This puzzle also adds the loaded audio to a
       memory cache so that any subsequent uses of this puzzle with the same URL
       do not load the same sound file again. Using <strong>.mp3</strong> format
       is recommended as it is supported by most web browsers.
@@ -104,7 +103,7 @@
       it counts as a user interaction and allows to start audio playback.
     </p>
 
-    <p><b>"music" vs "sound" audio type</b></p>
+    <p><b>"music" vs "sound" vs "midi" audio type</b></p>
     <p>
       This puzzle allows you to choose which API to use for loading and playing
       audio files.
@@ -131,19 +130,22 @@
               </li>
           </ul>
         </li>
+        <li>
+          <b>midi</b> (WebAudio API + GM Synth) - special type of *sound* that used to play Standard MIDI files (with <strong>*.mid</strong> extension). Compared to music stored in <strong>*.mp3</strong>, MIDI files are really lightweight and have minimum impact on app loading time. The downside of using MIDI — somewhat reduced quality of soundtrack.
+        </li>
       </ul>
     </p>
 
     <img src="files/puzzles/puzzles-sound-load-sound-type.jpg" style="max-width: 1000px">
 
     <p class="note">
-      Web Audio API which is utilized by the <b>sound</b> type is supported in most
+      Web Audio API which is utilized by the <b>sound</b> and *midi* types is supported in most
       modern browsers. However, if you need your audio to work in browsers with
       no Web Audio support (e.g. Internet Explorer 11) you have to use the
       <b>music</b> type.
       <br/><br/>
 
-      If it's necessary to use the <b>sound</b> type in browsers where it is
+      If it's necessary to use the *sound*/*music* type in browsers where it is
       available and also support Internet Explorer 11 at the same time, then the
       recommended solution is to use the
       <a href="manual/en/puzzles/System.html#feature_available">feature available</a>
@@ -234,6 +236,9 @@
 
     <img src="files/puzzles/puzzles-sound-set-playback-rate.jpg">
 
+    <p class="note">
+      Setting playback rate is not supported for MIDI assets (yet).
+    </p>
 
     [anchor:set_volume]
 
@@ -271,6 +276,72 @@
     <p>Unmute a sound or video.</p>
 
     <img src="files/puzzles/puzzles-sound-unmute.jpg" style="max-width: 511px">
+
+
+    [anchor:synth_sound]
+
+    <h3>synth sound</h3>
+
+    <p>
+      Play sound using the built-in <em>General MIDI</em>-compatible software synthesizer (based on the <a href="https://github.com/g200kg/webaudio-tinysynth" target="_blank">TinySynth library</a>). Various instruments and effects supported.
+    </p>
+
+    <img src="files/puzzles/puzzles-sound-synth-sound.jpg">
+
+    <dl>
+      <dt>note on</dt>
+      <dd>Start to play *note* using the given synth *channel* with sound intensity specified as *velocity* (0-127). Use the *at time* value to specify playback starting time in seconds.</dd>
+
+      <dt>note off</dt>
+      <dd>Stop to play given *note*.</dd>
+
+      <dt>set instrument</dt>
+      <dd>Set channel instrument from the given list.</dd>
+
+      <dt>set volume</dt>
+      <dd>Set channel volume.</dd>
+
+      <dt>set pan</dt>
+      <dd>Set channel pan level.</dd>
+
+      <dt>stop sounds</dt>
+      <dd>Stop all sounds on the given channel.</dd>
+    </dl>
+
+    <p>
+      To play drums, specify *Drums* as channel number and use the <a href="manual/en/puzzles/Sound.html#get_drum_number">drum number</a> to select instrument.
+    </p>
+
+    <p>Example</p>
+
+    <img src="files/puzzles/puzzles-sound-synth-sound-example.jpg">
+
+
+    [anchor:get_note_number]
+
+    <h3>note number</h3>
+
+    <p>
+      Return note number. Use it to pass notes to the *1*-*9* channel of the <a href="manual/en/puzzles/Sound.html#synth_sound">synth sound</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-sound-get-note-number.jpg">
+
+    <p>
+      Octave numbers are specified using the <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation" target="_blank">scientific pitch notation</a>, for example <em>C 4</em> means <em>middle C</em> tone.
+    </p>
+
+
+    [anchor:get_drum_number]
+
+    <h3>drum number</h3>
+
+    <p>
+      Return drum number. Use it to pass notes to the *Drums* channel of the <a href="manual/en/puzzles/Sound.html#synth_sound">synth sound</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-sound-get-drum-number.jpg">
+
 
 
     <h2>Having Troubles with Puzzles?</h2>

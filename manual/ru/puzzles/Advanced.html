@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <title>Advanced Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to use puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more."/>
     <base href="../../../" />
-    <script src="list.js"></script>
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
@@ -51,48 +50,13 @@ function prepareExternalInterface(app) {
     </code>
 
 
-    [anchor:exec_script]
-
-    <h3>exec script</h3>
-
-    <p>
-        This puzzle executes the specified javascript code. The puzzle uses
-        <a href='https://ace.c9.io/'>Ace Editor</a> for displaying and editing
-        the content. See the relevant keyboard shortcuts here:
-        <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>Default Keyboard Shortcuts</a>.
-    </p>
-
-    <p>You can use the following built-in variables:</p>
-    <ul>
-        <li><b>app</b> - the application instance, see <a href="api/en/extras/App.html">App</a> for more details</li>
-        <li><b>v3d</b> - the v3d namespace which contains all the engine modules</li>
-        <li><b>VARS</b> - variable puzzles can be accessed through this object</li>
-        <li><b>PROC</b> - procedure puzzles can be accessed through this object</li>
-    </ul>
-
-    <img src="files/puzzles/puzzles-advanced-exec-script.jpg" style="max-width: 1000px">
-
-    <p><b>Specifics of using built-ins regarding to "Init" and other tabs</b></p>
-    <ul>
-        <li>
-            The <b>app</b> built-in variable is not available for this puzzle if
-            it's used inside the <b>Init</b> tab, since at that stage the
-            application is not properly initialized yet.
-        </li>
-        <li>
-            Variables and procedures declared in the <b>Init</b> tab can not be
-            accessed from other tabs via <b>VARS</b> and <b>PROC</b> and vice
-            versa.
-        </li>
-    </ul>
-
 
     [anchor:load_data]
 
     <h3>load data</h3>
 
     <p>
-    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
+    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-load-data.jpg">
@@ -104,7 +68,7 @@ function prepareExternalInterface(app) {
     <h3>send data</h3>
 
     <p>
-    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
+    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
     </p>
 
 
@@ -118,7 +82,7 @@ function prepareExternalInterface(app) {
     <h3>loaded data</h3>
 
     <p>
-    Returns data retrieved by the <a href="manual/en/puzzles/Advanced.html#load_data">load data</a> or <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzles.
+    Returns data retrieved by the <a href="manual/ru/puzzles/Advanced.html#load_data">load data</a> or <a href="manual/ru/puzzles/Advanced.html#send_data">send data</a> puzzles.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-loaded-data.jpg">
@@ -166,7 +130,7 @@ function prepareExternalInterface(app) {
     <img src="files/puzzles/puzzles-advanced-save-state.jpg">
 
     <p>
-    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/en/puzzles/Advanced.html#undo_state">undo state</a> puzzle.
+    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/ru/puzzles/Advanced.html#undo_state">undo state</a> puzzle.
     </p>
 
 
@@ -176,7 +140,7 @@ function prepareExternalInterface(app) {
     <h3>undo state</h3>
 
     <p>
-    Restores the state of objects and/or variables saved with the <a href="manual/en/puzzles/Advanced.html#save_state">save state</a> puzzle.
+    Restores the state of objects and/or variables saved with the <a href="manual/ru/puzzles/Advanced.html#save_state">save state</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-undo-state.jpg">
@@ -215,12 +179,12 @@ function prepareExternalInterface(app) {
     <h3>wait promise</h3>
 
     <p>
-    Wait for the promise to be resolved or rejected and return its value (or rejection reason) in the <a href="manual/en/puzzles/Advanced.html#promise_value">promise value</a> puzzle.
+    Wait for the promise to be resolved or rejected and return its value (or rejection reason) in the <a href="manual/ru/puzzles/Advanced.html#promise_value">promise value</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-wait-promise.jpg">
 
-    <p>This puzzle may be required to get value of the <a href="manual/en/puzzles/Scenes.html#export_to_gltf">export to gltf</a> and <a href="manual/en/puzzles/Materials.html#generate_normal_map">generate normal map</a> puzzles. Being async puzzles by their nature, these puzzle do not return resolved values immediately. Instead, they return <em>promise</em> values which are resolved in the puzzles they are used as inputs. In some rare cases, however, this resolving does not happen. In these cases you should use *wait promise* to resolve promise values.</p>
+    <p>This puzzle may be required to get value of the <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">export to gltf</a> and <a href="manual/ru/puzzles/Materials.html#generate_normal_map">generate normal map</a> puzzles. Being async puzzles by their nature, these puzzle do not return resolved values immediately. Instead, they return <em>promise</em> values which are resolved in the puzzles they are used as inputs. In some rare cases, however, this resolving does not happen. In these cases you should use *wait promise* to resolve promise values.</p>
 
 
     [anchor:promise_value]
@@ -228,22 +192,6 @@ function prepareExternalInterface(app) {
     <h3>promise value</h3>
 
     <p>Resolved promise value (in case of resolved promise) or error string (in case of rejected promise).</p>
-
-
-    [anchor:connector]
-
-    <h3>connector</h3>
-
-    <p>
-        This puzzle facilitates connecting other puzzles with each other, to
-        make it more convenient to move, delete and use them in other puzzles.
-        The most notable application is to join <a href="manual/en/puzzles/Sound.html#load_sound">load sound</a>
-        or <a href="manual/en/puzzles/Sound.html#load_video">load video</a>
-        puzzles into a single group to organize preloading of media resources
-        in your application.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-connector.jpg">
 
 
     <h2>Having Troubles with Puzzles?</h2>

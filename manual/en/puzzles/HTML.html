@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="description" content="How to use Verge3D Puzzles to manipulate HTML DOM elements."/>
     <base href="../../../" />
-    <script src="list.js"></script>
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
@@ -326,7 +325,7 @@
     <h3>take screenshot</h3>
 
     <p>
-    Takes a screenshot of the viewport and outputs it in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format.
+      Takes a screenshot of the viewport and outputs it in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format.
     </p>
 
     <img src="files/puzzles/puzzles-html-take-screenshot.jpg">
@@ -394,14 +393,21 @@
     <h3>download file</h3>
 
     <p>
-    Downloads content specified in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format to a file.
+      Downloads content specified in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format to a file. You can also pass text, <a href="manual/en/puzzles/Dictionaries.html">dictionary</a>, or <a href="manual/en/puzzles/Lists.html">list</a> data to be downloaded as text or JSON file. In such case, the given object will be automatically converted to the appropriate Data URI.
     </p>
 
     <img src="files/puzzles/puzzles-html-download-file.jpg">
 
     <p>
-    This puzzle can be used, for example, to save previously taken screenshots, or to save some information in a text file:
+      This puzzle can be used, for example:
     </p>
+
+    <ul>
+      <li>to save previously taken screenshots</li>
+      <li>to preserve application state by saving a dictionary (or a list) to a <strong>*.json</strong> file</li>
+      <li>to export models in glTF format for further processing</li>
+      <li>to generate textual pricing information, quotes, reports etc.</li>
+    </ul>
 
     <img src="files/puzzles/puzzles-html-download-file-example.jpg">
 
@@ -409,13 +415,86 @@
 
     [anchor:open_file]
 
-    <h3>open file and "opened file"</h3>
+    <h3>open file and opened file</h3>
 
     <p>
-    Invokes the browser's native dialog window for selecting files from the user's device. Once the user have selected a file, returns the file's contents in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format.
+      Invokes the browser's native dialog window for selecting files from the user's device. Once the user have selected a file, returns the file's contents in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format.
     </p>
 
     <img src="files/puzzles/puzzles-html-open-file.jpg">
+
+
+    [anchor:drop_file_to]
+
+    <h3>drop file to</h3>
+
+    <p>
+      Returns a file dragged from a file manager (or other program) and dropped to the given HTML element inside the browser window. Once the user have dropped the file, returns its contents as <a href="manual/en/puzzles/HTML.html#open_file">opened file</a> puzzle (using the <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format).
+    </p>
+
+    <img src="files/puzzles/puzzles-html-drop-file-to.jpg">
+
+    <p>
+      You can activate the optional *drag over* slot to handle file movement events. For example, you can use it along with the <a href="manual/en/puzzles/Scenes.html#raycast">raycast</a> puzzle to highlight the objects below the cursor/touch.
+    </p>
+
+
+    [anchor:data_uri]
+
+    <h2>Data URI Links</h2>
+
+    <p>
+      Data URI (or Data URL) is a convenient method to embed various assets, such as images, glTF models, sounds, JSON or CSV inside links (<a href="https://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">techie stuff</a>).
+    </p>
+
+    <p>
+      For example, the following link represents small Verge3D logo:
+    </p>
+
+    <code class="language-html">
+data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABvFBMVEUAAAAASKUAAFsAvukA
+RaMA3voAAEoARaQARKMARqQARqQARKMARaQARqQAQ6IATagCcLwCcbwATagARqQASaYARqQASKUC
+argASKUARqQASqYASKUAR6QAT6kAT6kAR6QAR6UASaUASaUAR6UARKMBWq8BWq8ARKMAQqECaLcC
+abgAQqEAQaECbboCbroAQaECbrsCbroCabcCa7kCb7sCbrsARaQARaQElNAEldEGrd4GseEDg8cD
+hcgGtOIGrt8Eks8I1/cFqNwBUqsAQ6IBVKwGrN4Ekc8El9IJ5/8HvOcBU6sASqYDdb8CdL4ASaYB
+VawHv+gJ5/4EltII0PIJ4PsCc70ARqQEjs0J4vwJ4fsEi8sARaMDdr8J4fwI0fIJ3/sGuuYATKcC
+ZbYI1fUHyfMHyPMI0/QCYrQATagHvecJ4PwEj80ARKMFnNQHyvMBU8IBUsEFmNII3PkHwuoIyvQH
+vugAS6cDecEI1/YCbrsBWK4I0vMJ5v8HyPIIz/ICcr0I2PcIz/EDgMUBXrEJ6P8I1vYBW7ADhMcC
+cb0Hv+kFmNMEkM4GueUJ4PoJ3/oJ3voI3foEltH///+98SuhAAAAOHRSTlMAAAAAAAAAJJPu8Jgn
+EWjT/v7VEAVLvvq8RwQFe/LweDXn6DdT9/hXWvn6XVv5+lz6+fn6/v7w7sPq7QcAAAABYktHRJPh
+A9+2AAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QsCEC4OPIwcRgAAAQpJREFUGNNjYGBg
+YGRi5+Dk4uZhZmQAAUYWXj5+AQtLQSE+YRagEKOIqJi4lbWNrZ29uISkFCODtIysg6OTs4uLq5uj
+u5y8NIOCooenl7ePr59/QGBQsJIyg4pqSGhYeERkVHRMbFy8mjqDhmZCYlJySmpaekZmVoKWNoOO
+bnZObl5+QWFqUa5DnJ4+g75BsW9SSWlBQX5ZeUWxoQ6DtnhlVXVNbVpdbX1AQ6ORBoO6WlNzS6Nn
+a6tnW3tHk6oKg7JSkVdYpWdtrWdKZ1e3ogKDtLxcT28fSKA/0UFWRpqBUUpSwth+QmvrRHtjMVER
+kGdYhPmETCZZmvLz8bJA/cvKw21mzsHOBuICAHx4PYwwa1fDAAAAJXRFWHRkYXRlOmNyZWF0ZQAy
+MDE3LTExLTAyVDE2OjQ2OjE0KzAxOjAwKvGBdAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0xMS0w
+MlQxNjo0NjoxNCswMTowMFusOcgAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+AAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAHic4/IMCHFWKCjKT8vMSeVSAAMjCy5jCxMj
+E0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC
+    </code>
+
+    <p>
+      Copy the entire snippet and past to the browser address bar to display the logo:
+    </p>
+
+    <img src="files/puzzles/data-url-logo.jpg">
+
+    <p>
+      In Puzzles, we use Data URI links extensively, as they provide convenient way to pass file-like data between different Puzzles blocks. For example, you can use the <a href="manual/en/puzzles/HTML.html#open_file">open file</a> or <a href="manual/en/puzzles/HTML.html#drop_file_to">drop file to</a> puzzles to load some file (image or data). Then you can make changes in your scene according to that file. After that, you can upload the modified scene (or maybe some data, such as price list document) back to the user machine by using the <a href="manual/en/puzzles/HTML.html#download_file">download file</a>, or maybe upload that file to the server with <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzle. In all these cases, the data will be transferred using the Data URI format.
+    </p>
+
+    <p class="note">
+      See Custom Image demo inside your Verge3D distribution as an example of using Data URI puzzles.
+    </p>
+
+    <p>
+      It's also quite easy to debug data in Data URI format. Simply use the <a href="manual/en/puzzles/System.html#print_to_console">print to console</a> puzzle, then open the <a href="manual/en/introduction/FAQ.html#browser_console">browser console</a> to observe the output, then click on the printed URI inside the console to preview the data in the separate browser tab.
+    </p>
+
+    <img src="files/puzzles/data-url-debugging.jpg">
 
 
     <h2>Having Troubles with Puzzles?</h2>

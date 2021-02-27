@@ -13,7 +13,7 @@ npm install
 
 3. Copy the translated manual file(s) from the *manual/en/...* to *manual/LANG* directory or if you're going to translate the API documenation, copy from *api/en/...* to *api/LANG*.
 
-4. Add translated file(s) to the *list.js* file.
+4. Add translated file(s) to the *list.json* file.
 
 5. Add translated language in the *generate.js* file:
 ```

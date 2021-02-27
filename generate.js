@@ -9,22 +9,23 @@ const { JSDOM } = jsdom;
 
 const { SitemapStream } = require('sitemap');
 
-var dom = new JSDOM();
-var document = dom.window.document;
-
-const list = require('./list');
+let dom = new JSDOM();
+let document = dom.window.document;
 
 const HOST = 'https://www.soft8soft.com/docs/';
 const OUTDIR = path.join(__dirname, 'output');
 const LANGUAGES = ['en', 'ru', 'zh'];
 
-var titles = {};
+let list = null;
+let titles = {};
 
 generate();
 
 function generate() {
 
     console.log('Generating Documenation (' + LANGUAGES.join(', ') + ')');
+
+    list = JSON.parse(fs.readFileSync('list.json'));
 
     if (fs.existsSync(OUTDIR)){
         fs.removeSync(OUTDIR);
@@ -35,7 +36,7 @@ function generate() {
     copyOutput('index.html');
     copyOutput('page.css');
     copyOutput('page.js');
-    copyOutput('list.js');
+    copyOutput('list.json');
 
     copyOutput('files');
     copyOutput('prettify');
@@ -238,6 +239,12 @@ function writePage(pageFile, lang, navigation, sitemap) {
             <div class="copyright">© <a href="https://www.soft8soft.com/" target="_blank">Soft8Soft – 3D Solutions for the Web</a><div>Last updated on ${now.toDateString()}</div></div>
         `));
 
+        Array.from(body.getElementsByTagName('v3d-tabs'))
+        .forEach(function(v3dTabsElem) {
+            v3dTabsElem.parentNode.insertBefore(createTabs(v3dTabsElem), v3dTabsElem);
+            v3dTabsElem.parentNode.removeChild(v3dTabsElem);
+        });
+
         var pageText = resolveTemplates(dom.serialize(), pageTitle, pageFile, lang);
 
         if (sitemap) {
@@ -351,13 +358,25 @@ function resolveTemplates(text, name, path, lang) {
 
     text = text.replace(/\[anchor:([\w]+)\]/gi, '<p><a href="' + pathOrigRel + '#$1" id="$1" class="permalink">#</a></p>');
 
+    text = text.replace(/\[anchor:%TOC_DECLEVEL_HACK\][\n ]*<h(\d)[\w"= ]*>(.*)<\/h\d>/gi, '');
+
     return text;
 }
 
+/**
+ * Use [anchor:%TOC_DECLEVEL_HACK]<h1></h1> hack to decrease the current level
+ * of nesting by 1, e.g.:
+ *
+ * [anchor:a] <h2>A</h2>
+ * [anchor:b] <h3>B</h3>
+ * [anchor:c] <h4>C</h4>
+ * [anchor:%TOC_DECLEVEL_HACK]<h1></h1>
+ * [anchor:d] <h2>D</h2> - this line wouldn't be on the same level as "A" if not for the hack
+ */
 function createTOC(text, path) {
     var contents = '<!-- TOC -->\n';
 
-    var anchors = text.matchAll(/\[anchor:([\w]+)\][\n ]*<h(\d)[\w"= ]*>(.+)<\/h\d>/g);
+    var anchors = text.matchAll(/\[anchor:([\w]+|%TOC_DECLEVEL_HACK)\][\n ]*<h(\d)[\w"= ]*>(.*)<\/h\d>/g);
 
     var listLevel = 0;
     var listLevelDepth = 0;
@@ -366,6 +385,12 @@ function createTOC(text, path) {
         var id = anchor[1];
         var itemLevel = Number(anchor[2]);
         var title = anchor[3];
+
+        if (id === '%TOC_DECLEVEL_HACK') {
+            listLevelDepth--;
+            contents += '</li></ul>';
+            continue;
+        }
 
         if (itemLevel > listLevel) {
 
@@ -541,4 +566,80 @@ function decomposePageName(pageName, oldDelimiter, newDelimiter) {
     }
 
     return parts;
+}
+
+/**
+ * Create the markup for the custom tabs widget. The source element is expected
+ * to look like this:
+ *
+ * <v3d-tabs active="1" style="...">
+ *     <label>Tab Label 0</label>
+ *     <div>Tab Content 0</div>
+ *     <label>Tab Label 1</label>
+ *     <div>Tab Content 1</div>
+ *     <!-- ... -->
+ * </v3d-tabs>
+ *
+ * - the "active" attribute specifies the initially selected tab.
+ * - the "style" attribute can be used to define CSS rules for the widget's root
+ * element
+ */
+function createTabs(v3dTabsElem) {
+    var tabNodes = Array.from(v3dTabsElem.childNodes).filter(function(node) {
+        return node instanceof dom.window.Element;
+    });
+
+    // ensure that there are pairs (label + content)
+    if (tabNodes.length % 2) {
+        tabNodes.push(document.createElement('div'));
+    }
+
+    var tabsContainer = createElementFromString('<div class="v3d-tabs"></div>');
+    tabsContainer.setAttribute('style', v3dTabsElem.getAttribute('style'));
+
+    var radioGrpName = Math.random();
+    var checkedInput = Number(v3dTabsElem.getAttribute('active')) || 0;
+    for (var i = 0; i < tabNodes.length; i+=2) {
+        var tabIndex = i / 2;
+        var checkedAttr = tabIndex === checkedInput ? 'checked' : '';
+        var tabId = `${radioGrpName}-${tabIndex}`;
+
+        var radioInput = createElementFromString(`
+            <input
+                type="radio"
+                name="${radioGrpName}"
+                ${checkedAttr}
+                class="v3d-tab-input"
+                id="${tabId}"
+            ></input>
+        `);
+
+        var tabLabel = tabNodes[i];
+        tabLabel.classList.add('v3d-tab-label');
+        tabLabel.setAttribute('for', tabId);
+
+        // fix styling issue with empty label being a bit out of place
+        tabLabel.innerHTML = tabLabel.innerHTML || '&nbsp;';
+
+        var tabContent = tabNodes[i + 1];
+        tabContent.classList.add('v3d-tab-content');
+
+        tabsContainer.appendChild(radioInput);
+        tabsContainer.appendChild(tabLabel);
+        tabsContainer.appendChild(tabContent);
+    }
+
+    return tabsContainer;
+}
+
+/**
+ * Create an HTML element from the given string parameter.
+ * @param {String} str The HTML element represented as a string.
+ * @retuns {HTMLElement} The instance of the root HTMLElement contained within
+ * the given string.
+ */
+function createElementFromString(str) {
+    var template = document.createElement('template');
+    template.innerHTML = str.trim(); // avoiding text nodes
+    return template.content.firstChild;
 }

@@ -17,11 +17,25 @@ if (/#(manual|api|examples)/.test(href)) {
     window.location.replace(href);
 }
 
+var list = null;
 var pageProperties = {};
 var titles = {};
 var categoryElements = [];
 
-function onDocumentLoad(event) {
+function loadJSON(path, callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType('application/json');
+    xobj.open('GET', path, true);
+
+    xobj.onreadystatechange = function() {
+        if (xobj.readyState === 4 && xobj.status === 200) {
+            callback(JSON.parse(xobj.responseText));
+        }
+    };
+    xobj.send(null);
+}
+
+function onDocumentLoad() {
 
     var pathname = window.location.pathname;
 
@@ -151,7 +165,12 @@ function onDocumentLoad(event) {
 };
 
 
-document.addEventListener('DOMContentLoaded', onDocumentLoad, false);
+document.addEventListener('DOMContentLoaded', function() {
+    loadJSON('list.json', function(loadedList) {
+        list = loadedList;
+        onDocumentLoad();
+    });
+}, false);
 
 
 window.addEventListener('load', function() {
