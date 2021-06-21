@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Camera Verge3D Puzzles Reference - Soft8Soft</title>
+    <title>Cameras/Lights Verge3D Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to control cameras in Verge3D Puzzles."/>
+    <meta name="description" content="How to control cameras and lights in Verge3D Puzzles."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
 
-    <h1>Camera Puzzles</h1>
+    <h1>Camera and Light Puzzles</h1>
 
     <p>
-    The puzzles from this category perform operations with the camera.
+      The puzzles from this category perform operations with cameras or light sources.
     </p>
 
     <img src="files/puzzles/puzzles-camera.jpg">
 
 
+    <h2>Contents</h2>
 
-    <p><a href="manual/zh/puzzles/Camera.html#look_at" id="look_at" class="permalink">#</a></p>
+    [contents]
 
-    <h4>"look at"</h4>
+
+    [anchor:puzzles_reference]
+
+    <h2>Camera Puzzles Reference</h2>
+
+
+    [anchor:look_at]
+
+    <h3>look at</h3>
 
     <p>
     Smoothly animates the active camera so that it finally targets a specified object. The numeric parameter specifies the time period over which the animation is performed (in seconds).
@@ -32,12 +41,29 @@
 
 
 
-    <p><a href="manual/zh/puzzles/Camera.html#tween_camera" id="tween_camera" class="permalink">#</a></p>
+    [anchor:tween_camera]
 
-    <h4>"tween camera"</h4>
+    <h3>tween camera</h3>
 
     <p>
-    Smoothly animates the active camera so that its position finally coincides with the position of a specified object, and the camera targets another specified object. The numeric parameter specifies the time period for the animation (in seconds).
+        Smoothly animates the active camera so that its position
+        finally changes to the position of a specified object / 3D point,
+        and the camera targets another specified object / 3D point.
+    </p>
+
+    <p>
+        The position and the target parameters can be specified either by scene
+        objects or arrays of X, Y and Z coordinates.
+    </p>
+
+    <p>
+        The numeric parameter specifies the time period over which the
+        animation is performed (in seconds).
+    </p>
+
+    <p>
+        The *move* parameter specifies the interpolation between the starting
+        and the ending points: linear or spherical.
     </p>
 
     <p>
@@ -48,9 +74,9 @@
 
 
 
-    <p><a href="manual/zh/puzzles/Camera.html#zoom_camera_to_object" id="zoom_camera_to_object" class="permalink">#</a></p>
+    [anchor:zoom_camera_to_object]
 
-    <h4>"zoom camera to object"</h4>
+    <h3>zoom camera to object</h3>
 
     <p>
       Smoothly zooms the active camera in or out so that the specified
@@ -67,9 +93,9 @@
 
 
 
-    <p><a href="manual/zh/puzzles/Camera.html#set_active_camera" id="set_active_camera" class="permalink">#</a></p>
+    [anchor:set_active_camera]
 
-    <h4>"set active camera"</h4>
+    <h3>set active camera</h3>
 
     <p>
     Makes a specified camera active. This can be used to change camera control mode ("orbit" vs "flying" vs "no controls"), field of view and other settings on the fly.
@@ -78,10 +104,38 @@
     <img src="files/puzzles/puzzles-camera-set-active.jpg">
 
 
+    [anchor:active_camera]
 
-    <p><a href="manual/zh/puzzles/Camera.html#get_camera_direction" id="get_camera_direction" class="permalink">#</a></p>
+    <h3>active camera</h3>
 
-    <h4>"get camera direction"</h4>
+    <p>Retrieves the active camera.</p>
+
+    <img src="files/puzzles/puzzles-camera-active-camera.jpg" style="max-width: 732px">
+
+
+    [anchor:autorotate_camera]
+
+    <h3>autorotate camera</h3>
+
+    <p>
+    Smoothly animates the active *Orbit* camera by rotating it around the target.
+    </p>
+
+    <img src="files/puzzles/puzzles-camera-autorotate-camera.jpg">
+
+    <p>
+    In the following example, the camera starts to rotate after 3 seconds of user inactivity. When the user clicks a mouse button (or touches the screen), he or she regains the control over the camera until further 3 second period of inactivity.
+    </p>
+
+    <img src="files/puzzles/puzzles-camera-autorotate-camera-example.jpg">
+
+    <p class="note">To rotate camera in reverse direction set negative *speed* value, e.g *-2*.</p>
+
+
+
+    [anchor:get_camera_direction]
+
+    <h3>get camera direction</h3>
 
     <p>
     Returns a list of X, Y and Z components of the active camera's world direction vector. If *from mouse/touch* is checked, this puzzle casts a ray from the camera to the cursor's screen position and returns the direction of that ray. If additionaly *inverted* is checked, then the cursor's screen position coordinates are negated.
@@ -100,22 +154,49 @@
     </p>
 
 
+    [anchor:light_puzzles_reference]
 
-    <p><a href="manual/zh/puzzles/Camera.html#autorotate_camera" id="autorotate_camera" class="permalink">#</a></p>
+    <h2>Light Puzzles Reference</h2>
 
-    <h4>"autorotate camera"</h4>
 
-    <p>
-    Smoothly animates the active *Orbit* camera by rotating it around the target.
-    </p>
+    [anchor:set_light_param]
 
-    <img src="files/puzzles/puzzles-camera-autorotate-camera.jpg">
+    <h3>set light param</h3>
 
-    <p>
-    In the following example, the camera starts to rotate after 3 seconds of user inactivity. When the user clicks a mouse button (or touches the screen), he or she regains the control over the camera until further 3 second period of inactivity.
-    </p>
+    <p>Set light parameter:</p>
 
-    <img src="files/puzzles/puzzles-camera-autorotate-camera-example.jpg">
+    <dl>
+      <dt>color (vector)<dt>
+      <dd>Set light color using vector, where X, Y, Z represent R, G, or B color component accordingly. For example <strong>[0, 1, 0]</strong> vector represent pure green color.</dd>
+
+      <dt>color (css/rgb)<dt>
+      <dd>Set light color using CSS style string such as <strong>rgb(255, 0, 0)</strong> or *magenta*.</dd>
+
+      <dt>color (css/hex)<dt>
+      <dd>Set light color using CSS hex string such as <strong>#FF0000</strong>.</dd>
+
+      <dt>intensity<dt>
+      <dd>Set light intensity.</dd>
+    </dl>
+
+    <p>This puzzle also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.</p>
+
+    <img src="files/puzzles/puzzles-object-set-light-param.jpg">
+
+
+    [anchor:get_light_param]
+
+    <h3>get light param</h3>
+
+    <p>Get light parameter. See description on <a href="manual/zh/puzzles/Objects.html#set_light_param">set light param</a> puzzle for the list of parameters.</p>
+
+    <img src="files/puzzles/puzzles-object-get-light-param.jpg">
+
+
+    <h2>Having Troubles with Puzzles?</h2>
+
+    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
 
   </article></body>
 </html>

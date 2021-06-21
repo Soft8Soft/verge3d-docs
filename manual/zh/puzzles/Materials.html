@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Materials - Verge3D Puzzles Reference - Soft8Soft</title>
+    <title>Materials Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to manage materials and textures with Verge3D Puzzles."/>
     <base href="../../../" />
@@ -18,35 +18,59 @@
 
     <img src="files/puzzles/puzzles-materials.jpg">
 
+    <h2>Contents</h2>
+
+    [contents]
 
 
-    <p><a href="manual/zh/puzzles/Materials.html#assign_material" id="assign_material" class="permalink">#</a></p>
+    [anchor:puzzles_reference]
 
-    <h4>"assign material"</h4>
+    <h2>Puzzles Reference</h2>
+
+
+    [anchor:assign_material]
+
+    <h3>assign material</h3>
 
     <p>
-    Assigns a material to an object, completely replacing the old material. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Assigns a material to an object, completely replacing the old material. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-materials-assign-material.jpg">
 
-
-
-    <p><a href="manual/zh/puzzles/Materials.html#replace_texture" id="replace_texture" class="permalink">#</a></p>
-
-    <h4>"replace texture"</h4>
-
     <p>
-    Replaces a texture found for a specified material with the one loaded from the provided URI.
+      In some situations, namely when normal-mapped material assigned to an object which have no normal mapping, this puzzle might render your material completely black. If this happens, <em>disable</em> mesh attributes optimization in the export settings:
     </p>
+
+    <v3d-tabs>
+      <label>Blender</label>
+      <div>
+        <img src="files/puzzles/mesh-attributes-not-optimize-blender.jpg" class="centered" style="max-width: 331px;">
+      </div>
+      <label>3ds Max</label>
+      <div>
+        <img src="files/puzzles/mesh-attributes-not-optimize-max.jpg" class="centered" style="max-width: 252px;">
+      </div>
+      <label>Maya</label>
+      <div>
+        <img src="files/puzzles/mesh-attributes-not-optimize-maya.jpg" class="centered" style="max-width: 416px;">
+      </div>
+    </v3d-tabs>
+
+
+    [anchor:replace_texture]
+
+    <h3>replace texture</h3>
+
+    <p>Replaces a texture found for a specified material with the one loaded from the provided image URI, <a href="manual/zh/puzzles/Sound.html#load_video">video asset</a>, or <a href="manual/zh/puzzles/HTML.html#create_canvas_elem">canvas</a>.</p>
 
     <img src="files/puzzles/puzzles-materials-replace-texture.jpg">
 
 
 
-    <p><a href="manual/zh/puzzles/Materials.html#get_texture_param" id="get_texture_param" class="permalink">#</a></p>
+    [anchor:get_texture_param]
 
-    <h4>"get texture param"</h4>
+    <h3>get texture param</h3>
 
     <p>
     Retrieves the following parameters for a texture found for a specified material: width, height, aspect or dimensions.
@@ -56,9 +80,9 @@
 
 
 
-    <p><a href="manual/zh/puzzles/Materials.html#materials_set_color" id="materials_set_color" class="permalink">#</a></p>
+    [anchor:materials_set_color]
 
-    <h4>"set color"</h4>
+    <h3>set color</h3>
 
     <p>
     Set R, G and B components of a color parameter found for a specified material.
@@ -66,55 +90,144 @@
 
     <img src="files/puzzles/puzzles-materials-set-color.jpg">
 
-    <p>
-    <strong>For 3ds Max users:</strong> you can add <strong>Controllers</strong> in your materials (standard or physical) and their names will be shown in the dropdown menu. In addition, diffuse (or "base") color inputs for standard or physical material nodes are also accessible. In case of <strong>glTF-compliant PBR</strong> materials the <strong>Base Color</strong> and <strong>Emission</strong> inputs are only accessible with this puzzle.
-    </p>
+    <v3d-tabs>
+      <label>Blender</label>
+      <div>
+        <p>
+          You can add *RGB* nodes in your node-based materials and their names will be shown in the dropdown menu. In addition, *Base Color* (or *Color*) inputs for BSDF Principled, BSDF Diffuse and BSDF Glossy nodes are also accessible.
+        </p>
 
-    <p>
-    <strong>For Blender users:</strong> you can add <strong>RGB</strong> nodes in your node-based materials (GLSL Internal, Cycles, Eevee) and their names will be shown in the dropdown menu. In addition, diffuse (or "base") color inputs for Material, Extended Material, BSDF Principled, BSDF Diffuse and BSDF Glossy nodes are also accessible. In case of <strong>glTF-compliant PBR materials</strong> the <strong>BaseColor</strong> and <strong>Emissive</strong> inputs are only accessible with this puzzle.
-    </p>
+        <img src="files/puzzles/puzzles-materials-set-color-example-blender.jpg" class="centered" style="max-width: 643px;">
+
+        <p>
+          In case of <em>glTF-compliant PBR materials</em>, the <strong>BaseColor</strong> and <strong>Emissive</strong> inputs are only accessible with this puzzle.
+        </p>
+      </div>
+      <label>3ds Max</label>
+      <div>
+        <p>
+          You can add <strong>Controllers</strong> in your materials (standard or physical) and their names will be shown in the dropdown menu. In addition, *Diffuse* (or *Base Color*) color inputs for standard or physical material nodes are also accessible.
+        </p>
+
+        <img src="files/puzzles/puzzles-materials-set-color-example-max.jpg" class="centered" style="max-width: 759px;">
+
+        <p>
+          In case of <em>glTF-compliant PBR</em> materials, the <strong>Base Color</strong> and <strong>Emission</strong> inputs are only accessible with this puzzle.
+        </p>
+      </div>
+      <label>Maya</label>
+      <div>
+        <p>
+          You can add <strong>Color Constant</strong> nodes in your materials and their names will be shown in the dropdown menu.
+        </p>
+
+        <img src="files/puzzles/puzzles-materials-set-color-example-maya.jpg" class="centered" style="max-width: 936px;">
+
+        <p>
+          In case of <em>glTF-compliant PBR</em> materials, the <strong>color</strong> and <strong>emissive</strong> inputs are only accessible with this puzzle.
+        </p>
+      </div>
+    </v3d-tabs>
 
     <p>
     This puzzle can also be used to modify the environment shader. In the drop-down, the name of the environment shader starts with "Verge3D_Environment".
     </p>
 
     <p>
-    For more information on materials available to Verge3D users, please refer to Material system overview chapters of this manual: <a href="manual/zh/max/Material-System.html" target="_blank">3ds Max</a>, <a href="manual/zh/blender/Material-System.html" target="_blank">Blender</a>.
+      For more information on materials available to Verge3D users, please refer to Material system overview chapters of this manual: <a href="manual/zh/blender/Material-System.html" target="_blank">Blender</a>, <a href="manual/zh/max/Material-System.html" target="_blank">3ds Max</a>, <a href="manual/zh/maya/Materials.html" target="_blank">Maya</a>.
     </p>
 
 
+    [anchor:materials_get_color]
 
-    <p><a href="manual/zh/puzzles/Materials.html#materials_set_value" id="materials_set_value" class="permalink">#</a></p>
+    <h3>get color</h3>
 
-    <h4>"set value"</h4>
+    <p>Get color parameter found for a specified material:</p>
 
-    <p>
-    Set a value parameter found for a specified material.
-    </p>
+    <ul>
+      <li>*red* - red color component.</li>
+      <li>*green* - green color component.</li>
+      <li>*blue* - blue color component.</li>
+      <li>*rgb* - RGB color components as vector/list value.</li>
+      <li>*css (hex)* - CSS style string, such as #AA00FF.</li>
+      <li>*css (rgb)* - CSS style string, such as rgb(127, 0, 255).</li>
+    </ul>
+
+    <p>Specify *flexible color input* parameter to assign custom material parameter as string value.</p>
+
+    <img src="files/puzzles/puzzles-materials-get-color.jpg">
+
+
+
+    [anchor:materials_set_value]
+
+    <h3>set value</h3>
+
+    <p>Set a value parameter found for a specified material.</p>
 
     <img src="files/puzzles/puzzles-materials-set-value.jpg">
 
-    <p>
-    <strong>For 3ds Max users:</strong> you can add <strong>Controllers</strong> in your materials (standard or physical) and their names will be shown in the dropdown menu. In case of <strong>glTF-compliant PBR</strong> materials the following inputs are accessible with this puzzle: Metalness, Roughness, Bump Scale, Emissive Intensity and Environment Map Intensity.
-    </p>
+    <v3d-tabs>
+      <label>Blender</label>
+      <div>
+        <p>
+          You can add <strong>Value</strong> nodes in your node-based materials and their names will be shown in the dropdown menu.
+        </p>
 
-    <p>
-    <strong>For Blender users:</strong> you can add <strong>Value</strong> nodes in your node-based materials (GLSL Internal, Cycles, Eevee) and their names will be shown in the dropdown menu. In case of <strong>glTF-compliant PBR</strong> materials the following inputs are accessible with this puzzle: metalness (MetallicFactor in PBR node), roughness (RoughnessFactor in PBR node), bumpScale (NormalScale in PBR node), emissiveIntesity (EmissiveFactor in PBR node) and envMapIntensity (not presented in PBR node).
-    </p>
+        <img src="files/puzzles/puzzles-materials-set-value-example-blender.jpg" class="centered" style="max-width: 687px;">
+
+        <p>
+          In case of <em>glTF-compliant PBR</em> materials, the following inputs are accessible with this puzzle: *metalness*, *roughness*, *bumpScale*, *emissiveIntesity*, and *envMapIntensity*.
+        </p>
+      </div>
+      <label>3ds Max</label>
+      <div>
+        <p>
+          You can add *Controllers* in your materials (standard or physical) and their names will be shown in the dropdown menu.
+        </p>
+
+        <img src="files/puzzles/puzzles-materials-set-value-example-max.jpg" class="centered" style="max-width: 739px;">
+
+        <p>
+          In case of <em>glTF-compliant PBR</em> materials the following inputs are accessible with this puzzle: *Metalness*, *Roughness*, *Bump Scale*, *Emissive Intensity* and *Environment Map Intensity*.
+        </p>
+      </div>
+      <label>Maya</label>
+      <div>
+        <p>
+          You can add *Float Constant* nodes in your material and their names will be shown in the dropdown menu.
+        </p>
+
+        <img src="files/puzzles/puzzles-materials-set-value-example-maya.jpg" class="centered" style="max-width: 769px;">
+
+        <p>
+          In case of <em>glTF-compliant PBR</em> materials, the following inputs are accessible with this puzzle: *metalness*, *roughness*, *bumpScale*, *emissiveIntensity* and *envMapIntensity*.
+        </p>
+      </div>
+    </v3d-tabs>
 
     <p>
     This puzzle can also be used to modify the environment shader. In the drop-down, the name of the environment shader starts with "Verge3D_Environment".
     </p>
 
     <p>
-    For more information on materials available to Verge3D users, please refer to Material system overview chapters of this manual: <a href="manual/zh/max/Material-System.html" target="_blank">3ds Max</a>, <a href="manual/zh/blender/Material-System.html" target="_blank">Blender</a>.
+      For more information on materials available to Verge3D users, please refer to Material system overview chapters of this manual: <a href="manual/zh/blender/Material-System.html" target="_blank">Blender</a>, <a href="manual/zh/max/Material-System.html" target="_blank">3ds Max</a>, <a href="manual/zh/maya/Materials.html" target="_blank">Maya</a>.
     </p>
 
+    [anchor:materials_get_value]
+
+    <h3>get value</h3>
+
+    <p>
+      Get a value parameter found for a specified material. Specify *flexible value input* parameter to assign custom material parameter as string value.
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-get-value.jpg" style="max-width: 727px">
 
 
-    <p><a href="manual/zh/puzzles/Materials.html#get_material" id="get_material" class="permalink">#</a></p>
+    [anchor:get_material]
 
-    <h4>"get material"</h4>
+    <h3>get material</h3>
 
     <p>
     Retrieves the name of a material assigned to an object. If multiple materials are assigned to the same object, returns the first one.
@@ -124,57 +237,63 @@
 
 
 
-    <p><a href="manual/zh/puzzles/Materials.html#texture_from_text" id="texture_from_text" class="permalink">#</a></p>
+    [anchor:texture_from_text]
 
-    <h4>"texture from text"</h4>
+    <h3>texture from text</h3>
 
     <p>
-    Creates an image from specified text and returns it in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format.
+      Creates an image from specified text and returns it in <a href="manual/zh/puzzles/HTML.html#data_uri">Data URI</a> format.
     </p>
 
     <img src="files/puzzles/puzzles-materials-texture-from-text.jpg">
 
     <p>
-    Parameters:
+      Parameters:
     </p>
 
-    <p>
-    <ul>
-    <li>
-    *text* - input text.
-    </li>
-    <li>
-    *width* and *height* - dimensions of the generated image (in pixels). Power-of-two values are recommended (256, 512, 1024 etc).
-    </li>
-    <li>
-    *font family* - <a href="https://www.w3schools.com/cssref/pr_font_font-family.asp" target="_blank">font-family</a> CSS property to render the text with. You can use system fonts such as "Arial" or custom fonts loaded with the <a href="manual/zh/puzzles/Initialization.html#load_font">load font</a> puzzle.
-    </li>
-    <li>
-    *size* - size of the text drawn on the generated image (in pixels).
-    </li>
-    <li>
-    *align* - how the text is aligned on the generated image: *center*, *left*, *right* or *fit*.
-    </li>
-    <li>
-    *offset* - gap for the drawn text (in pixels).
-    </li>
-    </ul>
-    </p>
+    <dl>
+      <dt>text</dt>
+      <dd>
+        input text.
+      </dd>
+      <dt>
+        width, height
+      </dt>
+      <dd>
+        dimensions of the generated image (in pixels). Power-of-two values are recommended (256, 512, 1024 etc).
+      </dd>
+      <dt>font family</dt>
+      <dd>
+        <a href="https://www.w3schools.com/cssref/pr_font_font-family.asp" target="_blank">font-family</a> CSS property to render the text with. You can use system fonts such as "Arial" or custom fonts loaded with the <a href="manual/zh/puzzles/Initialization.html#load_font">load font</a> puzzle.
+      </dd>
+      <dt>size</dt>
+      <dd>
+        size of the text drawn on the generated image (in pixels).
+      </dd>
+      <dt>align</dt>
+      <dd>
+        how the text is aligned on the generated image: *center*, *left*, *right* or *fit*.
+      </dd>
+      <dt>offset</dt>
+      <dd>
+        gap for the drawn text (in pixels).
+      </dd>
+    </dl>
 
     <p>
-    In the example below, the image generated from text is used on a model via the <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture</a> puzzle:
+      In the example below, the image generated from text is used on a model via the <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture</a> puzzle:
     </p>
 
     <img src="files/puzzles/puzzles-materials-texture-from-text-example.jpg" style="max-width: 770px">
 
 
 
-    <p><a href="manual/zh/puzzles/Materials.html#generate_normal_map" id="generate_normal_map" class="permalink">#</a></p>
+    [anchor:generate_normal_map]
 
-    <h4>"generate normal map"</h4>
+    <h3>generate normal map</h3>
 
     <p>
-    Converts an image to normal map and returns it in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format.
+      Converts an image to normal map and returns it in <a href="manual/zh/puzzles/HTML.html#data_uri">Data URI</a> format.
     </p>
 
     <img src="files/puzzles/puzzles-materials-generate-normalmap.jpg">
@@ -183,34 +302,30 @@
     Parameters:
     </p>
 
-    <p>
-    <ul>
-    <li>
-    *(source image)* - image URL, usually black and white height map. Also images in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format can be supplied such as the output of the <a href="manual/zh/puzzles/Materials.html#texture_from_text">texture from text</a> puzzle.
-    </li>
-    <li>
-    *strength* - linear factor affecting the height. Recommended values: 0.01 to 5.
-    </li>
-    <li>
-    *level* - exponential factor affecting the height. Recommended values: 4 to 10.
-    </li>
-    <li>
-    *blur / sharp* - blurriness/sharpness factor in the Gaussian filter. Recommended values: -10 (blur) to 10 (sharp).
-    </li>
-    <li>
-    *filter* - selector between Sobel or Scharr algorithms used for edge detection.
-    </li>
-    <li>
-    *invert R* - invert direction in the normal map's R channel. At the moment this must be disabled for both 3ds Max and Blender but may require enabling for some other tool supported in the future.
-    </li>
-    <li>
-    *invert G* - invert direction in the normal map's G channel. Must be enabled for compatibility with 3ds Max’ normal map space but left disabled for Blender.
-    </li>
-    <li>
-    *invert height* - change interpretation of height to make darker pixels correspond to lower height.
-    </li>
-    </ul>
-    </p>
+    <dl>
+      <dt>(source image)</dt>
+      <dd>
+        image URL, usually black and white height map. Also images in <a href="manual/zh/puzzles/HTML.html#data_uri">Data URI</a> format can be supplied such as the output of the <a href="manual/zh/puzzles/Materials.html#texture_from_text">texture from text</a> puzzle.
+      </dd>
+      <dt>strength</dt>
+      <dd>linear factor affecting the height. Recommended values: 0.01 to 5.</dd>
+      <dt>level</dt>
+      <dd>exponential factor affecting the height. Recommended values: 4 to 10.</dd>
+      <dt>blur / sharp</dt>
+      <dd>blurriness/sharpness factor in the Gaussian filter. Recommended values: -10 (blur) to 10 (sharp).</dd>
+      <dt>filter</dt>
+      <dd>selector between Sobel or Scharr algorithms used for edge detection.</dd>
+      <dt>invert R</dt>
+      <dd>
+        invert direction in the normal map's R channel. At the moment this must be disabled for Blender, 3ds Max, and Maya but may require enabling for some other tool supported in the future.
+      </dd>
+      <dt>invert G</dt>
+      <dd>
+        invert direction in the normal map's G channel. Must be enabled for compatibility with 3ds Max’ normal map space but left disabled for Blender/Maya.
+      </dd>
+      <dt>invert height</dt>
+      <dd>change interpretation of height to make darker pixels correspond to lower height.</dd>
+    </dl>
 
     <p>
     In the example below, the normal map generated from a loaded image is used on a model via the <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture</a> puzzle:
@@ -219,6 +334,20 @@
     <img src="files/puzzles/puzzles-materials-generate-normalmap-example.jpg" style="max-width: 819px">
 
 
+    [anchor:enable_disable_wireframe]
+
+    <h3>enable/disable wireframe</h3>
+
+    <p>
+      Enable or disable wireframe rendering for a specified material. Can be used as a non-photorealistic rendering technique, for debugging, or performance optimization.
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-enable-disable-wireframe.jpg">
+
+
+    <h2>Having Troubles with Puzzles?</h2>
+
+    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
 
 
   </article></body>

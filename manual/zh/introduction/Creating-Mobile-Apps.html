@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Creating Mobile Applications with Apache Cordova - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how to use Apache Cordova to create cross-platform Verge3D applications for mobile."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+    <meta property="og:image" content="https://cdn.soft8soft.com/images/cordova.jpg">
+    <meta property="article:tag" content="cordova">
+  </head>
+  <body><article>
+
+    <h1>Creating Mobile Applications with Apache Cordova</h1>
+
+    <p>
+      Apache Cordova is a tool which converts web applications to cross-platform mobile applications. Cordova is mostly used to create apps for Android and iOS platforms, however, it's also possible to develop Windows, macOS, and Linux applications. The tool is completely free, easy-to-use and allows for advanced customizations with JavaScript (if you need it).
+    </p>
+
+
+    [contents]
+
+
+    [anchor:preliminary_considerations]
+
+    <h2>Preliminary Considerations</h2>
+
+    <p>
+      Before you start working with Cordova, make sure you have the following:
+    </p>
+
+    <ul>
+      <li>
+        Hardware. You can develop Android apps on any computer running Windows, macOS, or Linux, while developing apps for Apple devices will require a decent Mac system.
+      </li>
+
+      <li>
+        Basic Windows/macOS/Linux console (aka command prompt) skills. If you don't, please seek the internet for beginner-level tutorials.
+      </li>
+
+      <li>
+        Time. By following this guide you can build your first app really quick, however it may take hours or days, before you get your developer account approved and your app published in App Store / Google Play.
+      </li>
+
+      <li>
+        Money. Creating and running applications on your own devices is completely free. However, to get published in Google Play you'll need $25 (one-time payment), while for App Store, you'll need $99 (paid annually).
+      </li>
+    </ul>
+
+    <p>
+      The good part, you don't need to be an Android or iOS developer to create apps for these platforms. Once you have your development system up and running, creating mobile versions of your Verge3D apps would be really easy!
+    </p>
+
+
+    [anchor:getting_cordova]
+
+    <h2>Getting Started with Apache Cordova</h2>
+
+    <p>
+      To work with Cordova, you'll need the *npm* utility which is part of the *Node.js* runtime. You can install it by following <a href="https://nodejs.org/en/download/" target="_blank">these instructions</a>.
+    </p>
+
+    <p class="notes">
+      For Linux you better get npm via the package manager. See <a href="https://nodejs.org/en/download/package-manager/" target="_blank">here</a> for details.
+    </p>
+
+    <p>
+      Once npm installed, Cordova binaries can be installed with the following command.
+    </p>
+
+    <p>On macOS/Linux:</p>
+
+    <code>sudo npm install -g cordova</code>
+
+    <p>On Windows:</p>
+
+    <code>npm install -g cordova</code>
+
+
+    [anchor:creating_app_tempalte]
+
+    <h2>Creating Application Template</h2>
+
+    <p>
+      You can create your mobile app manually or with Cordova command-line utility. However, to simplify things up, we integrated a Cordova template builder right in the App Manager.
+    </p>
+
+    <img src="files/creating-mobile-apps/app-manager-create-native-app.jpg">
+
+    <p>
+      By using it you can create a Cordova app template right from your Verge3D app.
+    </p>
+
+    <img src="files/creating-mobile-apps/app-manager-cordova.jpg">
+
+    <p>
+      Once your template is ready, download it and then unpack the zip archive to some directory.
+    </p>
+
+
+    [anchor:creating_android_app]
+
+    <h2>Creating Android App</h2>
+
+    <p>
+      Go to some directory where your Cordova app template located then add the Android platform:
+    </p>
+
+    <code>cordova platform add android</code>
+
+    <p>
+      Now the hardest part. To be able to build and test your app in the Android emulator or real devices, you're gonna need to install and configure additional software.
+    </p>
+
+    <p>
+      First, you need to install Android Studio, get it from <a href="https://developer.android.com/studio">here</a>.
+    </p>
+
+    <p>
+      Once Android Studio is installed, you need to specify path to it in the *ANDROID_SDK_ROOT* environment variable. On Windows you'll also need to set the *JAVA_HOME* variable with the path to the Java directory.
+    </p>
+
+    <p>
+      See <a href="https://cordova.apache.org/docs/en/10.x/guide/platforms/android/index.html#setting-environment-variables">here</a> on how to setup these variables.
+    </p>
+
+    <p>
+      The last thing you will require is the *Gradle* build tool. See <a href="https://gradle.org/install/">here</a> for instructions.
+    </p>
+
+    <p>
+      To check if you satisfy the requirements for building, execute the following command in your apps directory:
+    </p>
+
+    <code>cordova requirements</code>
+
+    <p>
+      To build your app, exec:
+    </p>
+
+    <code>cordova build android</code>
+
+    <p>
+      To run it in the Android emulator, exec:
+    </p>
+
+    <code>cordova emulate android</code>
+
+    <p>
+      To run your app on the real phone connected to your system run:
+    </p>
+
+    <code>cordova run android</code>
+
+
+    [anchor:creating_ios_app]
+
+    <h2>Creating iOS App</h2>
+
+    <p>
+      Go to some directory where your Cordova app template located then add the iOS platform:
+    </p>
+
+    <code>cordova platform add ios</code>
+
+    <p>
+      Now the hardest part. To be able to build and test your app in the iOS emulator or real devices, you're gonna need to install and configure additional software.
+    </p>
+
+    <p>
+      First, you need to install *XCode*, get it from from the Mac App Store.
+    </p>
+
+    <p>
+      Then install the *Homebrew* package manager:
+    </p>
+
+    <code class="language-sh">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code>
+
+    <p>
+      After that you'll need <strong>ios-deploy</strong> tools.
+    </p>
+
+    <code>brew install ios-deploy</code>
+
+    <p>
+      Then you're gonna need *CocoaPods* dependency manager:
+    </p>
+
+    <code>sudo gem install cocoapods</code>
+
+    <p>
+      To check if you satisfy the requirements for building, execute the following command in your apps directory:
+    </p>
+
+    <code>cordova requirements</code>
+
+    <p>
+      It's time to run your app, exec:
+    </p>
+
+    <code>cordova emulate ios</code>
+
+    <p>
+      to build and run it in the iOS emulator.
+    </p>
+
+    <img src="files/creating-mobile-apps/farmers-journey-ios.jpg" class="centered" style="max-width: 415px">
+
+    <p>
+      To run your app on the real phone connected to your system exec:
+    </p>
+
+    <code>cordova run ios</code>
+
+    <p>
+      To run on a real device your app must be signed via XCode. See <a href="https://help.apple.com/xcode/mac/current/#/dev5a825a1ca" target="_blank">here</a> for instructions.
+    </p>
+
+
+
+    [anchor:beautifying_things]
+
+    <h2>Beautifying Things</h2>
+
+
+    [anchor:modifying_app_icon]
+
+    <h3>Modifying Application Name and Icon</h3>
+
+    <p>
+      See the <a href="https://cordova.apache.org/docs/en/latest/config_ref/images.html" target="_blank">official Cordova guide</a> on how to assign custom icon to your application.
+    </p>
+
+
+    [anchor:cordova_specific_events]
+
+    <h3>Cordova-Specific Events</h3>
+
+    <p>
+      There are 3 Cordova-specific events available via JavaScript or Puzzles which you can use to make your apps more mobile-friendly:
+    </p>
+
+    <ul>
+      <li>*deviceready* — triggered when your app is fully initialized. You can also use it to detect when your app is running on Cordova.</li>
+      <li>*pause* — triggered when you app goes to the background or got switched by another app. Use it to pause your app rendering / sound playback / videos etc.</li>
+      <li>*resume* — triggered when you app becomes active. This event is the opposite of the *pause*.</li>
+    </ul>
+
+    <img src="files/creating-mobile-apps/cordova-events-puzzles.jpg">
+
+    <p>
+      Make sure you register these events on the *document* element. Also, use the *in parent doc* option in case if your app runs in the iframe (see more info about this setup <a href="manual/zh/introduction/HTML-based-user-interfaces.html">here</a>).
+    </p>
+
+    [anchor:native_ui_dialogs]
+
+    <h3>Creating Native UI Dialogs</h3>
+
+    <p>
+      Use the <a href="https://cordova.apache.org/docs/en/10.x/reference/cordova-plugin-dialogs/index.html" target="_blank">cordova-plugin-dialogs</a> plugin.
+    </p>
+
+
+    [anchor:more_features]
+
+    <h3>More Features</h3>
+
+    <p>
+      You can create full-featured app with access to camera, battery info, device file system, geolocation etc. See the appropriate plugin in the <a href="https://cordova.apache.org/docs/en/latest/" target="_blank">Cordova documentation</a>.
+    </p>
+
+
+    [anchor:publishing]
+
+    <h2>Publishing your App</h2>
+
+    <p>
+      See <a href="https://jackmckew.dev/releasing-cordova-apps-on-google-play-app-store.html" target="_blank">here</a> for instructions.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

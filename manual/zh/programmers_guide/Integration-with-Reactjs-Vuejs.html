@@ -10,7 +10,7 @@
   <body><article>
     <h1>Integration with React.js/Vue.js</h1>
 
-    <div>
+    <p>
         One of the easiest way of integrating a Verge3D scene into your project
         is to load it separately through an iframe element. But if you want to
         use it directly inside your app then there could appear some difficulties
@@ -18,26 +18,28 @@
         with their specific issues and peculiarities. This guide can't comprehend
         them all and only targets such popular javascript frameworks as React.js
         and Vue.js.
-    </div>
+    </p>
 
-    <div>
+    <p>
         Verge3D provides an example of how to make a simple "Hello, world!"
         React or Vue project and integrate a standard Verge3D application into
         it. The example files are located in the *manager/templates/Embeddable*
-        directory inside the Verge3D SDK.
-    </div>
+        directory inside the Verge3D distribution.
+    </p>
+
+    [contents]
+
 
     [anchor:Verge3D_React]
 
-
     <h2>Verge3D React.js Application Example</h2>
 
-    <div>
+    <p>
         Here's a simple instruction on how to create a basic React.js + Verge3D
         application with the Create React App utility. You can find a copy of
         this instruction in *manager/templates/Embeddable/README.md* inside the
-        Verge3D SDK.
-    </div>
+        Verge3D distribution.
+    </p>
 
     <p>
         1) Create a React.js application via the Create React App utility:
@@ -52,17 +54,17 @@
     </p>
 
     <p>
-        3) Copy the content of the *manager/templates/Embeddable/public* Verge3D
-        SDK's directory to *react_v3d_app/public*.
+        3) Copy the content of the *manager/templates/Embeddable/public* Verge3D's
+        directory to *react_v3d_app/public*.
     </p>
 
     <p>
-        Copy the content of the *manager/templates/Embeddable/src* Verge3D
-        SDK's directory to *react_v3d_app/src*.
+        Copy the content of the *manager/templates/Embeddable/src* Verge3D's
+        directory to *react_v3d_app/src*.
     </p>
 
     <p>
-        Copy the engine file *build/v3d.js* from Verge3D SDK to *react_v3d_app/public*.
+        Copy the engine file *build/v3d.js* to *react_v3d_app/public*.
     </p>
 
     <p>
@@ -74,48 +76,87 @@
     </p>
 
     <p>
-        5) Create a file *react_v3d_app/src/index.js* containing the following code:
+        5) Create a *components* directory inside *react_v3d_app/src*. Then
+        create a file called *react_v3d_app/src/components/V3DApp.js* with the
+        following content:
+
+    <!--
+        NOTE: using language-js here to fix incorrect highlighting of class
+        private properties.
+    -->
+    <code class="language-js">
+    import React from 'react';
+
+    import * as v3dAppAPI from '../v3dApp/app.js';
+    import '../v3dApp/app.css';
+
+    class V3DApp extends React.Component {
+
+        #app = null;
+
+        componentDidMount() {
+            v3dAppAPI.createApp().then(app => {
+                this.#app = app;
+            });
+        }
+
+        componentWillUnmount() {
+            if (this.#app !== null) {
+                this.#app.dispose();
+                this.#app = null;
+            }
+        }
+
+        render() {
+            return &lt;div id={v3dAppAPI.CONTAINER_ID}&gt;
+                &lt;div id="fullscreen_button" className="fullscreen-button fullscreen-open" title="Toggle fullscreen mode"&gt;&lt;/div&gt;
+            &lt;/div&gt;;
+        }
+    }
+
+    export default V3DApp;
+    </code>
+    </p>
+
+    <p>
+        6) Create a file *react_v3d_app/src/index.js* containing the following code:
 
     <code>
     import React from 'react';
     import ReactDOM from 'react-dom';
 
-    import * as V3DApp from './v3dApp/app.js';
-    import './v3dApp/app.css';
+    import V3DApp from './components/V3DApp.js';
 
     ReactDOM.render(
-        &lt;div id={V3DApp.CONTAINER_ID}&gt;
-            &lt;div id="fullscreen_button" className="fullscreen-button fullscreen-open" title="Toggle fullscreen mode"&gt;&lt;/div&gt;
-        &lt;/div&gt;,
+        &lt;V3DApp/&gt;,
         document.getElementById('root')
     );
-
-    V3DApp.createApp();
     </code>
     </p>
 
     <p>
-        6) Run the development server by executing the following command in the
+        7) Run the development server by executing the following command in the
         *react_v3d_app* directory:
 
     <code>
-    npm run start
+    npm start
     </code>
 
         By default the application now should be available at
         <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a>.
     </p>
 
+
     [anchor:Verge3D_Vue]
 
     <h2>Verge3D Vue.js Application Example</h2>
 
-    <div>
+    <p>
         Here's a simple instruction on how to create a basic Vue.js + Verge3D
         application with the Vue CLI utility. You can find a copy of this
         instruction in *manager/templates/Embeddable/README.md* inside the
-        Verge3D SDK.
-    </div>
+        Verge3D distribution.
+    </p>
 
     <p>
         1) Create a Vue.js application via the Vue CLI utility:
@@ -126,17 +167,17 @@
     </p>
 
     <p>
-        2) Copy the content of the *manager/templates/Embeddable/public* Verge3D
-        SDK's directory to *vue_v3d_app/public*.
+        2) Copy the content of the *manager/templates/Embeddable/public* Verge3D's
+        directory to *vue_v3d_app/public*.
     </p>
 
     <p>
-        Copy the content of the *manager/templates/Embeddable/src* Verge3D
-        SDK's directory to *vue_v3d_app/src*.
+        Copy the content of the *manager/templates/Embeddable/src* Verge3D's
+        directory to *vue_v3d_app/src*.
     </p>
 
     <p>
-        Copy the engine file *build/v3d.js* from Verge3D SDK to *vue_v3d_app/public*.
+        Copy the engine file *build/v3d.js* to *vue_v3d_app/public*.
     </p>
 
     <p>
@@ -159,20 +200,31 @@
     &lt;/template&gt;
 
     &lt;script&gt;
-    import * as V3DApp from '../v3dApp/app.js';
+    import * as v3dAppAPI from '../v3dApp/app.js';
 
     export default {
         name: 'V3DApp',
 
-        data: function() {
+        data() {
             return {
-                containerId: V3DApp.CONTAINER_ID
+                containerId: v3dAppAPI.CONTAINER_ID,
             }
         },
 
-        mounted: function() {
-            V3DApp.createApp();
-        }
+        app: null,
+
+        mounted() {
+            v3dAppAPI.createApp().then(app => {
+                this.$options.app = app;
+            });
+        },
+
+        beforeDestroy() {
+            if (this.$options.app) {
+                this.$options.app.dispose();
+                this.$options.app = null;
+            }
+        },
     }
     &lt;/script&gt;
 
@@ -182,14 +234,17 @@
     </code>
     </p>
 
+    <p class="note">
+        The beforeDestroy() hook is deprecated in Vue.js 3.0.0+, use beforeUnmount() instead.</br>
+        See: <a href="https://eslint.vuejs.org/rules/no-deprecated-destroyed-lifecycle.html">https://eslint.vuejs.org/rules/no-deprecated-destroyed-lifecycle.html</a>
+    </p>
+
     <p>
         5) Change *vue_v3d_app/src/App.vue* so it will look like this:
 
     <code>
     &lt;template&gt;
-      &lt;div id="app"&gt;
         &lt;V3DApp&gt;&lt;/V3DApp&gt;
-      &lt;/div&gt;
     &lt;/template&gt;
 
     &lt;script&gt;
@@ -216,6 +271,89 @@
         By default the application now should be available at
         <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>.
     </p>
+
+
+    [anchor:using_the_puzzles_editor]
+
+    <h2>Using the Puzzles Editor</h2>
+
+    <p>
+        There's no direct integration between React/Vue and the
+        <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html">Puzzles Editor</a>/
+        <a href="manual/zh/introduction/App-Manager.html">Application Manager</a>.
+        Nevertheless, you can still use Puzzles for adding behavior scenarios to your
+        React/Vue applications. This section explains how to do that and what are
+        the limitations of the chosen approach.
+    </p>
+
+    <p>
+        The Application Manager doesn't know what directory structure of a
+        typical React/Vue project can look like. However, after some tweaking
+        the manager can at least recognize the project's blend-files, the exported
+        .gltf/.glb/.bin scene files and the Puzzles' visual logic scripts. That
+        means you can view the corresponding scene resources and launch the
+        Puzzles Editor from within the
+        <a href="manual/zh/introduction/App-Manager.html#Exploring_Applications">App Manager's web-page</a>.
+        <br/><br/>
+
+        The drawback here is that viewing the .gltf files and working with Puzzles
+        can be only done via the Verge3D Player, i.e the same way as for all
+        standard Verge3D applications <a href="manual/zh/introduction/App-Manager.html#Creating_Applications">
+        created within the App Manager</a>. So, there's no access to React/Vue
+        features, components, logic, etc... and Puzzles can be added only in a
+        separate manner. Still, a complete React/Vue application can load, run
+        and communicate with the logic script created in the Puzzles Editor.
+    </p>
+
+    <h3>App Manager Setup</h3>
+
+    <p>
+        Suppose we have a React or a Vue application created according to the
+        guide described in this manual. Let's say that it's located at the path
+        *APP_PATH* and your Verge3D distribution is located at the path
+        *VERGE3D_PATH*.
+        <br/><br/>
+
+        In order to "connect" the App Manager and the React/Vue project we need
+        to create a dedicated directory inside *VERGE3D_PATH/applications* (the
+        place where all Verge3D applications are usually found). We'll create it
+        as a symbolic link pointing to *APP_PATH/public/v3dApp* - this is the
+        place inside our React/Vue project where the verge3d-related scene
+        resources and Puzzles' logic files are located. Let's call the new
+        directory *my_app*. Here's how it can be done:
+    </p>
+
+    <b><u>on Linux</u></b>
+    <code>
+    ln -sr APP_PATH/public/v3dApp VERGE3D_PATH/applications/my_app
+    </code>
+
+    <b><u>on Windows (PowerShell, requires administrator rights)</u></b>
+    <code>
+    cmd /c mklink /D VERGE3D_PATH\applications\my_app (Resolve-Path APP_PATH\public\v3dApp)
+    </code>
+
+    <p>
+        After that, it remains only to open the file *APP_PATH/src/v3dApp/app.js*,
+        then find the following line:
+    </p>
+
+    <code>
+    var LOAD_LOGIC_FILES = false;
+    </code>
+
+    <p>and change it as follows to enable loading the Puzzles' logic script:</p>
+
+    <code>
+    var LOAD_LOGIC_FILES = true;
+    </code>
+
+    <p>
+    Now you can see your project in the Application Manager. You can open its
+    .gltf and .blend files and use the Puzzles Editor.
+    </p>
+
+    <img src="files/integration-with-reactjs-vuejs/app-manager.jpg" class="centered" style="max-width: 800px">
 
   </article></body>
 </html>

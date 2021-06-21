@@ -16,20 +16,16 @@
     Here we show how to enable transparency for Standard, Physical and glTF-compliant PBR materials in 3ds Max.
     </p>
 
-    <ul>
-      <li><a href="manual/zh/max/Transparency.html#blended_vs_masked">Blended vs Masked</a></li>
-      <li><a href="manual/zh/max/Transparency.html#alpha_add">Additive Composing (aka No Depth Writes)</a></li>
-      <li><a href="manual/zh/max/Transparency.html#standard_materials">Transparency for Standard Materials</a></li>
-      <li><a href="manual/zh/max/Transparency.html#physical_materials">Transparency for Physical Materials</a></li>
-      <li><a href="manual/zh/max/Transparency.html#gltf_materials">Transparency for glTF-compliant PBR Materials</a></li>
-    </ul>
+    [contents]
+
+
 
     [anchor:blended_vs_masked]
 
     <h2>Blended vs Masked</h2>
 
     <p>
-    Being a real-time 3D engine, Verge3D offers two main methods to handle transparent objects: alpha blending and alpha clipping (usually with an image mask). Blending enables combining a translucent foreground color with a background color, using the foreground color's alpha as blending factor. Clipping, on the other hand, simply discards all pixels with alpha less than some predefined threshold (usually 0.5).
+    Being a real-time 3D engine, Verge3D offers two main methods to handle transparent objects: alpha blending and alpha clipping (usually with an image mask). Blending enables combining a translucent foreground color with a background color, using the foreground color's alpha as blending factor. Clipping, on the other hand, simply discards all pixels with alpha less than some predefined threshold (always equal to 0.5 in Verge3D for 3ds Max).
     </p>
 
     <img src="files/transparency-common/blending-vs-clipping.jpg">
@@ -55,8 +51,37 @@
     <img src="files/transparency-common/no-depth-writes.jpg">
 
     <p>
-      Select *Add* or *Blend* in the *Alpha Mode* dropdown and uncheck the *Depth Write* option in material settings to enable this mode. In addition, you'll need to increase the *Rendering Order* value in object settings to make you transparent object rendered above all.
+    Select *Add* or *Blend* in the *Alpha Mode* dropdown and uncheck the *Depth Write* option in material settings to enable this mode. In addition, you'll need to increase the *Rendering Order* value in <a href="manual/zh/max/Lighting-and-Rendering.html#per_object_rendering_settings">object settings</a> to make you transparent object rendered above all.
     </p>
+
+
+    [anchor:physical_materials]
+
+    <h2>Transparency for Physical Materials</h2>
+
+    <p>
+    Transparency of physical materials can be tweaked using the material setting of the same name.
+    </p>
+
+    <img src="files/transparency-max/physical-transparency.jpg" class="centered" style="max-width: 342px">
+
+    <p>Parameters:</p>
+
+    <ul>
+      <li>*Transparency* — transparency amount, color and roughness. The color and roughness parameters supported only for refraction-based transparency (*thin-walled* off).</li>
+      <li>*Thin-walled* — use generic (*thin-walled* on) or refraction-based (*thin-walled* off) transparency.</li>
+      <li>*Alpha Mode* — material transparency mode.</li>
+      <li>*Depth Write* — disable for additive transparency composing (see <a href="manual/zh/max/Transparency.html#alpha_add">above</a>).</li>
+    </ul>
+
+    <p class="note">By default in 3ds Max, the *Thin-walled* parameter is unchecked, which disables the most typical transparency rendering you expected to see in your interactive app. Always keep an eye on this setting when you're dealing with the transparent physical materials.</p>
+
+    <p>
+    Any combination of maps and images can be used to influence the transparency via the <strong>Transparency Map</strong> input.
+    </p>
+
+    <img src="files/transparency-max/physical-transparency-with-map.jpg">
+
 
     [anchor:standard_materials]
 
@@ -79,26 +104,6 @@
     </p>
 
     <img src="files/transparency-max/texture-settings-standard.jpg">
-
-    <p>
-    Use the <strong>Alpha Mode</strong> dropdown to choose between transparency modes.
-    </p>
-
-    [anchor:physical_materials]
-
-    <h2>Transparency for Physical Materials</h2>
-
-    <p>
-    Transparency of physical materials can be tweaked using the material setting of the same name.
-    </p>
-
-    <img src="files/transparency-max/physical-transparency.jpg">
-
-    <p>
-    Any combination of maps and images can be used to influence the transparency via the <strong>Transparency Map</strong> input.
-    </p>
-
-    <img src="files/transparency-max/physical-transparency-with-map.jpg">
 
     <p>
     Use the <strong>Alpha Mode</strong> dropdown to choose between transparency modes.

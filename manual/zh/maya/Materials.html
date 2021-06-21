@@ -1,123 +1,707 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Verge3D for Maya: Materials - Soft8Soft</title>
+    <title>Verge3D for Maya: Materials, Textures, and Utility Nodes - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Learn what kinds of Maya materials are supported in Verge3D and how to configure them to create good-looking 3D web interactives."/>
+    <meta name="description" content="Learn what kinds of Maya materials, textures, and utility nodes are supported in Verge3D and how to configure them to create good-looking 3D web interactives."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
 
-    <h1>Materials / Maya</h1>
-
-    <p>Verge3D for Maya supports the following types of materials:</p>
-
-    <ul>
-      <li>
-        Based on Arnold's <a href="manual/zh/maya/Materials.html#aiStandardSurface">aiStandardSurface</a> shaders
-      </li>
-      <li>
-        <a href="manual/zh/maya/Materials.html#StandardSurface">StandardSurface</a> (Maya 2020 only)
-      </li>
-      <li>
-        Approximated <a href="manual/zh/maya/Materials.html#Lambert">Lambert, Phong, Blinn, StingrayPBS</a>
-      </li>
-    </ul>
-
-
-    [anchor:aiStandardSurface]
-
-    <h2>Arnold aiStandardSurface shaders</h2>
+    <h1>Materials, Textures, and Utility Nodes / Maya</h1>
 
     <p>
-      This shader comes with Arnold for Maya (MtoA) and can represent many real-world materials (such as metals, plastics, glass, wood etc) by using physically-based shading model.
+      This section references all materials, textures and utility nodes supported in Verge3D for Maya.
     </p>
 
-    <img src="files/materials-maya/ai-standard-surface-overview.jpg" class="centered">
 
-    <p>The following aiStandardSurface settings are supported in Verge3D:</p>
-
-    <h3>Base Panel</h3>
-    <ul>
-      <li>Weight or (Base input in Hypershade)</li>
-      <li>Color or (Base Color input in Hypershade)</li>
-      <li>Metalness</li>
-    </ul>
-
-    <h3>Specular Panel</h3>
-    <ul>
-      <li>Roughness (Specular Roughness input in Hypershade)</li>
-    </ul>
-
-    <h3>Emission Panel</h3>
-    <ul>
-      <li>Weight (Emission input in Hypershade)</li>
-      <li>Color (Emission Color input in Hypershade)</li>
-    </ul>
-
-    <h3>Geometry Panel</h3>
-    <ul>
-      <li>Opacity</li>
-      <li>Bump Mapping (Normal Camera input in Hypershade)</li>
-    </ul>
-
-    <p>In addition, when dealing with Ambient Occlusion, you might also want to use *Weight* value from the *Specular* panel to make you Maya viewport look consistent with Verge3D rendering.</p>
-
-    <h3>Creating PBR material for general use</h3>
-
-    <p>Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
-
-    <ol>
-      <li>Assign *aiStandardSurface* to your model.</li>
-      <li>Open the Hypershade editor, find and select this material in the *Browser* panel.</li>
-      <li>Create a *file* node with Base Color texture. Make sure that the *Color Space* setting of this node is set to *sRGB*.</li>
-      <li>Connect *Out Color* output of this texture to *Base Color* input of *aiStandardSurface* node.</li>
-      <li>Create a *file* node with ORM texture. This texture should contain 3 channels with AO (red), Roughness (green) and Metalness (blue) info. Make sure that the *Color Space* setting of this node is set to *Raw*.</li>
-      <li>Connect R channel of the ORM texture to *Base* and *Specular* inputs of the *aiStandardSurface* node to simulate the ambient occlusion effect.</li>
-      <li>Connect G channel of the ORM texture to *Specular Roughness* input of the *aiStandardSurface* node.</li>
-      <li>Connect B channel of the ORM texture to *Metalness* input of the *aiStandardSurface* node.</li>
-      <li>Create *file* and *bump2d* nodes with Normal Map texture. Make sure that the *Color Space* setting of the file node is set to *Raw* and the *Use as* setting of the bump node is set to *Tangent Space Normals*.</li>
-      <li>Connect *file* to *bump2d* node and *bump2d* node to *Normal Camera* input of the *aiStandardSurface* node.
-    </ol>
-
-    <p>This is how the material should look in the Hypershade editor:</p>
-
-    <img src="files/materials-maya/pbr-example.jpg" class="centered">
-
-    <h3>Additional Verge3D Settings</h3>
-
-    <p>You can tweak your aiStandardSurface materials by using the following settings located on *Verge3D* panel:</p>
-
-    <img src="files/materials-maya/verge3d-settings.jpg" class="centered" style="max-width: 411px">
-
-    <p>*Alpha Mode* - select transparency mode: *Auto*, *Opaque*, *Blend* or *Mask*.</p>
-    <p>*Two Sided* - make your material two-sided. By default, Verge3D renders only front side of materials, enable this option to render their reverse side as well.</p>
-    <p>*Depth Write* - render material depth in depth buffer. Use this option for transparent materials to make them rendered in additive manner.</p>
-    <p>*Depth Test* - perform depth test calculations when rendering your material. Disabling depth test is useful when rendering objects inside semi-transparent objects to prevent them from being culled by the covering objects.</p>
-    <p>*Dithering* - reduce banding artifacts by using pixel dithering.</p>
-    <p>*Direct Light Occlusion* - this parameter controls the influence of the ambient occlusion texture attributed to Directional, Point and Spot lights. According to the glTF standard, ambient occlusion only affects indirect lighting (aka image-based lighting). This parameter, therefore, extends glTF by including explicitly available (“direct”) lights as well. By default, it is set to 1 meaning that AO is consistent with what we see in Maya viewport. If set to 0, it will behave in the old fashion, as glTF standard dictates.</p>
+    [contents]
 
 
-    [anchor:StandardSurface]
+    [anchor:surface_shaders]
 
-    <h2>Standard Surface</h2>
+    <h2>Surface Shaders</h2>
+
+
+    [anchor:standardSurface]
+
+    <h3>Standard Surface</h3>
 
     <p>
-      *Standard Surface* shader was introduced in Maya 2020. It's based on and very similar to aiStandardSurface.
+      *Standard Surface* shader was introduced in Maya 2020. It's based on and very similar to <a href="manual/zh/maya/Materials.html#aiStandardSurface">aiStandardSurface</a>.
     </p>
 
     <p>
       Since it's better supported in Maya Viewport 2.0 and does not require Arnold plug-in to be installed, we recommend it for use when authoring your Verge3D content in Maya 2020 or above.
     </p>
 
-    [anchor:Lambert]
 
-    <h2>Lambert, Phong, Blinn, StingrayPBS</h2>
+    [anchor:lambert]
+
+    <h3>Lambert</h3>
 
     <p>
-      These materials will be approximated by PBR shading model during export to Verge3D. Since they are not consistent with Verge3D renderer and have limited functionality, we don't recommend using them in production.
+      Basic yet highly efficient node which can be used to represent materials with no specular reflections.
+    </p>
+
+    <img src="files/materials-maya/lambert.jpg">
+
+    <p>The following Lambert settings are supported in Verge3D:</p>
+
+    <ul>
+      <li>Color</li>
+      <li>Transparency</li>
+      <li>Diffuse</li>
+      <li>Bump/Normal Mapping</li>
+    </ul>
+
+    <p>
+      Verge3D settings are also supported, see <a href="manual/zh/maya/Materials.html#aiStandardSurface">above</a> for more info.
+    </p>
+
+    [anchor:blinn_phong]
+
+    <h3>Blinn, Phong, Phong E</h3>
+
+    <p>
+      In Verge3D, these materials will be approximated by the PBR shading model, thus they might look differently compared to Maya Viewport.
+    </p>
+
+    [anchor:surfaceShader]
+
+    <h3>Surface Shader</h3>
+
+    <p>
+      Use this shader node to create fully-customizable materials. Basically, it just transfers *Out Color* parameter to the renderer as is.
+    </p>
+
+
+    [anchor:2d_textures]
+
+    <h2>2D Textures</h2>
+
+    [anchor:bulge]
+    <h3>Bulge</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-9F9D693A-9049-4FA3-A0A5-D5E50077CDD7" target="_blank">here</a>.
+    </p>
+
+    [anchor:checker]
+    <h3>Checker</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-514468B4-60C0-47CE-A865-55B4FFE873C1" target="_blank">here</a>.
+    </p>
+
+    [anchor:cloth]
+    <h3>Cloth</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-3A307B63-0156-480D-AE18-5115D5FE15DB" target="_blank">here</a>.
+    </p>
+
+    [anchor:file]
+    <h3>File</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-309A77DA-F5ED-4474-8413-317D7AB241E6" target="_blank">here</a>.
+    </p>
+
+    [anchor:grid]
+    <h3>Grid</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-1302D193-4DEF-4CEF-8E48-E5B7E84909E5" target="_blank">here</a>.
+    </p>
+
+    [anchor:noise]
+    <h3>Noise</h3>
+
+    <p>Perlin noise type is only supported.</p>
+
+    [anchor:ramp]
+    <h3>Ramp</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-F2C97013-5E4C-41AC-9684-E23AC52C51B8" target="_blank">here</a>.
+    </p>
+
+
+
+    [anchor:env_textures]
+
+    <h2>Environment Textures</h2>
+
+
+    [anchor:envSphere]
+    <h3>Env Sphere</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-1FF8EE4D-DEAF-4E6C-895C-D2E6EB670BAA" target="_blank">here</a>.
+    </p>
+
+
+    [anchor:other_textures]
+
+    <h2>Other Textures</h2>
+
+
+    [anchor:layeredTexture]
+    <h3>Layered Texture</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-770E22B9-E32A-4E14-A4DC-23656D885AEE" target="_blank">here</a>.
+    </p>
+
+
+
+    [anchor:utility_nodes]
+
+    <h2>Utility Nodes</h2>
+
+
+    [anchor:addDoubleLinear]
+    <h3>Add Double Linear</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-3FF423AA-407D-4D57-9888-FC9A2F350E55" target="_blank">here</a>.
+    </p>
+
+    [anchor:addMatrix]
+    <h3>Add Matrix</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-C1812049-7EBF-4288-B4C7-A712090866CC" target="_blank">here</a>.
+    </p>
+
+    [anchor:blendColors]
+    <h3>Blend Colors</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-25397F02-B0AC-4E6B-849C-462AFE93B0DB" target="_blank">here</a>.
+    </p>
+
+
+    [anchor:bump2d]
+    <h3>Bump 2d</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-0DC10D4E-6DD4-4E48-98A9-113B9757EF96" target="_blank">here</a>.
+    </p>
+
+    [anchor:clamp]
+    <h3>Clamp</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-75A0D963-24A0-4DAB-8073-903734443E03" target="_blank">here</a>.
+    </p>
+
+
+    [anchor:composeMatrix]
+    <h3>Compose Matrix</h3>
+
+    <p>
+      This node composes a 4x4 matrix from the given translation, rotation, and scale components. Shear input is not supported.
+    </p>
+
+    [anchor:condition]
+    <h3>Condition</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-57CE3E34-3C8D-4F15-971B-219DA6176836" target="_blank">here</a>.
+    </p>
+
+    [anchor:decomposeMatrix]
+    <h3>Decompose Matrix</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-31A82FA7-D887-458B-88A2-C7FF90F84F17" target="_blank">here</a>.
+    </p>
+
+    [anchor:fourByFourMatrix]
+    <h3>Four By Four Matrix</h3>
+
+    <p>
+      This node is used to compose a 4x4 matrix from 16 float values.
+    </p>
+
+    [anchor:gammaCorrect]
+    <h3>Gamma Correct</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-BA5E19E9-3D21-47BE-95D5-903C59936678" target="_blank">here</a>.
+    </p>
+
+    [anchor:inverseMatrix]
+    <h3>Inverse Matrix</h3>
+
+    <p>
+      Inverts the given 4x4 matrix.
+    </p>
+
+    [anchor:luminance]
+    <h3>Luminance</h3>
+
+    <p>
+      Convert input color to grayscale value. The conversion formula is:
+    </p>
+
+    <code>
+      Luminance = 0.3 * R + 0.59 * G + 0.11 * B
+    </code>
+
+
+    [anchor:multiplyDivide]
+    <h3>Multiply Divide</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-DBD3F3B4-AE68-49B1-B215-34F74782BA63" target="_blank">here</a>.
+    </p>
+
+    [anchor:multDoubleLinear]
+    <h3>Mult Double Linear</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-68236D3D-815B-4F3F-BF60-3D0F1FDFFF87" target="_blank">here</a>.
+    </p>
+
+    [anchor:multMatrix]
+    <h3>Mult Matrix</h3>
+
+    <p>
+      Multiply two or more matrices. In Verge3D, you can multiply no more than 3 matrices using the single Mult Matrix node.
+    </p>
+
+    [anchor:place2dTexture]
+    <h3>2d Placement</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-94070C7E-C550-42FD-AFC9-FBE82B173B1D" target="_blank">here</a>.
+    </p>
+
+    [anchor:reverse]
+    <h3>Reverse</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-EECA80A5-FD6F-4A41-87FF-05461A2BEB2D" target="_blank">here</a>.
+    </p>
+
+    [anchor:samplerInfo]
+    <h3>Sampler Info</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-5134339F-6F76-4193-9F94-713D0A88AAC2" target="_blank">here</a>.
+    </p>
+
+    [anchor:setRange]
+    <h3>Set Range</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-1C66C39C-4AAA-478B-929E-3F22D8B3B993" target="_blank">here</a>.
+    </p>
+
+    [anchor:transposeMatrix]
+    <h3>Transpose Matrix</h3>
+
+    <p>
+      Transpose the given 4x4 matrix.
+    </p>
+
+    [anchor:unitConversion]
+    <h3>Unit Conversion</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-2B3D14DB-2917-426D-AD15-DEDCCF5FF496" target="_blank">here</a>.
+    </p>
+
+    [anchor:vectorProduct]
+    <h3>Vector Product</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-C1DEE9BC-375C-404C-ABF7-79E9321BE5F8" target="_blank">here</a>.
+    </p>
+
+    [anchor:weightedAddMatrix]
+    <h3>Weighted Add Matrix</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319" target="_blank">here</a>.
+    </p>
+
+
+    [anchor:lookdevkit_utility_nodes]
+
+    <h2>LookdevKit Utility Nodes</h2>
+
+    <p>Make sure you have LookdevKit plug-in enabled before using any of these nodes.</p>
+
+    [anchor:channels]
+    <h3>Channels</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:colorComposite]
+    <h3>Color Composite</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:colorCondition]
+    <h3>Color Condition</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:colorConstant]
+    <h3>Color Constant</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:colorLogic]
+    <h3>Color Logic</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:colorMask]
+    <h3>Color Mask</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:colorMath]
+    <h3>Color Math</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:floatComposite]
+    <h3>Float Composite</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:floatCondition]
+    <h3>Float Condition</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:floatConstant]
+    <h3>Float Constant</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:floatLogic]
+    <h3>Float Logic</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:floatMask]
+    <h3>Float Mask</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:floatMath]
+    <h3>Float Math</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:premultiply]
+    <h3>Premultiply</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+    [anchor:unpremultiply]
+    <h3>Unpremultiply</h3>
+
+    <p>
+      Read more <a href="https://help.autodesk.com/view/MAYAUL/2022/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+    </p>
+
+
+    [anchor:arnold_nodes]
+    <h2>Arnold Nodes</h2>
+
+
+    [anchor:aiStandardSurface]
+    <h3>aiStandardSurface</h3>
+
+    <p>
+      This shader comes with Arnold for Maya (MtoA) and can represent many real-world materials (such as metals, plastics, glass, wood, textile etc) by using physically-based shading model.
+    </p>
+
+    <img src="files/materials-maya/ai-standard-surface-overview.jpg" class="centered">
+
+    <p>The following aiStandardSurface settings are supported in Verge3D:</p>
+
+    <h4>Base Panel</h4>
+    <ul>
+      <li>Weight or (Base input in Hypershade)</li>
+      <li>Color or (Base Color input in Hypershade)</li>
+      <li>Metalness</li>
+    </ul>
+
+    <h4>Specular Panel</h4>
+    <ul>
+      <li>Weight (Specular input in Hypershade)</li>
+      <li>Color (Specular Color input in Hypershade)</li>
+      <li>Roughness (Specular Roughness input in Hypershade)</li>
+      <li>IOR (Specular IOR input in Hypershade)</li>
+    </ul>
+
+    <h4>Transmission Panel</h4>
+    <ul>
+      <li>Weight (Transmission input in Hypershade)</li>
+      <li>Color (Transmission Color input in Hypershade)</li>
+    </ul>
+
+    <h4>Coat Panel</h4>
+    <ul>
+      <li>Weight (Coat input in Hypershade)</li>
+      <li>Roughness (Coat Roughness input in Hypershade)</li>
+      <li>Normal (Coat Normal input in Hypershade)</li>
+    </ul>
+
+    <h4>Sheen Panel</h4>
+    <ul>
+      <li>Weight (Sheen input in Hypershade)</li>
+      <li>Color (Sheen Color input in Hypershade)</li>
+      <li>Roughness (Sheen Roughness input in Hypershade)</li>
+    </ul>
+
+    <h4>Emission Panel</h4>
+    <ul>
+      <li>Weight (Emission input in Hypershade)</li>
+      <li>Color (Emission Color input in Hypershade)</li>
+    </ul>
+
+    <h4>Geometry Panel</h4>
+    <ul>
+      <li>Thin Walled</li>
+      <li>Opacity</li>
+      <li>Bump Mapping (Normal Camera input in Hypershade)</li>
+    </ul>
+
+
+    <h4>Additional Verge3D Settings</h4>
+
+    <p>You can tweak your aiStandardSurface materials by using the following settings located on *Verge3D* panel:</p>
+
+    <img src="files/materials-maya/verge3d-settings.jpg" class="centered" style="max-width: 427px">
+
+    <dl>
+      <dt>Alpha Mode</dt>
+      <dd>select transparency mode: *Auto*, *Opaque*, *Blend* or *Mask*. See <a href="manual/zh/maya/Transparency.html">transparency guide</a> for more info.</dd>
+      <dt>Two Sided</dt>
+      <dd>make your material two-sided. By default, Verge3D renders only front side of materials, enable this option to render their reverse side as well.</dd>
+      <dt>Depth Write</dt>
+      <dd>render material depth in depth buffer. Use this option for transparent materials to make them rendered in additive manner.</dd>
+      <dt>Depth Test</dt>
+      <dd>perform depth test calculations when rendering your material. Disabling depth test is useful when rendering objects inside semi-transparent objects to prevent them from being culled by the covering objects.</dd>
+      <dt>Dithering</dt>
+      <dd>reduce banding artifacts by using pixel dithering.</dd>
+      <dt>glTF 2.0 Compatible</dt>
+      <dd>force the material to be glTF 2.0 compatible. See the <a href="manual/zh/maya/GLTF-Materials.html">following guide</a> for more information.</dd>
+    </dl>
+
+
+    [anchor:aiAbs]
+    <h3>aiAbs</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiAdd]
+    <h3>aiAdd</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiAtan]
+    <h3>aiAtan</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiCompare]
+    <h3>aiCompare</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiComplement]
+    <h3>aiComlement</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiCross]
+    <h3>aiCross</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiDivide]
+    <h3>aiDivide</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiDot]
+    <h3>aiDot</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiExp]
+    <h3>aiExp</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiFacingRatio]
+    <h3>aiFacingRatio</h3>
+
+    [anchor:aiFlat]
+    <h3>aiFlat</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Flat" target="_blank">here</a>.</p>
+
+    [anchor:aiFraction]
+    <h3>aiFraction</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiIsFinite]
+    <h3>aiIsFinite</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiLength]
+    <h3>aiLength</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiLog]
+    <h3>aiLog</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiMax]
+    <h3>aiMax</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiMin]
+    <h3>aiMin</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiMixShader]
+    <h3>aiMixShader</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Mix+Shader" target="_blank">here</a>.</p>
+
+    [anchor:aiModulo]
+    <h3>aiModulo</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiMultiply]
+    <h3>aiMultiply</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiNegate]
+    <h3>aiNegate</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiNormalize]
+    <h3>aiNormalize</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiNormalMap]
+    <h3>aiNormalMap</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Normal+Map" target="_blank">here</a>.</p>
+
+    [anchor:aiOslShader]
+    <h3>aiOslShader</h3>
+
+    <p>
+      Node to create custom OSL shaders.
+    </p>
+
+    [anchor:aiPow]
+    <h3>aiPow</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiRaySwitch]
+    <h3>aiRaySwitch</h3>
+
+    [anchor:aiReciprocal]
+    <h3>aiReciprocal</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiShadowMatte]
+    <h3>aiShadowMatte</h3>
+
+    [anchor:aiSign]
+    <h3>aiSign</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiSkyDomeLight]
+    <h3>aiSkyDomeLight</h3>
+
+    <p>
+      Used to create image-based environment lighting. See the <a href="manual/zh/maya/Lighting-and-Rendering.html">Lighting and Rendering</a> section for more info.
+    </p>
+
+    [anchor:aiSqrt]
+    <h3>aiSqrt</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiSubtract]
+    <h3>aiSubtract</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+    [anchor:aiTrigo]
+    <h3>aiTrigo</h3>
+
+    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">here</a>.</p>
+
+
+    [anchor:performance_considerations]
+
+    <h2>Performance Considerations</h2>
+
+    <p>Being the only choice for creating nice and realistic renders, *Standard Surface* (or *aiStandardSurface*) nevertheless require more computing power from your GPU and slows down app loading. This is especially true for scenes with lots of such materials.</p>
+
+    <p>
+      To improve performance you can tweak <a href="manual/zh/maya/Lighting-and-Rendering.html#environment_lighting">Texture Resolution</a> or <a href="manual/zh/maya/Lighting-and-Rendering.html#global_rendering_settings">IBL Environment Mode</a> property.
     </p>
 
     <h2>Got Questions?</h2>

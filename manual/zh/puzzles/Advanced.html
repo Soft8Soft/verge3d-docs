@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
     <title>Advanced Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to use misc puzzles to perform various operations in your 3D applications."/>
+    <meta name="description" content="How to use puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
@@ -12,7 +12,7 @@
 
     <h1>Advanced Puzzles</h1>
 
-    <p>Use these puzzles to perform various low-level operations.</p>
+    <p>Use these puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more.</p>
 
     <img src="files/puzzles/puzzles-advanced.jpg">
 
@@ -27,9 +27,47 @@
     <h2>Puzzles Reference</h2>
 
 
-    [anchor:call_JS_function]
+    [anchor:exec_script]
 
-    <h3>call JS function</h3>
+    <h3>exec script</h3>
+
+    <p>
+        This puzzle executes the specified javascript code. The puzzle uses
+        <a href='https://ace.c9.io/'>Ace Editor</a> for displaying and editing
+        the content. See the relevant keyboard shortcuts here:
+        <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>Default Keyboard Shortcuts</a>.
+    </p>
+
+    <p>You can use the following built-in variables:</p>
+    <ul>
+        <li><b>app</b> - the application instance, see <a href="api/en/extras/App.html">App</a> for more details</li>
+        <li><b>v3d</b> - the v3d namespace which contains all the engine modules</li>
+        <li><b>VARS</b> - variable puzzles can be accessed through this object</li>
+        <li><b>PROC</b> - procedure puzzles can be accessed through this object</li>
+    </ul>
+
+    <img src="files/puzzles/puzzles-advanced-exec-script.jpg" style="max-width: 1000px">
+
+    <p><b>Specifics of using built-ins regarding to "Init" and other tabs</b></p>
+    <ul>
+        <li>
+            The <b>app</b> built-in variable is not available for this puzzle if
+            it's used inside the <b>Init</b> tab, since at that stage the
+            application is not properly initialized yet.
+        </li>
+        <li>
+            Variables and procedures declared in the <b>Init</b> tab can not be
+            accessed from other tabs via <b>VARS</b> and <b>PROC</b> and vice
+            versa.
+        </li>
+    </ul>
+
+
+    <!-- COMPAT: < 3.5 -->
+    <a href="#" id="call_JS_function"></a>
+    [anchor:call_external_function]
+
+    <h3>call external function</h3>
 
     <p>
     Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
@@ -50,29 +88,12 @@ function prepareExternalInterface(app) {
     </code>
 
 
-
-    [anchor:when_called_from_JS]
-
-    <h3>when called from JS</h3>
-
-    <p>
-      <span style="color:#f00">Deprecated.</span> Use the *v3d.puzzles.procedures*
-        object to directly call a procedure defined in Puzzles:
-      <code>
-function runCode(app) {
-        v3d.puzzles.procedures['myProcedure']();
-}
-      </code>
-    </p>
-
-
-
     [anchor:load_data]
 
     <h3>load data</h3>
 
     <p>
-    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/en/puzzles/Misc.html#loaded_data">loaded data</a> puzzle.
+    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/zh/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-load-data.jpg">
@@ -84,7 +105,7 @@ function runCode(app) {
     <h3>send data</h3>
 
     <p>
-    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/en/puzzles/Misc.html#loaded_data">loaded data</a> puzzle.
+    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/zh/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
     </p>
 
 
@@ -98,7 +119,7 @@ function runCode(app) {
     <h3>loaded data</h3>
 
     <p>
-    Returns data retrieved by the <a href="manual/en/puzzles/Misc.html#load_data">load data</a> or <a href="manual/en/puzzles/Misc.html#send_data">send data</a> puzzles.
+    Returns data retrieved by the <a href="manual/zh/puzzles/Advanced.html#load_data">load data</a> or <a href="manual/zh/puzzles/Advanced.html#send_data">send data</a> puzzles.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-loaded-data.jpg">
@@ -110,7 +131,7 @@ function runCode(app) {
     <h3>read JSON</h3>
 
     <p>
-    Interprets text as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which are returned in a dictionary.
+      Interprets text (or <a href="manual/zh/puzzles/HTML.html#data_uri">Data URI</a>) as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which is returned in a dictionary.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-JSON.jpg">
@@ -122,13 +143,13 @@ function runCode(app) {
     <h3>read CSV</h3>
 
     <p>
-    Interprets text as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
+      Interprets text (or <a href="manual/zh/puzzles/HTML.html#data_uri">Data URI</a>) as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-CSV.jpg">
 
     <p>
-    Table rows and values are accessed by their numeric indices starting from 0.
+      Table rows and values are accessed by their numeric indices starting from 0.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-csv-example.jpg">
@@ -146,7 +167,7 @@ function runCode(app) {
     <img src="files/puzzles/puzzles-advanced-save-state.jpg">
 
     <p>
-    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/en/puzzles/Misc.html#undo_state">undo state</a> puzzle.
+    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/zh/puzzles/Advanced.html#undo_state">undo state</a> puzzle.
     </p>
 
 
@@ -156,7 +177,7 @@ function runCode(app) {
     <h3>undo state</h3>
 
     <p>
-    Restores the state of objects and/or variables saved with the <a href="manual/en/puzzles/Misc.html#save_state">save state</a> puzzle.
+    Restores the state of objects and/or variables saved with the <a href="manual/zh/puzzles/Advanced.html#save_state">save state</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-undo-state.jpg">
@@ -188,6 +209,78 @@ function runCode(app) {
     </p>
 
     <img src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
+
+
+    [anchor:javascript_object]
+
+    <h3>JavaScript object</h3>
+
+    <p>
+      Returns a given JavaScript object.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-javascript-object.jpg">
+
+    <p>You can get the following JavaScript objects with this puzzle:</p>
+
+    <dl>
+      <dt>window</dt>
+      <dd>Return the top-level *window* object as dictionary value.</dd>
+      <dt>arguments</dt>
+      <dd>Returns the list of arguments of the currently executed function. Can be used to get arguments of Puzzles procedures or additional arguments passed to internal Puzzles callbacks (see below).</dd>
+      <dt>this</dt>
+      <dd>JavaScript *this* value.</dd>
+    </dl>
+
+    <p>The *arguments* option can be used to retrieve additional puzzles options. For example, when using <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a> puzzle, you can get the internal JavaScript event which triggers the puzzle logic using the first argument of the callback executed behind the *do* slot. In the example below we use this event to get X and Y coordinates of the mouse pointer:</p>
+
+    <img src="files/puzzles/puzzles-advanced-javascript-object-example.jpg">
+
+    <p>The following puzzles support advanced options:</p>
+
+    <ul>
+      <li><a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> event which triggers puzzles in the <em>do</em> slots.</li>
+      <li><a href="manual/zh/puzzles/Time.html#after">after</a>, <a href="manual/zh/puzzles/Time.html#set_timer">set timer</a> — timer ID returned by the puzzles' <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> call.</li>
+      <li><a href="manual/zh/puzzles/Time.html#every_frame">every frame</a> — delta time and total elapsed time.</li>
+      <li><a href="manual/zh/puzzles/HTML.html#event">event</a> — event object.</li>
+      <li><a href="manual/zh/puzzles/AR_VR.html#session_event">on session event</a> — WebXR event object.</li>
+    </ul>
+
+
+    [anchor:wait_promise]
+
+    <h3>wait promise</h3>
+
+    <p>
+    Wait for the promise to be resolved or rejected and return its value (or rejection reason) in the <a href="manual/zh/puzzles/Advanced.html#promise_value">promise value</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-wait-promise.jpg">
+
+    <p>This puzzle may be required to get value of the <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">export to gltf</a> and <a href="manual/zh/puzzles/Materials.html#generate_normal_map">generate normal map</a> puzzles. Being async puzzles by their nature, these puzzle do not return resolved values immediately. Instead, they return <em>promise</em> values which are resolved in the puzzles they are used as inputs. In some rare cases, however, this resolving does not happen. In these cases you should use *wait promise* to resolve promise values.</p>
+
+
+    [anchor:promise_value]
+
+    <h3>promise value</h3>
+
+    <p>Resolved promise value (in case of resolved promise) or error string (in case of rejected promise).</p>
+
+
+    [anchor:connector]
+
+    <h3>connector</h3>
+
+    <p>
+        This puzzle facilitates connecting other puzzles with each other, to
+        make it more convenient to move, delete and use them in other puzzles.
+        The most notable application is to join <a href="manual/zh/puzzles/Sound.html#load_sound">load sound</a>
+        or <a href="manual/zh/puzzles/Sound.html#load_video">load video</a>
+        puzzles into a single group to organize preloading of media resources
+        in your application.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-connector.jpg">
 
 
     <h2>Having Troubles with Puzzles?</h2>

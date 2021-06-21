@@ -9,51 +9,38 @@
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
+
     <h1>Workflow</h1>
 
     <p>
-    Below is documented a typical workflow that is used internally by the Soft8Soft team and by Verge3D users (examples include the <a href="https://cdn.soft8soft.com/demo/applications/scooter/index.html" target="_blank">Scooter Configurator</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/teapot_heater_max/index.html" target="_blank">Teapot Heater</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/industrial_robot/index.html" target="_blank">Industrial Robot​</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/recliner_max/index.html" target="_blank">e-commerce website</a> mock-up among others).
+      Below is documented a typical workflow that is used internally by the Soft8Soft team and by Verge3D users (examples include the <a href="https://cdn.soft8soft.com/demo/applications/scooter/index.html" target="_blank">Scooter Configurator</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/teapot_heater_max/index.html" target="_blank">Teapot Heater</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/industrial_robot/index.html" target="_blank">Industrial Robot​</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/jewelry_configurator/index.html" target="_blank">Jewelry Configurator</a> among others).
     </p>
 
-    <ul>
-      <li><a href="manual/zh/introduction/Workflow.html#Modeling_and_Baking">Modeling and Baking</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Choosing_Material_System">Choosing Material System</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Image_Formats_and_Resolution">Image Formats, Resolution and Best Practices</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#PBR_Textures">PBR Textures</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Environment_Map">Environment Map</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#HDR_Rendering">HDR Rendering</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Animation_">Animation</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Project">Project</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Puzzles">Puzzles</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Layout_and_UI">Layout and UI</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Post_processing">Post-processing</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Audio_">Audio</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Asset_Compression">Asset Compression</a></li>
-      <li><a href="manual/zh/introduction/Workflow.html#Publishing">Publishing</a></li>
-    </ul>
+    [contents]
 
     <p>
-    To create interactve 3D web content content you can use Blender, 3ds Max or Maya version of Verge3D with equal success.
+      To create interactive 3D web content you can use Blender, 3ds Max, or Maya version of Verge3D with equal success.
     </p>
 
     <img src="files/workflow/teapot-heater.jpg" class="centered" style="max-width: 819px;">
+
 
     [anchor:Modeling_and_Baking]
 
     <h2>Modeling and Baking</h2>
 
     <p>
-    In our team, we practice the following modeling pipeline. At first, high-poly versions of models are created. At the next stage, low- to middle-poly models are obtained via simply removing the subsurf modifier or retopology. No more than 100k tris per model is recommended.
+      In our team, we practice the following modeling pipeline. At first, high-poly versions of models are created. At the next stage, low- to middle-poly models are obtained via simply removing the subsurf modifier or retopology. No more than 100k tris per model is recommended.
     </p>
 
     <img src="files/workflow/teapot-modeling.jpg" class="centered" style="max-width: 819px;">
 
     <p>
-    The low-poly models are then UV-unwrapped. Finally, the meshes are triangulated - this is not a requirement of Verge3D but rather recommended for baking maps. Also, triangulated models are better suited for loading to third-party editors such as Substance Painter.
+      The low-poly models are then UV-unwrapped. Finally, the meshes are triangulated - this is not a requirement of Verge3D but rather recommended for baking maps. Also, triangulated models are better suited for loading to third-party editors such as Substance Painter.
     </p>
 
     <p>
-    Normal and occlusion maps, if they are needed, are baked using the superimposed high-poly and triangulated low-poly meshes.
+      Normal and occlusion maps, if they are needed, are baked using the superimposed high-poly and triangulated low-poly meshes.
     </p>
 
 
@@ -61,152 +48,98 @@
 
     <h2>Choosing Material System</h2>
 
-    <p>
-    We recommend 3ds Max artists to use Standard/Scanline or Physical/ART (v. 2017 or higher required) materials. Blender artists should use Cycles or Eevee materials while Maya users should choose Standard Surface (v. 2020) or aiStandardSurface (v.2019 or early). If your content needs to be compatible with <a href="https://www.khronos.org/news/press/khronos-releases-gltf-2.0-specification" target="_blank">glTF 2.0 standard</a> for some reason, you should use glTF-compatible PBR shaders (see the setups for <a href="manual/zh/max/GLTF-Materials.html">3ds Max</a>, <a href="manual/zh/blender/GLTF-Materials.html">Blender</a>).
-    </p>
+    <p>In most cases, you should base your material workflow on the native materials used in your favorite modelling suite:</p>
+
+    <ul>
+      <li><a href="manual/zh/blender/Material-System.html">Blender</a> — shading nodes with Eevee as reference renderer.</li>
+      <li><a href="manual/zh/max/Material-System.html">3ds Max</a> — Physical (with ART or Arnold as reference renderer) or Standard (with Scanline as reference renderer).</li>
+      <li><a href="manual/zh/maya/Materials.html">Maya</a> — Standard Surface (v. 2020+) or aiStandardSurface (v.2019 or early) with Viewport 2.0 as reference renderer.</li>
+    </ul>
+
+    <p>Alternatively, if your content needs to be compatible with glTF 2.0 standard <a href="manual/zh/introduction/FAQ.html#gltf_materials">for some reason</a>, you should use glTF-compatible materials (see the setups for <a href="manual/zh/blender/GLTF-Materials.html">Blender</a>, <a href="manual/zh/max/GLTF-Materials.html">3ds Max</a>, or <a href="manual/zh/maya/GLTF-Materials.html">Maya</a>).</p>
 
     <p>
-    You may also check out the following videos explaining how to use physically-based materials: <a href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=wQ0KH4bA3Uw" target="_blank">Blender</a>.
+      You may also check out the following videos explaining how to use materials in your Verge3D-based apps: <a href="https://youtu.be/symQy5gEHdY" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=9BzE98XIOnI">Maya</a>.
     </p>
 
 
-    <p><a href="manual/zh/introduction/Workflow.html#Image_Formats_and_Resolution" id="Image_Formats_and_Resolution" class="permalink">#</a></p>
+    [anchor:Image_Formats_and_Resolution]
 
     <h2>Image Formats, Resolution and Best Practices</h2>
 
     <h3>PNG or JPEG</h3>
 
     <p>
-    For best efficiency, we recommend you to use web-friendly formats for your textures: lossless PNG with maximum compression, or lossy JPEG (although Verge3D also supports GIF, BMP, TIFF). As a rule of thumb, if you don't need the alpha channel in your texture, prefer using JPEG over PNG.
+      For best efficiency, we recommend you to use web-friendly formats for your textures: lossless PNG with maximum compression, or lossy JPEG (although Verge3D also supports GIF, BMP, TIFF). As a rule of thumb, if you don't need the alpha channel in your texture, prefer using JPEG over PNG.
     </p>
 
     <h3>Normal Maps</h3>
 
     <p>
-    The normal maps should be saved as PNG even if the alpha channel is wasted, because normal maps loaded in JPEG format often produce visible shading artefacts. The images in PNG format, however, may be too heavy in regards to file size, so use normal maps only if there is a strong need in them.
+      The normal maps should be saved as PNG even if the alpha channel is wasted, because normal maps loaded in JPEG format often produce visible shading artefacts. The images in PNG format, however, may be too heavy in regards to file size, so use normal maps only if there is a strong need in them.
     </p>
 
     <h3>Resolution</h3>
 
     <p>
-    Be careful to not use too detailed textures unless you really need them. Big images can adversely impact the performance, drain video memory which is scarce on handheld devices (all the way down to crash) and significantly prolong the loading. The resolution of most of your textures should be 1024 px or below.
+      Be careful to not use too detailed textures unless you really need them. Big images can adversely impact the performance, drain video memory which is scarce on handheld devices (all the way down to crash) and significantly prolong the loading. The resolution of most of your textures should be 1024 px or below.
     </p>
 
     <h3>Beware of NPOT</h3>
 
     <p>
-    The resolution of the textures should follow power the <i>power-of-two</i> rule (256, 512, 1024 px is great while 1000 px is bad). The engine re-scales all non-power-of-two (NPOT) images upon loading anyway, so consider carefully reviewing your textures in order to achieve maximum efficiency with regard to file size and loading time.
+      The resolution of the textures should follow power the <i>power-of-two</i> rule (256, 512, 1024 px is great while 1000 px is bad). The engine re-scales all non-power-of-two (NPOT) images upon loading anyway, so consider carefully reviewing your textures in order to achieve maximum efficiency with regard to file size and loading time.
     </p>
 
     <h3>Aspect</h3>
 
     <p>
-    Textures may be square or rectangular such as 1024x512 px.
+      Textures may be square or rectangular such as 1024x512 px.
     </p>
 
     <h3>Reuse</h3>
 
     <p>
-    Always try re-using image files in your materials, and texture maps/nodes in your shaders, rather than making copies.
+      Always try re-using image files in your materials, and texture maps/nodes in your shaders, rather than making copies.
+    </p>
+
+    <p class="note">
+      Resist the impulse to reuse textures as UI icons — those should be pre-scaled even if it means more files.
     </p>
 
     <h3>Pack BW in RGBA</h3>
 
     <p>
-    If you have several black and white images (AO, light maps, transparency masks, color masks, etc), consider packing them in the RGBA channels of a single texture.
+      If you have several black and white images (AO, light maps, transparency masks, color masks, etc), consider <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">packing</a> them in the RGBA channels of a single texture.
     </p>
 
     <h3>Load on Demand</h3>
 
     <p>
-    If you are developing a customizer or a similar app, you may consider loading only a limited set of textures on startup. The other textures can be loaded and applied to your models on the demand basis using the <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture</a> puzzle.
-    </p>
-
-    <p class="note">
-      Resist the impulse to reuse detailed textures as icon images - those should be pre-scaled even if it means more files.
-    </p>
-
-
-    [anchor:PBR_Textures]
-
-    <h2>PBR Textures</h2>
-
-    <p>
-    Verge3D supports the following cases of the PBR shading model:
-    </p>
-
-    <p>
-    <ul>
-    <li>
-    Principled BSDF Cycles/Eevee node (Blender)
-    </li>
-    <li>
-    Physical material/ART (3ds Max)
-    </li>
-    <li>
-    Standard Surface (Maya)
-    </li>
-    <li>
-    glTF-compliant PBR (3ds Max, Blender)
-    </li>
-    </ul>
-    </p>
-
-    <p>
-    All three cases, however, follow the same convention of packing the PBR components in the image (aka ORM texture):
-    </p>
-
-    <p>
-    <ul>
-    <li>
-    Occlusion is packed in the R channel
-    </li>
-    <li>
-    Roughness is packed in the G channel
-    </li>
-    <li>
-    Metallic is packed in the B channel
-    </li>
-    </ul>
-    </p>
-
-    <p>
-    The set of PBR textures can be created using any suitable software. In our team, we use Substance Painter for which we created presets to ensure the compatibility with Verge3D/glTF. Instructions and the download links to those presets can be found in the following sections: <a href="manual/zh/max/GLTF-Materials.html">3ds Max</a>, <a href="manual/zh/blender/GLTF-Materials.html">Blender</a>.
-    </p>
-
-    <img src="files/workflow/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
-
-    <p>
-    The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format. Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal. The textures are exported using the Verge3D preset for Substance Painter.
-    </p>
-
-    <img src="files/workflow/pbr_texture_set_preview.jpg" class="centered" style="width: 819px;">
-
-    <p>
-    Finally, PBR materials are set up for relevant models by either using the native PBR shader (Principled BSDF Cycles/Eevee node in Blender, Physical/ART in 3ds Max, Standard Surface in Maya) or glTF-compliant Verge3D PBR shader.
+      If you are developing a customizer or a similar app, you may consider loading only a limited set of textures on startup. The other textures can be loaded and applied to your models on demand with the <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture</a> puzzle. Another method is to load parts of your scenes dynamically with the <a href="manual/zh/puzzles/Scenes.html#append_scene">append scene</a> puzzle.
     </p>
 
 
     [anchor:Environment_Map]
 
-    <h2>Environment Map</h2>
+    <h2>Environment Map (Image-Based Lighting)</h2>
 
     <p>
-    Environment map is a key component of a real-time scene used for providing the background and material reflections. We recommend artists to use equirectangular images in HDR or JPEG format. For performance reasons, the size of the environment map is better to not exceed 2048x1024 px.
+      Environment map is a key component of a real-time scene used for providing the background and material reflections. We recommend artists to use equirectangular images in HDR or JPEG format. For performance reasons, the size of the environment map is better to not exceed 2048x1024 px.
     </p>
 
     <img src="files/workflow/hdr-environment.jpg" class="centered" style="max-width: 772px;">
 
     <p>
-    Besides that, HDR textures can be used for imitating complex lighting conditions – for example, if there are too many light sources to be represented by traditional lamps, or they are extended.
+      Besides that, HDR textures can be used for imitating complex lighting conditions – for example, if there are too many light sources to be represented by traditional lamps, or they are extended.
     </p>
 
     <p>
-    The default cube projects for Blender, 3ds Max and Maya include the HDR texture called <i>environment.hdr</i> which you can reuse in your apps.
+      The default cube projects for Blender, 3ds Max, or Maya include the HDR texture called <i>environment.hdr</i> which you can reuse in your apps.
     </p>
 
     <p>
-    You may also check out the following videos explaining how to setup the HDR environment for the physically-based pipeline: <a href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=wQ0KH4bA3Uw" target="_blank">Blender</a>.
+      You may also check out the following videos explaining how to setup the HDR environment in your scene: <a href="https://youtu.be/symQy5gEHdY" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=9BzE98XIOnI">Maya</a>.
     </p>
 
 
@@ -215,7 +148,7 @@
     <h2>HDR Rendering</h2>
 
     <p>
-    HDR (high dynamic range) rendering pipeline can be enabled with the corresponding checkbox in Verge3D export settings window (3ds Max, Maya), or on Verge3D settings panel under the Render tab (Blender). In this mode, half-float textures are used by the engine for better precision and intensity range, which particularly, is important for proper rendering of the <a href="manual/zh/puzzles/Postprocessing.html#bloom">bloom post-process effect</a>.
+      HDR (high dynamic range) rendering pipeline can be enabled with the corresponding checkbox in Verge3D export settings window (3ds Max, Maya), or on Verge3D settings panel under the Render tab (Blender). In this mode, half-float textures are used by the engine for better precision and intensity range, which particularly, is important for proper rendering of the <a href="manual/zh/puzzles/Postprocessing.html#bloom">bloom post-process effect</a>.
     </p>
 
     <img src="files/workflow/scooter-bloom.jpg" class="centered" style="max-width: 919px;">
@@ -226,63 +159,19 @@
     <h2>Animation</h2>
 
     <p>
-    Animation clips are created for relevant model parts as usual. Skinning, whole-object, morph-target and material animation can be used to produce various effects.
+      Animation clips are created for relevant model parts as usual. Skinning, whole-object, morph-target and material animation can be used to produce various effects (see more in the <a href="manual/zh/blender/Animation.html">Blender</a>, <a href="">3ds Max</a>, or <a href="manual/zh/maya/Animation.html">Maya</a> animation guide).
     </p>
 
     <img src="files/workflow/animation.png" class="centered" style="max-width: 819px;">
 
     <p>
-    You might want to provide human-readable names to animated objects so that they can be easily found in the <a href="manual/zh/puzzles/Animation.html">Puzzles editor</a>.
+      You might want to provide human-readable names to animated objects so that they can be easily found in the <a href="manual/zh/puzzles/Animation.html">Puzzles editor</a>.
     </p>
 
     <img src="files/workflow/advanced_animation_puzzle.jpg" class="centered" style="max-width: 819px;">
 
     <p>
-    You may also check out the following videos explaining how to create animation: <a href="https://www.youtube.com/watch?v=0dskMLdNpJ4" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=doifPffYc_o" target="_blank">Blender</a>.
-    </p>
-
-
-
-    [anchor:Project]
-
-    <h2>Project</h2>
-
-    <p>
-    After setting up the scene (during which you can use the Sneak Peek button to check it in the browser), you can create a persistent Verge3D project using the App Manager. The configuration settings can usually be left default.
-    </p>
-
-    <img src="files/workflow/app-manager-create-new.jpg" class="centered" style="max-width: 358px">
-
-    <p>
-    You can simply override the default cube <strong>.blend</strong>, <strong>.max</strong> or <strong>.mb</strong> file, located in your application folder (which in turn is located in <i>verge3d/applications</i>), by your own scene file. Be sure to move all relevant image files in this folder too. After that, open your <strong>.blend</strong>, <strong>.max</strong> or <strong>.mb</strong> file from the new location and perform export in glTF format, thus overriding the default <strong>.glTF</strong> file.
-    </p>
-
-    <img src="files/workflow/default_application.png" class="centered" style="max-width: 819px;">
-
-    <p>
-    Alternatively, you can consider creating a Verge3D project at first and start working using the default <strong>.blend</strong>, <strong>.max</strong> or <strong>.mb</strong> file located in the application folder, just how it was suggested in the <a href="manual/zh/introduction/Beginners-Guide.html#App_Manager">corresponding sections</a> of the Beginner's Guide.
-    </p>
-
-    <p>
-    You may also check out the following videos explaining how to create a new Verge3D project with the App Manager: <a href="https://www.youtube.com/watch?v=99swwn8kpCo" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=ibPSGArAfJM" target="_blank">Blender</a>.
-    </p>
-
-    [anchor:Puzzles]
-
-    <h2>Puzzles</h2>
-
-    <p>
-    An interactive scenario is created using Puzzles for triggering animations upon clicks, outlining objects upon hovering, positioning model parts, logic checks, etc.
-    </p>
-
-    <img src="files/workflow/puzzles-editor.jpg" class="centered" style="max-width: 1000px;">
-
-    <p>
-    Check out the tutorial in the Puzzles section of the <a href="manual/zh/introduction/Beginners-Guide.html">Beginner's Guide</a>, or proceed straight to the <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html">Puzzles docs</a> for more details.
-    </p>
-
-    <p>
-    You may also check out the following videos explaining how to work with the Puzzles: <a href="https://www.youtube.com/watch?v=Jsfqd9CIwqQ" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=u-a_TJKQ8oQ" target="_blank">Blender</a>.
+      You may also check out the following videos explaining how to create animation: <a href="https://youtu.be/VkjEfSmI2xM" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=0dskMLdNpJ4" target="_blank">3ds Max</a>.
     </p>
 
 
@@ -291,22 +180,22 @@
     <h2>Layout and UI</h2>
 
     <p>
-    In our code-less workflow the HTML-based interface is built using external web design software. Any WYSIWYG editor capable of exporting HTML/CSS/JS files will work. One example is <a href="https://webflow.com/?rfsn=3441118.131f06" target="_blank">Webflow</a> which we used to create most Verge3D demos such as Scooter, Farmer's Journey or Industrial Robot. You can, of course, build the HTML interface manually with code or using some other tools instead.
+      In our code-less workflow the HTML-based interface is built using external web design software. Any WYSIWYG editor capable of exporting HTML/CSS/JS files will work. One example is <a href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a> which we used to create most Verge3D demos such as Scooter, Farmer's Journey or Industrial Robot. You can, of course, build the HTML interface manually with code or using some other tools instead.
     </p>
 
     <img src="files/workflow/webflow-project.jpg" class="centered" style="max-width: 819px;">
 
     <p>
-    Interface elements (menus, buttons, info boxes...) are created as part of a separate web page in which a Verge3D app is embedded. See the detailed <a href="manual/zh/introduction/HTML-based-user-interfaces.html">guide on creating HTML-based GUI</a> for more details and examples.
+      Interface elements (menus, buttons, info boxes...) are created as part of a separate web page in which a Verge3D app is embedded. See the detailed <a href="manual/zh/introduction/HTML-based-user-interfaces.html">guide on creating HTML-based GUI</a> for more details and examples.
     </p>
 
 
     [anchor:Post_processing]
 
-    <h2>Post-processing</h2>
+    <h2>Post-Processing</h2>
 
     <p>
-    The following effects can be enabled with <a href="manual/zh/puzzles/Postprocessing.html">Post-processing Puzzles</a>: bloom (which works best with HDR enabled), brightness-contrast, grayscale, depth of field and ambient occlusion. Parameters for these effects can be changed in runtime or animated with high performance thanks to internal caching. There is also a puzzle for removing all post-processing effects from a scene.
+      The following effects can be enabled with <a href="manual/zh/puzzles/Postprocessing.html">post-processing puzzles</a>: bloom (which works best with HDR enabled), brightness-contrast, grayscale, depth of field, screen-space refraction, screen-space refraction, and ambient occlusion. Parameters for these effects can be changed in runtime or animated with high performance thanks to internal caching. There is also a puzzle for removing all post-processing effects from a scene.
     </p>
 
     <img src="files/workflow/post-process-effects.jpg" class="centered" style="max-width: 819px;">
@@ -317,51 +206,53 @@
     <h2>Audio</h2>
 
     <p>
-    Background music and/or event sounds can be added with <a href="manual/zh/puzzles/Sound.html">Sound Puzzles</a> to be triggered by the user. You should use the <strong>mp3</strong> format for your audio files as it is supported in all web browsers.
+      Background music and/or event sounds can be added with <a href="manual/zh/puzzles/Sound.html">Sound Puzzles</a> to be triggered by the user. You should use the <strong>mp3</strong> format for your audio files as it is supported in all web browsers.
     </p>
 
     <img src="files/workflow/sounds.jpg" class="centered" style="max-width: 1000px;">
 
     <p>
-    There is a special restriction for playing sounds on iOS: the sound playback can only be initiated via direct interaction with a web page. For example, the following setup would work everywhere including on Apple's devices:
+      There is a special restriction for playing sounds: the sound playback can only be initiated via direct interaction with a web page. For example, the following setup would work everywhere including on Apple's devices:
     </p>
 
     <img src="files/workflow/audio-example1.jpg" class="centered" style="max-width: 389px;">
 
     <p>
-    However, if a sound is played upon some event which is not caused by direct user action, it wouldn't work on iOS:
+      However, if a sound is played upon some event which is not caused by direct user action, it wouldn't work:
     </p>
 
     <img src="files/workflow/audio-example2.jpg" class="centered" style="max-width: 505px;">
 
     <p>
-    To overcome this problem, you can use the <strong>on event / touchstart</strong> puzzle that would play and immediately pause all the sounds used in a scene when the user taps on the screen for the first time:
+      To overcome this problem, you can use the <strong>on event / touchstart</strong> puzzle that would play and immediately pause all the sounds used in a scene when the user taps on the screen for the first time:
     </p>
 
     <img src="files/workflow/audio-example3.jpg" class="centered" style="max-width: 847px;">
 
     <p>
-    The above setup is available from the Puzzle Library under the name *Sound iOS Workaround*.
+      The above setup is available from the Puzzle Library under the name *Sound iOS Workaround*.
     </p>
+
 
     [anchor:Asset_Compression]
 
     <h2>Asset compression</h2>
 
     <p>
-    When the app it complete, you can optimize the loading of its scene files as described in the corresponding <a href="manual/zh/introduction/Asset-compression.html">section</a> of this manual.
+      When the app is complete, you can optimize the loading of its scene files as described in the corresponding <a href="manual/zh/introduction/Asset-compression.html">section</a> of this manual.
     </p>
 
     <p>
-    You may also check out the following videos explaining how to enable asset compression for your apps: <a href="https://www.youtube.com/watch?v=2WHsmOohNy8" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=eOY_yAJPRdw" target="_blank">Blender</a>.
+      You may also check out the following videos explaining how to enable asset compression for your apps: <a href="https://youtu.be/yYOyUwRveAU" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=2WHsmOohNy8" target="_blank">3ds Max</a>, <a href="https://youtu.be/NfynjpynifI" target="_blank">Maya</a>.
     </p>
+
 
     [anchor:Publishing]
 
     <h2>Publishing</h2>
 
     <p>
-    You can publish your project using either of methods mentioned in the Publishing section of the <a href="manual/zh/introduction/Beginners-Guide.html">Beginner's Guide</a>.
+      You can publish your project using either of methods mentioned in the publishing subsection of the <a href="manual/zh/introduction/App-Manager.html#Publish">App Manager</a> guide.
     </p>
 
 

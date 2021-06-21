@@ -12,16 +12,7 @@
 
     <h1>Installation / Maya</h1>
 
-    <h2>Contents</h2>
-
-    <ul>
-      <li><a href="manual/zh/maya/Installation.html#prerequisites">Prerequisites</a></li>
-      <li><a href="manual/zh/maya/Installation.html#install_windows">Install Verge3D on Windows</a></li>
-      <li><a href="manual/zh/maya/Installation.html#install_macos">Install Verge3D on macOS</a></li>
-      <li><a href="manual/zh/maya/Installation.html#install_linux">Install Verge3D on Linux</a></li>
-      <li><a href="manual/zh/maya/Installation.html#Configuring_Plugin_Path_Manually">Configuring Plugin Path Manually</a></li>
-    </ul>
-
+    [contents]
 
 
     [anchor:prerequisites]
@@ -31,10 +22,10 @@
     <h3>Maya</h3>
 
     <p>
-    Verge3D works on top of Autodesk Maya 2017-2020 which should be installed first. If this is not the case, you can download a free trial bundle from Autodesk's <a href="https://www.autodesk.com/products/maya/free-trial" target="_blank">website</a>, or try Verge3D for Blender instead.
+    Verge3D works on top of Autodesk Maya 2018-2022 which should be installed first. If this is not the case, you can download a free trial bundle from Autodesk's <a href="https://www.autodesk.com/products/maya/free-trial" target="_blank">website</a>, or try Verge3D for Blender instead.
     </p>
 
-    <p>We recommend using the latest version of Maya (2020 at the time of writing) for best results.</p>
+    <p>We recommend using the latest stable version of Maya (2022 at the time of writing) for best results.</p>
 
     <h3>Operating system</h3>
 
@@ -59,16 +50,6 @@
     </p>
 
     <p>
-    There is a known issue on Win 10 when Windows Defender may refuse to run the installer (we are working on it). If you see a blue warning window like on the picture below, click the *More info* link:
-    </p>
-
-    <img src="files/installation-maya/installer-maya-windows-defender-issue1.jpg" class="centered" style="max-width: 1000px">
-
-    <p>and then press the *Run anyway* button:</p>
-
-    <img src="files/installation-maya/installer-maya-windows-defender-issue2.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
     Choose an installation folder that have enough permissions for reading and writing (or better leave it by default). Installing in a system directory such as "Program Files" or "Desktop" is not recommended.
     </p>
 
@@ -86,6 +67,13 @@
 
     <img src="files/installation-maya/plugin-manager-enable-verge3d.jpg" class="centered" style="max-width: 450px">
 
+    <p class="note">
+      Additionally you can activate *gltfExport.py* plug-in if you want to export
+      Verge3D scenes via the <b>File->Export All...</b> menu option. Enabling
+      *gltfExport.py* adds the *Verge3D GLTF* file type option for the *Export All*
+      dialog window.
+    </p>
+
     <p>
     Now you should see *Verge3D* menu in the main menu bar.
     </p>
@@ -93,7 +81,7 @@
     <img src="files/installation-maya/verge3d-menu.jpg" class="centered" style="max-width: 561px">
 
     <p>
-    You should now also be able to launch Verge3D's App Manager independently of Maya, by clicking on the desktop icon or using the Start menu.
+      You should now also be able to launch Verge3D's App Manager independently of Maya, by clicking on the desktop icon or using the Start menu.
     </p>
 
     <img src="files/installation-maya/verge3d-desktop-icon.jpg" class="centered" style="max-width: 751px">
@@ -105,29 +93,71 @@
     <h2>Install Verge3D on macOS</h2>
 
     <p>
-    <a href="https://www.soft8soft.com/get-verge3d/" target="_blank">Download Verge3D</a> XZ bundle and unpack it to a directory of your choice. Make sure you have enough permissions to read/write in this folder. Installing in a system directory is not recommended.
+      <a href="https://www.soft8soft.com/get-verge3d/" target="_blank">Download Verge3D</a> XZ bundle and unpack it to a directory of your choice. Make sure you have enough permissions to read/write in this folder. Installing in a system directory is not recommended.
     </p>
 
-    <p>Go to <em>Path_To_Verge3D_Installation/maya_plugin/setup</em> directory and execute the <em>regPlugPath.py</em> script as follows</p>
+
+    <p>
+      If you are running Maya version before 2022, you need to perform additional steps to install Python (which is part of the *Command Line Tools*). If you are running Maya 2022 or newer, go to the step with the *Plug-in Manager* invocation.
+    </p>
+
+    <p>
+      To install *Command Line Tools* open macOS Terminal and execute the command:
+    </p>
 
     <code>
-      ../../python/mac/bin/python3 ./regPlugPath.py
+      xcode-select --install
     </code>
 
     <p>
-    Once the installation is complete, you may open Maya. If you had it running, be sure to close and open it again. Now go to *Plug-in Manager* settings...
+      If the tools are not installed on your system, the script will invoke the following installation dialog:
+    </p>
+
+    <img src="files/installation-maya/installer-macos-command-line-tools.jpg" class="centered" style="max-width: 487px">
+
+    <p>
+      Wait until the installation complete before you proceed with the further steps.
+    </p>
+
+    <p>
+      Now open Maya and go to *Plug-in Manager* settings...
     </p>
 
     <img src="files/installation-maya/menu-plugin-manager.jpg" class="centered" style="max-width: 785px">
 
     <p>
-    ...and activate *verge3d.py* plug-in by enabling both *Loaded* and *Auto load* checkers.
+      Click on the *Browse* button
+    </p>
+
+    <img src="files/installation-maya/plugin-manager-browse.jpg" class="centered" style="max-width: 621px">
+
+    <p>
+      then go to the <em>Path_To_Verge3D_Installation/maya_plugin/setup</em> directory and open the <em>install.py</em> script.
+    </p>
+
+    <img src="files/installation-maya/plugin-manager-open-install-script.jpg" class="centered" style="max-width: 847px">
+
+    <p>
+      In newer Maya versions, the following dialog window might appear — click *Allow*.
+    </p>
+
+    <img src="files/installation-maya/untrusted-plugin-loading.jpg" class="centered" style="max-width: 569px">
+
+    <p>
+      Restart Maya, open the *Plug-in Manager* settings again and activate the *verge3d.py* plug-in by enabling both *Loaded* and *Auto load* checkers.
     </p>
 
     <img src="files/installation-maya/plugin-manager-enable-verge3d.jpg" class="centered" style="max-width: 450px">
 
+    <p class="note">
+      Additionally you can activate *gltfExport.py* plug-in if you want to export
+      Verge3D scenes via the <b>File->Export All...</b> menu option. Enabling
+      *gltfExport.py* adds the *Verge3D GLTF* file type option for the *Export All*
+      dialog window.
+    </p>
+
     <p>
-    Now you should see *Verge3D* menu in the main menu bar.
+      Now you should see *Verge3D* menu in the main menu bar.
     </p>
 
     <img src="files/installation-maya/verge3d-menu.jpg" class="centered" style="max-width: 561px">
@@ -139,29 +169,42 @@
     <h2>Install Verge3D on Linux</h2>
 
     <p>
-    <a href="https://www.soft8soft.com/get-verge3d/" target="_blank">Download Verge3D</a> XZ bundle and unpack it to a directory of your choice. Make sure you have enough permissions to read/write in this folder. Installing in a system directory is not recommended.
+      <a href="https://www.soft8soft.com/get-verge3d/" target="_blank">Download Verge3D</a> XZ bundle and unpack it to a directory of your choice. Make sure you have enough permissions to read/write in this folder. Installing in a system directory is not recommended.
     </p>
 
-    <p>Go to <em>Path_To_Verge3D_Installation/maya_plugin/setup</em> directory and execute the <em>regPlugPath.py</em> script as follows</p>
-
-    <code>
-      python3 ./regPlugPath.py
-    </code>
-
     <p>
-    Once the installation is complete, you may open Maya. If you had it running, be sure to close and open it again. Now go to *Plug-in Manager* settings...
+      Now open Maya and go to *Plug-in Manager* settings...
     </p>
 
     <img src="files/installation-maya/menu-plugin-manager.jpg" class="centered" style="max-width: 785px">
 
     <p>
-    ...and activate *verge3d.py* plug-in by enabling both *Loaded* and *Auto load* checkers.
+      Click on the *Browse* button
+    </p>
+
+    <img src="files/installation-maya/plugin-manager-browse.jpg" class="centered" style="max-width: 621px">
+
+    <p>
+      then go to the <em>Path_To_Verge3D_Installation/maya_plugin/setup</em> directory and open the <em>install.py</em> script.
+    </p>
+
+    <img src="files/installation-maya/plugin-manager-open-install-script.jpg" class="centered" style="max-width: 847px">
+
+    <p>
+      Restart Maya, open the *Plug-in Manager* settings again and activate the *verge3d.py* plug-in by enabling both *Loaded* and *Auto load* checkers.
     </p>
 
     <img src="files/installation-maya/plugin-manager-enable-verge3d.jpg" class="centered" style="max-width: 450px">
 
+    <p class="note">
+      Additionally you can activate *gltfExport.py* plug-in if you want to export
+      Verge3D scenes via the <b>File->Export All...</b> menu option. Enabling
+      *gltfExport.py* adds the *Verge3D GLTF* file type option for the *Export All*
+      dialog window.
+    </p>
+
     <p>
-    Now you should see *Verge3D* menu in the main menu bar.
+      Now you should see *Verge3D* menu in the main menu bar.
     </p>
 
     <img src="files/installation-maya/verge3d-menu.jpg" class="centered" style="max-width: 561px">
@@ -176,7 +219,7 @@
 
     <ul>
       <li>You disabled the *Auto-Configure* option in the installer.</li>
-      <li>You installed and running a new version of Maya.</li>
+      <li>You installed and running an unsupported version of Maya.</li>
       <li>You switched Windows user.</li>
     </ul>
 
@@ -185,15 +228,15 @@
     <p>Find the file named *Maya.env* which is typically located in on the following folders:</p>
 
     <ul>
-      <li>Windows - <em>\Users\user\Documents\maya</em></li>
-      <li>macOS - <em>$HOME/Library/Preferences/Autodesk/maya</em></li>
-      <li>Linux - <em>$HOME/maya</em></li>
+      <li>Windows - <em>\Users\user\Documents\maya\VERSION</em></li>
+      <li>macOS - <em>$HOME/Library/Preferences/Autodesk/maya/VERSION</em></li>
+      <li>Linux - <em>$HOME/maya/VERSION</em></li>
     </ul>
 
-    <p>Edit this file to specify the *MAYA_PLUGIN_PATH* environment variable as follows</p>
+    <p>Edit this file to specify the *MAYA_PLUGIN_PATH* environment variable as follows:</p>
 
     <code>
-      MAYA_PLUG_IN_PATH=\Users\user\verge3d
+      MAYA_PLUG_IN_PATH=\Users\user\verge3d_maya\maya_plugin
     </code>
 
     <p>

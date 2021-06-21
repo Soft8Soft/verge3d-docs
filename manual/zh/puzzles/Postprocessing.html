@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Post-processing - Verge3D Puzzles Reference - Soft8Soft</title>
+    <title>Post-processing Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to enable various post-processing effects on your 3D scene using Verge3D Puzzles."/>
+    <meta name="description" content="How to enable bloom, SSAO, DOF, grayscale, SSR and other post-processing effects with Verge3D Puzzles."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
@@ -12,125 +12,162 @@
 
     <h1>Post-processing Puzzles</h1>
 
-    <p>
-    These puzzles are used to setup various post-processing effects.
-    </p>
+    <p>These puzzles are used to setup various post-processing effects.</p>
 
     <img src="files/puzzles/puzzles-postprocessing.jpg">
 
 
+    <h2>Contents</h2>
 
-    <p><a href="manual/zh/puzzles/Postprocessing.html#bloom" id="bloom" class="permalink">#</a></p>
+    [contents]
 
-    <h4>"bloom"</h4>
 
-    <p>
-    Enables the bloom effect.
-    </p>
+    [anchor:live_preview]
+
+    <h2>Live Preview</h2>
+
+    <p>The post-processing puzzles support the <em>live preview</em> feature. With live preview enabled, you can tweak the post-processing effects and get the result in the Puzzles viewport without the need to run or save/reload your puzzles.</p>
+
+    <p>Live preview feature is enabled by default and supported when there are no inputs connected to your puzzle:</p>
+
+    <img src="files/puzzles/puzzles-postprocessing-live-preview.jpg" style="max-width: 855px">
+
+
+    [anchor:puzzles_reference]
+
+    <h2>Puzzles Reference</h2>
+
+    [anchor:bloom]
+
+    <h3>bloom</h3>
+
+    <p>Enable or change parameters of the bloom effect.</p>
 
     <img src="files/puzzles/puzzles-postprocessing-bloom.jpg">
 
+    <p>Parameters:</p>
 
+    <ul>
+      <li>*threshold* — minimum lighting intensity to render the bloom effect.</li>
+      <li>*strength* — bloom strength.</li>
+      <li>*radius* — bloom blur radius.</li>
+    </ul>
 
-    <p><a href="manual/zh/puzzles/Postprocessing.html#brightness_contrast" id="brightness_contrast" class="permalink">#</a></p>
+    [anchor:brightness_contrast]
 
-    <h4>"brightness/contrast"</h4>
+    <h3>brightness/contrast</h3>
 
-    <p>
-    Allows for tweaking brightness and contrast of the rendering.
-    </p>
+    <p>Allows for tweaking brightness and contrast of the rendering.</p>
 
     <img src="files/puzzles/puzzles-postprocessing-brightness-contrast.jpg">
 
+    <p>Parameters:</p>
+
+    <ul>
+      <li>*brightness* — image brightness factor.</li>
+      <li>*contrast* — image contrast factor.</li>
+    </ul>
 
 
-    <p><a href="manual/zh/puzzles/Postprocessing.html#dof" id="dof" class="permalink">#</a></p>
+    [anchor:dof]
 
-    <h4>"depth of field"</h4>
+    <h3>depth of field</h3>
 
-    <p>
-    Enables the depth of field (DOF) effect.
-    </p>
+    <p>Enable or change parameters of the depth of field (DOF) effect.</p>
 
     <img src="files/puzzles/puzzles-postprocessing-dof.jpg">
 
+    <p>Parameters:</p>
+
+    <ul>
+      <li>*focus* — DOF focus distance.</li>
+      <li>*aperture* — camera aperture factor.</li>
+      <li>*maxblur* — DOF blur radius.</li>
+      <li>*depth leak threshold* — threshold to eliminate DOF distance artefacts.</li>
+    </ul>
 
 
-    <p><a href="manual/zh/puzzles/Postprocessing.html#grayscale" id="grayscale" class="permalink">#</a></p>
+    [anchor:grayscale]
 
-    <h4>"grayscale"</h4>
+    <h3>grayscale</h3>
 
-    <p>
-    Enables the grayscale effect.
-    </p>
+    <p>Enables the grayscale effect.</p>
 
     <img src="files/puzzles/puzzles-postprocessing-grayscale.jpg">
 
 
 
-    <p><a href="manual/zh/puzzles/Postprocessing.html#ssao" id="ssao" class="permalink">#</a></p>
+    [anchor:ssao]
 
-    <h4>"ambient occlusion"</h4>
+    <h3>ambient occlusion</h3>
 
-    <p>
-    Enables the screen space ambient occlusion (SSAO) effect.
-    </p>
+    <p>Enable or change parameters of the screen space ambient occlusion (SSAO) effect.</p>
 
     <img src="files/puzzles/puzzles-postprocessing-ssao.jpg">
 
+    <p>Parameters:</p>
 
-    <p><a href="manual/zh/puzzles/Postprocessing.html#simple_refraction" id="simple_refraction" class="permalink">#</a></p>
+    <ul>
+      <li>*radius* — SSAO effect radius.</li>
+      <li>*min distance* — distance threshold to reduce artefacts caused by objects located too close.</li>
+      <li>*max distance* — distance threshold to reduce artefacts caused by objects located too far.</li>
+    </ul>
 
-    <h4>"simple refraction"</h4>
 
-    <p>
-    Enables an easy refraction effect for a specified material.
-    </p>
+    [anchor:simple_refraction]
+
+    <h3>simple refraction</h3>
+
+    <p>Enables an easy refraction effect for a specified material.</p>
 
     <img src="files/puzzles/puzzles-postprocessing-simple-refraction.jpg">
 
     <p>Parameters:</p>
+
     <ul>
-      <li>*material* - material used to assign the effect to;</li>
-      <li>*distance* - maximum length of the refracted ray;</li>
-      <li>*render after refraction* - object(s) to be excluded from the normal rendering queue and to be rendered after the refraction effect is applied.</li>
+      <li>*material* — material used to assign the effect to.</li>
+      <li>*distance* — maximum length of the refracted ray.</li>
+      <li>*render after refraction* — object(s) to be excluded from the normal rendering queue and to be rendered after the refraction effect is applied.</li>
     </ul>
 
 
-    <p><a href="manual/zh/puzzles/Postprocessing.html#ssr" id="ssr" class="permalink">#</a></p>
+    [anchor:ssr]
 
-    <h4>"screen space reflection/refraction"</h4>
+    <h3>screen space reflection/refraction</h3>
 
     <p>Enables screen space reflection/refraction (SSR) effect.</p>
 
     <img src="files/puzzles/puzzles-postprocessing-ssr.jpg">
 
     <p>Parameters:</p>
+
     <ul>
-      <li>*for material* - material used to assign the effect to;</li>
-      <li>*steps* - number of depth search steps along the reflected/refracted ray (higher value = better quality, lower performance);</li>
-      <li>*stride* - stride of search steps (in pixels) (higher value = lower quality, better performance, 1 pixel = max quality);</li>
-      <li>*binary search steps* - number of binary search iterations (higher value = better quality, lower performance);</li>
-      <li>*thickness* - factor to eliminate SSR artefacts (refraction only);</li>
-      <li>*max distance* - maximum length of the reflected/refracted ray;</li>
-      <li>*resolution* - resolution multiplier for the depth buffer (from 0 to 1; 1 = best quality);</li>
-      <li>*jitter* - noise factor to improve depth search (from 0 to 1);</li>
-      <li>*render after* - objects to be rendered after SSR applied.</li>
+      <li>*for material* — material used to assign the effect to.</li>
+      <li>*steps* — number of depth search steps along the reflected/refracted ray (higher value = better quality, lower performance).</li>
+      <li>*stride* — stride of search steps (in pixels) (higher value = lower quality, better performance, 1 pixel = max quality).</li>
+      <li>*binary search steps* — number of binary search iterations (higher value = better quality, lower performance).</li>
+      <li>*thickness* — factor to eliminate SSR artefacts (refraction only).</li>
+      <li>*max distance* — maximum length of the reflected/refracted ray.</li>
+      <li>*resolution* — resolution multiplier for the depth buffer (from 0 to 1; 1 = best quality).</li>
+      <li>*jitter* — noise factor to improve depth search (from 0 to 1).</li>
+      <li>*render after* — objects to be rendered after SSR applied.</li>
     </ul>
 
     <img src="files/puzzles/puzzles-postprocessing-ssr-example.jpg" style="max-width: 819px">
 
 
-    <p><a href="manual/zh/puzzles/Postprocessing.html#remove_postprocessing" id="remove_postprocessing" class="permalink">#</a></p>
+    [anchor:remove_postprocessing]
 
-    <h4>"remove post-processing effects"</h4>
+    <h3>remove post-processing effects</h3>
 
-    <p>
-    Removes all postprocessing effects.
-    </p>
+    <p>Removes all post-processing effects.</p>
 
     <img src="files/puzzles/puzzles-postprocessing-remove-postprocessing.jpg">
 
+
+    <h2>Having Troubles with Puzzles?</h2>
+
+    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
 
   </article></body>
 </html>

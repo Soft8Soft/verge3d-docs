@@ -1,128 +1,298 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Physics - Verge3D Puzzles Reference - Soft8Soft</title>
+    <title>Physics Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Using puzzles to simulate physics behavior and restrict the movement of objects."/>
+    <meta name="description" content="Using puzzles to simulate physics behavior."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
 
-    <h1>Physics & Constraints</h1>
+    <h1>Physics</h1>
 
     <p>
-    These puzzles are used to simulate physics behavior and restrict the movement of objects. As backend, Verge3D uses the open source physics engine Bullet (aka <a href="https://github.com/kripken/ammo.js" target="_blank">ammo.js</a>).
+      These puzzles are used to simulate physics behavior of the objects.
     </p>
 
     <img src="files/puzzles/puzzles-physics.jpg" style="max-width: 1000px">
 
+    <h2>Contents</h2>
+
+    [contents]
 
 
-    <h2>Getting Started With Physics</h2>
+    [anchor:physics_puzzles_reference]
 
-    <p>
-    Before you can use these Puzzles, you must add the physics module to your application. You can do this at the app creation stage using the corresponding option in the App Manager.
-    </p>
+    <h2>Physics Puzzles Reference</h2>
 
-    <img src="files/puzzles/puzzles-physics-option-app-manager.jpg" style="max-width: 348px">
 
-    <p>
-    Alternatively, you can add the physics module to an existing app. To do this, copy the file *ammo.js* from the *verge3d/build* folder to your app folder, and add the line
-    </p>
+    [anchor:create_physics_world]
 
-    <code>
-    &lt;script src="ammo.js"&gt;&lt;/script&gt;
-    </code>
+    <h3>create physics world</h3>
 
     <p>
-    to your application <strong>.html</strong> file just above the *v3d.js* script statement.
+    Initializes the physics engine using the specified *gravity* and *frames-per-second* parameters. The default *gravity* value of 9.8 corresponds to Earth surface conditions. Zero value means no gravity as in space. The higher *fps* value the better simulation quality at the expense of performance.
     </p>
 
-
-
-    <h2>General Recommendations</h2>
-
-    <p>
-    <ul>
-    <li>
-    Be sure to apply scale in 3ds Max or Blender as the physics engine just ignores the scale of objects.
-    </li>
-    <li>
-    For best results, the origin of your object should coincide with the center of mass. To make it so in Blender 2.8, use the operator <strong>Object > Set Origin > Origin to Center of Mass (Volume)</strong>.
-    </li>
-    <li>
-    Use the <a href="manual/zh/puzzles/Physics.html#snap_body">snap body</a> puzzle to move *Dynamic* or *Static* bodies instead of trying to move the bodies directly.
-    </li>
-    </ul>
-    </p>
-
-
-
-    <h2>Physics Puzzles</h2>
-
-    <p><a href="manual/zh/puzzles/Physics.html#create_physics_world" id="create_physics_world" class="permalink">#</a></p>
-
-    <h4>"create physics world"</h4>
-
-    <p>
-    Initializes the physics engine using the specified *gravity* and *frame-per-second* parameters. The default *gravity* value of 9.8 corresponds to Earth surface conditions. Zero value means no gravity as in space. The higher *fps* value the better simulation quality at the expense of performance.
-    </p>
+    <p>The *soft body* checker activates the soft body simulation capability.</p>
 
     <img src="files/puzzles/puzzles-physics-create-physics-world.jpg">
 
     <p>
-    Under the hood, this puzzle also enables collision detection and automatic synchronization with graphics.
+      Under the hood, this puzzle also enables collision detection and automatic synchronization with graphics.
     </p>
 
 
+    <!-- COMPAT: < 3.5 -->
+    <a href="#" id="create_physics_body"></a>
 
-    <p><a href="manual/zh/puzzles/Physics.html#create_physics_body" id="create_physics_body" class="permalink">#</a></p>
+    [anchor:create_rigid_body]
 
-    <h4>"create physics body"</h4>
+    <h3>create rigid body</h3>
 
     <p>
-    Creates a physics body from a specified object, of *Dynamic*, *Kinematic* or *Static* type. Assigns the collision shape: *Box*, *Sphere* or *Mesh*. Sets the mass for the body (valid for *Dynamic* bodies only). Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    Creates a physics body from a specified object, of *dynamic*, *kinematic*, *static* or *ghost* type. Assigns the collision shape and sets the mass for the body (valid for *dynamic* bodies only). Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-physics-create-physics-body.jpg">
 
-    <p>
-    Physics body types:
-    </p>
+    <p>Physics body types:</p>
 
-    <p>
     <ul>
-    <li>
-    *Dynamic* - moved by the physics engine, influenced by collisions and collide with other bodies.
-    </li>
-    <li>
-    *Kinematic* - moved by animation or user action. Dynamic objects will be pushed away but there is no influence from dynamics objects.
-    </li>
-    <li>
-    *Static* - cannot move but collide with other bodies.
-    </li>
+      <li>
+        *dynamic* - moved by the physics engine, influenced by collisions and collide with other bodies.
+      </li>
+      <li>
+        *kinematic* - moved by animation or user action. Dynamic objects will be pushed away but there is no influence from dynamics objects.
+      </li>
+      <li>
+        *static* - cannot move but collide with other bodies.
+      </li>
+      <li>
+        *ghost* - similar to *kinematic* but does not produce any collision response. Use it to <a href="manual/zh/puzzles/Physics.html#detect_collision">detect collision</a> between bodies (for example to implement proximity sensor).
+      </li>
     </ul>
+
+    <p>Supported rigid body shapes:</p>
+
+    <ul>
+      <li>
+        *box* - a box-shaped bounding.
+      </li>
+      <li>
+        *sphere* - a sphere-shaped bounding.
+      </li>
+      <li>
+        *mesh* - a mesh shape.
+      </li>
+      <li>
+        *capsule* - a capsule shape stretched along up-down axis.
+      </li>
+      <li>
+        *cone* - a cone shape stretched along up-down axis.
+      </li>
+      <li>
+        *cylinder* - a cylinder shape stretched along up-down axis.
+      </li>
+      <li>
+        *empty* - an empty shape. Usefull for creating constraint attachments and soft body anchor points.
+      </li>
+    </ul>
+
+    <p>
+      For performance reasons, give priority to primitive physics shapes (boxes, spheres, capsules, cones and cylinders) over mesh shapes. Also, *static* meshes have much better performance than *dynamic*, *kinematic* and *ghost*.
     </p>
 
 
+    [anchor:create_soft_body]
 
-    <p><a href="manual/zh/puzzles/Physics.html#remove_physics_body" id="remove_physics_body" class="permalink">#</a></p>
-
-    <h4>"remove physics body"</h4>
+    <h3>create soft body</h3>
 
     <p>
-    Removes physics from a specified object by destroying the physics body associated with it. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Creates a soft body from a specified object with a given total *mass* and optional *pressure* params. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-create-soft-body.jpg">
+
+    <p>Supported soft body shapes:</p>
+
+    <ul>
+      <li>
+        *volume* - a closed pressurized 3D-dimentional volume.
+      </li>
+      <li>
+        *rope* - a line object which behaves like a rope.
+      </li>
+      <li>
+        *patch* - a polygonal surface like cloth or textile patch.
+      </li>
+    </ul>
+
+    <p class="note">Don't forget to activate soft body simulation on the <a href="manual/zh/puzzles/Physics.html#create_physics_world">physics world</a> before creating soft bodies.</p>
+
+
+    [anchor:remove_physics_body]
+
+    <h3>remove physics body</h3>
+
+    <p>
+      Removes physics from a specified object by destroying the physics body associated with it. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-physics-remove-physics-body.jpg">
 
 
 
-    <p><a href="manual/zh/puzzles/Physics.html#physics_body_params" id="physics_body_params" class="permalink">#</a></p>
+    [anchor:apply_body_param]
 
-    <h4>"physics body params"</h4>
+    <h3>apply body param</h3>
+
+    <p>
+      Sets parameters for the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-apply-body-param.jpg">
+
+    <p>Parameters:</p>
+
+    <ul>
+      <li>
+        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
+      </li>
+      <li>
+        *angular factor* - set rotational degrees of freedom for the specified body. For example by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
+      </li>
+      <li>
+        *angular velocity* - set rotation speed vector.
+      </li>
+      <li>
+        *ccd motion threshold* - motion threshold used for simulating Continuous Collision Detection (CCD) physics. Specify low value, such as <em>0.001</em>
+      </li>
+      <li>
+        *ccd swept sphere radius* - radius of the swept spere used for simulating Continuous Collision Detection (CCD) physics. This value should correspond to the size of the colliding objects. For example, to simulate a small bullet of size 0.01 m this value could be safely set to 0.5.
+      </li>
+    </ul>
+
+    <img src="files/puzzles/puzzles-physics-ccd-example.jpg">
+
+    <ul>
+      <li>
+        *force* - push a body in a specified direction.
+      </li>
+      <li>
+        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
+      </li>
+      <li>
+        *gravity* - assign gravity individually for a specified body.
+      </li>
+      <li>
+        *impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
+      </li>
+    </ul>
+
+    <img src="files/puzzles/puzzles-physics-apply-body-param-impulse.jpg" style="max-width: 793px">
+
+    <ul>
+      <li>
+        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
+      </li>
+      <li>
+        *linear factor* - set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
+      </li>
+      <li>
+        *linear velocity* - set movement speed vector.
+      </li>
+      <li>
+        *position* - set body position (works like the <a href="manual/zh/puzzles/Physics.html#snap_body">snap body</a> puzzle).
+      </li>
+      <li>
+        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
+      </li>
+      <li>
+        *stiffness* - stiffness of soft bodies like volumes and ropes.
+      </li>
+      <li>
+        *torque* - spin a body in a specified direction.
+      </li>
+      <li>
+        *torque impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
+      </li>
+    </ul>
+
+    <p class="note">
+      When two bodies collide, friction and restitution parameters of both of them are taken into consideration.
+    </p>
+
+
+    [anchor:get_body_param]
+
+    <h3>get body param</h3>
+
+    <p>
+    Gets a parameter from the physics body associated with a specified object.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-get-body-param.jpg">
+
+    <p>Parameters:</p>
+
+    <ul>
+      <li>
+        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping.
+      </li>
+      <li>
+        *angular factor* - rotational degrees of freedom for the specified body (XYZ).
+      </li>
+      <li>
+        *angular velocity* - rotation speed vector.
+      </li>
+      <li>
+        *ccd motion threshold* - motion threshold used for simulating Continuous Collision Detection (CCD) physics.
+      </li>
+      <li>
+        *ccd swept sphere radius* - radius of the swept spere used for simulating Continuous Collision Detection (CCD) physics.
+      </li>
+      <li>
+        *force* - force vector applied to the body.
+      </li>
+      <li>
+        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
+      </li>
+      <li>
+        *gravity* - gravity vector applied to a body.
+      </li>
+      <li>
+        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration).
+      </li>
+      <li>
+        *linear factor* - positional degrees of freedom for the specified body (XYZ).
+      </li>
+      <li>
+        *linear velocity* - movement speed vector.
+      </li>
+      <li>
+        *position* - body XYZ position.
+      </li>
+      <li>
+        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
+      </li>
+      <li>
+        *stiffness* - stiffness of soft bodies like volumes and ropes.
+      </li>
+      <li>
+        *torque* - torque vector applied to the body.
+      </li>
+    </ul>
+
+
+
+    [anchor:physics_body_params]
+
+    <h3>physics body params</h3>
+
+    <p class="red">This puzzle is now deprecated. Please use <a href="manual/zh/puzzles/Physics.html#apply_body_param">apply body param</a> instead.</span>
 
     <p>
     Sets parameters for the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
@@ -130,26 +300,22 @@
 
     <img src="files/puzzles/puzzles-physics-body-params.jpg">
 
-    <p>
-    Parameters:
-    </p>
+    <p>Parameters:</p>
 
-    <p>
     <ul>
-    <li>
-    *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
-    </li>
-    <li>
-    *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
-    </li>
-    <li>
-    *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
-    </li>
-    <li>
-    *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
-    </li>
+      <li>
+        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
+      </li>
+      <li>
+        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
+      </li>
+      <li>
+        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
+      </li>
+      <li>
+        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
+      </li>
     </ul>
-    </p>
 
     <p>
     When two bodies collide, friction and restitution parameters of both of them are taken into consideration.
@@ -158,13 +324,14 @@
     <img src="files/puzzles/puzzles-physics-body-params-example.jpg" style="max-width: 903px">
 
 
+    [anchor:apply_vector]
 
-    <p><a href="manual/zh/puzzles/Physics.html#apply_vector" id="apply_vector" class="permalink">#</a></p>
+    <h3>apply vector</h3>
 
-    <h4>"apply vector"</h4>
+    <p class="red">This puzzle is now deprecated. Please use <a href="manual/zh/puzzles/Physics.html#apply_body_param">apply body param</a> instead.</span>
 
     <p>
-    Applies *Force*, *Gravity*, *Linear Velocity*, *Angular Velocity*, *Impulse*, *Torque*, *Torque Impulse* or *Position* to the physics body associated with a specified object, in a specified direction in world space. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Applies *Force*, *Gravity*, *Linear Velocity*, *Angular Velocity*, *Impulse*, *Torque*, *Torque Impulse* or *Position* to the physics body associated with a specified object, in a specified direction in world space. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-physics-apply-vector.jpg">
@@ -173,40 +340,110 @@
     Parameters:
     </p>
 
-    <p>
     <ul>
-    <li>
-    *Force* - push a body in a specified direction.
-    </li>
-    <li>
-    *Gravity* - assign gravity individually for a specified body.
-    </li>
-    <li>
-    *Linear Velocity* - set movement speed.
-    </li>
-    <li>
-    *Angular Velocity* - set rotation speed.
-    </li>
-    <li>
-    *Impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
-    </li>
-    <li>
-    *Torque* - spin a body in a specified direction.
-    </li>
-    <li>
-    *Torque Impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
-    </li>
-    <li>
-    *Position* - set body position (works like the <a href="manual/zh/puzzles/Physics.html#snap_body">snap body</a> puzzle).
-    </li>
+      <li>
+        *force* - push a body in a specified direction.
+      </li>
+      <li>
+        *gravity* - assign gravity individually for a specified body.
+      </li>
+      <li>
+        *linear velocity* - set movement speed.
+      </li>
+      <li>
+        *angular velocity* - set rotation speed.
+      </li>
+      <li>
+        *impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
+      </li>
+      <li>
+        *torque* - spin a body in a specified direction.
+      </li>
+      <li>
+        *torque impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
+      </li>
+      <li>
+        *linear factor* - set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
+      </li>
+      <li>
+        *angular factor* - set rotational degrees of freedom for the specified body. For example by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
+      </li>
+      <li>
+        *position* - set body position (works like the <a href="manual/zh/puzzles/Physics.html#snap_body">snap body</a> puzzle).
+      </li>
     </ul>
+
+
+    [anchor:set_body_state]
+
+    <h3>set body state</h3>
+
+    <p>
+      Change the state to the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-set-body-state.jpg" class="centered" style="max-width: 764px">
+
+    <p>Parameters:</p>
+
+    <ul>
+      <li>
+        *activate* - activate sleeping physics body.
+      </li>
+      <li>
+        *sleep* - force sleeping state for the body.
+      </li>
+      <li>
+        *enable simulation* - enable body simulation (enabled by default).
+      </li>
+      <li>
+        *disable simulation* - disable body simulation.
+      </li>
+      <li>
+        *reset* - clear all forces and velocities applied to the physics body.
+      </li>
+      <li>
+        *enable contact response* - allow body to collide with other bodies (enabled by default).
+      </li>
+      <li>
+        *disable contact response* - disable body colliding.
+      </li>
+      <li>
+        *make dynamic* - make body dynamic.
+      </li>
+      <li>
+        *make kinematic* - make body kinematic.
+      </li>
+      <li>
+        *make static* - make body static.
+      </li>
+      <li>
+        *enable deactivation* - allow body to turn into sleeping state after a period of inactivity (enabled by default).
+      </li>
+      <li>
+        *disable deactivation* - disable body sleeping.
+      </li>
+    </ul>
+
+
+    [anchor:on_simulation_tick]
+
+    <h3>on simulation tick</h3>
+
+    <p>
+      Trigger puzzles specified in the *do" slot <em>just before</em> or <em>just after</em> the physics simulation tick.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-on-simulation-tick.jpg" class="centered" style="max-width: 817px">
+
+    <p>
+      Physics simulation tick corresponds to the FPS value specified when creating <a href="manual/zh/puzzles/Physics.html#create_physics_world">physics world</a> and does not coincide with rendering frame. As such, we recommend that you apply forces/velocities/impulses *before* simulation tick and detect collisions between your bodies *after* simulation tick. This way you can achieve more stable and realistic simulations.
     </p>
 
 
+    [anchor:snap_body]
 
-    <p><a href="manual/zh/puzzles/Physics.html#snap_body" id="snap_body" class="permalink">#</a></p>
-
-    <h4>"snap body"</h4>
+    <h3>snap body</h3>
 
     <p>
     Moves a physics body associated with a specified object, and the object itself, to the position of another object by copying its transform data. Also copies rotation. Does not work with lists, groups or the "all objects" puzzle.
@@ -214,16 +451,70 @@
 
     <img src="files/puzzles/puzzles-physics-snap-body.jpg">
 
+    <p>Works similar to *apply body param / position* puzzle.</p>
+
+
+    [anchor:add_physics_constraint]
+
+    <h3>add constraint to</h3>
+
     <p>
-    Works similar to *apply vector / Position* puzzle.
+      Connect two physics bodies by a constraint of the given type.
     </p>
 
+    <img src="files/puzzles/puzzles-physics-add-physics-constraint.jpg">
+
+    <p>Constraint types:</p>
+
+    <ul>
+      <li>
+        *hinge* - connect the bodies by the shared axis.
+      </li>
+      <li>
+        *ball* - connect the bodies by the ball-shaped socket.
+      </li>
+      <li>
+        *slider* - limit movement of the bodies by the direction along the X axis.
+      </li>
+      <li>
+        *spring* - connect two bodies by the spring-like joint.
+      </li>
+      <li>
+        *fixed* - connect two bodies tightly.
+      </li>
+    </ul>
+
+    <img src="files/puzzles/puzzles-physics-add-physics-constraint-example.jpg">
 
 
-    <p><a href="manual/zh/puzzles/Physics.html#detect_collisions" id="detect_collisions" class="permalink">#</a></p>
-    <p><a href="manual/zh/puzzles/Physics.html#detect_collision" id="detect_collision" class="permalink"></a></p>
+    [anchor:remove_physics_constraint]
 
-    <h4>"detect collisions" and "collision info"</h4>
+    <h3>remove constraint from</h3>
+
+    <p>
+      Remove physics constraint.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-remove-physics-constraint.jpg">
+
+
+    [anchor:soft_body_anchor]
+
+    <h3>anchor soft body</h3>
+
+    <p>
+      Anchor soft body to a given rigid body at the point in space represented by the given vector.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-anchor-soft-body.jpg">
+
+
+    <!-- COMPAT: something old -->
+    <a href="#" id="detect_collision"></a>
+
+    [anchor:detect_collisions]
+
+    <h3>detect collisions and collision info</h3>
 
     <p>
     Detects if there is a collision at the moment of a specified body with another body (or any body from a list or a group). If there is a collision, the puzzles in the "if touching do" slot are triggered, otherwise - in the "if not touching do".
@@ -239,75 +530,98 @@
     The *collision info* puzzle outputs a <a href="manual/zh/puzzles/Dictionaries.html">dictionary</a> with the following fields:
     </p>
 
-    <p>
     <ul>
-    <li>
-    *objectA* - the name of the first colliding body.
-    </li>
-    <li>
-    *objectB* - the name of the second colliding body.
-    </li>
-    <li>
-    *distance* - distance between points of collisions.
-    </li>
-    <li>
-    *positionOnA* - XYZ coordinates of the collision point on the first object.
-    </li>
-    <li>
-    *positionOnB* - XYZ coordinates of the collision point on the second object.
-    </li>
-    <li>
-    *normalOnB* - XYZ components of the normal vector at the collision point on the second object.
-    </li>
+      <li>
+        *objectA* - the name of the first colliding body.
+      </li>
+      <li>
+        *objectB* - the name of the second colliding body.
+      </li>
+      <li>
+        *distance* - distance between points of collisions.
+      </li>
+      <li>
+        *positionOnA* - XYZ coordinates of the collision point on the first object.
+      </li>
+      <li>
+        *positionOnB* - XYZ coordinates of the collision point on the second object.
+      </li>
+      <li>
+        *normalOnB* - XYZ components of the normal vector at the collision point on the second object.
+      </li>
     </ul>
-    </p>
 
     <img src="files/puzzles/puzzles-physics-detect-collisions-info.jpg">
 
 
+    [anchor:extending_with_javascript]
 
-    <h2>Constraints Puzzles</h2>
+    <h2>Extending with JavaScript</h2>
 
-    <p>
-    If an object is not parented to another object, the constraints will work in world space. Otherwise they will work in the parent object's space - you can select the parent object in 3ds Max or Blender to show up the coordinate axes.
-    </p>
+    <p class="note">Before you start reading, please get familiar with the <a href="manual/zh/introduction/Using-JavaScript.html">Using JavaScript</a> section of this User Manual</a>.</p>
+
+    <p>To build physics puzzles we use a JavaScript library called Ammo.js. This library is basically the popular Bullet physics engine compiled to be used in the browser.</p>
+
+    <p>To get familiar with Bullet, check out the <a href="https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf" target="_blank">Bullet Physics SDK Manual</a> available on GitHub as well as official <a href="https://pybullet.org/Bullet/BulletFull/index.html" target="_blank">Bullet API Reference</a>.</p>
+
+    <p>In Verge3D you can execute Bullet/Ammo.js APIs directly by using the Ammo namespace:</p>
+
+    <code>
+var myVector = new Ammo.btVector3(1.0, 0.0, 0.0);
+console.log('My physics vector is:', myVector.x(), myVector.y(), myVector.z());
+    </code>
+
+    <p>Also you can get access to the following data structures we use in Puzzles:</p>
+
+    <h3>World</h3>
+
+    <p>Depending on the initialized physics world it can be an instance to <a href="https://pybullet.org/Bullet/BulletFull/classbtDiscreteDynamicsWorld.html">btDiscreteDynamicsWorld</a> or <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftRigidDynamicsWorld.html" target="_blank">btSoftRigidDynamicsWorld</a> class:</p>
+
+    <code>
+var gravity = v3d.puzzles.physics.world.getGravity();
+console.log('World gravity:', gravity.y());
+    </code>
+
+    <h3>Physics Bodies</h3>
+
+    <p>Physics bodies are stored as key-value data inside the <strong>v3d.puzzles.physics.bodies</strong> object:</p>
+
+    <code>
+var body = v3d.puzzles.physics.bodies['Whirligig'];
+console.log('Body mass:', 1.0 / body.getInvMass());
+    </code>
+
+    <p>Rigid bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtRigidBody.html" target="_blank">btRigidBody</a> class, while soft bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftBody.html" target="_blank">btSoftBody</a> class.
+
+    <h3>Physics Constraints</h3>
+
+    <p>Bullet/Ammo constraints are stored as key-value data inside the two-dimensional <strong>v3d.puzzles.physics.constraints</strong> object:</p>
+
+    <code>
+var hingeConstraint = v3d.puzzles.physics.constraints['Suzanne']['Axis'];
+hingeConstraint.enableAngularMotor(true, 10, 10);
+    </code>
+
+    <p>The names represent the constraint's first and second bodies respectively.</p>
+
+    <h3>Physics Sync List</h3>
+
+    <p>Verge3D puzzles use the so-called synchronization list to move objects represented by physics bodies in space. Sync list is not directly accessible, so you need to use the following API methods to add/remove your bodies to/from that list.</p>
+
+    <code>
+// add obj / body to the sync list
+// the type can be 'DYNAMIC', 'KINEMATIC', 'STATIC', 'GHOST', or 'SOFT_BODY'
+v3d.puzzles.physics.addToSyncList(obj, body, 'DYNAMIC');
+
+// remove obj / body from the sync list
+v3d.puzzles.physics.removeFromSyncList(obj, body);
+    </code>
 
 
 
-    <p><a href="manual/zh/puzzles/Physics.html#limit_transform" id="limit_transform" class="permalink">#</a></p>
+    <h2>Having Troubles with Puzzles?</h2>
 
-    <h4>"limit transform"</h4>
-
-    <p>
-    Creates a constraint to limit object position, rotation or scale along a selected axis. Constraint *id* should be unique, otherwise an existing constraint with the same id will be replaced. The *min* and *max* slots specify the range between which the movement is allowed.
-    </p>
-
-    <img src="files/puzzles/puzzles-constraints-limit-transform.jpg">
-
-
-
-    <p><a href="manual/zh/puzzles/Physics.html#copy_transform" id="copy_transform" class="permalink">#</a></p>
-
-    <h4>"copy transform"</h4>
-
-    <p>
-    Creates a constraint to copy object position, rotation or scale from another object. Constraint *id* should be unique, otherwise an existing constraint with the same id will be replaced.
-    </p>
-
-    <img src="files/puzzles/puzzles-constraints-copy-transform.jpg">
-
-
-
-    <p><a href="manual/zh/puzzles/Physics.html#remove_mute_unmute_constraint" id="remove_mute_unmute_constraint" class="permalink">#</a></p>
-    <p><a href="manual/zh/puzzles/Physics.html#operations" id="operations" class="permalink"></a></p>
-
-    <h4>"remove / mute / unmute constraint"</h4>
-
-    <p>
-    Removes, mutes or unmutes a constraint assigned to a specified object. Other constraints assigned to this object (if any) will remain intact.
-    </p>
-
-    <img src="files/puzzles/puzzles-constraints-remove-mute-unmute-constraint.jpg">
+    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
 
   </article></body>
 </html>

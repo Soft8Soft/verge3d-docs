@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>Verge3D Physics Guide - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to use Verge3D physics engine to simulate dynamics and collisions on your scene."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Verge3D Physics Guide</h1>
+
+    <p>Verge3D comes with a physics engine that can make you 3D objects behave like in the real world. This feature is especially useful for creating 3D games and AR/VR applications.</p>
+
+    <iframe class="video-480p" src="https://www.youtube.com/embed/RZnFcIXo0Ws" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p></p>
+
+    <p>As physics backend we use the open source physics engine Bullet, which web version is called <a href="https://github.com/kripken/ammo.js" target="_blank">Ammo.js</a>.</p>
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+    [anchor:getting_started_with_physics]
+
+    <h2>Getting Started With Physics</h2>
+
+    <p>Before you can use physics, you must add the physics module to your application. You can do this at the app creation stage using the corresponding option in the App Manager.</p>
+
+    <img src="files/physics-guide/app-manager-physics.jpg" class="centered" style="max-width: 574px">
+
+    <p class="note">
+      By default, Verge3D uses the so-called WebAssembly version of the physics engine. This version gives significant performance boost over regular version but does not work for Internet Explorer 11 and older Safari browsers (version 10 or below). If you need your app to be supported in these browsers, enable both *Physics* and *IE 11* modules in the app creation dialog.
+    </p>
+
+    <p>Alternatively, you can add the physics module to an existing app. To do this, copy the files *ammo.wasm.js* and *ammo.wasm.wasm* from the *verge3d/build* folder to your app folder, and add the line</p>
+
+    <code>
+    &lt;script src="ammo.wasm.js"&gt;&lt;/script&gt;
+    </code>
+
+    <p>to your application <strong>.html</strong> file just above the *v3d.js* script statement.</p>
+
+
+    [anchor:using_puzzles]
+
+    <h2>Using Puzzles</h2>
+
+    <p>Familiarize yourself with the <a href="manual/zh/puzzles/Physics.html">physics puzzles</a>.</p>
+
+
+    [anchor:general_recommendations]
+
+    <h2>General Recommendations</h2>
+
+    <ul>
+      <li>
+        Be sure to apply scale in your modeling suite as the physics engine just ignores the scale of objects.
+      </li>
+      <li>
+        For best results, the origin of your object should coincide with the center of mass. To make it so in Blender 2.8, use the operator <strong>Object > Set Origin > Origin to Center of Mass (Volume)</strong>.
+      </li>
+      <li>
+        Never position or animate <em>dynamic</em> body directly. Instead, apply force/impulse/velocity to it using the <a href="manual/zh/puzzles/Physics.html#apply_vector">apply vector</a> puzzle or snap it to another object with the <a href="manual/zh/puzzles/Physics.html#snap_body">snap body</a> puzzle.
+      </li>
+      <li>
+        As performance optimization, Verge3D disables <em>dynamic</em> bodies after a period of inactivity. You can activate these bodies again by applying some vector, colliding them with other bodies or using the *activate* feature of the <a href="manual/zh/puzzles/Physics.html#set_body_state">set body state</a> puzzle. If you need your body to be active all the time, apply *disable deactivation* state to it using the same puzzle.
+      </li>
+      <li>
+        Enable continuous collision detection (CCD) technique to improve simulation quality of quickly moving bodies, such as projectiles, pinball/billiard/bowling balls etc. To do that, set *ccd motion threshold* and *ccd swept sphere radius* parameters on that bodies. See <a href="manual/zh/puzzles/Physics.html#apply_body_param">here</a> for more info.
+      </li>
+      <li>
+        Keep in mind, that you can't <a href="manual/zh/puzzles/Physics.html#detect_collisions">detect collisions</a> between *static*/*static*, *static*/*kinematic*, or *kinematic*/*kinematic* objects. If using a *dynamic* body is not an option, consider assigning *ghost* physics to implement proximity detection of the moving non-dynamic object with *static*/*kinematic* environment.
+      </li>
+    </ul>
+
+
+    [anchor:creating_first_person_character]
+
+    <h2>Creating First-Person Character</h2>
+
+    <p>First-person character mode can be convenient not only for the shooter and RPG games but for any applications which require investigating large environments. It can be architecture visualizations, e-learning apps and interactive guides, museums and other cultural facilities, and even 3D virtual marketplaces. Besides, you can integrate the first-person character in your VR application making it much more realistic and fun!</p>
+
+    <p>There are many possible ways to implement FPS mode, but for non-expert Verge3D users we recommend you to follow this short guide to achieve results quicker.</p>
+
+    <p>Create a capsule-shaped object which represents your character. Tune its height and width to look more realistic. Make sure you set the center of your object correctly.</p>
+
+    <img src="files/physics-guide/capsule-shape.jpg" class="centered" style="max-width: 639px">
+
+    <p>In puzzles, assign *dynamic* *capsule*-shaped body to the character and disable its rotational degrees of freedom. This way, you allow your character to move but not rotate. Also, apply *disable deactivation* to your capsule.</p>
+
+    <img src="files/physics-guide/create-character-puzzles.jpg" style="max-width: 725px">
+
+    <p>Since character needs a floor (+walls) or ground to walk on, create such bodies using the corresponding *create physics body* puzzles.</p>
+
+    <p>The next step is configuring the camera. The camera won't have any physics assigned since we only need it to be our "eyes." Set the *First-Person* controls to it but don't assign any collision material (we'll be using full-featured collision detection provided by the physics engine, not basic floor/walls simulation). Also, uncheck the *Allow Panning* and set *Movement Speed* value to zero:</p>
+
+    <img src="files/physics-guide/firstperson-camera-settings.jpg" class="centered" style="max-width: 320px">
+
+    <p>Now we need to attach your camera to the character's "head." There is no need to create a model for the head, add an empty object called "Head" to the scene, and parent it to the upper part of the capsule model. This way the "head" moves with the character.</p>
+
+    <p>By using the additional "Head" object you can attach/detach the camera to/from the character in runtime. To attach the camera use the <a href="manual/zh/puzzles/Objects.html#parent">parent</a> and <a href="manual/zh/puzzles/Objects.html#snap_to_object">snap to object</a> puzzles:</p>
+
+    <img src="files/physics-guide/snap-camera-puzzles.jpg" style="max-width: 560px">
+
+    <p class="note">To detach the camera, use the *parent* puzzle with empty *to object* field.</p>
+
+    <p>Character created! Now it's time to make it move in your scene. In the most basic case, we need to move forward when the user press the up-arrow key. To do so, apply *linear velocity* vector to your character, which is calculated from the horizontal camera direction. To make your simulations robust you should always apply vectors using the <a href="manual/zh/puzzles/Physics.html#on_simulation_tick">on simulation tick</a> puzzle.</p>
+
+    <img src="files/physics-guide/moving-character-puzzles.jpg" style="max-width: 981px">
+
+    <p>To move your character on mobile device, you'll need additional "controller" elements. You can create them using 3D objects parented to the camera or with <a href="manual/zh/introduction/HTML-based-user-interfaces.html">HTML elements</a>.</p>
+
+    <p>To move your character in VR mode, you can use the <a href="manual/zh/puzzles/AR_VR.html#get_controller_prop">get controller property</a> and <a href="manual/zh/puzzles/System.html#get_gamepad_prop">get gamepad property</a> puzzles to obtain status of VR controller buttons/axes.</p>
+
+
+    [anchor:simulating_car_physics]
+
+    <h2>Simulating Car Physics</h2>
+
+    <p>
+      Realistic simulation of vehicle physics can be really useful in applications like interactive car customizers or racing games. Check out <em>Arcade Racing</em> game in Verge3D distribution to see how to implement this feature in your own app.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+
+  </article></body>
+</html>
