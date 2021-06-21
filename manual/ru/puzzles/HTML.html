@@ -20,6 +20,14 @@
     [contents]
 
 
+    [anchor:what_is_html_dom]
+
+    <h2>What is HTML DOM?</h2>
+
+    <p>
+      HTML DOM (Document Object Model, see techie stuff <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank">here</a>) is a programmatic interface to an HTML page. Basically, this means you can modify your app not only by editing its text, but also by executing various Puzzle blocks. For example, you can add new HTML elements, customize how the page looks, draw something on top of your models, take sceenshots, download files etc.
+    </p>
+
     [anchor:puzzles_reference]
 
     <h2>Puzzles Reference</h2>
@@ -38,14 +46,15 @@
     <img src="files/puzzles/puzzles-html-add-html-elem.jpg">
 
 
-    <p>
-    *Notes*:
-    </p>
+    [anchor:remove_html_element]
+
+    <h3>remove HTML element</h3>
 
     <p>
-    Besides creating an HTML element, this puzzle also sets its CSS property *position* to "absolute". If you don't need this thing, you can set this CSS property to "initial" with a <a href="manual/ru/puzzles/HTML.html#set_style">set style</a> puzzle.
+      Removes an HTML element with a specified identifier.
     </p>
 
+    <img src="files/puzzles/puzzles-html-remove-html-elem.jpg">
 
 
     [anchor:get_attribute]
@@ -71,6 +80,17 @@
     <img src="files/puzzles/puzzles-html-set-attr.jpg">
 
 
+    [anchor:create_css_rule]
+
+    <h3>create css rule</h3>
+
+    <p>
+    Creates a new <a href="https://www.w3schools.com/css/css_syntax.asp" target="_blank">CSS rule</a>. The "in parent doc" checkbox should be enabled if the style sheets belong to an external HTML document (in which Verge3D application's <strong>.html</strong> file is embedded using <strong>iframe</strong>).
+    </p>
+
+    <img src="files/puzzles/puzzles-html-create-css-rule.jpg">
+
+
 
     [anchor:set_style]
 
@@ -82,6 +102,22 @@
 
     <img src="files/puzzles/puzzles-html-set-style.jpg">
 
+
+    [anchor:get_style]
+
+    <h3>get style</h3>
+
+    <p>
+      Gets a <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS property</a> from an HTML element with a specified id. The "in parent doc" checkbox should be enabled if the HTML element is located in an external HTML document (in which Verge3D application's <strong>.html</strong> file is embedded using <strong>iframe</strong>).
+    </p>
+
+    <img src="files/puzzles/puzzles-html-get-style.jpg">
+
+    <p>
+      This puzzle can be very useful to make 3D configurators. For example, you can use the following setup to assign material color from the background color of some HTML element:
+    </p>
+
+    <img src="files/puzzles/puzzles-html-get-style-example.jpg">
 
 
     [anchor:set_css_rule]
@@ -152,7 +188,13 @@
 
     <img src="files/puzzles/puzzles-html-create-canvas-elem.jpg">
 
-    <p>Once created, the canvas becomes available for drawing on it via JavaScript. You can update the canvas inside the runCode() function of your_app_name.js module. To do this, retrieve the canvas texture by its ID specified in the puzzle:</p>
+    <p>
+      Once created, the canvas becomes available for drawing on it via JavaScript. You can update the canvas inside the <em>runCode()</em> function of <em>your_app_name.js</em> module or by using <a href="manual/ru/puzzles/Advanced.html#exec_script">exec script</a> puzzle.
+    </p>
+
+    <p>
+      To update the canvas, retrieve the canvas texture by its ID (specified as *id* attribute):</p>
+    </p>
 
     <code>
     var canvasTex = v3d.puzzles.canvasTextures['my_canvas'];
@@ -191,6 +233,8 @@
     <code>
     canvasTex.needsUpdate = true;
     </code>
+
+    <img src="files/puzzles/puzzles-html-create-canvas-elem-example.jpg">
 
 
     [anchor:draw_line]
@@ -306,7 +350,7 @@
     <h3>take screenshot</h3>
 
     <p>
-    Takes a screenshot of the viewport and outputs it in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format.
+      Takes a screenshot of the viewport and outputs it in <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a> format.
     </p>
 
     <img src="files/puzzles/puzzles-html-take-screenshot.jpg">
@@ -374,14 +418,21 @@
     <h3>download file</h3>
 
     <p>
-    Downloads content specified in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format to a file.
+      Downloads content specified in <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a> format to a file. You can also pass text, <a href="manual/ru/puzzles/Dictionaries.html">dictionary</a>, or <a href="manual/ru/puzzles/Lists.html">list</a> data to be downloaded as text or JSON file. In such case, the given object will be automatically converted to the appropriate Data URI.
     </p>
 
     <img src="files/puzzles/puzzles-html-download-file.jpg">
 
     <p>
-    This puzzle can be used, for example, to save previously taken screenshots, or to save some information in a text file:
+      This puzzle can be used, for example:
     </p>
+
+    <ul>
+      <li>to save previously taken screenshots</li>
+      <li>to preserve application state by saving a dictionary (or a list) to a <strong>*.json</strong> file</li>
+      <li>to export models in glTF format for further processing</li>
+      <li>to generate textual pricing information, quotes, reports etc.</li>
+    </ul>
 
     <img src="files/puzzles/puzzles-html-download-file-example.jpg">
 
@@ -389,13 +440,86 @@
 
     [anchor:open_file]
 
-    <h3>open file and "opened file"</h3>
+    <h3>open file and opened file</h3>
 
     <p>
-    Invokes the browser's native dialog window for selecting files from the user's device. Once the user have selected a file, returns the file's contents in <a href="https://en.wikipedia.org/wiki/Data_URI_scheme#Examples_of_use" target="_blank">Data URI</a> format.
+      Invokes the browser's native dialog window for selecting files from the user's device. Once the user have selected a file, returns the file's contents in <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a> format.
     </p>
 
     <img src="files/puzzles/puzzles-html-open-file.jpg">
+
+
+    [anchor:drop_file_to]
+
+    <h3>drop file to</h3>
+
+    <p>
+      Returns a file dragged from a file manager (or other program) and dropped to the given HTML element inside the browser window. Once the user have dropped the file, returns its contents as <a href="manual/ru/puzzles/HTML.html#open_file">opened file</a> puzzle (using the <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a> format).
+    </p>
+
+    <img src="files/puzzles/puzzles-html-drop-file-to.jpg">
+
+    <p>
+      You can activate the optional *drag over* slot to handle file movement events. For example, you can use it along with the <a href="manual/ru/puzzles/Scenes.html#raycast">raycast</a> puzzle to highlight the objects below the cursor/touch.
+    </p>
+
+
+    [anchor:data_uri]
+
+    <h2>Data URI Links</h2>
+
+    <p>
+      Data URI (or Data URL) is a convenient method to embed various assets, such as images, glTF models, sounds, JSON or CSV inside links (<a href="https://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">techie stuff</a>).
+    </p>
+
+    <p>
+      For example, the following link represents small Verge3D logo:
+    </p>
+
+    <code class="language-html">
+data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABvFBMVEUAAAAASKUAAFsAvukA
+RaMA3voAAEoARaQARKMARqQARqQARKMARaQARqQAQ6IATagCcLwCcbwATagARqQASaYARqQASKUC
+argASKUARqQASqYASKUAR6QAT6kAT6kAR6QAR6UASaUASaUAR6UARKMBWq8BWq8ARKMAQqECaLcC
+abgAQqEAQaECbboCbroAQaECbrsCbroCabcCa7kCb7sCbrsARaQARaQElNAEldEGrd4GseEDg8cD
+hcgGtOIGrt8Eks8I1/cFqNwBUqsAQ6IBVKwGrN4Ekc8El9IJ5/8HvOcBU6sASqYDdb8CdL4ASaYB
+VawHv+gJ5/4EltII0PIJ4PsCc70ARqQEjs0J4vwJ4fsEi8sARaMDdr8J4fwI0fIJ3/sGuuYATKcC
+ZbYI1fUHyfMHyPMI0/QCYrQATagHvecJ4PwEj80ARKMFnNQHyvMBU8IBUsEFmNII3PkHwuoIyvQH
+vugAS6cDecEI1/YCbrsBWK4I0vMJ5v8HyPIIz/ICcr0I2PcIz/EDgMUBXrEJ6P8I1vYBW7ADhMcC
+cb0Hv+kFmNMEkM4GueUJ4PoJ3/oJ3voI3foEltH///+98SuhAAAAOHRSTlMAAAAAAAAAJJPu8Jgn
+EWjT/v7VEAVLvvq8RwQFe/LweDXn6DdT9/hXWvn6XVv5+lz6+fn6/v7w7sPq7QcAAAABYktHRJPh
+A9+2AAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QsCEC4OPIwcRgAAAQpJREFUGNNjYGBg
+YGRi5+Dk4uZhZmQAAUYWXj5+AQtLQSE+YRagEKOIqJi4lbWNrZ29uISkFCODtIysg6OTs4uLq5uj
+u5y8NIOCooenl7ePr59/QGBQsJIyg4pqSGhYeERkVHRMbFy8mjqDhmZCYlJySmpaekZmVoKWNoOO
+bnZObl5+QWFqUa5DnJ4+g75BsW9SSWlBQX5ZeUWxoQ6DtnhlVXVNbVpdbX1AQ6ORBoO6WlNzS6Nn
+a6tnW3tHk6oKg7JSkVdYpWdtrWdKZ1e3ogKDtLxcT28fSKA/0UFWRpqBUUpSwth+QmvrRHtjMVER
+kGdYhPmETCZZmvLz8bJA/cvKw21mzsHOBuICAHx4PYwwa1fDAAAAJXRFWHRkYXRlOmNyZWF0ZQAy
+MDE3LTExLTAyVDE2OjQ2OjE0KzAxOjAwKvGBdAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0xMS0w
+MlQxNjo0NjoxNCswMTowMFusOcgAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+AAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAHic4/IMCHFWKCjKT8vMSeVSAAMjCy5jCxMj
+E0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC
+    </code>
+
+    <p>
+      Copy the entire snippet and past to the browser address bar to display the logo:
+    </p>
+
+    <img src="files/puzzles/data-url-logo.jpg">
+
+    <p>
+      In Puzzles, we use Data URI links extensively, as they provide convenient way to pass file-like data between different Puzzles blocks. For example, you can use the <a href="manual/ru/puzzles/HTML.html#open_file">open file</a> or <a href="manual/ru/puzzles/HTML.html#drop_file_to">drop file to</a> puzzles to load some file (image or data). Then you can make changes in your scene according to that file. After that, you can upload the modified scene (or maybe some data, such as price list document) back to the user machine by using the <a href="manual/ru/puzzles/HTML.html#download_file">download file</a>, or maybe upload that file to the server with <a href="manual/ru/puzzles/Advanced.html#send_data">send data</a> puzzle. In all these cases, the data will be transferred using the Data URI format.
+    </p>
+
+    <p class="note">
+      See Custom Image demo inside your Verge3D distribution as an example of using Data URI puzzles.
+    </p>
+
+    <p>
+      It's also quite easy to debug data in Data URI format. Simply use the <a href="manual/ru/puzzles/System.html#print_to_console">print to console</a> puzzle, then open the <a href="manual/ru/introduction/FAQ.html#browser_console">browser console</a> to observe the output, then click on the printed URI inside the console to preview the data in the separate browser tab.
+    </p>
+
+    <img src="files/puzzles/data-url-debugging.jpg">
 
 
     <h2>Having Troubles with Puzzles?</h2>

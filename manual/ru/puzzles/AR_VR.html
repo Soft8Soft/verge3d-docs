@@ -32,13 +32,10 @@
     <h3>check VR mode</h3>
 
     <p>
-    Checks the virtual reality system. If successful, the puzzles in the *if available do* are triggered. Otherwise, if the browser does not support VR or VR hardware not found, the puzzles in the *if unavailable do* slot are triggered.
+      Checks the virtual reality system. If successful, the puzzles in the *if available do* are triggered. Otherwise, if the browser does not support VR or VR hardware not found, the puzzles in the *if unavailable do* slot are triggered.
     </p>
 
     <img src="files/puzzles/puzzles-ar-vr-check-vr-mode.jpg">
-
-    <p>
-    </p>
 
 
 
@@ -47,37 +44,51 @@
     <h3>enter VR mode</h3>
 
     <p>
-    Enters the virtual reality mode. Puzzles placed in the *on enter do* and *on exit do* slots are triggered upon entering or exiting the VR mode. Puzzles placed in the *if unavailable do* are triggered if a VR session could not be established.
+      Enters the virtual reality mode. Puzzles placed in the *on enter do* and *on exit do* slots are triggered upon entering or exiting the VR mode. Puzzles placed in the *if unavailable do* are triggered if a VR session could not be established.
     </p>
 
-    <p>VR camera modes:</p>
+    <p>VR positioning modes:</p>
 
-    <ul>
-      <li>
-        *sitting or standing* - immobile camera positioned at some height above the ground.
-      </li>
-      <li>
-        *room* - mobile camera located inside some bounds such as room (e.g. for HTC Vive).
-      </li>
-      <li>
-        *looking around* - immobile camera positioned at zero coordinates.
-      </li>
-      <li>
-        *walking* - mobile unbounded camera.
-      </li>
-      <li>
-        *viewer locked* - immobile camera positioned at zero coordinates. All content is parented to the view.
-      </li>
-    </ul>
+    <dl>
+      <dt>
+        sitting or standing
+      </dt>
+      <dd>
+        immobile camera positioned at some height above the ground.
+      </dd>
+      <dt>
+        room
+      </dt>
+      <dd>
+        mobile camera located inside some bounds such as room (e.g. for HTC Vive, Oculus Quest).
+      </dd>
+      <dt>
+        looking around
+      </dt>
+      <dd>
+        immobile camera positioned at zero coordinates.
+      </dd>
+      <dt>
+        walking
+      </dt>
+      <dd>mobile unbounded camera.
+      </dd>
+      <dt>
+        viewer locked
+      </dt>
+      <dd>
+        immobile camera positioned at zero coordinates. All content is parented to the view.
+      </dd>
+    </dl>
 
     <p>
-    The numeric parameter *hover to click after* denotes the period of time (in seconds) for an object, over which the VR reticle is hovered, to receive a mouse click event. Default *Infinity* means no hover-to-click conversion.
+      The numeric parameter *hover to click after* denotes the period of time (in seconds) for an object, over which the VR reticle is hovered, to receive a mouse click event. Default *Infinity* means no hover-to-click conversion.
     </p>
 
     <img src="files/puzzles/puzzles-ar-vr-enter-vr-mode.jpg">
 
     <p>
-    In order to properly control the camera in VR mode, be sure to snap and parent it to some empty/dummy or real object, positioned in the 3D editor of your choice, upon entering the VR mode. This is needed because the VR session has the full control over your camera, and you can move only the empty/dummy object to which the camera is parented.
+      In order to properly control the camera in VR mode, be sure to snap and parent it to some empty/dummy or real object, positioned in the 3D editor of your choice, upon entering the VR mode. This is needed because the VR session has the full control over your camera, and you can move only the empty/dummy object to which the camera is parented.
     </p>
 
     <img src="files/puzzles/puzzles-ar-vr-enter-vr-mode-example.jpg">
@@ -89,7 +100,7 @@
     <h3>end VR session</h3>
 
     <p>
-    Ends a virtual reality session.
+      Ends a virtual reality session.
     </p>
 
     <img src="files/puzzles/puzzles-ar-vr-end-vr-session.jpg">
@@ -101,7 +112,7 @@
     <h3>check AR mode</h3>
 
     <p>
-    Checks the augmented reality system. If successful, the puzzles in the *if available do* are triggered. Otherwise, if the browser does not support AR or AR hardware not found, the puzzles in the *if unavailable do* slot are triggered.
+      Checks the augmented reality system. If successful, the puzzles in the *if available do* are triggered. Otherwise, if the browser does not support AR or AR hardware not found, the puzzles in the *if unavailable do* slot are triggered.
     </p>
 
     <img src="files/puzzles/puzzles-ar-vr-check-ar-mode.jpg">
@@ -113,11 +124,49 @@
     <h3>enter AR mode</h3>
 
     <p>
-    Enters the augmented reality mode. Puzzles placed in the *on enter do* and *on exit do* slots are triggered upon entering or exiting the AR mode. Puzzles placed in the *if unavailable do* are triggered if a AR session could not be established.
+      Enters the augmented reality mode. Puzzles placed in the *on enter do* and *on exit do* slots are triggered upon entering or exiting the AR mode. Puzzles placed in the *if unavailable do* are triggered if a AR session could not be established.
     </p>
 
-    <img src="files/puzzles/puzzles-ar-vr-enter-ar-mode.jpg">
+    <p>
+      Property *allow HTML* is used to display HTML content in AR mode. If specified, the content of the <em>canvas container</em> element will be rendered above 3D content. This option is considered experimental.
+    </p>
 
+    <p>AR positioning modes:</p>
+
+    <dl>
+      <dt>
+        sitting or standing
+      </dt>
+      <dd>
+        immobile camera positioned at some height above the ground.
+      </dd>
+      <dt>
+        room
+      </dt>
+      <dd>
+        mobile camera located inside some bounds such as room.
+      </dd>
+      <dt>
+        looking around
+      </dt>
+      <dd>
+        immobile camera positioned at zero coordinates.
+      </dd>
+      <dt>
+        walking
+      </dt>
+      <dd>
+        mobile unbounded camera.
+      </dd>
+      <dt>
+        viewer locked
+      </dt>
+      <dd>
+        immobile camera positioned at zero coordinates. All content is parented to the view.
+      </dd>
+    </dl>
+
+    <img src="files/puzzles/puzzles-ar-vr-enter-ar-mode.jpg">
 
 
     [anchor:ar_hit_test]
@@ -126,6 +175,10 @@
 
     <p>
       Detect horizontal surfaces in AR mode by casting a ray forward. Upon intersection, this ray will trigger puzzles in *on intersection do* slot. If no intersection occurred or the device is in warming-up state the puzzles triggers *if missed do* slot.
+    </p>
+
+    <p>
+      Parameter *smooth* is used to make AR marker movement smoother. Specify value 0 to disable smoothing, value close to 1 for maximum smoothing.
     </p>
 
     <img src="files/puzzles/puzzles-ar-vr-ar-hit-test.jpg">
@@ -137,7 +190,7 @@
     <h3>AR hit point</h3>
 
     <p>
-    Surface hit point coordinates.
+      Surface point coordinate(s) detected by the <a href="manual/ru/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR</a> puzzle. Can be *X*, *Y*, *Z* value, or *XYZ* vector.
     </p>
 
     <img src="files/puzzles/puzzles-ar-vr-ar-hit-point.jpg">

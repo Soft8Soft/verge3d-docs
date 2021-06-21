@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Verge3D for Maya: Transparency - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn what kinds of transparency can be enabled for Maya materials and used in Verge3D."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Transparency / Maya</h1>
+
+    <p>
+      Here we show how to enable transparency for Standard Surface, Lambert, and glTF-compliant PBR materials in Maya.
+    </p>
+
+    [contents]
+
+
+    [anchor:blended_vs_masked]
+
+    <h2>Blended vs Masked</h2>
+
+    <p>
+      Being a real-time 3D engine, Verge3D offers two main methods to handle transparent objects: alpha blending and alpha clipping (usually with an image mask). Blending enables combining a translucent foreground color with a background color, using the foreground color's alpha as blending factor. Clipping, on the other hand, simply discards all pixels with alpha less than some predefined threshold (always equal to 0.5 in Verge3D for Maya).
+    </p>
+
+    <img src="files/transparency-common/blending-vs-clipping.jpg">
+
+    <p>
+      Blending enables for smooth transitions, generally looks nicer but computationally more expensive than clipping. It may also produce z-sorting artifacts when polygons appear to be rendered in wrong order. Clipping works best for visualizing numerous small objects (such as grass or tree leaves). It also produces hard edges without any transitions which may be aliased.
+    </p>
+
+    <p>
+      Use *Alpha Mode* dropdown in material settings to choose between blending and masking.
+    </p>
+
+    <img src="files/transparency-maya/alpha-mode.jpg" class="centered" style="max-width: 427px">
+
+    [anchor:alpha_add]
+
+    <h2>Additive Composing (aka No Depth Writes)</h2>
+
+    <p>
+      Verge3D also offers a special mode for disabling writing to the depth buffer while rendering. This results in polygons being excluded from pixel depth comparison. Such polygons are composited in additive manner, which sometimes can help get rid of blending artifacts.
+    </p>
+
+    <img src="files/transparency-common/no-depth-writes.jpg">
+
+    <p>
+    Select *Blend* in the *Alpha Mode* dropdown and uncheck the *Depth Write* option in material settings to enable this mode. In addition, you'll need to increase the *Rendering Order* value in <a href="manual/ru/maya/Lighting-and-Rendering.html#per_object_rendering_settings">object settings</a> to make you transparent object rendered above all.
+    </p>
+
+
+    [anchor:standard_surface_materials]
+
+    <h2>Transparency for Standard Surface Materials</h2>
+
+    <p>
+      Transparency of Standard Surface (or aiStandardSurface) materials can be tweaked using the following material settings:
+    </p>
+
+    <img src="files/transparency-maya/standard-surface-transparency.jpg" class="centered" style="max-width: 422px">
+
+    <p>Parameters:</p>
+
+    <dl>
+      <dt>Transmission Weight</dt>
+      <dd>transmission factor of thin-walled and refractive materials.</dd>
+      <dt>Transmission Color</dt>
+      <dd>color of refractive (*Thin Walled* off) material.</dd>
+      <dt>Thin Walled</dt>
+      <dd>use generic thin-walled or refraction-based transparency.</dd>
+      <dt>Opacity</dt>
+      <dd>opacity factor for thin-walled materials.</dd>
+      <dt>Alpha Mode</dt>
+      <dd>material transparency mode.</dd>
+      <dt>Depth Write</dt>
+      <dd>disable for additive transparency composing (see <a href="manual/ru/maya/Transparency.html#alpha_add">above</a>).</dd>
+    </dl>
+
+    <p class="note">By default in Maya, the *Thin Walled* parameter is unchecked, which disables the most typical transparency rendering you expected to see in your interactive app. Always keep an eye on this setting when you're dealing with the transparent Standard Surface materials.</p>
+
+
+    [anchor:gltf_materials]
+
+    <h2>Transparency for glTF-compliant PBR Materials</h2>
+
+    <p>
+      In order to enable transparency for such materials, one should bake transparency map as 4 (alpha) component of the base color texture and connect *Alpha* output of that texture to the *Opacity* input of the Standard Surface material.
+    </p>
+
+    <img src="files/transparency-maya/gltf-compat-transparency.jpg">
+
+    <p>
+      When no base color texture available, simply use unconnected *Opacity* parameter.
+    </a>
+
+    <p>
+      Use the *Alpha Mode* dropdown to choose between transparency modes.
+    </p>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

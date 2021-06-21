@@ -19,7 +19,7 @@
     [contents]
 
 
-    [anchor:Setting_Up_Blender]
+    [anchor:setting_up_maya]
 
     <h2>Setting Up in Maya</h2>
 
@@ -29,7 +29,7 @@
     <h3>Whole-Object Animation</h3>
 
     <p>
-      Animation keyframes can be added in standard ways in Maya, by using the <strong>Key > Set Key</strong> from the Key menu in the Animation menu set or pressing *S* on the keyboard.
+      Animation keyframes can be added in standard way in Maya, by using the <strong>Key > Set Key</strong> from the Key menu in the Animation menu set or pressing *S* on the keyboard.
     </p>
 
     <img src="files/animation-maya/insert-keyframe.jpg" alt="Inserting keyframes in Verge3D for Maya" class="centered" style="max-width: 419px">
@@ -55,7 +55,7 @@
     <img src="files/animation-maya/skeletal-animation.jpg" alt="Inserting keyframes for skeletal animation in Verge3D for Maya" class="centered" style="max-width: 592px">
 
     <p>
-      Skeletons can be animated directly by setting transformation keys on joints or by utilizing auxillary controllers such as IK handles/effectors. To animate joints indirectly, enable their *Custom Frame Range*</a> property in the attribute editor and set proper *From*/*To* as frame values. See <a href="manual/ru/maya/Animation.html#Verge3D_Per_Object_Settings">here</a> for more info.
+      Skeletons can be animated directly by setting transformation keys on joints or by utilizing auxiliary controllers such as IK handles/effectors. To animate bones indirectly, enable *Skeleton Root* and *Custom Frame Range* property on their common parent object and set proper *From*/*To* as frame values. See <a href="manual/ru/maya/Animation.html#Verge3D_Per_Object_Settings">below</a> for more info.
     </p>
 
     [anchor:Blend_Shape_Animation]
@@ -74,16 +74,15 @@
     <h3>Material Animation</h3>
 
     <p>
-      Keyframed material animation is not supported in Verge3D for Maya yet. However, by using procedural animation and the <a href='manual/ru/puzzles/Materials.html#materials_set_color'>set color</a> or <a href='manual/ru/puzzles/Materials.html#materials_set_value'>set value</a> puzzles you can manipulate material parameters in real time.
+      To use keyframed material animation, simply set key on any material parameter.
     </p>
-
 
     [anchor:Procedural_Animation]
 
     <h3>Procedural Animation</h3>
 
     <p>
-      Instead of playing back some animation which was pre-made in Maya, you can use Puzzles or JavaScript to modify coordinates or some other parameters with time. Particulurly, the <a href="manual/ru/puzzles/Animation.html#animate_param">animate param</a> puzzle (based on the Tween.js library) is a convenient way to create your own animation on the fly.
+      Instead of playing back some animation which was pre-made in Maya, you can use Puzzles or JavaScript to modify coordinates or some other parameters with time. Particularly, the <a href="manual/ru/puzzles/Animation.html#animate_param">animate param</a> puzzle (based on the Tween.js library) is a convenient way to create your own animation on the fly.
     </p>
 
     <img src="files/puzzles/puzzles-animation-animate-param.jpg" alt="Using the animate param puzzle to create animation in Verge3D for Maya" class="centered" style="max-width: 1000px">
@@ -103,17 +102,26 @@
 
     <img src="files/animation-maya/global-animation-settings.jpg" alt="Verge3D for Maya animation settings panel" class="centered" style="max-width: 411px">
 
-    <ul>
-      <li>
-        *Export Animations* - export scene animations to be used in Verge3D.
-      </li>
-      <li>
-        *Export Within Playback Range* - by default Verge3D exporter honors per-object animation keyframe ranges. Enabling this option will force exporter to honor global playback range.
-      </li>
-      <li>
-        *Keyframes Start with 0* - edit exported animation keyframes so they always start with frame 0.
-      </li>
-    </ul>
+    <dl>
+      <dt>
+        Export Animations
+      </dt>
+      <dd>
+        export scene animations to be used in Verge3D.
+      </dd>
+      <dt>
+        Export Within Playback Range
+      </dt>
+      <dd>
+        by default Verge3D exporter honors per-object animation keyframe ranges. Enabling this option will force exporter to honor global playback range.
+      </dd>
+      <dt>
+        Keyframes Start with 0
+      </dt>
+      <dd>
+        edit exported animation keyframes so they always start with frame 0.
+      </dd>
+    </dl>
 
     [anchor:Verge3D_Per_Object_Settings]
 
@@ -123,32 +131,56 @@
       Each object in Maya is assigned with Verge3D settings, including the settings for animation playback.
     </p>
 
-    <img src="files/animation-maya/object-animation-settings.jpg" alt="Verge3D for Maya animation settings panel" class="centered" style="max-width: 428px">
+    <img src="files/animation-maya/object-animation-settings.jpg" alt="Verge3D for Maya animation settings panel" class="centered" style="max-width: 443px">
 
     <p>
       Animation settings:
     </p>
 
-    <ul>
-      <li>
-        *Auto Start* - whether this object's animation will start after the scene is loaded.
-      </li>
-      <li>
-        *Loop Mode* - playback mode: *Repeat* - plays from the start to the end and repeats, *Once* - plays one time and stops, *Ping Pong* - plays from the start to the end and then in reverse.
-      </li>
-      <li>
-        *Repeat Infinitely* - whether this object's animation will be played all over again. Valid only for *Repeat* and *Ping Pong* modes.
-      </li>
-      <li>
-        *Repeat Count* - how many times the animation will be played. Valid only for *Repeat* and *Ping Pong* modes if *Repeat Infinitely* is disabled.
-      </li>
-      <li>
-        *Offset* - how many frames will be skipped before the animation starts.
-      </li>
-      <li>
-        *Custom Frame Range* - enable and specify *From*/*To* values to override object's keyframe ranges or global animation timeline. Activating this property will force an object to be animated even if it does not have any keyframes. This is useful to bake indirect animation such as IK handles/effectors affecting joints movements.
-      </li>
-    </ul>
+    <dl>
+      <dt>
+        Auto Start
+      </dt>
+      <dd>
+        whether this object's animation will start after the scene is loaded.
+      </dd>
+      <dt>
+        Loop Mode
+      </dt>
+      <dd>
+        playback mode: *Repeat* - plays from the start to the end and repeats, *Once* - plays one time and stops, *Ping Pong* - plays from the start to the end and then in reverse.
+      </dd>
+      <dt>
+        Repeat Infinitely
+      </dt>
+      <dd>
+        whether this object's animation will be played all over again. Valid only for *Repeat* and *Ping Pong* modes.
+      </dd>
+      <dt>
+        Repeat Count
+      </dt>
+      <dd>
+        how many times the animation will be played. Valid only for *Repeat* and *Ping Pong* modes if *Repeat Infinitely* is disabled.
+      </dd>
+      <dt>
+        Offset
+      </dt>
+      <dd>
+        how many frames will be skipped before the animation starts.
+      </dd>
+      <dt>
+        Custom Frame Range
+      </dt>
+      <dd>
+        enable and specify *From*/*To* values to override object's keyframe ranges or global animation timeline. Activating this property will force an object to be animated even if it does not have any keyframes. This is useful to bake indirect animation such as IK handles/effectors affecting joints movements.
+      </dd>
+      <dt>
+        Skeleton Root
+      </dt>
+      <dd>
+        consider object a skeleton root, e.g make all child bones inherit animation parameters from that object.
+      </dd>
+    </dl>
 
 
     [anchor:Frame_Rate]

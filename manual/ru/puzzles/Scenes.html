@@ -3,7 +3,7 @@
   <head>
     <title>Scenes Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to perform loading/unloading operations with your scenes using Verge3D Puzzles."/>
+    <meta name="description" content="How to perform various operations with your scenes and rendering with Verge3D Puzzles."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
@@ -12,7 +12,7 @@
     <h1>Scenes</h1>
 
     <p>
-    The puzzles from this category perform loading/unloading operations with scenes.
+      The puzzles from this category perform various operations with scenes and rendering.
     </p>
 
     <img src="files/puzzles/puzzles-scenes.jpg">
@@ -33,22 +33,21 @@
     <h3>load scene + percentage</h3>
 
     <p>
-    When this puzzle is triggered, the current scene is unloaded
-    and a new scene is loaded from a specified .gltf file. After loading
-    is finished, the puzzles in the "when loaded do" slot are triggered.
-    Also there can be enabled the "on progress do" slot. Puzzles placed
-    in this slot are continuously triggered during the loading and can
-    utilize the "percentage" puzzle. Once the scene is loaded it's
-    assigned a name which can be used to access and manipulate the scene
-    via various object-related puzzles. By default the assigned name
-    equals to the specified scene URL (e.g. 'path/to/scene.gltf'). The
-    "alias" option if enabled allows to set the name manually.
+    When this puzzle is triggered, the current scene is unloaded and a new scene is loaded from a specified <em>.gltf</em> file.
     </p>
 
     <img src="files/puzzles/puzzles-scenes-load-scene.jpg">
 
-    <img src="files/puzzles/puzzles-scenes-load-scene-example.jpg">
+    <p>
+      After loading is finished, the puzzles in the "when loaded do" slot are triggered. Also, there is an optional "on progress do" slot. Puzzles placed in this slot are continuously triggered during the loading and can utilize the "percentage" puzzle. Once the scene is loaded it's assigned a name which can be used to access and manipulate the scene via various object-related puzzles. By default the assigned name equals to the specified scene URL (e.g. 'path/to/scene.gltf'). The "alias" option if enabled allows to set the name manually.
+    </p>
 
+    <p>
+      Another optional "on error do" slot triggers in case of load errors (such as missing glTF file).
+    </p>
+
+
+    <img src="files/puzzles/puzzles-scenes-load-scene-example.jpg">
 
 
     [anchor:append_scene]
@@ -56,24 +55,25 @@
     <h3>append scene + percentage</h3>
 
     <p>
-    When this puzzle is triggered, a new scene is loaded
-    from a specified .gltf file and appended to the current scene.
-    After loading is finished, the puzzles in the "when loaded do" slot
-    are triggered. Also there can be enabled the "on progress do" slot.
-    Puzzles placed in this slot are continuously triggered during the
-    loading and can utilize the "percentage" puzzle. The "append scene"
-    puzzle doesn't load cameras and lights from a new scene by default.
-    This behavior can be changed in the puzzle's options. Once the scene
-    is appended it's assigned a name which can be used to access and
-    manipulate the scene via various object-related puzzles. By default
-    the assigned name equals to the specified scene URL (e.g. 'path/to/scene.gltf').
-    The "alias" option if enabled allows to set the name manually.
+      When this puzzle is triggered, a new scene is loaded from a specified <em>.gltf</em> file and appended to the current scene.
     </p>
 
     <img src="files/puzzles/puzzles-scenes-append-scene.jpg">
 
-    <img src="files/puzzles/puzzles-scenes-append-scene-example.jpg">
+    <p>
+      After loading is finished, the puzzles in the "when loaded do" slot are triggered. Also there can be enabled the "on progress do" slot. Puzzles placed in this slot are continuously triggered during the loading and can utilize the "percentage" puzzle. The "append scene" puzzle doesn't load cameras and lights from a new scene by default. This behavior can be changed in the puzzle's options.
+    </p>
 
+    <p>
+      Once the scene is appended it's assigned a name which can be used to access and manipulate the scene via various object-related puzzles. By default the assigned name equals to the specified scene URL (e.g. 'path/to/scene.gltf'). The "alias" option, if enabled, allows to set the name manually.
+    </p>
+
+    <p>
+      Another optional "on error do" slot triggers in case of load errors (such as missing glTF file).
+    </p>
+
+
+    <img src="files/puzzles/puzzles-scenes-append-scene-example.jpg">
 
 
     [anchor:unload_scene]
@@ -142,6 +142,42 @@
     <img src="files/puzzles/puzzles-scenes-create-environment-example.jpg">
 
 
+    [anchor:batch_geometry]
+
+    <h3>batch geometry</h3>
+
+    <p>
+      Merge geometry of a specified group of meshes to improve rendering performance. Upon execution, the puzzle collects meshes with similar properties, such as material in use, shadow settings, rendering order, etc, then creates and appends a new batch to the scene. Objects that can't be merged together are left intact.
+    </p>
+
+    <img src="files/puzzles/puzzles-scenes-batch-geometry.jpg">
+
+    <p>
+      To observe how batching works, just open the <a href="manual/ru/introduction/FAQ.html#browser_console">browser console</a>:
+    </p>
+
+    <img src="files/puzzles/puzzles-scenes-batch-geometry-console.jpg">
+
+    <p>
+      In each "Adding batch object..." line you can see the name of the created batch object. This name consists of the name of the material forming the batch, the 'x' factor representing the number of meshes merged together and the "_batch" postfix.</p>
+
+    <p>
+      For example:
+    </p>
+
+    <code class="language-html">
+      Adding batch object: big_table_wood_x6_batch
+    </code>
+
+    <p>
+      line says that 6 meshes with the "big_table_wood" material were merged to a new batch object "big_table_wood_x6_batch".
+    </p>
+
+    <p class="note">
+      Since the batch parts become "fixed" together, make sure you don't batch objects which you plan to move around, animate, or change individually from the batch.
+    </p>
+
+
     [anchor:export_to_gltf]
 
     <h3>export to gltf</h3>
@@ -155,6 +191,43 @@
     </p>
 
     <img src="files/puzzles/puzzles-scenes-export-to-gltf.jpg">
+
+
+    [anchor:raycast]
+
+    <h3>raycast</h3>
+
+    <p>
+      Cast a ray from the source point (or object) in the given direction and return a list of all intersections (if any). The third parameter of the puzzle is used to reduce a set of the intersected objects. Leave <strong>none</strong> or specify the name of your scene to intersect all objects located in the loaded scene.
+    </p>
+
+    <p>
+      The returned list contains a sequence of dictionaries with the following information:
+    </p>
+
+    <ul>
+      <li>*object* — name of the interected object</li>
+      <li>*distance* — distance to the point of intersection</li>
+      <li>*point* — XYZ coordinates (vector) of the point of intersection</li>
+      <li>*normal* — XYZ coordinates (vector) of the normal at the point of intersection</li>
+      <li>*uv* — UV coordiates of the point of intersection</li>
+    </ul>
+
+    <p>The list of intersections is sorted by distance, closest first.</p>
+
+    <img src="files/puzzles/puzzles-scenes-raycast.jpg">
+
+
+    [anchor:add_fog]
+
+    <h3>add fog</h3>
+
+    <p>
+        Add the fog effect to the scene. Use zeros either for <b>RGB</b> or for
+        <b>density</b> to disable the added fog.
+    </p>
+
+    <img src="files/puzzles/puzzles-scenes-add-fog.jpg">
 
 
     <h2>Having Troubles with Puzzles?</h2>
