@@ -25,7 +25,7 @@ function generate() {
 
     console.log('Generating Documenation (' + LANGUAGES.join(', ') + ')');
 
-    list = JSON.parse(fs.readFileSync('list.json'));
+    list = JSON.parse(fs.readFileSync(path.join(__dirname, 'list.json')));
 
     if (fs.existsSync(OUTDIR)){
         fs.removeSync(OUTDIR);

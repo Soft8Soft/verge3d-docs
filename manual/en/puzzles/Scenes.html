@@ -3,7 +3,7 @@
   <head>
     <title>Scenes Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to perform loading/unloading operations with your scenes using Verge3D Puzzles."/>
+    <meta name="description" content="How to perform various operations with your scenes and rendering with Verge3D Puzzles."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
@@ -12,7 +12,7 @@
     <h1>Scenes</h1>
 
     <p>
-    The puzzles from this category perform loading/unloading operations with scenes.
+      The puzzles from this category perform various operations with scenes and rendering.
     </p>
 
     <img src="files/puzzles/puzzles-scenes.jpg">
@@ -140,6 +140,42 @@
     </ul>
 
     <img src="files/puzzles/puzzles-scenes-create-environment-example.jpg">
+
+
+    [anchor:batch_geometry]
+
+    <h3>batch geometry</h3>
+
+    <p>
+      Merge geometry of a specified group of meshes to improve rendering performance. Upon execution, the puzzle collects meshes with similar properties, such as material in use, shadow settings, rendering order, etc, then creates and appends a new batch to the scene. Objects that can't be merged together are left intact.
+    </p>
+
+    <img src="files/puzzles/puzzles-scenes-batch-geometry.jpg">
+
+    <p>
+      To observe how batching works, just open the <a href="manual/en/introduction/FAQ.html#browser_console">browser console</a>:
+    </p>
+
+    <img src="files/puzzles/puzzles-scenes-batch-geometry-console.jpg">
+
+    <p>
+      In each "Adding batch object..." line you can see the name of the created batch object. This name consists of the name of the material forming the batch, the 'x' factor representing the number of meshes merged together and the "_batch" postfix.</p>
+
+    <p>
+      For example:
+    </p>
+
+    <code class="language-html">
+      Adding batch object: big_table_wood_x6_batch
+    </code>
+
+    <p>
+      line says that 6 meshes with the "big_table_wood" material were merged to a new batch object "big_table_wood_x6_batch".
+    </p>
+
+    <p class="note">
+      Since the batch parts become "fixed" together, make sure you don't batch objects which you plan to move around, animate, or change individually from the batch.
+    </p>
 
 
     [anchor:export_to_gltf]

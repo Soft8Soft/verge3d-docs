@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Creating Desktop Applications with Electron - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how to use Electron to create cross-platform Verge3D applications for desktop."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+    <meta property="og:image" content="https://cdn.soft8soft.com/images/electron.jpg">
+    <meta property="article:tag" content="electron">
+  </head>
+  <body><article>
+
+    <h1>Creating Desktop Applications with Electron</h1>
+
+    <p>
+      Electron is a tool which converts web applications to cross-platform desktop applications. Electron can create apps for Windows, macOS (both Intel and Apple Silicon architectures supported), and Linux. The tool is completely free, easy-to-use and allows for advanced customizations with JavaScript (if you need it).
+    </p>
+
+    [contents]
+
+
+    [anchor:creating_app]
+
+    <h2>Creating Application</h2>
+
+    <p>
+      Electron can be installed via NPM or downloaded from the internet. To simplify things up, we integrated an Electron app builder right in the App Manager.
+    </p>
+
+    <img src="files/creating-desktop-apps/app-manager-create-native-app.jpg">
+
+    <p>
+      By using it you can download Electron binaries for the selected target platform and then build a ready-to-use application right from your Verge3D app.
+    </p>
+
+    <img src="files/creating-desktop-apps/app-manager-electron.jpg">
+
+    <p>
+      Since the number of available platforms is huge, use the following memo to get what you really need:
+    </p>
+
+    <dl>
+      <dt>None</dt>
+      <dd>Do not install any binaries. Use the NPM utility and the instructions <a href="manual/en/introduction/Creating-Desktop-Apps.html#using_npm">below</a> to continue building your app.</dd>
+
+      <dt>Windows (64-bit)</dt>
+      <dd>Windows 7 or later, 64 bit.</dd>
+      <dt>macOS (64-bit)</dt>
+      <dd>macOS 10.10 (Yosemite) or later, Intel Macs.</dd>
+      <dt>macOS App Store (64-bit)</dt>
+      <dd>Reduced version for Mac App Store. Runs on macOS 10.10 (Yosemite) or later, Intel Macs.</dd>
+      <dt>Linux (64-bit)</dt>
+      <dd>Linux, 64 bit, such as Ubuntu, Fedora, OpenSuse, or Arch.</dd>
+
+      <dt>Windows (ARM)</dt>
+      <dd>Windows 10 running on devices with 64-bit ARM processors.</dd>
+      <dt>macOS (ARM)</dt>
+      <dd>macOS 11 (Big Sur) or later, Apple Silicon (aka M1) Macs.</dd>
+      <dt>macOS App Store (ARM)</dt>
+      <dd>Reduced version for Mac App Store. Runs on macOS 11 (Big Sur) or later, Apple Silicon (aka M1) Macs.</dd>
+      <dt>Linux (ARM)</dt>
+      <dd>Linux on 64-bit ARM devices.</dd>
+
+      <dt>Windows (32-bit)</dt>
+      <dd>Windows 7 or later, 32 bit.</dd>
+      <dt>Linux (32-bit)</dt>
+      <dd>Linux, 32 bit version.</dd>
+    </dl>
+
+    <p class="note">
+      Due to architecture limitations of the Windows OS, it's not possible to build macOS apps on that system. Please use macOS or Linux instead.
+    </p>
+
+    <p>
+      Once your app is ready, download it and then unpack the zip archive to some directory.
+    </p>
+
+
+    [anchor:running_your_app]
+
+    <h2>Running your Application</h2>
+
+    <p>
+      Exec your application by running *electron.exe* (or *Electron.app* on macOS, or *electron* on Linux) located in the app directory.
+    </p>
+
+    <img src="files/creating-desktop-apps/electron-new-app.jpg" class="centered" style="max-width: 827px">
+
+    <p>
+      Keep in mind, that since your application is <em>unsigned</em>, both Windows and macOS (but not Linux) prevent it from running. For example, on Windows, you'll see the following *Windows protected your PC* dialog:
+    </p>
+
+    <img src="files/creating-desktop-apps/windows-protected-your-pc.jpg" class="centered">
+
+    <p>
+      Click on the *More info* link, then *Run anyway* to run the application. In order to fix this issue, expecially when you distribute your work to the end users, your app must be signed. See more in the <a href="https://www.electronjs.org/docs/tutorial/code-signing" target="_blank">code signing</a> section of the Electron documentation.
+    </p>
+
+
+    [anchor:beautifying_things]
+
+    <h2>Beautifying Things</h2>
+
+
+    [anchor:modifying_app_name_icon]
+
+    <h3>Modifying Application Name and Icon</h3>
+
+    <p>
+      See the <a href="https://www.electronjs.org/docs/tutorial/application-distribution#rebranding-with-downloaded-binaries" target="_blank">official Electron guide</a> on how to rename your application binary and assign custom icon.
+    </p>
+
+
+    [anchor:customizing_menu]
+
+    <h3>Customizing Menu</h3>
+
+    <p>
+      To disable application menu altogether, insert the following line in the *main.js* right after *loadFile()* method:
+    </p>
+
+    <code>
+      win.removeMenu();
+    </code>
+
+    <p>
+      To create your own menu, first connect *Menu* module to your application:
+    </p>
+
+    <code>
+      const { Menu } = require('electron');
+    </code>
+
+    <p>
+      We're going to use *shell* module to open external website upon menu click. So, add *shell* module here as well:
+    </p>
+
+    <code>
+      const { shell } = require('electron');
+    </code>
+
+    <p>
+      Then add the following code to the *main.js* right after *loadFile()* method:
+    </p>
+
+    <code>
+    var menu = Menu.buildFromTemplate([{
+        label: 'Menu',
+        submenu: [
+            {
+                label: 'Soft8Soft Website',
+                click() {
+                    shell.openExternal('https://www.soft8soft.com');
+                }
+            },
+            {
+                label: 'Exit',
+                click() {
+                    app.quit()
+                }
+            }
+        ]
+    }]);
+    Menu.setApplicationMenu(menu);
+    </code>
+
+    <p>
+      See the example of the modified *main.js* file <a href="files/creating-desktop-apps/menu-template/main.js" download>here</a>.
+    </p>
+
+    <p>
+      Run your application, you should get the following:
+    </p>
+
+    <img src="files/creating-desktop-apps/electron-app-with-menu.jpg" class="centered" style="max-width: 800px">
+
+
+    [anchor:using_npm]
+
+    <h2>Advanced Electron Development with NPM</h2>
+
+    <p>
+      To work with Electron, you'll need the *npm* utility which is part of the *Node.js* runtime. You can install it by following <a href="https://nodejs.org/en/download/" target="_blank">these instructions</a>.
+    </p>
+
+    <p>
+      See more info on how to use NPM in the <a href="https://www.electronjs.org/docs" target="_blank">Electron docs</a>.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

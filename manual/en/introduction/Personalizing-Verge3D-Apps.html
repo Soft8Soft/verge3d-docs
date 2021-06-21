@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Personalizing Verge3D Applications - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to customize styles of your Verge3D applications."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Personalizing Verge3D Applications</h1>
+
+    <p>
+      Use this guide to create customized Verge3D applications targeted to your specific audience.
+    </p>
+
+    [contents]
+
+
+    [anchor:custom_ui]
+
+    <h2>Custom UI</h2>
+
+    <p>
+      The best way to create fully-customized Verge3D experience is to <a href="manual/en/introduction/HTML-based-user-interfaces.html">build UI on top of your 3D part</a> (see how the <a href="https://cdn.soft8soft.com/demo/applications/scooter/index.html" target="_blank">Scooter demo</a> as an example of this approach). However, given the difficulties of creating such UI, we'll descuss customizing <em>default</em> Verge3D experiences here. This includes preloader screen, annotations, fullscreen button, as well as page title/description and social media tags.
+    </p>
+
+
+    [anchor:introduction]
+
+    <h2>Introduction to UI Styling</h2>
+
+    <p>
+      Along with canvas which renders 3D part, Verge3D application includes additional HTML elements for preloader, annotations, fullscreen button, etc. All these elements are supplemented by CSS classes which can be easily modified.
+    </p>
+
+    <p>
+      The easiest way to make your app personalized - choose *Standard Light* or *Standard Dark* in the app creation dialog:
+    </p>
+
+    <img src="files/personalizing-verge3d-apps/light-dark-theme.jpg" class="centered" style="max-width: 522px">
+
+    <p>
+      For more advanced customizations, check out the <em>src/style.css</em> file. Do not change this file as it is compiled right into Verge3D. Instead, add all styling code into your application main CSS file. For example if your app is called "My Awesome App" then you should modify the following file:
+    </p>
+
+    <code>applications/my_awesome_app/my_awesome_app.css</code>
+
+    <p>
+      Alternatively, you can modify your CSS classes by using the Puzzles editor. Check out the <a href="manual/en/puzzles/HTML.html#set_css_rule">set css rule</a> puzzle reference.
+    </p>
+
+
+    [anchor:preloader]
+
+    <h2>Customizing Preloader</h2>
+
+    <p>To modify your preloader change the following CSS classes:</p>
+
+    <p>*v3d-simple-preloader-background* - for changing background of the entire preloader screen.</p>
+    <p>*v3d-simple-preloader-container* - for changing container element with preloader image and bar. By overriding this class you can customize preloader position and size.</p>
+    <p>*v3d-simple-preloader-bar* - for changing loading bar.</p>
+    <p>*v3d-simple-preloader-logo* - for changing preloader image.</p>
+
+    <p>For example, if you need to make progress bar <em>red</em> instead of the default <em>blue</em>, add the following code to your application's main CSS file:</p>
+
+    <code class="language-css">
+    .v3d-simple-preloader-bar {
+        background: red;
+    }
+    </code>
+
+    <p>To change the preloader's image to something else:</p>
+
+    <code class="language-css">
+    .v3d-simple-preloader-logo {
+        background-image: url("PATH_TO_YOUR_IMAGE");
+        background-size: cover;
+    }
+    </code>
+
+    <p>Replace PATH_TO_YOUR_IMAGE with the actual URL of your image, such as <em>my_company_logo.png</em>.</p>
+
+    <p class="note">Recommended preloader image size is 110x110px.</p>
+
+    <p>To assign custom background image instead of default <em>white</em>:</p>
+
+    <code class="language-css">
+    .v3d-simple-preloader-background {
+        background-image: url("PATH_TO_YOUR_IMAGE");
+    }
+    </code>
+
+    <p>With Puzzles, all three style customizations will look as follows:</p>
+
+    <!-- HACK: minor styling fix -->
+    <img src="files/personalizing-verge3d-apps/puzzles.jpg" class="centered" style="margin-top:-20px">
+
+
+    [anchor:annotations]
+
+    <h2>Styling Annotations</h2>
+
+    <p>To style your annotations use the following CSS classes:</p>
+
+    <ul>
+      <li>*v3d-annotation* - for changing the style of the annotation icon.</li>
+      <li>*v3d-annotation-transparent* - for changing the style of semi-transparent (occluded) annotations.</li>
+      <li>*v3d-annotation-dialog* - for styling annotation popup dialog.</li>
+    </ul>
+
+    <p>For example, to make your annotations square with green background:</p>
+
+    <code class="language-css">
+    .v3d-annotation {
+        border-radius: 0px;
+        background: rgba(0, 255, 0, 0.8);
+    }
+    </code>
+
+    <img src="files/personalizing-verge3d-apps/annotation.jpg" class="centered" style="max-width: 544px">
+
+
+    [anchor:fullscreen_button]
+
+    <h2>Changing Fullscreen Button</h2>
+
+    <p>Fullsceen button styling is already managed by your application. See the following classes in your app's main CSS file:</p>
+
+    <ul>
+      <li>*fullscreen-button* - for changing the style of the both open and close fullscreen buttons.</li>
+      <li>*fullscreen-open* - for styling the image for entering (opening) the fullscreen mode.</li>
+      <li>*fullscreen-close* - for styling the image for leaving (closing) the fullscreen mode.</li>
+    </ul>
+
+    <p>For example, if you need to change the default open/close images to something else, modify the following two classes:</p>
+
+    <code class="language-css">
+    .fullscreen-open {
+        background-image: url('PATH_TO_OPEN_IMAGE');
+    }
+
+    .fullscreen-close {
+        background-image: url('PATH_TO_CLOSE_IMAGE');
+    }
+    </code>
+
+
+    [anchor:title_description]
+
+    <h2>Title and Description</h2>
+
+    <p>
+      It's difficult to overestimate the importance of assigning meaningful title and description for your app.
+    </p>
+
+    <p>
+      The title is displayed in the browser tab and also used to bookmark your app link:
+    </p>
+
+    <img src="files/personalizing-verge3d-apps/app-title.jpg" class="centered">
+
+    <p>
+      Both title and description are used by the search engines to find your app and present it to the user in the search output:
+    </p>
+
+    <img src="files/personalizing-verge3d-apps/google-title-description.jpg" class="centered">
+
+    <p>
+      To change app title, find the following snippet in your main HTML file (e.g. <em>my_awesome_app.html</em>):
+    </p>
+
+    <code>
+      &lt;title&gt;Verge3D Web Interactive&lt;/title&gt;
+    </code>
+
+    <p>
+     and change <em>Verge3D Web Interactive</em> to the preferred title.
+    </p>
+
+    <p class="note">
+      Keep the length of the title below 50-60 characters.
+    </p>
+
+    <p>
+      Application description can changed in the same manner. Find and replace <em>Interactive 3D web application...</em> content of the <em>&lt;meta name=&quot;description&quot;&gt;</em> tag:
+    </p>
+
+    <code>
+&lt;meta name=&quot;description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
+    </code>
+
+    <p>
+      to something that suites your needs better.
+    </p>
+
+    <p class="note">
+      Similarly to title, the description text should not be long — 120 to 160 characters is good enough.
+    </p>
+
+
+    [anchor:language]
+
+    <h2>Language</h2>
+
+    <p>
+      Modify the following snippet in the beginning of your main HTML file to change app language:
+    </p>
+
+    <code>
+      &lt;html lang=&quot;en&quot;&gt;
+    </code>
+
+    <p>
+      See <a href="https://www.w3schools.com/tags/ref_language_codes.asp" target="_blank">here</a> for a list of possible language codes.
+    </p>
+
+
+    [anchor:icon]
+
+    <h2>Icon</h2>
+
+    <p>
+      To customize page icon displayed in the browser (also known as favicon), replace the following files in the <em>media</em> directory of your application:
+    </p>
+
+    <ul>
+      <li>favicon.ico</li>
+      <li>favicon-16x16.png</li>
+      <li>favicon-32x32.png</li>
+      <li>apple-touch-icon.png</li>
+      <li>android-chrome-192x192.png</li>
+      <li>android-chrome-512x512.png</li>
+      <li>safari-pinned-tab.svg</li>
+    </ul>
+
+    <p>
+      To simplify things up, there are plenty of <em>favicon generators</em> available on the web.
+    </p>
+
+
+    [anchor:social_media_tags]
+
+    <h2>Social Media Tags</h2>
+
+    <p>
+      To make you app link look cool on Twitter, modify the following title/description/image tags in the main HTML file:
+    </p>
+
+    <code>
+&lt;meta name=&quot;twitter:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
+&lt;meta name=&quot;twitter:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
+&lt;meta name=&quot;twitter:image:src&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
+    </code>
+
+    <p>
+      For better result, scale the image to the 1200x630 pixel size and specify <em>absolute</em> URL, e.g. <em>https://www.yoursite.com/app_social_image.jpg</em>, not just <em>app_social_image.jpg</em>.
+    </p>
+
+    <p>
+      For Facebook, Reddit, WhatsApp, Weibo, VK, and other social media platforms which support Open Graph protocol, find and change the following tags. You can specify them to the same values you used for Twitter:
+    </p>
+
+    <code>
+&lt;meta property=&quot;og:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
+    </code>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

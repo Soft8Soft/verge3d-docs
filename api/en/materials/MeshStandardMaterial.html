@@ -165,13 +165,45 @@
     <p>Intensity of the emissive light. Modulates the emissive color. Default is 1.</p>
 
     <h3>[property:Texture envMap]</h3>
-    <p>The environment map. To ensure a physically correct rendering, you should only add
-      environment maps which were preprocessed by [page:PMREMGenerator]. Default is null.
+    <p>
+      The environment map. To ensure a physically correct rendering, you should
+      only add environment maps which were preprocessed by [page:PMREMGenerator].
+      Assigned automatically from a corresponding [page:CubeReflectionProbe]
+      object if [page:Material.envMapAutoAssign] is *true*. Default is null.
     </p>
 
     <h3>[property:Float envMapIntensity]</h3>
-    <p>Scales the effect of the environment map by multiplying its color.</p>
+    <p>
+      Scales the effect of the environment map by multiplying its color. Default
+      is 1.
+    </p>
 
+    <h3>[property:Matrix4 envMapParallaxMatrix]</h3>
+    <p>
+      A [page:Matrix4] used for applying the parallax effect to the material's
+      [page:.envMap]. This matrix carries the transformation from the world space
+      to the space of a particular [page:CubeReflectionProbe reflection probe],
+      which environment map this material uses for rendering. Calculated
+      automatically if [page:Material.envMapAutoAssign] is *true*. Default is
+      the identity matrix.
+    </p>
+
+    <h3>[property:Matrix4 envMapParallaxMatrixInv]</h3>
+    <p>
+      A [page:Matrix4] inverse to [page:.envMapParallaxMatrix]. Used for
+      applying the parallax effect to the material's [page:.envMap]. Calculated
+      automatically if [page:Material.envMapAutoAssign] is *true*. Default is
+      the identity matrix.
+    </p>
+
+    <h3>[property:Constant envMapParallaxType]</h3>
+    <p>
+      Defines the type of the parallax volume. The same as
+      [page:CubeReflectionProbe.parallaxType]. Assigned automatically from the
+      corresponding [page:CubeReflectionProbe] if
+      [page:Material.envMapAutoAssign] is *true*. Default is
+      [page:Lights ReflectionProbeTypeInfinite].
+    </p>
 
     <h3>[property:Texture lightMap]</h3>
     <p>The light map. Default is null. The lightMap requires a second set of UVs.</p>

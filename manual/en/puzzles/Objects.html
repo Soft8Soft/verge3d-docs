@@ -1,14 +1,369 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<!DOCTYPE html><html lang="en"><head>
     <title>Objects Puzzles Reference - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to manage your 3D objects with Verge3D Puzzles."/>
-    <base href="../../../" />
+    <meta name="description" content="How to manage your 3D objects with Verge3D Puzzles.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  
+            <link rel="canonical" href="https://www.soft8soft.com/docs/manual/en/puzzles/Objects.html">
+
+            <meta property="og:type" content="article">
+            <meta property="og:title" content="Objects Puzzles Reference - Soft8Soft">
+            <meta property="og:description" content="How to manage your 3D objects with Verge3D Puzzles.">
+            <meta property="og:image" content="https://cdn.soft8soft.com/images/manual.jpg">
+            <meta property="og:image:width" content="1200">
+            <meta property="og:image:height" content="630">
+            <meta property="og:url" content="https://www.soft8soft.com/docs/manual/en/puzzles/Objects.html">
+            <meta property="og:site_name" content="Soft8Soft">
+            <meta property="og:locale" content="en_US">
+
+            <meta property="article:author" content="https://www.facebook.com/soft8soft">
+
+            <meta property="article:tag" content="Verge3D">
+            <meta property="article:tag" content="WebGL">
+            <meta property="article:tag" content="3D">
+            <meta property="article:tag" content="ThreeJS">
+            <meta property="article:tag" content="interactive">
+            <meta property="article:tag" content="realtime">
+            <meta property="article:tag" content="3dweb">
+            <meta property="article:tag" content="web3d">
+
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="Objects Puzzles Reference - Soft8Soft">
+            <meta name="twitter:description" content="How to manage your 3D objects with Verge3D Puzzles.">
+            <meta name="twitter:image" content="https://cdn.soft8soft.com/images/manual.jpg">
+            <meta name="twitter:creator" content="@soft8soft">
+        
+            <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+            <!-- favicons from realfavicongenerator.net -->
+            <link rel="apple-touch-icon" sizes="180x180" href="files/icons/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="files/icons/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="files/icons/favicon-16x16.png">
+            <link rel="manifest" href="files/icons/manifest.json">
+            <link rel="mask-icon" href="files/icons/safari-pinned-tab.svg" color="#5bbad5 ">
+        <script type="application/ld+json">[
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-objects.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-show.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-hide.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-is-visible.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-clone.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-create-object.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-remove.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-set-transform.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-transform.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-change-local-transform.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-snap.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-parent.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-parent-unparent.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-set-object-direction.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-object-direction.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-objects.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-morph-factor.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-set-morph-factor.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-set-morph-factor-example.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-add-annotation.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-add-annotation-example.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-add-annotation-element-ids.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-add-annotation-fading.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-remove-annotation.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-open-annotation.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-close-annotation.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-create-text.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-update-text.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-distance.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-custom-props.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-custom-props-example.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-custom-props-blender.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-custom-props-max.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-custom-props-maya-add.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-custom-props-maya.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-get-custom-props-maya-meta.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-outline.jpg",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ,
+                {
+                    "@context": "https://schema.org/",
+                    "@type": "ImageObject",
+                    "url": "https://www.soft8soft.com/docs/files/puzzles/puzzles-object-update-light-probe.png",
+                    "license": "https://creativecommons.org/licenses/by/4.0/",
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                }
+            ]</script></head>
+  <body><nav id="panel" class="collapsed">
+          <h1><a href="manual/en/index.html">Verge3D User Manual</a></h1>
+
+          <a id="expandButton" href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+
+          <div class="filterBlock">
+            <input type="text" id="filterInput" placeholder="Type to filter" autocapitalize="off" spellcheck="false">
+            <a href="#" id="clearFilterButton">x</a>
+          </div>
+
+          <div id="content"><div><h2>Getting Started</h2><ul id="Getting_Started"><li><a href="manual/en/introduction/Beginners-Guide.html" id="Getting_Started_Beginner_s_Guide">Beginner's Guide</a></li><li><a href="manual/en/introduction/Workflow.html" id="Getting_Started_Workflow">Workflow</a></li><li><a href="manual/en/introduction/App-Manager.html" id="Getting_Started_App_Manager">App Manager</a></li><li><a href="manual/en/introduction/Puzzles-Visual-Logic-Editor.html" id="Getting_Started_Puzzles">Puzzles</a></li><li><a href="manual/en/introduction/Features.html" id="Getting_Started_Verge3D_Features">Verge3D Features</a></li><li><a href="manual/en/introduction/Project-Structure.html" id="Getting_Started_Project_Structure">Project Structure</a></li><li><a href="manual/en/introduction/Updating.html" id="Getting_Started_Updating_for_New_Versions">Updating for New Versions</a></li><li><a href="manual/en/introduction/FAQ.html" id="Getting_Started_FAQ">FAQ</a></li><li><a href="manual/en/introduction/Useful-links.html" id="Getting_Started_Useful_Links">Useful Links</a></li></ul></div><div><h2>General Topics</h2><ul id="General_Topics"><li><a href="manual/en/introduction/Optimizing-WebGL-performance.html" id="General_Topics_Optimization_Techniques">Optimization Techniques</a></li><li><a href="manual/en/introduction/Asset-compression.html" id="General_Topics_Asset_Compression">Asset Compression</a></li><li><a href="manual/en/introduction/HTML-based-user-interfaces.html" id="General_Topics_HTML-Based_User_Interfaces">HTML-Based User Interfaces</a></li><li><a href="manual/en/introduction/Text-Rendering.html" id="General_Topics_Text_Rendering">Text Rendering</a></li><li><a href="manual/en/introduction/AR-VR-development.html" id="General_Topics_AR/VR_Development">AR/VR Development</a></li><li><a href="manual/en/introduction/Physics-Guide.html" id="General_Topics_Physics_Guide">Physics Guide</a></li><li><a href="manual/en/introduction/Personalizing-Verge3D-Apps.html" id="General_Topics_Personalizing_Verge3D_Apps">Personalizing Verge3D Apps</a></li><li><a href="manual/en/introduction/Wordpress-Plugin.html" id="General_Topics_WordPress_Plugin">WordPress Plugin</a></li><li><a href="manual/en/introduction/Using-JavaScript.html" id="General_Topics_Using_JavaScript">Using JavaScript</a></li><li><a href="manual/en/introduction/Creating-Desktop-Apps.html" id="General_Topics_Creating_Desktop_Apps">Creating Desktop Apps</a></li><li><a href="manual/en/introduction/Creating-Mobile-Apps.html" id="General_Topics_Creating_Mobile_Apps">Creating Mobile Apps</a></li><li><a href="manual/en/introduction/Performance-Bottlenecks.html" id="General_Topics_Performance_Bottlenecks">Performance Bottlenecks</a></li><li><a href="manual/en/introduction/Hardware-Related-Issues.html" id="General_Topics_Hardware-Related_Issues">Hardware-Related Issues</a></li><li><a href="manual/en/introduction/Testing-Mobile-Browsers.html" id="General_Topics_Testing_on_Mobile_Browsers">Testing on Mobile Browsers</a></li></ul></div><div><h2>Blender Artist's Guide</h2><ul id="Blender_Artist_s_Guide"><li><a href="manual/en/blender/Beginners-Guide.html" id="Blender_Artist_s_Guide_Beginner_s_Guide">Beginner's Guide</a></li><li><a href="manual/en/blender/Installation.html" id="Blender_Artist_s_Guide_Installation">Installation</a></li><li><a href="manual/en/blender/Material-System.html" id="Blender_Artist_s_Guide_Material_System_Overview">Material System Overview</a></li><li><a href="manual/en/blender/Lighting-and-Rendering.html" id="Blender_Artist_s_Guide_Lighting_and_Rendering">Lighting and Rendering</a></li><li><a href="manual/en/blender/Camera.html" id="Blender_Artist_s_Guide_Camera">Camera</a></li><li><a href="manual/en/blender/Shader-Nodes-Reference.html" id="Blender_Artist_s_Guide_Shader_Nodes">Shader Nodes</a></li><li><a href="manual/en/blender/Animation.html" id="Blender_Artist_s_Guide_Animation">Animation</a></li><li><a href="manual/en/blender/Morphing.html" id="Blender_Artist_s_Guide_Shape_Keys_(Morphing)">Shape Keys (Morphing)</a></li><li><a href="manual/en/blender/Shadows.html" id="Blender_Artist_s_Guide_Shadows">Shadows</a></li><li><a href="manual/en/blender/Transparency.html" id="Blender_Artist_s_Guide_Transparency">Transparency</a></li><li><a href="manual/en/blender/GLTF-Materials.html" id="Blender_Artist_s_Guide_glTF_Materials">glTF Materials</a></li><li><a href="manual/en/blender/Object-Constraints.html" id="Blender_Artist_s_Guide_Object_Constraints">Object Constraints</a></li><li><a href="manual/en/blender/Material-Library.html" id="Blender_Artist_s_Guide_Using_Material_Library">Using Material Library</a></li></ul></div><div><h2>3ds Max Artist's Guide</h2><ul id="3ds_Max_Artist_s_Guide"><li><a href="manual/en/max/Beginners-Guide.html" id="3ds_Max_Artist_s_Guide_Beginner_s_Guide">Beginner's Guide</a></li><li><a href="manual/en/max/Installation.html" id="3ds_Max_Artist_s_Guide_Installation">Installation</a></li><li><a href="manual/en/max/Material-System.html" id="3ds_Max_Artist_s_Guide_Material_System_Overview">Material System Overview</a></li><li><a href="manual/en/max/Lighting-and-Rendering.html" id="3ds_Max_Artist_s_Guide_Lighting_and_Rendering">Lighting and Rendering</a></li><li><a href="manual/en/max/Camera.html" id="3ds_Max_Artist_s_Guide_Camera">Camera</a></li><li><a href="manual/en/max/Materials-Maps-Reference.html" id="3ds_Max_Artist_s_Guide_Materials_and_Maps">Materials and Maps</a></li><li><a href="manual/en/max/Animation.html" id="3ds_Max_Artist_s_Guide_Animation">Animation</a></li><li><a href="manual/en/max/Morphing.html" id="3ds_Max_Artist_s_Guide_Morphing">Morphing</a></li><li><a href="manual/en/max/Shadows.html" id="3ds_Max_Artist_s_Guide_Shadows">Shadows</a></li><li><a href="manual/en/max/Transparency.html" id="3ds_Max_Artist_s_Guide_Transparency">Transparency</a></li><li><a href="manual/en/max/Viewport-Render-Preview.html" id="3ds_Max_Artist_s_Guide_Viewport_and_Render_Preview">Viewport and Render Preview</a></li><li><a href="manual/en/max/GLTF-Materials.html" id="3ds_Max_Artist_s_Guide_glTF_Materials">glTF Materials</a></li><li><a href="manual/en/max/Animation-Constraints.html" id="3ds_Max_Artist_s_Guide_Animation_Constraints">Animation Constraints</a></li><li><a href="manual/en/max/Material-Library.html" id="3ds_Max_Artist_s_Guide_Using_Material_Library">Using Material Library</a></li></ul></div><div><h2>Maya Artist's Guide</h2><ul id="Maya_Artist_s_Guide"><li><a href="manual/en/maya/Beginners-Guide.html" id="Maya_Artist_s_Guide_Beginner_s_Guide">Beginner's Guide</a></li><li><a href="manual/en/maya/Installation.html" id="Maya_Artist_s_Guide_Installation">Installation</a></li><li><a href="manual/en/maya/Materials.html" id="Maya_Artist_s_Guide_Materials_&amp;_Textures">Materials &amp; Textures</a></li><li><a href="manual/en/maya/Lighting-and-Rendering.html" id="Maya_Artist_s_Guide_Lighting_and_Rendering">Lighting and Rendering</a></li><li><a href="manual/en/maya/Camera.html" id="Maya_Artist_s_Guide_Camera">Camera</a></li><li><a href="manual/en/maya/Shadows.html" id="Maya_Artist_s_Guide_Shadows">Shadows</a></li><li><a href="manual/en/maya/Animation.html" id="Maya_Artist_s_Guide_Animation">Animation</a></li><li><a href="manual/en/maya/Blend-Shapes.html" id="Maya_Artist_s_Guide_Blend_Shapes_(Morphing)">Blend Shapes (Morphing)</a></li><li><a href="manual/en/maya/Transparency.html" id="Maya_Artist_s_Guide_Transparency">Transparency</a></li><li><a href="manual/en/maya/GLTF-Materials.html" id="Maya_Artist_s_Guide_glTF_Materials">glTF Materials</a></li><li><a href="manual/en/maya/Object-Constraints.html" id="Maya_Artist_s_Guide_Object_Constraints">Object Constraints</a></li><li><a href="manual/en/maya/Material-Library.html" id="Maya_Artist_s_Guide_Using_Material_Library">Using Material Library</a></li></ul></div><div><h2>Puzzles Reference</h2><ul id="Puzzles_Reference"><li><a href="manual/en/puzzles/Initialization.html" id="Puzzles_Reference_Initialization">Initialization</a></li><li><a href="manual/en/puzzles/Events.html" id="Puzzles_Reference_Events">Events</a></li><li><a href="manual/en/puzzles/Selectors.html" id="Puzzles_Reference_Selectors">Selectors</a></li><li><a href="manual/en/puzzles/Objects.html" id="Puzzles_Reference_Objects">Objects</a></li><li><a href="manual/en/puzzles/Materials.html" id="Puzzles_Reference_Materials">Materials</a></li><li><a href="manual/en/puzzles/Animation.html" id="Puzzles_Reference_Animation_(+Constraints)">Animation (+Constraints)</a></li><li><a href="manual/en/puzzles/Camera.html" id="Puzzles_Reference_Cameras/Lights">Cameras/Lights</a></li><li><a href="manual/en/puzzles/Scenes.html" id="Puzzles_Reference_Scenes">Scenes</a></li><li><a href="manual/en/puzzles/Time.html" id="Puzzles_Reference_Time">Time</a></li><li><a href="manual/en/puzzles/HTML.html" id="Puzzles_Reference_HTML">HTML</a></li><li><a href="manual/en/puzzles/AR_VR.html" id="Puzzles_Reference_AR/VR">AR/VR</a></li><li><a href="manual/en/puzzles/Sound.html" id="Puzzles_Reference_Audio/Video">Audio/Video</a></li><li><a href="manual/en/puzzles/Physics.html" id="Puzzles_Reference_Physics">Physics</a></li><li><a href="manual/en/puzzles/Postprocessing.html" id="Puzzles_Reference_Post-processing">Post-processing</a></li><li><a href="manual/en/puzzles/Logic.html" id="Puzzles_Reference_Logic">Logic</a></li><li><a href="manual/en/puzzles/Loops.html" id="Puzzles_Reference_Loops">Loops</a></li><li><a href="manual/en/puzzles/Text.html" id="Puzzles_Reference_Text">Text</a></li><li><a href="manual/en/puzzles/Numbers.html" id="Puzzles_Reference_Numbers">Numbers</a></li><li><a href="manual/en/puzzles/Lists.html" id="Puzzles_Reference_Lists">Lists</a></li><li><a href="manual/en/puzzles/Dictionaries.html" id="Puzzles_Reference_Dictionaries">Dictionaries</a></li><li><a href="manual/en/puzzles/Variables.html" id="Puzzles_Reference_Variables">Variables</a></li><li><a href="manual/en/puzzles/Procedures.html" id="Puzzles_Reference_Procedures">Procedures</a></li><li><a href="manual/en/puzzles/System.html" id="Puzzles_Reference_System">System</a></li><li><a href="manual/en/puzzles/Advanced.html" id="Puzzles_Reference_Advanced">Advanced</a></li><li><a href="manual/en/puzzles/ECommerce.html" id="Puzzles_Reference_E-Commerce_Plugin">E-Commerce Plugin</a></li><li><a href="manual/en/puzzles/Library.html" id="Puzzles_Reference_Library">Library</a></li><li><a href="manual/en/puzzles/Plugins.html" id="Puzzles_Reference_Plugins">Plugins</a></li></ul></div></div>
+        </nav><article>
 
     <h1>Objects</h1>
 
@@ -20,14 +375,15 @@
 
     <h2>Contents</h2>
 
-    [contents]
+    <!-- TOC -->
+<ul><li><a href="manual/en/puzzles/Objects.html#puzzles_reference">Puzzles Reference</a><ul><li><a href="manual/en/puzzles/Objects.html#show">show</a></li><li><a href="manual/en/puzzles/Objects.html#hide">hide</a></li><li><a href="manual/en/puzzles/Objects.html#is_visible">is visible</a></li><li><a href="manual/en/puzzles/Objects.html#clone">clone</a></li><li><a href="manual/en/puzzles/Objects.html#create_object">create object</a></li><li><a href="manual/en/puzzles/Objects.html#remove">remove object</a></li><li><a href="manual/en/puzzles/Objects.html#set_transform">set transform</a></li><li><a href="manual/en/puzzles/Objects.html#get_transform">get transform</a></li><li><a href="manual/en/puzzles/Objects.html#change_local_transform">change local transform</a></li><li><a href="manual/en/puzzles/Objects.html#snap_to_object">snap to object</a></li><li><a href="manual/en/puzzles/Objects.html#parent">parent</a></li><li><a href="manual/en/puzzles/Objects.html#set_object_direction">set object direction</a></li><li><a href="manual/en/puzzles/Objects.html#get_object_direction">get object direction</a></li><li><a href="manual/en/puzzles/Objects.html#get_objects_from">get objects from</a></li><li><a href="manual/en/puzzles/Objects.html#get_morph_factor">get morph factor</a></li><li><a href="manual/en/puzzles/Objects.html#set_morph_factor">set morph factor</a></li><li><a href="manual/en/puzzles/Objects.html#add_annotation">add annotation</a></li><li><a href="manual/en/puzzles/Objects.html#remove_annotation">remove annotation</a></li><li><a href="manual/en/puzzles/Objects.html#open_annotation">open annotation</a></li><li><a href="manual/en/puzzles/Objects.html#close_annotation">close annotation</a></li><li><a href="manual/en/puzzles/Objects.html#create_text_object">create text object</a></li><li><a href="manual/en/puzzles/Objects.html#update_text_object">update text object</a></li><li><a href="manual/en/puzzles/Objects.html#distance">distance</a></li><li><a href="manual/en/puzzles/Objects.html#get_custom_props">get custom props</a></li><li><a href="manual/en/puzzles/Objects.html#outline">outline</a></li><li><a href="manual/en/puzzles/Objects.html#update_light_probe">update light probe</a></li></ul></li></ul><!-- /TOC -->
 
 
-    [anchor:puzzles_reference]
+    <p><a href="manual/en/puzzles/Objects.html#puzzles_reference" id="puzzles_reference" class="permalink">#</a></p>
 
     <h2>Puzzles Reference</h2>
 
-    [anchor:show]
+    <p><a href="manual/en/puzzles/Objects.html#show" id="show" class="permalink">#</a></p>
 
     <h3>show</h3>
 
@@ -39,7 +395,7 @@
 
 
 
-    [anchor:hide]
+    <p><a href="manual/en/puzzles/Objects.html#hide" id="hide" class="permalink">#</a></p>
 
     <h3>hide</h3>
 
@@ -51,12 +407,12 @@
 
 
 
-    [anchor:is_visible]
+    <p><a href="manual/en/puzzles/Objects.html#is_visible" id="is_visible" class="permalink">#</a></p>
 
     <h3>is visible</h3>
 
     <p>
-    Checks if an object (or any of objects in a list) is currently visible. If it so, returns the logical value *true*, otherwise returns *false*. If there is no such object(s) present in the scene, returns *false*.
+    Checks if an object (or any of objects in a list) is currently visible. If it so, returns the logical value <strong>true</strong>, otherwise returns <strong>false</strong>. If there is no such object(s) present in the scene, returns <strong>false</strong>.
     </p>
 
     <img src="files/puzzles/puzzles-object-is-visible.jpg">
@@ -64,7 +420,7 @@
 
 
 
-    [anchor:clone]
+    <p><a href="manual/en/puzzles/Objects.html#clone" id="clone" class="permalink">#</a></p>
 
     <h3>clone</h3>
 
@@ -75,7 +431,7 @@
     <img src="files/puzzles/puzzles-object-clone.jpg">
 
 
-    [anchor:create_object]
+    <p><a href="manual/en/puzzles/Objects.html#create_object" id="create_object" class="permalink">#</a></p>
 
     <h3>create object</h3>
 
@@ -87,11 +443,11 @@
     <img src="files/puzzles/puzzles-object-create-object.jpg">
 
     <p>
-      For geometry objects, such as boxes or teapots, this puzzles also creates white-colored dielectric glTF-compliant PBR material (with *roughness* value set to *1* and *metalness* set to *0*). Use <a href="manual/en/puzzles/Materials.html#materials_set_color">set color</a> and <a href="manual/en/puzzles/Materials.html#materials_set_value">set value</a> puzzles to tweak that material.
+      For geometry objects, such as boxes or teapots, this puzzles also creates white-colored dielectric glTF-compliant PBR material (with <strong>roughness</strong> value set to <strong>1</strong> and <strong>metalness</strong> set to <strong>0</strong>). Use <a href="manual/en/puzzles/Materials.html#materials_set_color">set color</a> and <a href="manual/en/puzzles/Materials.html#materials_set_value">set value</a> puzzles to tweak that material.
     </p>
 
 
-    [anchor:remove]
+    <p><a href="manual/en/puzzles/Objects.html#remove" id="remove" class="permalink">#</a></p>
 
     <h3>remove object</h3>
 
@@ -104,19 +460,19 @@
 
 
 
-    [anchor:set_transform]
+    <p><a href="manual/en/puzzles/Objects.html#set_transform" id="set_transform" class="permalink">#</a></p>
 
     <h3>set transform</h3>
 
     <p>
-    Moves, rotates or scales an object according to specified transform data. The "offset" checkbox enables moving/rotating/scaling an object relatively to the original position/rotation/scale. Any of the axis inputs can be left blank. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    Moves, rotates or scales an object according to specified transform data. The "offset" checkbox enables moving/rotating/scaling an object relatively to the original position/rotation/scale. Any of the axis inputs can be left blank. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle. Sometimes you need to input a vector (which consists of the given X, Y, Z coordinates). In this case, you can modify the puzzle by clicking on the gear icon and setting on checkbox <strong>use vector</strong>.
     </p>
 
     <img src="files/puzzles/puzzles-object-set-transform.jpg">
 
 
 
-    [anchor:get_transform]
+    <p><a href="manual/en/puzzles/Objects.html#get_transform" id="get_transform" class="permalink">#</a></p>
 
     <h3>get transform</h3>
 
@@ -128,18 +484,18 @@
 
 
 
-    [anchor:change_local_transform]
+    <p><a href="manual/en/puzzles/Objects.html#change_local_transform" id="change_local_transform" class="permalink">#</a></p>
 
     <h3>change local transform</h3>
 
     <p>
-    Moves, rotates or scales an object according to specified transform data in its local space. Any of the axis inputs can be left blank. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    Moves, rotates or scales an object according to specified transform data in its local space. Any of the axis inputs can be left blank. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle. Sometimes you need to input a vector (which consists of the given X, Y, Z coordinates). In this case, you can modify the puzzle by clicking on the gear icon and setting on checkbox <strong>use vector</strong>.
     </p>
 
     <img src="files/puzzles/puzzles-object-change-local-transform.jpg">
 
 
-    [anchor:snap_to_object]
+    <p><a href="manual/en/puzzles/Objects.html#snap_to_object" id="snap_to_object" class="permalink">#</a></p>
 
     <h3>snap to object</h3>
 
@@ -150,7 +506,7 @@
     <img src="files/puzzles/puzzles-object-snap.jpg">
 
 
-    [anchor:parent]
+    <p><a href="manual/en/puzzles/Objects.html#parent" id="parent" class="permalink">#</a></p>
 
     <h3>parent</h3>
 
@@ -165,26 +521,26 @@
     <img src="files/puzzles/puzzles-object-parent-unparent.jpg">
 
 
-    [anchor:set_object_direction]
+    <p><a href="manual/en/puzzles/Objects.html#set_object_direction" id="set_object_direction" class="permalink">#</a></p>
 
     <h3>set object direction</h3>
 
-    <p>Set an object's direction to the point/vector with *X*, *Y*, *Z* coordinates. The *point* checkbox specifies whether the *X*, *Y*, *Z* coordinates belong to some point in 3D space or represent a direction vector. The *lock up* checkbox locks the up-down axis of the object so it remains perpendicular to the horizontal surface.</p>
+    <p>Set an object's direction to the point/vector with <strong>X</strong>, <strong>Y</strong>, <strong>Z</strong> coordinates. Sometimes you need to input a vector (which consists of the given X, Y, Z coordinates). In this case, you can modify the puzzle by clicking on the gear icon and setting on checkbox <strong>use vector</strong>. The <strong>point</strong> checkbox specifies whether the <strong>X</strong>, <strong>Y</strong>, <strong>Z</strong> coordinates belong to some point in 3D space or represent a direction vector. The <strong>lock up</strong> checkbox locks the up-down axis of the object so it remains perpendicular to the horizontal surface.</p>
 
     <img src="files/puzzles/puzzles-object-set-object-direction.jpg">
 
 
 
-    [anchor:get_object_direction]
+    <p><a href="manual/en/puzzles/Objects.html#get_object_direction" id="get_object_direction" class="permalink">#</a></p>
 
     <h3>get object direction</h3>
 
-    <p>Returns an object's direction vector or numeric *X*, *Y*, *Z* vector components.</p>
+    <p>Returns an object's direction vector or numeric <strong>X</strong>, <strong>Y</strong>, <strong>Z</strong> vector components.</p>
 
     <img src="files/puzzles/puzzles-object-get-object-direction.jpg" style="max-width: 745px">
 
 
-    [anchor:get_objects_from]
+    <p><a href="manual/en/puzzles/Objects.html#get_objects_from" id="get_objects_from" class="permalink">#</a></p>
 
     <h3>get objects from</h3>
 
@@ -192,7 +548,7 @@
 
     <ul>
       <li>get the list of objects contained in a group thus making it iterable</li>
-      <li>convert the output of the *all objects* puzzle to a list thus making it iterable</li>
+      <li>convert the output of the <strong>all objects</strong> puzzle to a list thus making it iterable</li>
       <li>get children of some parent object</li>
     </ul>
 
@@ -204,21 +560,28 @@
 
 
 
-    [anchor:get_morph_factor]
+    <p><a href="manual/en/puzzles/Objects.html#get_morph_factor" id="get_morph_factor" class="permalink">#</a></p>
 
     <h3>get morph factor</h3>
 
     <p>Returns an object's morph target factor.</p>
 
+    <p>
+        You can set a morph target by passing the name as a text. In this case, you need to modify the puzzle by clicking on the gear icon and setting on the checkbox <strong>flexible target input</strong>.
+    </p>
+
     <img src="files/puzzles/puzzles-object-get-morph-factor.jpg">
 
 
-
-    [anchor:set_morph_factor]
+    <p><a href="manual/en/puzzles/Objects.html#set_morph_factor" id="set_morph_factor" class="permalink">#</a></p>
 
     <h3>set morph factor</h3>
 
     <p>Sets an object's morph target factor.</p>
+
+    <p>
+        You can set a morph target by passing the name as a text. In this case, you need to modify the puzzle by clicking on the gear icon and setting on the checkbox <strong>flexible target input</strong>.
+    </p>
 
     <img src="files/puzzles/puzzles-object-set-morph-factor.jpg">
 
@@ -227,12 +590,12 @@
     <img src="files/puzzles/puzzles-object-set-morph-factor-example.jpg" style="max-width: 819px">
 
     <p>
-    See the source files of the *Parametric Models* demo and also this <a href="https://www.youtube.com/watch?v=Y-VUwoDL0qo" target="_blank">video tutorial</a> explaining the basics of using morph target puzzles.
+    See the source files of the <strong>Parametric Models</strong> demo and also this <a href="https://www.youtube.com/watch?v=Y-VUwoDL0qo" target="_blank">video tutorial</a> explaining the basics of using morph target puzzles.
     </p>
 
 
 
-    [anchor:add_annotation]
+    <p><a href="manual/en/puzzles/Objects.html#add_annotation" id="add_annotation" class="permalink">#</a></p>
 
     <h3>add annotation</h3>
 
@@ -243,7 +606,13 @@
     <img src="files/puzzles/puzzles-object-add-annotation.jpg">
 
     <p>
-    *Notes*:
+    You can pass custom name as text. For this you need to modify the puzzle by clicking on the gear icon and setting on the checkbox <strong>enable "name" option</strong>.  
+    </p>
+
+    <img src="files/puzzles/puzzles-object-add-annotation-custom-name.jpg" , style="max-width: 789px">
+
+    <p>
+    <strong>Notes</strong>:
     </p>
 
     <p>
@@ -259,7 +628,7 @@
     <img src="files/puzzles/puzzles-object-add-annotation-element-ids.jpg">
 
     <p>
-    By default, an annotation oscured by some geometry is automatically closed and become semi-transparent. This behavior can be disabled by turning off the *fade annotations* option of the <a href="manual/en/puzzles/Initialization.html#configure_application">configure application</a> puzzle.
+    By default, an annotation oscured by some geometry is automatically closed and become semi-transparent. This behavior can be disabled by turning off the <strong>fade annotations</strong> option of the <a href="manual/en/puzzles/Initialization.html#configure_application">configure application</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-object-add-annotation-fading.jpg">
@@ -270,7 +639,7 @@
 
 
 
-    [anchor:remove_annotation]
+    <p><a href="manual/en/puzzles/Objects.html#remove_annotation" id="remove_annotation" class="permalink">#</a></p>
 
     <h3>remove annotation</h3>
 
@@ -282,7 +651,7 @@
 
 
 
-    [anchor:open_annotation]
+    <p><a href="manual/en/puzzles/Objects.html#open_annotation" id="open_annotation" class="permalink">#</a></p>
 
     <h3>open annotation</h3>
 
@@ -294,7 +663,7 @@
 
 
 
-    [anchor:close_annotation]
+    <p><a href="manual/en/puzzles/Objects.html#close_annotation" id="close_annotation" class="permalink">#</a></p>
 
     <h3>close annotation</h3>
 
@@ -306,7 +675,7 @@
 
 
 
-    [anchor:create_text_object]
+    <p><a href="manual/en/puzzles/Objects.html#create_text_object" id="create_text_object" class="permalink">#</a></p>
 
     <h3>create text object</h3>
 
@@ -318,7 +687,7 @@
 
 
 
-    [anchor:update_text_object]
+    <p><a href="manual/en/puzzles/Objects.html#update_text_object" id="update_text_object" class="permalink">#</a></p>
 
     <h3>update text object</h3>
 
@@ -330,7 +699,7 @@
 
 
 
-    [anchor:distance]
+    <p><a href="manual/en/puzzles/Objects.html#distance" id="distance" class="permalink">#</a></p>
 
     <h3>distance</h3>
 
@@ -342,7 +711,7 @@
 
 
 
-    [anchor:get_custom_props]
+    <p><a href="manual/en/puzzles/Objects.html#get_custom_props" id="get_custom_props" class="permalink">#</a></p>
 
     <h3>get custom props</h3>
 
@@ -352,26 +721,26 @@
 
     <img src="files/puzzles/puzzles-object-get-custom-props-example.jpg" style="max-width: 819px">
 
-    <p>Custom properties can be assigned in *Blender* by using the *Custom Properties* panel:</p>
+    <p>Custom properties can be assigned in <strong>Blender</strong> by using the <strong>Custom Properties</strong> panel:</p>
 
     <img src="files/puzzles/puzzles-object-get-custom-props-blender.jpg" class="centered" style="max-width: 725px">
 
-    <p>or in *3ds Max* by typing properties in the *Object Properties* dialog:</p>
+    <p>or in <strong>3ds Max</strong> by typing properties in the <strong>Object Properties</strong> dialog:</p>
 
     <img src="files/puzzles/puzzles-object-get-custom-props-max.jpg" class="centered" style="max-width: 402px">
 
-    <p>or in *Maya* by using the <strong>Attributes->Add Attributes...</strong> menu in the attribute editor:</p>
+    <p>or in <strong>Maya</strong> by using the <strong>Attributes-&gt;Add Attributes...</strong> menu in the attribute editor:</p>
 
     <img src="files/puzzles/puzzles-object-get-custom-props-maya-add.jpg" class="centered" style="max-width: 463px">
 
     <img src="files/puzzles/puzzles-object-get-custom-props-maya.jpg" class="centered" style="max-width: 473px">
 
-    <p>In case of Maya you need to assign additional *customProperties* attribute with the list of space-separated custom property names.</p>
+    <p>In case of Maya you need to assign additional <strong>customProperties</strong> attribute with the list of space-separated custom property names.</p>
 
     <img src="files/puzzles/puzzles-object-get-custom-props-maya-meta.jpg" class="centered" style="max-width: 501px">
 
 
-    [anchor:outline]
+    <p><a href="manual/en/puzzles/Objects.html#outline" id="outline" class="permalink">#</a></p>
 
     <h3>outline</h3>
 
@@ -382,10 +751,54 @@
     <img src="files/puzzles/puzzles-object-outline.jpg">
 
 
+    <p><a href="manual/en/puzzles/Objects.html#update_light_probe" id="update_light_probe" class="permalink">#</a></p>
+
+    <h3>update light probe</h3>
+
+    <p>
+      Updates/rerenders the reflection map for the given light probe object.
+    </p>
+
+    <img src="files/puzzles/puzzles-object-update-light-probe.png">
+
 
     <h2>Having Troubles with Puzzles?</h2>
 
     <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
 
-  </article></body>
-</html>
+  </article>
+
+
+            <!-- Yandex.Metrika counter -->
+            <script type="text/javascript">
+               (function(d, w, c) {
+                 if (document.domain === "www.soft8soft.com") {
+                   (w[c] = w[c] || []).push(function() {
+                       try {
+                           w.yaCounter46001298 = new Ya.Metrika({
+                               id:46001298,
+                               clickmap:true,
+                               trackLinks:true,
+                               accurateTrackBounce:true
+                           });
+                       } catch(e) { }
+                   });
+
+                   var n = d.getElementsByTagName("script")[0],
+                       s = d.createElement("script"),
+                       f = function() { n.parentNode.insertBefore(s, n); };
+                   s.type = "text/javascript";
+                   s.async = true;
+                   s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+                   if (w.opera == "[object Opera]") {
+                       d.addEventListener("DOMContentLoaded", f, false);
+                   } else { f(); }
+                 }
+               })(document, window, "yandex_metrika_callbacks");
+            </script>
+            <noscript><div><img src="https://mc.yandex.ru/watch/46001298" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+            <!-- /Yandex.Metrika counter -->
+        
+            <div class="copyright">© <a href="https://www.soft8soft.com/" target="_blank">Soft8Soft – 3D Solutions for the Web</a><div>Last updated on Wed Jun 16 2021</div></div>
+        </body></html>
