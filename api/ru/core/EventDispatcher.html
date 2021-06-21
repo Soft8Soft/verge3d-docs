@@ -14,36 +14,32 @@
       [link:https://github.com/mrdoob/eventdispatcher.js Eventdispatcher on GitHub]
     </p>
 
-    <h2>Example</h2>
+    <h2>Code Example</h2>
 
     <code>
-// Adding events to a custom object
+    // Adding events to a custom object
 
-var Car = function() {
+    class Car extends EventDispatcher {
 
-    this.start = function() {
+      start() {
 
         this.dispatchEvent({ type: 'start', message: 'vroom vroom!' });
 
+      }
+
     };
 
-};
+    // Using events with the custom object
 
-// Mixing the EventDispatcher.prototype with the custom object prototype
+    const car = new Car();
 
-Object.assign(Car.prototype, EventDispatcher.prototype);
+    car.addEventListener('start', function(event) {
 
-// Using events with the custom object
+      alert(event.message);
 
-var car = new Car();
+    });
 
-car.addEventListener('start', function(event) {
-
-    alert(event.message);
-
-});
-
-car.start();
+    car.start();
     </code>
 
     <h2>Constructor</h2>
@@ -83,7 +79,7 @@ car.start();
     Removes a listener from an event type.
     </p>
 
-    <h3>[method:null dispatchEvent]([param:object event])</h3>
+    <h3>[method:null dispatchEvent]([param:Object event])</h3>
     <p>
     event - The event that gets fired.
     </p>

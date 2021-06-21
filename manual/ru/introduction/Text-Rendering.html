@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Text Rendering in Verge3D - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to create text objects in Verge3D."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+
+  <body><article>
+    <h1>Text Rendering</h1>
+    <p>
+      In many 3D web applications you need to display text that supplements 3D models with some informative content. In this section you will find out how to create text in your apps.
+    </p>
+
+    [contents]
+
+
+    [anchor:dom_css]
+
+    <h2>1. HTML/CSS, Annotations</h2>
+    <p>
+      HTML/CSS is the most natural way to display information in web-based applications.
+    </p>
+
+    <img src="files/text-rendering/html-text.jpg" style="max-width: 898px;">
+
+    <p>There are possible ways to render text with HTML:</p>
+
+    <ul>
+      <li>Using some third-party website builder like Webflow.</li>
+      <li>Manual editing of project HTML/CSS files.</li>
+      <li>Using HTML puzzles.</li>
+      <li>Using Verge3D annotations.</li>
+    </ul>
+
+    <p>
+      Check out <a href="manual/ru/introduction/HTML-based-user-interfaces.html">HTML-Based User Interfaces</a> section to get more info on using HTML, as well as <a href="manual/ru/puzzles/Objects.html#add_annotation">add annotation</a> and <a href="manual/ru/puzzles/HTML.html">HTML</a> puzzles references.
+    </p>
+
+    <h3>Pros</h3>
+
+    <ul>
+      <li>Approach common in web development.</li>
+      <li>Good quality of rendered text.</li>
+      <li>Possibility to use advanced text styles, such as custom strokes, fonts and 3D transformations.</li>
+    </ul>
+
+    <h3>Cons</h3>
+
+    <ul>
+      <li>No easy integration with rendered scene. In most situations you simply render HTML text above your 3D content.</li>
+      <li>No easy way to use HTML text in Virtual Reality mode.</li>
+      <li>Slow rendering if you have too many dynamic textual elements (such as annotations) in your app.</li>
+    </ul>
+
+    [anchor:dynamic_text_geometry]
+
+    <h2>2. Dynamic Text Geometry</h2>
+    <p>
+      You can use Text objects from your modelling suite to create text geometry similar to regular meshes. "Dynamic" means Verge3D does not store text geometry in the exported glTF asset, instead, it recreates it upon scene loading (using the font data). It also means, that you can edit your text in runtime with <a href="manual/ru/puzzles/Objects.html#update_text_object">update text object</a> puzzle or via JavaScript.</p>
+
+    <p>
+      To make your text objects dynamic, make sure that the *Bake Text* option in the export settings is <em>unchecked</em>:
+    </p>
+
+    <v3d-tabs>
+      <label>Blender</label>
+      <div>
+        <img src="files/text-rendering/dynamic-text-export-settings-blender.jpg" class="centered" style="max-width: 836px;">
+      </div>
+      <label>3ds Max</label>
+      <div>
+        <img src="files/text-rendering/dynamic-text-export-settings-max.jpg" class="centered" style="max-width: 785px;">
+      </div>
+      <label>Maya</label>
+      <div>
+        <img src="files/text-rendering/dynamic-text-export-settings-maya.jpg" class="centered" style="max-width: 872px;">
+      </div>
+    </v3d-tabs>
+
+    <p>
+      You also need to specify the *Font Converter* option (enabled by default) when creating your app to be able to use dynamic text geometry. This option activates <em>opentype.js</em> module in your application which is required to load and process font data.
+    </p>
+
+    <img src="files/text-rendering/font-converter-option.jpg" class="centered" style="max-width: 522px;">
+
+    <p class="note">
+      If you forget to enable *Font Converter* option or created your application before Verge3D 3.6, simply copy *opentype.js* file from the *build* directory of your Verge3D distribution to your application directory.
+    </p>
+
+    <h3>Pros</h3>
+
+    <ul>
+      <li>Text objects are full-featured 3D meshes which can be moved/animated/assigned with custom materials, just like any other 3D meshes in your scene.</li>
+      <li>Dynamic text rendered in runtime, as such does not consume bandwidth to load geometry via network.</li>
+      <li>You can modify not only content, but also font, extrusion depth and bevels.</li>
+    </ul>
+
+    <h3>Cons</h3>
+
+    <ul>
+      <li>Takes some time to generate text during scene loading.</li>
+      <li>Requires loading of font asset (TTF or WOFF) and using additional <em>font converter</em> module.</li>
+      <li>Not all text parameters supported in Verge3D.</li>
+    </ul>
+
+
+    [anchor:static_text_geometry]
+
+    <h2>3. Static Text Geometry</h2>
+    <p>
+      Static text geometry is very similar to dynamic, except it uses baked text mesh which gets stored in exported glTF asset. You cannot edit such meshes in runtime, e.g change their content or font. However, you still able to assign materials or move that text similar to other geometry objects.
+    </p>
+
+    <p>To make your exported text use static geometry, specify *Bake Text* option in the export settings:</p>
+
+    <v3d-tabs>
+      <label>Blender</label>
+      <div>
+        <img src="files/text-rendering/static-text-export-settings-blender.jpg" class="centered" style="max-width: 835px;">
+      </div>
+      <label>3ds Max</label>
+      <div>
+        <img src="files/text-rendering/static-text-export-settings-max.jpg" class="centered" style="max-width: 792px;">
+      </div>
+      <label>Maya</label>
+      <div>
+        <img src="files/text-rendering/static-text-export-settings-maya.jpg" class="centered" style="max-width: 871px;">
+      </div>
+    </v3d-tabs>
+
+    <h3>Pros</h3>
+
+    <ul>
+      <li>Text looks exactly as you see it in the modelling suite.</li>
+      <li>Does not require additional font asset or spending time during scene loading to generate glyphs.</li>
+    </ul>
+
+    <h3>Cons</h3>
+
+    <ul>
+      <li>Long texts increase the size of the loaded glTF asset. As such, it might take a lot of time to load your scene, especially via slow connections.</li>
+      <li>You can't edit text in runtime.</li>
+    </ul>
+
+    [anchor:textures_with_text]
+
+    <h2>4. Textures with Text</h2>
+    <p>
+      You can render your text to a bitmap texture and then apply that texture to your object. Popular use cases for such technique include customized billboars, personalized cups/T-shirts, as well as jewelry engraving:
+    </p>
+
+    <img src="files/text-rendering/texture-text.jpg" style="max-width: 898px;">
+
+    <p>
+      Check out the <a href="manual/ru/puzzles/Materials.html#texture_from_text">texture from text</a> puzzle for more info on how to use textures with custom text.
+    </p>
+
+    <h3>Pros</h3>
+
+    <ul>
+      <li>Good rendering performance and moderate GPU memory consumption.</li>
+      <li>You can add various text effects by using node materials (for example, create bump mapped texture with text).</li>
+    </ul>
+
+    <h3>Cons</h3>
+
+    <ul>
+      <li>Might be slow if you change your text frequently (e.g each frame).</li>
+      <li>You can't use complex text alignments.</li>
+      <li>Text is 2D only, hence no extrusion/bevel effect.</li>
+      <li>Quality is somewhat reduced, especially for small images (less than 1K).</li>
+    </ul>
+
+
+    [anchor:canvas_textures]
+
+    <h2>5. Canvas Textures</h2>
+    <p>
+      This method is an extension to the previous technique which allows you to perform more sophisticated tasks by using JavaScript and <em>canvas</em> element. Check out the <a href="manual/ru/puzzles/HTML.html#create_canvas_elem">create canvas elem</a> puzzle for more info.
+    </p>
+
+    <h3>Pros</h3>
+
+    <ul>
+      <li>You can do any text customizations with JavaScript.</li>
+      <li>It's possible to draw shapes and images along with text.</li>
+      <li>Good rendering performance and moderate GPU memory consumption.</li>
+      <li>You can add various text effects by using node materials (for example, create bump mapped texture with text).</li>
+    </ul>
+
+    <h3>Cons</h3>
+
+    <ul>
+      <li>Requires good JavaScript programming skills.</li>
+      <li>Text is 2D only, hence no extrusion/bevel effect.</li>
+      <li>Quality is somewhat reduced, especially for small images (less than 1K).</li>
+    </ul>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

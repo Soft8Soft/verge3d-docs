@@ -101,11 +101,11 @@
     <h3>My app does not load when I open it in Chrome - yet it works when running from the App Manager or if opened in Firefox...</h3>
 
     <p>
-    Due to security policy imposed by browser vendors, web applications cannot access data loaded from another domain, including from a local file system (with Firefox being an exception here). Therefore, you should use the App Manager (which comes with a local server) for development, or publish your Verge3D apps on a web server (or upload to the Verge3D Network) to be able to run it.
+      Due to security policy imposed by browser vendors, web applications cannot access data loaded from another domain, including from a local file system (with Firefox being an exception here). Therefore, you should use the App Manager (which comes with a local server) for development, or publish your Verge3D apps on a web server (or upload to the Verge3D Network) to be able to run it.
     </p>
 
     <p>
-    If you need a desktop or mobile application instead, you can convert your Verge3D apps to those platforms using third-party software (such <a href="https://electronjs.org/" target="_blank">Electron</a> or <a href="https://cordova.apache.org/" target="_blank">Cordova</a>).
+      If you need a desktop or mobile application instead, you can convert your Verge3D apps to those platforms using the App Manager. See the following guides on how to create <a href="manual/ru/introduction/Creating-Desktop-Apps.html">desktop</a> or <a href="manual/ru/introduction/Creating-Mobile-Apps.html">mobile</a> apps with Verge3D.
     </p>
 
 
@@ -120,7 +120,7 @@
     <h3>Can I export my scene to a standalone all-in HTML file?</h3>
 
     <p>
-    Nope, there is no all-in HTML format offered by Verge3D. If you need a standalone executable you can try to convert it with <a href="https://electronjs.org/" target="_blank">Electron</a>.
+    Nope, there is no all-in HTML format offered by Verge3D. If you need a standalone executable you can try to convert it with <a href="manual/ru/introduction/Creating-Desktop-Apps.html">Electron</a>.
     </p>
 
     [anchor:cinema4d]
@@ -137,7 +137,7 @@
     Yes. Enable IE 11 compatibility module in the app creation panel.
     </p>
 
-    <img src="files/faq/ie11-compat-module.jpg" alt="Enabling Internet Explorer 11 support" class="centered" style="max-width: 358px">
+    <img src="files/faq/ie11-compat-module.jpg" alt="Enabling Internet Explorer 11 support" class="centered" style="max-width: 522px">
 
 
     [anchor:app_manager_standalone]
@@ -172,7 +172,9 @@
 
     <h3>My app is laggy and slow. How do I increase its performance?</h3>
 
-    <p>Check out this <a href="manual/ru/introduction/Optimizing-WebGL-performance.html">assets optimization guide</a>.</p>
+    <p>
+      Check out the <a href="manual/ru/introduction/Performance-Bottlenecks.html">Performance Bottlenecks</a> and <a href="manual/ru/introduction/Optimizing-WebGL-performance.html">Optimizing WebGL Performance</a> guides.
+    </p>
 
 
     [anchor:browser_console]
@@ -186,6 +188,9 @@
         <p>*F12* key on Windows/Linux or <strong>Option + ⌘ + J</strong> shortcut on macOS.</p>
         <p>In the Developer Tools window, select the *Console* tab.</p>
       </dd>
+
+      <img src="files/faq/chrome-console.jpg" alt="Opening developer console in Chrome" class="centered">
+
       <dt>Mozilla Firefox</dt>
       <dd>
         <p><strong>Menu &gt; Web Developer &gt; Browser Console</strong> or</p>
@@ -209,6 +214,90 @@
         <p>In the Developer Tools window, select the *Console* tab.</p>
       </dd>
     </dl>
+
+    [anchor:app_failed_to_load_on_remote]
+
+    <h3>App works fine in the App Manager but fails when uploaded to a remote server (such as Verge3D Network)</h3>
+
+    <p>
+      Possible reasons for that:
+    </p>
+
+    <ol>
+      <li>Your development system is case insensitive, while the remote system is case sensitive.</li>
+      <li>You incorrectly specified the absolute path to the HTML or glTF file.</li>
+    </ol>
+
+    <p>
+      Example for the first case: if you're using Windows or macOS (both are <em>case insensitive</em> file systems), you can accidentally rename your files when exporting. Since the most Linux servers (including Verge3D Network) use <em>case sensitive</em> file system this may cause the issue when the file uploaded to the server.
+    </p>
+
+    <p>
+      For example, you created the "MyConfigurator" app. By default, this app will include the following asset files in it:
+    </p>
+
+    <code class="language-html">
+MyConfigurator.blend (or MyConfigurator.max or MyConfigurator.mb)
+MyConfigurator.html
+MyConfigurator.js
+MyConfigurator.css
+MyConfigurator.gltf
+MyConfigurator.bin
+    </code>
+
+    <p>
+      Say you open your scene file in Blender/Max/Maya and export it as <strong>myconfigurator.gltf</strong>.
+    </p>
+
+    <p>
+      This way your app folder will look as follows (check the case of the two bottom lines):
+    </p>
+
+    <code class="language-html">
+MyConfigurator.blend (or MyConfigurator.max or MyConfigurator.mb)
+MyConfigurator.html
+MyConfigurator.js
+MyConfigurator.css
+myconfigurator.gltf
+myconfigurator.bin
+    </code>
+
+    <p>
+      If you open your app main JS file (MyConfigurator.js in our example), you can see that it tries to load <strong>MyConfigurator.gltf</strong>, not <strong>myconfigurator.gltf</strong>. This is perfectly fine on Windows/macOS, since these two names represent the same file! However, when you upload your app to the server, it will fail to load.
+    </p>
+
+    <p>
+      As such, always save and export your files with proper case. Alternatively, you can rename your file in the main JS file.
+    </p>
+
+    <p>
+      In the second situation, you might incorrectly specified <em>absolute</em> path to the loaded resource, such as:
+    </p>
+
+    <code class="language-html">
+      /applications/my_awesome_app/my_awesome_app.gltf
+    </code>
+
+    <p>or</p>
+
+    <code class="language-html">
+      http://localhost:8668/applications/my_awesome_app/my_awesome_app.gltf
+    </code>
+
+    <p>
+      In such case, specify <em>relative</em> path to fix the issue:
+    </p>
+
+    <code class="language-html">
+      my_awesome_app.gltf
+    </code>
+
+    <p>or</p>
+
+    <code class="language-html">
+      ./my_awesome_app.gltf
+    </code>
+
 
     [anchor:Modelling]
 
@@ -307,9 +396,64 @@
 
 
 
-    [anchor:Programming_Questions]
+    [anchor:programming_with_puzzles]
 
-    <h2>Programming Questions</h2>
+    <h2>Programming with Puzzles</h2>
+
+
+    [anchor:first_person_mobile]
+
+    <h3>First-Person camera controls not supported on mobile devices</h3>
+
+    <p>
+      They are supported actually! However, since you have no physical keyboard on mobile devices, you can't use the regular WASD keys to move your first-person character. Instead, you should make additional screen-aligned elements which will be your FPS character controls. Minimum set of such elements would be forward-backward (since rotation is performed by touching/dragging the screen).
+    </p>
+
+    <p>
+      In general, you have two ways to render FPS controls on a mobile device:
+    </p>
+
+    <ol>
+      <li>By using HTML elements positioned above the rendered 3D scene. See more about this technique <a href="manual/ru/introduction/HTML-based-user-interfaces.html">here</a>.</li>
+      <li>By using planes or similar 3D objects parented to the camera. For that, you just need to parent and align these in the modelling suit.</li>
+    </ol>
+
+    <p>
+      Once you have your screen controls created, use the <a href="manual/ru/puzzles/Objects.html#change_local_transform">change local transform</a> to move your camera. For example, to move forward/backward you can use the following logic:
+    </p>
+
+    <img src="files/faq/fps-move-puzzles.jpg" class="centered">
+
+    <p class="note">
+      To implement character strafing use the same puzzle but move along *X* axis instead of *Z*.
+    </p>
+
+
+    [anchor:hide_show_annotations]
+
+    <h3>Why hide/show puzzles do not work for annotations?</h3>
+
+    <p>
+      Since Verge3D moves and controls visibility of the annotation objects itself, hide/show puzzles won't work.
+    </p>
+
+    <p>
+      Instead, you should use the *display* CSS property for the annotation element referenced by its ID. For example, to hide/show annotation with the element ID *poi1*, you can use the following two puzzles:
+    </p>
+
+    <img src="files/faq/hide-show-annotations.jpg" class="centered" style="max-width: 628px">
+
+    <p>
+      Basically, setting *display* to *none* hides an annotation, while setting *display* back to *block* shows it.
+    </p>
+
+
+
+    [anchor:advanced_programming_questions]
+
+    <h2>Advanced Programming Questions</h2>
+
+    <p>Read below if you have some JavaScript coding skills.</p>
 
 
     [anchor:threejs_compatibility]

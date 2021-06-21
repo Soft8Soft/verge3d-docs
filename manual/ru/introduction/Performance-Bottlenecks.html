@@ -103,6 +103,9 @@
       <dt>HDR Rendering</dt>
       <dd>Whether HDR rendering switched <em>on</em> or <em>off</em>.</dd>
 
+      <dt>Viewport Resolution</dt>
+      <dd>Rendering viewport resolution.</dd>
+
       <dt>Pixel Ratio</dt>
       <dd>Current (used by renderer) and device (native) pixel ratios.</dd>
 
@@ -210,8 +213,13 @@
 
     <h3>Too Many Render Calls</h3>
 
-    <p>Hundreds of render calls significantly load your CPU. Hence you should keep that value as low as possible. In most situations, we recommend you to keep the amount of render calls below 100.</p>
+    <p>
+      Hundreds of render calls significantly load your CPU. Hence you should keep that value as low as possible. In most situations, we recommend you to keep the amount of render calls below 100.
+    </p>
 
+    <p>
+      If you render many static objects with the same material, you can significantly increase peformance by using the <a href="manual/ru/puzzles/Scenes.html#batch_geometry">batch geometry</a> puzzle.
+    </p>
 
 
     [anchor:scene_loading_time]
@@ -255,6 +263,12 @@
     <p>With some exceptions, each material on your scene requires compiling a pair of special programs called shaders: <em>vertex shader</em> and <em>fragment (aka pixel) shader</em>. A shader is a special program executed on your GPU to calculate various rendering entities like vertex positions, textures, lighting, reflections, refractions, etc.</p>
 
     <p>Shader compilation is a computation-intensitive task that is performed each time your app is being loaded. If you have a lot of different materials on your scene, shader compilation can significantly increase total loading time.</p>
+
+    <p>So the less shaders your application uses, the faster is loading. Also, shaders are cached by WebGL, so if your shader is used by multiple objects it is compiled only once.</p>
+
+    <p>Therefore for fast loading, it is important to use as few unique shaders as possible. One of possible way to achieve this is to enable the glTF compatibility flag, which a) simplifies the shaders a lot so that they are compiled and work faster and b) standardizes them to enable for more effective caching.</p>
+
+    <p>The obvious drawback of using glTF-compatible shaders is that they may be too simplistic for implementing desired graphics effects. So as it is always in real-time graphics, you need to balance between quality and performance.</p>
 
 
     [anchor:gpu_memory_usage]

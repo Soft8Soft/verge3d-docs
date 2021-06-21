@@ -68,7 +68,13 @@
         Never position or animate <em>dynamic</em> body directly. Instead, apply force/impulse/velocity to it using the <a href="manual/ru/puzzles/Physics.html#apply_vector">apply vector</a> puzzle or snap it to another object with the <a href="manual/ru/puzzles/Physics.html#snap_body">snap body</a> puzzle.
       </li>
       <li>
-        As performance optimization Verge3D disables <em>dynamic</em> bodies after a period of inactivity. You can activate these bodies again by applying some vector, colliding them with other bodies or using the *activate* feature of the <a href="manual/ru/puzzles/Physics.html#set_body_state">set body state</a> puzzle. If you need your body to be active all the time, apply *disable deactivation* state to it using the same puzzle.
+        As performance optimization, Verge3D disables <em>dynamic</em> bodies after a period of inactivity. You can activate these bodies again by applying some vector, colliding them with other bodies or using the *activate* feature of the <a href="manual/ru/puzzles/Physics.html#set_body_state">set body state</a> puzzle. If you need your body to be active all the time, apply *disable deactivation* state to it using the same puzzle.
+      </li>
+      <li>
+        Enable continuous collision detection (CCD) technique to improve simulation quality of quickly moving bodies, such as projectiles, pinball/billiard/bowling balls etc. To do that, set *ccd motion threshold* and *ccd swept sphere radius* parameters on that bodies. See <a href="manual/ru/puzzles/Physics.html#apply_body_param">here</a> for more info.
+      </li>
+      <li>
+        Keep in mind, that you can't <a href="manual/ru/puzzles/Physics.html#detect_collisions">detect collisions</a> between *static*/*static*, *static*/*kinematic*, or *kinematic*/*kinematic* objects. If using a *dynamic* body is not an option, consider assigning *ghost* physics to implement proximity detection of the moving non-dynamic object with *static*/*kinematic* environment.
       </li>
     </ul>
 
@@ -110,6 +116,15 @@
     <p>To move your character on mobile device, you'll need additional "controller" elements. You can create them using 3D objects parented to the camera or with <a href="manual/ru/introduction/HTML-based-user-interfaces.html">HTML elements</a>.</p>
 
     <p>To move your character in VR mode, you can use the <a href="manual/ru/puzzles/AR_VR.html#get_controller_prop">get controller property</a> and <a href="manual/ru/puzzles/System.html#get_gamepad_prop">get gamepad property</a> puzzles to obtain status of VR controller buttons/axes.</p>
+
+
+    [anchor:simulating_car_physics]
+
+    <h2>Simulating Car Physics</h2>
+
+    <p>
+      Realistic simulation of vehicle physics can be really useful in applications like interactive car customizers or racing games. Check out <em>Arcade Racing</em> game in Verge3D distribution to see how to implement this feature in your own app.
+    </p>
 
 
     <h2>Got Questions?</h2>
