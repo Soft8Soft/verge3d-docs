@@ -1,206 +1,130 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Verge3D for 3ds Max: Animation - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Find out how to create and control animation in Verge3D for 3ds Max. Whole-object, skeletal, blend shapes and procedural animation types explained."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Animation / 3ds Max</h1>
+<head>
+  <title>用于3ds Max的Verge3D：动画 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何在Verge3D for 3ds Max创建和控制动画。解释了整个对象、骨架、混合形状和过程动画类型。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-      This page contains the information about 3ds Max's animation types which can be used with Verge3D, as well as supported playback options and means to control the animation interactively.
-    </p>
+<body>
+  <article>
 
-    [contents]
+    <h1>动画 / 3ds Max</h1>
 
+    <p>本页包含可在3ds Max中与Verge3D一起使用的动画类型的信息，以及支持的播放选项，和交互控制动画的方法。</p>
 
-    [anchor:setting_up_max]
+    [contents] [anchor:setting_up_max]
 
-    <h2>Setting Up in 3ds Max</h2>
-
+    <h2>3ds Max中的设置</h2>
 
     [anchor:whole_object_animation]
 
-    <h3>Whole-Object Animation</h3>
+    <h3>全对象动画</h3>
 
-    <p>
-      Animation keyframes can be added in standard way in 3ds Max, by using the <strong>Set Keys</strong> button or pressing *K* on the keyboard.
-    </p>
-
-    <img src="files/animation-max/insert-keyframe.jpg" alt="Inserting keyframes in Verge3D for 3ds Max" class="centered" style="max-width: 600px">
-
-    <p>
-      For performance reasons, we recommend setting keys separately, only for channels which are required to be animated, e.g:
-    </p>
-
-    <img src="files/animation-max/insert-keyframe-separate.jpg" class="centered" style="max-width: 475px">
-
+    <p>动画关键帧可以在3ds Max以标准方式添加，使用 <strong>设置关键点</strong> 按钮或按键盘上的*K*。</p><img
+      src="files/animation-max/insert-keyframe.jpg" alt="在Verge3D for 3ds Max中插入关键帧" class="centered"
+      style="max-width: 600px">
+    <p>出于性能方面的考虑，我们建议单独设置关键点，只针对需要动画的通道，例如</p><img src="files/animation-max/insert-keyframe-separate.jpg"
+      class="centered" style="max-width: 475px">
 
     [anchor:skeletal_animation]
 
-    <h3>Skeletal Animation</h3>
+    <h3>骨骼动画</h3>
 
-    <p>
-      An object can be animated in Verge3D by using 3ds Max's skin modifier. Verge3D support maximum 4 weights per joint (4 most influential weights are selected, others are ignored).
+    <p>在Verge3D中，三维对象可以通过使用3ds Max的皮肤修改器来实现动画。Verge3D支持每个关节最大4个权重（将自动选择4个影响最大的权重，其他的忽略）。</p><img
+      src="files/animation-max/skeletal-animation.jpg" alt="在Verge3D for 3ds Max中为骨骼动画插入关键帧" class="centered"
+      style="max-width: 875px">
+    <p>可以通过在骨骼上设置转换键或利用辅助控制器（如IK解算器）来直接实现骨架动画。要间接地对骨骼进行动画，可在它们共同的父对象上启用*Skeleton Root*和*Custom Frame
+      Range*属性，并设置适当的*From*/*To*作为帧值。参见 <a href="manual/zh/max/Animation.html#verge3d_per_object_settings">以下</a> 的更多信息。
     </p>
-
-    <img src="files/animation-max/skeletal-animation.jpg" alt="Inserting keyframes for skeletal animation in Verge3D for 3ds Max" class="centered" style="max-width: 875px">
-
-    <p>
-      Skeletons can be animated directly by setting transformation keys on bones or by utilizing auxiliary controllers such as IK solvers. To animate bones indirectly, enable *Skeleton Root* and *Custom Frame Range* properties on their common parent object and set proper *From*/*To* as frame values. See <a href="manual/zh/max/Animation.html#verge3d_per_object_settings">below</a> for more info.
-    </p>
-
 
     [anchor:material_animation]
 
-    <h3>Material Animation</h3>
+    <h3>材质动画</h3>
 
-    <p>
-      To use keyframed material animation, simply set keys on any material controller.
-    </p>
-
-    <img src="files/animation-max/material-animation.jpg" alt="Animating materials in Verge3D for 3ds Max" class="centered" style="max-width: 763px">
-
+    <p>可在任意材质控制器上设置键的方式实现基于关键帧的材质动画。</p><img src="files/animation-max/material-animation.jpg"
+      alt="Verge3D for 3ds Max材质动画" class="centered" style="max-width: 763px">
 
     [anchor:procedural_animation]
 
-    <h3>Procedural Animation</h3>
+    <h3>程序动画</h3>
 
-    <p>
-      Instead of playing back some animation which was pre-made in 3ds Max, you can use Puzzles or JavaScript to modify coordinates or some other parameters with time. Particularly, the <a href="manual/zh/puzzles/Animation.html#animate_param">animate param</a> puzzle (based on the Tween.js library) is a convenient way to create your own animation on the fly.
-    </p>
-
-    <img src="files/puzzles/puzzles-animation-animate-param.jpg" alt="Using the animate param puzzle to create animation in Verge3D for 3ds Max" class="centered" style="max-width: 1000px">
-
+    <p>您还可以使用拼图或JavaScript来随着时间修改坐标或其他参数的方式制作动画，而不仅仅是回放在3ds Max中预制作好的动画。特别是（基于tween.js库）的 <a
+        href="manual/zh/puzzles/Animation.html#animate_param">animate param(动画参数)</a> 拼图，是一种自己的简单快捷地创作动画的方法。</p><img
+      src="files/puzzles/puzzles-animation-animate-param.jpg" alt="使用动画参数拼图在Verge3D for 3ds Max中创建动画" class="centered"
+      style="max-width: 1000px">
 
     [anchor:playback_options]
 
-    <h2>Playback Options</h2>
+    <h2>播放选项</h2>
 
     [anchor:verge3d_global_settings]
 
-    <h3>Verge3D Global Animation Settings</h3>
+    <h3>Verge3D全局动画设置</h3>
 
-    <p>
-      By using the *Animation* section of *Verge3D Export Settings* you can assign global animation parameters which will affect all animatable objects in your scene.
-    </p>
-
-    <img src="files/animation-max/global-animation-settings.jpg" alt="Verge3D for 3ds Max animation settings panel" class="centered" style="max-width: 930px">
-
+    <p>在*Verge3D Export Setting*的*Animation*部分，您可以指定全局动画参数，这将影响您的场景中所有可动画的对象。</p><img
+      src="files/animation-max/global-animation-settings.jpg" alt="Verge3D for 3ds Max的动画设置面板" class="centered"
+      style="max-width: 930px">
     <dl>
-      <dt>
-        Export Animations
-      </dt>
-      <dd>
-        export scene animations to be used in Verge3D.
-      </dd>
-      <dt>
-        Export Within Playback Range
-      </dt>
-      <dd>
-        by default Verge3D exporter honors per-object animation keyframe ranges. Enabling this option will force exporter to honor global playback range.
-      </dd>
-      <dt>
-        Keyframes Start with 0
-      </dt>
-      <dd>
-        edit exported animation keyframes so they always start with frame 0.
-      </dd>
+      <dt>导出动画(Export Animations)</dt>
+      <dd>导出场景动画以用于Verge3D。</dd>
+      <dt>在播放范围内导出(Export Within Playback Range)</dt>
+      <dd>默认情况下，Verge3D导出器会遵循每个对象的动画关键帧范围设置。启用该选项将强制导出器遵循全局播放范围设置。</dd>
+      <dt>关键帧从0帧开始(Keyframes Start with 0)</dt>
+      <dd>编辑导出的动画关键帧，使它们总是从第0帧开始。</dd>
     </dl>
 
     [anchor:verge3d_per_object_settings]
 
-    <h3>Verge3D Per-Object Animation Settings</h3>
+    <h3>Verge3D逐对象动画设置</h3>
 
-    <p>
-      Each object in 3ds Max is assigned with Verge3D settings, including the settings for animation playback.
-    </p>
-
-    <img src="files/animation-max/object-animation-settings.jpg" alt="Verge3D for 3ds Max animation settings panel" class="centered" style="max-width: 316px">
-
-    <p>
-      Animation settings:
-    </p>
+    <p>3ds Max中的每个对象都分配了Verge3D设置属性，其中包括了动画回放的设置。</p><img src="files/animation-max/object-animation-settings.jpg"
+      alt="Verge3D for 3ds Max的动画设置面板" class="centered" style="max-width: 316px">
+    <p>动画设置：</p>
 
     <dl>
-      <dt>
-        Auto Start
-      </dt>
-      <dd>
-        whether this object's animation will start after the scene is loaded.
+      <dt>自动开始(Auto Start)</dt>
+      <dd>在场景加载后是否自动启动该对象的动画。</dd>
+      <dt>循环模式(Loop Mode)</dt>
+      <dd>播放模式：*Repeat* - 从头到尾并一直重复播放，*once* - 播放一次并停止，*pingpong* - 从头到尾再反反向播放，循环往复。</dd>
+      <dt>Repeat Infinitely</dt>
+      <dd><b>无限重复</b>，是否持续重复播放此对象的动画。仅对 *repeat* 和 *pingpong* 模式有效。</dd>
+      <dt>Repeat Count</dt>
+      <dd><b>计数重复</b>，动画将播放多少次。如果禁用了 *repeat infinitely*，则仅对 *repeat* 和 *pingpong* 模式有效。</dd>
+      <dt>Offset</dt>
+      <dd><b>偏移</b>，动画开始前将跳过多少帧。</dd>
+      <dt>Custom Frame Range</dt>
+      <dd><b>自定义帧范围</b>，启用并指定*from*/*to*值以覆盖对象的关键帧范围或全局动画时间线。激活此属性将强制选中对象被动画化，即使它没有任何关键帧。这对烘焙间接动画很有用，例如影响骨骼运动的IK手柄/效果器。
       </dd>
-      <dt>
-        Loop Mode
-      </dt>
-      <dd>
-        playback mode: *Repeat* - plays from the start to the end and repeats, *Once* - plays one time and stops, *Ping Pong* - plays from the start to the end and then in reverse.
-      </dd>
-      <dt>
-        Repeat Infinitely
-      </dt>
-      <dd>
-        whether this object's animation will be played all over again. Valid only for *Repeat* and *Ping Pong* modes.
-      </dd>
-      <dt>
-        Repeat Count
-      </dt>
-      <dd>
-        how many times the animation will be played. Valid only for *Repeat* and *Ping Pong* modes if *Repeat Infinitely* is disabled.
-      </dd>
-      <dt>
-        Offset
-      </dt>
-      <dd>
-        how many frames will be skipped before the animation starts.
-      </dd>
-      <dt>
-        Custom Frame Range
-      </dt>
-      <dd>
-        enable and specify *From*/*To* values to override object's keyframe ranges or global animation timeline. Activating this property will force an object to be animated even if it does not have any keyframes. This is useful to bake indirect animation such as IK handles/effectors affecting bones movements.
-      </dd>
-      <dt>
-        Skeleton Root
-      </dt>
-      <dd>
-        consider object a skeleton root, e.g make all child bones inherit animation parameters from that object.
-      </dd>
+      <dt>根骨骼(Skeleton Root)</dt>
+      <dd>将对象视为根骨骼，例如，使所有的子骨骼都继承该对象的动画参数。</dd>
     </dl>
-
 
     [anchor:frame_rate]
 
-    <h3>Frame Rate</h3>
+    <h3>帧速率</h3>
 
-    <p>
-      The frame rate value (default - NTSC or 29.97 fps) which affect the playback speed can be changed using the *Time Configuration* panel.
-    </p>
-
-    <img src="files/animation-max/frame-rate.jpg" alt="Frame rate selector in Verge3D for 3ds Max" class="centered" style="max-width: 844px">
-
+    <p>影响播放速度的帧率值（默认为NTSC或29.97 fps）可以在<b>时间配置</b>选项面板使用改变。</p><img src="files/animation-max/frame-rate.jpg"
+      alt="用于3ds Max的Verge3D帧速率选择器" class="centered" style="max-width: 844px">
 
     [anchor:animation_control_with_puzzles]
 
-    <h2>Animation Control with Puzzles</h2>
+    <h2>使用拼图控制动画</h2>
 
-    <p>
-      You can use <a href="manual/zh/puzzles/Animation.html">animation puzzles</a> for playing back a pre-made animation (click on the link for more details).
-    </p>
+    <p>您可以使用 <a href="manual/zh/puzzles/Animation.html">动画拼图</a> 来回放一个预先制作好的动画（点击链接了解详情）。</p><img
+      src="files/puzzles/puzzles-animation.jpg" alt="Verge3D动画拼图" class="centered" style="max-width: 1000px">
+    <p>动画也可以用其他可视化脚本块来实现。请参阅 <a href="manual/zh/puzzles/Camera.html">摄影机</a> 和 <a
+        href="manual/zh/puzzles/Time.html">时间</a> 拼图。</p>
 
-    <img src="files/puzzles/puzzles-animation.jpg" alt="Animation puzzles of Verge3D" class="centered" style="max-width: 1000px">
+    <h2>遇到问题？</h2>
 
-    <p>
-      Animation can also be implemented with other visual scripting blocks - see <a href="manual/zh/puzzles/Camera.html">Camera</a> and <a href="manual/zh/puzzles/Time.html">Time</a> puzzles.
-    </p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-    <h2>Got Questions?</h2>
+  </article>
+</body>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
-  </article></body>
 </html>

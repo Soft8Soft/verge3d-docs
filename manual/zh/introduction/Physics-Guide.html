@@ -1,136 +1,126 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Verge3D Physics Guide - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="How to use Verge3D physics engine to simulate dynamics and collisions on your scene."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Verge3D Physics Guide</h1>
+<head>
+  <title>Verge3D物理系统指南 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="如何使用Verge3D物理引擎来模拟场景中的动力学和碰撞。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>Verge3D comes with a physics engine that can make you 3D objects behave like in the real world. This feature is especially useful for creating 3D games and AR/VR applications.</p>
+<body>
+  <article>
 
-    <iframe class="video-480p" src="https://www.youtube.com/embed/RZnFcIXo0Ws" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <h1>Verge3D物理系统指南</h1>
 
+    <p>Verge3D附带了一个物理引擎，可以让您模拟像真实世界一样的物理特性。这个功能对于创建3D游戏和AR/VR应用特别有用。</p><iframe class="video-480p"
+      src="https://www.youtube.com/embed/RZnFcIXo0Ws" frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <p></p>
 
-    <p>As physics backend we use the open source physics engine Bullet, which web version is called <a href="https://github.com/kripken/ammo.js" target="_blank">Ammo.js</a>.</p>
-
-    <h2>Contents</h2>
-
-    [contents]
-
-
-    [anchor:getting_started_with_physics]
-
-    <h2>Getting Started With Physics</h2>
-
-    <p>Before you can use physics, you must add the physics module to your application. You can do this at the app creation stage using the corresponding option in the App Manager.</p>
-
-    <img src="files/physics-guide/app-manager-physics.jpg" class="centered" style="max-width: 574px">
-
-    <p class="note">
-      By default, Verge3D uses the so-called WebAssembly version of the physics engine. This version gives significant performance boost over regular version but does not work for Internet Explorer 11 and older Safari browsers (version 10 or below). If you need your app to be supported in these browsers, enable both *Physics* and *IE 11* modules in the app creation dialog.
+    <p>我们使用开源的物理引擎Bullet作为物理系统后端,它的web版本被称为 <a href="https://github.com/kripken/ammo.js" target="_blank">ammo.js</a>。
     </p>
 
-    <p>Alternatively, you can add the physics module to an existing app. To do this, copy the files *ammo.wasm.js* and *ammo.wasm.wasm* from the *verge3d/build* folder to your app folder, and add the line</p>
+    <h2>内容</h2>
+
+    [contents] [anchor:getting_started_with_physics]
+
+    <h2>物理系统入门</h2>
+
+    <p>在使用物理系统之前，必须将物理模块添加到应用中。您可以在应用管理器中创建新应用时启用该模块。</p><img src="files/physics-guide/app-manager-physics.jpg"
+      class="centered" style="max-width: 574px">
+    <p class="note">默认情况下，Verge3D使用物理引擎的所谓WebAssembly版本。与常规版本相比，此版本具有显著的性能提升，但不适用于Internet Explorer
+      11和更早的Safari浏览器（版本10或更低版本）。如果您需要您的应用在这些浏览器中得到支持，请在应用创建对话框中同时启用*Physics*和*IE11*模块。</p>
+
+    <p>或者，您可以将物理模块添加到现有的应用中。为此，将文件*ammo.wasm.js*和*ammo.wasm.wasm*从*verge3d/build*文件夹复制到应用文件夹，并添加这行代码</p>
 
     <code>
-    &lt;script src="ammo.wasm.js"&gt;&lt;/script&gt;
+      &lt;script src=&quot;ammo.wasm.js&quot;&gt;&lt;/script&gt;
     </code>
 
-    <p>to your application <strong>.html</strong> file just above the *v3d.js* script statement.</p>
-
+    <p>到应用的 <strong>.html</strong> 中*v3d.js* 脚本的上方。</p>
 
     [anchor:using_puzzles]
 
-    <h2>Using Puzzles</h2>
+    <h2>使用拼图</h2>
 
-    <p>Familiarize yourself with the <a href="manual/zh/puzzles/Physics.html">physics puzzles</a>.</p>
-
+    <p>请在 <a href="manual/zh/puzzles/Physics.html">物理拼图</a>章节中熟悉这些拼图。</p>
 
     [anchor:general_recommendations]
 
-    <h2>General Recommendations</h2>
+    <h2>一般性建议</h2>
 
     <ul>
-      <li>
-        Be sure to apply scale in your modeling suite as the physics engine just ignores the scale of objects.
-      </li>
-      <li>
-        For best results, the origin of your object should coincide with the center of mass. To make it so in Blender 2.8, use the operator <strong>Object > Set Origin > Origin to Center of Mass (Volume)</strong>.
-      </li>
-      <li>
-        Never position or animate <em>dynamic</em> body directly. Instead, apply force/impulse/velocity to it using the <a href="manual/zh/puzzles/Physics.html#apply_vector">apply vector</a> puzzle or snap it to another object with the <a href="manual/zh/puzzles/Physics.html#snap_body">snap body</a> puzzle.
-      </li>
-      <li>
-        As performance optimization, Verge3D disables <em>dynamic</em> bodies after a period of inactivity. You can activate these bodies again by applying some vector, colliding them with other bodies or using the *activate* feature of the <a href="manual/zh/puzzles/Physics.html#set_body_state">set body state</a> puzzle. If you need your body to be active all the time, apply *disable deactivation* state to it using the same puzzle.
-      </li>
-      <li>
-        Enable continuous collision detection (CCD) technique to improve simulation quality of quickly moving bodies, such as projectiles, pinball/billiard/bowling balls etc. To do that, set *ccd motion threshold* and *ccd swept sphere radius* parameters on that bodies. See <a href="manual/zh/puzzles/Physics.html#apply_body_param">here</a> for more info.
-      </li>
-      <li>
-        Keep in mind, that you can't <a href="manual/zh/puzzles/Physics.html#detect_collisions">detect collisions</a> between *static*/*static*, *static*/*kinematic*, or *kinematic*/*kinematic* objects. If using a *dynamic* body is not an option, consider assigning *ghost* physics to implement proximity detection of the moving non-dynamic object with *static*/*kinematic* environment.
-      </li>
+      <li>一定要在建模套件中应用比例，因为物理引擎会忽略对象的比例。</li>
+      <li>为了得到最好的结果，对象的原点应该与质心重合。在Blender2.8中，请使用如下方式 <strong>物体 &gt; 设置原点 &gt; 原点到质心（体积）</strong>设置。</li>
+      <li>切勿直接对 <em>动态</em> 体直接进行位置和动画设置。作为替代，使用 <a href="manual/zh/puzzles/Physics.html#apply_vector">apply
+          vector(应用向量)</a> 执行力/冲量/向量操作，使用 <a href="manual/zh/puzzles/Physics.html#snap_body">snap body(绑定体)</a>
+        拼图执行绑定到另一个对象的操作。</li>
+      <li>出于性能优化考虑，Verge3D会禁用一段时间后不活动的 <em>动态</em> 实体。您可以通过应用一些矢量将它们与其他物体碰撞，或使用 <a
+          href="manual/zh/puzzles/Physics.html#set_body_state">set body state(设置体状态)</a>
+        拼图来重新激活它们。如果您需要这些体始终处于活动状态，使用此拼图为它们设置 *disable deactivation* 状态。</li>
+      <li>启用连续碰撞检测（CCD）技术，以提高快速运动物体的模拟质量，如射弹、弹球、台球、保龄球等。要做到这一点，请在该物体上设置 *CCD运动阈值* 和 *CCD扫描球体半径* 参数。参见 <a
+          href="manual/zh/puzzles/Physics.html#apply_body_param">这里</a> 的更多信息。</li>
+      <li>请记住，你不能在 *static*/*static*、*static*/*kinematic*或*kinematic*/*kinematic*物体之间 <a
+          href="manual/zh/puzzles/Physics.html#detect_collisions">检测碰撞</a> 。如果不能使用*dynamic* 实体，可以考虑指定 *ghost*
+        物理学来实现移动的非动态物体与 *static*/*kinematic* 环境的近似检测。</li>
     </ul>
-
 
     [anchor:creating_first_person_character]
 
-    <h2>Creating First-Person Character</h2>
+    <h2>创造第一人称角色</h2>
 
-    <p>First-person character mode can be convenient not only for the shooter and RPG games but for any applications which require investigating large environments. It can be architecture visualizations, e-learning apps and interactive guides, museums and other cultural facilities, and even 3D virtual marketplaces. Besides, you can integrate the first-person character in your VR application making it much more realistic and fun!</p>
+    <p>
+      第一人称角色模式不仅适用于射击游戏和RPG游戏，也适用于任何需要调查大型环境的应用。例如，建筑可视化应用，电子学习软件，交互式参观指南，虚拟博物馆，文化设施模拟，甚至是3D虚拟卖场等。此外，您可以在VR应用中融入第一人称角色，使它更加真实和有趣！
+    </p>
 
-    <p>There are many possible ways to implement FPS mode, but for non-expert Verge3D users we recommend you to follow this short guide to achieve results quicker.</p>
+    <p>实现FPS模式有很多可能的方法，但对于Verge3D初级用户，我们建议您遵循这篇简短的指南，以更快地实现效果。</p>
 
-    <p>Create a capsule-shaped object which represents your character. Tune its height and width to look more realistic. Make sure you set the center of your object correctly.</p>
+    <p>创建一个胶囊形状对象代表角色。调整它的高度和宽度，使其看起来更逼真。确保正确设置对象的中心。</p><img src="files/physics-guide/capsule-shape.jpg"
+      class="centered" style="max-width: 639px">
+    <p>在拼图中，为角色指定*dynamic* *capsule*的body，并禁用其旋转自由度。通过这样，允许角色移动，但不允许旋转。同时，在胶囊上应用*disable deactivation*。</p><img
+      src="files/physics-guide/create-character-puzzles.jpg" style="max-width: 725px">
+    <p>由于角色需要在地板(+墙壁）或地面上行走，使用相应的*create physics body*拼图来创建这样的体。</p>
 
-    <img src="files/physics-guide/capsule-shape.jpg" class="centered" style="max-width: 639px">
+    <p>
+      下一步是配置摄影机。摄影机不会分配任何物理特征，因为我们只需要它作为&ldquo;眼睛&rdquo;即可。设置*First-Person*控件，但不要分配任何碰撞材质（我们将使用物理引擎提供的全功能碰撞检测，而不是基本的地板/墙壁模拟）。此外，取消选中*Allow
+      Panning*，并将*Movement Speed*值设置为零：</p><img src="files/physics-guide/firstperson-camera-settings.jpg"
+      class="centered" style="max-width: 320px">
+    <p>
+      现在需要把摄影机附加在角色的&ldquo;头&rdquo;上了。不需要为头部创建模型，在场景中添加一个名为&ldquo;Head&rdquo;的空对象，并将其设置为胶囊模型的上部的子物体。这样&ldquo;Head&rdquo;就会随着角色移动。
+    </p>
 
-    <p>In puzzles, assign *dynamic* *capsule*-shaped body to the character and disable its rotational degrees of freedom. This way, you allow your character to move but not rotate. Also, apply *disable deactivation* to your capsule.</p>
+    <p>通过使用附加的&ldquo;Head&rdquo;对象，您可以在运行时将摄影机与角色连接或分离。若要连接摄影机，请使用 <a
+        href="manual/zh/puzzles/Objects.html#parent">parent</a> 和 <a
+        href="manual/zh/puzzles/Objects.html#snap_to_object">snap to object</a> 拼图：</p><img
+      src="files/physics-guide/snap-camera-puzzles.jpg" style="max-width: 560px">
+    <p class="note">若要分离摄影机，请在使用*parent*拼图时将*to object*字段留空。</p>
 
-    <img src="files/physics-guide/create-character-puzzles.jpg" style="max-width: 725px">
+    <p>角色创建好了！现在是时候让它在场景中移动了。在最基本的情况下，我们需要在用户按下向上箭头键时向前移动。为此，将*linear velocity*矢量应用于角色，该矢量是从摄影机水平方向计算的。要使模拟稳健，应始终使用 <a
+        href="manual/zh/puzzles/Physics.html#on_simulation_tick">on simulation link</a> 拼图。</p><img
+      src="files/physics-guide/moving-character-puzzles.jpg" style="max-width: 981px">
+    <p>要在移动设备上移动您的角色，您需要额外的&ldquo;controller&rdquo;元素。您可以使用摄影机父级的3D对象创建它们，也可以使用 <a
+        href="manual/zh/introduction/HTML-based-user-interfaces.html">HTML元素</a>.</p>
 
-    <p>Since character needs a floor (+walls) or ground to walk on, create such bodies using the corresponding *create physics body* puzzles.</p>
-
-    <p>The next step is configuring the camera. The camera won't have any physics assigned since we only need it to be our "eyes." Set the *First-Person* controls to it but don't assign any collision material (we'll be using full-featured collision detection provided by the physics engine, not basic floor/walls simulation). Also, uncheck the *Allow Panning* and set *Movement Speed* value to zero:</p>
-
-    <img src="files/physics-guide/firstperson-camera-settings.jpg" class="centered" style="max-width: 320px">
-
-    <p>Now we need to attach your camera to the character's "head." There is no need to create a model for the head, add an empty object called "Head" to the scene, and parent it to the upper part of the capsule model. This way the "head" moves with the character.</p>
-
-    <p>By using the additional "Head" object you can attach/detach the camera to/from the character in runtime. To attach the camera use the <a href="manual/zh/puzzles/Objects.html#parent">parent</a> and <a href="manual/zh/puzzles/Objects.html#snap_to_object">snap to object</a> puzzles:</p>
-
-    <img src="files/physics-guide/snap-camera-puzzles.jpg" style="max-width: 560px">
-
-    <p class="note">To detach the camera, use the *parent* puzzle with empty *to object* field.</p>
-
-    <p>Character created! Now it's time to make it move in your scene. In the most basic case, we need to move forward when the user press the up-arrow key. To do so, apply *linear velocity* vector to your character, which is calculated from the horizontal camera direction. To make your simulations robust you should always apply vectors using the <a href="manual/zh/puzzles/Physics.html#on_simulation_tick">on simulation tick</a> puzzle.</p>
-
-    <img src="files/physics-guide/moving-character-puzzles.jpg" style="max-width: 981px">
-
-    <p>To move your character on mobile device, you'll need additional "controller" elements. You can create them using 3D objects parented to the camera or with <a href="manual/zh/introduction/HTML-based-user-interfaces.html">HTML elements</a>.</p>
-
-    <p>To move your character in VR mode, you can use the <a href="manual/zh/puzzles/AR_VR.html#get_controller_prop">get controller property</a> and <a href="manual/zh/puzzles/System.html#get_gamepad_prop">get gamepad property</a> puzzles to obtain status of VR controller buttons/axes.</p>
-
+    <p>若要在VR模式下移动角色，可以使用 <a href="manual/zh/puzzles/AR_VR.html#get_controller_prop">get controller property(获取控制器属性)</a>
+      和 <a href="manual/zh/puzzles/System.html#get_gamepad_prop">get gamepad property(获取游戏手柄属性)</a> 拼图来获得VR控制器按钮与轴的状态。
+    </p>
 
     [anchor:simulating_car_physics]
 
-    <h2>Simulating Car Physics</h2>
+    <h2>模拟车辆物理</h2>
 
-    <p>
-      Realistic simulation of vehicle physics can be really useful in applications like interactive car customizers or racing games. Check out <em>Arcade Racing</em> game in Verge3D distribution to see how to implement this feature in your own app.
-    </p>
+    <p>逼真的车辆物理模拟在交互式汽车定制器或赛车游戏等应用中很实用。查看Verge3D的官方案例 <em>Arcade Racing</em> 游戏，看一看如何在您的应用中也实现这一功能。</p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article></body>
+  </article>
+</body>
+
 </html>

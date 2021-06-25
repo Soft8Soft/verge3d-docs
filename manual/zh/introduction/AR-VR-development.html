@@ -1,128 +1,111 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>AR/VR Development - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Learn how you can enable Augmented Reality (AR) and Virtual Reality (VR) experience for your Verge3D applications."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>AR/VR Development</h1>
+<head>
+  <title>AR/VR开发 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何为你的Verge3D应用序用增强现实（AR）和虚拟现实（VR）特性。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>Verge3D allows for creating web-based Augmented Reality (AR) and Virtual Reality (VR) experiences running on top of the browser technology called *WebXR* (eXtended Reality on the Web). In addition to that you can use an older version of this technology called *WebVR* (enabled via *Legacy VR* compatibilty option, see below).</p>
+<body>
+  <article>
 
-    <iframe class="video-480p" src="https://www.youtube.com/embed/92AMh4vV4zw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <h1>AR/VR开发</h1>
 
-    <h2>Contents</h2>
+    <p>Verge3D可在基于 WebXR （网页扩展现实，一种正在开发中的浏览器技术）基础上，运行基于网页的增强现实（AR）和虚拟现实（VR）体验。此外，您也可以使用此技术的早期版本 WebVR（需在应用管理器中启用Legacy
+      VR 兼容选项，请参见下文）。</p><iframe class="video-480p" src="https://www.youtube.com/embed/92AMh4vV4zw" frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <h2>内容</h2>
 
-    [contents]
+    [contents] [anchor:virtual_reality]
 
-
-    [anchor:virtual_reality]
-
-    <h2>Virtual Reality</h2>
-
+    <h2>虚拟现实</h2>
 
     [anchor:Setting_up_VR]
 
-    <h3>Setting Up</h3>
+    <h3>启用VR设置</h3>
 
-    <p>We recommend to enable the *Legacy VR* option in app creation settings in the App Manager in order to support a wider range of browsers (such as Mozilla Firefox) and devices.</p>
+    <p>我们建议您在应用管理器中创建应用时启用 Legacy VR 选项，以支持更广泛的浏览器（例如Mozilla Firefox）和设备。</p><img
+      src="files/ar-vr-development/legacy-vr-app-creation-settings.jpg" class="centered" style="max-width: 522px">
+    <p>在Android和iOS的任何移动浏览器中，Cardboard设备均可开箱即用。</p>
 
-    <img src="files/ar-vr-development/legacy-vr-app-creation-settings.jpg" class="centered" style="max-width: 522px">
+    <p>Google Daydream可在Android手机上的Chrome稳定版浏览器中使用，HTC Vive和Oculus设备应可运行于Chrome和Firefox浏览器。</p>
 
-    <p>Cardboard devices should work out of the box in any mobile browser, both on Android and iOS.</p>
-
-    <p>Google Daydream works in stable Chrome browser on Android phones while HTC and Oculus devices should work in both Chrome and Firefox browsers.</p>
-
-    <p class="note">
-      WebXR requires a secure context. Verge3D apps must be served over HTTPS/SSL, or from the localhost URL.
-    </p>
-
+    <p class="note">WebXR需要启用安全上下文。Verge3D应用必须基于HTTPS/SSL或本地URL运行。</p>
 
     [anchor:Creating_VR_Apps]
 
-    <h3>Creating VR Apps</h3>
+    <h3>创建VR应用</h3>
 
-    <p>The VR mode can be set up for any Verge3D app using <a href="manual/zh/puzzles/AR_VR.html#enter_vr_mode">enter VR mode</a> puzzle.</p>
-
+    <p>VR模式可以通过 <a href="manual/zh/puzzles/AR_VR.html#enter_vr_mode">enter VR mode(进入VR模式)</a> 拼图在任何Verge3D应用中启用。</p>
     <img src="files/ar-vr-development/minimal-vr-puzzles.jpg" class="centered" style="max-width: 686px">
-
-    <p>Interaction with 3D objects is performed by using the gaze-based reticle pointer automatically provided for VR devices <i>without controllers</i> (such as cardboards).</p>
-
-    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg" class="centered" style="max-width: 1000px">
-
-    <p>For VR devices <i>with controllers</i>, interaction is performed by the virtual ray casted from the controllers.</p>
-
-    <img src="files/ar-vr-development/google-daydream-vr-controller.jpg" class="centered" style="max-width: 1000px">
-
-    <p>You can use the standard <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered</a> or <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a> puzzles to capture user events as well as VR-specific <a href="manual/zh/puzzles/AR_VR.html#session_event">on session event</a>.</p>
-
-
+    <p>对于 <i>没有控制器</i> 的VR设备（例如Cardboard），可以使用基于凝视的交互控制方式操作（十字光线指示器）。</p><img
+      src="files/ar-vr-development/gaze-based-reticle-pointer.jpg" class="centered" style="max-width: 1000px">
+    <p>对于 <i>带有控制器</i>, 的设备，交互是通过从控制器投射的虚拟射线来执行的。</p><img
+      src="files/ar-vr-development/google-daydream-vr-controller.jpg" class="centered" style="max-width: 1000px">
+    <p>您可以使用标准的 <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered(当悬停时)</a> 或 <a
+        href="manual/zh/puzzles/Events.html#when_clicked">when clicked(当点击时)</a> 拼图来捕捉用户事件，以及VR特定的 <a
+        href="manual/zh/puzzles/AR_VR.html#session_event">活动会话</a> 。</p>
 
     [anchor:augmented_reality]
 
-    <h2>Augmented Reality</h2>
-
+    <h2>增强现实</h2>
 
     [anchor:Setting_up_AR]
 
-    <h3>Setting Up</h3>
+    <h3>启用VR设置</h3>
 
-    <p>You can run your Verge3D-based augmented reality applications on mobile devices with Anroid or iOS/iPadOS operating systems.</p>
+    <p>您现在可以在Anroid或iOS/iPadOS系统的移动设备上运行基于verge3D的增强现实应用了。</p>
 
-    <p class="note">
-      WebXR requires a secure context. Verge3D apps must be served over HTTPS/SSL, or from the localhost URL.
-    </p>
+    <p class="note">WebXR需要启用安全上下文。Verge3D应用必须基于HTTPS/SSL或本地URL运行。</p>
 
     <h4>Android</h4>
 
-    <p>To enable augmented reality, you need an Android device which supports <a href="https://developers.google.com/ar/discover/supported-devices" target="_blank">ARCore technology</a> and latest Google Chrome browser. You also need to install Google Play Services for AR. The installation of this package is prompted automatically upon entering AR mode for the first time, if not pre-installed.</p>
-
-    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" class="centered" style="max-width: 720px">
-
+    <p>要在你的应用中启用增强现实功能，你需要一个能够运行 <a href="https://developers.google.com/ar/discover/supported-devices"
+        target="_blank">ARCore technology</a> 的Android设备，并安装了最新的Google Chrome浏览器。您同时也必须安装好Google Play Services for
+      AR（面向AR的Google Play服务）。当您第一次进入AR模式时，如果未预装该服务，应用将自动提示安装此软件包。中国大陆区域用户如果无法开启该功能，请
+      [link:https://verge3d.funjoy.tech/r/arcore 点击这里] 了解手动安装方案。</p><img
+      src="files/ar-vr-development/google-play-services-for-ar.jpg" class="centered" style="max-width: 720px">
     <h4>iOS/iPadOS</h4>
 
-    <p>Mozilla's *WebXR Viewer* is a Firefox-based browser application which supports the AR technology on Apple devices (starting from iPhone 6s). Simply <a href="https://apps.apple.com/us/app/webxr-viewer/id1295998056" target="_blank">install</a> it from the App Store.</p>
-
+    <p>Mozilla的 WebXR Viewer 是基于火狐浏览器的程序，它支持在苹果（iPhone 6s之后的）设备上使用AR功能。您可以从应用商店 <a
+        href="https://apps.apple.com/us/app/webxr-viewer/id1295998056" target="_blank">下载安装</a> 该应用。</p>
 
     [anchor:Creating_AR_Apps]
 
-    <h3>Creating AR Apps</h3>
+    <h3>创建AR应用</h3>
 
-    <p>The AR mode can be set up for any Verge3D app using the <a href="manual/zh/puzzles/AR_VR.html#enter_ar_mode">enter AR mode</a> puzzle.</p>
-
+    <p>AR模式可以通过 <a href="manual/zh/puzzles/AR_VR.html#enter_ar_mode">enter AR mode(进入AR模式)</a> 拼图在任何Verge3D应用中启用。</p>
     <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" class="centered" style="max-width: 645px">
-
-    <p>Upon entering AR mode you will be able to position your 3D content in the "real" coordinate system, which is aligned with your mobile device. In addition to that, you can detect horizontal surfaces (tables, shelves, floor etc) by using the <a href="manual/zh/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR</a> puzzle.</p>
-
-    <!-- enabling transparency for AR is a hack for WebXR Viewer -->
-
-    <p>Also, to see the the real environment through your 3D canvas, you should enable the *transparent background* option in the <a href="manual/zh/puzzles/Initialization.html#configure_application">configure application</a> puzzle.</p>
-
-    <img src="files/ar-vr-development/transparent-background-puzzle.jpg">
-
+    <p>进入AR模式后，您将能够在与移动设备对齐的&ldquo;真实&rdquo;坐标系中定位3D内容。除此之外，您还可以使用 <a
+        href="manual/zh/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR(检测AR水平表面)</a> 拼图来检测水平表面（桌子、书架、地板等）。
+    </p><!-- enabling transparency for AR is a hack for WebXR Viewer -->
+    <p>此外，要通过3D画布查看真实环境，您应该在 <a href="manual/zh/puzzles/Initialization.html#configure_application">configure
+        application(配置应用)</a> 拼图中启用 *transparent background（透明背景）* 选项。</p><img
+      src="files/ar-vr-development/transparent-background-puzzle.jpg">
 
     [anchor:chrome_debugging]
 
-    <h2>Chrome Debugging</h2>
+    <h2>在Chrome中调试</h2>
 
-    <p>For faster iterations during development, you can use Chrome's <a href="manual/zh/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port forwarding</a> feature to run your AR or VR app in mobile browser. This will save you from re-uploading it to a remote web server each time.</p>
-
+    <p>为了在开发过程中加快迭代速度，您可以使用 <a href="manual/zh/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port
+        forwarding(端口转发)</a> 功能在移动浏览器中运行AR或VR应用，以避免每次都重新上传内容到远程Web服务器。</p>
 
     [anchor:whats_next]
 
-    <h2>What's Next</h2>
+    <h2>向前一步</h2>
 
-    <p>To find out how to script your AR/VR app with Puzzles, read the <a href="manual/zh/puzzles/AR_VR.html">following</a> section. Also, check out the <a href="manual/zh/introduction/Physics-Guide.html">Physics Guide</a > if you're going to simulate a realistic virtual environment with colliding objects and/or character.</p>
+    <p>请查看 <a href="manual/zh/puzzles/AR_VR.html">以下</a> 章节，了解如何使用拼图为应用编写脚本。另外，如果你想要模拟对象与虚拟环境的真实碰撞，请查看 <a
+        href="manual/zh/introduction/Physics-Guide.html">物理系统指南</a> 章节。</p>
 
 
-    <h3>Got Questions?</h3>
+    <h3>遇到问题？</h3>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
 </html>

@@ -1,291 +1,204 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Advanced Puzzles Reference - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="How to use puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Advanced Puzzles</h1>
+<head>
+  <title>高级拼图参考 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="如何使用拼图应用中实现高级功能，如网络、与JavaScript代码的交互、数据转换、状态保存/恢复等。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>Use these puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more.</p>
+<body>
+  <article>
 
-    <img src="files/puzzles/puzzles-advanced.jpg">
+    <h1>高级 | Advanced</h1>
 
+    <p>使用这些拼图可以在应用中实现高级功能，如网络、与JavaScript代码的交互、数据转换、状态保存/恢复等。</p><img src="files/puzzles/puzzles-advanced.jpg">
+    <h2>内容</h2>
 
-    <h2>Contents</h2>
+    [contents] [anchor:puzzles_reference]
 
-    [contents]
-
-
-    [anchor:puzzles_reference]
-
-    <h2>Puzzles Reference</h2>
-
+    <h2>拼图参考</h2>
 
     [anchor:exec_script]
 
-    <h3>exec script</h3>
+    <h3>exec script(可执行脚本)</h3>
 
-    <p>
-        This puzzle executes the specified javascript code. The puzzle uses
-        <a href='https://ace.c9.io/'>Ace Editor</a> for displaying and editing
-        the content. See the relevant keyboard shortcuts here:
-        <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>Default Keyboard Shortcuts</a>.
-    </p>
+    <p>此拼图执行指定的javascript代码。它使用 <a href='https://ace.c9.io/'>Ace编辑器</a> 来显示和编辑内容。请查看相关的键盘快捷键简介：<a
+        href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>默认键盘快捷键</a>。</p>
 
-    <p>You can use the following built-in variables:</p>
+    <p>您可以使用以下内置变量。</p>
     <ul>
-        <li><b>app</b> - the application instance, see <a href="api/en/extras/App.html">App</a> for more details</li>
-        <li><b>v3d</b> - the v3d namespace which contains all the engine modules</li>
-        <li><b>VARS</b> - variable puzzles can be accessed through this object</li>
-        <li><b>PROC</b> - procedure puzzles can be accessed through this object</li>
-    </ul>
-
-    <img src="files/puzzles/puzzles-advanced-exec-script.jpg" style="max-width: 1000px">
-
-    <p><b>Specifics of using built-ins regarding to "Init" and other tabs</b></p>
+      <li><b>app</b> - 应用实例，详见 <a href="api/en/extras/App.html">App</a> 。</li>
+      <li><b>v3d</b> - 包含所有引擎模块的v3d命名空间。</li>
+      <li><b>VARS</b> - 可以通过该对象访问变量拼图。</li>
+      <li><b>PROC</b> - 可以通过这个对象访问过程拼图。</li>
+    </ul><img src="files/puzzles/puzzles-advanced-exec-script.jpg" style="max-width: 1000px">
+    <p><b>关于 &quot;Init &quot;和其他标签，使用内置插件的具体细节</b></p>
     <ul>
-        <li>
-            The <b>app</b> built-in variable is not available for this puzzle if
-            it's used inside the <b>Init</b> tab, since at that stage the
-            application is not properly initialized yet.
-        </li>
-        <li>
-            Variables and procedures declared in the <b>Init</b> tab can not be
-            accessed from other tabs via <b>VARS</b> and <b>PROC</b> and vice
-            versa.
-        </li>
-    </ul>
+      <li>如果 <b>app</b> 内置变量在 <b>Init</b> 标签中被使用，那么它就不能用于这个拼图，因为在那个阶段，应用还没有被正确初始化。</li>
+      <li>在 <b>Init</b> 标签中声明的变量和程序不能通过 <b>VARS</b> 和 <b>PROC</b> 从其他标签访问，反之亦然。</li>
+    </ul><!-- COMPAT: < 3.5 --> <a href="#" id="call_JS_function"></a> [anchor:call_external_function]
 
+    <h3>call external function(调用外部函数)</h3>
 
-    <!-- COMPAT: < 3.5 -->
-    <a href="#" id="call_JS_function"></a>
-    [anchor:call_external_function]
-
-    <h3>call external function</h3>
-
-    <p>
-    Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
+    <p>执行一个在应用的JavaScript代码中指定的函数。可以选择传递参数，作为函数参数使用。</p><img src="files/puzzles/puzzles-advanced-call-js-function.jpg">
+    <p>为了在JavaScript代码中添加一个函数，用任何文本编辑器打开应用 <strong>.js</strong> 文件（例如， <i>my_awesome_app.js</i> 位于
+      <i>verge3d/applications/my_awesome_app</i>）。搜索 &quot;prepareExternalInterface
+      &quot;并在该声明中添加您的函数（在大括号之间），这样它看起来像这样。
     </p>
+    
+    
+<code>
 
-    <img src="files/puzzles/puzzles-advanced-call-js-function.jpg">
-
-    <p>
-    In order to add a function to JavaScript code, open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with any text editor. Search for "prepareExternalInterface" and add your function inside that declaration (between the curly brackets), so that it looks like this:
-    </p>
-
-    <code>
-function prepareExternalInterface(app) {
-        app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
-            alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
-        }
-}
-    </code>
+      function prepareExternalInterface(app) {
+              app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
+                  alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
+              }
+      }
+    
+</code>
 
 
     [anchor:load_data]
 
-    <h3>load data</h3>
+    <h3>load data(载入数据)</h3>
 
-    <p>
-    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/zh/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-load-data.jpg">
-
-
+    <p>试图从一个指定的位置加载数据。不管尝试是否成功，&quot;一旦准备好做 &quot;槽中的拼图都会被解释。检索到的数据可以通过 <a
+        href="manual/zh/puzzles/Advanced.html#loaded_data">加载数据</a> 拼图进行访问。</p><img
+      src="files/puzzles/puzzles-advanced-load-data.jpg">
 
     [anchor:send_data]
 
-    <h3>send data</h3>
+    <h3>send data(发送数据)</h3>
 
-    <p>
-    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/zh/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
-    </p>
-
-
-
-    <img src="files/puzzles/puzzles-advanced-send-data.jpg">
-
-
+    <p>试图使用异步的 <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a>
+      请求将指定的数据发送到一个远程位置。不管尝试是否成功，&quot;一旦准备好做 &quot;槽中的拼图都会被解释。如果有任何响应数据，可以通过 <a
+        href="manual/zh/puzzles/Advanced.html#loaded_data">loaded data</a> 拼图访问。</p><img
+      src="files/puzzles/puzzles-advanced-send-data.jpg">
 
     [anchor:loaded_data]
 
-    <h3>loaded data</h3>
+    <h3>loaded data(已加载的数据)</h3>
 
-    <p>
-    Returns data retrieved by the <a href="manual/zh/puzzles/Advanced.html#load_data">load data</a> or <a href="manual/zh/puzzles/Advanced.html#send_data">send data</a> puzzles.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-loaded-data.jpg">
-
-
+    <p>返回由 <a href="manual/zh/puzzles/Advanced.html#load_data">加载数据</a> 或 <a
+        href="manual/zh/puzzles/Advanced.html#send_data">发送数据</a> 拼图获取的数据。</p><img
+      src="files/puzzles/puzzles-advanced-loaded-data.jpg">
 
     [anchor:read_JSON]
 
-    <h3>read JSON</h3>
+    <h3>read JSON(读取JSON)</h3>
 
-    <p>
-      Interprets text (or <a href="manual/zh/puzzles/HTML.html#data_uri">Data URI</a>) as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which is returned in a dictionary.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-read-JSON.jpg">
-
-
+    <p>将文本（或 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a>）解释为 <a
+        href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> 数据，并以字典形式返回。
+    </p><img src="files/puzzles/puzzles-advanced-read-JSON.jpg">
 
     [anchor:read_CSV]
 
-    <h3>read CSV</h3>
+    <h3>read CSV(读取JSON)</h3>
 
-    <p>
-      Interprets text (or <a href="manual/zh/puzzles/HTML.html#data_uri">Data URI</a>) as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
-    </p>
-
+    <p>将文本（或 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a>）解释为 <a
+        href="https://en.wikipedia.org/wiki/Comma-separated_values#Example"
+        target="_blank">逗号分隔的值</a>。返回一个表格行的列表，每行表示为一个值的列表。分隔符可以通过下拉选择，以对应CSV文件的导出设置。&quot;从行 &quot;值表示从顶部开始跳过多少行。</p>
     <img src="files/puzzles/puzzles-advanced-read-CSV.jpg">
-
-    <p>
-      Table rows and values are accessed by their numeric indices starting from 0.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-csv-example.jpg">
-
-
+    <p>表的行和值是通过它们的数字索引从0开始访问的。</p><img src="files/puzzles/puzzles-advanced-csv-example.jpg">
 
     [anchor:save_state]
 
-    <h3>save state</h3>
+    <h3>save state(保存状态)</h3>
 
-    <p>
-    Saves the state of specified objects and/or the values of variables specified by their names. The objects are cloned and stored in memory. The values of the variables are retrieved and stored in memory for each specified variable name.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-save-state.jpg">
-
-    <p>
-    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/zh/puzzles/Advanced.html#undo_state">undo state</a> puzzle.
-    </p>
-
-
+    <p>保存指定对象的状态和/或由其名称指定的变量值。对象被克隆并存储在内存中。变量的值被检索并存储在内存中，每个指定的变量名称都是如此。</p><img
+      src="files/puzzles/puzzles-advanced-save-state.jpg">
+    <p>如果此拼图被多次调用，那么这些状态将被依次保存，这样就可以通过 <a href="manual/zh/puzzles/Advanced.html#undo_state">undo state(撤销状态)</a>
+      拼图返回到之前的任一状态。</p>
 
     [anchor:undo_state]
 
-    <h3>undo state</h3>
+    <h3>undo state(撤销状态)</h3>
 
-    <p>
-    Restores the state of objects and/or variables saved with the <a href="manual/zh/puzzles/Advanced.html#save_state">save state</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-undo-state.jpg">
-
-    <p>
-    If this puzzle is called several times, the states are restored from the saved sequence (if any) which makes it possible to return to any previously saved state from the stack.
-    </p>
-
-
+    <p>恢复用 <a href="manual/zh/puzzles/Advanced.html#save_state">save state(保存状态)</a> 拼图保存的对象和/或变量的状态。</p><img
+      src="files/puzzles/puzzles-advanced-undo-state.jpg">
+    <p>如果这个拼图被多次调用，状态会从保存的序列中恢复（如果有的话），这使得我们可以从堆栈中返回到任何先前保存的状态。</p>
 
     [anchor:all_variable_names]
 
-    <h3>all variable names</h3>
+    <h3>all variable names(所有变量名称)</h3>
 
-    <p>
-    Returns a list with the names of all variables used in Puzzles.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-all-variable-names.jpg">
-
-
+    <p>返回一个包含拼图中使用的所有变量名称的列表。</p><img src="files/puzzles/puzzles-advanced-all-variable-names.jpg">
 
     [anchor:variable_value_by_name]
 
-    <h3>variable value by name</h3>
+    <h3>variable value by name(对应名称的变量的值)</h3>
 
-    <p>
-    Returns the value of a variable specified by its name. This puzzle works similarly to the standard variable value puzzle, yet does not require to select a variable from the predefined dropdown menu.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
-
+    <p>返回指定名称的变量的值。此拼图的工作方式与标准的变量值拼图类似，但不需要从预定义的下拉菜单中选择一个变量。</p><img
+      src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
 
     [anchor:javascript_object]
 
-    <h3>JavaScript object</h3>
+    <h3>JavaScript object(JavaScript对象)</h3>
 
-    <p>
-      Returns a given JavaScript object.
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-javascript-object.jpg">
-
-    <p>You can get the following JavaScript objects with this puzzle:</p>
+    <p>返回一个给定的JavaScript对象。</p><img src="files/puzzles/puzzles-advanced-javascript-object.jpg">
+    <p>使用此拼图可获得以下JavaScript对象。</p>
 
     <dl>
-      <dt>window</dt>
-      <dd>Return the top-level *window* object as dictionary value.</dd>
-      <dt>arguments</dt>
-      <dd>Returns the list of arguments of the currently executed function. Can be used to get arguments of Puzzles procedures or additional arguments passed to internal Puzzles callbacks (see below).</dd>
+      <dt>window(窗口)</dt>
+      <dd>返回顶层的*window*对象作为字典值。</dd>
+      <dt>arguments(参数)</dt>
+      <dd>返回当前执行的函数的参数列表。可以用来获取拼图过程的参数或者传递给拼图内部回调的额外参数（见下文）。</dd>
       <dt>this</dt>
-      <dd>JavaScript *this* value.</dd>
+      <dd>JavaScript中的*this*值。</dd>
     </dl>
 
-    <p>The *arguments* option can be used to retrieve additional puzzles options. For example, when using <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a> puzzle, you can get the internal JavaScript event which triggers the puzzle logic using the first argument of the callback executed behind the *do* slot. In the example below we use this event to get X and Y coordinates of the mouse pointer:</p>
-
-    <img src="files/puzzles/puzzles-advanced-javascript-object-example.jpg">
-
-    <p>The following puzzles support advanced options:</p>
+    <p>*arguments*选项可以用来获取额外的拼图选项。例如，当使用 <a href="manual/zh/puzzles/Events.html#when_clicked">when click(当点击...时)</a>
+      拼图时，您可以使用在*do*插槽后面被执行的回调的第一个参数来获得触发拼图逻辑的内部JavaScript事件。在下面的例子中，我们使用这一事件来获取鼠标指针的X和Y坐标。</p><img
+      src="files/puzzles/puzzles-advanced-javascript-object-example.jpg">
+    <p>以下拼图支持高级选项。</p>
 
     <ul>
-      <li><a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> event which triggers puzzles in the <em>do</em> slots.</li>
-      <li><a href="manual/zh/puzzles/Time.html#after">after</a>, <a href="manual/zh/puzzles/Time.html#set_timer">set timer</a> — timer ID returned by the puzzles' <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> call.</li>
-      <li><a href="manual/zh/puzzles/Time.html#every_frame">every frame</a> — delta time and total elapsed time.</li>
-      <li><a href="manual/zh/puzzles/HTML.html#event">event</a> — event object.</li>
-      <li><a href="manual/zh/puzzles/AR_VR.html#session_event">on session event</a> — WebXR event object.</li>
+      <li><a href="manual/zh/puzzles/Events.html#when_clicked">when click(当点击...时)</a>， <a
+          href="manual/zh/puzzles/Events.html#when_hovered">when hovered(当悬停于...时)</a>， <a
+          href="manual/zh/puzzles/Events.html#when_dragged">when dragged(当拖动...时)</a> &mdash;&mdash; <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">鼠标</a> 或 <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">触摸</a> 事件触发 <em>do</em> 插槽中的拼图。</li>
+      <li><a href="manual/zh/puzzles/Time.html#after">after(在...之后)</a>， <a
+          href="manual/zh/puzzles/Time.html#set_timer">set timer(设置定时器)</a> &mdash;&mdash; 由拼图的 <a
+          href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval(设置时间间隔)</a> 调用返回的定时器ID。</li>
+      <li><a href="manual/zh/puzzles/Time.html#every_frame">every frame</a> - 间隔时间delta和总耗时。</li>
+      <li><a href="manual/zh/puzzles/HTML.html#event">Event</a> - 事件对象。</li>
+      <li><a href="manual/zh/puzzles/AR_VR.html#session_event">on session event</a> - WebXR事件对象。</li>
     </ul>
-
 
     [anchor:wait_promise]
 
-    <h3>wait promise</h3>
+    <h3>wait promise(等待promise)</h3>
 
-    <p>
-    Wait for the promise to be resolved or rejected and return its value (or rejection reason) in the <a href="manual/zh/puzzles/Advanced.html#promise_value">promise value</a> puzzle.
-    </p>
-
+    <p>等待promise被解决或拒绝，并在 <a href="manual/zh/puzzles/Advanced.html#promise_value">promise value</a> 拼图中返回其值（或拒绝原因）。</p>
     <img src="files/puzzles/puzzles-advanced-wait-promise.jpg">
-
-    <p>This puzzle may be required to get value of the <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">export to gltf</a> and <a href="manual/zh/puzzles/Materials.html#generate_normal_map">generate normal map</a> puzzles. Being async puzzles by their nature, these puzzle do not return resolved values immediately. Instead, they return <em>promise</em> values which are resolved in the puzzles they are used as inputs. In some rare cases, however, this resolving does not happen. In these cases you should use *wait promise* to resolve promise values.</p>
-
+    <p>这个拼图可被用于获取 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">导出到gltf</a> 和 <a
+        href="manual/zh/puzzles/Materials.html#generate_normal_map">generate normal map(生成法线贴图)</a>
+      的值。作为一个异步拼图，这些拼图不会立即返回解决的值。相反，它们会返回 <em>promise</em> 值，这些值在它们被用作输入的拼图中被解决。然而，在少数情况下，这种解决并没有发生。在这些情况下，您应该使用*wait
+      promise*来解析promise值。</p>
 
     [anchor:promise_value]
 
-    <h3>promise value</h3>
+    <h3>promise值</h3>
 
-    <p>Resolved promise value (in case of resolved promise) or error string (in case of rejected promise).</p>
-
+    <p>已解决的promise值（在已解决promise的情况下）或错误字符串（在拒绝promise的情况下）。</p>
 
     [anchor:connector]
 
-    <h3>connector</h3>
+    <h3>connector(连接器)</h3>
 
-    <p>
-        This puzzle facilitates connecting other puzzles with each other, to
-        make it more convenient to move, delete and use them in other puzzles.
-        The most notable application is to join <a href="manual/zh/puzzles/Sound.html#load_sound">load sound</a>
-        or <a href="manual/zh/puzzles/Sound.html#load_video">load video</a>
-        puzzles into a single group to organize preloading of media resources
-        in your application.
-    </p>
+    <p>这个拼图可建立拼图之间的连接，以便于移动、删除和在其他拼图中使用拼图组。典型应用是将 <a href="manual/zh/puzzles/Sound.html#load_sound">load sound(加载声音)</a>
+      或 <a href="manual/zh/puzzles/Sound.html#load_video">load video(加载视频)</a> 的拼图连接成一个组，用以组织应用中预加载媒体资源。</p><img
+      src="files/puzzles/puzzles-advanced-connector.jpg">
+    <h2>在使用拼图时遇到困难？</h2>
 
-    <img src="files/puzzles/puzzles-advanced-connector.jpg">
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
+  </article>
+</body>
 
-    <h2>Having Troubles with Puzzles?</h2>
-
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
-  </article></body>
 </html>

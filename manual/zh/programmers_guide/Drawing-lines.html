@@ -1,63 +1,69 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <meta charset="utf-8">
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
-    <h1>Drawing Lines</h1>
+
+<head>
+  <meta charset="utf-8">
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
+
+<body>
+  <article>
+    <h1>画线</h1>
     <div>
+      <p>假设你想画一条线或一个圆，而非一个线框<b>网格([page:mesh])</b>。首先，我们需要设置[page:webglrenderer]、[page:scene scene]和摄影机（请参见创建场景页面）。</p>
+
+      <p>下面是我们将使用的代码：</p>
+
+      <code>
+        var renderer = new v3d.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        var camera = new v3d.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+        camera.position.set(0, 0, 100);
+        camera.lookAt(0, 0, 0);
+        
+        var scene = new v3d.Scene();
+      </code>
+
+      <p>接下来我们要做的是定义一个材质。线的材质，我们必须使用[page:LineBasicMaterial]或[page:LineDashedMaterial]。</p>
+
+      <code>
+        //create a blue LineBasicMaterial
+        var material = new v3d.LineBasicMaterial({ color: 0x0000ff });
+      </code>
+
       <p>
-        Let's say you want to draw a line or a circle, not a wireframe [page:Mesh].
-        First we need to setup the [page:WebGLRenderer renderer], [page:Scene scene] and camera (see the Creating a scene page).
+        设置材质之后，我们将需要一个带有一些顶点的<b>几何体[page:Geometry]</b>或<b>[page:BufferGeometry]</b>（建议使用BufferGeometry，因为它的性能更好，但是为了简单起见，我们将在这里使用Geometry）：
       </p>
 
-      <p>Here is the code that we will use:</p>
       <code>
-var renderer = new v3d.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-var camera = new v3d.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-camera.position.set(0, 0, 100);
-camera.lookAt(0, 0, 0);
-
-var scene = new v3d.Scene();
-      </code>
-      <p>Next thing we will do is define a material. For lines we have to use [page:LineBasicMaterial] or [page:LineDashedMaterial].</p>
-      <code>
-//create a blue LineBasicMaterial
-var material = new v3d.LineBasicMaterial({ color: 0x0000ff });
+        var geometry = new v3d.Geometry();
+        geometry.vertices.push(new v3d.Vector3(-10, 0, 0));
+        geometry.vertices.push(new v3d.Vector3(0, 10, 0));
+        geometry.vertices.push(new v3d.Vector3(10, 0, 0));
       </code>
 
-      <p>
-        After material we will need a [page:Geometry] or [page:BufferGeometry] with some vertices
-        (it's recommended to use a BufferGeometry as it's more performant, however for simplicity we'll use a Geometry here):
-      </p>
+      <p>注意，在每一个连续的顶点对之间画线，而不是在第一个顶点和最后一个顶点之间画线（这条线不是闭合的。）</p>
+
+      <p>现在我们有了两条线的点和一个材质，可以把它们放在一起形成一条线。</p>
 
       <code>
-var geometry = new v3d.Geometry();
-geometry.vertices.push(new v3d.Vector3(-10, 0, 0));
-geometry.vertices.push(new v3d.Vector3(0, 10, 0));
-geometry.vertices.push(new v3d.Vector3(10, 0, 0));
+        var line = new v3d.Line(geometry, material);
       </code>
 
-      <p>Note that lines are drawn between each consecutive pair of vertices, but not between the first and last (the line is not closed.)</p>
-
-      <p>Now that we have points for two lines and a material, we can put them together to form a line.</p>
-      <code>
-var line = new v3d.Line(geometry, material);
-      </code>
-      <p>All that's left is to add it to the scene and call [page:WebGLRenderer.render render].</p>
+      <p>剩下的就是将其添加到场景中，并调用[page:webglrenderer.render render]。</p>
 
       <code>
-scene.add(line);
-renderer.render(scene, camera);
+        scene.add(line);
+        renderer.render(scene, camera);
       </code>
 
-      <p>You should now be seeing an arrow pointing upwards, made from two blue lines.</p>
+      <p>您现在应该可以看到一个由两条蓝线构成的向上指向的箭头。</p>
     </div>
-  </article></body>
+  </article>
+</body>
+
 </html>

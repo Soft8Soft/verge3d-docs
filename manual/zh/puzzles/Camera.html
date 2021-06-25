@@ -1,202 +1,134 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Cameras/Lights Verge3D Puzzles Reference - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="How to control cameras and lights in Verge3D Puzzles."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Camera and Light Puzzles</h1>
+<head>
+  <title>摄影机/灯光类拼图参考 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="如何在Verge3D拼图编辑器里控制摄影机和灯光。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-      The puzzles from this category perform operations with cameras or light sources.
-    </p>
+<body>
+  <article>
 
-    <img src="files/puzzles/puzzles-camera.jpg">
+    <h1>摄影机与灯光 | Camera and Light</h1>
 
+    <p>此类拼图用于操作设置摄影机与光源。</p><img src="files/puzzles/puzzles-camera.jpg">
+    <h2>内容</h2>
 
-    <h2>Contents</h2>
+    [contents] [anchor:puzzles_reference]
 
-    [contents]
-
-
-    [anchor:puzzles_reference]
-
-    <h2>Camera Puzzles Reference</h2>
-
+    <h2>摄影机拼图参考</h2>
 
     [anchor:look_at]
 
-    <h3>look at</h3>
+    <h3>look at(看着)</h3>
 
-    <p>
-    Smoothly animates the active camera so that it finally targets a specified object. The numeric parameter specifies the time period over which the animation is performed (in seconds).
-    </p>
-
-    <img src="files/puzzles/puzzles-camera-lookat.jpg">
-
-
+    <p>为活动的摄像机设置平滑过度动画，最终瞄准一个指定的对象。数字参数指定了执行动画的时间长度（单位：秒）。</p><img src="files/puzzles/puzzles-camera-lookat.jpg">
 
     [anchor:tween_camera]
 
-    <h3>tween camera</h3>
+    <h3>tween camera(渐变镜头)</h3>
 
-    <p>
-        Smoothly animates the active camera so that its position
-        finally changes to the position of a specified object / 3D point,
-        and the camera targets another specified object / 3D point.
-    </p>
+    <p>为活动摄影机设置平滑动画，移动位置到指定对象或三维点处，摄影机的瞄准目标是另一个指定的物件或三维点。</p>
 
-    <p>
-        The position and the target parameters can be specified either by scene
-        objects or arrays of X, Y and Z coordinates.
-    </p>
+    <p>位置和目标的参数可以由场景对象或X、Y和Z坐标数组来指定。</p>
 
-    <p>
-        The numeric parameter specifies the time period over which the
-        animation is performed (in seconds).
-    </p>
+    <p>数字参数指定了执行动画的时间长度（单位：秒）。</p>
 
-    <p>
-        The *move* parameter specifies the interpolation between the starting
-        and the ending points: linear or spherical.
-    </p>
+    <p>参数 *move* 指定了起点和终点之间的插值方式：线性或球形。</p>
 
-    <p>
-    The optional *when finished do* slot may be used to detect the moment when the tweening is finished.
-    </p>
-
-    <img src="files/puzzles/puzzles-camera-tween-camera.jpg">
-
-
+    <p>可选的 *when finished do* 槽可以用来检测tweening完成的时刻。</p><img src="files/puzzles/puzzles-camera-tween-camera.jpg">
 
     [anchor:zoom_camera_to_object]
 
-    <h3>zoom camera to object</h3>
+    <h3>zoom camera to object(聚焦摄像机到对象)</h3>
 
-    <p>
-      Smoothly zooms the active camera in or out so that the specified
-      object or a group of objects will be properly fit into the camera view.
-      The numeric parameter specifies the time period over which the zooming
-      is performed (in seconds).
-    </p>
+    <p>平滑地拉进或缩小活动摄影机焦距，将指定的对象或一组对象纳入摄影机视图中。数字参数指定了执行聚焦的时间长度（单位：秒）。</p>
 
-    <p>
-    The optional *when finished do* slot may be used to detect the moment when the zooming is finished.
-    </p>
-
-    <img src="files/puzzles/puzzles-camera-zoom-camera.jpg">
-
-
+    <p>可选的*when finished do*槽可用于检测聚焦完成的时刻。</p><img src="files/puzzles/puzzles-camera-zoom-camera.jpg">
 
     [anchor:set_active_camera]
 
-    <h3>set active camera</h3>
+    <h3>set active camera(设置活动摄像机)</h3>
 
-    <p>
-    Makes a specified camera active. This can be used to change camera control mode ("orbit" vs "flying" vs "no controls"), field of view and other settings on the fly.
-    </p>
-
-    <img src="files/puzzles/puzzles-camera-set-active.jpg">
-
+    <p>使指定的摄像机处于活动状态。可以用来实时改变摄像机的控制模式（&quot;orbit(轨道)&quot; vs &ldquo;fly(飞行)&quot; vs &quot;no control(无控制)&quot;
+      ）、视野以及其他设置。</p><img src="files/puzzles/puzzles-camera-set-active.jpg">
 
     [anchor:active_camera]
 
-    <h3>active camera</h3>
+    <h3>active camera(活动摄影机)</h3>
 
-    <p>Retrieves the active camera.</p>
-
-    <img src="files/puzzles/puzzles-camera-active-camera.jpg" style="max-width: 732px">
-
+    <p>检索活动摄影机。</p><img src="files/puzzles/puzzles-camera-active-camera.jpg" style="max-width: 732px">
 
     [anchor:autorotate_camera]
 
-    <h3>autorotate camera</h3>
+    <h3>autorotate camera(自动旋转摄影机)</h3>
 
-    <p>
-    Smoothly animates the active *Orbit* camera by rotating it around the target.
-    </p>
-
-    <img src="files/puzzles/puzzles-camera-autorotate-camera.jpg">
-
-    <p>
-    In the following example, the camera starts to rotate after 3 seconds of user inactivity. When the user clicks a mouse button (or touches the screen), he or she regains the control over the camera until further 3 second period of inactivity.
-    </p>
-
-    <img src="files/puzzles/puzzles-camera-autorotate-camera-example.jpg">
-
-    <p class="note">To rotate camera in reverse direction set negative *speed* value, e.g *-2*.</p>
-
-
+    <p>围绕目标旋转活动的，动画平滑的*轨道*摄像机。</p><img src="files/puzzles/puzzles-camera-autorotate-camera.jpg">
+    <p>在下面的例子中，摄像机在用户不活动的3秒后开始旋转。当用户点击鼠标按钮（或触摸屏幕）时，将重新获得对摄像机的控制权，直到再过3秒后再次自动旋转。</p><img
+      src="files/puzzles/puzzles-camera-autorotate-camera-example.jpg">
+    <p class="note">要使摄像机向相反方向旋转，可设置负的 *speed* 值，例如*-2*。</p>
 
     [anchor:get_camera_direction]
 
-    <h3>get camera direction</h3>
+    <h3>get camera direction(获取摄像机方向)</h3>
 
-    <p>
-    Returns a list of X, Y and Z components of the active camera's world direction vector. If *from mouse/touch* is checked, this puzzle casts a ray from the camera to the cursor's screen position and returns the direction of that ray. If additionaly *inverted* is checked, then the cursor's screen position coordinates are negated.
-    </p>
-
-    <img src="files/puzzles/puzzles-camera-get-camera-direction.jpg">
-
-    <p>
-    In the following example, an object looks at the mouse cursor. This can be achived by mapping the position of an empty/dummy object to mouse cursor with some simple math.
-    </p>
-
-    <img src="files/puzzles/puzzles-camera-get-camera-direction-example2.jpg">
-
-    <p>
-    In order to setup such behavior in 3ds Max, make your object follow a dummy object by utilizing the *Rotation Controllers / LookAt Constraint*. In Blender, this corresponds to the *TrackTo* constraint.
-    </p>
-
+    <p>返回活动摄像机的世界方向向量的X、Y和Z分量的列表。如果 *from mouse/touch* 被选中，此拼图将从摄像机投射一条射线到光标的屏幕位置，并返回该射线的方向。如果选中了 *inverted*
+      ，则光标的屏幕位置坐标为负。</p><img src="files/puzzles/puzzles-camera-get-camera-direction.jpg">
+    <p>下面的例子实现了使一个对象始终看向鼠标光标。这可以通过用一些简单的数学方法将一个<b>空对象/虚拟对象</b>的位置映射到鼠标光标上来实现。</p><img
+      src="files/puzzles/puzzles-camera-get-camera-direction-example2.jpg">
+    <p>要在在3ds Max中设置这种行为，需使用 *旋转控制器 / 注视约束*，使对象跟随注视一个虚拟对象。在Blender中对应于 *TrackTo(标准跟随)* 约束。</p>
 
     [anchor:light_puzzles_reference]
 
-    <h2>Light Puzzles Reference</h2>
-
+    <h2>Light Puzzles Reference(灯光拼图参考)</h2>
 
     [anchor:set_light_param]
 
-    <h3>set light param</h3>
+    <h3>set light param(设置灯光参数)</h3>
 
-    <p>Set light parameter:</p>
+    <p>设置灯光参数。</p>
 
     <dl>
-      <dt>color (vector)<dt>
-      <dd>Set light color using vector, where X, Y, Z represent R, G, or B color component accordingly. For example <strong>[0, 1, 0]</strong> vector represent pure green color.</dd>
+      <dt>color (vector)
+      <dt>
+      <dd>使用矢量来设置灯光的颜色，其中X、Y、Z代表相应的R、G或B颜色分量。例如， <strong>
 
-      <dt>color (css/rgb)<dt>
-      <dd>Set light color using CSS style string such as <strong>rgb(255, 0, 0)</strong> or *magenta*.</dd>
+          [0, 1, 0]
 
-      <dt>color (css/hex)<dt>
-      <dd>Set light color using CSS hex string such as <strong>#FF0000</strong>.</dd>
+        </strong> 矢量代表纯绿色。</dd>
 
-      <dt>intensity<dt>
-      <dd>Set light intensity.</dd>
+      <dt>color (css/rgb)
+      <dt>
+      <dd>使用CSS样式字符串设置灯光颜色，如 <strong>rgb(255, 0, 0)</strong> 或 *magenta* 。</dd>
+
+      <dt>color (css/hex)
+      <dt>
+      <dd>使用CSS十六进制字符串设置灯光颜色，例如 <strong>#FF0000</strong>。</dd>
+
+      <dt>intensity(强度)
+      <dt>
+      <dd>设置灯光强度。</dd>
     </dl>
 
-    <p>This puzzle also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.</p>
-
-    <img src="files/puzzles/puzzles-object-set-light-param.jpg">
-
+    <p>此拼图也适用于对象列表，组（或者组的列表）以及 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a> 拼图。</p><img
+      src="files/puzzles/puzzles-object-set-light-param.jpg">
 
     [anchor:get_light_param]
 
-    <h3>get light param</h3>
+    <h3>get light param(获取灯光参数)</h3>
 
-    <p>Get light parameter. See description on <a href="manual/zh/puzzles/Objects.html#set_light_param">set light param</a> puzzle for the list of parameters.</p>
+    <p>获取灯光参数。参数列表见 <a href="manual/zh/puzzles/Objects.html#set_light_param">set light param(设置灯光参数)</a> 拼图中的描述。</p><img
+      src="files/puzzles/puzzles-object-get-light-param.jpg">
+    <h2>在使用拼图时遇到困难？</h2>
 
-    <img src="files/puzzles/puzzles-object-get-light-param.jpg">
-
-
-    <h2>Having Troubles with Puzzles?</h2>
-
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article></body>
+  </article>
+</body>
+
 </html>

@@ -1,149 +1,115 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Creating Desktop Applications with Electron - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Learn how to use Electron to create cross-platform Verge3D applications for desktop."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-    <meta property="og:image" content="https://cdn.soft8soft.com/images/electron.jpg">
-    <meta property="article:tag" content="electron">
-  </head>
-  <body><article>
 
-    <h1>Creating Desktop Applications with Electron</h1>
+<head>
+  <title>使用Electron创建桌面应用程序 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何使用Electron为桌面创建跨平台的Verge3D应用程序。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+  <meta property="og:image" content="https://cdn.soft8soft.com/images/electron.jpg">
+  <meta property="article:tag" content="electron">
+</head>
 
-    <p>
-      Electron is a tool which converts web applications to cross-platform desktop applications. Electron can create apps for Windows, macOS (both Intel and Apple Silicon architectures supported), and Linux. The tool is completely free, easy-to-use and allows for advanced customizations with JavaScript (if you need it).
-    </p>
+<body>
+  <article>
 
-    [contents]
-
-
-    [anchor:creating_app]
-
-    <h2>Creating Application</h2>
+    <h1>用Electron创建桌面应用程序</h1>
 
     <p>
-      Electron can be installed via NPM or downloaded from the internet. To simplify things up, we integrated an Electron app builder right in the App Manager.
+      Electronic是一个可以将网页应用打包成为跨平台桌面应用的工具。Electronic可以为Windows、macOS（同时支持Intel和Apple的芯片架构）和Linux创建应用程序。该工具完全免费，易于使用，并允许用JavaScript进行高级定制（如果需要）。
     </p>
 
-    <img src="files/creating-desktop-apps/app-manager-create-native-app.jpg">
+    [contents] [anchor:creating_app]
 
-    <p>
-      By using it you can download Electron binaries for the selected target platform and then build a ready-to-use application right from your Verge3D app.
-    </p>
+    <h2>创建应用</h2>
 
-    <img src="files/creating-desktop-apps/app-manager-electron.jpg">
-
-    <p>
-      Since the number of available platforms is huge, use the following memo to get what you really need:
-    </p>
+    <p>可以通过NPM安装Electron，也可以从GitHub Repo下载。为了简化操作，我们在应用管理器中集成了Electron应用构建工具。</p><img
+      src="files/creating-desktop-apps/app-manager-create-native-app.jpg">
+    <p>通过它，您可以为选定的目标平台直接下载Electron二进制文件，然后从您的Verge3D应用中打包一个对应平台的应用程序。</p><img
+      src="files/creating-desktop-apps/app-manager-electron.jpg">
+    <p>因为其可用于多种系统平台，请参考如下备忘录下载您所需的版本：</p>
 
     <dl>
-      <dt>None</dt>
-      <dd>Do not install any binaries. Use the NPM utility and the instructions <a href="manual/zh/introduction/Creating-Desktop-Apps.html#using_npm">below</a> to continue building your app.</dd>
+      <dt><b>None</b></dt>
+      <dd>不安装任何二进制文件。使用NPM实用工具和下方 <a href="manual/zh/introduction/Creating-Desktop-Apps.html#using_npm">说明</a> 继续构建应用。
+      </dd>
 
       <dt>Windows (64-bit)</dt>
-      <dd>Windows 7 or later, 64 bit.</dd>
+      <dd>64位Windows版，适用于Windows 7之后的系统。</dd>
       <dt>macOS (64-bit)</dt>
-      <dd>macOS 10.10 (Yosemite) or later, Intel Macs.</dd>
+      <dd>系统版本高于macOS 10.10 (Yosemite)的Intel芯片Mac电脑。</dd>
       <dt>macOS App Store (64-bit)</dt>
-      <dd>Reduced version for Mac App Store. Runs on macOS 10.10 (Yosemite) or later, Intel Macs.</dd>
+      <dd>针对Mac应用商店的缩小版本。运行于系统版本高于macOS 10.10 (Yosemite)的Intel芯片Mac电脑。</dd>
       <dt>Linux (64-bit)</dt>
-      <dd>Linux, 64 bit, such as Ubuntu, Fedora, OpenSuse, or Arch.</dd>
+      <dd>64位Linux，例如Ubuntu, Fedora, OpenSuse 或 ARCH。</dd>
 
       <dt>Windows (ARM)</dt>
-      <dd>Windows 10 running on devices with 64-bit ARM processors.</dd>
+      <dd>在带有64位ARM处理器的设备上运行的Windows10。</dd>
       <dt>macOS (ARM)</dt>
-      <dd>macOS 11 (Big Sur) or later, Apple Silicon (aka M1) Macs.</dd>
+      <dd>系统版本高于macOS 11（Big Sur）的苹果芯片（M1芯片）Mac电脑。</dd>
       <dt>macOS App Store (ARM)</dt>
-      <dd>Reduced version for Mac App Store. Runs on macOS 11 (Big Sur) or later, Apple Silicon (aka M1) Macs.</dd>
+      <dd>针对Mac应用商店的缩小版本。系统版本高于macOS 11（Big Sur）的苹果芯片（M1芯片）Mac电脑。</dd>
       <dt>Linux (ARM)</dt>
-      <dd>Linux on 64-bit ARM devices.</dd>
+      <dd>64位ARM设备上的Linux。</dd>
 
       <dt>Windows (32-bit)</dt>
-      <dd>Windows 7 or later, 32 bit.</dd>
+      <dd>32位Windows版，适用于Windows 7之后的系统。</dd>
       <dt>Linux (32-bit)</dt>
-      <dd>Linux, 32 bit version.</dd>
+      <dd>Linux ，32bit版本 </dd>
     </dl>
 
-    <p class="note">
-      Due to architecture limitations of the Windows OS, it's not possible to build macOS apps on that system. Please use macOS or Linux instead.
-    </p>
+    <p class="note">由于Windows操作系统的体系结构限制，不可在该系统上构建macOS应用。请改用macOS或Linux。</p>
 
-    <p>
-      Once your app is ready, download it and then unpack the zip archive to some directory.
-    </p>
-
+    <p>当应用准备就绪后即可下载，然后将zip文件解压到某个自定义的目录中。</p>
 
     [anchor:running_your_app]
 
-    <h2>Running your Application</h2>
+    <h2>运行您的应用</h2>
 
-    <p>
-      Exec your application by running *electron.exe* (or *Electron.app* on macOS, or *electron* on Linux) located in the app directory.
-    </p>
-
-    <img src="files/creating-desktop-apps/electron-new-app.jpg" class="centered" style="max-width: 827px">
-
-    <p>
-      Keep in mind, that since your application is <em>unsigned</em>, both Windows and macOS (but not Linux) prevent it from running. For example, on Windows, you'll see the following *Windows protected your PC* dialog:
-    </p>
-
-    <img src="files/creating-desktop-apps/windows-protected-your-pc.jpg" class="centered">
-
-    <p>
-      Click on the *More info* link, then *Run anyway* to run the application. In order to fix this issue, expecially when you distribute your work to the end users, your app must be signed. See more in the <a href="https://www.electronjs.org/docs/tutorial/code-signing" target="_blank">code signing</a> section of the Electron documentation.
-    </p>
-
+    <p>通过运行位于应用目录下的*electron.exe*（或macOS上的*electron.app*，或Linux上的*electron*)来运行应用。</p><img
+      src="files/creating-desktop-apps/electron-new-app.jpg" class="centered" style="max-width: 827px">
+    <p>请记住，由于您的应用程序是 <em>未签名</em>的版本，Windows和macOS（但Linux不会）会阻止它的直接运行。例如，在Windows上，您将看到以下 *Windows已经保护你的电脑* 对话框：</p><img
+      src="files/creating-desktop-apps/windows-protected-your-pc.jpg" class="centered">
+    <p>单击 *更多信息* 链接，然后点击 *仍要运行* 来启动您的应用。为避免此问题，特别是当您将您的工作分发到最终用户时，您必须签署应用。请参阅Electron文档的 <a
+        href="https://www.electronjs.org/docs/tutorial/code-signing" target="_blank">code signing(代码签名)</a> 部分。</p>
 
     [anchor:beautifying_things]
 
-    <h2>Beautifying Things</h2>
-
+    <h2>美化</h2>
 
     [anchor:modifying_app_name_icon]
 
-    <h3>Modifying Application Name and Icon</h3>
+    <h3>修改应用名称和图标</h3>
 
-    <p>
-      See the <a href="https://www.electronjs.org/docs/tutorial/application-distribution#rebranding-with-downloaded-binaries" target="_blank">official Electron guide</a> on how to rename your application binary and assign custom icon.
-    </p>
-
+    <p>请参阅 <a
+        href="https://www.electronjs.org/docs/tutorial/application-distribution#rebranding-with-downloaded-binaries"
+        target="_blank">Electron官方指南</a> 了解如何重命名您的应用二进制文件，以及指定自定义图标。</p>
 
     [anchor:customizing_menu]
 
-    <h3>Customizing Menu</h3>
+    <h3>自定义菜单</h3>
 
-    <p>
-      To disable application menu altogether, insert the following line in the *main.js* right after *loadFile()* method:
-    </p>
+    <p>要完全禁用application菜单，请在*main.js*中的*loadFile()*方法后面插入以下一行：</p>
 
     <code>
       win.removeMenu();
     </code>
 
-    <p>
-      To create your own menu, first connect *Menu* module to your application:
-    </p>
+    <p>要创建自己的菜单，首先将*menu*模块连接到应用程序：</p>
 
     <code>
-      const { Menu } = require('electron');
+      const { Menu } = require(&apos;electron&apos;);
     </code>
 
-    <p>
-      We're going to use *shell* module to open external website upon menu click. So, add *shell* module here as well:
-    </p>
+    <p>我们将使用*shell*模块，在点击菜单时打开外部网站。因此，在这里也添加*shell*模块：</p>
 
     <code>
-      const { shell } = require('electron');
+      const { shell } = require(&apos;electron&apos;);
     </code>
 
-    <p>
-      Then add the following code to the *main.js* right after *loadFile()* method:
-    </p>
+    <p>然后在*main.js*中的*loadFile()*方法后面添加以下代码：</p>
 
     <code>
     var menu = Menu.buildFromTemplate([{
@@ -166,33 +132,27 @@
     Menu.setApplicationMenu(menu);
     </code>
 
-    <p>
-      See the example of the modified *main.js* file <a href="files/creating-desktop-apps/menu-template/main.js" download>here</a>.
-    </p>
 
-    <p>
-      Run your application, you should get the following:
-    </p>
+    <p>请参阅 <a href="files/creating-desktop-apps/menu-template/main.js" download>这里</a> 修改后的*main.js*文件的示例：</p>
 
-    <img src="files/creating-desktop-apps/electron-app-with-menu.jpg" class="centered" style="max-width: 800px">
-
+    <p>运行应用，您会得到以下内容：</p><img src="files/creating-desktop-apps/electron-app-with-menu.jpg" class="centered"
+      style="max-width: 800px">
 
     [anchor:using_npm]
 
-    <h2>Advanced Electron Development with NPM</h2>
+    <h2>使用NPM进行Electron高级开发实践</h2>
 
-    <p>
-      To work with Electron, you'll need the *npm* utility which is part of the *Node.js* runtime. You can install it by following <a href="https://nodejs.org/en/download/" target="_blank">these instructions</a>.
-    </p>
+    <p>要使用Electron，您需要 *npm* 实用程序，它是*node.js*运行时的一部分。您可以参照 <a href="https://nodejs.org/en/download/"
+        target="_blank">如下说明</a>安装 *npm* 。</p>
 
-    <p>
-      See more info on how to use NPM in the <a href="https://www.electronjs.org/docs" target="_blank">Electron docs</a>.
-    </p>
+    <p>请参阅 <a href="https://www.electronjs.org/docs" target="_blank">文档</a> 了解如何在Electron中使用NPM的更多信息。</p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>

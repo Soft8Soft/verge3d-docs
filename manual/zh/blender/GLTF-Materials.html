@@ -1,113 +1,62 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Verge3D for Blender: glTF Materials (glTF 2.0-compliant PBR) - Soft8Soft</title>
+    <title>用于Blender的Verge3D：glTF材质（符合glTF 2.0标准的PBR材质）- Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to setup glTF-compliant PBR materials in Blender to be used with Verge3D."/>
+    <meta name="description" content="如何在Verge3D for Blender中设置符合glTF标准的PBR材质。"/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
 
-    <h1>glTF Materials (glTF 2.0-compliant PBR) / Blender</h1>
+    <h1>glTF材质（符合glTF 2.0标准的PBR材质）/Blender</h1>
 
-    <p>
-    If your content needs to be compatible with glTF 2.0 standard <a href="manual/zh/introduction/FAQ.html#gltf_materials">for some reason</a>, you can use simple material setup based on the *Principled BSDF* shader node.
-    </p>
+    <p>如果您内容需要与glTF 2.0标准兼容<a href="manual/zh/introduction/FAQ.html#gltf_materials">出于某种原因</a>，您可以使用简单的材质设置基于*原则的BSDF*着色器节点。</p>
 
-    [contents]
+    [contents] [anchor:texture_packing]
 
+    <h2>纹理打包</h2>
 
-
-    [anchor:texture_packing]
-
-    <h2>Texture Packing</h2>
-
-    <p>The glTF 2.0 standard requires that you pack the PBR components of materials in a single image (aka ORM texture):</p>
+    <p>glTF 2.0标准要求将材质的PBR组件打包在单个图像中（也称为ORM纹理）：</p>
 
     <ul>
-      <li>Occlusion factor is packed in the R channel. It's also possible to use separate texture for occlusion, but packing allows you to use less textures and thus makes your scene more size-efficient.</li>
-      <li>Roughness factor is packed in the G channel.</li>
-      <li>Metalness (metallic) factor is packed in the B channel.</li>
+      <li>遮挡因子被打包在R通道中。也可以为遮蔽使用单独的纹理，但打包可以让您使用更少的纹理，从而使您的场景更大的效率。</li>
+      <li>粗糙度因子打包在G通道中。</li>
+      <li>金属性（金属度）因子被打包在B通道中。</li>
     </ul>
-
 
     [anchor:setting_up]
 
-    <h2>Setting Up</h2>
+    <h2>启用VR设置</h2>
 
-    <p>
-      Add the *Princlipled BSDF* shader node to your material and enable the *glTF 2.0 compatible* checker located on the *Verge3D Settings* panel.
-    </p>
-
-    <img src="files/physical-material-blender/phmat_00.png" class="centered" style="max-width: 661px;">
-
-    <p>
-      You can connect texture nodes to the *Princlipled BSDF* node as described below. Note that all textures are optional and any of them can be safely omitted.
-    </p>
-
-    <img src="files/physical-material-blender/gltf-material-example.jpg" class="centered" style="max-width: 820px;">
-
-    <ul>
-      <li>
-        Connect an *Image Texture* node to the *Base Color* input of the *Principled BSDF* node. *Color Space* of the texture must be set to *sRGB*.
-      </li>
-      <li>
-        Connect *Image Texture* and *Separate RGB* nodes to the *Metallic* and *Roughness* inputs of the *Principled BSDF* node. For optimal loading and rendering of the PBR shader you should pack your occlusion, roughness and metallic textures into R, G and B channels of a single texture respectively. To enable occlusion rendering, the R channel of the occlusion texture should be connected as a mix factor of the black Diffuse shader. The *Color Space* setting of this texture must be set to *Non-Color*.
-      </li>
-      <li>
-        Connect a *Normal Map* texture to the *Normal* input of the *Principled BSDF* node and an *Image Texture* node to that *Normal Map* node. The *Color Space* parameter of the texture must be set to *Non-Color*. You can also tune the normal map strength by using the *Strength* option.
-      </li>
-      <li>
-        Connect an *Image Texture* node to the *Emission* input of the *Principled BSDF* node. *Color Space* of the texture must be set to *sRGB*.
-      </li>
+    <p>将*Princlipled BSDF*着色器节点添加到素材中，并启用位于<b>Verge3D设置</b>*面板上的<b>GLTF 2.0兼容</b>复选框。</p><img src="files/physical-material-blender/phmat_00.png" class="centered" style="max-width: 661px;"><p>您可以将纹理节点连接到*Princlipled BSDF*节点，如下所述。请注意，所有的纹理都是可选的，其中任何一个都可以安全地省略。</p><img src="files/physical-material-blender/gltf-material-example.jpg" class="centered" style="max-width: 820px;"><ul>
+      <li>将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到*Principled BSDF* 节点的<b>基础色(Base Color)</b>输入。纹理的<b>颜色空间</b>必须设置为*sRGB*。</li>
+      <li>将<b>图像纹<b>理</b>(Image Textue)</b>和<b>分离RGB R(Separated RGB)</b>节点连接到*Principled BSDF*节点的<b>金属度(Metallic)</b>和<b>粗糙度(Roughness)</b>输入。为了优化PBR着色器的加载和渲染，您应该将遮蔽、粗糙度和金属度纹理分别打包到单个纹理的R、G和B通道中。要启用遮蔽渲染，应该将遮蔽纹理的R通道连接为黑色漫射着色器的混合因子。此纹理的<b>颜色空间</b>设置必须设置为*non-color*。</li>
+      <li>将一个<b>法线贴图(Normal Map)</b>纹理连接到*Principled BSDF*节点的<b>法向(Normal)</b>输入，并将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到该<b>法线贴图(Normal Map)</b>节点。纹理的<b>色彩空间</b>必须设置为*sRGB*。您也可以通过使用<b>强度</b>选项来调整法线贴图的强度。</li>
+      <li>将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到*Principled BSDF*节点的<b>自发光(Emission)</b>输入。纹理的<b>颜色空间</b>必须设置为*sRGB*。</li>
     </ul>
 
-    <p>If you need to tune your *Base Color* texture, e.g make it darker or mix with some other color, use *Multiply* node as shown on the picture below:</p>
+    <p>如果您需要调整您的<b>基础色(Base Color)</b>纹理，例如使其变深或与其他颜色混合，请使用<b>正片叠底/相乘(Multipy)</b>节点，如下图所示：</p><img src="files/physical-material-blender/gltf-material-color-factor.jpg" class="centered" style="max-width: 844px;"><p>您也可以使用*alpha*输入来调整您的材质透明度。</p>
 
-    <img src="files/physical-material-blender/gltf-material-color-factor.jpg" class="centered" style="max-width: 844px;">
-
-    <p>You can also use the *Alpha* input to tune your material transparency.</p>
-
-    <p>
-      To see the preview of the *Principled BSDF* shader in the Blender viewport, you can set the display method of the *3D View* to *Rendering* or just preview your scene in Verge3D with the *Sneak Peak* button on the same panel.
-    </p>
-
+    <p>要在Blender视口中看到*Principled BSDF*着色器的预览，您可以将*3D View*的显示方式设置为*Rendering*，或者直接在Verge3D中用同一面板上的*Sneak Peak*按钮预览您的场景。</p>
 
     [anchor:exporting_substance]
 
-    <h2>Exporting Textures from Substance Painter</h2>
+    <h2>从Substance Painter导出纹理</h2>
 
-    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
-
-    <img src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
-
-    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
-
-    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
-
-    <p>
-      To facilitate exporting textures from Substance Painter and to ensure maximum capabilities within the Verge3D engine we recommend using <a href="files/physical-material-blender/Verge3D_for_Blender.spexp" target="_blank">Verge3D export preset</a>. Place this preset file to the *export-presets* folder usually located in the <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> directory (create it if does not exist).
-    </p>
-
-    <img src="files/physical-material-blender/phmat_08.png">
-
-    <p>
-      When exporting textures from Substance Painter, choose *Verge3d for Blender* the export dialog window so that all generated textures are compatible with the glTF 2.0 standard Verge3D is based on.
-    </p>
-
+    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p><img src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;"><p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p><img src="files/physical-material-blender/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;"><p>为了方便从Substance Painter导出纹理，并确保Verge3D引擎能够最佳利用资源，我们建议您使用 <a href="files/physical-material-blender/Verge3D_for_Blender.spexp" target="_blank">Verge3D导出预设</a> 。将此预设文件放到通常位于 My Documents\Allegorithmic\Substance Painter\shelf\目录下的 *export-presets* 文件夹中（如果不存在就新建一个）。</p><img src="files/physical-material-blender/phmat_08.png"><p>当从Substance Painter导出纹理时，选择*Verge3d for Blender*的导出对话窗口，这样所有生成的纹理都与Verge3D所采用的glTF 2.0标准兼容。</p>
 
     [anchor:export_to_gltf_in_runtime]
 
-    <h2>Export to glTF in Runtime</h2>
+    <h2>在运行时中导出到glTF</h2>
 
-    <p>With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">reference</a>.</p>
+    <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
   </article></body>
 </html>

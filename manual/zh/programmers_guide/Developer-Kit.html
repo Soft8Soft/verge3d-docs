@@ -1,220 +1,189 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Verge3D Developer Kit - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Learn how to use Developer Kit to create your own modification of Verge3D toolkit."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-    <style>
-      table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 10px;
-      }
-    </style>
-  </head>
-  <body><article>
 
-    <h1>Verge3D Developer Kit</h1>
+<head>
+  <title>Verge3D开发者工具包 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何使用开发者工具包来自定义修改Verge3D主程序。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 10px;
+    }
+  </style>
+</head>
 
-    <p>
-    Verge3D Developer Kit (DevKit) is a collection of examples, tools and source code which comes with <a href="https://www.soft8soft.com/product-category/enterprise-licenses/" target="_blank">Verge3D Enterprise</a> package. This collection will help you to perform various developer tasks such as:
-    </p>
+<body>
+  <article>
+
+    <h1>Verge3D开发者工具包</h1>
+
+    <p>Verge3D开发者工具包（DevKit）是一个示例、工具和源代码的集合，通过 <a href="https://www.soft8soft.com/product-category/enterprise-licenses/"
+        target="_blank">Verge3D企业版</a> 提供。这个集合将帮助您执行各种开发任务，例如：</p>
 
     <ul>
-      <li>Learn and review Verge3D toolkit internals.</li>
-      <li>Modify Verge3D and use modified versions in your own 3D apps.</li>
-      <li>Extend Verge3D API with your own classes and methods.</li>
-      <li>Add new Puzzles blocks.</li>
-      <li>Enhance Verge3D glTF exporter by adding your own data or parameters.</li>
-      <li>Develop your own product configurator or e-commerce system for WordPress by using the <em>Verge3D for WordPress</em> plugin as reference.</li>
+      <li>学习并评估Verge3D工具包的内部功能：</li>
+      <li>修改Verge3D并在您自己的3D应用程序中使用修改版本。</li>
+      <li>使用您自己的类和方法扩展Verge3D API。</li>
+      <li>添加新的拼图模块。</li>
+      <li>通过添加您自己的数据或参数来增强Verge3D glTF导出器。</li>
+      <li>以 <em>Verge3D for WordPress</em> 插件为参考，为WordPress开发您自己的产品配置程序或电子商务系统，</li>
     </ul>
 
-    <p class="note">
-    Developer Kit is intended for seasoned programmers who wish to modify the engine. You don't need it for creating Verge3D applications with the standard set of functionality.
-    </p>
+    <p class="note">开发者工具包是为那些希望修改引擎的经验丰富的程序员准备的。创建具有标准功能设定的Verge3D应用时，并不需要它。</p>
 
-    [contents]
+    [contents] [anchor:Installation]
 
+    <h2>安装和配置</h2>
 
-    [anchor:Installation]
+    <p>从您的 <a href="https://www.soft8soft.com/my-account/" target="_blank">帐户仪表板</a>下载区域获取DevKit压缩包。将此压缩包解压到自定义目录中。</p>
 
-    <h2>Installation and Configuration</h2>
+    <p>如果您想从源代码构建Verge3D引擎或拼图，需要使用 *npm* 工具，它是 *node.js* 运行时的一部分。您可以参照 <a
+        href="https://nodejs.org/en/download/package-manager/" target="_blank">如下说明</a>安装 *npm* 。</p>
 
-    <p>
-    Grab the DevKit archive from the download area of your <a href="https://www.soft8soft.com/my-account/" target="_blank">account dashboard</a>. Unpack this archive to a directory of your choice.
-    </p>
-
-    <p>
-    If you're going to build Verge3D engine or Puzzles from source code, you'll need the *npm* utility which is part of the *Node.js* runtime. You can install it by following <a href="https://nodejs.org/en/download/package-manager/" target="_blank">these instructions</a>.
-    </p>
-
-    <p>
-    Finally, go to the unpacked directory of DevKit and execute the following command to install the dependencies:
-    </p>
+    <p>最后，进入DevKit的解压目录，执行下面的命令来安装依赖项：</p>
 
     <code>npm install</code>
 
-
     [anchor:Structure]
 
-    <h2>DevKit Structure</h2>
+    <h2>DevKit结构</h2>
 
-    <p>
-    Freshly installed DevKit includes the following directories:
-    </p>
+    <p>新安装的DevKit包括以下目录：</p>
 
     <table style="width:100%">
       <tr>
-        <th>Directory</th>
-        <th>Description</th>
+        <th>目录</th>
+        <th>说明</th>
       </tr>
       <tr>
         <td>addons/verge3d</td>
-        <td>Source code of Blender add-on (Verge3D for Blender only).</td>
+        <td>Blender插件的源代码（仅用于Verge3D for Blender）。</td>
       </tr>
       <tr>
         <td>build</td>
-        <td>Pre-built Verge3D engine scripts and additional modules (ammo.js, etc).</td>
+        <td>预构建的Verge3D引擎脚本和附加模块（ammo.js等）。</td>
       </tr>
       <tr>
         <td>max_plugin</td>
-        <td>Source code of 3ds Max plugin (Verge3D for 3ds Max only).</td>
+        <td>3ds Max插件的源代码（仅用于Verge3D for 3ds Max）。</td>
       </tr>
       <tr>
         <td>maya_plugin</td>
-        <td>Source code of Maya plugin (Verge3D for Maya only).</td>
+        <td>Maya插件的源代码（仅用于Verge3D for Maya）。</td>
       </tr>
       <tr>
         <td>puzzles</td>
-        <td>Pre-built scripts and source code of the Puzzles editor.</td>
+        <td>拼图编辑器的预构建脚本和源代码。</td>
       </tr>
       <tr>
         <td>python</td>
-        <td>Python 3 runtime and utility modules.</td>
+        <td>Python 3运行时和实用程序模块。</td>
       </tr>
       <tr>
         <td>src</td>
-        <td>Verge3D engine source code.</td>
+        <td>Verge3D引擎源代码。</td>
       </tr>
       <tr>
         <td>templates</td>
-        <td>Verge3D application templates.</td>
+        <td>Verge3D应用模板。</td>
       </tr>
       <tr>
-        <td>wordpress</td>
-        <td><em>Verge3D for WordPress</em> plugin source code.</td>
+        <td>WordPress</td>
+        <td><em>Verge3D for WordPress</em> 插件源代码。</td>
       </tr>
       <tr>
         <td>xz</td>
-        <td>Source code of the XZ compression module.</td>
+        <td>XZ压缩模块的源代码。</td>
       </tr>
     </table>
 
-
     [anchor:Building_Verge3D]
 
-    <h2>Building Verge3D</h2>
+    <h2>构建Verge3D</h2>
 
-    <p>Before compiling Verge3D, please make sure you installed *npm* and all required dependencies as described above.</p>
+    <p>在编译Verge3D之前，请确保您已经安装了 *npm* 和所有所需的依赖项，如上所述。</p>
 
-    <p>
-    To compile an <em>unoptimized</em> build of Verge3D, which suits well for testing and debugging purposes, execute the following command in the DevKit directory:
-    </p>
+    <p>要测试和调试Verge3D，您可以编译 <em>未优化</em> 的build，请在DevKit目录中执行以下命令：</p>
 
     <code>npm run build</code>
 
-    <p>
-    You can find the compiled modules inside the *build* directory of your DevKit. To test it, simply copy *v3d.js* engine module to your application inside Verge3D installation, for example:
-    </p>
+    <p>您可以在devkit的*build*目录中找到编译好的模块。要对其进行测试，只需将 *v3d.js* 引擎模块复制到Verge3D安装内部的应用中，例如：</p>
 
     <code>cp build/v3d.js ~/verge3d/applications/my_awesome_application/</code>
 
-    <p>
-    To compile an <em>optimized</em> of Verge3D (aka release version), execute the following command in the DevKit directory:
-    </p>
+    <p>如果要编译 <em>已优化的</em> Verge3D（也称为发行版），请在DevKit目录中执行以下命令：</p>
 
     <code>npm run build-release</code>
 
-    <p>
-    The following commands are used to build the Puzzles logic editor. To build an <em>unoptimized</em> version type:
-    </p>
+    <p>以下命令用于构建拼图逻辑编辑器。建立一个 <em>未优化的</em> 版本类型：</p>
 
     <code>npm run build-puzzles</code>
 
-    <p>To build an <em>optimized</em> version, execute:</p>
+    <p>建立一个 <em>已优化的</em> 版本，执行：</p>
 
     <code>npm run build-puzzles-release</code>
 
-    <p>
-    You can find the compiled Puzzles editor script inside the *puzzles* directory of your DevKit. To apply it to Verge3D, copy the entire content of this directory to the *puzzles* directory inside your Verge3D installation (replacing files which already exist there).
-    </p>
-
+    <p>您可以在DevKit的 *puzzles* 目录下找到已编译好的拼图编辑器脚本：要将其应用到Verge3D，请将该目录的全部内容复制到Verge3D安装中的 *Puzzles* 目录（替换已存在的文件）。</p>
 
     [anchor:Custom_API_Method]
 
-    <h2>Adding New Method to JavaScript API</h2>
+    <h2>添加新方法到JavaScript API</h2>
 
-    <p>
-    Say, you want to add another method to the *App* class. For example, a *printHelloWorld()* method should print something to the browser console:
-    </p>
+    <p>假如您想添加一个额外的方法到 *App* 类中。例如， *PrintHelloWorld()* 方法可将指定内容打印到浏览器控制台：</p>
 
     <code>App.printHelloWorld()</code>
 
-    <p>
-    The *App* class is implemented in the module located at *src/extras/App.js*. Open it and add the following code to the end of the file, just before the closing brackets of the *App* class. Don't forget to add another comma where the previous method ends.
-    </p>
+    <p>这一 *App* 类通过位于 *src/extras/app.js* 的模块实现。打开并将以下代码添加到文件的末尾，即 *App* 类的关闭括号之前。别忘了在前一个方法代码的末尾再加一个逗号。</p>
 
     <code>
-    printHelloWorld: function() {
-        console.log('Hello World!');
-    }
+      printHelloWorld: function() {
+          console.log('Hello World!');
+      }
     </code>
 
-    <p>
-    <a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Puzzles runtime to your Verge3D installation folder. You can now try the newly added block in the Puzzles editor.
-    </p>
-
-
+    <p><a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">构建</a>
+      并将拼图运行库复制到Verge3D安装文件夹中。您现在可以在拼图编辑器中尝试新添加的模块。</p>
 
     [anchor:Custom_API_Class]
 
-    <h2>Adding New Class to JavaScript API</h2>
+    <h2>向JavaScript API添加新类</h2>
 
-    <p>
-    To supplement the Verge3D API with some custom class, create a .js file named after your class in a relevant subdirectory of DevKit's *src* folder (e.g. src/extras/MyAwesomeClass.js). In this .js file, implement your class - you can get inspired by already existing classes. Finally, register your class in the global namespace *v3d* by adding the following line in *src/v3d.js* file:
-    </p>
+    <p>要用一些自定义类来补充Verge3D API，请在DevKit的 *src*
+      文件夹的相关子目录（例如src/extras/myawesomeclass.js)中创建一个以类命名的.js文件。在这个.js文件中实现自定义的类&mdash;&mdash;您可以从已经存在的类中得到启发。最后，通过在
+      *src/v3d.js* 文件中添加以下行，在全局名称空间 *v3d* 中注册您的类：</p>
 
     <code>export { MyAwesomeClass } from './extras/MyAwesomeClass.js';</code>
 
-    <p>
-    <a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Verge3D runtime to your application, and try it out in the browser console.
+    <p><a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">构建</a> 并将Verge3D运行库复制到应用中，然后在浏览器控制台中试用。
     </p>
 
     <code>
-    var myAwesomeStuff = new v3d.MyAwesomeClass();
-    myAwesomeStuff.whatEver();
+      var myAwesomeStuff = new v3d.MyAwesomeClass();
+      myAwesomeStuff.whatEver();
     </code>
-
 
     [anchor:Puzzles_Block]
 
-    <h2>Adding New Puzzles</h2>
+    <h2>添加新的拼图</h2>
 
-    <p>
-    To create a custom Puzzles block, edit the *puzzles/src/puzzles_blocks.js* file. You can get inspired by already existing puzzles. Register it in a relevant toolbox category in the top of the file.
-    </p>
+    <p>要创建自定义拼图块，请编辑 *Puzzles/src/puzzles_blocks.js* 文件。您可以从现有的拼图中得到启发。将其注册到文件顶部的相关工具箱类目中。</p>
 
-    <p>
-    <a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Puzzles runtime to your Verge3D installation folder. You should now find your new puzzle in the toolbox of the Puzzles editor.
-    </p>
+    <p><a href="manual/zh/programmers_guide/Developer-Kit.html#Building_Verge3D">构建</a>
+      并将拼图运行库复制到Verge3D安装文件夹中。您现在可以在拼图编辑器的工具箱中找到新的拼图了。</p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>

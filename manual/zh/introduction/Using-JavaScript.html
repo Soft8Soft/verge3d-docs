@@ -1,231 +1,175 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Using JavaScript in Verge3D applications - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Learn how you can extend functionality of your Verge3D applications with JavaScript code."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Using JavaScript in Verge3D Applications</h1>
+<head>
+  <title>在Verge3D应用中使用JavaScript - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何用JavaScript代码扩展Verge3D应用的功能。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-    Thanks to the Puzzles, you can implement most of the functionality found in typical WebGL applications without writing a single line of code. However, there can be special cases where you may want to use JavaScript - for example, to leverage third-party programming libraries or to implement some non-trivial feature which cannot be realized with the Puzzles alone.
+<body>
+  <article>
+
+    <h1>在Verge3D应用中使用JavaScript</h1>
+
+    <p>借助拼图的优良特性，您可以无需写任何代码即实现常规WebGL应用中的大多数功能。但在某些特殊情况下，您依然需要使用JavaScript&mdash;&mdash;比如，整合第三方编程库，或实现一些仅用拼图无法实现的重要特性。
     </p>
 
-    <p>
-    You can use any text editor for adding JavaScript code, but it is more convenient to work if your editor supports syntax highlighting and line numbering, like Notepad++ or VS Code.
+    <p>您可以使用任何文本编辑器来编辑HTML/CSS代码。但使用支持显示行号及语法高亮的工具会提高工作效率，比如Notepad++或VS Code等。</p>
+
+    [contents] [anchor:Method_1_Basic]
+
+    <h2>方法#1（基础）</h2>
+
+    <p>在拼图中合并javascript代码的最简单的方法是使用 <a href="manual/zh/puzzles/Advanced.html#exec_script">exec
+        script(执行脚本)</a>拼图。它有一个内置的功能齐全的文本编辑器，能够进行语法高亮显示、语法检查、代码折叠和许多其他特性。</p>
+
+    <p>这个拼图所做的就是立即执行一个javascript代码片段。使用&ldquo;exec script&rdquo;的优点是：
+    <ul>
+      <li>这是一种只需处理拼图的方法（不需要编辑项目的.js文件）</li>
+      <li>这样的代码片段可以保存到拼图库中，并且可以轻松地在其他项目中复用</li>
+    </ul>
     </p>
 
-    [contents]
+    <p>为了访问 <a href="manual/zh/puzzles/Variables.html">变量</a> 和 <a href="manual/zh/puzzles/Procedures.html">规程</a>
+      拼图，您可以使用&ldquo;exec script&rdquo;拼图内置的 <b>VARS</b> 和 <b>PROC</b> 。请参阅 <a
+        href="manual/zh/puzzles/Advanced.html#exec_script">&quot;exec script&rdquo; (执行脚本) 拼图的文档页面</a>。</p>
 
-
-
-    [anchor:Method_1_Basic]
-
-    <h2>Method #1 (Basic)</h2>
-
-    <p>
-        The easiest way to incorporate a javascript code in your puzzles is to
-        use a special puzzle called <a href="manual/zh/puzzles/Advanced.html#exec_script">exec script</a>.
-        It has a built-in fully functional text editor capable of syntax
-        highlighting, syntax checking, code folding and many other features.
-    </p>
-
-    <p>
-        What this puzzle does is execute a javascript code snippet right away.
-        The advantages of using "exec script" are:
-        <ul>
-            <li>it's a puzzles-only approach (no need to edit the project's .js files)</li>
-            <li>such code snippets can be saved into the puzzles library and easily reused in other projects</li>
-        </ul>
-    </p>
-
-    <p>
-        In order to access <a href="manual/zh/puzzles/Variables.html">variable</a>
-        and <a href="manual/zh/puzzles/Procedures.html">procedure</a> puzzles
-        from the inside of "exec script" you can use <b>VARS</b> and <b>PROC</b>
-        built-ins. See more details in the <a href="manual/zh/puzzles/Advanced.html#exec_script">"exec script" documentation</a>.
-    </p>
-
-    <p>
-        As an example the following puzzle setup utilizing "exec script" makes
-        scene objects change their material on click:
-    </p>
-
-    <img src="files/using-javascript/basics-exec-script-example.jpg" class="centered" style="max-width: 1000px">
-
-
+    <p>如下图示例，使用 &quot;exec script&rdquo;拼图实现了在场景中单击对象时改变材质的功能：</p><img
+      src="files/using-javascript/basics-exec-script-example.jpg" class="centered" style="max-width: 1000px">
 
     [anchor:Method_2_Standard]
 
-    <h2>Method #2 (Standard)</h2>
+    <h2>方法#2（标准）</h2>
 
-    <p>
-        If you want to have more control than what the "exec script" puzzle can
-        offer then this method is for you. It supposes using of the default
-        <b>Standard</b> application template (<b>Standard Light</b> or
-        <b>Standard Dark</b>):
+    <p>如果您想拥有比&quot;exec script&rdquo; (执行脚本) 拼图所能提供的更多的控制权，可以采用此方法。假设您使用了默认的 <b>标准</b> 应用模板（<b>标准浅色</b> 或 <b>标准深色</b>）
+      ：</p><img src="files/using-javascript/standard-app-template.jpg" class="centered" style="max-width: 522px">
+    <p>如果您使用了应用管理器的默认设置，并在其中创建了一个名为 <strong>my_awesome_app</strong>的新应用。打开 <i>verge3d/applications</i> 目录，找到
+      <i>my_awesome_app</i> 文件夹，使用您最喜欢的文本编辑器打开JavaScript文件 <i>my_awesome_app.js</i> 。
     </p>
 
-    <img src="files/using-javascript/standard-app-template.jpg" class="centered" style="max-width: 522px">
+    <p>搜索&quot;runCode&quot; &mdash;&mdash; 文件中其位置应该如下所示：</p>
+    
+<code>
 
-    <p>
-        Suppose you created your application using the App Manager (with default
-        configuration options), and named it <strong>my_awesome_app</strong>. Go
-        to the <i>verge3d/applications</i> folder and then to <i>my_awesome_app</i>
-        folder, and open the JavaScript file <i>my_awesome_app.js</i> with your
-        favorite text editor.
-    </p>
+      function runCode(app) {
+              // add your code here, e.g. console.log('Hello, World!');
+      
+      }
+          
+</code>
 
-    <p>
-    Search for "runCode" - this place in the file should look something like this:
-    </p>
 
-    <code>
-function runCode(app) {
-        // add your code here, e.g. console.log('Hello, World!');
+    <p>您可以在其声明内部（在花括号之间）添加代码，就像这样：</p>
+    
+<code>
 
-}
-    </code>
+      function runCode(app) {
+              // add your code here, e.g. console.log('Hello, World!');
+              console.log('Just added some JavaScript!');
+      }
+          
+</code>
 
-    <p>
-    You can add some code inside that declaration (between the curly brackets), so that it turns to:
-    </p>
+    <p>现在保存 <strong>.js</strong> 文件并运行应用，不会看出任何反应，但打开浏览器控制台后您便会注意到上面那段代码已经起作用了。浏览器控制台通常可以用F12键（Linux和Windows上的Chrome与火狐
+      ）打开。在Mac电脑中，Chrome使用 View&gt;Developer&gt;JavaScript控制台菜单（快捷键：Option-Cmd-J）开启，Safari需使用 Developer&gt;Show Error
+      Console菜单（快捷键：Option-Cmd-C）开启浏览器控制台。</p><img src="files/using-javascript/basics-console-log.jpg" class="centered"
+      style="max-width: 1000px">
+    <p>通过代码您可以对场景做一些改变，比如移动默认的Verge3D立方体（在3ds Max和Maya中名为&ldquo;Box001&rdquo;，在Blender中名为&ldquo;cube&rdquo;）...</p>
+    
+<code>
 
-    <code>
-function runCode(app) {
-        // add your code here, e.g. console.log('Hello, World!');
-        console.log('Just added some JavaScript!');
-}
-    </code>
+      function runCode(app) {
+              var obj = app.scene.getObjectByName('Cube');
+              obj.position.x = 2;
+      }
+          
+</code>
 
-    <p>
-    Now, if you save the <strong>.js</strong> file and run your app you'll notice... nothing until you open the browser console. The latter can usually be opened with the F12 key (Chrome, Firefox on Windows, Linux). On Mac use the View > Developer > JavaScript Console menu (Option-Cmd-J) in Chrome, or the Develop > Show Error Console menu (Option-Cmd-C) in Safari.
-    </p>
+    <p>... 或者凭空创造一种新材质：</p>
+    
+<code>
 
-    <img src="files/using-javascript/basics-console-log.jpg" class="centered" style="max-width: 1000px">
+      function runCode(app) {
+              var obj = app.scene.getObjectByName('Cube');
+              obj.material = new v3d.MeshPhongMaterial({ color: '#00BB00', emissive: '#550000' });
+      }
+          
+</code>
 
-    <p>
-    With code you can change something in your scene, for example, move the default Verge3D cube (named "Box001" in 3ds Max and "Cube" in Blender)...
-    </p>
-
-    <code>
-function runCode(app) {
-        var obj = app.scene.getObjectByName('Cube');
-        obj.position.x = 2;
-}
-    </code>
-
-    <p>
-    ... or create a new material out of thin air:
-    </p>
-
-    <code>
-function runCode(app) {
-        var obj = app.scene.getObjectByName('Cube');
-        obj.material = new v3d.MeshPhongMaterial({ color: '#00BB00', emissive: '#550000' });
-}
-    </code>
 
     <img src="files/using-javascript/basics-change-material.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    Check out <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">Verge3D code examples</a> to get inspired. Click <strong>View source</strong> button to open the code for an example.
-    </p>
-
-    <img src="files/using-javascript/basics-code-examples.jpg" class="centered" style="max-width: 1000px">
-
-
+    <p>请查看 <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">Verge3D代码示例</a> ，获得更多灵感。点击
+      <strong>View source</strong> 按钮,，可以打开示例的原始代码。
+    </p><img src="files/using-javascript/basics-code-examples.jpg" class="centered" style="max-width: 1000px">
 
     [anchor:Method_3_Compact]
 
-    <h2>Method #3 (Compact)</h2>
+    <h2>方法#3（紧凑型）</h2>
 
-    <p>
-        This method will suit experienced programmers who would like to have
-        just a minimal working code snippet to begin with. It's pretty much the
-        same as <b>Standard</b> except you choose a different application
-        template named <b>Code-Based</b> when creating a new application:
-    </p>
+    <p>这种方法适合有经验的程序员，他们希望从一个最小的工作代码片段开始工作。流程与选择 <b>标准</b> 模板类似，但这次我们选择 <b>基于代码的</b> 模板来创建新应用：</p><img
+      src="files/using-javascript/compact-app-template.jpg" class="centered" style="max-width: 522px">
+    <p>这将预设一个更简单的项目基础结构，应用中不会附带拼图编辑器，对应的 <strong>.js</strong> 文件里也只包含短短几行代码：</p>
+    
+<code>
 
-    <img src="files/using-javascript/compact-app-template.jpg" class="centered" style="max-width: 522px">
+      'use strict';
+      
+      window.addEventListener('load', function() {
+      
+      var app = new v3d.App('container', null,
+              new v3d.SimplePreloader({ container: 'container' }));
+      
+      var url = 'my_awesome_app.gltf';
+      
+      app.load(url, function() {
+              app.enableControls();
+              runCode();
+      });
+      
+      function runCode() {
+              // add your code here, e.g. console.log('Hello, World!');
+      
+      }
+      
+      });
+    
+</code>
 
-    <p>
-    This will result in a simpler project structure with no Puzzles editor attached to your application, and the app <strong>.js</strong> file will contain just a few lines of code:
-    </p>
+    <p>此类应用非常简单，但它们仍然能够加载 <strong>.gltf</strong> 格式的文件，带有网页预加载器，并在应用中提供了标准摄影机控件。</p>
 
-    <code>
-'use strict';
-
-window.addEventListener('load', function() {
-
-var app = new v3d.App('container', null,
-        new v3d.SimplePreloader({ container: 'container' }));
-
-var url = 'my_awesome_app.gltf';
-
-app.load(url, function() {
-        app.enableControls();
-        runCode();
-});
-
-function runCode() {
-        // add your code here, e.g. console.log('Hello, World!');
-
-}
-
-});
-    </code>
-
-    <p>
-    Applications of this type are very simple yet they are still capable of loading a scene in <strong>.gltf</strong> format (with preloader), and offer standard camera controls to the user.
-    </p>
-
-    <p>
-    You can proceed by adding your code inside the "runCode" function as described in Method #2. Of course, you can completely overhaul this application template instead - for example, you can discard the App class, load the scene using some other file format or setup the controls in some specific way.
-    </p>
-
-
+    <p>您可以通过在&ldquo;runcode&rdquo;函数中添加代码来继续编程，如同方法#2
+      。当然，您也可以完全修改这个应用模板&mdash;&mdash;例如，您可以丢弃App类，在场景中加载其他文件格式，或以某种特定的方式设置控件。</p>
 
     [anchor:Method_4_Hardcore]
 
-    <h2>Method #4 (Hardcore)</h2>
+    <h2>方法4（硬核）</h2>
 
-    <p>
-    This method will suit programmers who are familiar with the Three.js library, as you basically can use the same API with Verge3D.
-    </p>
+    <p>这种方法适合熟悉Three.js库的程序员，您可以在Verge3D中使用与之基本相同的API。</p>
 
-    </p>
-    Copy the <strong>v3d.js</strong> file from the <i>verge3d/build</i> folder, link it to an <strong>.html</strong> file and <a href="manual/zh/programmers_guide/Programming-basics.html">start coding</a>! How did you think the <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">code examples</a> were created in the first place?
-    </p>
-
-
+    </p>从 <i>verge3d/build</i> 文件夹复制 <strong>v3d.js</strong> 文件，将其链接到 <strong>.html</strong> 文件，然后 <a
+      href="manual/zh/programmers_guide/Programming-basics.html">开始编程</a>吧！不然，您以为 <a
+      href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">代码示例</a> 最早是怎么写出来的？</p>
 
     [anchor:Get_Inspired_by_Puzzles]
 
-    <h2>Get Inspired by Puzzles</h2>
+    <h2>从拼图中获得灵感</h2>
 
-    <p>
-    This is not a method but rather a tip. In fact, when you click the *Save* button in the Puzzles editor, it will generate a self-contained, human-readable JavaScript module saved as *visual_logic.js* file in your app folder.
-    </p>
-
-
-    <img src="files/using-javascript/get-inspired-by-puzzles.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    This way you may have a working example of how certain JavaScript API methods work, and re-use the snippet generated for a puzzle of interest in your own code.
-    </p>
+    <p>这不是一种方法，而是一种提示。事实上，当您每次单击Puzzles编辑器中的*Save*按钮时，它都将生成一个自包含的、人类可读的JavaScript模块，并以*visual_logic.js*命名保存在您的应用文件夹中。
+    </p><img src="files/using-javascript/get-inspired-by-puzzles.jpg" class="centered" style="max-width: 1000px">
+    <p>这样，您就有了一个对应特定JavaScript API工作方法的可运行示例，即并可重新使用自己感兴趣的拼图所生成的代码片段。</p>
 
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article></body>
+  </article>
+</body>
+
 </html>

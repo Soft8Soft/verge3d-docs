@@ -1,107 +1,100 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Verge3D for Maya: glTF Materials (glTF 2.0-compliant PBR) - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="How to setup glTF-compliant PBR materials in Maya to be used with Verge3D."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>glTF Materials (glTF 2.0-compliant PBR) / Maya</h1>
+<head>
+  <title>用于Maya的Verge3D：glTF材质（符合glTF 2.0标准的PBR材质）- Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="如何在Verge3D for Maya设置符合glTF标准的PBR材质。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>Verge3D for Maya supports <a href="manual/zh/introduction/FAQ.html#gltf_materials">glTF 2.0-compliant PBR materials</a> on top of the aiStanadardSurface (Standard Surface in Maya 2020+) shader.</p>
+<body>
+  <article>
 
-    [contents]
+    <h1>glTF材质（glTF 2.0兼容性PBR材质） / Maya</h1>
 
+    <p>Verge3D for Maya支持基于aiStandardSurface的<a href="manual/zh/introduction/FAQ.html#gltf_materials">glTF
+        2.0兼容性PBR材质</a> ，aiStandardSurface是Maya 2020+版本中的标准表面着色器。</p>
 
-    [anchor:setup]
+    [contents] [anchor:setup]
 
-    <h2>Setup glTF Material</h2>
+    <h2>设置glTF材质</h2>
 
-    <p>
-      Assign the *aiStandardSufrace* shader node to your material and enable the *glTF 2.0 Compatible* checker located on the *Verge3D* panel.
-    </p>
+    <p>将*aiStandardSurface*着色器节点指定到材质中，并启用位于<b>Verge3D</b>*面板上的<b>GLTF 2.0兼容</b>复选框。</p><img
+      src="files/gltf-materials-maya/ai-standard-surface-overview.jpg" class="centered">
+    <p>以下aiStandardSurface的设置在Verge3D受到支持：</p>
 
-    <img src="files/gltf-materials-maya/ai-standard-surface-overview.jpg" class="centered">
-
-    <p>The following aiStandardSurface settings are supported in Verge3D:</p>
-
-    <h3>Base Panel</h3>
+    <h3>Base面板</h3>
     <ul>
-      <li>Weight or (Base input in Hypershade)</li>
-      <li>Color or (Base Color input in Hypershade)</li>
-      <li>Metalness</li>
+      <li>权重(Weight) 或（Hypershade中的Base输入）</li>
+      <li>颜色(Color) 或（Hypershade中的Base Color输入）</li>
+      <li>金属度(Metalness)</li>
     </ul>
 
-    <h3>Specular Panel</h3>
+    <h3>Specular面板</h3>
     <ul>
-      <li>Roughness (Specular Roughness input in Hypershade)</li>
+      <li>Roughness - 粗糙度 或 （Hypershad中的Specular Roughness输入）</li>
     </ul>
 
-    <h3>Emission Panel</h3>
+    <h3>Emission面板</h3>
     <ul>
-      <li>Weight (Emission input in Hypershade)</li>
-      <li>Color (Emission Color input in Hypershade)</li>
+      <li>权重(Weight) 或 （Hypershade中的Emission输入）</li>
+      <li>颜色(Color) （Hypershade中的Emission Color输入）</li>
     </ul>
 
-    <h3>Geometry Panel</h3>
+    <h3>Geometry面板</h3>
     <ul>
-      <li>Opacity</li>
-      <li>Bump Mapping (Normal Camera input in Hypershade)</li>
+      <li>不透明度(Opacity)</li>
+      <li>凹凸映射(Bump Mapping)（Hypershade中的Normal Camera输入）。</li>
     </ul>
 
-    <p>In addition, when dealing with Ambient Occlusion, you might also want to use *Weight* value from the *Specular* panel to make you Maya viewport look consistent with Verge3D rendering.</p>
+    <p>此外，在处理环境遮蔽时，您也可以使用*Specular*面板中的*Weight*值，使Maya视口看起来与Verge3D渲染一致。</p>
 
 
-    <h3>Creating PBR material for general use</h3>
+    <h3>创建常用的PBR材质</h3>
 
-    <p>Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
+    <p>按以下步骤来配置包含3个贴图的标准PBR着色器。基础颜色、ORM（遮蔽、粗糙度、金属度）和法线贴图。</p>
 
     <ol>
-      <li>Assign *aiStandardSurface* to your model.</li>
-      <li>Open the Hypershade editor, find and select this material in the *Browser* panel.</li>
-      <li>Create a *file* node with Base Color texture. Make sure that the *Color Space* setting of this node is set to *sRGB*.</li>
-      <li>Connect *Out Color* output of this texture to *Base Color* input of *aiStandardSurface* node.</li>
-      <li>Create a *file* node with ORM texture. This texture should contain 3 channels with AO (red), Roughness (green) and Metalness (blue) info. Make sure that the *Color Space* setting of this node is set to *Raw*.</li>
-      <li>Connect R channel of the ORM texture to *Base* and *Specular* inputs of the *aiStandardSurface* node to simulate the ambient occlusion effect.</li>
-      <li>Connect G channel of the ORM texture to *Specular Roughness* input of the *aiStandardSurface* node.</li>
-      <li>Connect B channel of the ORM texture to *Metalness* input of the *aiStandardSurface* node.</li>
-      <li>Create *file* and *bump2d* nodes with Normal Map texture. Make sure that the *Color Space* setting of the file node is set to *Raw* and the *Use as* setting of the bump node is set to *Tangent Space Normals*.</li>
-      <li>Connect *file* to *bump2d* node and *bump2d* node to *Normal Camera* input of the *aiStandardSurface* node.
+      <li>将*aiStandardSurface*指定给模型。</li>
+      <li>打开Hypershade编辑器，在<b>材质</b><b>浏览器</b>面板中找到并选择这个材质。</li>
+      <li>创建一个带有基础颜色纹理的<b>文件</b>节点。确保将该节点的<b>色彩空间</b>设置为*sRGB*。</li>
+      <li>将此纹理的*Out Color*输出连接到*aiStandardSurface*节点的*Base Color*输入。</li>
+      <li>创建一个带有ORM纹理的<b>文件</b>节点。该纹理应该包含3个通道的信息：AO（红色）、粗糙度（绿色）和金属度（蓝色）。确保将该节点的<b>色彩空间</b>设置为*Raw*。</li>
+      <li>将ORM纹理的R通道连接到*aiStandardSurface*节点的*Base*和*Specular*输入，以模拟环境光遮蔽效果。</li>
+      <li>将ORM纹理的G通道连接到*aiStandardSurface*节点的*Specular Roughness*输入。</li>
+      <li>将ORM纹理的B通道连接到*aiStandardSurface*节点的*Metalness*输入。</li>
+      <li>用<b>法线贴图</b>纹理创建*file*和*bump2d*节点。确保将该文件节点的*Color Space*设置为*Raw*，凹凸节点的*Use as*设置为*切线空间法线*。</li>
+      <li>将*file*连接到*bump2d*节点，*bump2d*节点连接到*aiStandardSurface*节点的*Normal Camera*输入。
     </ol>
 
-    <p>This is how the material should look in the Hypershade editor:</p>
-
-    <img src="files/materials-maya/pbr-example.jpg" class="centered">
-
+    <p>下图是材质在Hypershade编辑器中的示例。</p><img src="files/materials-maya/pbr-example.jpg" class="centered">
 
     [anchor:exporting_substance]
 
-    <h2>Exporting Textures from Substance Painter</h2>
+    <h2>从Substance Painter导出纹理</h2>
 
-    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
-
-    <img src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
-
-    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
-
-    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
-
+    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p><img
+      src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
+    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p><img src="files/physical-material-blender/pbr_texture_set_preview.jpg"
+      class="centered" style="max-width: 819px;">
 
     [anchor:export_to_gltf_in_runtime]
 
-    <h2>Export to glTF in Runtime</h2>
+    <h2>在运行时中导出到glTF</h2>
 
-    <p>With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">reference</a>.</p>
+    <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a
+        href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>
