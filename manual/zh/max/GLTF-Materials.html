@@ -1,137 +1,90 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Verge3D for 3ds Max: glTF Materials (glTF 2.0-compliant PBR) - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="How to setup glTF-compliant PBR materials in 3ds Max to be used with Verge3D."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>glTF Materials (glTF 2.0-compliant PBR) / 3ds Max</h1>
+<head>
+  <title>用于3ds Max的Verge3D：glTF材质（符合glTF 2.0标准的PBR材质）- Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="如何在Verge3D for 3ds Max中设置符合glTF标准的PBR材质。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-    If your content needs to be compatible with glTF 2.0 standard <a href="manual/zh/introduction/FAQ.html#gltf_materials">for some reason</a>, you can use physical materials for this purpose as described below.
-    </p>
+<body>
+  <article>
 
-    <img src="files/physical-material/phmat_00.png">
+    <h1>glTF材质（符合glTF 2.0标准的PBR材质）/ 3ds Max</h1>
 
-    <h2>Contents</h2>
+    <p>如果您内容<a href="manual/zh/introduction/FAQ.html#gltf_materials">出于某种原因</a>需要与glTF 2.0标准兼容，您可以根据下文描述来使用物理材质来达到目标。
+    </p><img src="files/physical-material/phmat_00.png">
+    <h2>内容</h2>
 
-    [contents]
+    [contents] [anchor:setting_up]
 
+    <h2>启用VR设置</h2>
 
-    [anchor:setting_up]
-
-    <h2>Setting Up</h2>
-
-    <p>
-    Add a <b>Physical Material</b> shader node as follows: go to <b>Materials/Map Browser</b> and choose <b>Physical Material</b> from the <b>General</b> material list.
-    </p>
-
-    <img src="files/physical-material/phmat_02.png">
-
-    <p>
-    Then you can connect texture nodes to the <b>Physical Material</b> as described below.  Note that all textures are optional and any of them can be safely omitted.
-    </p>
-
-    <img src="files/physical-material/phmat_01.png">
-
+    <p>如下添加一个 <b>物理材质</b> 着色器节点：在 <b>材质/贴图浏览器</b> 中，从左侧的 <b>通用</b> 材质列表中选择 <b>物理材质</b> 。</p><img
+      src="files/physical-material/phmat_02.png">
+    <p>您可以将纹理节点连接到 <b>物理材质</b> 节点，如下所述。请注意，所有的纹理都是可选的，其中任何一个都可以安全地省略。</p><img
+      src="files/physical-material/phmat_01.png">
     <ul>
-      <li>
-      Connect an <b>Ambient Occlusion</b> texture to the <b>Base Weight Map</b> input. For better consistency between the 3ds Max viewport and Verge3D you can also connect the <b>Ambient Occlusion</b> texture to the <b>Refl Color Map</b> input, but it's not necessary.
-      </li>
-      <li>
-      Connect a <b>Base Color</b> texture to the <b>Base Color Map</b> input.
-      </li>
-      <li>
-      Connect a <b>Roughness</b> texture to the <b>Roughness Map</b> input.
-      </li>
-      <li>
-      Connect a <b>Metallic</b> texture to the <b>Metalness Map</b> input.
-      </li>
-      <li>
-      Connect a <b>Normal</b> texture to a <b>Normal Map</b> node and then connect it to the <b>Bump Map</b> input of the <b>Physical Material</b>. You should also set the <b>Bump Map Amount</b> value in the <b>Special Map</b> panel of the <b>Physical Material</b> to 1.0.
-      </li>
-      <li>
-      Connect an <b>Emission</b> texture to the <b>Emission Color Map</b>. You should also set the emission factor to 1.0 in the <b>Basic Parameters</b> panel of the <b>Physical Material</b> preferences.
-      </li>
-      <li>
-      The <b>Transparency</b> map will be taken from Alpha Channel of the <b>Base Color</b> texture.
-      </li>
-    </ul>
-
-    <img src="files/physical-material/phmat_03.png">
-
+      <li>将 <b>Ambient Occlusion</b> 纹理连接到 <b>基础权重贴图</b> 输入。为了使3ds Max视口和Verge3D场景之间有更好的一致性，您也可以将 <b>Ambient
+          Occlusion</b> 纹理连接到 <b>反射颜色贴图</b> 输入，但这不是必须的。</li>
+      <li>将 <b>Base Color</b> 纹理连接到 <b>基础颜色贴图</b> 输入。</li>
+      <li>将 <b>Roughness</b> 纹理连接到 <b>粗糙度贴图</b> 输入。</li>
+      <li>将 <b>Metallic</b> 纹理连接到 <b>金属度贴图</b> 输入。</li>
+      <li>将 <b>Normal</b> 纹理连接到 <b>法线凹凸</b> 节点，然后将其连接到 <b>物理材质</b> 的 <b>凹凸贴图</b>输入。您还应该将 <b>物理材质</b> 的 <b>特殊贴图</b> 面板中的
+        <b>凹凸贴图</b> 值设置为1.0。</li>
+      <li>将一个 <b>Emission</b> 纹理连接到 <b>发射颜色贴图</b>。您也应该在 <b>物理材质</b> 属性的 <b>基本参数</b> 面板中把发射的值设置为1.0。</li>
+      <li><b>透明度贴图</b> 将从 <b>Base Color</b> 纹理的Alpha通道获取。</li>
+    </ul><img src="files/physical-material/phmat_03.png">
 
     [anchor:color_space]
 
-    <h2>Color Space and Gamma Correction</h2>
+    <h2>色彩空间和Gamma校正</h2>
 
-    <p>
-    For correct rendering, the color space should be taken into account for images. All images, except the <b>Base Color</b> and <b>Emission</b> textures, must be presented in the linear color space. To do this, select <b>Override Gamma</b> with the 1.0 value in the <b>Gamma Preferences</b> when you open an image in the <b>Open Image</b> dialog box (as can be seen below).
-    </p>
-
-    <img src="files/physical-material/phmat_04.png">
-
-    <p>
-    On the contrary, the <b>Base Color</b> and <b>Emission</b> textures must be opened in sRGB color space (with Gamma 2.2). To make it happen, just leave <b>Automatic</b> in the gamma preferences of the <b>Open Image</b> dialog box.
-    </p>
-
-    <img src="files/physical-material/phmat_05.png">
-
+    <p>为了进行正确的渲染，需要注意为图像选择正确的色彩空间。除了 <b>Base Color</b> 和 <b>Emission</b> 纹理外，所有图像都必须以线性色彩空间渲染。要做到这一点，当您在 <b>打开图像</b>
+      对话框中打开图像时，选择 <b>覆盖 Gamma</b> 并将其 <b>数值</b> 设置为1.0（如下图所示）。</p><img src="files/physical-material/phmat_04.png">
+    <p>与此相反， <b>Base Color</b> 和 <b>Emission</b> 纹理必须在sRGB色彩空间中打开（Gamma数值2.2）。为此只需在 <b>打开图像</b> 对话框的Gamma偏好中使用推荐的
+      <b>自动</b> 选项即可。</p><img src="files/physical-material/phmat_05.png">
 
     [anchor:transparency_texture]
 
-    <h2>Transparency Texture</h2>
+    <h2>透明度纹理</h2>
 
-    <p>
-    The engine will use the <b>Alpha</b> channel from the <b>Base Color</b> texture as a transparency map automatically, if it is present. To make the transparency visible in the 3ds Max viewport, connect the <b>Alpha</b> channel of the <b>Base Color</b> texture to the <b>Transparency Color Map</b> input.
-    </p>
-
-    <img src="files/physical-material/phmat_06.png">
-
-    <p>
-    Also in the <b>Preferences</b> of the texture, in the <b>Bitmap Parameters</b> panel you should set <b>Mono Chanel Output</b> to <b>Alpha</b> and <b>RGB Channel Output</b> to <b>Alpha as Gray</b>.
-    </p>
-
+    <p>如果 <b>Base Color</b> 纹理中的 <b>Alpha</b> 通道存在，引擎将自动使用它作为透明度贴图。要使透明度在3ds Max视口中可见，请将 <b>Base Color</b> 的
+      <b>Alpha</b> 通道连接到 <b>透明度颜色贴图</b> 输入。</p><img src="files/physical-material/phmat_06.png">
+    <p>您还需在纹理的 <b>首选项</b> 的 <b>位图参数</b> 面板中，将 <b>单通道输出</b> 设置为 <b>Alpha</b> ，将 <b>RGB 通道输出</b> 设置为 <b>Alpha作为灰度</b>。</p>
     <img src="files/physical-material/phmat_07.png">
-
 
     [anchor:exporting_substance]
 
-    <h2>Exporting Textures from Substance Painter</h2>
+    <h2>从Substance Painter导出纹理</h2>
 
-    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
-
-    <img src="files/physical-material/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
-
-    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
-
-    <img src="files/physical-material/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
-
-    <p>
-      To facilitate exporting textures from Substance Painter and to ensure maximum capabilities within the Verge3D engine we recommend using <a href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D export preset</a>. Place this preset file to the *export-presets* folder usually located in the <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> directory (create it if does not exist).
-    </p>
-
-    <img src="files/physical-material/phmat_09.png">
-
-    <p>When exporting textures from Substance Painter, choose *Verge3d for 3ds Max* in the export dialog window so that all generated textures are compatible with the glTF 2.0 standard Verge3D is based on.</p>
-
+    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p><img
+      src="files/physical-material/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
+    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p><img src="files/physical-material/pbr_texture_set_preview.jpg"
+      class="centered" style="max-width: 819px;">
+    <p>为了方便从Substance Painter导出纹理，并确保Verge3D引擎能够最佳利用资源，我们建议您使用 <a
+        href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D导出预设</a> 。将此预设文件放到通常位于 My
+      Documents\Allegorithmic\Substance Painter\shelf\目录下的 *export-presets* 文件夹中（如果不存在就新建一个）。</p><img
+      src="files/physical-material/phmat_09.png">
+    <p>当从Substance Painter导出纹理时，选择*Verge3d for 3ds Max*的导出对话窗口，这样所有生成的纹理都与Verge3D所采用的glTF 2.0标准兼容。</p>
 
     [anchor:export_to_gltf_in_runtime]
 
-    <h2>Export to glTF in Runtime</h2>
+    <h2>在运行时中导出到glTF</h2>
 
-    <p>With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">reference</a>.</p>
+    <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a
+        href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>

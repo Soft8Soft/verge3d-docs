@@ -1,138 +1,97 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Updating for New Verge3D Versions - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Learn how properly update your Verge3D applications once a new version is out."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Updating for New Versions</h1>
+<head>
+  <title>更新Verge3D版本 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何在Verge3D新版本发布后正确地更新自己的应用。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-    Verge3D is being actively developed with software releases occuring regularly. There is also the pre-release channel of updates with new versions coming out even more often. We recommend you to keep in pace with the development cycle and timely update your Verge3D distribution and applications.
-    </p>
+<body>
+  <article>
 
-    [contents]
+    <h1>版本更新</h1>
 
+    <p>Verge3D一直处在快速迭代开发中，定期发布新版本。另外还有预览版发行渠道，更新频率更高。我们建议您跟上开发周期，即时更新您的Verge3D应用及升级Verge3D主程序。</p>
 
-    [anchor:Update_Verge3D_installation]
+    [contents] [anchor:Update_Verge3D_installation]
 
-    <h2>Update Verge3D Installation</h2>
+    <h2>升级Verge3D安装包</h2>
 
-    <p>
-    Backup your current Verge3D folder by renaming it (from "verge3d" to "verge3d_old", for example).
-    </p>
+    <p>通过重命名来备份当前的Verge3D文件夹（例如，将&ldquo;verge3d&rdquo;重命名为&ldquo;verge3d_old&rdquo;）。</p>
 
-    <p>
-    Download and unpack the latest Verge3D bundle in a fresh folder with the same name (that is, "verge3d").
-    </p>
-
-    <img src="files/updating/files-backup.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    By using the same name for the fresh folder you can avoid re-configuring paths in the 3D editor of your choice.
-    </p>
-
+    <p>下载并解压Verge3D最新版软件包到一个新的同名文件夹中（即Verge3D）。</p><img src="files/updating/files-backup.jpg" class="centered"
+      style="max-width: 1000px">
+    <p>通过使用相同的文件夹名称，以避免在3D软件中重新配置路径。</p>
 
     [anchor:update_applications]
 
-    <h2>Update Applications</h2>
-
+    <h2>更新应用</h2>
 
     [anchor:Update_Applications_Auto]
 
-    <h3>Method #1 (Automatic) - use the update feature</h3>
+    <h3>方法#1：使用更新功能自动更新</h3>
 
-    <p>
-    Simply copy the entire folder with your application to the <strong>applications</strong> folder of the fresh Verge3D installation. After launching the App Manager, your app name should appear in the list of apps (reload the page if not). Click the update button with the round arrow on it.
-    </p>
+    <p>只需将整个应用文件夹复制到新安装的Verge3D的 <strong>applications</strong> 文件夹即可。启动应用管理器后，您的应用名称会显示在应用列表中（如果没有，则刷新页面）。单击带有圆形箭头的更新按钮。
+    </p><img src="files/updating/app-manager-update-button.jpg" class="centered" style="max-width: 705px">
+    <p>在显示的窗口中，选择您要覆盖的模板文件。如果您未编辑这些文件，则可以安全地选择所有内容。如果您修改了他们，请务必仔细检查，覆盖前请务必备份文件以用于恢复。</p><img
+      src="files/updating/application-update-window.jpg" class="centered" style="max-width: 780px">
+    <p>此操作将在后台覆盖 <strong>/build</strong> 文件夹中的引擎模块, 即Verge3D运行环境 <strong>v3d.js</strong> ，可选IE11兼容模块
+      <strong>ie_compat.js</strong> （如果开启了 *IE 11* 复选框），可选旧版VR兼容模块 <strong>webxr-polyfill.js</strong> （如果在应用创建时开启 了
+      *Legacy VR* 复选框）。如果您做了如图选择，此操作还 用 <strong>/manager/templates/template_name</strong>
+      文件夹中对应模板文件覆盖应用的HTML/CSS/JavaScript文件与 <strong>media</strong> 文件夹中的图标文件。</p>
 
-    <img src="files/updating/app-manager-update-button.jpg" class="centered" style="max-width: 705px">
-
-    <p>
-    In the window shown up, select the template files you'd like to overwrite. You can safely select everything if you didn't edit the files. If you modified the files, be sure to backup them first so that you can cherry-pick the changes back later, and only after that proceed with overwriting.
-    </p>
-
-    <img src="files/updating/application-update-window.jpg" class="centered" style="max-width: 780px">
-
-
-    <p>
-    Under the hood, this operation overwrites the engine modules by the files from the <strong>/build</strong> folder, namely, Verge3D runtime <strong>v3d.js</strong> and optional compatibility modules <strong>ie_compat.js</strong> (enabled by *IE 11* checkbox) and <strong>webxr-polyfill.js</strong> (enabled by *Legacy VR* checkbox in the app creation panel). If you choose so, this operation will also overwrite the selected HTML/CSS/JavaScript files and the icons folder <strong>media</strong> by the files from the <strong>/manager/templates/template_name</strong> folder.
-    </p>
-
-    <p>Upon updating, App Manager will save older versions of your files in the app's <strong>v3d_app_data/update_backup</strong> directory with a time stamp added. This allows you to restore any of the previously saved revisions of your app files when you need them. Simply copy a file back to the application folder root and remove the time stamp from its name.</p>
-
+    <p>更新后，应用管理器会将文件的旧版本保存在 <strong>v3d_app_data/update_backup</strong>
+      文件夹中，并添加了时间戳的目录中。这可以允许您在需要时恢复先前保存的拼图版本。只需将文件复制回应用文件夹根目录，并从其名称中删除时间戳既可。</p>
 
     [anchor:Update_Applications_Clean]
 
-    <h3>Method #2 (Clean) - re-create your app from scratch</h3>
+    <h3>方法#2：从头重建应用以执行清洁更新</h3>
 
-    <p>
-    This is an alternative method of updating where you are in full control of your files. You can use it to get rid of obsolete files or if for some reason the automatic update method is not applicable.
-    </p>
+    <p>这是当您完全掌控文件时的一种替代方法。您可以用这种方法来删除过时的文件，或者因某些原因自动更新不可用时来手动操作。</p>
 
-    <p>
-    To perform clean updating, in the App Manager type the name of your app in the "Create new App" window and click "Create App" button.
-    </p>
+    <p>为执行清洁更新，请在在应用管理器的创建新应用窗口输入应用的名称，然后点击新建应用。</p><img src="files/updating/app-manager-create-new.jpg"
+      class="centered" style="max-width: 358px">
+    <p>从原文件夹复制 <strong>.max</strong> ， <strong>.blend</strong> 或 <b>.mb</b> 文件，所有的贴图、声音和拼图场景文件
+      <strong>visual_logic.xml</strong> 到新应用文件夹中（在
+      <strong>verge3d/applications</strong>中）。当系统提示文件已存在时，请选择覆盖。如果你在应用中选择了基于HTML的UI时，请同样拷贝相关文件到目标文件夹。</p><img
+      src="files/updating/files-copy.jpg" class="centered" style="max-width: 1000px">
+    <p>最后，您还需要执行glTF的导出，以便其能够跟进最近的更新。如果您的应用中使用了拼图，您需要在拼图编辑器中重新保存场景以生成与最新版引擎匹配的代码。</p>
 
-    <img src="files/updating/app-manager-create-new.jpg" class="centered" style="max-width: 358px">
-
-    <p>
-    Copy <strong>.max</strong> or <strong>.blend</strong> files, all the textures/sounds and the Puzzles scenario file <strong>visual_logic.xml</strong> from your old app folder to the newly created app folder (located within <strong>verge3d/applications</strong>). Overwrite files when you're asked so. If you were using HTML-based UI in your app, copy all relevant files as well.
-    </p>
-
-    <img src="files/updating/files-copy.jpg" class="centered" style="max-width: 1000px">
-
-    <p>
-    Finally, you should perform exporting to glTF so that the exported format receives the latest updates. If you were using Puzzles in your app, you'll need to re-save your scenario in the Puzzles editor so that the generated code matches the newest version of the engine.
-    </p>
-
-    <p>
-    If you changed anything in your application's .html, .css or .js files, be sure to backup them first so that you can cherry-pick the changes back later.
-    </p>
-
+    <p>如果您更改了应用的 .html， .css 或 .js 文件，请记得备份文件，以便后期可以修改。</p>
 
     [anchor:After_Update]
 
-    <h2>After Update</h2>
+    <h2>更新后</h2>
 
-    <h3>Restore Puzzles library</h3>
+    <h3>恢复您的自定义拼图库</h3>
 
-    <p>
-    If you were adding new entries in the Puzzles library, you can restore it after updating by copying the file <strong>/puzzles/library.xml</strong> to the fresh installation folder and overriding the old file.
-    </p>
+    <p>如果您在自定义拼图库里添加了自定义条目，请提前备份 <strong>/puzzles/library.xml</strong> 文件，并在更新后拷贝到对应位置覆盖还原。</p>
 
-    <h3>Re-activate your license</h3>
+    <h3>重新激活您的授权许可</h3>
 
-    <p>
-    You should enter the license key each time you update to a new version, otherwise your apps may render the trial watermark when running.
-    </p>
-
+    <p>升级版本后，您需要重新输入授权码，否则您的应用运行时将会带有试用版水印。</p>
 
     [anchor:Known_Issues_and_Troubleshooting]
 
-    <h2>Known Issues and Troubleshooting</h2>
+    <h2>已知问题及故障排除方法</h2>
 
-    <p>
-    On rare occasions the Puzzles button can disappear for your app in the App Manager. Please perform clean updating to fix this.
-    </p>
+    <p>在极少数情况下，应用的&ldquo;拼图&rdquo;按钮会在应用管理器中消失。请执行清洁更新以修复此问题。</p>
 
-    <p>
-    On rare occasions the Puzzles editor may fail to load after updating. Please reset your browser settings to fix this.
-    </p>
+    <p>在极少数情况下，拼图编辑器在更新后可能无法加载。请重置浏览器设置以修复此问题。请重置浏览器设置以修复此问题。</p>
 
-    <p>
-    If after updating some feature got broken, please report this on the <a href="https://www.soft8soft.com/forum/bug-reports-and-feature-requests/" target="_blank">forums</a> so that we can investigate the problem and issue a correcting release.
-    </p>
+    <p>如果更新后某些功能出现故障，请在 <a href="https://www.soft8soft.com/forum/bug-reports-and-feature-requests/"
+        target="_blank">论坛</a> 上报告，以便我们调查问题并发布更正版本。</p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>

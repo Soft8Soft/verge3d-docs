@@ -1,115 +1,68 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Verge3D for 3ds Max: Material System Overview - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Learn what kinds of 3ds Max materials are supported in Verge3D."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Material System Overview / 3ds Max</h1>
+<head>
+  <title>用于3ds Max的Verge3D：材质系统概览 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解Verge3D支持哪些类型的3ds Max材质。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-      Verge3D supports the following types of materials available in 3ds Max:
-    </p>
+<body>
+  <article>
 
-    <!-- this text is not the table of contents -->
+    <h1>材质系统概览 / 3dsMax</h1>
 
+    <p>Verge3D支持3ds Max中以下类型的材质：</p><!-- this text is not the table of contents -->
     <ul>
-      <li>
-        <a href="manual/zh/max/Material-System.html#Physical">Physical</a> with ART as reference renderer
-      </li>
-      <li>
-        <a href="manual/zh/max/Material-System.html#Standard">Standard</a> with Scanline as reference renderer
-      </li>
-      <li>
-        <a href="manual/zh/max/Material-System.html#Physical_glTF_compliant">Physical glTF-compliant</a>
-      </li>
+      <li>以ART渲染器为参考的<a href="manual/zh/max/Material-System.html#Physical">物理材质</a></li>
+      <li>以扫描线渲染器为参考的<a href="manual/zh/max/Material-System.html#Standard">标准材质</a></li>
+      <li><a href="manual/zh/max/Material-System.html#Physical_glTF_compliant">符合glTF标准的物理材质</a></li>
     </ul>
-
 
     [anchor:Physical]
 
-    <h2>Physical Materials</h2>
+    <h2>物理材质</h2>
 
-    <p>
-      Physical materials are GPU intensive, but look more realistic and also easier to use than standard materials. They work especially well for representing metallic and other non-trivial surfaces. Verge3D strives to reproduce physical materials using Autodesk ART renderer as a reference.
-    </p>
-
-    <img src="files/material-system-max/physical-material-example.jpg" class="centered">
-
-    <img src="files/material-system-max/physical-material.jpg" class="centered">
-
-    <p>
-    You can set up the environment texture using the Environment and Effects window.
-    </p>
-
-    <img src="files/material-system-max/environment.jpg" class="centered" style="max-width: 340px">
-
-    <p>
-    Most 3ds Max' presets of physical materials are ready to be used with Verge3D.
-    </p>
-
-    <img src="files/material-system-max/physical-material-presets.jpg" class="centered" style="max-width: 693px">
-
-    <p>
-    Material parameters can be animated or changed with Puzzles or with code using Float or Point4 material Controllers.
-    </p>
-
-    <img src="files/material-system-max/texture-atlas-animated.jpg" class="centered" style="max-width: 819px">
-
+    <p>渲染物理材质是GPU密集型的任务，但其看起来更真实，也比标准材质更容易使用。它们在表现金属和其他非简单的表面时效果更好。Verge3D尽力通过Autodesk ART渲染器作为参考来在浏览器中重现物理材质。</p><img
+      src="files/material-system-max/physical-material-example.jpg" class="centered"> <img
+      src="files/material-system-max/physical-material.jpg" class="centered">
+    <p>您可以在<b>环境和效果</b>中设置环境纹理。</p><img src="files/material-system-max/environment.jpg" class="centered"
+      style="max-width: 340px">
+    <p>大多数3ds Max&apos;预设的物理材质都可以在Verge3D中使用。</p><img src="files/material-system-max/physical-material-presets.jpg"
+      class="centered" style="max-width: 693px">
+    <p>材质参数可以通过拼图或使用浮点型控制器或Point4控制器的代码进行动画或改变。</p><img src="files/material-system-max/texture-atlas-animated.jpg"
+      class="centered" style="max-width: 819px">
 
     [anchor:Standard]
 
-    <h2>Standard Materials</h2>
+    <h2>标准材质</h2>
 
-    <p>
-    These are default materials in 3ds Max which are well suited for viewport display. Verge3D strives to reproduce them using Autodesk Scanline renderer as a reference.
-    </p>
-
-    <img src="files/material-system-max/standard-material-example.jpg" class="centered">
-
-    <p>
-    Standard materials are flexible and powerful enough for creating various setups.
-    </p>
-
-    <img src="files/material-system-max/standard-material.jpg" class="centered">
-
-    <p>
-    Material parameters can be animated or changed with Puzzles or with code using Float or Point3 material Controllers.
-    </p>
-
+    <p>这些是3ds Max中的默认材质，很适合在视口显示。Verge3D尽力通过Autodesk扫描线渲染器渲染器作为参考来在浏览器中重现标准材质。</p><img
+      src="files/material-system-max/standard-material-example.jpg" class="centered">
+    <p>标准材质对于创建各种设置来说足够灵活和强大。</p><img src="files/material-system-max/standard-material.jpg" class="centered">
+    <p>材质参数可以通过拼图或使用浮点型控制器或Point3控制器的代码进行动画或改变。</p>
 
     [anchor:Physical_glTF_compliant]
 
-    <h2>glTF-Compliant Materials</h2>
+    <h2>glTF兼容材质</h2>
 
-    <p>
-    If your content needs to be compatible with <a href="https://www.khronos.org/news/press/khronos-releases-gltf-2.0-specification" target="_blank">glTF 2.0 standard</a> for some reason, you can use physical materials for this purpose as described below.
-    </p>
+    <p>如果您内容<a href="https://www.khronos.org/news/press/khronos-releases-gltf-2.0-specification"
+        target="_blank">出于某种原因</a>需要与glTF 2.0标准兼容，您可以根据下文描述来使用物理材质来达到目标。</p>
 
-    <p>
-    According to glTF 2.0 standard, material information is encoded in a set of textures: base color, occlusion-roughness-metallic packed in R, G and B channels respectively, and normal.
-    </p>
+    <p>根据glTF 2.0标准，材质信息被编码为一组纹理：基色、遮挡-粗糙度-金属度分别包装在R、G和B通道中，还有法线。</p><img
+      src="files/material-system-max/gltf-physical-material-example.jpg" class="centered">
+    <p>但您必须使用单独的位图来处理遮蔽、粗糙度和金属度。Verge3D会在导出时自动将它们合并为一个纹理。请确保在材质设置面板中启用 <strong>glTF 2.0 兼容</strong> 复选框。</p><img
+      src="files/material-system-max/gltf-physical-material.jpg" class="centered">
+    <p>关于如何设置这些材质的更多信息，请参考本用户手册的 <a href="manual/zh/max/GLTF-Materials.html">glTF Materials</a> 部分。</p>
 
-    <img src="files/material-system-max/gltf-physical-material-example.jpg" class="centered">
+    <h2>遇到问题？</h2>
 
-    <p>
-    You must, however, use separate bitmaps for occlusion, roughness and metallic. Verge3D will automatically combine them in a single texture upon export. Be sure to enable <strong>glTF 2.0 compatible</strong> checkbox in the material settings panel.
-    </p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-    <img src="files/material-system-max/gltf-physical-material.jpg" class="centered">
+  </article>
+</body>
 
-    <p>
-    Please refer to the <a href="manual/zh/max/GLTF-Materials.html">glTF Materials</a> section of this User Manual for more information on how to set up these materials.
-    </p>
-
-    <h2>Got Questions?</h2>
-
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
-  </article></body>
 </html>

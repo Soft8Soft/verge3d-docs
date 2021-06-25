@@ -339,8 +339,8 @@ function resolveTemplates(text, name, path, lang) {
     });
 
     text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, "[link:$1 $1]"); // [link:url] to [link:url title]
-    text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_|\(|\)|\#|\=]+) ([\w|\:|\/|\.|\-|\_|\s]+)\]/gi, "<a href=\"$1\"  target=\"_blank\">$2</a>"); // [link:url title]
-    text = text.replace(/\*([\w|\d|\"|\-|\(][\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *
+    text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_|\(|\)|\#|\=|\?|\&]+) ([\w|\:|\/|\.|\-|\_|\s|\=|\?|\u4e00-\u9fa5|\uff08|\uff09]+)\]/gi, "<a href=\"$1\"  target=\"_blank\">$2</a>"); // [link:url title]
+    text = text.replace(/\*([\u4e00-\u9fa5|\w|\d|\"|\-|\(][\u4e00-\u9fa5|\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\u4e00-\u9fa5|\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *
 
     text = text.replace(/\[example:([\w\_]+)\]/gi, "[example:$1 $1]"); // [example:name] to [example:name title]
     text = text.replace(/\[example:([\w\_]+) ([\w\:\/\.\-\_ \s]+)\]/gi, "<a href=\"https://cdn.soft8soft.com/demo/examples/index.html#$1\"  target=\"_blank\">$2</a>"); // [example:name title]

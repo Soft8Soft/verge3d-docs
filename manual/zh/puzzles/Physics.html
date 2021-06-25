@@ -1,627 +1,354 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Physics Puzzles Reference - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Using puzzles to simulate physics behavior."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Physics</h1>
+<head>
+  <title>物理系统拼图参考 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="使用拼图来模拟物理学行为。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-      These puzzles are used to simulate physics behavior of the objects.
-    </p>
+<body>
+  <article>
 
-    <img src="files/puzzles/puzzles-physics.jpg" style="max-width: 1000px">
+    <h1>物理系统</h1>
 
-    <h2>Contents</h2>
+    <p>此类拼图用来模拟对象的物理系统行为。</p><img src="files/puzzles/puzzles-physics.jpg" style="max-width: 1000px">
+    <h2>内容</h2>
 
-    [contents]
+    [contents] [anchor:physics_puzzles_reference]
 
-
-    [anchor:physics_puzzles_reference]
-
-    <h2>Physics Puzzles Reference</h2>
-
+    <h2>物理拼图参考</h2>
 
     [anchor:create_physics_world]
 
-    <h3>create physics world</h3>
+    <h3>create physics world(创建物理世界)</h3>
 
     <p>
-    Initializes the physics engine using the specified *gravity* and *frames-per-second* parameters. The default *gravity* value of 9.8 corresponds to Earth surface conditions. Zero value means no gravity as in space. The higher *fps* value the better simulation quality at the expense of performance.
+      使用指定的*gravity(重力)*和*frames-per-second(帧/秒)*参数初始化物理引擎。默认的*gravity(重力)*值为9.8，对应于地球表面重力。零代表没有重力，类似在太空。*fps*值越高，模拟质量越好，但要牺牲性能。
     </p>
 
-    <p>The *soft body* checker activates the soft body simulation capability.</p>
-
-    <img src="files/puzzles/puzzles-physics-create-physics-world.jpg">
-
-    <p>
-      Under the hood, this puzzle also enables collision detection and automatic synchronization with graphics.
-    </p>
-
-
-    <!-- COMPAT: < 3.5 -->
-    <a href="#" id="create_physics_body"></a>
-
+    <p>*soft body(柔体)*复选框激活了柔体模拟功能。</p><img src="files/puzzles/puzzles-physics-create-physics-world.jpg">
+    <p>基于引擎，这个拼图还可以实现碰撞检测和自动图形同步。</p><!-- COMPAT: < 3.5 --> <a href="#" id="create_physics_body"></a>
     [anchor:create_rigid_body]
 
-    <h3>create rigid body</h3>
+    <h3>create rigid body(创建刚体)</h3>
 
     <p>
-    Creates a physics body from a specified object, of *dynamic*, *kinematic*, *static* or *ghost* type. Assigns the collision shape and sets the mass for the body (valid for *dynamic* bodies only). Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-create-physics-body.jpg">
-
-    <p>Physics body types:</p>
+      从一个指定的对象创建一个实体，类型为*dynamic(动态)*、*kinematic(运动)*、*static(静态)*或*ghost(幽灵)*。指定碰撞形状，并为该体设置质量（仅对*dynamic(动态)*体有效）。也适用于对象列表，组（或者组的列表）以及
+      <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a> 拼图。</p><img
+      src="files/puzzles/puzzles-physics-create-physics-body.jpg">
+    <p>实体的类型：</p>
 
     <ul>
-      <li>
-        *dynamic* - moved by the physics engine, influenced by collisions and collide with other bodies.
-      </li>
-      <li>
-        *kinematic* - moved by animation or user action. Dynamic objects will be pushed away but there is no influence from dynamics objects.
-      </li>
-      <li>
-        *static* - cannot move but collide with other bodies.
-      </li>
-      <li>
-        *ghost* - similar to *kinematic* but does not produce any collision response. Use it to <a href="manual/zh/puzzles/Physics.html#detect_collision">detect collision</a> between bodies (for example to implement proximity sensor).
-      </li>
+      <li>*dynamic* - 动态--由物理引擎移动，受碰撞影响，与其他物体相撞。</li>
+      <li>*kinematic* - 通过动画或用户动作移动。动态对象会被推开，但没有来自动态对象的影响。</li>
+      <li>*static* - 不能移动，但会与其他对象发生碰撞。</li>
+      <li>*ghost* - 类似于*kinematic*，但不产生任何碰撞反应。用它来 <a href="manual/zh/puzzles/Physics.html#detect_collision">detect
+          collision(检测碰撞)</a> （例如，实现接近传感器）。</li>
     </ul>
 
-    <p>Supported rigid body shapes:</p>
+    <p>支持的刚体形状：</p>
 
     <ul>
-      <li>
-        *box* - a box-shaped bounding.
-      </li>
-      <li>
-        *sphere* - a sphere-shaped bounding.
-      </li>
-      <li>
-        *mesh* - a mesh shape.
-      </li>
-      <li>
-        *capsule* - a capsule shape stretched along up-down axis.
-      </li>
-      <li>
-        *cone* - a cone shape stretched along up-down axis.
-      </li>
-      <li>
-        *cylinder* - a cylinder shape stretched along up-down axis.
-      </li>
-      <li>
-        *empty* - an empty shape. Usefull for creating constraint attachments and soft body anchor points.
-      </li>
+      <li>*box* - 盒子形状的边界。</li>
+      <li>*sphere* - 球体形状的边界。</li>
+      <li>*mesh* - 网格形状。</li>
+      <li>*capsule* - 沿上下轴拉伸的胶囊形状。</li>
+      <li>*cone* - 沿上下轴拉伸的圆锥体形状。</li>
+      <li>*cylinder* - 沿上下轴拉伸的圆柱体形状。</li>
+      <li>*empty* - 空的形状。用于创建约束性附件和柔体锚点。</li>
     </ul>
 
-    <p>
-      For performance reasons, give priority to primitive physics shapes (boxes, spheres, capsules, cones and cylinders) over mesh shapes. Also, *static* meshes have much better performance than *dynamic*, *kinematic* and *ghost*.
-    </p>
-
+    <p>出于性能因素，优先考虑原始物理形状（盒子、球体、胶囊、圆锥体和圆柱体）而不是网格形状。另外，*static*网格的性能比*dynamic*, *kinematic* 和 *ghost* 的性能好得多。</p>
 
     [anchor:create_soft_body]
 
-    <h3>create soft body</h3>
+    <h3>create soft body(创建柔体)</h3>
 
-    <p>
-      Creates a soft body from a specified object with a given total *mass* and optional *pressure* params. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-create-soft-body.jpg">
-
-    <p>Supported soft body shapes:</p>
+    <p>从一个指定的对象中创建一个柔体，具有给定的总*mass(质量)*和可选的*pressure(压力)*参数。也适用于对象列表，组（或者组的列表）以及 <a
+        href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a> 拼图。</p><img
+      src="files/puzzles/puzzles-physics-create-soft-body.jpg">
+    <p>支持的柔体形状:</p>
 
     <ul>
-      <li>
-        *volume* - a closed pressurized 3D-dimentional volume.
-      </li>
-      <li>
-        *rope* - a line object which behaves like a rope.
-      </li>
-      <li>
-        *patch* - a polygonal surface like cloth or textile patch.
-      </li>
+      <li>*volume* - 封闭受压的三维体积。</li>
+      <li>*rope* - 类似绳子的线状对象。</li>
+      <li>*patch* - 多边形表面，如布或纺织品补丁。</li>
     </ul>
 
-    <p class="note">Don't forget to activate soft body simulation on the <a href="manual/zh/puzzles/Physics.html#create_physics_world">physics world</a> before creating soft bodies.</p>
-
+    <p class="note">在创建柔体之前，不要忘记激活 <a href="manual/zh/puzzles/Physics.html#create_physics_world">physics world(物理世界)</a>
+      上的柔体模拟。</p>
 
     [anchor:remove_physics_body]
 
-    <h3>remove physics body</h3>
+    <h3>Remove physics body(删除物理实体)</h3>
 
-    <p>
-      Removes physics from a specified object by destroying the physics body associated with it. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-remove-physics-body.jpg">
-
-
+    <p>通过破坏与之相关的实体，从指定的对象中移除物理特性。也适用于对象列表，组（或者组的列表）以及 <a href="manual/zh/puzzles/Selectors.html#all_objects">all
+        objects(所有对象)</a> 拼图。</p><img src="files/puzzles/puzzles-physics-remove-physics-body.jpg">
 
     [anchor:apply_body_param]
 
-    <h3>apply body param</h3>
+    <h3>apply body param(应用实体参数)</h3>
 
-    <p>
-      Sets parameters for the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-apply-body-param.jpg">
-
-    <p>Parameters:</p>
+    <p>为与指定对象相关的实体设置参数。也适用于对象列表，组（或者组的列表）以及 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a>
+      拼图。</p><img src="files/puzzles/puzzles-physics-apply-body-param.jpg">
+    <p>参数：</p>
 
     <ul>
-      <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
-      </li>
-      <li>
-        *angular factor* - set rotational degrees of freedom for the specified body. For example by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
-      </li>
-      <li>
-        *angular velocity* - set rotation speed vector.
-      </li>
-      <li>
-        *ccd motion threshold* - motion threshold used for simulating Continuous Collision Detection (CCD) physics. Specify low value, such as <em>0.001</em>
-      </li>
-      <li>
-        *ccd swept sphere radius* - radius of the swept spere used for simulating Continuous Collision Detection (CCD) physics. This value should correspond to the size of the colliding objects. For example, to simulate a small bullet of size 0.01 m this value could be safely set to 0.5.
-      </li>
-    </ul>
-
-    <img src="files/puzzles/puzzles-physics-ccd-example.jpg">
-
+      <li>*angular damping* - *角度阻尼*，用于减缓对象旋转的阻尼系数：0-没有阻尼，1-最大阻尼。输入值被钳制在[0, 1]范围内。</li>
+      <li>*angular factor* - *角度系数*，设置指定对象的旋转自由度。例如，通过设置Z分量为零，您可以禁止实体围绕上下（Blender，Max）或前后（Maya）轴旋转。</li>
+      <li>*angular velocity* - *角速度*，设置旋转速度矢量。</li>
+      <li>*ccd motion threshold* - *CCD运动阈值* ，用于模拟连续碰撞检测（CCD）物理学的运动阈值。指定低值，例如 <em>0.001</em></li>
+      <li>*ccd swept sphere radius* - *CCD扫掠球半径*
+        ，用于模拟连续碰撞检测（CCD）物理的扫掠球半径。这个值应该与碰撞对象的大小相对应。例如，为了模拟尺寸为0.01米的小子弹，这个值设置为0.5会比较安全。</li>
+    </ul><img src="files/puzzles/puzzles-physics-ccd-example.jpg">
     <ul>
-      <li>
-        *force* - push a body in a specified direction.
-      </li>
-      <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
-      </li>
-      <li>
-        *gravity* - assign gravity individually for a specified body.
-      </li>
-      <li>
-        *impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
-      </li>
-    </ul>
-
-    <img src="files/puzzles/puzzles-physics-apply-body-param-impulse.jpg" style="max-width: 793px">
-
+      <li>*force* - *作用力*，在指定的方向上推动实体。</li>
+      <li>*friction* - *摩擦力*，实体相互滑动的相对运动的阻力系数。</li>
+      <li>*gravity* - *重力*，为一个指定的实体单独分配重力。</li>
+      <li>*impulse* - *冲量*，作用类似于*线性速度*，但也考虑到了实体的质量（较重的对象将获得较少的速度）。</li>
+    </ul><img src="files/puzzles/puzzles-physics-apply-body-param-impulse.jpg" style="max-width: 793px">
     <ul>
-      <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
+      <li>*linear damping* - *线性阻尼*，将使运动对象减速的阻力系数。0-没有阻尼（例如自由落体），1-最大阻尼（例如对象下落时没有加速度）。输入值被钳制在[0, 1]范围内。</li>
+      <li>*linear factor* - *线性因子*，为指定的对象设置位置自由度。例如，通过设置Z分量为零，您可以禁止实体的上下（Blender，Max）或前后（Maya）运动。</li>
+      <li>*linear velocity* - *线性速度*，设置运动速度矢量。</li>
+      <li>*position* - *位置*，设置实体的位置（作用类似于 <a href="manual/zh/puzzles/Physics.html#snap_body">snap body(对齐实体)</a> 的拼图）。
       </li>
-      <li>
-        *linear factor* - set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
-      </li>
-      <li>
-        *linear velocity* - set movement speed vector.
-      </li>
-      <li>
-        *position* - set body position (works like the <a href="manual/zh/puzzles/Physics.html#snap_body">snap body</a> puzzle).
-      </li>
-      <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
-      </li>
-      <li>
-        *stiffness* - stiffness of soft bodies like volumes and ropes.
-      </li>
-      <li>
-        *torque* - spin a body in a specified direction.
-      </li>
-      <li>
-        *torque impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
-      </li>
+      <li>*restitution* - *恢复*，弹性系数。0 - 实体像粘土一样没有弹性，1 - 实体的行为像由橡胶制成。</li>
+      <li>*stiffness* - *刚度*，柔体的刚度，如体积和绳索。</li>
+      <li>*torque* - *扭矩*，在一个指定的方向上旋转实体。</li>
+      <li>*torque impulse* - *扭矩冲量*，作用类似于*角速度*，但也考虑到了实体的质量（较重的对象将获得较少的旋转速度）。</li>
     </ul>
 
-    <p class="note">
-      When two bodies collide, friction and restitution parameters of both of them are taken into consideration.
-    </p>
-
+    <p class="note">当两个对象发生碰撞时，它们的摩擦力和恢复力参数会被考虑在内。</p>
 
     [anchor:get_body_param]
 
-    <h3>get body param</h3>
+    <h3>get body param(获取实体参数)</h3>
 
-    <p>
-    Gets a parameter from the physics body associated with a specified object.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-get-body-param.jpg">
-
-    <p>Parameters:</p>
+    <p>从与指定对象相关的实体中获取一个参数。</p><img src="files/puzzles/puzzles-physics-get-body-param.jpg">
+    <p>参数：</p>
 
     <ul>
-      <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping.
-      </li>
-      <li>
-        *angular factor* - rotational degrees of freedom for the specified body (XYZ).
-      </li>
-      <li>
-        *angular velocity* - rotation speed vector.
-      </li>
-      <li>
-        *ccd motion threshold* - motion threshold used for simulating Continuous Collision Detection (CCD) physics.
-      </li>
-      <li>
-        *ccd swept sphere radius* - radius of the swept spere used for simulating Continuous Collision Detection (CCD) physics.
-      </li>
-      <li>
-        *force* - force vector applied to the body.
-      </li>
-      <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
-      </li>
-      <li>
-        *gravity* - gravity vector applied to a body.
-      </li>
-      <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration).
-      </li>
-      <li>
-        *linear factor* - positional degrees of freedom for the specified body (XYZ).
-      </li>
-      <li>
-        *linear velocity* - movement speed vector.
-      </li>
-      <li>
-        *position* - body XYZ position.
-      </li>
-      <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
-      </li>
-      <li>
-        *stiffness* - stiffness of soft bodies like volumes and ropes.
-      </li>
-      <li>
-        *torque* - torque vector applied to the body.
-      </li>
+      <li>*angular damping* - *角度阻尼*，用于减缓对象旋转的阻尼系数：0-没有阻尼，1-最大阻尼。</li>
+      <li>*angular factor* - *角度系数*，选定对象的旋转自由度(XYZ)。</li>
+      <li>*angular velocity* - *角速度*，旋转速度矢量。</li>
+      <li>*ccd motion threshold* - *CCD运动阈值* ，用于模拟连续碰撞检测（CCD）物理学的运动阈值。</li>
+      <li>*ccd swept sphere radius* - *CCD扫掠球半径* ，用于模拟连续碰撞检测（CCD）物理的扫掠球半径。</li>
+      <li>*force* - *作用力*，施加到实体上的力矢量。</li>
+      <li>*friction* - *摩擦力*，实体相互滑动的相对运动的阻力系数。</li>
+      <li>*gravity* - *重力*，施加在对象上的重力矢量。</li>
+      <li>*linear damping* - *线性阻尼*，将使运动对象减速的阻力系数。0-没有阻尼（例如自由落体），1-最大阻尼（例如对象下落时没有加速度）。</li>
+      <li>*linear factor* - *线性系数*，指定体的位置自由度（XYZ）。</li>
+      <li>*linear velocity* - *线性速度*，运动速度矢量。</li>
+      <li>*position* - *位置*，实体的XYZ位置。</li>
+      <li>*restitution* - *恢复*，弹性系数。0 - 实体像粘土一样没有弹性，1 - 实体的行为像由橡胶制成。</li>
+      <li>*stiffness* - *刚度*，柔体的刚度，如体积和绳索。</li>
+      <li>*torque* - *扭矩*，应用于实体的扭矩矢量。</li>
     </ul>
-
-
 
     [anchor:physics_body_params]
 
-    <h3>physics body params</h3>
+    <h3>physics body params(物理实体参数)</h3>
 
-    <p class="red">This puzzle is now deprecated. Please use <a href="manual/zh/puzzles/Physics.html#apply_body_param">apply body param</a> instead.</span>
+    <p class="red">这个拼图现在已经过时了。请使用 <a href="manual/zh/puzzles/Physics.html#apply_body_param">apply body
+        param(应用实体参数)</a> 代替。</span>
 
-    <p>
-    Sets parameters for the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-body-params.jpg">
-
-    <p>Parameters:</p>
+    <p>为与指定对象相关的实体设置参数。也适用于对象列表，组（或者组的列表）以及 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a>
+      拼图。</p><img src="files/puzzles/puzzles-physics-body-params.jpg">
+    <p>参数：</p>
 
     <ul>
-      <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
-      </li>
-      <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
-      </li>
-      <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
-      </li>
-      <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
-      </li>
+      <li>*friction* - *摩擦力*，用来设置对象的曲面阻力。</li>
+      <li>*linear damping* - *线性阻尼*，将使运动对象减速的阻力系数。0-没有阻尼（例如自由落体），1-最大阻尼（例如对象下落时没有加速度）。输入值被钳制在[0, 1]范围内。</li>
+      <li>*angular damping* - *角度阻尼*，用于减缓对象旋转的阻尼系数：0-没有阻尼，1-最大阻尼。输入值被钳制在[0, 1]范围内。</li>
+      <li>*restitution* - *恢复*，弹性系数。0 - 实体像粘土一样没有弹性，1 - 实体的行为像由橡胶制成。</li>
     </ul>
 
-    <p>
-    When two bodies collide, friction and restitution parameters of both of them are taken into consideration.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-body-params-example.jpg" style="max-width: 903px">
-
+    <p>当两个对象发生碰撞时，它们的摩擦力和恢复力参数会被考虑在内。</p><img src="files/puzzles/puzzles-physics-body-params-example.jpg"
+      style="max-width: 903px">
 
     [anchor:apply_vector]
 
-    <h3>apply vector</h3>
+    <h3>apply vector(应用矢量)</h3>
 
-    <p class="red">This puzzle is now deprecated. Please use <a href="manual/zh/puzzles/Physics.html#apply_body_param">apply body param</a> instead.</span>
+    <p class="red">这个拼图现在已经过时了。请使用 <a href="manual/zh/puzzles/Physics.html#apply_body_param">apply body
+        param(应用实体参数)</a> 代替。</span>
 
-    <p>
-      Applies *Force*, *Gravity*, *Linear Velocity*, *Angular Velocity*, *Impulse*, *Torque*, *Torque Impulse* or *Position* to the physics body associated with a specified object, in a specified direction in world space. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-apply-vector.jpg">
-
-    <p>
-    Parameters:
-    </p>
+    <p>在世界空间的指定方向，将*力*、*重力*、*线速度*、*角速度*、*冲量*、*扭矩*、*扭矩冲量*或*位置*应用到与指定对象相关的实体上。也适用于对象列表，组（或者组的列表）以及 <a
+        href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a> 拼图。</p><img
+      src="files/puzzles/puzzles-physics-apply-vector.jpg">
+    <p>参数：</p>
 
     <ul>
-      <li>
-        *force* - push a body in a specified direction.
-      </li>
-      <li>
-        *gravity* - assign gravity individually for a specified body.
-      </li>
-      <li>
-        *linear velocity* - set movement speed.
-      </li>
-      <li>
-        *angular velocity* - set rotation speed.
-      </li>
-      <li>
-        *impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
-      </li>
-      <li>
-        *torque* - spin a body in a specified direction.
-      </li>
-      <li>
-        *torque impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
-      </li>
-      <li>
-        *linear factor* - set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
-      </li>
-      <li>
-        *angular factor* - set rotational degrees of freedom for the specified body. For example by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
-      </li>
-      <li>
-        *position* - set body position (works like the <a href="manual/zh/puzzles/Physics.html#snap_body">snap body</a> puzzle).
+      <li>*force* - *作用力*，在指定的方向上推动实体。</li>
+      <li>*gravity* - *重力*，为一个指定的实体单独分配重力。</li>
+      <li>*linear velocity* - *线性速度*，设置运动速度。</li>
+      <li>*angular velocity* - *角速度*，设置旋转速度。</li>
+      <li>*impulse* - *冲量*，作用类似于*线性速度*，但也考虑到了实体的质量（较重的对象将获得较少的速度）。</li>
+      <li>*torque* - *扭矩*，在一个指定的方向上旋转实体。</li>
+      <li>*torque impulse* - *扭矩冲量*，作用类似于*角速度*，但也考虑到了实体的质量（较重的对象将获得较少的旋转速度）。</li>
+      <li>*linear factor* - *线性因子*，为指定的对象设置位置自由度。例如，通过设置Z分量为零，您可以禁止实体的上下（Blender，Max）或前后（Maya）运动。</li>
+      <li>*angular factor* - *角度系数*，设置指定对象的旋转自由度。例如，通过设置Z分量为零，您可以禁止实体围绕上下（Blender，Max）或前后（Maya）轴旋转。</li>
+      <li>*position* - *位置*，设置实体的位置（作用类似于 <a href="manual/zh/puzzles/Physics.html#snap_body">snap body(对齐实体)</a> 的拼图）。
       </li>
     </ul>
-
 
     [anchor:set_body_state]
 
-    <h3>set body state</h3>
+    <h3>set body state(设置实体的状态)</h3>
 
-    <p>
-      Change the state to the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-set-body-state.jpg" class="centered" style="max-width: 764px">
-
-    <p>Parameters:</p>
+    <p>改变与指定对象相关的实体的状态。也适用于对象列表，组（或者组的列表）以及 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a>
+      拼图。</p><img src="files/puzzles/puzzles-physics-set-body-state.jpg" class="centered" style="max-width: 764px">
+    <p>参数：</p>
 
     <ul>
-      <li>
-        *activate* - activate sleeping physics body.
-      </li>
-      <li>
-        *sleep* - force sleeping state for the body.
-      </li>
-      <li>
-        *enable simulation* - enable body simulation (enabled by default).
-      </li>
-      <li>
-        *disable simulation* - disable body simulation.
-      </li>
-      <li>
-        *reset* - clear all forces and velocities applied to the physics body.
-      </li>
-      <li>
-        *enable contact response* - allow body to collide with other bodies (enabled by default).
-      </li>
-      <li>
-        *disable contact response* - disable body colliding.
-      </li>
-      <li>
-        *make dynamic* - make body dynamic.
-      </li>
-      <li>
-        *make kinematic* - make body kinematic.
-      </li>
-      <li>
-        *make static* - make body static.
-      </li>
-      <li>
-        *enable deactivation* - allow body to turn into sleeping state after a period of inactivity (enabled by default).
-      </li>
-      <li>
-        *disable deactivation* - disable body sleeping.
-      </li>
+      <li>*activate* - 激活睡眠的实体。</li>
+      <li>*sleep* - 强制实体进入睡眠状态。</li>
+      <li>*enable simulation* - 启用实体模拟（默认启用）。</li>
+      <li>*disable simulation* - 禁用实体模拟。</li>
+      <li>*reset* - 清除所有应用于实体的力和速度。</li>
+      <li>*enable contact response* - 允许实体之间发生碰撞（默认情况下启用）。</li>
+      <li>*disable contact response* - *禁用接触响应*，禁用实体的碰撞。</li>
+      <li>*make dynamic* - 使实体动态化。</li>
+      <li>*make kinematic* - 使实体运动。</li>
+      <li>*make static* - 使实体静止。</li>
+      <li>*enable deactivation* - 允许实体在不活动一段时间后转入睡眠状态（默认启用）。</li>
+      <li>*disable deactivation*- 禁止实体睡眠。</li>
     </ul>
-
 
     [anchor:on_simulation_tick]
 
-    <h3>on simulation tick</h3>
+    <h3>on simulation tick(在模拟启动时)</h3>
 
-    <p>
-      Trigger puzzles specified in the *do" slot <em>just before</em> or <em>just after</em> the physics simulation tick.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-on-simulation-tick.jpg" class="centered" style="max-width: 817px">
-
-    <p>
-      Physics simulation tick corresponds to the FPS value specified when creating <a href="manual/zh/puzzles/Physics.html#create_physics_world">physics world</a> and does not coincide with rendering frame. As such, we recommend that you apply forces/velocities/impulses *before* simulation tick and detect collisions between your bodies *after* simulation tick. This way you can achieve more stable and realistic simulations.
-    </p>
-
+    <p>在物理模拟启动的瞬间 <em>之前</em> 或 <em>之后</em> ，触发在*do &quot;槽中指定的拼图。</p><img
+      src="files/puzzles/puzzles-physics-on-simulation-tick.jpg" class="centered" style="max-width: 817px">
+    <p>物理模拟计时与创建 <a href="manual/zh/puzzles/Physics.html#create_physics_world">物理世界</a>
+      时指定的FPS值相对应，与渲染帧不一致。因此，我们建议你在模拟启动*之前*应用力、速度和脉冲，在模拟启动*之后*检测实体之间的碰撞。这样您就可以实现更稳定和更真实的模拟。</p>
 
     [anchor:snap_body]
 
-    <h3>snap body</h3>
+    <h3>snap body(对齐实体)</h3>
 
-    <p>
-    Moves a physics body associated with a specified object, and the object itself, to the position of another object by copying its transform data. Also copies rotation. Does not work with lists, groups or the "all objects" puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-snap-body.jpg">
-
-    <p>Works similar to *apply body param / position* puzzle.</p>
-
+    <p>通过复制实体的变换数据，将与指定对象相关的实体以及对象本身移动到另一个对象的位置。同时复制旋转。对列表、组或 &ldquo;all objects(所有对象)&rdquo; 拼图不起作用。</p><img
+      src="files/puzzles/puzzles-physics-snap-body.jpg">
+    <p>作用类似于*apply body param / position(应用体参数/位置)*拼图。</p>
 
     [anchor:add_physics_constraint]
 
-    <h3>add constraint to</h3>
+    <h3>add constraint to(添加约束到)</h3>
 
-    <p>
-      Connect two physics bodies by a constraint of the given type.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-add-physics-constraint.jpg">
-
-    <p>Constraint types:</p>
+    <p>通过一个给定类型的约束来连接两个实体。</p><img src="files/puzzles/puzzles-physics-add-physics-constraint.jpg">
+    <p>约束类型：</p>
 
     <ul>
-      <li>
-        *hinge* - connect the bodies by the shared axis.
-      </li>
-      <li>
-        *ball* - connect the bodies by the ball-shaped socket.
-      </li>
-      <li>
-        *slider* - limit movement of the bodies by the direction along the X axis.
-      </li>
-      <li>
-        *spring* - connect two bodies by the spring-like joint.
-      </li>
-      <li>
-        *fixed* - connect two bodies tightly.
-      </li>
-    </ul>
-
-    <img src="files/puzzles/puzzles-physics-add-physics-constraint-example.jpg">
-
+      <li>*hinge* - *铰链*，通过共用的轴连接两个实体，被连接的实体仅可以绕一个轴旋转。</li>
+      <li>*ball* - *球*，通过球状的插座来连接两个实体。</li>
+      <li>*slider* - *滑块*约束限制实体移动方向在X轴向上。</li>
+      <li>*spring* - *弹簧*，通过类似弹簧的关节连接两个实体。</li>
+      <li>*fixed* - *固定*，紧密地连接两个实体。</li>
+    </ul><img src="files/puzzles/puzzles-physics-add-physics-constraint-example.jpg">
 
     [anchor:remove_physics_constraint]
 
-    <h3>remove constraint from</h3>
+    <h3>remove constraint from(从...移除约束)</h3>
 
-    <p>
-      Remove physics constraint.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-remove-physics-constraint.jpg">
-
+    <p>移除物理约束。</p><img src="files/puzzles/puzzles-physics-remove-physics-constraint.jpg">
 
     [anchor:soft_body_anchor]
 
-    <h3>anchor soft body</h3>
+    <h3>anchor soft body(锚定柔体)</h3>
 
-    <p>
-      Anchor soft body to a given rigid body at the point in space represented by the given vector.
-    </p>
+    <p>将柔体锚定在给定矢量所代表的空间点的给定刚体上。</p><img src="files/puzzles/puzzles-physics-anchor-soft-body.jpg">
+    <!-- COMPAT: something old --> <a href="#" id="detect_collision"></a> [anchor:detect_collisions]
 
-    <img src="files/puzzles/puzzles-physics-anchor-soft-body.jpg">
+    <h3>detect collisions and collision info(检测碰撞与碰撞信息)</h3>
 
+    <p>检测指定的实体与另一个实体（或列表中的任一实体与组）在此刻是否有碰撞。如果有碰撞，那么在 &quot;if touching do&quot; 槽中的拼图会被触发，否则将触发在 &quot;if not touching
+      do&rdquo; 插槽中的拼图。</p>
 
-    <!-- COMPAT: something old -->
-    <a href="#" id="detect_collision"></a>
-
-    [anchor:detect_collisions]
-
-    <h3>detect collisions and collision info</h3>
-
-    <p>
-    Detects if there is a collision at the moment of a specified body with another body (or any body from a list or a group). If there is a collision, the puzzles in the "if touching do" slot are triggered, otherwise - in the "if not touching do".
-    </p>
-
-    <p>
-    The "detect collisions" puzzle triggers either of its callback slots every rendering frame.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-detect-collisions.jpg">
-
-    <p>
-    The *collision info* puzzle outputs a <a href="manual/zh/puzzles/Dictionaries.html">dictionary</a> with the following fields:
-    </p>
+    <p>&quot;*detect collisions*&quot; 拼图在每一个渲染帧中都会触发它的回调插槽。</p><img
+      src="files/puzzles/puzzles-physics-detect-collisions.jpg">
+    <p>*collision info* 拼图会输出一个 <a href="manual/zh/puzzles/Dictionaries.html">字典</a> ，其字段如下：</p>
 
     <ul>
-      <li>
-        *objectA* - the name of the first colliding body.
-      </li>
-      <li>
-        *objectB* - the name of the second colliding body.
-      </li>
-      <li>
-        *distance* - distance between points of collisions.
-      </li>
-      <li>
-        *positionOnA* - XYZ coordinates of the collision point on the first object.
-      </li>
-      <li>
-        *positionOnB* - XYZ coordinates of the collision point on the second object.
-      </li>
-      <li>
-        *normalOnB* - XYZ components of the normal vector at the collision point on the second object.
-      </li>
-    </ul>
-
-    <img src="files/puzzles/puzzles-physics-detect-collisions-info.jpg">
-
+      <li>*objectA* - 第一个碰撞实体的名字。</li>
+      <li>*objectB* - 第二个碰撞实体的名字。</li>
+      <li>*distance* - 碰撞点之间的距离。</li>
+      <li>*positionOnA* - 第一个对象上的碰撞点的XYZ坐标。</li>
+      <li>*positionOnB* - 第二个对象上的碰撞点的XYZ坐标。</li>
+      <li>*normalOnB* - 第二个对象上的碰撞点的法向量的XYZ分量。</li>
+    </ul><img src="files/puzzles/puzzles-physics-detect-collisions-info.jpg">
 
     [anchor:extending_with_javascript]
 
-    <h2>Extending with JavaScript</h2>
+    <h2>Extending with JavaScript(用JavaScript进行扩展)</h2>
 
-    <p class="note">Before you start reading, please get familiar with the <a href="manual/zh/introduction/Using-JavaScript.html">Using JavaScript</a> section of this User Manual</a>.</p>
+    <p class="note">在您开始阅读以下内容之前，请先熟悉本用户手册的 <a href="manual/zh/introduction/Using-JavaScript.html">使用JavaScript</a> 部分。
+    </p>
 
-    <p>To build physics puzzles we use a JavaScript library called Ammo.js. This library is basically the popular Bullet physics engine compiled to be used in the browser.</p>
+    <p>为了构建物理拼图，我们使用了名为Ammo.js的JavaScript库。这是流行的开源物理引擎Bullet的JavaScript版本，经过编译可以在浏览器中使用。</p>
 
-    <p>To get familiar with Bullet, check out the <a href="https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf" target="_blank">Bullet Physics SDK Manual</a> available on GitHub as well as official <a href="https://pybullet.org/Bullet/BulletFull/index.html" target="_blank">Bullet API Reference</a>.</p>
+    <p>要熟悉Bullet，请查阅GitHub上的 <a href="https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf"
+        target="_blank">Bullet Physics SDK Manual</a> 以及官方的 <a href="https://pybullet.org/Bullet/BulletFull/index.html"
+        target="_blank">Bullet API Reference</a>。</p>
 
-    <p>In Verge3D you can execute Bullet/Ammo.js APIs directly by using the Ammo namespace:</p>
+    <p>在Verge3D中，您可以通过使用Ammo命名空间直接执行Bullet/Ammo.js APIs。</p>
+    
+<code>
+var myVector = new Ammo.btVector3(1.0, 0.0, 0.0); console.log(&apos;My physics vector is:&apos;, myVector.x(), myVector.y(), myVector.z());
+</code>
 
-    <code>
-var myVector = new Ammo.btVector3(1.0, 0.0, 0.0);
-console.log('My physics vector is:', myVector.x(), myVector.y(), myVector.z());
-    </code>
-
-    <p>Also you can get access to the following data structures we use in Puzzles:</p>
+    <p>您还可以访问我们在拼图中使用的以下数据结构：</p>
 
     <h3>World</h3>
 
-    <p>Depending on the initialized physics world it can be an instance to <a href="https://pybullet.org/Bullet/BulletFull/classbtDiscreteDynamicsWorld.html">btDiscreteDynamicsWorld</a> or <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftRigidDynamicsWorld.html" target="_blank">btSoftRigidDynamicsWorld</a> class:</p>
-
-    <code>
-var gravity = v3d.puzzles.physics.world.getGravity();
-console.log('World gravity:', gravity.y());
-    </code>
+    <p>根据所初始化的物理世界，它可以是 <a
+        href="https://pybullet.org/Bullet/BulletFull/classbtDiscreteDynamicsWorld.html">btDiscreteDynamicsWorld</a> 或 <a
+        href="https://pybullet.org/Bullet/BulletFull/classbtSoftRigidDynamicsWorld.html"
+        target="_blank">btSoftRigidDynamicsWorld</a> 类的实例。</p>
+    
+<code>
+var gravity = v3d.puzzles.physics.world.getGravity(); console.log(&apos;World gravity:&apos;, gravity.y());
+</code>
 
     <h3>Physics Bodies</h3>
 
-    <p>Physics bodies are stored as key-value data inside the <strong>v3d.puzzles.physics.bodies</strong> object:</p>
+    <p>实体作为键值数据存储在 <strong>v3d. Puzzles.physics.bodies</strong> 对象中。</p>
+    
+<code>
+var body = v3d.puzzles.physics.bodies[&apos;Whirligig&apos;]; console.log(&apos;Body mass:&apos;, 1.0 / body.getInvMass());
+</code>
 
-    <code>
-var body = v3d.puzzles.physics.bodies['Whirligig'];
-console.log('Body mass:', 1.0 / body.getInvMass());
-    </code>
-
-    <p>Rigid bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtRigidBody.html" target="_blank">btRigidBody</a> class, while soft bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftBody.html" target="_blank">btSoftBody</a> class.
-
+    <p>刚体是 <a href="https://pybullet.org/Bullet/BulletFull/classbtRigidBody.html" target="_blank">btRigidBody</a>
+      类的实例，而柔体是 <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftBody.html" target="_blank">btSoftBody</a>
+      类的实例。
     <h3>Physics Constraints</h3>
 
-    <p>Bullet/Ammo constraints are stored as key-value data inside the two-dimensional <strong>v3d.puzzles.physics.constraints</strong> object:</p>
+    <p>Bullet/Ammo 约束以键值数据的形式存储在二维的 <strong>v3d. Puzzles.physics.constraints</strong> 对象中。</p>
+    
+<code>
+var hingeConstraint = v3d.puzzles.physics.constraints[&apos;Suzanne&apos;][&apos;Axis&apos;]; hingeConstraint.enableAngularMotor(true, 10, 10);
+</code>
 
-    <code>
-var hingeConstraint = v3d.puzzles.physics.constraints['Suzanne']['Axis'];
-hingeConstraint.enableAngularMotor(true, 10, 10);
-    </code>
-
-    <p>The names represent the constraint's first and second bodies respectively.</p>
+    <p>这些名称分别代表约束的第一和第二实体。</p>
 
     <h3>Physics Sync List</h3>
 
-    <p>Verge3D puzzles use the so-called synchronization list to move objects represented by physics bodies in space. Sync list is not directly accessible, so you need to use the following API methods to add/remove your bodies to/from that list.</p>
+    <p>Verge3D拼图使用所谓的同步列表在空间中移动由实体代表的对象。同步列表不能被直接访问，所以您需要使用下面的API方法来添加实体到该列表，或移除出列表。</p>
+    
+<code>
+// add obj / body to the sync list // the type can be &apos;DYNAMIC&apos;, &apos;KINEMATIC&apos;, &apos;STATIC&apos;, &apos;GHOST&apos;, or &apos;SOFT_BODY&apos; v3d.puzzles.physics.addToSyncList(obj, body, &apos;DYNAMIC&apos;); // remove obj / body from the sync list v3d.puzzles.physics.removeFromSyncList(obj, body);
+</code>
 
-    <code>
-// add obj / body to the sync list
-// the type can be 'DYNAMIC', 'KINEMATIC', 'STATIC', 'GHOST', or 'SOFT_BODY'
-v3d.puzzles.physics.addToSyncList(obj, body, 'DYNAMIC');
+    <h2>在使用拼图时遇到困难？</h2>
 
-// remove obj / body from the sync list
-v3d.puzzles.physics.removeFromSyncList(obj, body);
-    </code>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
+  </article>
+</body>
 
-
-    <h2>Having Troubles with Puzzles?</h2>
-
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
-  </article></body>
 </html>

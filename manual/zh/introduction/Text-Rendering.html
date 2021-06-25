@@ -1,209 +1,182 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Text Rendering in Verge3D - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="How to create text objects in Verge3D."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
 
-  <body><article>
-    <h1>Text Rendering</h1>
-    <p>
-      In many 3D web applications you need to display text that supplements 3D models with some informative content. In this section you will find out how to create text in your apps.
-    </p>
+<head>
+  <title>Verge3D中的文本渲染 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何在Verge3D创建文本对象。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    [contents]
+<body>
+  <article>
+    <h1>文本渲染</h1>
+    <p>在许多3D网页应用中，您需要通过显示文本来为3D模型补充信息。在本节中，您将了解如何在应用中创建文本。</p>
 
+    [contents] [anchor:dom_css]
 
-    [anchor:dom_css]
-
-    <h2>1. HTML/CSS, Annotations</h2>
-    <p>
-      HTML/CSS is the most natural way to display information in web-based applications.
-    </p>
-
-    <img src="files/text-rendering/html-text.jpg" style="max-width: 898px;">
-
-    <p>There are possible ways to render text with HTML:</p>
+    <h2>1.HTML/CSS，注释</h2>
+    <p>HTML/CSS是在网页应用设计中展示信息的最自然的方式。</p><img src="files/text-rendering/html-text.jpg" style="max-width: 898px;">
+    <p>使用HTML渲染文本有以下几种可行的方法：</p>
 
     <ul>
-      <li>Using some third-party website builder like Webflow.</li>
-      <li>Manual editing of project HTML/CSS files.</li>
-      <li>Using HTML puzzles.</li>
-      <li>Using Verge3D annotations.</li>
+      <li>使用第三方网站设计工具，如Webflow。</li>
+      <li>手动编辑项目中的HTML/CSS文件。</li>
+      <li>使用HTML类的拼图。</li>
+      <li>使用Verge3D的annotations(注释)。</li>
     </ul>
 
-    <p>
-      Check out <a href="manual/zh/introduction/HTML-based-user-interfaces.html">HTML-Based User Interfaces</a> section to get more info on using HTML, as well as <a href="manual/zh/puzzles/Objects.html#add_annotation">add annotation</a> and <a href="manual/zh/puzzles/HTML.html">HTML</a> puzzles references.
-    </p>
+    <p>请查看 <a href="manual/zh/introduction/HTML-based-user-interfaces.html">基于HTML的用户界面</a> 章节了解使用HTML的更多信息，以及 <a
+        href="manual/zh/puzzles/Objects.html#add_annotation">add annotation(添加注释)</a> 和 <a
+        href="manual/zh/puzzles/HTML.html">HTML</a> 拼图的参考。</p>
 
-    <h3>Pros</h3>
+    <h3>优点</h3>
 
     <ul>
-      <li>Approach common in web development.</li>
-      <li>Good quality of rendered text.</li>
-      <li>Possibility to use advanced text styles, such as custom strokes, fonts and 3D transformations.</li>
+      <li>web开发中常见的方法。</li>
+      <li>渲染的文本质量好。</li>
+      <li>可以使用高级文本样式，如自定义笔画，字体和3D转换。</li>
     </ul>
 
-    <h3>Cons</h3>
+    <h3>缺点</h3>
 
     <ul>
-      <li>No easy integration with rendered scene. In most situations you simply render HTML text above your 3D content.</li>
-      <li>No easy way to use HTML text in Virtual Reality mode.</li>
-      <li>Slow rendering if you have too many dynamic textual elements (such as annotations) in your app.</li>
+      <li>不易与已渲染的场景集成。大多数情况下，HTML文本都叠加在3D内容之上渲染。</li>
+      <li>在虚拟现实模式下使用HTML文本没有简单的方法。</li>
+      <li>如果应用中有太多动态文本元素（如注释），会影响渲染速度。</li>
     </ul>
 
     [anchor:dynamic_text_geometry]
 
-    <h2>2. Dynamic Text Geometry</h2>
+    <h2>2.动态文本几何</h2>
     <p>
-      You can use Text objects from your modelling suite to create text geometry similar to regular meshes. "Dynamic" means Verge3D does not store text geometry in the exported glTF asset, instead, it recreates it upon scene loading (using the font data). It also means, that you can edit your text in runtime with <a href="manual/zh/puzzles/Objects.html#update_text_object">update text object</a> puzzle or via JavaScript.</p>
-
-    <p>
-      To make your text objects dynamic, make sure that the *Bake Text* option in the export settings is <em>unchecked</em>:
+      您可以使用建模套件中的文本对象来创建类似于规则网格的文本几何图形。&ldquo;动态&rdquo;意味着Verge3D不在导出的glTF资产中存储文本几何图形数据，而是在场景加载时（使用字体数据）重新创建文本。这还意味着，您可以在运行时中使用
+      <a href="manual/zh/puzzles/Objects.html#update_text_object">update text object(更新文本对象)</a> 拼图或使用JavaScript实时编辑文字。
     </p>
+
+    <p>若要使文本对象动态化，请确保在导出设置中 <em>不要勾选</em>*bake text*选项：</p>
 
     <v3d-tabs>
       <label>Blender</label>
-      <div>
-        <img src="files/text-rendering/dynamic-text-export-settings-blender.jpg" class="centered" style="max-width: 836px;">
-      </div>
+      <div><img src="files/text-rendering/dynamic-text-export-settings-blender.jpg" class="centered"
+          style="max-width: 836px;"></div>
       <label>3ds Max</label>
-      <div>
-        <img src="files/text-rendering/dynamic-text-export-settings-max.jpg" class="centered" style="max-width: 785px;">
-      </div>
+      <div><img src="files/text-rendering/dynamic-text-export-settings-max.jpg" class="centered"
+          style="max-width: 785px;"></div>
       <label>Maya</label>
-      <div>
-        <img src="files/text-rendering/dynamic-text-export-settings-maya.jpg" class="centered" style="max-width: 872px;">
-      </div>
+      <div><img src="files/text-rendering/dynamic-text-export-settings-maya.jpg" class="centered"
+          style="max-width: 872px;"></div>
     </v3d-tabs>
 
-    <p>
-      You also need to specify the *Font Converter* option (enabled by default) when creating your app to be able to use dynamic text geometry. This option activates <em>opentype.js</em> module in your application which is required to load and process font data.
-    </p>
+    <p>创建应用时，您还需勾选*Font Converter*字体转换选项（默认情况下启用），以开启使用动态文本几何图形功能。此选项将激活<em>opentype.js</em>模块，用于加载和处理字体数据。</p><img
+      src="files/text-rendering/font-converter-option.jpg" class="centered" style="max-width: 522px;">
+    <p class="note">如果您创建时忘记启用*Font Converter*选项，或是应用使用早于Verge3D
+      3.6的版本创建，可以手动将*opentype.js*文件从Verge3D安装目录的*build*文件夹复制到应用目录。</p>
 
-    <img src="files/text-rendering/font-converter-option.jpg" class="centered" style="max-width: 522px;">
-
-    <p class="note">
-      If you forget to enable *Font Converter* option or created your application before Verge3D 3.6, simply copy *opentype.js* file from the *build* directory of your Verge3D distribution to your application directory.
-    </p>
-
-    <h3>Pros</h3>
+    <h3>优点</h3>
 
     <ul>
-      <li>Text objects are full-featured 3D meshes which can be moved/animated/assigned with custom materials, just like any other 3D meshes in your scene.</li>
-      <li>Dynamic text rendered in runtime, as such does not consume bandwidth to load geometry via network.</li>
-      <li>You can modify not only content, but also font, extrusion depth and bevels.</li>
+      <li>文本对象是全功能的3D网格对象，可以移动/添加动画/分配自定义材质，与场景中的任何其他3D网格一样。</li>
+      <li>动态文本在运行时中渲染，可减少需通过网络加载的模型数据量。</li>
+      <li>不仅可以修改文本内容，还可以修改字体、挤压深度和斜面。</li>
     </ul>
 
-    <h3>Cons</h3>
+    <h3>缺点</h3>
 
     <ul>
-      <li>Takes some time to generate text during scene loading.</li>
-      <li>Requires loading of font asset (TTF or WOFF) and using additional <em>font converter</em> module.</li>
-      <li>Not all text parameters supported in Verge3D.</li>
+      <li>在场景加载过程中，需要一点时间来生成文本。</li>
+      <li>需要加载字体文件（TTF或WOFF），并使用 <em>字体转换器</em> 模块。</li>
+      <li>并非所有的文本参数都被Verge3D支持。</li>
     </ul>
-
 
     [anchor:static_text_geometry]
 
-    <h2>3. Static Text Geometry</h2>
-    <p>
-      Static text geometry is very similar to dynamic, except it uses baked text mesh which gets stored in exported glTF asset. You cannot edit such meshes in runtime, e.g change their content or font. However, you still able to assign materials or move that text similar to other geometry objects.
-    </p>
+    <h2>3.静态文本几何</h2>
+    <p>静态文本几何图形与动态文本几何图形非常相似，不同的是它在导出为glTF资产过程中会被烘焙为文本网格数据。因此您无法在运行时中编辑它们，例如更改内容或字体。但仍然可以分配材质或移动文本，类似于其他几何图形对象。</p>
 
-    <p>To make your exported text use static geometry, specify *Bake Text* option in the export settings:</p>
+    <p>若要使用静态文本几何图形，请在导出设置中勾选*Bake text*选项：</p>
 
     <v3d-tabs>
       <label>Blender</label>
-      <div>
-        <img src="files/text-rendering/static-text-export-settings-blender.jpg" class="centered" style="max-width: 835px;">
-      </div>
+      <div><img src="files/text-rendering/static-text-export-settings-blender.jpg" class="centered"
+          style="max-width: 835px;"></div>
       <label>3ds Max</label>
-      <div>
-        <img src="files/text-rendering/static-text-export-settings-max.jpg" class="centered" style="max-width: 792px;">
-      </div>
+      <div><img src="files/text-rendering/static-text-export-settings-max.jpg" class="centered"
+          style="max-width: 792px;"></div>
       <label>Maya</label>
-      <div>
-        <img src="files/text-rendering/static-text-export-settings-maya.jpg" class="centered" style="max-width: 871px;">
-      </div>
+      <div><img src="files/text-rendering/static-text-export-settings-maya.jpg" class="centered"
+          style="max-width: 871px;"></div>
     </v3d-tabs>
 
-    <h3>Pros</h3>
+    <h3>优点</h3>
 
     <ul>
-      <li>Text looks exactly as you see it in the modelling suite.</li>
-      <li>Does not require additional font asset or spending time during scene loading to generate glyphs.</li>
+      <li>文本几何的图形会从建模软件中原样输出到场景。</li>
+      <li>不需要额外的字体资产，也无需在场景加载过程中花时间生成字体数据。建议对所有中文文本使用静态文本几何。</li>
     </ul>
 
-    <h3>Cons</h3>
+    <h3>缺点</h3>
 
     <ul>
-      <li>Long texts increase the size of the loaded glTF asset. As such, it might take a lot of time to load your scene, especially via slow connections.</li>
-      <li>You can't edit text in runtime.</li>
+      <li>长文本会增加glTF资产的大小。因此，加载场景可能需要很多时间，特别是网速不好时。</li>
+      <li>无法在运行时中编辑文本。</li>
     </ul>
 
     [anchor:textures_with_text]
 
-    <h2>4. Textures with Text</h2>
-    <p>
-      You can render your text to a bitmap texture and then apply that texture to your object. Popular use cases for such technique include customized billboars, personalized cups/T-shirts, as well as jewelry engraving:
-    </p>
+    <h2>4.带文本的纹理</h2>
+    <p>您可以将文本渲染为位图纹理，然后将该纹理应用到对象。这种技术的流行用例包括定制的billboars,个性化的杯子/T恤,以及珠宝雕刻：</p><img
+      src="files/text-rendering/texture-text.jpg" style="max-width: 898px;">
+    <p>查看<a href="manual/zh/puzzles/Materials.html#texture_from_text">texture from
+        text</a>文本纹理拼图章节，了解如何使用纹理与自定义文本的更多信息的拼图。</p>
 
-    <img src="files/text-rendering/texture-text.jpg" style="max-width: 898px;">
-
-    <p>
-      Check out the <a href="manual/zh/puzzles/Materials.html#texture_from_text">texture from text</a> puzzle for more info on how to use textures with custom text.
-    </p>
-
-    <h3>Pros</h3>
+    <h3>优点</h3>
 
     <ul>
-      <li>Good rendering performance and moderate GPU memory consumption.</li>
-      <li>You can add various text effects by using node materials (for example, create bump mapped texture with text).</li>
+      <li>渲染性能不错，GPU内存消耗适中。</li>
+      <li>您可以通过使用节点材质添加各种文本效果（例如，用文本创建凹凸映射纹理）。</li>
     </ul>
 
-    <h3>Cons</h3>
+    <h3>缺点</h3>
 
     <ul>
-      <li>Might be slow if you change your text frequently (e.g each frame).</li>
-      <li>You can't use complex text alignments.</li>
-      <li>Text is 2D only, hence no extrusion/bevel effect.</li>
-      <li>Quality is somewhat reduced, especially for small images (less than 1K).</li>
+      <li>如果经常更改文本（例如每帧），加载速度可能会变慢。</li>
+      <li>不能使用复杂的文本对齐。</li>
+      <li>文本仅为二维，因此没有挤压/斜面效果。</li>
+      <li>质量有些降低，特别是小图像（小于1K)。</li>
     </ul>
-
 
     [anchor:canvas_textures]
 
-    <h2>5. Canvas Textures</h2>
-    <p>
-      This method is an extension to the previous technique which allows you to perform more sophisticated tasks by using JavaScript and <em>canvas</em> element. Check out the <a href="manual/zh/puzzles/HTML.html#create_canvas_elem">create canvas elem</a> puzzle for more info.
-    </p>
+    <h2>5.画布纹理</h2>
+    <p>此方法是对前面技术的扩展，它允许您通过使用JavaScript和<em>画布</em>元素。查看<a href="manual/zh/puzzles/HTML.html#create_canvas_elem">create
+        canvas elem(创建画布元素)</a>拼图获取更多信息。</p>
 
-    <h3>Pros</h3>
-
-    <ul>
-      <li>You can do any text customizations with JavaScript.</li>
-      <li>It's possible to draw shapes and images along with text.</li>
-      <li>Good rendering performance and moderate GPU memory consumption.</li>
-      <li>You can add various text effects by using node materials (for example, create bump mapped texture with text).</li>
-    </ul>
-
-    <h3>Cons</h3>
+    <h3>优点</h3>
 
     <ul>
-      <li>Requires good JavaScript programming skills.</li>
-      <li>Text is 2D only, hence no extrusion/bevel effect.</li>
-      <li>Quality is somewhat reduced, especially for small images (less than 1K).</li>
+      <li>您可以使用JavaScript进行任何文本定制。</li>
+      <li>可以在绘制文本的同时绘制形状和图像。</li>
+      <li>渲染性能不错，GPU内存消耗适中。</li>
+      <li>您可以通过使用节点材质添加各种文本效果（例如，用文本创建凹凸映射纹理）。</li>
+    </ul>
+
+    <h3>缺点</h3>
+
+    <ul>
+      <li>需要良好的JavaScript编程技能。</li>
+      <li>文本仅为二维，因此没有挤压/斜面效果。</li>
+      <li>质量有些降低，特别是小图像（小于1K)。</li>
     </ul>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>

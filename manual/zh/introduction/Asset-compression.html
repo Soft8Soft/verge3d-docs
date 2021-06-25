@@ -1,277 +1,217 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Verge3D Asset Compression - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Verge3D supports loading assets compressed using the XZ/LZMA compression. Find out how to enable this feature on this page."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Asset Compression</h1>
+<head>
+  <title>Verge3D资产压缩 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Verge3D支持加载的资产了解如何在Verge3D中启用资产压缩功能。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-    In Verge3D, scene files may be compressed using the highly effective LZMA2 compression algorithm, thus allowing to significantly reduce the size of the files. At the same time, LZMA2 offers fast decompression on the browser side. Typical compression rates observed for Verge3D scenes are: 20x for the <strong>.gltf</strong> files and 6x for the <strong>.bin</strong> files.
-    </p>
+<body>
+  <article>
 
-    [contents]
+    <h1>资产压缩</h1>
 
+    <p>在Verge3D中，可通过LZMA2算法高效压缩场景有效降低文件大小。同时，LZMA2提供了在浏览器端快速解压的解决方案。在Verge3D场景中的典型压缩率为：<strong>.gltf</strong>
+      文件20倍，<strong>.bin</strong> 文件6倍。</p>
 
-    [anchor:When_Compress_Files]
+    [contents] [anchor:When_Compress_Files]
 
-    <h2>When Compress Files</h2>
+    <h2>何时启用压缩</h2>
 
-    <p>
-      Using asset compression is especially recommended in the following cases:
-      <ul>
-        <li>.gltf/.bin or .glb scene files are relatively big so that the effect from compression is significant
-          in terms of size reduction;</li>
-        <li>you expect slow connections and every kilobyte counts;</li>
-        <li>the standard server-side GZIP compression is not enabled or not satisfactory, or
-          you don't even have any access to the server to setup GZIP for Verge3D scene files.</li>
-      </ul>
-    </p>
+    <p>在以下情形中特别推荐使用资产压缩：
+    <ul>
+      <li>.gltf/.bin或.glb场景文件相对较大，压缩后文件大小减小显著；</li>
+      <li>预期的网络连接速度非常缓慢；</li>
+      <li>标准服务器端的GZIP选项压缩未启用或效果不明显，或者您甚至无权访问服务器来为Verge3D场景文件设置GZIP压缩。</li>
+    </ul>
+    </p><img src="files/asset_compression/compression_chart.png" class="centered with-caption"
+      style="max-width: 630px;"> <span class="img-caption">原始文件、GZIP压缩文件和LZMA2压缩文件的大小比较
+    </span> [anchor:Exporting_Compressed_Files]
 
-    <img src="files/asset_compression/compression_chart.png" class="centered with-caption" style="max-width: 630px;">
-    <span class="img-caption">Size comparison for a sample file: raw vs GZIP-compressed vs LZMA2-compressed</span>
+    <h2>导出压缩文件</h2>
 
-    [anchor:Exporting_Compressed_Files]
-
-    <h2>Exporting Compressed Files</h2>
-
-    <p>
-    Verge3D supports loading of scene files compressed in the <strong>.xz</strong> file format, which incorporates the LZMA2 compression algorithm. To enable creating <strong>.xz</strong> files automatically upon export, you can simply turn on the corresponding option in the export settings.
+    <p>Verge3D支持加载以 <strong>.xz</strong> 文件格式压缩的场景文件，其中包含LZMA2压缩算法。要在导出时自动创建 <strong>.xz</strong> 文件，只需在导出设置中打开相应的选项。
     </p>
 
     <v3d-tabs>
       <label>Blender</label>
-      <div>
-        <img src="files/asset_compression/lzma-blender.jpg" class="centered" style="max-width: 525px">
-      </div>
+      <div><img src="files/asset_compression/lzma-blender.jpg" class="centered" style="max-width: 525px"></div>
       <label>3ds Max</label>
-      <div>
-        <img src="files/asset_compression/lzma-max.jpg" class="centered" style="max-width: 709px">
-      </div>
+      <div><img src="files/asset_compression/lzma-max.jpg" class="centered" style="max-width: 709px"></div>
       <label>Maya</label>
-      <div>
-        <img src="files/asset_compression/lzma-maya.jpg" class="centered" style="max-width: 708px">
-      </div>
+      <div><img src="files/asset_compression/lzma-maya.jpg" class="centered" style="max-width: 708px"></div>
     </v3d-tabs>
-
 
     [anchor:Using_Compressed_Files]
 
-    <h2>Using Compressed Files</h2>
+    <h2>使用压缩文件</h2>
 
-    <p>
-      The compressed <strong>.xz</strong> files (for example, <i>my_awesome_app.gltf.xz</i> and <i>my_awesome_app.bin.xz</i>) should appear near the original ones. What is left is to enable loading them in your app. To do this, go to Puzzles...
-    </p>
-
-    <img src="files/beginner_guide/app-manager-app-buttons-puzzles.png" class="centered" style="max-width: 1000px">
-
-    </p>
-    ...and switch to the <strong>init</strong> tab:
-    </p>
-
-    <img src="files/asset_compression/puzzles-init.jpg" class="centered" style="max-width: 600px">
-
-    <p>
-        Drag out the <strong>configure application</strong> puzzle from the <strong>Initialization</strong> category, if it is not already present in the workspace, and turn on the <strong>compressed assets</strong> checkbox on it:
-    </p>
-
-    <img src="files/asset_compression/puzzles-configure-app.jpg" class="centered" style="max-width: 850px">
-
-    <p>
-      Finally, click the <strong>Save</strong> button. That's it!
-    </p>
-
+    <p>压缩过的 <strong>.xz</strong> 文件（例如， <i>my_awesome_app.gltf.xz</i> 和 <i>my_awesome_app.bin.xz</i>
+      ）会保存在原始文件目录下。下一步就只需在应用中启用加载它们了。在场景中启用加载这些压缩文件，您需要打开拼图…</p><img
+      src="files/beginner_guide/app-manager-app-buttons-puzzles.png" class="centered" style="max-width: 1000px"></p>
+    ...并切换到 <strong>init</strong> 标签:</p><img src="files/asset_compression/puzzles-init.jpg" class="centered"
+      style="max-width: 600px">
+    <p>如果工作区中还没有 <strong>configure application(配置应用)</strong> 拼图，把它从 <strong>初始化 | Initialization</strong>
+      类目中拖拽出来，并且启用其上的 <strong>compressed assets(压缩资产)</strong> 复选框：</p><img
+      src="files/asset_compression/puzzles-configure-app.jpg" class="centered" style="max-width: 850px">
+    <p>最后，点击 <strong>Save</strong> 按钮即可。搞定！</p>
 
     [anchor:Checking_Your_Files]
 
-    <h2>Checking Your Files</h2>
+    <h2>检查文件</h2>
 
-    <p>
-      To ensure that your app now actually loads compressed assets, run your app (either from App Manager or from a website where it is deployed). Open the browser console and switch to the <strong>Network</strong> tab.
-    </p>
+    <p>若要确认应用现在实际加载的是否为压缩资产，请（从应用管理器或部署应用的网站）运行应用，打开浏览器控制台并切换到 <strong>网络</strong> 选项卡。</p><img
+      src="files/asset_compression/console-check.jpg" class="centered">
+    <p>重新加载应用以便控制台从头开始显示文件。在列表中找到场景文件&mdash;&mdash;如果一切正常，它们应该以 <strong>.xz</strong> 结尾。</p>
 
-    <img src="files/asset_compression/console-check.jpg" class="centered">
-
-    <p>
-      Reload your app so that the console starts displaying files from the beginning. Find the scene files in the list - if everything is ok, they should end with <strong>.xz</strong>.
-    </p>
-
-    <p>
-      The browser console can usually be opened with the F12 key (Chrome, Firefox on Windows, Linux). On Mac use the View > Developer > JavaScript Console menu (Option-Cmd-J) in Chrome, or the Develop > Show Error Console menu (Option-Cmd-C) in Safari.
-    </p>
-
+    <p>在Windows和Linux平台，Chrome，Firefox浏览器的控制台一般可用F12快捷键打开。在Mac电脑中，Chrome使用
+      View&gt;Developer&gt;JavaScript控制台菜单（快捷键：Option-Cmd-J）开启，Safari需使用 Developer&gt;Show Error
+      Console菜单（快捷键：Option-Cmd-C）开启浏览器控制台。</p>
 
     [anchor:Code_Based_or_Player_Based_Apps]
 
-    <h2>Code-Based or Player-Based Apps</h2>
+    <h2>基于代码或基于Verge3D播放器的应用</h2>
 
-    <p>If you don't want to use Puzzles for some reason, follow these steps to enable asset compression for your apps.</p>
+    <p>如果您不想使用拼图进行设置，请按照以下步骤为应用启用资产压缩。</p>
 
-    <p>
-      For <strong>Code-Based</strong> applications simply change
+    <p>对 <strong>Code-Based(基于代码)</strong> 的应用，只需修改文件 <i>your_awesome_app.js</i>
 
-      <code>
-        var url = 'my_awesome_app.gltf';
-      </code>
-      to:
+
+    <code>
+      var url = 'my_awesome_app.gltf';
+    </code>
+
+      为：
+
       <code>
         var url = 'my_awesome_app.gltf.xz';
       </code>
 
-      in <i>your_awesome_app.js</i> file.
+      即可。
+    </p>
+
+    <p>对于在URL中指定了 <strong>.gltf</strong> 文件的基于Verge3D播放器的应用，如下所示：
+
+    <code class="language-html">https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf</code>
+
+      您只需将其替换为压缩的 <strong>.gltf.xz</strong> 文件的路径：
+      
+      <code class="language-html">https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf.xz</code>
 
     </p>
 
-    <p>
-      For Player-based applications that have a scene <strong>.gltf</strong> file specified in the URL as follows:
-      <code class="language-html">
-        https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf
-      </code>
-      you can simply replace it with the path to the compressed <strong>.gltf.xz</strong> file:
-      <code class="language-html">
-        https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf.xz
-      </code>
-    </p>
-
-    <p>
-      The same applies to <strong>.glb</strong> and <strong>.glb.xz</strong> files if they are used instead of <strong>.gltf/.bin</strong>.
-    </p>
-
+    <p>同样，请将 <strong>.glb</strong> 替换为 <strong>.glb.xz</strong> ，如果他们没有使用 <strong>.gltf/.bin</strong> 格式。</p>
 
     [anchor:Archivers]
 
-    <h2>Archivers</h2>
+    <h2>压缩工具</h2>
 
-    <p>
-       Alternatively, you can create <strong>.xz</strong> files using archive utilities as
-      <strong>7-Zip</strong>, <strong>XZ Utils</strong> or others.
-    </p>
+    <p>作为替代，您可以使用压缩解压工具（如 <strong>7-Zip</strong> , <strong>XZ Utils</strong> 等）来创建 <strong>.xz</strong> 文件。</p>
 
-    <p class="note">
-      Archiving with external tools is recomended as a time-saving measure for teams working on big projects. You might need to write some batch scripts to archive your assets in automated way.
-    </p>
+    <p class="note">对于设计制作大型项目的团队来说，使用外部工具进行压缩会更节省时间。您可以编写一些批处理脚本，来自动执行压缩资产操作。</p>
 
-    <p>
-      Verge3D implementation of an .xz decompressor puts some restrictions on compressed files
-      due to optimization purposes, so not every .xz file can be loaded. .tar.xz files are also
-      not supported. Considering this, it's recommended to use settings described below.
-    </p>
-
+    <p>出于优化目的，Verge3D对.xz解压缩设置了一些限制，因此并非每个.xz文件都可以加载，也不支持tar.xz文件。考虑到这一点，建议使用如下描述的设置。</p>
 
     [anchor:windows]
 
     <h3>Windows</h3>
 
-    <p>
-      1) A popular file archiver <a href="https://www.7-zip.org/download.html">7-Zip</a>
-      can be used for creating .xz files.
-    </p>
+    <p>1) 使用常用的 <a href="https://www.7-zip.org/download.html">7-Zip</a> 工具创建.xz文件时：</p>
 
-    <p>
-      To compress a file you can right click it, and then choose "7-Zip" -> "Add to archive..." - this
-      opens the corresponding dialog window:
-    </p>
+    <p>在您要压缩的文件上点击右键，选择&quot;7-Zip&quot; -&gt; &quot;添加到压缩包...&quot;- 这将打开对应的配置对话框：</p><img
+      src="files/asset_compression/7zip_add_to_archive.png" class="centered" style="max-width: 630px;">
+    <p>压缩设置应如下所示：
+    <ul>
+      <li>压缩格式： xz</li>
+      <li>压缩等级： 任何(标准压缩, 最大压缩和极限压缩效果最好)</li>
+      <li>压缩方法：LZMA2 (必须使用此选项)</li>
+      <li>字典大小： 最高到8MB，越高越好（引擎不支持超过8 Mb的字典）</li>
+    </ul>其余选项可以保留默认。</p>
 
-    <img src="files/asset_compression/7zip_add_to_archive.png" class="centered" style="max-width: 630px;">
+    <p>此外，您也可以使用命令行版的 <strong>7-Zip</strong> ：
 
-    <p>
-      The archivation settings should look like this:
-      <ul>
-        <li>Archive format: xz</li>
-        <li>Compression level: any (Normal, Maximum and Ultra give best results)</li>
-        <li>Compression method: LZMA2 (the only available option)</li>
-        <li>Dictionary size: up to 8 MB - the more the better (more than 8MB is
-          not supported by the engine)</li>
-      </ul>
-      The rest of options can be left by default.
-    </p>
-
-    <p>
-      Also you can use a command line version of <strong>7-Zip</strong> instead:
 
       <code>
+
         7z.exe a -m0=LZMA2:d23 scene.gltf.xz scene.gltf
-7z.exe a -m0=LZMA2:d23 scene.bin.xz scene.bin
-      </code>
+        7z.exe a -m0=LZMA2:d23 scene.bin.xz scene.bin
+      
+</code>
+
+
     </p>
 
-    <p>
-      2) Alternatively, you can use a special command line tool called
-      <strong>XZ Utils</strong>. Its Windows binaries are available
-      <a href="https://tukaani.org/xz/">here</a> in the <strong>Pre-built binaries</strong> section.
+    <p>2) 或者，您也可以使用一个名为 <strong>XZ Utils</strong> 的特殊命令行工具。它的Windows安装包可以在 <a href="https://tukaani.org/xz/">这里</a> 的
+      <strong>Pre-built binaries</strong> 部分找到。
     </p>
 
-    <p>
-      The usage is simple:
+    <p>使用方法很简单：
+
+
       <code>
         xz.exe -k -f -6 scene.gltf
-xz.exe -k -f -6 scene.bin
+        xz.exe -k -f -6 scene.bin
       </code>
-    </p>
 
+    </p>
 
     [anchor:linux]
 
     <h3>Linux</h3>
 
-    <p>
-      1) A <strong>7-Zip</strong> command line port can be available out of the box or
-      from official repositories as a package named <strong>p7zip</strong>.
-    </p>
+    <p>1) <strong>7-Zip</strong> 的官方存储库中有一个开箱即用的命令行工具包 <strong>p7zip</strong> ：</p>
 
-    <p>
+    <p>其用法与Windows中的类似：
 
-      The usage is similar to the one in Windows:
       <code>
         7z a -m0=LZMA2:d23 scene.gltf.xz scene.gltf
-7z a -m0=LZMA2:d23 scene.bin.xz scene.bin
+        7z a -m0=LZMA2:d23 scene.bin.xz scene.bin
       </code>
+
+
     </p>
 
-    <p>
-      2) <strong>XZ Utils</strong> is also available out of the box or from official
-      repositories in most Linux distros.
-    </p>
+    <p>2) 大多数Linux发行版都可以在 <strong>XZ Utils</strong> 的官方存储库中找到开箱即用的命令行工具包。</p>
 
-    <p>
-      The usage is similar to the one in Windows:
+    <p>其用法与Windows中的类似：
+
       <code>
         xz -k -f -6 scene.gltf
-xz -k -f -6 scene.bin
+        xz -k -f -6 scene.bin
       </code>
-    </p>
 
+    </p>
 
     [anchor:macos]
 
     <h3>macOS</h3>
 
-    <p>
-      1) A <strong>7-Zip</strong> command line port can be installed via
-      <strong>Homebrew</strong> as a package named <strong>p7zip</strong>:
+    <p>1) <strong>7-Zip</strong> 的命令行工具包可通过 <strong>Homebrew</strong> 安装，名为 <strong>p7zip</strong> ：
+
+
       <code>
         $ brew update
-$ brew install p7zip
+        $ brew install p7zip
       </code>
-      The usage is the same as in Linux.
+
+
+      用法与其在Linux中类似：
     </p>
 
-    <p>
-      2) <strong>XZ Utils</strong> binaries are available for macOS 10.5+
-      <a href="https://tukaani.org/xz/">here</a> in the <strong>Pre-built binaries</strong> section.
-      The usage is the same as in Linux.
+    <p>2) <strong>XZ Utils</strong> 二进制文件可在macOS 10.5+系统上运行，请参见其 <a href="https://tukaani.org/xz/">这里</a> 的
+      <strong>Pre-built binaries</strong> ，其使用方法与在Linux类似。
     </p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>

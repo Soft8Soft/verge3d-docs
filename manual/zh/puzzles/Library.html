@@ -1,96 +1,75 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Library Puzzles Reference - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Using Verge3D Puzzles library, a persistent storage for groups of puzzles for re-use in multiple projects."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Library for Your Puzzles</h1>
+<head>
+  <title>拼图库参考 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="使用Verge3D拼图库来长期保存拼图模组，并在不同应用间复用。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>Library is a persistent storage for groups of puzzles for re-use in multiple projects.</p>
+<body>
+  <article>
 
-    <img src="files/puzzles/puzzles-library.jpg">
+    <h1>为您的拼图建立库(Library)</h1>
 
-    <h2>Contents</h2>
+    <p>拼图库里可以长期存储拼图模组，并在不同项目间复用您存储的自定义模组。</p><img src="files/puzzles/puzzles-library.jpg">
+    <h2>内容</h2>
 
-    [contents]
+    [contents] [anchor:introduction]
 
+    <h2>简介</h2>
 
-    [anchor:introduction]
-
-    <h2>Introduction</h2>
-
-    <p>There are two libraries in Verge3D:</p>
+    <p>Verge3D中有两个库。</p>
 
     <ul>
-      <li>*System Library* - stored in *library.xml* file inside the *puzzles* folder. This is the read-only stock library which comes with Verge3D.</li>
-      <li>*User Library* - stored in *my_library.xml* file inside the *puzzles* folder. You can use this library to add your own Puzzles.</li>
+      <li>*系统库* - 存储在 *library.xml* 文件中的 *puzzles* 文件夹中。这是Verge3D自带的只读拼图库。</li>
+      <li>*用户库* - 存储在 *puzzles* 文件夹下的 *my_library.xml* 文件中。您可以使用这个库来添加您自己的拼图。</li>
     </ul>
-
 
     [anchor:adding_entries]
 
-    <h2>Adding Entries</h2>
+    <h2>添加条目</h2>
 
-    <p>
-    You can add a puzzle group to the <em>user library</em> by right-clicking on it and selecting the option <strong>Save N Puzzles to Library</strong>. In the modal window type the name for the group as it will appear in the library's list of entries. Refresh the list of entries by reloading the page with the Puzzles editor to update that list.
-    </p>
-
-    <img src="files/puzzles/puzzles-library-save.jpg">
-
+    <p>您可以通过右键单击拼图组并选择选项 <strong>Save N Puzzles to Library(将 N 个拼图保存到库)</strong>来将拼图组添加到 <em>用户库</em>
+      。在模式窗口中输入组的名称，随后它将出现在库的条目列表中。用拼图编辑器重新加载页面即可更新条目列表。</p><img src="files/puzzles/puzzles-library-save.jpg">
 
     [anchor:using_entries]
 
-    <h2>Using Entries</h2>
+    <h2>使用条目</h2>
 
-    <p>A saved group of puzzle can be retrieved from the library by dragging it out to a workspace.</p>
-
-    <img src="files/puzzles/puzzles-library-retrieve.jpg">
-
+    <p>已保存的拼图组可以从库中直接通放到工作区。</p><img src="files/puzzles/puzzles-library-retrieve.jpg">
 
     [anchor:renaming_entries]
 
-    <h2>Renaming Entries</h2>
+    <h2>重命名条目</h2>
 
-    <p>
-    There is no dedicated control for renaming library entries as of version 3.1. However, you can easily rename an entry by editing the *my_library.xml* file (in 2 places).
-    </p>
-
-    <img src="files/puzzles/puzzles-library-rename.jpg" style="max-width: 895px">
-
-    <p>Once renamed, your library entry name will be updated after refreshing the editor.</p>
-
+    <p>从3.1版本开始，您无法直接对库中的条目进行重命名。但您可以编辑 *my_library.xml* 文件，修改其中两处名称的方式来重命名条目。</p><img
+      src="files/puzzles/puzzles-library-rename.jpg" style="max-width: 895px">
+    <p>重命名后，拼图库条目名称将在刷新编辑器后更新。</p>
 
     [anchor:deleting_entries]
 
-    <h2>Deleting Entries</h2>
+    <h2>删除条目</h2>
 
-    <p>An entry can be deleted from the <em>user library</em> by clicking the ❌ button.</p>
-
+    <p>点击 ❌ 按钮即可从<em>用户库</em>中删除一个条目。</p>
 
     [anchor:backup]
 
-    <h2>Backup</h2>
+    <h2>备份</h2>
 
-    <p>
-    Every time you save or delete entries, the previously saved file *puzzles/my_library.xml* is copied to the folder called *library_backup* with a timestamp added to the file name.
-    </p>
-
-    <img src="files/puzzles/puzzles-library-backup.jpg" style="max-width: 971px">
-
-    <p>
-    This allows you to restore any of the previously saved revisions of your <em>user library</em> when you need it. Simply copy a file back to the *puzzles* folder root and remove the time stamp from its name. Your library will be updated after refreshing the editor.
-    </p>
+    <p>每次保存或删除条目时，之前保存的文件 *puzzles/my_library.xml* 都会复制到名为 *library_backup* 的文件夹中，并在文件名中添加时间戳。</p><img
+      src="files/puzzles/puzzles-library-backup.jpg" style="max-width: 971px">
+    <p>这样，当您在需要时恢复拼图<em>库</em>时，都可以找到先前保存的修订版本。将对应的文件复制回 *puzzles* 目录，重命名删除时间戳件即可恢复。刷新编辑器即可更新拼图库。</p>
 
 
-    <h2>Having Troubles with Puzzles?</h2>
+    <h2>在使用拼图时遇到困难？</h2>
 
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>
