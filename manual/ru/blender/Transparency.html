@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D for Blender: Transparency - Soft8Soft</title>
+    <title>Verge3D для Blender: Прозрачность - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Learn what kinds of transparency can be enabled for Blender materials and used in Verge3D."/>
     <base href="../../../" />
@@ -10,10 +10,10 @@
   </head>
   <body><article>
 
-    <h1>Transparency / Blender</h1>
+    <h1>Прозрачность / Blender</h1>
 
     <p>
-      Here we show how to enable transparency for EEVEE/Cycles and glTF-compliant materials in Blender.
+      В этой статье мы покажем вам как включить прозрачность для Eevee/Cycles и glTF-совместимых материалов в Blender.
     </p>
 
     [contents]
@@ -21,91 +21,91 @@
 
     [anchor:blended_vs_masked]
 
-    <h2>Blended vs Masked</h2>
+    <h2>Альфа-смешение или Альфа-обрезка</h2>
 
     <p>
-      Being a real-time 3D engine, Verge3D offers two main methods to handle transparent objects: alpha blending and alpha clipping (usually with an image mask). Blending enables combining a translucent foreground color with a background color, using the foreground color's alpha as blending factor. Clipping, on the other hand, simply discards all pixels with alpha less than some predefined threshold (by default 0, but can be changed in material settings).
+      Verge3D, являясь 3D движком работающим в реальном времени,  предлагает два метода работы с прозрачными объектами: alpha blending и alpha clipping (обычно с изображением-маской). Альфа-смешение позволяет комбинировать полупрозрачный цвет переднего плана с цветом фона, используя альфа-канал в качестве фактора смешивания. Альфа-обрезка действует по принципу отбрасывания всех пикселей альфа канала меньше заданного порога (по умолчанию 0, но может быть изменено в настройках материала).
     </p>
 
     <img src="files/transparency-common/blending-vs-clipping.jpg">
 
     <p>
-      Blending enables for smooth transitions, generally looks nicer but computationally more expensive than clipping. It may also produce z-sorting artifacts when polygons appear to be rendered in wrong order. Clipping works best for visualizing numerous small objects (such as grass or tree leaves). It also produces hard edges without any transitions which may be aliased.
+      Альфа-смешение дороже, чем альфа-обрезка с точки зрения оптимизации, но обеспечивает мягкие переходы, которые выглядят красивее. Смешение также может вызвать артефакты связанные с Z-конфликтом, когда полигоны визуализируются в неправильном порядке. Обрезка лучше всего подходит для визуализации многочисленных небольших предметов (таких как трава или листья деревьев). Она также создает жёсткие края, которые не могут быть сглажены.
     </p>
 
     [anchor:alpha_add]
 
-    <h2>Additive Composing (aka No Depth Writes)</h2>
+    <h2>Additive Composing (также известный как No Depth Writes)</h2>
 
     <p>
-      Verge3D also offers a special mode for disabling writing to the depth buffer while rendering. This results in polygons being excluded from pixel depth comparison. Such polygons are composited in additive manner, which sometimes can help get rid of blending artifacts.
+      Verge3D также предлагает специальный режим, для отключения буфера глубины во время рендеринга . Это приводит к отмене сравнения значений глубины пикселей перекрываемых полигонов. Такие полигоны будут визуализированы аддитивным способом, который иногда позволяет избавиться от артефактов альфа-смешения.
     </p>
 
     <img src="files/transparency-common/no-depth-writes.jpg">
 
-    <p>To enable this mode, disable the *Depth Write* option located on the *Verge3D Settings* panel.</p>
+    <p>Чтобы включить данный режим, отключите опцию *Depth Write* расположенную в окне настроек *Verge3D Settings*.</p>
 
     <img src="files/transparency-blender/depth-write.jpg" class="centered" style="max-width: 294px;">
 
     [anchor:rendering_order]
 
-    <h2>Rendering Order (aka Z-index)</h2>
+    <h2>Порядок рендера (также известный как Z-index)</h2>
 
     <p>
-      Verge3D does not perform sorting of polygons inside objects, but rather performs sorting <i>between</i> objects. This provides correct blending in most cases but sometimes one may need to forcibly change the rendering order for an object.
+      Verge3D не выполняет сортировку полигонов внутри объектов, а скорее сортирует объекты между собой. В большинстве случаев это приводит к правильному смешиванию, но иногда может потребоваться принудительно изменить порядок отображения объектов.
     </p>
 
     <p>
-      To modify the rendering order for a particular object, change the numeric field in the Verge3D settings panel. The smaller the index, the earlier the object will be rendered.
+      Чтобы изменить порядок рендера для определённого объекта, внесите изменение в соответствующем числовом поле панели настроек Verge3D. Чем меньше индекс объекта, тем раньше он визуализируется.
     </p>
 
     <img src="files/transparency-blender/rendering-order.jpg" class="centered" style="max-width: 306px">
 
     <p>
-      So, if you have a transparent, continuous object in the rear and want other transparent objects in the front to render correctly, set some negative value as the rendering order of the rear object.
+      Поэтому, если требуется чтобы прозрачные объекты на фоне которых в сцене присутствует другой объект, отображались корректно, установите любое отрицательное значение для объекта расположенного сзади.
     </p>
 
     <img src="files/transparency-common/rendering-order-example.jpg">
 
     [anchor:transparency_eevee]
 
-    <h2>Transparency for Eevee Materials</h2>
+    <h2>Прозрачность для Материалов Eevee</h2>
 
     <p>
-      Transparency for Eevee materials can be enabled by using a combination of the *Transparent BSDF* and the *Mix Shader* nodes. The factor in the *Mix Shader* node can be used to define the alpha value - you can directly specify a value or create a dependency from some other nodes such as *Fresnel* for more realistic look.
+      Прозрачность для материалов Eevee может быть включена посредством связки нод *Transparent BSDF* и *Mix Shader*. Чтобы регулировать значение альфа-канала, используйте коэффицент в ноде *Mix Shader*, для этого можно подключить ноду value или создать зависимость от ноды *Fresnel* для большей реалистичности.
     </p>
 
     <img src="files/transparency-blender/eevee-ztransparency.jpg">
 
-    <p>Use the *Blend Mode* dropdown to choose between transparency modes.</p>
+    <p>Используйте выпадающий список <strong>Blend Mode</strong>, чтобы выбрать необходимый режим прозрачности.</p>
 
-    <p>Alternatively, you can use *Alpha* input of the Principled BSDF node.</p>
+    <p>Также, для настройки прозрачности, вы можете использовать вход *Alpha* в ноде Principled BSDF.</p>
 
     <img src="files/transparency-blender/eevee-ztransparency-principled.jpg">
 
-    <p>To tweak your the material's transparency there are other options available on the *Settings* panel:</p>
+    <p>Чтобы настроить прозрачность материала, на панели *Settings* доступны следующие параметры:</p>
 
     <ul>
-      <li>*Shadow Mode* - transparency mode for the shadow casters. For now only *Opaque* and *None* modes are supported in Verge3D.</li>
-      <li>*Clip Threshold* - threshold for alpha clipped (masked) materials.</li>
-      <li>*Show Backface* - enable to render backside geometry of your objects.</li>
+      <li>*Shadow Mode* - режим прозрачности для отбрасываемой тени. На данный момент в Verge3D поддерживаются только режимы *Opaque* и *None*.</li>
+      <li>*Clip Threshold* - порог для альфа-обрезки (маски).</li>
+      <li>*Show Backface* - позволяет визуализировать тыльную геометрию объектов.</li>
     </ul>
 
     [anchor:transparency_gltf]
 
-    <h2>Transparency for glTF-compliant Materials</h2>
+    <h2>Прозрачность для Материалов совместимых с форматом glTF</h2>
 
     <p>
-      In order to enable transparency for such materials, add alpha mask information to the alpha channel of the base color texture. Also you can tweak the alpha channel with the <strong>Alpha</strong> input of the Principled BSDF node.
+      Чтобы обеспечить прозрачность для таких материалов, добавьте альфа-маску в альфа-канал текстуры базового цвета. Также вы можете настроить альфа-канал, используя <strong>Alpha</strong> вход в ноде Principled BSDF.
     </p>
 
     <img src="files/transparency-blender/gltf-PBR-ztransparency.jpg">
 
-    <p>Use the <strong>Blend Mode</strong> dropdown to choose between transparency modes.</p>
+    <p>Используйте выпадающий список <strong>Blend Mode</strong>, чтобы выбрать необходимый режим прозрачности.</p>
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>
