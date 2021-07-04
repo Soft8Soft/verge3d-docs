@@ -1,169 +1,140 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Events Puzzles Reference - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Handling user events with Verge3D Puzzles."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Events</h1>
+<head>
+  <title>事件类拼图参考 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="使用Verge3D来处理用户事件。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-    The puzzles from this category handle user-generated events: mouse clicks / touches, hovering and dragging.
-    </p>
+<body>
+  <article>
 
-    <img src="files/puzzles/puzzles-events.jpg">
+    <h1>事件｜Events</h1>
 
-    <h2>Contents</h2>
+    <p>此类拼图处理用户产生的事件：鼠标点击/触摸，悬停和拖动等。</p><img src="files/puzzles/puzzles-events.jpg">
+    <h2>内容</h2>
 
-    [contents]
+    [contents] [anchor:puzzles_reference]
 
-
-    [anchor:puzzles_reference]
-
-    <h2>Puzzles Reference</h2>
+    <h2>拼图参考</h2>
 
     [anchor:when_clicked]
 
-    <h3>when clicked</h3>
+    <h3>when clicked(当点击时)</h3>
 
+    <p>等待用户点击指定的3D对象 - 然后执行 &quot;do&quot; 插槽中的拼图，如果用户点击了其他东西或者背景，则执行 &quot;missed: do&quot;
+      插槽中的拼图。该指定对象还可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(全部对象)</a>
+      拼图，则可以是场景中的任何对象。</p><img src="files/puzzles/puzzles-events-when-clicked.jpg">
+    <p>点击齿轮按钮会弹出&ldquo;advanced event opinions(高级事件选项)&rdquo;，选中后会在该拼图中激活如下属性：
     <p>
-    Waits until a user clicks on a specified 3D object (or any object in a specified list or group, or any object on the scene if the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle is used) - then runs puzzles in the "do" slot, or in the "missed: do" slot if the user clicks on something else or on the background.
-    </p>
-
-    <img src="files/puzzles/puzzles-events-when-clicked.jpg">
-
-    <p>*advanced event options* checker in the gear popup activates the following properties:<p>
 
     <dl>
       <dt>x-ray</dt>
-      <dd>Allow clicking the object behind any unclickable objects. Useful for clicking objects located behind semi-transparent surfaces or objects rendered above all (decalls or x-rayed geometries).<dd>
+      <dd>允许点击任何无法点击的对象后面的物体。对于点击位于半透明表面后面的或在位于最顶层渲染对象(贴花或X射线几何图形)后面的物体时很有用。
+      <dd>
 
-      <dt>double click / tap</dt>
-      <dd>Execute puzzles in response to double click (desktops) or double tap events (mobiles).<dd>
+      <dt>double click / tap(双击/连点)</dt>
+      <dd>响应桌面端双击事件(double click)或移动端连续点击事件(double tap)来执行拼图。
+      <dd>
 
-      <dt>mouse buttons</dt>
-      <dd>Execute puzzles only for the specified mouse buttons: left, middle, or right.<dd>
+      <dt>mouse buttons(鼠标按键)</dt>
+      <dd>只对指定的鼠标按键执行拼图：左键，中键，或右键。
+      <dd>
     </dl>
 
     [anchor:picked_object]
 
-    <h3>picked object</h3>
+    <h3>picked object - 选中的对象</h3>
 
-    <p>
-    Returns an object a user has clicked on. Intended for use with the "when clicked" puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-events-picked-object.jpg">
-
-
+    <p>返回用户所点击的对象。适用于&rdquo;when clicked(当点击...时)&ldquo;拼图。</p><img
+      src="files/puzzles/puzzles-events-picked-object.jpg">
 
     [anchor:when_hovered]
 
-    <h3>when hovered</h3>
+    <h3>when hovered(当悬停时)</h3>
 
+    <p>等待用户将鼠标悬停在指定的3D对象上时，执行在&quot;over/out: do&quot; 插槽里的拼图。悬停对象还可以是在列表或组中指定的任何对象，如果使用了 <a
+        href="manual/zh/puzzles/Selectors.html#all_objects">all objects(全部对象)</a> 拼图，则可以是场景中的任何对象。</p><img
+      src="files/puzzles/puzzles-events-when-hovered.jpg">
+    <p>点击齿轮按钮会弹出&ldquo;advanced event opinions(高级事件选项)&rdquo;，选中后会在该拼图中激活如下属性：
     <p>
-    Waits until a user hovers over/out a specified 3D object (or any object in a specified list or group, or any object on the scene if the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle is used) - then runs puzzles in the "over/out: do" slot.
-    </p>
-
-    <img src="files/puzzles/puzzles-events-when-hovered.jpg">
-
-    <p>*advanced event options* checker in the gear popup activates the following property:<p>
 
     <dl>
       <dt>x-ray</dt>
-      <dd>Allow hovering behind other objects. Useful for outlining objects located behind semi-transparent surfaces or objects rendered above all (decalls or x-rayed geometries).<dd>
+      <dd>允许在其他对象后面悬停。用于勾勒位于半透明表面后面的，或位于最顶层渲染对象(贴花或X射线几何图形)后面的物体轮廓时很有用。
+      <dd>
     </dl>
-
 
     [anchor:hovered_object]
 
-    <h3>hovered object</h3>
+    <h3>hovered object(悬停的对象)</h3>
 
-    <p>
-    Returns an object a user has hovered over. Intended for use with the "when hovered" puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-events-hovered-object.jpg">
-
-
+    <p>返回用户悬停的对象。适用于&rdquo;when hovered(当悬停于...时)&rdquo;拼图。</p><img
+      src="files/puzzles/puzzles-events-hovered-object.jpg">
 
     [anchor:when_moved]
 
-    <h3>when moved</h3>
+    <h3>when moved(当移动时)</h3>
 
-    <p>
-    Tracks any movements (position, rotation and scale) of a specified object (or any object in a specified list or group, or any object on the scene if the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle is used). Runs puzzles in the "start: do" slot if an object started moving, keeps running puzzles in the "while moving: do" slot until an object stops moving, then runs puzzles in the "stop: do" slot. The *velocity* parameter denotes a per-second change of any coordinate (x, y or z) of either of position, rotation or scale that is required to trigger this puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-events-when-moved.jpg">
-
-
+    <p>追踪指定对象的任何移动，包括位置、旋转和比例。该指定对象还可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all
+        objects(全部对象)</a> ，则可以是场景中的任何对象。如果对象开始移动，则运行 &quot;start: do&rdquo;插槽中的拼图，然后在对象持续移动时继续运行 &quot;while moving:
+      do&rdquo;插槽中的拼图，直到对象停止移动，然后运行 &quot;stop: do&rdquo;插槽中的拼图。*velocity* 参数表示当位置、旋转或缩放的任何坐标（x、y 或
+      z）的每秒变化当大于此值时，就触发此拼图。</p><img src="files/puzzles/puzzles-events-when-moved.jpg">
 
     [anchor:when_dragged]
 
-    <h3>when dragged</h3>
+    <h3>when dragged(当拖动时)</h3>
 
+    <p>等待用户用鼠标或触摸手势拖动指定的3D对象，然后生成移动数据，用于 &quot;拖动移动&quot;、&quot;拖动旋转 &quot;或 &quot;拖动缩放
+      &quot;拼图。被指定的3D对象也可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all
+        objects(全部对象)</a> 拼图，则可以是场景中的任何对象。也可以捕捉开始拖动和停止拖动事件。</p><img
+      src="files/puzzles/puzzles-events-when-dragged-over.jpg">
+    <p>点击齿轮按钮会弹出&ldquo;advanced event opinions(高级事件选项)&rdquo;，选中后会在该拼图中激活如下属性：
     <p>
-    Waits until a user drags over a specified 3D object (or any object in a specified list or group, or any object on the scene if the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle is used) with the mouse or a touch gesture - then generates movement data for using in a "drag move", "drag rotate" or "drag scale" puzzle. Also captures events of started and stopped dragging.
-    </p>
-
-    <img src="files/puzzles/puzzles-events-when-dragged-over.jpg">
-
-
-    <p>*advanced event options* checker in the gear popup activates the following property:<p>
 
     <dl>
       <dt>x-ray</dt>
-      <dd>Allow dragging the object behind other objects. Useful for dragging objects located behind semi-transparent surfaces or objects rendered above all (decalls or x-rayed geometries).<dd>
+      <dd>允许拖动在其他对象后面的物体。对于拖动位于半透明表面后面的或在位于最顶层渲染对象(贴花或X射线几何图形)后面的物体时很有用。
+      <dd>
 
-      <dt>mouse buttons</dt>
-      <dd>Drag only with the specified mouse buttons: left, middle, or right.<dd>
+      <dt>mouse buttons(鼠标按键)</dt>
+      <dd>只使用指定的鼠标按键拖拽：左键，中键，或右键。
+      <dd>
     </dl>
-
 
     [anchor:drag_move]
 
-    <h3>drag move</h3>
+    <h3>drag move(拖移)</h3>
 
-    <p>
-    Moves a specified 3D object (or all objects in a specified list or group, or all objects on the scene if the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle is used) in accordance to dragging movement data generated by the <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> puzzle. Use the drop-down menu to limit the movement to a particular axis or plane, or not to limit at all.
-    </p>
-
-    <img src="files/puzzles/puzzles-events-drag-move.jpg">
-
-
+    <p>根据 <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged(当拖动时)</a> 拼图时生成的拖移数据来移动指定的 3D
+      对象，被指定的3D对象也可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(全部对象)</a>
+      拼图，则可以是场景中的任何对象。使用下拉菜单设置限制运动的轴或平面，也可以不做限制。</p><img src="files/puzzles/puzzles-events-drag-move.jpg">
 
     [anchor:drag_rotate]
 
-    <h3>drag rotate</h3>
+    <h3>drag rotate(拖动旋转)</h3>
 
-    <p>
-    Rotates a specified 3D object (or all objects in a specified list or group, or all objects on the scene if the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle is used) in accordance to dragging movement data generated by the <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> puzzle. Use the drop-down menu to limit the rotation to a particular axis. The "space" drop-down allows for switching between "local" and "parent" coordinate spaces.
-    </p>
-
-    <img src="files/puzzles/puzzles-events-drag-rotate.jpg">
-
-
+    <p>根据 <a href="manual/zh/puzzles/Events.html#when_dragged">拖动</a>
+      拼图时产生的拖动数据，旋转一个指定的三维物体，被指定的3D对象也可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all
+        objects(全部对象) </a> 拼图，则可以是场景中的任何对象。使用下拉菜单可以将旋转限制在一个特定的轴上。开启 &ldquo;space(空间)&rdquo;选项激活设定 &quot;local(自身)&quot;和
+      &ldquo;parent(父级) &quot;坐标空间切换的高级选项。</p><img src="files/puzzles/puzzles-events-drag-rotate.jpg">
 
     [anchor:drag_scale]
 
-    <h3>drag scale</h3>
+    <h3>drag scale(拖动缩放)</h3>
 
-    <p>
-    Scales a specified 3D object (or all objects in a specified list or group, or all objects on the scene if the <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects</a> puzzle is used) in accordance to dragging movement data generated by the <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> puzzle. Use the drop-down menu to limit scaling to a particular axis.
-    </p>
+    <p>根据 <a href="manual/zh/puzzles/Events.html#when_dragged">拖动</a> 拼图时产生的拖动数据，缩放指定的三维物体（或者指定列表或组中的所有物体，或者如果使用 <a
+        href="manual/zh/puzzles/Selectors.html#all_objects">所有物体</a> 拼图，则缩放场景中的所有物体）。使用下拉菜单可以将缩放比例限制在某个特定的轴上。</p><img
+      src="files/puzzles/puzzles-events-drag-scale.jpg">
+    <h2>在使用拼图时遇到困难？</h2>
 
-    <img src="files/puzzles/puzzles-events-drag-scale.jpg">
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
+  </article>
+</body>
 
-    <h2>Having Troubles with Puzzles?</h2>
-
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
-  </article></body>
 </html>

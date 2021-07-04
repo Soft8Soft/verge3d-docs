@@ -1,322 +1,321 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Spotting Verge3D performance bottlenecks - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="Find out how to spot and eliminate performance bottlenecks in your Verge3D-based applications."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
 
-    <meta property="og:image" content="https://cdn.soft8soft.com/images/optimizing-webgl-performance.jpg">
-    <meta property="article:tag" content="performance">
-  </head>
-  <body><article>
+<head>
+  <title>查找Verge3D性能瓶颈 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何发现并解决Verge3D应用中的性能瓶颈。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
 
-    <h1>Spotting Verge3D Performance Bottlenecks</h1>
+  <meta property="og:image" content="https://cdn.soft8soft.com/images/optimizing-webgl-performance.jpg">
+  <meta property="article:tag" content="性能">
+</head>
 
-    [contents]
+<body>
+  <article>
 
+    <h1>查找Verge3D性能瓶颈</h1>
 
-    [anchor:intro]
+    [contents] [anchor:intro]
 
-    <h2>Intro</h2>
+    <h2>简介</h2>
 
-    <p>Since a broad internet audience can use your applications, your Verge3D-based apps must show good performance. For example, some classes of WebGL-capable devices may work much worse than you expect:</p>
+    <p>您发布的网页应用将面向海量的互联网用户，因此基于Verge3D的应用必须具备良好的性能表现。例如，某些支持WebGL的设备的工作性能可能比您的预期差很多：</p>
 
     <ul>
-      <li>Typical low-end or middle-end laptops with integrated GPUs (Intel, AMD APU graphics).</li>
-      <li>Old smartphones or tablet computers.</li>
-      <li>Mobile VR devices, such as Oculus Go or Oculus Quest. To prevent motion sickness symptoms, it's mandatory that these devices render with appropriate frame rate (60, 72, or even 90 FPS).</li>
-      <li>Devices with battery. Enormous GPU utilization quickly drains out the battery, powering mobile devices.</li>
+      <li>比较典型的，如使用集成显卡（Intel，AMD APU Graphics）的中低端笔记本等。</li>
+      <li>老式智能手机或平板电脑。</li>
+      <li>移动VR设备，如Oculus Go或Oculus Quest。为了防止晕动症，这些设备必须以适当的帧率（60,72,甚至90 FPS）进行渲染。</li>
+      <li>使用电池供电的设备。GPU长时间高负荷会迅速耗尽移动设备的电池电量。</li>
     </ul>
 
-    <p>To optimize efficiently, e.g., without degrading your apps' quality, you should understand basic <a href='manual/zh/introduction/Optimizing-WebGL-performance.html'>asset optimization techniques</a> and be able to spot places in your app that cause slow loading and rendering. These are called <em>performance bottlenecks</em>.</p>
-
+    <p>为了有效优化，即尽量不降低应用质量，您应该了解基本的 <a href='manual/en/introduction/Optimizing-WebGL-performance.html'>资产优化技术</a>
+      并且能够在应用中找出导致加载和渲染缓慢的原因。这些被称为 <em>性能瓶颈</em>。</p>
 
     [anchor:fps]
 
-    <h2>Check your FPS</h2>
+    <h2>检查FPS</h2>
 
-    <p>FPS (frames per second, or frame rate) is a crucial quantity representing the rendering time and user experience of your app:</p>
-
-    <ul>
-      <li>&lt; 20 — your app is really slow, almost impossible to use.</li>
-      <li>20-40 — slow, but acceptable.</li>
-      <li>40-60 — good enough.</li>
-      <li>60 — ideal frame rate on desktop and mobile browsers.</li>
-      <li>&gt; 60 — frame rate you should target on VR headsets.</li>
-    </ul>
-
-    <p>Starting from version 3.2, Verge3D comes with the built-in FPS counter. You can activate it by:</p>
+    <p>FPS（每秒帧数，或帧率）是代表应用的渲染时间和用户体验的一个至关重要的量：</p>
 
     <ul>
-      <li>Quickly pressing *F*, *F*, *F* (triple F) on your keyboard.</li>
-      <li>Using JavaScript and the <a href="api/en/extras/App.html#showFPS">showFPS()</a> API method.</li>
+      <li>&lt;20 ：应用会非常卡顿，几乎无法使用。</li>
+      <li>20-40 ：反应迟缓，但可以接受。</li>
+      <li>40-60 ：足够好了。</li>
+      <li>60 ：桌面和移动浏览器上的理想帧率。</li>
+      <li>&gt;60 ：为VR头戴式设备做开发的目标帧率。</li>
     </ul>
 
-    <p>Once activated, you can see the current FPS value (along with its range and history plot) on the small panel in the left top corner of your app's canvas:</p>
+    <p>从3.2版本开始，Verge3D自带内置的FPS计数器。您可以通过以下方式启用它：</p>
 
-    <img src="files/performance-bottlenecks/fps-counter.jpg" alt="Verge3D FPS counter window" class="centered" style="max-width: 879px;">
+    <ul>
+      <li>在键盘上快速按下 *F*, *F*, *F* （连按3次F键）。</li>
+      <li>使用JavaScript和API方法 <a href="api/en/extras/App.html#showFPS">showFPS()</a> 。</li>
+    </ul>
 
-    <p>To get legitimate values, you should measure FPS on the slowest / oldest devices you have. Also, most browsers do not allow frame rate be greater than 60 Hz (this improves frame syncing, saves your battery life, and reduces fan noise).</p>
-
+    <p>一旦激活，您就可以在应用的画布左上角的小面板上看到当前的FPS值（帧率范围和历史）：</p><img src="files/performance-bottlenecks/fps-counter.jpg"
+      alt="Verge3D FPS计数器窗口" class="centered" style="max-width: 879px;">
+    <p>为获得合理的值，您应该在您拥有的最慢/最旧的设备上测量FPS。此外，大多数浏览器不允许帧速率大于60赫兹（目的是改善帧同步率，节省电池寿命，降低风扇噪音等）。</p>
 
     [anchor:performance_profile]
 
-    <h2>Performance Profile</h2>
+    <h2>性能概况</h2>
 
-    <p>Verge3D comes with a feature to generate performance profiles in real time. You can get a quick insight into what's happening with performance in your application and what you should do to increase it. To produce such profiles, you may use one of the following methods:</p>
+    <p>Verge3D附带了一个功能，可以实时生成性能概况统计。您可以快速了解应用中的性能发生了什么，以及应该做些什么来提高性能。要生成此类分析报告,可以使用以下方法之一：</p>
 
     <ul>
-      <li>Quickly press *P*, *P*, *P* (triple P) on your keyboard (Verge3D 3.2+).</li>
-      <li>Use the <a href="manual/zh/puzzles/System.html#print_performance_info">print performance info</a> puzzle.</li>
-      <li>Use JavaScript and the <a href="api/en/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> API method.</li>
+      <li>快速按键盘上的*P*,*P*,*P*（连按3次P键）(Verge3D 3.2+）。</li>
+      <li>使用 <a href="manual/zh/puzzles/System.html#print_performance_info">print performance info（打印性能信息）</a> 拼图。</li>
+      <li>使用JavaScript和API方法 <a href="api/en/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> 。</li>
     </ul>
 
-    <p>Wait at least 1 second while Verge3D collects profile data, then open the browser <a href="manual/zh/introduction/FAQ.html#browser_console">console</a>. Check out the string in the opened console window:</p>
+    <p>Verge3D收集配置文件数据时，请至少等待1秒，然后打开浏览器 <a
+        href="manual/zh/introduction/FAQ.html#browser_console">控制台</a>。在打开的控制台窗口中检查输出的字符串：</p>
 
     <code>--- Verge3D Performance Profile (1s) ---</code>
 
-    <p>Below it, the lines with collected performance information:</p>
-
-    <img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D performance profile" class="centered" style="max-width: 880px;">
-
-    <p>Here is what you can inquire from the generated performance profile:</p>
+    <p>以下是收集到的性能信息：</p><img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D性能概况"
+      class="centered" style="max-width: 880px;">
+    <p>下面是您可以从生成的性能概况报告中查询的内容：</p>
 
     <dl>
-      <dt>Scene Loading Time</dt>
-      <dd>Time in seconds it took to load the application's <em>main</em> scene. See <a href="manual/zh/introduction/Performance-Bottlenecks.html#scene_loading_time">below</a> on how to reduce it.</dd>
+      <dt>场景加载时间(Scene Loading Time)</dt>
+      <dd>加载应用<em>主</em>场景。参见 <a href="manual/zh/introduction/Performance-Bottlenecks.html#scene_loading_time">下文</a>
+        了解如何加快加载。</dd>
 
       <dt>FPS</dt>
-      <dd>Rendering frame rate. This is the same value reported by the FPS counter.</dd>
+      <dd>渲染帧速率。这与FPS计数器报告的值相同。</dd>
 
-      <dt>Render Calls</dt>
-      <dd>Amount of render calls per frame. An important value that shows how many draw operations are performed during one frame. This value represents the number of different materials on your scene + various supplementary render calls such as shadows, post-processing, etc. </dd>
+      <dt>渲染调用(Render Calls)</dt>
+      <dd>每帧的渲染调用数量。这是一个重要数值，显示在一帧期间执行了多少绘制操作，代表了场景中不同材质的数量+各种补充渲染调用（如阴影、后期处理等）之和。</dd>
 
-      <dt>Triangles Rendered</dt>
-      <dd>How many triangles were rendered per frame. See more info about this value below.</dd>
+      <dt>渲染的三角形数量(Triangles Rendered)</dt>
+      <dd>每帧渲染了多少个三角形。请参阅下面有关此值的更多信息。</dd>
 
-      <dt>Geometry Buffers</dt>
-      <dd>How many geometry buffers your app uses.</dd>
+      <dt>几何缓存(Geometry Buffers)</dt>
+      <dd>应用使用了多少几何缓存</dd>
 
-      <dt>HDR Rendering</dt>
-      <dd>Whether HDR rendering switched <em>on</em> or <em>off</em>.</dd>
+      <dt>HDR渲染(HDR Rendering)</dt>
+      <dd>HDR渲染是否启用: <em>on</em> 或 <em>off</em>。</dd>
 
-      <dt>Viewport Resolution</dt>
-      <dd>Rendering viewport resolution.</dd>
+      <dt>视口分辨率(Viewport Resolution)</dt>
+      <dd>渲染视口的分辨率，即当前网页中3D Canvas的分辨率。</dd>
 
-      <dt>Pixel Ratio</dt>
-      <dd>Current (used by renderer) and device (native) pixel ratios.</dd>
+      <dt>像素比(Pixel Ratio)</dt>
+      <dd>当前（由渲染器使用）和设备（本机）的像素比率。</dd>
 
-      <dt>Image-Based Lighting</dt>
-      <dd>Type of IBL lighting and IBL cube map tile size.</dd>
+      <dt>基于图像的照明(Image-Based Lighting)</dt>
+      <dd>IBL照明的类型及IBL立方体贴图的切片大小。</dd>
 
-      <dt>Lights</dt>
-      <dd>The number of lights in your scene.</dd>
+      <dt>灯光(Lights)</dt>
+      <dd>场景中的灯光数。</dd>
 
-      <dt>Post-Processing</dt>
-      <dd>Scene post-processing passes (in rendering order).</dd>
+      <dt>后期处理(Post-Processing)</dt>
+      <dd>场景后期处理过程（按渲染顺序）。</dd>
 
-      <dt>Shadow Map</dt>
-      <dd>Shadow map parameters: filtering size; the number of rendered shadow maps; shadow map resolution.</dd>
+      <dt>阴影贴图(Shadow Map)</dt>
+      <dd>阴影贴图参数：过滤尺寸；已渲染阴影贴图的数量；阴影贴图的分辨率。</dd>
 
-      <dt>Materials and Shaders</dt>
-      <dd>The list of rendered materials and shaders. Each list item contains the following info: material name (or names if they share the same shader), shader name, and rendering time per frame (measured in milliseconds).</dd>
+      <dt>材质和着色器(Materials and Shaders)</dt>
+      <dd>已渲染材质和着色器的列表。列表各项包含了以下信息：材质名称，着色器名称，和每帧渲染时间（以毫秒为单位）。</dd>
 
-      <dt>Total Render Time</dt>
-      <dd>The total amount of time (in milliseconds) it took to render your scene.</dd>
+      <dt>总渲染时间(Total Render Time)</dt>
+      <dd>渲染场景所用的总时间（以毫秒为单位）。</dd>
 
-      <dt>Textures & Render Buffers</dt>
-      <dd>Textures and render buffers stats (resolutions). Textures are printed on the top of the list (prefixed with *Texture*), while render buffers printed at the bottom of the list (prefixed with *WebGLRenderTarget*).</dd>
+      <dt>纹理和渲染缓存(Textures &amp; Render Buffers)</dt>
+      <dd>纹理和渲染缓存统计（分辨率）。纹理列印在列表的顶部（前缀为*texture*)，而渲染缓存列印在列表的底部（前缀为*WebGlRenderTarget*)。</dd>
     </dl>
-
 
     [anchor:performance_bottlenecks]
 
-    <h2>Common Rendering Performance Bottlenecks</h2>
+    <h2>常见的渲染性能瓶颈</h2>
 
-    <p>Here are the most frequent bottlenecks limiting your frame rate.</p>
-
+    <p>以下是限制帧率的最常见瓶颈。</p>
 
     [anchor:complex_materials]
 
-    <h3>Complex Materials</h3>
+    <h3>复杂材质</h3>
 
-    <p>Graphics hardware can render a limited amount of pixels per second. In most scenarios, you can't render more because your materials use lengthy and sophisticated pixel (aka fragment) shaders, which in turn require too much processing power from the GPU.</p>
+    <p>图形硬件每秒可以渲染有限数量的像素。在大多数情况下，若素材使用了冗长和复杂的像素着色器（又名片段着色器），将不能渲染更多内容，这需要大量的GPU处理能力。</p>
 
-    <p>You can easily detect the situation with limited pixel performance by reducing or increasing the browser window size. If your frame rate (FPS) grows substantially when you reduce the size, you have such a situation.</p>
+    <p>您可以通过减小或增大浏览器窗口大小来简单地检测像素性能受限的情况。如果您的帧速率(FPS)在您减小尺寸时大幅增长，您就出现了这样的情况。</p>
 
-    <p>The most straightforward way to increase performance is to simplify your materials. Pay attention at the top of the *Materials and Shaders* list in the <a href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>.
+    <p>提高性能最直接的方法是简化材质。请关注 <a href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance
+        profile</a>顶部的 *Materials and Shaders* 列表。 <img
+        src="files/performance-bottlenecks/performance-profile-materials.jpg" alt="轮廓材质和着色器">
+    <p>在许多情况下，材质性能的问题是由于着色节点迟钝而发生的。请参阅 <a
+        href="manual/zh/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, <a
+        href="manual/zh/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> 或 <a
+        href="manual/zh/maya/Materials.html#performance_considerations">Maya</a> 的材质性能小节。</p>
 
-    <img src="files/performance-bottlenecks/performance-profile-materials.jpg" alt="Profiling materials and shaders">
-
-    <p>In many cases, the issues with material performance happen due to slow shading nodes. See more in the <a href="manual/zh/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, <a href="manual/zh/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> or <a href="manual/zh/maya/Materials.html#performance_considerations">Maya</a> material performance subsections.</p>
-
-    <p>You can also get rid of the shader-limited performance problem, by setting the pixel ratio &lt; 1 with the <a href="manual/zh/puzzles/System.html#set_screen_scale">set screen scale</a> puzzle. This can severely impact the quality of your app, so consider it a last-hope solution.</p>
-
+    <p>属性设置像素比 &lt; 1，也可以解决着色器性能受限的问题 <a href="manual/zh/puzzles/System.html#set_screen_scale">set screen
+        scale（设置屏幕比例）</a> 拼图。但这会严重降低应用的质量表现，仅作为最后的备用解决方案。</p>
 
     [anchor:postprocessing]
 
-    <h3>Post-processing</h3>
+    <h3>后期处理</h3>
 
-    <p>Several post-processing effects can substantially reduce the performance of your apps:</p>
+    <p>以下几种后期处理效果会显著降低应用的性能：</p>
 
     <ul>
-      <li>Screen-space refraction and reflection (see <a href="manual/zh/puzzles/Postprocessing.html#ssr">puzzle</a>).</li>
-      <li>Ambient occlusion (see <a href="manual/zh/puzzles/Postprocessing.html#ssao">puzzle</a>).</li>
-      <li>Depth-of-field (see <a href="manual/zh/puzzles/Postprocessing.html#dof">puzzle</a>).</li>
+      <li>屏幕空间折射和反射（参见此 <a href="manual/zh/puzzles/Postprocessing.html#ssr">拼图</a>）。</li>
+      <li>环境遮蔽（参见此 <a href="manual/zh/puzzles/Postprocessing.html#ssao">拼图</a>）。</li>
+      <li>景深（请参见此 <a href="manual/zh/puzzles/Postprocessing.html#dof">拼图</a>）。</li>
     </ul>
-
 
     [anchor:shadows]
 
-    <h3>Shadows</h3>
+    <h3>阴影</h3>
 
-    <p>Complex shadow algorithms with hight shadow map sizes can also negatively affect your rendering speed.</p>
+    <p>复杂的阴影算法与较大尺寸的深度阴影贴图也会降低渲染速度。</p>
 
     <ol>
-      <li>If you have multiple lights on your scene, disable shadows for the weakest (with low intensity) ones.</li>
-      <li>In most cases, <em>point</em> light shadows require more calculations than <em>spot</em> or <em>sun/directional</em> shadows.</li>
-      <li>Reduce shadow map size (see <a href="manual/zh/blender/Shadows.html#global_settings">Blender</a>, <a href="manual/zh/max/Shadows.html#per_light_settings">3ds Max</a>, <a href="manual/zh/maya/Shadows.html#per_light_settings">Maya</a>).</li>
-      <li>Switch to less performance-hungry shadow filtering algorithm (see <a href="manual/zh/blender/Shadows.html#shadow_filtering">Blender</a>, <a href="manual/zh/max/Shadows.html#shadow_filtering">3ds Max</a>, <a href="manual/zh/maya/Shadows.html#shadow_filtering">Maya</a>).</li>
+      <li>如果您的场景中有多个灯光，为亮度最低的那一个禁用阴影。</li>
+      <li>在大多数情况下, <em>点光源</em> 的阴影比 <em>聚光灯</em> 阴影或 <em>太阳光/平行光</em> 阴影需要更多的计算。</li>
+      <li>减小阴影贴图大小（请参见 <a href="manual/zh/blender/Shadows.html#global_settings">Blender</a>, <a
+          href="manual/zh/max/Shadows.html#per_light_settings">3ds Max</a>, <a
+          href="manual/zh/maya/Shadows.html#per_light_settings">Maya</a>）。</li>
+      <li>切换到性能要求较低的阴影过滤算法（请参见 <a href="manual/zh/blender/Shadows.html#shadow_filtering">Blender</a>, <a
+          href="manual/zh/max/Shadows.html#shadow_filtering">3ds Max</a>, <a
+          href="manual/zh/maya/Shadows.html#shadow_filtering">Maya</a>）。</li>
     </ol>
-
 
     [anchor:too_much_geometry]
 
-    <h3>Too Much Geometry</h3>
+    <h3>几何形状太多</h3>
 
-    <p>Too complex geometry can also affect your rendering performance. We recommend using no more than 100K triangles per model or 1M triangles per entire scene.</p>
-
+    <p>过于复杂的几何形状也会影响您的渲染性能。我们建议每个模型使用不超过十万个三角面，或者每个整个场景不超过一百万个三角面。</p>
 
     [anchor:slow_ibl]
 
-    <h3>Slow Image-Based Lighting</h3>
+    <h3>迟钝的图像照明</h3>
 
-    <p>In Verge3D you can do several performance tweaks for your environment lighting:</p>
+    <p>在Verge3D中，您可以在以下几方面对环境照明进行性能调整：</p>
 
     <ol>
-      <li>Reduce environment cube map tile size (see <a href="manual/zh/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/zh/maya/Lighting-and-Rendering.html#environment_lighting">Maya</a>). We recommend using 256 pixel cube maps for most cases.</li>
-      <li>Switch to more performance-efficient environment mode (see <a href="manual/zh/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/zh/maya/Lighting-and-Rendering.html#global_rendering_settings">Maya</a>).</li>
+      <li>减小阴影贴图大小（请参见 <a href="manual/zh/blender/Lighting-and-Rendering.html">Blender</a>, <a
+          href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a
+          href="manual/zh/maya/Lighting-and-Rendering.html#environment_lighting">Maya</a>）。我们建议在大多数情况下使用256像素的立方体贴图。
+      </li>
+      <li>切换到性能更高效的环境模式（请参见 <a href="manual/zh/blender/Lighting-and-Rendering.html">Blender</a>, <a
+          href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a
+          href="manual/zh/maya/Lighting-and-Rendering.html#global_rendering_settings">Maya</a>）。</li>
     </ol>
-
 
     [anchor:too_many_lights]
 
-    <h3>Too Many Lights</h3>
+    <h3>灯光太多</h3>
 
-    <p>Excessive light calculations increase the complexity of your shaders. Try to reduce their amount or switch to <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#HDR_Lighting">IBL-only</a> lighting.</p>
-
+    <p>过度的光线计算增加了着色器的复杂性。尽量减少它们的数量或切换到 <a
+        href="manual/zh/introduction/Optimizing-WebGL-performance.html#HDR_Lighting">IBL-only</a> 照明。</p>
 
     [anchor:too_many_render_calls]
 
-    <h3>Too Many Render Calls</h3>
+    <h3>渲染调用太多</h3>
 
-    <p>
-      Hundreds of render calls significantly load your CPU. Hence you should keep that value as low as possible. In most situations, we recommend you to keep the amount of render calls below 100.
-    </p>
+    <p>成百上千的渲染调用极大地加重了CPU消耗。因此，您应该将该值保持在尽可能低的水平。在大多数情况下，我们建议您将渲染调用的数量保持在100以下。</p>
 
-    <p>
-      If you render many static objects with the same material, you can significantly increase peformance by using the <a href="manual/zh/puzzles/Scenes.html#batch_geometry">batch geometry</a> puzzle.
-    </p>
-
+    <p>如果您用相同的材质渲染许多静态物体，可以通过使用 <a href="manual/zh/puzzles/Scenes.html#batch_geometry">batch geometry(几何图形批处理)</a>
+      拼图来显著提高效果。</p>
 
     [anchor:scene_loading_time]
 
-    <h2>Scene Loading Time</h2>
+    <h2>场景加载时间</h2>
 
-    <p>Another thing that you need to pay attention to is the scene loading time. Users really don't like to wait too much for your application to load.</p>
+    <p>另一个需要注意的是场景加载时间。用户不会喜欢加载时间太久的应用。</p>
 
-    <p>Here are the most frequently occurring bottlenecks that slow down your app loading.</p>
-
+    <p>以下是最常见的导致应用加载速度减慢的瓶颈。</p>
 
     [anchor:large_binary_textures]
 
-    <h3>Large Binary Data or Textures</h3>
+    <h3>较大的二进制数据或纹理</h3>
 
-    <p>Since your app assets are transferred over the network, you should minimize their size. To help you with asset optimization, there is a network inspecting tool accessible from the browser <a href="manual/zh/introduction/FAQ.html#browser_console">console</a>. Simply click on the *Network* tab and reload your page.</p>
+    <p>因为应用资产是通过网络传输的，所以您应该尽量降低其大小。在浏览器 <a
+        href="manual/zh/introduction/FAQ.html#browser_console">控制台</a>中访问网络检查工具，有助于了解怎样进行资产优化。点击 *Network* 选项卡并刷新页面。</p>
+    <img src="files/performance-bottlenecks/network-browser-profile.jpg" alt="分析Verge3D应用中的网络活动" class="centered"
+      style="max-width: 943px;">
+    <p class="note">有关如何使用此功能,请查看浏览器文档：<a href="https://developers.google.com/web/tools/chrome-devtools/network"
+        target="_blank">Chrome</a>, <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor"
+        target="_blank">Firefox</a>, <a href="https://developer.apple.com/safari/tools/" target="_blank">Safari</a>。</p>
 
-    <img src="files/performance-bottlenecks/network-browser-profile.jpg" alt="Profiling network activity in Verge3D" class="centered" style="max-width: 943px;">
-
-    <p class="note">Check the browser documentation on how to use this feature: <a href="https://developers.google.com/web/tools/chrome-devtools/network" target="_blank">Chrome</a>, <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor" target="_blank">Firefox</a>, <a href="https://developer.apple.com/safari/tools/" target="_blank">Safari</a>.</p>
-
-    <p>Sort the resources by size to get the ones affecting your loading time the most. In most cases, these assets can be divided into two categories:</p>
-
-    <ol>
-      <li>*Verge3D Binary* (*.bin or *.bin.xz extensions) — contains geometry, morphing, and animation of your scene. Asset compression can significantly reduce the size of this file, always <a href="manual/zh/introduction/Asset-compression.html">enable</a> it for your apps.</li>
-      <li>*Textures* (*.jpg, *.png, or *.hdr extensions) — see <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">here</a> for more info on how to optimize them.</li>
-    </ol>
-
-    <p>Also, there are two dirty but highly effective methods to optimize your textures:</p>
+    <p>按大小对资源进行排序，找到加载最慢的资源。多数情况下，这些资产可分为两类：</p>
 
     <ol>
-      <li>Downscale your textures by reducing their dimensions by factor 2 (e.g 2048x2048 to 1024x1024 or even 512x512).</li>
-      <li>Convert all PNG textures to JPEG (even normal maps).</li>
+      <li>*Verge3D二进制数据(Binary)*：以 *.bin 或 *.bin.xz 为扩展名&mdash;&mdash;包含了场景中的几何图形、变形和动画。启用资产压缩可以显著减小此文件尺寸，建议在应用中始终 <a
+          href="manual/zh/introduction/Asset-compression.html">启用</a> 此选项。</li>
+      <li>*纹理(Textures)*：以 *.jpg、*.png 或 *.hdr 为扩展名&mdash;&mdash;请参阅 <a
+          href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">这里</a> 有关如何优化纹理的更多信息。</li>
     </ol>
 
+    <p>还有两种简单粗暴却高效优化纹理方法：</p>
+
+    <ol>
+      <li>将纹理的尺寸缩小2倍（例如2048x2048到1024x1024甚至512x512)。</li>
+      <li>将所有PNG纹理转换为JPEG（即使是法线贴图）。</li>
+    </ol>
 
     [anchor:shader_compilation]
 
-    <h3>Too Many or Too Complex Materials</h3>
+    <h3>太多或太复杂的材质</h3>
 
-    <p>With some exceptions, each material on your scene requires compiling a pair of special programs called shaders: <em>vertex shader</em> and <em>fragment (aka pixel) shader</em>. A shader is a special program executed on your GPU to calculate various rendering entities like vertex positions, textures, lighting, reflections, refractions, etc.</p>
+    <p>除少数例外，场景上的每个素材都需要编译一对叫做着色器的特殊程序： <em>顶点着色器</em> 和
+      <em>片段着色器（又名像素着色器）</em>.着色器是在GPU上执行的一个特殊程序，用来计算各种渲染实体，如顶点位置、纹理、光照、反射、折射等。
+    </p>
 
-    <p>Shader compilation is a computation-intensitive task that is performed each time your app is being loaded. If you have a lot of different materials on your scene, shader compilation can significantly increase total loading time.</p>
+    <p>着色器编译是一项计算量很大的任务，每次加载应用时都要执行。如果您的场景有很多材质，着色器编译时间会显著增加。</p>
 
-    <p>So the less shaders your application uses, the faster is loading. Also, shaders are cached by WebGL, so if your shader is used by multiple objects it is compiled only once.</p>
+    <p>所以应用所使用的着色器越少，加载速度就越快。此外，着色器是由WebGL缓存的，因此如果着色器被多个对象使用，则只编译一次。</p>
 
-    <p>Therefore for fast loading, it is important to use as few unique shaders as possible. One of possible way to achieve this is to enable the glTF compatibility flag, which a) simplifies the shaders a lot so that they are compiled and work faster and b) standardizes them to enable for more effective caching.</p>
+    <p>因此，为了快速加载，使用尽可能少的唯一着色器是很重要的。实现这一点的一个可能方法是启用glTF兼容性标志，这a）大大简化了着色器，以便更快地编译和工作；b）标准化了着色器，以实现更有效的缓存。</p>
 
-    <p>The obvious drawback of using glTF-compatible shaders is that they may be too simplistic for implementing desired graphics effects. So as it is always in real-time graphics, you need to balance between quality and performance.</p>
-
+    <p>使用与glTF兼容的着色器的明显缺点是，对于实现所需的图形效果而言，它们可能过于简单化。因此，在实时计算的图像效果中，您需要在质量和性能之间取得平衡。</p>
 
     [anchor:gpu_memory_usage]
 
-    <h2>GPU Memory Usage</h2>
+    <h2>GPU内存使用情况</h2>
 
-    <p>Excessive GPU memory usage can considerably reduce performance or even crash your app. The following things consume a lot of memory.</p>
+    <p>使用过多的GPU内存会显著降低性能，甚至会使应用崩溃。以下是消耗GPU内存过多的情形。</p>
 
     [anchor:large_textures]
 
-    <h3>Large Textures</h3>
+    <h3>大尺寸纹理</h3>
 
-    <p>For example, a texture of size 4096x4096 alone occupies almost 90 Mb of video memory. To get all textures in your app, check out <strong>Textures & Render Buffers</strong> section in the <a href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>.</p>
-
-    <img src="files/performance-bottlenecks/performance-profile-textures.jpg" alt="Profiling textures in Verge3D">
-
-    <p>See also <a href="manual/zh/introduction/FAQ.html#texture_memory_usage">here</a> for more info on how to calculate texture memory usage.</p>
-
+    <p>例如，一个大小为4096x4096的纹理将占用了接近90 Mb的显存。请在 <a
+        href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>中
+      <strong>Textures &amp; Render Buffers</strong> 中查看应用中用到的所有纹理的尺寸数据。
+    </p><img src="files/performance-bottlenecks/performance-profile-textures.jpg" alt="在Verge3D中分析纹理">
+    <p>另请参阅 <a href="manual/zh/introduction/FAQ.html#texture_memory_usage">这里</a> 有关如何计算纹理内存使用的更多信息。</p>
 
     [anchor:many_postprocessing_passes]
 
-    <h3>Too Many Post-Processing Passes</h3>
+    <h3>后期处理过程太多</h3>
 
-    <p>Most post-processing effects require additional rendering buffers which consume GPU memory. Check out the bottom part of the <strong>Textures & Render Buffers</strong> list in the <a href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> to see all render buffers.</p>
-
-    <img src="files/performance-bottlenecks/performance-profile-render-buffers.jpg" alt="Profiling render buffers in Verge3D" class="centered" style="max-width: 816px;">
-
+    <p>大多数后期处理效果需要额外的渲染缓存，这会消耗GPU内存。在 <a
+        href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> 中
+      <strong>Textures &amp; Render Buffers</strong> 列表底部查看所有的渲染缓存。
+    </p><img src="files/performance-bottlenecks/performance-profile-render-buffers.jpg" alt="在Verge3D中分析渲染缓存"
+      class="centered" style="max-width: 816px;">
 
     [anchor:large_geometry_buffers]
 
-    <h3>Large Geometry Buffers</h3>
+    <h3>大型几何缓存</h3>
 
-    <p>Meshes with many triangles require large geometry buffers and hence consume a lot of video memory to store them.</p>
-
-
+    <p>具有大量三角面的网格需要很大的几何缓存，因此需要消耗大量的显存来存储它们。</p>
 
     [anchor:see_also]
 
-    <h2>See Also</h2>
+    <h2>另请参阅</h2>
 
-    <p>
-      Check out the <a href='manual/zh/introduction/Optimizing-WebGL-performance.html'>Optimization Techniques</a> section for more asset optimization methods.
-    </p>
+    <p>查看 <a href='manual/en/introduction/Optimizing-WebGL-performance.html'>优化技巧</a> 部分，了解更多资产优化方法。</p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article></body>
+  </article>
+</body>
+
 </html>

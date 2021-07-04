@@ -1,219 +1,169 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Hardware-Related Issues - Soft8Soft</title>
+
+<head>
+    <title>硬件相关问题 - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Learn how to deal with hardware-related problems and restrictions."/>
+    <meta name="description" content="学习如何处理与硬件有关的问题和限制。" />
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
     <style>
-        table, td, th {
-          border: 1px solid #2194CE;
-          border-collapse: collapse;
-          padding: 10px;
-          text-align: left;
-          min-width: 180px;
-          font-size: 16px;
-        }
-        table {
-          margin-bottom: 20px;
-        }
+        table,
+        td,
         th {
-          text-align: center;
-          text-decoration: none;
-          color: #0b7188;
-          font-size: 17px;
-          font-family: 'Oswald', sans-serif;
-          font-weight: normal;
+            border: 1px solid #2194CE;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: left;
+            min-width: 180px;
+            font-size: 16px;
         }
+
+        table {
+            margin-bottom: 20px;
+        }
+
+        th {
+            text-align: center;
+            text-decoration: none;
+            color: #0b7188;
+            font-size: 17px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: normal;
+        }
+
         td ul {
-          margin: 10px 0px;
-          padding-left: 20px;
+            margin: 10px 0px;
+            padding-left: 20px;
         }
+
         td {
-          vertical-align: top;
+            vertical-align: top;
         }
+
         td.centered {
-          text-align: center;
+            text-align: center;
         }
-      </style>
-  </head>
-  <body><article>
+    </style>
+</head>
 
-    <h1>Hardware-Related Issues</h1>
+<body>
+    <article>
 
-    <p>
-        This manual section describes typical hardware and implementation-related
-        issues that can happen during development of a WebGL application.
-    </p>
+        <h1>硬件相关问题</h1>
 
-    [contents]
+        <p>本章节描述了在开发web应用过程中可能会遇到的典型的硬件问题，以及项目实施相关的限制。</p>
 
+        [contents] [anchor:too_many_attributes]
 
-    [anchor:too_many_attributes]
+        <h2>Too Many Attributes</h2>
 
-    <h2>Too Many Attributes</h2>
+        <p>在您的场景运行过程中，偶尔可能会遇到一些对象没有被渲染的问题，浏览器控制台会显示如下错误：</p><img
+            src="files/hardware-related-issues/too-many-attributes.jpg" class="centered" style="max-width: 846px"> <span
+            class="img-caption">浏览器控制台中出现&ldquo;Too Many Attributes（属性太多）&rdquo;错误</span>
+        <p>这个错误意味着一些对象(那些未被渲染的对象)超过了单个着色器可使用的顶点属性的最大数量限制。</p>
 
-    <p>
-        Once in a while when working on your scene you may face a problem where
-        some objects are not rendered at all and the browser console shows the
-        following error:
-    </p>
+        <p>一个对象使用多少属性取决于不同的因素：是否存在形态键(Blender)/变形目标(3ds Max)/混合形状(Maya)及其数量，是否用到蒙皮，是否用到特定的材质节点，等等……</p>
 
-    <img src="files/hardware-related-issues/too-many-attributes.jpg" class="centered" style="max-width: 846px">
-    <span class="img-caption">"Too many attributes" error in the browser console</span>
+        <p>下表解释了如何计算对象所使用属性的数量:</p>
 
-    <p>
-        This error means that some objects (apparently, the ones that couldn't
-        be rendered) surpass the maximum amount of vertex attributes that can be
-        used per shader.
-    </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>属性的数量</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="centered">3</td>
+                    <td>必要属性： <b>位置</b>， <b>法线</b>， <b>uv</b>。</td>
+                </tr>
+                <tr>
+                    <td class="centered">+2x</td>
+                    <td>每用到1个形状键(Blender)/变形目标(3ds Max) /混合形状目标(Maya)，则增加两个属性。此类属性值上限为 <b>+12</b>。</td>
+                </tr>
+                <tr>
+                    <td class="centered">+2</td>
+                    <td>如果用到蒙皮则增加两个属性。</td>
+                </tr>
+                <tr>
+                    <td class="centered">+1x</td>
+                    <td>对象材质中每使用1个不同的<a
+                            href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>顶点颜色时，为以下节点增加一个属性:
+                        <ul>
+                            <li>Blender: <b>属性</b>， <b>顶点颜色</b></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="centered">+1x</td>
+                    <td>当对象材质中使用了不同<a
+                            href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>的<b>uv</b>贴图时，每增加一个以下节点（第一个除外，已包含在必要属性中，见第一行），则增加一个属性：
+                        <ul>
+                            <li>Blender: <b>UV贴图(UV Map)</b></li>
+                            <li>3ds Max: <b>Bitmap(位图)</b>（仅当&ldquo;映射类型&rdquo;设置为&ldquo;纹理&rdquo;时），<b>Gradient
+                                    Ramp(梯度渐变)</b>，<b>Noise(噪波)</b>（仅当&ldquo;映射&rdquo;设置为&ldquo;显式贴图通道&rdquo;时）</li>
+                            <li>Maya: <b>place2dTexture</b></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="centered">+1</td>
+                    <td>如果对象材质有任意以下节点，每个增加1个属性：<ul>
+                            <li>Blender: <b>Normal Map（法线贴图）</b>, <b>Tangent（切线）</b>， (仅计&quot;UV Map&quot;模式)</li>
+                            <li>3ds Max: <b>法线凹凸</b></li>
+                            <li><b>aiNormalMap</b>, <b>bump2d</b> (仅在&quot;Bump Interp&quot;输入 &gt; 0时计算),
+                                <b>samplerInfo</b></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="centered">+1</td>
+                    <td>如果对象材质有任意以下节点，每个增加1个属性：<ul>
+                            <li>3ds Max: <b>顶点颜色(Vertex Color)</b></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-    <p>
-        How many attributes an object uses depends on different factors:
-        the presence and the number of shape keys (Blender) / morph targets
-        (3ds Max) / blend shapes (Maya), the presence of skinning, certain
-        material nodes, etc...
-    </p>
+        <p id="attribute-table0" style="font-size: 14px;">*如果多个节点使用相同的顶点颜色或uv贴图，则在计算属性极限时，将所有这些节点都计为一个节点。</p>
 
-    <p>
-        Here's the table that explains how to calculate the number of attributes
-        used:
-    </p>
+        <p>通常情况下，限制顶点属性在<b>16</b>个以下即可（尽管某些老旧/低端的设备仅能支持8个顶点属性）。大部分情况下，您只需关注使用了多个形态键的对象。除此之外，特定对象/材质的顶点属性一般都不会突破极限。</p>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Number of Attributes</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="centered">3</td>
-                <td>Mandatory attributes: <b>position</b>, <b>normal</b>, <b>uv</b>.</td>
-            </tr>
-            <tr>
-                <td class="centered">+2x</td>
-                <td>
-                    Add for each shape key (Blender) / morph target (3ds Max) /
-                    blend shape target (Maya). Maximum amount of attributes for
-                    this category is capped to <b>+12</b>.
-                </td>
-            </tr>
-            <tr>
-                <td class="centered">+2</td>
-                <td>Add if the object uses skinning.</td>
-            </tr>
-            <tr>
-                <td class="centered">+1x</td>
-                <td>
-                    Add for each of the following nodes in the object's material
-                    that use different<a href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>
-                    vertex colors:
-                    <ul>
-                        <li>Blender: <b>Attribute</b>, <b>Vertex Color</b></li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td class="centered">+1x</td>
-                <td>
-                    Add for each of the following nodes in the object's material
-                    that use different<a href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>
-                    uv maps except the first one (already covered by the mandatory
-                    <b>uv</b> attribute, see the first row):
-                    <ul>
-                        <li>Blender: <b>UV Map</b></li>
-                        <li>
-                            3ds Max: <b>Bitmap</b> (only if "Mapping Type" set to "Texture"),
-                            <b>Gradient Ramp</b>, <b>Noise</b> (only if "Mapping" set to "Explicit Map Channel")
-                        </li>
-                        <li>Maya: <b>place2dTexture</b></li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td class="centered">+1</td>
-                <td>
-                    Add if the object's material has one of the following nodes:
-                    <ul>
-                        <li>Blender: <b>Normal Map</b>, <b>Tangent</b> (only in "UV Map" mode)</li>
-                        <li>3ds Max: <b>Normal Bump</b></li>
-                        <li>Maya: <b>aiNormalMap</b>, <b>bump2d</b> (only if the "Bump Interp" input > 0), <b>samplerInfo</b></li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td class="centered">+1</td>
-                <td>
-                    Add if the object's material has one of the following nodes:
-                    <ul>
-                        <li>3ds Max: <b>Vertex Color</b></li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        [anchor:aa_issues]
 
-    <p id="attribute-table0" style="font-size: 14px;">
-        *if several nodes use the same vertex color or a uv map then all those
-        nodes count as a one node towards the limit.
-    </p>
+        <h2>使用程序纹理时出现锯齿问题</h2>
 
-    <p>
-        Generally, it's enough to stay in the limit of <b>16</b> vertex attributes
-        (although some old / low-end devices can support only 8). Most often you
-        should be concerned only about objects that use several shape keys.
-        Other than that the amount of vertex attributes usually stays under the
-        limit for a typical object/material.
-    </p>
+        <p>在使用过程纹理时，有时你可能会遇到锯齿问题。例如，当使用Checker映射贴图时：</p><img src="files/hardware-related-issues/aa_msaa.jpg">
+        <p>当 *Anti-Aliasing（抗锯齿）* 输出设置为 MSAA 或 Auto 时，这种情况就会发生（在任意兼容硬件上，这里默认设置为 MSAA 4x
+            ）。MSAA（多样本抗锯齿）技术可产生不错的图像质量，并且对性能的影响较小。但对于对象颜色突然变化的程序纹理效果不佳。</p>
+
+        <p>将 *Anti-Aliasing（抗锯齿）* 技术切换为 FXAA 可解决该问题：</p><img src="files/hardware-related-issues/aa_fxaa.jpg">
+        <p>FXAA 使用后期处理渲染来减少锯齿，并在这类由程序贴图生成的&ldquo;边缘&rdquo;上表现很好。</p>
+
+        [anchor:z_fighting]
+
+        <h2>当两个物体过于靠近时出现相交伪影</h2>
+
+        <p>有时您可能会遇到类似下面的情况：</p><img src="files/hardware-related-issues/z-fighting.jpg" alt="z缓冲冲突伪影">
+        <p>这种现象称之为 *z-fighting（z缓冲冲突）* (见<a href="https://en.wikipedia.org/wiki/Z-fighting"
+                target="_blank">维基百科名词解释</a>)。当不同的多边形到摄影机的距离相等或非常相近时，就会发生这种情况。</p>
+
+        <p>要解决此问题，你可以采用以下方案之一：</p>
+
+        <ul>
+            <li>最直接且简单的解决办法是：将对象彼此位置放远一点。</li>
+            <li>增大摄影机的 <em>近</em> 距离（<em>裁切起点</em>），或减小 <em>远</em> 距离（<em>裁剪结束点</em>）。这将使摄影机的距离范围缩小，从而提高深度缓冲区中存储数值的精度。
+            </li>
+            <li>如果您需要在某个表面上放置billboard纹理&mdash;&mdash;请禁用其材质上的 *Depth Test（深度测试）* 参数，并增大billboard对象的 *Rendering
+                Order（渲染顺序）* 参数。这样billboard对象将在表面对象渲染完成后再渲染，并且忽略了该对象存储的深度。这样可以有效消除两个对象之间可能发生的 *z-fighting（z缓冲冲突）* 。</li>
+        </ul>
 
 
-    [anchor:aa_issues]
+    </article>
+</body>
 
-    <h2>Aliasing Issues When Using Procedural Textures</h2>
-
-    <p>Sometimes you might experience aliasing issues when using procedural textures. For example, when using Checker map:</p>
-
-    <img src="files/hardware-related-issues/aa_msaa.jpg">
-
-    <p>
-      This happens when the *Anti-Aliasing* export setting is set to *MSAA* or *Auto* (which by default uses MSAA 4x on any compatible hardware). MSAA (multisample anti-aliasing) technique produces decent image quality and has low performance impact, however it does not work well for procedural textures with abrupt changes of object color.
-    </p>
-
-    <p>Switching *Anti-Aliasing* technique to *FXAA* fixes the issue:</p>
-
-    <img src="files/hardware-related-issues/aa_fxaa.jpg">
-
-    <p>*FXAA* uses post-processing rendering to reduce aliasing and works good for such "edges" generated by procedural maps.</p>
-
-
-    [anchor:z_fighting]
-
-    <h2>Intersection Artifacts When Two Objects are Located Close to Each Other</h2>
-
-    <p>
-      Sometimes you might experience artifacts similar to these:
-    </p>
-
-    <img src="files/hardware-related-issues/z-fighting.jpg" alt="z-fighting artifacts">
-
-    <p>
-      This is called *z-fighting* (<a href="https://en.wikipedia.org/wiki/Z-fighting" target="_blank">technical stuff on Wikipedia</a>) and happens when different polygons have equal distances to the camera, or their distances differ very slightly.
-    </p>
-
-    <p>
-      To fix it you need to do one of the following:
-    </p>
-
-    <ul>
-      <li>The most straightforward fix — place your objects further from each other.</li>
-      <li>Increase <em>near</em> (or <em>clip start</em>) camera distance and/or decrease <em>far</em> (or <em>clip end</em>) camera distance. This will make camera distance range smaller and thus improve precision of the values stored in the depth buffer.</li>
-      <li>If you need to place a billboard texture above some surface — disable *Depth Test* on the billboard material and increase *Rendering Order* parameter on the billboard object. The billboard will be rendered after the surface object and will ignore depth stored by that object. This effectively eliminates any z-fighting which might happen between the two objects.</li>
-    </ul>
-
-
-  </article></body>
 </html>

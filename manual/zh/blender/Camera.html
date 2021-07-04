@@ -1,113 +1,87 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Verge3D for Blender: Working with Camera - Soft8Soft</title>
+    <title>用于Blender的Verge3D：使用摄影机 - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Find out how to create and control Blender cameras to be used with Verge3D."/>
+    <meta name="description" content="了解如何创建和控制Blender摄影机以用于Verge3D。"/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
 
-    <h1>Working with Camera / Blender</h1>
+    <h1>使用摄影机/Blender</h1>
 
-    <p>
-      This page contains the information on how to setup Blender's cameras to be used with Verge3D.
-    </p>
+    <p>本页包含有关如何为Verge3D for Blender设置摄影机的信息。</p>
 
-    [contents]
+    [contents] [anchor:setting_up_in_blender]
 
+    <h2>在Blender中的设置</h2>
 
-    [anchor:setting_up_in_blender]
+    <p>只需将摄影机添加到场景中，并将其在<b>场景属性</b>中指定为 <em>活动</em>状态。</p><img src="files/camera-blender/active-camera.jpg" alt="为Verge3D for Blender设置活动摄影机" class="centered" style="max-width: 309px"><p>默认情况下，此摄像机将用于渲染场景，但您可以添加更多摄像机，并在运行时中使用<a href="manual/zh/puzzles/Camera.html#set_active_camera">设置活动摄像机</a>拼图来进行切换。</p>
 
-    <h2>Setting Up in Blender</h2>
-
-    <p>Simply add the camera to the scene and assign it as <em> active</em> in the *Scene Properties*:</p>
-
-    <img src="files/camera-blender/active-camera.jpg" alt="Setting active camera in Verge3D for Blender" class="centered" style="max-width: 309px">
-
-    <p>This camera will be used to render your scene by default, though you can add more cameras and switch between them in runtime using the <a href="manual/zh/puzzles/Camera.html#set_active_camera">set active camera</a> puzzle.</p>
-
-    <p>Verge3D supports the following camera types:</p>
+    <p>Verge3D支持以下摄影机类型：</p>
 
     <ul>
-      <li>*Perspective*</li>
-      <li>*Orthgraphic*</li>
+      <li><b>透视</b></li>
+      <li><b>正交</b></li>
     </ul>
 
     [anchor:camera_settings]
 
-    <h2>Camera Settings</h2>
+    <h2>摄像机设置</h2>
 
-    <p>Verge3D supports the following camera settings:</p>
+    <p>Verge3D支持以下摄影机设置：</p><img src="files/camera-blender/camera-settings.jpg" alt="Verge3D for Blender中的摄影机设置" class="centered" style="max-width: 627px"><p>*Type* - 摄影机类型，透视或正交。</p>
 
-    <img src="files/camera-blender/camera-settings.jpg" alt="Camera settings in Verge3D for Blender" class="centered" style="max-width: 627px">
+    <p>*Clip Start* and *Clip End* - 剪切开始和剪切结束，摄影机的可见范围。</p>
 
-    <p>*Type* - camera type, either *Perspective* or *Orthographic*.</p>
+    <p>*Sensor Fit* - 传感器适应，视口在改变尺寸（或旋转设备方向）时做出怎样的反应。</p>
 
-    <p>*Clip Start* and *Clip End* - camera visibility range.</p>
-
-    <p>*Sensor Fit* - how you viewport will react to changing its dimensions (or device orientation).</p>
-
-    <p>*Controls* - specify what type of controls will be assigned to the camera in Verge3D:</p>
+    <p>*Controls* - 控制，指定在Verge3D中为摄影机分配什么类型的控制方式：</p>
 
     <ul>
-      <li>*Orbit* - targeted 3D view.</li>
-      <li>*Flying* - free-flight view.</li>
-      <li>*First-Person* - first-person view with familiar character controls.</li>
-      <li>*Disable* - disable any controls. Specify if you're going to move your camera with animations, Puzzles or JavaScript.</li>
+      <li>*Orbit* - 正交，有针对性的三维视图。</li>
+      <li>*Flying* - 飞行，自由飞行视角。</li>
+      <li>*First-Person* - 第一人称，第一人称视角，熟悉的角色控制方式。</li>
+      <li>*Disable* - 禁用，禁止任何控制。指定您是否要通过动画、拼图或JavaScript来移动摄影机。</li>
     </ul>
 
-    <p>*Allow Panning* - enable/disable camera panning.</p>
+    <p>*Allow Panning* - 允许平移，允许或禁用摄影机平移。</p>
 
-    <p>*Rotation Speed* - camera rotation speed factor.</p>
+    <p>*Rotation Speed* - 旋转速度，摄影机旋转速度系数。</p>
 
-    <p>*Movement Speed* - camera movement speed factor.</p>
-
+    <p>*Movement Speed* - 移动速度，摄影机移动速度系数。</p>
 
     [anchor:orbit_camera_settings]
 
-    <h3>Orbit Camera Settings</h3>
+    <h3>Orbit Camera Settings - 正交摄影机设置：</h3>
 
-    <p>*Target Object/Point* - specify pivot point or pivot object which will be used for Orbit camera.</p>
+    <p>*Target Object/Point* - 目标对象或目标点，指定将用于正交摄影机的目标中心点或用作目标中心点的对象。</p>
 
-    <p>
-      *Min Dist* and *Max Dist* - distance limits for perspective camera.
-    </p>
-    <p>
-      *Min Zoom* and *Max Zoom* - zoom limits for orthographic camera.
-    </p>
-    <p>
-      *Vertical Rotation Limits*: *Min Angle* and *Max Angle* - vertical angle limits.
-    </p>
-    <p>
-      *Horizontal Rotation Limits*: *Min Angle* and *Max Angle* - horizontal angle limits.
-    </p>
-
+    <p>*Min Dist* and *Max Dist* - 最小距离和最大距离，透视摄影机的的距离限制。</p>
+    <p>*Min Zoom* and *Max Zoom* - 最小变焦和最大变焦，正交摄影机的变焦限制。</p>
+    <p>*Vertical Rotation Limits* - 垂直旋转限制：*Min Angle* and *Max Angle* -最小角度和最大角度，限制垂直角度。</p>
+    <p>*Horizontal Rotation Limits* - 水平旋转限制：*Min Angle* and *Max Angle* - 最小角度和最大角度，限制水平角度。</p>
 
     [anchor:firstperson_camera_settings]
 
-    <h3>First-Person Camera Settings</h3>
+    <h3>第一人称摄影机设置</h3>
 
-    <p>*Collision Material* - collision material which will be used for the camera.</p>
+    <p>*Collision Material* - 碰撞材质，是用于与摄影机产生碰撞的材质。</p>
 
-    <p>*Gaze Level* - first-person camera "gaze" (or "head"/"eyes") level.</p>
+    <p>*Gaze Level* - 注视水平，第一人称摄像机的&ldquo;注视&rdquo;（或&ldquo;头部&rdquo;/&ldquo;眼睛&rdquo;）水平。</p>
 
-    <p>*Story Height* - story height.</p>
-
+    <p>*Story Height* - 楼层高度。</p>
 
     [anchor:camera_control_with_puzzles]
 
-    <h2>Camera Control with Puzzles</h2>
+    <h2>使用拼图控制摄影机</h2>
 
-    <p>
-      You can use <a href="manual/zh/puzzles/Camera.html">camera puzzles</a> to control your camera in real time.
-    </p>
+    <p>您可以使用 <a href="manual/zh/puzzles/Camera.html">摄影机拼图</a> 来实时控制摄影机。</p>
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
   </article></body>
 </html>

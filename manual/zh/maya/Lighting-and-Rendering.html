@@ -1,392 +1,252 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Verge3D for Maya: Lighting and Rendering - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="How to configure environment lighting, lights and rendering settings in Verge3D for Maya."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
-    <h1>Lighting and Rendering / Maya</h1>
+<head>
+  <title>用于Maya的Verge3D：照明与渲染 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何在Verge3D for Maya中配置环境照明、灯光和渲染设置。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
 
-    <p>
-      This page contains the information about lighting, rendering and background settings which can be used with Verge3D for Maya.
-    </p>
+<body>
+  <article>
 
-    [contents]
+    <h1>照明与渲染 / Maya</h1>
 
+    <p>本页包含可与Verge3D for Maya一起使用的照明、渲染和背景设置的信息。</p>
 
-    [anchor:renderers]
+    [contents] [anchor:renderers]
 
-    <h2>Renderers</h2>
+    <h2>渲染器</h2>
 
-    <p>
-      Verge3D is designed to represent Maya's Viewport 2.0 hardware renderer as closely as possible. It supports physically-based shading, lights, shadows and image-based lighting (IBL).
-    </p>
-
+    <p>Verge3D被设计为尽可能地趋近Maya的Viewport 2.0硬件渲染器效果。它支持基于物理的着色、灯光、阴影和基于图像的照明(IBL)。</p>
 
     [anchor:environment_lighting]
 
-    <h2>Environment Lighting</h2>
+    <h2>环境照明</h2>
 
-    <p>
-      Environment lighting is a very important component of Verge3D graphics pipeline. You can illuminate your entire scene with just an environment map alone, without using any light objects. See the <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">Scooter demo</a> as an example of this approach.
-    </p>
+    <p>环境照明是Verge3D图形流水线的一个非常重要的组成部分。您可以只用环境贴图来照亮整个场景，而不使用任何灯光对象。请参阅 <a
+        href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">电动车定制器演示</a> 作为示例：</p>
 
-    <p>The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. To do so, simply append Arnold's *aiSkyDomeLight* object to your scene and assign some texture to it as *Color*.</p>
-
-    <img src="files/lighting-maya/ai-sky-dome-light.jpg" class="centered" style="max-width: 892px">
-
-    <p>In addition, you may use the *Intensity* attribute to tweak intensity of your environment lighting and *Texture Resolution* to configure its quality:</p>
+    <p>默认的立方体模板为基于图像的照明提供了一个HDR纹理。您可以用自己的文件替换这个纹理，或者从头开始设置环境照明。为此只需将Arnold渲染器的的*aiSkyDomeLight*对象添加到场景中，并为*Color*指定纹理即可。
+    </p><img src="files/lighting-maya/ai-sky-dome-light.jpg" class="centered" style="max-width: 892px">
+    <p>此外，您可以使用*Intensity*属性来调整环境照明的强度，使用*Texture Resolution*来设置其质量。</p>
 
     <ul>
-      <li><strong>Low (64x64)</strong> and <strong>Medium (128x128)</strong> - values are not supported, Verge3D will use <strong>High (256x256)</strong> setting instead of these.</li>
-      <li><strong>High (256x256)</strong> - optimum quality with low memory consumption (default value).</li>
-      <li><strong>Higher (512x512)</strong> - better quality with moderate memory consumption and reduced performance. Use it to render high quality reflections e.g for rendering jewelry.</li>
-      <li><strong>Ultra (1024x1024)</strong> - best quality with high memory consumption and low performance (generally not recommended).</li>
+      <li><strong>Low (64x64)</strong>和<strong>Medium (128x128)</strong>- 不支持这些值，Verge3D将使用<strong>High
+          (256x256)</strong>设置来代替它们。</li>
+      <li><strong>High (256x256)</strong> &mdash; 最合适的质量和较低的内存消耗（默认值）。</li>
+      <li><strong>Higher (512x512)</strong> &mdash; 更好的质量，适中的内存消耗和相对降低的性能。可用在渲染高质量的反射的场景，例如渲染珠宝。</li>
+      <li><strong>Ultra (1024x1024)</strong> &mdash; 高内存消耗，低性能，最佳渲染质量（一般不推荐）。</li>
     </ul>
 
-    <p>
-      When using HDR texture for your skydome, make sure you set the *Color Space* setting to *Raw*:
-    </p>
-
-    <img src="files/lighting-maya/ai-sky-dome-light-setup.jpg" class="centered" style="max-width: 458px">
-
-    <p class="note">
-      You can also *aiSkyDomeLight* without any texture to simulate light coming evenly from all directions. However, it's much more efficient to use Ambient Lights for that.
-    </p>
-
+    <p>当为Skydome使用HDR纹理时，确保将<b>色彩空间</b>设置为*Raw*。</p><img src="files/lighting-maya/ai-sky-dome-light-setup.jpg"
+      class="centered" style="max-width: 458px">
+    <p class="note">您也可以不为*aiSkyDomeLight*指定纹理，直接模拟来自各个方向的均匀光线。但使用<b>环境光</b>会比此方法更有效。</p>
 
     [anchor:lights]
 
-    <h2>Lights</h2>
+    <h2>灯光(Lights)</h2>
 
-    <p>
-      In some cases, using just image-based lighting to illuminate your scene is not enough. If you'd like to simulate some additional light source, need dynamic shadows, or if you need to move your lights (as with car lights), you may use <a href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2020/ENU/Maya-LightingShading/files/GUID-3B4D131E-D001-4415-8BF9-250612C3A81D-htm.html" target="_blank">direct light sources</a>.
-    </p>
+    <p>在某些情况下，仅仅使用基于图像的照明不足以照亮场景。如果您想模拟一些额外的光源，需要动态阴影，或者您需要移动您的灯光（如汽车灯光），可以使用<a
+        href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2020/ENU/Maya-LightingShading/files/GUID-3B4D131E-D001-4415-8BF9-250612C3A81D-htm.html"
+        target="_blank">直接光源</a></p>
 
-    <p>
-      Verge3D supports the following light types:
-    </p>
+    <p>Verge3D支持以下灯光类型：</p>
 
     <ul>
-      <li>*Ambient Lights* - *Color* and *Intensity* attributes are supported in Verge3D.</li>
-      <li>*Directional Lights* - *Color* and *Intensity* attributes are supported in Verge3D.</li>
-      <li>*Point Lights* - *Color*, *Intensity* and *Decay Rate* attributes are supported in Verge3D.</li>
-      <li>*Spot Lights* - *Color*, *Intensity*, *Decay Rate*, *Cone Angle* and *Penumbra Angle* attributes are supported in Verge3D.</li>
-      <li>*Area Lights* — *Color*, *Intensity* attributes are supported in Verge3D. Light transform scaling controls the emissive area.</li>
+      <li>*环境光(Ambient Lights)* &mdash; Verge3D中支持 *颜色(Color)* 和 *强度(Intensity)* 属性(Attribute)。</li>
+      <li>*平行光(Directional Lights)* &mdash; Verge3D中支持 *颜色(Color)* 和 *强度(Intensity)* 属性。</li>
+      <li>*点光源(Point Lights)* &mdash; Verge3D支持 *颜色(Color)* 、 *强度(Intensity)* 和 *衰退速率(Decay Rate)* 属性。</li>
+      <li>*聚光灯(Spot Lights)* &mdash; Verge3D中支持 *颜色(Color)* 、 *强度(Intensity)* 、 *衰退速率(Decay Rate)* 、 *圆锥体角度(Cone Angle)*
+        和 *半影角度(Penumbra Angle)* 属性。</li>
+      <li>*区域光(Area Lights)* &mdash; Verge3D中支持 *颜色(Color)* 和 *强度(Intensity)* 属性。光线变换的比例控制着发光的区域。</li>
     </ul>
 
-    <p>
-      In addition, you can assign Depth Map Shadow Attributes on Directional, Point and Spot lights. See <a href="manual/zh/maya/Shadows.html">here</a> for more info.
-    </p>
-
+    <p>此外，您可以为平行灯、点光源和聚光灯指定深度贴图阴影属性。参见 <a href="manual/zh/maya/Shadows.html">这里</a> 的更多信息。</p>
 
     [anchor:light_probes]
 
-    <h2>Light Probes</h2>
+    <h2>光照探头</h2>
 
+    <p>`Verge3D插件增加了一个名为 *v3dReflectionCubemap* 的自定义光照探头对象，可用于通过局部反射立方体贴图对对象施加间接照明。<br /><br />新的光照探头(light
+      probe)对象可以在自定义 *Verge3D* 工具架里找到。</p><img src="files/lighting-maya/light-probe-reflection-cubemap-create.png"
+      class="centered" style="max-width: 500px">
     <p>
-      Verge3D add-on adds a custom light probe object called *v3dReflectionCubemap*,
-      which can be used to apply indirect lighting to objects via a local
-      reflection cubemap.<br/><br/>
-
-      The new light probe object can be found inside the custom *Verge3D* shelf:
-    </p>
-
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-create.png" class="centered" style="max-width: 500px">
-
-    <p>
-      This object defines a volume of influence represented by a box or a sphere.
-      All objects contained inside that volume will use a local reflection
-      cubemap generated in runtime instead of the scene's global environment
-      texture/color.<br/><br/>
-
-      The advantage of using a local reflection map is that it has surrounding
-      objects baked in it, while the scene's global map only contains the
-      background texture/color that can be specified via Arnold's
+      此对象定义了一个由长方体或球体代表的影响体积。所有包含在该体积内的对象将使用在运行时生成的本地立方盒反射而不是场景的全局环境纹理或颜色。<br /><br />使用局部反射贴图的好处是，它有周围物体的烘焙，而场景的全局贴图只包含Arnold的
       <a href="manual/zh/maya/Lighting-and-Rendering.html#environment_lighting">aiSkyDomeLight</a>
-      object. Local reflection maps also have a parallax effect depending on the
-      geometry of the <a href="manual/zh/maya/Lighting-and-Rendering.html#influence_volume">influence</a>
-      or <a href="manual/zh/maya/Lighting-and-Rendering.html#parallax_volume">parallax</a>
-      volume.
-    </p>
-
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-effect.png" class="centered" style="max-width: 1005px">
-    <span class="img-caption">
-      Left - reflection cubemap object in Maya viewport, right - effect it adds
-      to a reflective material in Verge3D.
-    </span>
-
-    <p>
-      v3dReflectionCubemap objects have the following parameters:
-    </p>
-
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-params.png" class="centered" style="max-width: 481px">
-
+      对象中指定的背景纹理或颜色。局部反射贴图也有视差效应，这取决于 <a
+        href="manual/zh/maya/Lighting-and-Rendering.html#influence_volume">影响体积(influence volume)</a> 或 <a
+        href="manual/zh/maya/Lighting-and-Rendering.html#parallax_volume">视差体积(parallax volume)</a> 的几何形状。</p><img
+      src="files/lighting-maya/light-probe-reflection-cubemap-effect.png" class="centered" style="max-width: 1005px">
+    <span class="img-caption">左图 - Maya视口中的立方盒反射对象，右图 - 其在Verge3D中为反射材质添加的效果。</span>
+    <p>v3dReflectionCubemap对象有以下属性参数：</p><img src="files/lighting-maya/light-probe-reflection-cubemap-params.png"
+      class="centered" style="max-width: 481px">
     <dl>
       <dt>General Settings</dt>
-      <dd>
-        general light probe settings:
-
-        <dl>
+      <dd>常规光照探头设置：<dl>
           <dt id="influence_volume">Influence Type</dt>
-          <dd>
-            type of the influence volume: *Sphere* or *Box*. Only objects
-            located inside this volume are affected by the probe's lighting.
-            Default is *Sphere*.
-          </dd>
+          <dd>影响体积的类型：*球形(Sphere)* 或 *长方体(Box)*。只有位于此体积内的对象才会受到光照探头照明的影响。默认为 *球体(Spher)*。</dd>
 
           <dt>Influence Distance</dt>
-          <dd>
-            the size of the influence volume. You can also change object scaling
-            and make the shape of the influence volume non-uniform. Default is
-            1.0.
-          </dd>
+          <dd>影响体积的大小。您也可以改变对象的比例，使影响体积的形状不均匀。默认为1.0。</dd>
 
           <dt>Intensity</dt>
-          <dd>
-            the intensity of the indirect lighting. Any value different from 1.0
-            is not physically correct. Default is 1.0.
-          </dd>
+          <dd>间接照明的强度。任何不等于1.0的数值在物理学上都是不正确的。默认为1.0。</dd>
 
           <dt>Clipping Start</dt>
-          <dd>
-            near clip distance. Objects located closer than this value won't be
-            rendered into the reflection cubemap. Default is 0.1.
-          </dd>
+          <dd>裁剪起始距离。位于比此值更近的对象将不会被渲染到立方盒反射中。默认为0.1。</dd>
 
           <dt>Clipping End</dt>
-          <dd>
-            far clip distance. Objects located further than this value won't be
-            rendered into the reflection cubemap. Default is 100.0.
-          </dd>
+          <dd>裁剪结束距离。位于比此值更远的对象将不会被渲染到立方盒反射中。默认为100.0。</dd>
         </dl>
       </dd>
 
-      <dt>Visibility Selection Set</dt>
-      <dd>
-        object visibility settings:
-
-        <dl>
-          <dt>Selection Set</dt>
-          <dd>
-            limit objects that should appear on the reflection cubemap to those
-            belonging to this selection set. Choose the empty string option in
-            order to not specify any set of objects - that way all scene objects
-            will be used for generating the reflection cubemap. Default is empty
-            string.
-          </dd>
+      <dt>可见性选择集</dt>
+      <dd>对象可见性设置：<dl>
+          <dt>选择集</dt>
+          <dd>将出现在立方盒反射上的对象限制为属于此选择集的物体。在此处留空选择，将不指定任何对象集&mdash;&mdash;这样所有的场景对象都将被用于生成立方盒反射。默认留空。</dd>
 
           <dt>Invert Visibility</dt>
-          <dd>
-            invert the selection of objects visible to this light probe if
-            *Selection Set* is specified. Disabled by default.
-          </dd>
+          <dd>如果指定了 *Selection Set* ，则反转对此光照探头可见对象的选择。默认禁用。</dd>
         </dl>
       </dd>
 
       <dt id="parallax_volume">Custom Parallax</dt>
-      <dd>
-        parallax settings:
-
-        <dl>
+      <dd>视差设置：<dl>
           <dt>Use Custom Parallax</dt>
-          <dd>
-            enable custom settings for the parallax correction. This group of
-            settings defines a parallax volume, which is used to project the
-            lighting captured by the probe. If *Custom Parallax* is not enabled
-            the parallax effect is calculated based on *Influence Type* and
-            *Influence Distance*. Disabled by default.
-          </dd>
+          <dd>启用视差校正的自定义设置。这一组设置定义了一个视差体积，用来投射探头捕捉到的照明。如果 *Custom Parallax* 未启用，时差效果将基于 *Influence Type* 和 *Influence
+            Distance* 计算。默认禁用。</dd>
 
           <dt>Parallax Type</dt>
-          <dd>
-            type of the parallax volume: *Sphere* or *Box*. Default is *Sphere*
-          </dd>
+          <dd>视差体积的类型：*球形(Sphere)* 或 *长方体(Box)*。默认为 *球体(Sphere)*。</dd>
 
           <dt>Parallax Distance</dt>
-          <dd>
-            the size of the parallax volume. Default is 1.0.
-          </dd>
+          <dd>视差体积的大小。默认为1.0。</dd>
         </dl>
       </dd>
     </dl>
 
-
     [anchor:background]
 
-    <h2>Background</h2>
+    <h2>背景(Background)</h2>
 
-    <p>
-      By default Verge3D renders the same background you see in Maya's Viewport (grey in most cases). When using image-based lighting (provided by *aiSkyDomeLight* objects) you see the environment texture instead.
-    </p>
+    <p>默认情况下，Verge3D渲染的背景与您在Maya的视图中看到的一样（大多数情况下是灰色）。当使用基于图像的照明（由*aiSkyDomeLight*对象提供）时，您会看到环境纹理。</p>
 
 
-    <p>
-      To change your background to some other color, do not edit Viewport settings in Maya, simply assign *Background Color* and enable the *Render Background* attribute on your main camera:
-    </p>
-
-    <img src="files/lighting-maya/render-background.jpg" class="centered" style="max-width: 443px">
-
-    <p class="note">
-      You can use Maya's *Render View* window or Verge3D's *Sneak Peek* feature to preview the scene with custom background.
-    </p>
-
+    <p>要将背景改为其他颜色，不要在Maya中编辑视图设置，只需更改主摄像机属性中环境<b>&rdquo;背景色&rdquo;</b>并启用Verge3D属性中的*Render Background*属性即可。</p><img
+      src="files/lighting-maya/render-background.jpg" class="centered" style="max-width: 443px">
+    <p class="note">您可以使用Maya的<b>渲染视图</b>窗口或Verge3D的*Sneak Peek*功能来预览具有自定义背景的场景。</p>
 
     [anchor:global_rendering_settings]
 
-    <h2>Global Rendering Settings</h2>
+    <h2>全局渲染设置</h2>
 
-    <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (<strong>Verge3D->Export Settings...</strong> in Maya menu).</p>
-
-    <img src="files/lighting-maya/rendering-settings-global.jpg" class="centered" style="max-width: 412px">
-
-    <p>*Anti-Aliasing* - select what anti-aliasing algorithm to use for the scene:</p>
+    <p>在Maya的主菜单点击<strong>Verge3D -&gt; Export Settings...</strong> 来访问全局渲染设置。</p><img
+      src="files/lighting-maya/rendering-settings-global.jpg" class="centered" style="max-width: 412px">
+    <p>*Anti-Aliasing* &mdash; <b>抗锯齿</b>，选择场景使用何种反锯齿算法：</p>
 
     <ul>
-      <li>*Auto* - use system default method.</li>
-      <li>*MSAA 4x* - prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</li>
-      <li>*MSAA 8x* - prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</li>
-      <li>*MSAA 16x* - prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</li>
-      <li>*FXAA* - force FXAA.</li>
-      <li>*None* - disable anti-aliasing.</li>
+      <li><b>*Auto* - 自动</b>，使用系统默认方法。</li>
+      <li>*MSAA 4x* - 如果目标硬件支持的话，则首选使用4倍采样的多采样抗锯齿。</li>
+      <li>*MSAA 8x* - 如果目标硬件支持的话，则首选使用使用8倍采样的多采样抗锯齿。</li>
+      <li>*MSAA 16x* - 如果目标硬件支持的话，则首选使用使用16倍采样的多采样抗锯齿。</li>
+      <li>*FXAA* - 强制使用FXAA.</li>
+      <li>*None* - 禁用抗锯齿。</li>
     </ul>
 
-    <p>*Use HDR Rendering* - enable high-dynamic-range rendering.</p>
+    <p>*Use HDR Rendering* - <b>启用HDR渲染</b>，即高动态范围渲染。</p>
 
-    <p>*IBL Environment Mode*</p>
+    <p><b>IBL Environment Mode(基于图像照明环境模式</b></p>
 
     <ul>
-      <li><strong>PMREM (slow)</strong> - high quality (default value).</li>
-      <li><strong>Light Probe + Cubemap (medium)</strong> - reduced quality of image-based specular reflections, better performance.</li>
-      <li><strong>Light Probe (fast)</strong> - disabled image-based specular reflections, highest performance.</li>
+      <li><strong>PMREM (slow)</strong> &mdash; <b>PMREM（慢速）</b>- 高质量（默认值）。</li>
+      <li><strong>Light Probe + Cubemap (medium)</strong> &mdash; <b>光照探头+Cubemap（中速）</b>- 降低基于图像的镜面反射质量，性能更好。</li>
+      <li><strong>Light Probe (fast)</strong> &mdash; <b>光照探头（快速）</b>-禁用基于图像的镜面反射，性能最高。</li>
     </ul>
 
-    <p>*Outlining Effect* - see below.</p>
-
+    <p>*Outlining Effect* <b>轮廓效果</b>，见下文。</p>
 
     [anchor:outline_rendering]
 
-    <h2>Outline Rendering</h2>
+    <h2>轮廓渲染</h2>
 
-    <p>
-      Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
-    </p>
+    <p>轮廓渲染（又名剪影边缘渲染）是一种常见的非真实感渲染(NPR)技术，可以显著增强场景视觉感知。这种效果可用于各种应用，如电子学习、游戏、建筑可视化和技术绘图。</p>
 
-    <p>
-      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect on the Blender's *Render Properties* panel, then use the <a href="manual/zh/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
-    </p>
+    <p>要在Verge3D应用中使用物体的轮廓（和可选的辉光），首先在Blender的<b>渲染属性</b>面板上启用该效果，然后将 <a
+        href="manual/zh/puzzles/Objects.html#outline">outline(轮廓)</a> 拼图应用于对象物体。</p>
 
-    <p class="note">
-      The outline rendering does not work inside AR/VR sessions. Use other methods to highlight your objects, such as animation or changing material's color.
-    </p>
+    <p class="note">轮廓渲染在AR/VR进程中不起作用。可使用其他方法来突出对象物体，如动画或改变材质的颜色。</p><img
+      src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+    <p>可以使用以下属性来调整轮廓：</p>
 
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+    <p>*Enabled* &mdash; 启用/禁用效果。</p>
 
-    <p>You can tweak outlining using the following properties:</p>
+    <p>*Edge Strength* &mdash; 轮廓强度系数。</p>
 
-    <p>*Enabled* — enable/disable the effect.</p>
+    <p>*Edge Glow* &mdash; 额外发光的强度（渲染在在主轮廓边缘之外）。</p>
 
-    <p>*Edge Strength* — outlining strength factor.</p>
+    <p>*Edge Thickness* &mdash; 轮廓边缘厚度系数。</p>
 
-    <p>*Edge Glow* — intensity of additional glowing (rendered beyond the main outline edge).</p>
+    <p>*Pulse Period* &mdash; 以秒为单位的脉冲周期。指定以下参数，使效果动画化。</p>
 
-    <p>*Edge Thickness* — outline edge thickness factor.</p>
+    <p>*Visible Edge Color* &mdash; <b>可见边颜色</b>。</p>
 
-    <p>*Pulse Period* — pulse period in seconds. Specify to make the effect animated.</p>
+    <p>*Hidden Edge Color* &mdash; <b>隐藏边颜色</b>，在任何其他场景对象后面的被渲染的轮廓边的颜色。</p>
 
-    <p>*Visible Edge Color* — visible edge color.</p>
+    <p>*Render Hidden Edge* &mdash; <b>渲染隐藏边</b>，启用/禁用渲染其他场景对象后面的轮廓边。</p>
 
-    <p>*Hidden Edge Color* — color of the outline edge being rendered behind any other scene objects.</p>
-
-    <p>*Render Hidden Edge* — enable/disable rendering of the outline edge behind other scene objects.</p>
-
-    <p class="note">Though it's possible to render glowing objects, in the most cases the outline rendering is used to improve visual clarity of your scene. If you need glowing from lamps or another bright objects, consider using the <a href="manual/zh/puzzles/Postprocessing.html#bloom">bloom post-processing</a> instead.</p>
-
+    <p class="note">尽管有可能渲染发光的物体，但在大多数情况下可以用轮廓渲染来提高场景的视觉清晰度。如果您需要从灯或其他明亮的物体上发光，可以考虑使用 <a
+        href="manual/zh/puzzles/Postprocessing.html#bloom">辉光后期处理</a> 来代替。</p>
 
     [anchor:per_object_rendering_settings]
 
-    <h2>Per-Object Rendering Settings</h2>
+    <h2>每个对象的渲染设置</h2>
 
-    <p>
-      Verge3D supports the following additional rendering settings for your geometry objects:
-    </p>
+    <p>Verge3D为您的几何对象支持以下额外的渲染设置：</p><img src="files/lighting-maya/rendering-settings.jpg" class="centered"
+      style="max-width: 454px">
+    <p>*Rendering Order* &mdash; <b>渲染顺序</b>-修改特定对象的渲染顺序。索引值越小，该对象就越早被渲染。在大多数情况下，当使用混合透明度时，您需要调整这个值，以消除透明度的伪影。</p>
 
-    <img src="files/lighting-maya/rendering-settings.jpg" class="centered" style="max-width: 454px">
-
-    <p>
-      *Render Order* - modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
-    </p>
-
-    <p>
-      *Frustum Culling* - enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
-    </p>
-
+    <p>*Frustum Culling* &mdash; <b>锥台剔除</b>-启用/禁用对象的锥台剔除优化。如果您有一些可以移动到屏幕空间之外的蒙皮对象，请取消勾选这个选项，以防止它被剔除。</p>
 
     [anchor:clipping_planes]
 
-    <h2>Clipping Planes</h2>
+    <h2>剪切平面</h2>
 
-    <p>
-      Clipping planes (aka section planes, cross-section planes, mesh sections) is a technique used to show internal arrangement of complex objects, such as buildings, cars, appliances, gadgets, machines etc.
-    </p>
+    <p>剪切平面（又称剖面图、横截面图、网格截面）是一种用于显示复杂对象（如建筑物、汽车、电器、小玩意、机器等）内部结构的技术。</p><img
+      src="files/lighting-maya/clipping-plane-example.jpg" class="centered">
+    <p>要添加一个新的剪贴面，使用位于Maya工具架上的 <strong>Verge3D-&gt;Add a v3dClippingPlane</strong> 对象按钮。</p><img
+      src="files/lighting-maya/clipping-plane-new.jpg" class="centered">
+    <p>场景中的对象将在剪切平面对象的 *-Y* 方向被剪切。</p>
 
-    <img src="files/lighting-maya/clipping-plane-example.jpg" class="centered">
-
-    <p>
-      To add a new clipping plane, use the <strong>Verge3D -> Add a v3dClippingPlane object</strong> button located on the Maya tool shelf:
-    </p>
-
-    <img src="files/lighting-maya/clipping-plane-new.jpg" class="centered">
-
-    <p>
-      The objects on your scene will be clipped in the negative *Y* direction of the clipping plane object.
-    </p>
-
-    <p>
-      Clipping planes have the following parameters:
-    </p>
+    <p>剪切平面具有以下参数：</p>
 
     <dl>
       <dt>Affected Objects</dt>
-      <dd>
-        Set of the objects clipped by the plane. If empty, all scene objects will be clipped.
-      </dd>
+      <dd>受影响的对象，被平面剪切的对象的选择集。如果为空，所有场景对象都将被剪切。</dd>
       <dt>Negated</dt>
-      <dd>
-        Swap clipped and unclipped sides.
-      </dd>
+      <dd>负方向，即对调被剪切和未剪切的两边。</dd>
       <dt>Clip Shadows</dt>
-      <dd>
-        Clip shadows cast from the clipped objects.
-      </dd>
+      <dd>剪切从被剪切对象投出的阴影。</dd>
       <dt>Union Planes</dt>
-      <dd>
-        Construct a union from all the clipping planes, affecting the object, not their intersection.
-      </dd>
+      <dd>对从所有裁剪平面构造并集，影响对象，而不是使用它们的交集影响对象。</dd>
       <dt>Cross-Section</dt>
-      <dd>
-        Fill cross-section between the clipping plane and the affected objects.
-      </dd>
+      <dd>填充剪裁平面和受影响对象之间的横截面。</dd>
       <dt>Cross-Section Color</dt>
-      <dd>
-        Cross-section diffuse color and opacity.
-      </dd>
+      <dd>横断面漫反射颜色和不透明度。</dd>
       <dt>Cross-Section Size</dt>
-      <dd>
-        Cross-section plane size. Increase this value if you use larger scene size.
-      </dd>
+      <dd>横截面尺寸。如果使用较大的场景大小，请增加该值。</dd>
     </dl>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article></body>
+  </article>
+</body>
+
 </html>

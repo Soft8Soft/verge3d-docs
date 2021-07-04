@@ -1,359 +1,176 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>How to integrate a Verge3D app into a React.js/Vue.js project - Soft8Soft</title>
-    <meta charset="utf-8">
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
-    <h1>Integration with React.js/Vue.js</h1>
+
+<head>
+  <title>如何将Verge3D应用集成到react.js/vue.js项目 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
+
+<body>
+  <article>
+    <h1>与react.js/vue.js集成</h1>
 
     <p>
-        One of the easiest way of integrating a Verge3D scene into your project
-        is to load it separately through an iframe element. But if you want to
-        use it directly inside your app then there could appear some difficulties
-        along the way. However, there are plenty of possible project configurations
-        with their specific issues and peculiarities. This guide can't comprehend
-        them all and only targets such popular javascript frameworks as React.js
-        and Vue.js.
+      将Verge3D场景集成到项目中的方法有很多，其中最简单的方法之一是通过iframe元素单独加载于嵌入。但如果您想直接在应用内使用，那么在这一过程中可能会比较麻烦。但很多项目配置都有其特定的问题和特性。本指南不能覆盖全部，只针对React.js和Vue.js等流行的javascript框架做出介绍。
     </p>
 
-    <p>
-        Verge3D provides an example of how to make a simple "Hello, world!"
-        React or Vue project and integrate a standard Verge3D application into
-        it. The example files are located in the *manager/templates/Embeddable*
-        directory inside the Verge3D distribution.
-    </p>
+    <p>Verge3D提供了一个简单的例子，说明如何制作一个简单的&ldquo;Hello,World！&rdquo;React或Vue项目，并将一个标准的Verge3D应用集成到其中。示例文件位于Verge3D发行版中的
+      *manager/templates/embeddable* 目录下。</p>
 
-    [contents]
+    [contents] [anchor:Verge3D_React]
 
+    <h2>Verge3D React.js应用示例</h2>
 
-    [anchor:Verge3D_React]
+    <p>这里有一个简单的说明，如何用Create React App工具创建一个基本的React.js + Verge3D应用。您可以在Verge3D发行版中的
+      *manager/templates/embeddable/readme.md* 目录中找到此说明的副本。</p>
 
-    <h2>Verge3D React.js Application Example</h2>
+    <p>1）通过Create React App实用程序创建React.js应用： 
+<code>
+npx create-react-app react_v3d_app
+</code>
+</p>
 
-    <p>
-        Here's a simple instruction on how to create a basic React.js + Verge3D
-        application with the Create React App utility. You can find a copy of
-        this instruction in *manager/templates/Embeddable/README.md* inside the
-        Verge3D distribution.
-    </p>
+    <p>2）删除 *react_v3d_app/src* 目录中的所有文件。</p>
 
-    <p>
-        1) Create a React.js application via the Create React App utility:
+    <p>3）将 *manager/templates/Embeddable/public* Verge3D的目录内容复制到 *react_v3d_app/public* 。</p>
 
-    <code>
-    npx create-react-app react_v3d_app
-    </code>
-    </p>
+    <p>把 *manager/templates/Embeddable/src* Verge3D的目录内容复制到 *react_v3d_app/src* 。</p>
 
-    <p>
-        2) Delete all files in the *react_v3d_app/src* directory.
-    </p>
+    <p>将引擎文件 *build/v3d.js* 复制到 *react_v3d_app/public* 。</p>
 
-    <p>
-        3) Copy the content of the *manager/templates/Embeddable/public* Verge3D's
-        directory to *react_v3d_app/public*.
-    </p>
+    <p>4) 在 *react_v3d_app/public/index.html* 中添加以下脚本标签：
+      
+<code>
+&lt;script src=&quot;%PUBLIC_URL%/v3d.js&quot;&gt;&lt;/script&gt;
+</code>
+</p>
 
-    <p>
-        Copy the content of the *manager/templates/Embeddable/src* Verge3D's
-        directory to *react_v3d_app/src*.
-    </p>
-
-    <p>
-        Copy the engine file *build/v3d.js* to *react_v3d_app/public*.
-    </p>
-
-    <p>
-        4) Add the following script tag into *react_v3d_app/public/index.html*:
-
-    <code>
-    &lt;script src="%PUBLIC_URL%/v3d.js"&gt;&lt;/script&gt;
-    </code>
-    </p>
-
-    <p>
-        5) Create a *components* directory inside *react_v3d_app/src*. Then
-        create a file called *react_v3d_app/src/components/V3DApp.js* with the
-        following content:
-
-    <!--
+    <p>5）在 *react_v3d_app/src* 中创建一个 *components* 目录。然后创建一个名为 *react_v3d_app/src/components/v3dapp.js* 的文件，其内容如下：
+      <!--
         NOTE: using language-js here to fix incorrect highlighting of class
         private properties.
-    -->
-    <code class="language-js">
-    import React from 'react';
+    --> <code
+        class="language-js">import React from &apos;react&apos;; import * as v3dAppAPI from &apos;../v3dApp/app.js&apos;; import &apos;../v3dApp/app.css&apos;; class V3DApp extends React.Component { #app = null; componentDidMount() { v3dAppAPI.createApp().then(app =&gt; { this.#app = app; }); } componentWillUnmount() { if (this.#app !== null) { this.#app.dispose(); this.#app = null; } } render() { return &lt;div id={v3dAppAPI.CONTAINER_ID}&gt;&lt;div id=&quot;fullscreen_button&quot; className=&quot;fullscreen-button fullscreen-open&quot; title=&quot;Toggle fullscreen mode&quot;&gt;&lt;/div&gt;&lt;/div&gt;; } } export default V3DApp;
+</code>
 
-    import * as v3dAppAPI from '../v3dApp/app.js';
-    import '../v3dApp/app.css';
-
-    class V3DApp extends React.Component {
-
-        #app = null;
-
-        componentDidMount() {
-            v3dAppAPI.createApp().then(app => {
-                this.#app = app;
-            });
-        }
-
-        componentWillUnmount() {
-            if (this.#app !== null) {
-                this.#app.dispose();
-                this.#app = null;
-            }
-        }
-
-        render() {
-            return &lt;div id={v3dAppAPI.CONTAINER_ID}&gt;
-                &lt;div id="fullscreen_button" className="fullscreen-button fullscreen-open" title="Toggle fullscreen mode"&gt;&lt;/div&gt;
-            &lt;/div&gt;;
-        }
-    }
-
-    export default V3DApp;
-    </code>
     </p>
 
-    <p>
-        6) Create a file *react_v3d_app/src/index.js* containing the following code:
+    <p>6) 创建一个文件*react_v3d_app/src/index.js*，包含以下代码：
+      
+<code>
+import React from &apos;react&apos;; import ReactDOM from &apos;react-dom&apos;; import V3DApp from &apos;./components/V3DApp.js&apos;; ReactDOM.render( &lt;V3DApp/&gt;, document.getElementById(&apos;root&apos;) );
+</code>
 
-    <code>
-    import React from 'react';
-    import ReactDOM from 'react-dom';
-
-    import V3DApp from './components/V3DApp.js';
-
-    ReactDOM.render(
-        &lt;V3DApp/&gt;,
-        document.getElementById('root')
-    );
-    </code>
     </p>
 
-    <p>
-        7) Run the development server by executing the following command in the
-        *react_v3d_app* directory:
-
-    <code>
-    npm start
-    </code>
-
-        By default the application now should be available at
-        <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a>.
-    </p>
-
+    <p>7) 通过在 *react_v3d_app* 目录下执行以下命令运行开发服务器：
+<code>
+npm start
+</code>
+ 默认情况下，应用现在应该可以在 <a href="http://localhost:3000/"
+        target="_blank">http://localhost:3000/</a> 地址中访问了。</p>
 
     [anchor:Verge3D_Vue]
 
-    <h2>Verge3D Vue.js Application Example</h2>
+    <h2>Verge3D Vue.js应用示例</h2>
 
-    <p>
-        Here's a simple instruction on how to create a basic Vue.js + Verge3D
-        application with the Vue CLI utility. You can find a copy of this
-        instruction in *manager/templates/Embeddable/README.md* inside the
-        Verge3D distribution.
+    <p>下面是关于如何使用Vue CLI工具创建基础的Vue.js+Verge3D应用的简单说明。您可以在Verge3D发行版中的 *manager/templates/embeddable/readme.md*
+      目录中找到此说明的副本。</p>
+
+    <p>1）通过Vue CLI工具创建Vue.js应用： 
+<code>
+npx @vue/cli create vue_v3d_app
+</code>
+</p>
+
+    <p>2）将 *manager/templates/Embeddable/public* Verge3D的目录内容复制到 *vue_v3d_app/public* 。</p>
+
+    <p>把 *manager/templates/Embeddable/src* Verge3D的目录内容复制到 *vue_v3d_app/src* 。</p>
+
+    <p>将引擎文件 *build/v3d.js* 复制到 *vue_v3d_app/public* 。</p>
+
+    <p>3) 在 *vue_v3d_app/public/index.html* 中添加以下脚本标签：
+      
+<code>
+&lt;script src=&quot;&lt;%= BASE_URL %&gt;v3d.js&quot;&gt;&lt;/script&gt;
+</code>
+</p>
+
+    <p>4) 创建一个文件 *vue_v3d_app/src/components/V3DApp.vue* ，包含以下代码：
+      
+<code>
+&lt;template&gt;&lt;div :id=&quot;containerId&quot;&gt;&lt;div id=&quot;fullscreen_button&quot; class=&quot;fullscreen-button fullscreen-open&quot; title=&quot;Toggle fullscreen mode&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/template&gt;&lt;script&gt; import * as v3dAppAPI from &apos;../v3dApp/app.js&apos;; export default { name: &apos;V3DApp&apos;, data() { return { containerId: v3dAppAPI.CONTAINER_ID, } }, app: null, mounted() { v3dAppAPI.createApp().then(app =&gt; { this.$options.app = app; }); }, beforeDestroy() { if (this.$options.app) { this.$options.app.dispose(); this.$options.app = null; } }, } &lt;/script&gt;&lt;style&gt; @import &apos;../v3dApp/app.css&apos;; &lt;/style&gt;
+</code>
+
     </p>
 
-    <p>
-        1) Create a Vue.js application via the Vue CLI utility:
-
-    <code>
-    npx @vue/cli create vue_v3d_app
-    </code>
+    <p class="note">beforeDestroy()钩子在Vue.js 3.0.0+中被弃用，请使用beforeUnmount()代替。</br>参见：<a
+        href="https://eslint.vuejs.org/rules/no-deprecated-destroyed-lifecycle.html">https://eslint.vuejs.org/rules/no-deprecated-destromed-lifecycle.html</a>
     </p>
 
-    <p>
-        2) Copy the content of the *manager/templates/Embeddable/public* Verge3D's
-        directory to *vue_v3d_app/public*.
+    <p>5）按如下所示更改 *vue_v3d_app/src/app.vue*：
+      
+<code>
+&lt;template&gt;&lt;V3DApp&gt;&lt;/V3DApp&gt;&lt;/template&gt;&lt;script&gt; import V3DApp from &apos;./components/V3DApp.vue&apos;; export default { name: &apos;App&apos;, components: { V3DApp } } &lt;/script&gt;
+</code>
+
     </p>
 
-    <p>
-        Copy the content of the *manager/templates/Embeddable/src* Verge3D's
-        directory to *vue_v3d_app/src*.
-    </p>
-
-    <p>
-        Copy the engine file *build/v3d.js* to *vue_v3d_app/public*.
-    </p>
-
-    <p>
-        3) Add the following script tag into *vue_v3d_app/public/index.html*:
-
-    <code>
-    &lt;script src="&lt;%= BASE_URL %&gt;v3d.js"&gt;&lt;/script&gt;
-    </code>
-    </p>
-
-    <p>
-        4) Create a file *vue_v3d_app/src/components/V3DApp.vue* containing the
-        following code:
-
-    <code>
-    &lt;template&gt;
-        &lt;div :id="containerId"&gt;
-            &lt;div id="fullscreen_button" class="fullscreen-button fullscreen-open" title="Toggle fullscreen mode"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/template&gt;
-
-    &lt;script&gt;
-    import * as v3dAppAPI from '../v3dApp/app.js';
-
-    export default {
-        name: 'V3DApp',
-
-        data() {
-            return {
-                containerId: v3dAppAPI.CONTAINER_ID,
-            }
-        },
-
-        app: null,
-
-        mounted() {
-            v3dAppAPI.createApp().then(app => {
-                this.$options.app = app;
-            });
-        },
-
-        beforeDestroy() {
-            if (this.$options.app) {
-                this.$options.app.dispose();
-                this.$options.app = null;
-            }
-        },
-    }
-    &lt;/script&gt;
-
-    &lt;style&gt;
-    @import '../v3dApp/app.css';
-    &lt;/style&gt;
-    </code>
-    </p>
-
-    <p class="note">
-        The beforeDestroy() hook is deprecated in Vue.js 3.0.0+, use beforeUnmount() instead.</br>
-        See: <a href="https://eslint.vuejs.org/rules/no-deprecated-destroyed-lifecycle.html">https://eslint.vuejs.org/rules/no-deprecated-destroyed-lifecycle.html</a>
-    </p>
-
-    <p>
-        5) Change *vue_v3d_app/src/App.vue* so it will look like this:
-
-    <code>
-    &lt;template&gt;
-        &lt;V3DApp&gt;&lt;/V3DApp&gt;
-    &lt;/template&gt;
-
-    &lt;script&gt;
-    import V3DApp from './components/V3DApp.vue';
-
-    export default {
-      name: 'App',
-      components: {
-        V3DApp
-      }
-    }
-    &lt;/script&gt;
-    </code>
-    </p>
-
-    <p>
-        6) Run the development server by executing the following command in the
-        *vue_v3d_app* directory:
-
-    <code>
-    npm run serve
-    </code>
-
-        By default the application now should be available at
-        <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>.
-    </p>
-
+    <p>6）通过在 *vue_v3d_app* 目录中执行以下命令来运行开发服务器：
+<code>
+npm run serve
+</code>
+ 默认情况下，应用现在应该可以在 <a href="http://localhost:8080/"
+        target="_blank">http://localhost:8080/</a> 地址中访问了。</p>
 
     [anchor:using_the_puzzles_editor]
 
-    <h2>Using the Puzzles Editor</h2>
+    <h2>使用拼图编辑器</h2>
 
-    <p>
-        There's no direct integration between React/Vue and the
-        <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html">Puzzles Editor</a>/
-        <a href="manual/zh/introduction/App-Manager.html">Application Manager</a>.
-        Nevertheless, you can still use Puzzles for adding behavior scenarios to your
-        React/Vue applications. This section explains how to do that and what are
-        the limitations of the chosen approach.
-    </p>
+    <p>React/Vue和 <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html">拼图编辑器</a> / <a
+        href="manual/zh/introduction/App-Manager.html">应用管理器</a>
+      之间没有直接的整合方式。尽管如此，您仍然可以使用拼图来为您的React/Vue应用添加场景交互。本节解释了如何使用这种方法及其局限性。</p>
 
-    <p>
-        The Application Manager doesn't know what directory structure of a
-        typical React/Vue project can look like. However, after some tweaking
-        the manager can at least recognize the project's blend-files, the exported
-        .gltf/.glb/.bin scene files and the Puzzles' visual logic scripts. That
-        means you can view the corresponding scene resources and launch the
-        Puzzles Editor from within the
-        <a href="manual/zh/introduction/App-Manager.html#Exploring_Applications">App Manager's web-page</a>.
-        <br/><br/>
+    <p>应用管理器并不能直接处理一个典型的React/Vue项目的目录结构。但经过一些调整后，应用管理器至少可以识别项目的 *.blend* 文件、导出的 *.gltf/.glb/.bin*
+      场景文件以及拼图的可视化逻辑脚本。这意味着您可以在<a
+        href="manual/zh/introduction/App-Manager.html#Exploring_Applications">应用管理器网页</a>中查看相应的场景资源并启动拼图编辑器。
+      <br /><br /> 这里的缺点是，查看.gltf文件和处理拼图只能通过Verge3D播放器来完成，也就是说，与 <a
+        href="manual/zh/introduction/App-Manager.html#Creating_Applications">在应用管理器内创建</a>
+      的所有标准Verge3D应用的方式相同。因此，无法访问React/Vue的功能、组件、逻辑等......
+      而且只能以一种单独的方式添加拼图。不过，一个完整的React/Vue应用可以加载、运行并与拼图编辑器中创建的逻辑脚本进行通信。</p>
 
-        The drawback here is that viewing the .gltf files and working with Puzzles
-        can be only done via the Verge3D Player, i.e the same way as for all
-        standard Verge3D applications <a href="manual/zh/introduction/App-Manager.html#Creating_Applications">
-        created within the App Manager</a>. So, there's no access to React/Vue
-        features, components, logic, etc... and Puzzles can be added only in a
-        separate manner. Still, a complete React/Vue application can load, run
-        and communicate with the logic script created in the Puzzles Editor.
-    </p>
+    <h3>应用管理器设置</h3>
 
-    <h3>App Manager Setup</h3>
+    <p>假设我们有一个根据本手册指南创建的React或Vue应用。假设它位于 *APP_PATH* 路径下，而您的Verge3D发行版位于 *VERGE3D_PATH* 路径下。 <br /><br /> 为了
+      &quot;连接&quot; 应用管理器和React/Vue项目，我们需要在 *VERGE3D_PATH/applications* 内创建一个专门的目录（所有Venge3D应用通常都在这个地方）。我们将创建一个符号链接，指向
+      *APP_PATH/public/v3dApp* &mdash;&mdash;这是我们React/Vue项目中与verge3d相关的场景资源和拼图的逻辑文件所在的地方。让我们把新目录称为*my_app*。下面是实现的方法：
+    </p><b><u>在Linux中</u></b> 
+<code>
+ln -sr APP_PATH/public/v3dApp VERGE3D_PATH/applications/my_app
+</code>
+ <b><u>在
+        Windows中 (PowerShell, 需要管理员权限)</u></b>
+    
+<code>
+cmd /c mklink /D VERGE3D_PATH\applications\my_app (Resolve-Path APP_PATH\public\v3dApp)
+</code>
 
-    <p>
-        Suppose we have a React or a Vue application created according to the
-        guide described in this manual. Let's say that it's located at the path
-        *APP_PATH* and your Verge3D distribution is located at the path
-        *VERGE3D_PATH*.
-        <br/><br/>
+    <p>之后，只需打开文件 *APP_PATH/src/v3dApp/app.js* ，然后找到以下一行:</p>
+<code>
+var LOAD_LOGIC_FILES = false;
+</code>
 
-        In order to "connect" the App Manager and the React/Vue project we need
-        to create a dedicated directory inside *VERGE3D_PATH/applications* (the
-        place where all Verge3D applications are usually found). We'll create it
-        as a symbolic link pointing to *APP_PATH/public/v3dApp* - this is the
-        place inside our React/Vue project where the verge3d-related scene
-        resources and Puzzles' logic files are located. Let's call the new
-        directory *my_app*. Here's how it can be done:
-    </p>
+    <p>并对其进行如下修改，以实现加载拼图的逻辑脚本。</p>
+<code>
+var LOAD_LOGIC_FILES = true;
+</code>
 
-    <b><u>on Linux</u></b>
-    <code>
-    ln -sr APP_PATH/public/v3dApp VERGE3D_PATH/applications/my_app
-    </code>
+    <p>现在您可以在应用管理器中看到该项目了。在这里，您可以直接打开.gltf和.blend文件，以及使用拼图编辑器了。</p><img
+      src="files/integration-with-reactjs-vuejs/app-manager.jpg" class="centered" style="max-width: 800px">
+  </article>
+</body>
 
-    <b><u>on Windows (PowerShell, requires administrator rights)</u></b>
-    <code>
-    cmd /c mklink /D VERGE3D_PATH\applications\my_app (Resolve-Path APP_PATH\public\v3dApp)
-    </code>
-
-    <p>
-        After that, it remains only to open the file *APP_PATH/src/v3dApp/app.js*,
-        then find the following line:
-    </p>
-
-    <code>
-    var LOAD_LOGIC_FILES = false;
-    </code>
-
-    <p>and change it as follows to enable loading the Puzzles' logic script:</p>
-
-    <code>
-    var LOAD_LOGIC_FILES = true;
-    </code>
-
-    <p>
-    Now you can see your project in the Application Manager. You can open its
-    .gltf and .blend files and use the Puzzles Editor.
-    </p>
-
-    <img src="files/integration-with-reactjs-vuejs/app-manager.jpg" class="centered" style="max-width: 800px">
-
-  </article></body>
 </html>

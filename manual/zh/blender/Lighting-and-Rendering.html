@@ -1,461 +1,264 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <title>Verge3D for Blender: Lighting and Rendering - Soft8Soft</title>
+    <title>用于Blender的Verge3D：照明与渲染 - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to configure environment lighting, lights and rendering properties in Verge3D for Blender."/>
+    <meta name="description" content="如何在Verge3D for Blender中配置环境照明、灯光和渲染属性。"/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
 
-    <h1>Lighting and Rendering / Blender</h1>
+    <h1>照明与渲染/Blender</h1>
 
-    <p>
-      This page contains the information about lighting, rendering and background properties which can be used with Verge3D for Blender.
-    </p>
+    <p>本页包含可与Verge3D for Blender一起使用的照明、渲染和背景属性的信息。</p>
 
-    [contents]
+    [contents] [anchor:renderers]
 
+    <h2>渲染器</h2>
 
-    [anchor:renderers]
-
-    <h2>Renderers</h2>
-
-    <p>
-      Verge3D is designed to represent Blender's EEVEE renderer as closely as possible. It supports physically-based shading, lights, shadows and image-based lighting (IBL).
-    </p>
-
+    <p>Verge3D被设计为尽可能地趋近Blender的EEVEE渲染器。它支持基于物理的着色、灯光、阴影和基于图像的照明(IBL)。</p>
 
     [anchor:environment_lighting]
 
-    <h2>Environment Lighting</h2>
+    <h2>环境照明</h2>
 
-    <p>
-      Environment lighting is a very important component of Verge3D graphics pipeline. You can illuminate your entire scene with just an environment map alone, without using any light objects. See the <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">Scooter demo</a> as an example of this approach.
-    </p>
-
-    <iframe class="video-480p" src="https://www.youtube.com/embed/symQy5gEHdY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-    <p>
-      The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. Here is the basic <em>World nodes</em> setup which uses the same texture for both environment lighting and background:
-    </p>
-
-    <img src="files/lighting-blender/world-nodes.jpg" class="centered" style="max-width: 852px">
-
-    <p class="note">
-      When using HDR textures, make sure you set the *Color Space* setting to *Linear*.
-    </p>
+    <p>环境照明是Verge3D图形流水线的一个非常重要的组成部分。您可以只用环境贴图来照亮整个场景，而不使用任何灯光对象。请参阅 <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">电动车定制器演示</a> 作为示例：</p><iframe class="video-480p" src="https://www.youtube.com/embed/symQy5gEHdY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p>默认的立方体模板为基于图像的照明提供了一个HDR纹理。您可以用自己的文件替换这个纹理，或者从头开始设置环境照明。这里是基本的 <em>世界节点</em> 设置，它在环境照明和背景上都使用了相同的纹理。</p><img src="files/lighting-blender/world-nodes.jpg" class="centered" style="max-width: 852px"><p class="note">当使用HDR纹理时，确保将<b>色彩空间</b>设置为<b>线性</b>。</p>
 
     [anchor:lights]
 
-    <h2>Lights</h2>
+    <h2>灯光(Lights)</h2>
 
-    <p>
-      In some cases, using just image-based lighting to illuminate your scene is not enough. If you'd like to simulate some additional light source, need dynamic shadows, or if you need to move your lights (as with car lights), you may use direct light sources.
-    </p>
+    <p>在某些情况下，仅仅使用基于图像的照明不足以照亮场景。如果您想模拟一些额外的光源，需要动态阴影，或者您需要移动您的灯光（如汽车灯光），可以使用直接光源。</p>
 
-    <p>
-      Verge3D supports the following light types:
-    </p>
+    <p>Verge3D支持以下灯光类型：</p>
 
     <ul>
-      <li>*Point Lights* — *Color* and *Power* properties are supported in Verge3D.</li>
-      <li>*Sun Lights* — *Color* and *Strength* properties are supported in Verge3D.</li>
-      <li>*Spot Lights* — *Color*, *Power*, *Spot Shape*: *Size* and *Blend* properties are supported in Verge3D.</li>
-      <li>*Area Lights* — *Color*, *Power*, as well *Size* for *Square*-shaped and *Size X*/*Size Y* for *Rectangular*-shaped lights are supported in Verge3D. *Disk* and *Ellipse* shapes are not supported.</li>
+      <li>*Point Lights* &mdash; <b>点光源</b>，Verge3D支持<b>颜色(Color)</b>和<b>功率(Power)</b>属性。</li>
+      <li>*Sun Lights* &mdash; <b>太阳光</b>，Verge3D中支持<b>颜色(Color)</b>和<b>强度(Strength)</b>属性。</li>
+      <li>*Spot Lights* &mdash; <b>聚光灯</b>，<b>颜色(Color)、功率(Power)</b>、<b>聚光灯形状(Spot Shape)</b>：Verge3D中支持<b>尺寸(Size)</b>和<b><b><b><b>混合</b>(Blend)</b></b></b>属性。</li>
+      <li>*Area Lights* &mdash; <b>面光</b>，Verge3D支持的属性包括<b>颜色(Color)</b>，<b>功率(Power)</b>，&ldquo;<b>方形(Square-Shaped)</b>&rdquo;中的<b>尺寸(Size)</b>，以及&ldquo;<b>长方形 (<b>Rectangular</b>-shaped)&ldquo;</b>中的<b>X/Y尺寸(<b>Size X</b>/<b>Size Y</b>)</b>。不支持<b>碟形(Disk)</b>和<b>椭圆形(Ellipse)</b>形状属性。</li>
     </ul>
 
-    <p>
-      In addition, you can assign Shadow properties on your point, sun, or spot lights. See the <a href="manual/zh/blender/Shadows.html">corresponding section</a> for more info.
-    </p>
-
+    <p>此外，您还可以为点光源、太阳光和聚光灯指定阴影属性。请参阅 <a href="manual/zh/blender/Shadows.html">对应章节</a> 的更多信息。</p>
 
     [anchor:light_probes]
 
-    <h2>Light Probes</h2>
+    <h2>光照探头</h2>
 
-    <p>
-      Light Probes are objects intended for adding indirect lighting locally by
-      generating a local reflection cubemap. Verge3D currently supports only
-      *Reflection Cubemap* light probes. This type of light probe objects add
-      specular indirect ligthing to a scene.
-    </p>
+    <p>光照探头是一种用于通过生成局部立方盒反射来增加局部间接照明的对象。Verge3D目前只支持 *立方盒反射(Reflection Cubemap)* 光照探头。这种类型的光照探头对象在场景中增加了镜面间接照明。</p>
 
-    <p>
-      The following properties are supported:
-    </p>
+    <p>支持以下属性：</p><img src="files/lighting-blender/light-probe-reflection-cubemap.png" class="centered" style="max-width: 369px"><dl>
+      <dt>探头</dt>
+      <dd>常规探头设置：<dl>
+          <dt>类型</dt>
+          <dd>影响体积的类型：*球形*或*长方体*。只有位于此体积内的对象才会受到光照探头照明的影响。</dd>
 
-    <img src="files/lighting-blender/light-probe-reflection-cubemap.png" class="centered" style="max-width: 369px">
+          <dt>半径/尺寸</dt>
+          <dd>控制影响体积的大小。您也可以改变对象的比例，使影响体积的形状不均匀。</dd>
 
-    <dl>
-      <dt>Probe</dt>
-      <dd>
-        general probe settings:
+          <dt>强度</dt>
+          <dd>间接照明的强度。任何不等于1.0的数值在物理学上都是不正确的。</dd>
 
-        <dl>
-          <dt>Type</dt>
-          <dd>
-            type of the influence volume: *Sphere* or *Box*. Only objects
-            located inside this volume are affected by the probe's lighting.
-          </dd>
+          <dt>裁剪起点</dt>
+          <dd>裁剪起始距离。位于比此值更近的对象将不会被渲染到立方盒反射中。</dd>
 
-          <dt>Radius/Size</dt>
-          <dd>
-            controls the size of the influence volume. You can also change
-            object scaling and make the shape of the influence volume
-            non-uniform.
-          </dd>
-
-          <dt>Intensity</dt>
-          <dd>
-            the intensity of the indirect lighting. Any value different from 1.0
-            is not physically correct.
-          </dd>
-
-          <dt>Clipping Start</dt>
-          <dd>
-            near clip distance. Objects located closer than this value won't be
-            rendered into the reflection cubemap.
-          </dd>
-
-          <dt>Clipping End</dt>
-          <dd>
-            far clip distance. Objects located further than this value won't be
-            rendered into the reflection cubemap.
-          </dd>
+          <dt>裁剪终点</dt>
+          <dd>裁剪结束距离。位于比此值更远的对象将不会被渲染到立方盒反射中。</dd>
         </dl>
       </dd>
 
-      <dt>Visibility</dt>
-      <dd>
-        object visibility settings:
+      <dt>可见性</dt>
+      <dd>对象可见性设置：<dl>
+          <dt>可见性集合</dt>
+          <dd>将应该出现在立方盒反射上的对象限制在这个集合中。如果未指定，则使用所有场景对象。</dd>
 
-        <dl>
-          <dt>Visibility Collection</dt>
-          <dd>
-            limit objects that should appear on the reflection cubemap to this
-            collection. If not specified all scene objects are used.
-          </dd>
-
-          <dt>Invert Visibility Collection</dt>
-          <dd>
-            invert the selection of objects visible to this probe if
-            *Visibility Collection* is specified.
-          </dd>
+          <dt>反转可见性集合</dt>
+          <dd>如果指定了 *可见性集合* ，则反转对此探头可见对象的选择。</dd>
         </dl>
       </dd>
 
-      <dt>Custom Parallax</dt>
-      <dd>
-        enable custom settings for the parallax correction. This group of settings
-        defines a parallax volume, which is used to project the lighting
-        captured by the probe. If *Custom Parallax* not enabled the parallax
-        effect is calculated based on *Type* and *Radius/Size* of the influence
-        volume.
+      <dt>自定义视差</dt>
+      <dd>启用视差校正的自定义设置。这一组设置定义了一个视差体积，用来投射探头捕捉到的照明。如果 *自定义视差* 未启用，视差效果将根据影响体积的 *类型* 和 *半径/尺寸* 计算。<dl>
+          <dt>类型</dt>
+          <dd>视差体积的类型：*球形* 或 *长方体*。</dd>
 
-        <dl>
-          <dt>Type</dt>
-          <dd>
-            type of the parallax volume: *Sphere* or *Box*.
-          </dd>
-
-          <dt>Radius/Size</dt>
-          <dd>
-            the size of the parallax volume.
-          </dd>
+          <dt>半径/尺寸</dt>
+          <dd>视察体积的大小。</dd>
         </dl>
       </dd>
     </dl>
 
-    <p>
-      In order to see in Blender's viewport the results of using
-      *Reflection Cubemap* objects you need to bake their cubemaps first via the
-      *Bake Cubemap Only* or *Bake Indirect Lighting* buttons both located in
-      the *Indirect Lighting* panel, which is in the *Render Properties* tab.<br/><br/>
+    <p>为了在Blender的视窗看到使用 *立方盒反射* 对象的结果，您需要首先通过*烘焙立方盒反射* 或 *烘焙间接光照明* 按钮烘焙它们的立方体贴图，这两个按钮都位于 *间接照明* 面板中，该面板位于 *渲染属性* 选项卡中。<br/><br/>另外， <a href="manual/zh/blender/Lighting-and-Rendering.html#cubemap_size">Cubemap Size</a> 属性还可以控制 *立方盒反射* 对象所使用的立方体贴图纹理的大小。<br/><br/><a href="manual/zh/blender/Lighting-and-Rendering.html#ibl_environment_mode">IBL环境模式</a> 的设置也会影响到由 *立方盒反射* 对象生成的立方体贴图。</p>
 
-      Also the <a href="manual/zh/blender/Lighting-and-Rendering.html#cubemap_size">Cubemap Size</a>
-      property controls the size of the cubemap texture used by *Reflection Cubemap*
-      objects.<br/><br/>
+    <p>由于实现细节的差异性，在Blender和Verge3D中，*立方盒反射* 光照探头的表现是不同的。<ul>
+        <li>Blender支持每个对象有多个光照探头，而Verge3D只支持一个。这就是为什么Verge3D中的对象使用单一的立方体贴图，要么来自 *立方盒反射* 对象，要么来自世界环境。*衰减* 选项不受支持。</li>
 
-      The <a href="manual/zh/blender/Lighting-and-Rendering.html#ibl_environment_mode">IBL Environment Mode</a>
-      setting also affects cubemaps generated by *Reflection Cubemap* objects.
-    </p>
+        <li>Blender默认不对网格使用背面剔除(Backface Culling)，而Verge3D使用。因此，在Blender中，如果 *裁剪起点(Clipping Start)* / *裁剪终点(Clipping End)* 设置调整不当，放置在探头影响范围内的物体会在立方盒反射上显示为黑点，这是由于背面也被渲染了。默认情况下，Verge3D中不会出现这种情况。</li>
 
-    <p>
-      Due to implementation specifics there are differences of how
-      *Reflection Cubemap* light probes behave in Blender and in Verge3D:
-      <ul>
-        <li>
-          Blender supports multiple light probes per object while Verge3D only
-          a single one. That's why objects in Verge3D use a single cubemap
-          either from a *Reflection Cubemap* object or from the world environment.
-          *Falloff* is not supported.
-        </li>
+        <li>在将对象渲染（烘焙）到光照探头的立方体贴图中时，Blender只考虑对象材质的漫反射成分，而Verge3D对它们的渲染与在主场景中的渲染方式没有区别。这就是为什么全金属物体在Blender中被渲染成黑色，但在Verge3D中它们仍然反射了世界环境。</li>
 
-        <li>
-          Blender doesn't use Backface Culling for meshes by default while
-          Verge3D does. Hence in Blender objects placed inside the probe's
-          influence volume can appear on the reflection cubemap as black spots
-          due to back faces being rendered if the *Clipping Start*/*Clipping End*
-          settings are not properly adjusted. This doesn't happen in Verge3D by
-          default.
-        </li>
-
-        <li>
-          When rendering objects into a light probe's cubemap (baking) Blender
-          considers only the diffuse component of an object's material, while
-          Verge3D renders them no different from how they are rendered on the
-          main scene. That's why for example fully metallic objects are rendered
-          black in Blender, but in Verge3D they still reflect the world
-          environment.
-        </li>
-
-        <li>
-          For the *Visibility Collection* property to work in Blender it's
-          required that the specified collection is also linked to the scene.
-          It's not needed in Verge3D and it's enough to just assign an object
-          to a collection.
-        </li>
+        <li>为了让 *可见性集合* 属性在Blender中发挥作用，要求指定的集合也被链接到场景中。在Verge3D中不需要，只需将一个对象分配给一个集合即可。</li>
       </ul>
     </p>
 
-
     [anchor:background]
 
-    <h2>Background</h2>
+    <h2>背景(Background)</h2>
 
-    <p>
-      By default Blender and Verge3D render the same image for background and environment lighting. To render them separate, use the advanced World nodes setup based on *Is Camera Ray* output of the <a href="manual/zh/blender/Shader-Nodes-Reference.html#Light_Path">Light Path</a> node. For example, to set the background color to solid grey and continue using the HDR map for environment lighting:
-    </p>
-
-    <img src="files/lighting-blender/world-nodes-advanced.jpg" class="centered" style="max-width: 886px">
-
+    <p>在默认情况下，Blender和Verge3D中背景和环境照明会保持一致的渲染。如果需要将它们分开渲染，请使用基于 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Light_Path">光路</a> 节点的*Is Camera Ray*输出的高级世界节点设置。例如，要将背景颜色设置为纯灰色，并继续使用HDR贴图进行环境照明。</p><img src="files/lighting-blender/world-nodes-advanced.jpg" class="centered" style="max-width: 886px">
 
     [anchor:global_rendering_properties]
 
-    <h2>Global Rendering Properties</h2>
+    <h2>全局渲染属性</h2>
 
-    <p>Global rendering properties accessible on the Blender's *Render Properties* panel.</p>
+    <p>可在Blender的<b>渲染属性</b>面板上设置全局渲染属性。</p><img src="files/lighting-blender/rendering-properties-indirect.jpg" class="centered" style="max-width: 315px"><dl>
 
-    <img src="files/lighting-blender/rendering-properties-indirect.jpg" class="centered" style="max-width: 315px">
-
-    <dl>
-
-      <dt id="cubemap_size">Cubemap Size</dt>
-      <dd>
-        texture size to use for environment lighting:
-        <dl>
+      <dt id="cubemap_size">立方体反射尺寸(Cubemap Size)</dt>
+      <dd>用于环境照明的纹理尺寸：<dl>
           <dt>64, 128</dt>
-          <dd>do not use, *256* is the minimum value supported by Verge3D.</dd>
+          <dd>请勿使用，*256*是Verge3D中可支持的最小值。</dd>
 
           <dt>256</dt>
-          <dd>optimum quality with low memory consumption (recommended).</dd>
+          <dd>最合适的质量和较低的内存消耗（推荐）。</dd>
 
           <dt>512</dt>
-          <dd>better quality with moderate memory consumption and reduced performance. Use it to render high quality reflections e.g for rendering jewelry.</dd>
+          <dd>更好的质量，适中的内存消耗和相对降低的性能。可用在渲染高质量的反射的场景，例如渲染珠宝。</dd>
 
           <dt>1024</dt>
-          <dd>best quality with high memory consumption and low performance (generally not recommended).</dd>
+          <dd>高内存消耗，低性能，最佳渲染质量（一般不推荐）。</dd>
 
           <dt>2048, 4096</dt>
-          <dd>do not use, *1024* is the maximum value supported in Verge3D.</dd>
+          <dd>请勿使用，*1024*是Verge3D中可支持的最大值。</dd>
         </dl>
       </dd>
 
-      <dt>View Transform</dt>
-      <dd>additional color correction applied to Verge3D renderings:
-
-        <dl>
-          <dt>Standard</dt>
-          <dd>no additional color correction applied. Switch to this method if you don't need color correction as it works slightly faster than *Filmic*.</dd>
+      <dt>视图转换(View Transform)</dt>
+      <dd>应用于Verge3D效果图的额外颜色校正：<dl>
+          <dt>标准</dt>
+          <dd>没有应用其他颜色校正。如果您不需要颜色校正，就改用这种方法，因为它比*Filmic*的工作速度略快。</dd>
 
           <dt>Filmic</dt>
-          <dd>Blender default method.</dd>
+          <dd>Blender默认方法。</dd>
 
           <dt>Filmic Log, Raw, False Color</dt>
-          <dd>unsupported, Verge3D will use *Standard* instead.</dd>
-        </dl>
+          <dd>不被支持，Verge3D将改用*Standard*。</dd>
+        </dl><img src="files/lighting-blender/rendering-properties-global.jpg" class="centered" style="max-width: 318px"></dd>
 
-        <img src="files/lighting-blender/rendering-properties-global.jpg" class="centered" style="max-width: 318px">
-
-      </dd>
-
-      <dt>Enable Shadows and Shadow Map Side</dt>
-      <dd>shadow properties, read more about these <a href="manual/zh/blender/Shadows.html">here</a>.</dd>
+      <dt><b>Enable Shadows and Shadow Map Side</b></dt>
+      <dd><b>启用阴影和阴影贴图面</b>。阴影属性，请在 <a href="manual/zh/blender/Shadows.html">此处</a> 了解详情。</dd>
 
 
-      <dt>Anti-Aliasing</dt>
-      <dd>
-        select what anti-aliasing algorithm to use for the scene:
-        <dl>
-          <dt>Auto</dt>
-          <dd>use system default method.</dd>
+      <dt><b>Anti-Aliasing</b></dt>
+      <dd>抗锯齿，选择场景使用何种反锯齿算法：<dl>
+          <dt><b>Auto</b></dt>
+          <dd><b>自动</b>，使用系统默认方法。</dd>
 
-          <dt>MSAA 4x</dt>
-          <dd>prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</dd>
+          <dt><b>MSAA 4x</b></dt>
+          <dd>如果目标硬件支持的话，则首选使用4倍采样的多采样抗锯齿。</dd>
 
-          <dt>MSAA 8x</dt>
-          <dd>prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</dd>
+          <dt><b>MSAA 8x</b></dt>
+          <dd>如果目标硬件支持的话，则首选使用使用8倍采样的多采样抗锯齿。</dd>
 
-          <dt>MSAA 16x</dt>
-          <dd>prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</dd>
+          <dt><b>MSAA 16x</b></dt>
+          <dd>如果目标硬件支持的话，则首选使用使用16倍采样的多采样抗锯齿。</dd>
 
-          <dt>FXAA</dt>
-          <dd>force FXAA.</dd>
+          <dt><b>FXAA</b></dt>
+          <dd>强制使用FXAA。</dd>
 
-          <dt>None</dt>
-          <dd>disable anti-aliasing.</dd>
+          <dt><b>None</b></dt>
+          <dd>禁用抗锯齿。</dd>
         </dl>
       </dd>
 
-      <dt>Use HDR Rendering</dt>
-      <dd>enable high-dynamic-range rendering.</dd>
+      <dt><b>Use HDR Rendering</b></dt>
+      <dd>启用HDR渲染，即高动态范围渲染。</dd>
 
-      <dt id="ibl_environment_mode">IBL Environment Mode</dt>
+      <dt id="ibl_environment_mode">IBL Environment Mode(基于图像照明环境模式</dt>
       <dd>
         <dl>
-          <dt>PMREM (slow)</dt>
-          <dd>high quality (default value).</dd>
+          <dt><b>PMREM (slow)</b></dt>
+          <dd>PMREM（慢速），高质量（默认值）。</dd>
 
-          <dt>Light Probe + Cubemap (medium)</dt>
-          <dd>reduced quality of image-based specular reflections, better performance.</dd>
+          <dt><b>Light Probe + Cubemap (medium)</b></dt>
+          <dd><b>光照探头+Cubemap（中速）</b>，降低基于图像的镜面反射质量，性能更好。</dd>
 
-          <dt>Light Probe (fast)</dt>
-          <dd>disabled image-based specular reflections, highest performance.</dd>
+          <dt><b>Light Probe (fast)</b></dt>
+          <dd><b>光照探头（快速）</b>，禁用基于图像的镜面反射，性能最高。</dd>
         </dl>
       </dd>
 
       <dt>*Outlining Effect*</dt>
-      <dd>see <a href="manual/zh/blender/Lighting-and-Rendering.html#outline_rendering">below</a>.</dd>
+      <dd><b>轮廓效果</b>，见 <a href="manual/zh/blender/Lighting-and-Rendering.html#outline_rendering">下文</a> 。</dd>
 
     </dl>
-
 
     [anchor:outline_rendering]
 
-    <h2>Outline Rendering</h2>
+    <h2>轮廓渲染</h2>
 
-    <p>
-      Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
-    </p>
+    <p>轮廓渲染（又名剪影边缘渲染）是一种常见的非真实感渲染(NPR)技术，可以显著增强场景视觉感知。这种效果可用于各种应用，如电子学习、游戏、建筑可视化和技术绘图。</p>
 
-    <p>
-      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect on the Blender's *Render Properties* panel, then use the <a href="manual/zh/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
-    </p>
+    <p>要在Verge3D应用中使用物体的轮廓（和可选的辉光），首先在Blender的<b>渲染属性</b>面板上启用该效果，然后将 <a href="manual/zh/puzzles/Objects.html#outline">outline(轮廓)</a> 拼图应用于对象物体。</p>
 
-    <p class="note">
-      The outline rendering does not work inside AR/VR sessions. Use other methods to highlight your objects, such as animation or changing material's color.
-    </p>
+    <p class="note">轮廓渲染在AR/VR进程中不起作用。可使用其他方法来突出对象物体，如动画或改变材质的颜色。</p><img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px"><p>可以使用以下属性来调整轮廓：</p>
 
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+    <p>*Enabled* &mdash;  启用/禁用效果。</p>
 
-    <p>You can tweak outlining using the following properties:</p>
+    <p>*Edge Strength* &mdash;  轮廓强度系数。</p>
 
-    <p>*Enabled* — enable/disable the effect.</p>
+    <p>*Edge Glow*  &mdash; 额外发光的强度（渲染在在主轮廓边缘之外）。</p>
 
-    <p>*Edge Strength* — outlining strength factor.</p>
+    <p>*Edge Thickness* &mdash; 轮廓边缘厚度系数。</p>
 
-    <p>*Edge Glow* — intensity of additional glowing (rendered beyond the main outline edge).</p>
+    <p>*Pulse Period* &mdash; 以秒为单位的脉冲周期。指定以下参数，使效果动画化。</p>
 
-    <p>*Edge Thickness* — outline edge thickness factor.</p>
+    <p>*Visible Edge Color* &mdash; <b>可见边颜色</b>。</p>
 
-    <p>*Pulse Period* — pulse period in seconds. Specify to make the effect animated.</p>
+    <p>*Hidden Edge Color* &mdash; <b>隐藏边颜色</b>，在任何其他场景对象后面的被渲染的轮廓边的颜色。</p>
 
-    <p>*Visible Edge Color* — visible edge color.</p>
+    <p>*Render Hidden Edge* &mdash; <b>渲染隐藏边</b>，启用/禁用渲染其他场景对象后面的轮廓边。</p>
 
-    <p>*Hidden Edge Color* — color of the outline edge being rendered behind any other scene objects.</p>
-
-    <p>*Render Hidden Edge* — enable/disable rendering of the outline edge behind other scene objects.</p>
-
-    <p class="note">Though it's possible to render glowing objects, in the most cases the outline rendering is used to improve visual clarity of your scene. If you need glowing from lamps or another bright objects, consider using the <a href="manual/zh/puzzles/Postprocessing.html#bloom">bloom post-processing</a> instead.</p>
-
+    <p class="note">尽管有可能渲染发光的物体，但在大多数情况下可以用轮廓渲染来提高场景的视觉清晰度。如果您需要从灯或其他明亮的物体上发光，可以考虑使用 <a href="manual/zh/puzzles/Postprocessing.html#bloom">辉光后期处理</a> 来代替。</p>
 
     [anchor:per_object_rendering_properties]
 
-    <h2>Per-Object Rendering Properties</h2>
+    <h2>每个对象的渲染属性</h2>
 
-    <p>
-      Verge3D supports the following additional rendering properties for your geometry objects:
-    </p>
+    <p>Verge3D为您的几何对象支持以下额外的渲染属性：</p><img src="files/lighting-blender/rendering-properties.jpg" class="centered" style="max-width: 313px"><p>*Rendering Order* &mdash; <b>渲染顺序</b>，修改特定对象的渲染顺序。索引越小，对象就越早被渲染。在大多数情况下，当使用混合透明度时，您需要调整这个值，以消除透明度的伪影。</p>
 
-    <img src="files/lighting-blender/rendering-properties.jpg" class="centered" style="max-width: 313px">
+    <p>*Frustum Culling* &mdash; <b>锥台剔除</b>，启用/禁用对象的锥台剔除优化。如果您有一些可以移动到屏幕空间之外的蒙皮对象，请取消勾选这个选项，以防止它被剔除。</p>
 
-    <p>
-      *Rendering Order* — modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
-    </p>
-
-    <p>
-      *Frustum Culling* — enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
-    </p>
-
-    <p>
-      *Receive Shadows* — render or not shadows on the given object. See <a href="manual/zh/blender/Shadows.html">here</a> for more info.
-    </p>
-
+    <p>*Receive Shadows* &mdash; <b>接收阴影</b>，渲染或不渲染给定对象的阴影。参见 <a href="manual/zh/blender/Shadows.html">这里</a> 的更多信息。</p>
 
     [anchor:clipping_planes]
 
-    <h2>Clipping Planes</h2>
+    <h2>剪切平面</h2>
 
-    <p>
-      Clipping planes (aka section planes, cross-section planes, mesh sections) is a technique used to show internal arrangement of complex objects, such as buildings, cars, appliances, gadgets, machines etc.
-    </p>
+    <p>剪切平面（又称剖面图、横截面图、网格截面）是一种用于显示复杂对象（如建筑物、汽车、电器、小玩意、机器等）内部结构的技术。</p><img src="files/lighting-blender/clipping-plane-example.jpg" class="centered"><p>若要添加新的剪切平面，请使用Blender的&ldquo;添加对象&rdquo;菜单中的&ldquo;Clipping Planes(剪切平面)&rdquo;菜单项：</p><img src="files/lighting-blender/clipping-plane-new.jpg" class="centered"><p>场景中的对象将在剪切平面对象的 *-Z* 方向被剪切。</p>
 
-    <img src="files/lighting-blender/clipping-plane-example.jpg" class="centered">
-
-    <p>
-      To add a new clipping plane, use the *Clipping Plane* menu item from the Blender's *Add Object* menu:
-    </p>
-
-    <img src="files/lighting-blender/clipping-plane-new.jpg" class="centered">
-
-    <p>
-      The objects on your scene will be clipped in the negative *Z* direction of the clipping plane object.
-    </p>
-
-    <p>
-      Clipping planes have the following properties:
-    </p>
-
-    <img src="files/lighting-blender/clipping-plane-properties.jpg" class="centered" style="max-width: 382px">
-
-    <dl>
+    <p>剪切平面具有以下属性：</p><img src="files/lighting-blender/clipping-plane-properties.jpg" class="centered" style="max-width: 382px"><dl>
       <dt>Affected Objects</dt>
-      <dd>
-        Collection of the objects clipped by the plane. If empty, all scene objects will be clipped.
-      </dd>
+      <dd>受影响的对象，被平面剪切的对象的集合。如果为空，所有场景对象都将被剪切。</dd>
       <dt>Negated</dt>
-      <dd>
-        Swap clipped and unclipped sides.
-      </dd>
+      <dd>负方向，即对调被剪切和未剪切的两边。</dd>
       <dt>Clip Shadows</dt>
-      <dd>
-        Clip shadows cast from the clipped objects.
-      </dd>
+      <dd>剪切从被剪切对象投出的阴影。</dd>
       <dt>Union Planes</dt>
-      <dd>
-        Construct a union from all the clipping planes, affecting the object, not their intersection.
-      </dd>
+      <dd>对从所有裁剪平面构造并集，影响对象，而不是使用它们的交集影响对象。</dd>
       <dt>Filled Cross-Section</dt>
-      <dd>
-        Fill cross-section between the clipping plane and the affected objects.
-      </dd>
+      <dd>填充剪裁平面和受影响对象之间的横截面。</dd>
       <dt>Cross-Section Color</dt>
-      <dd>
-        Cross-section diffuse color and opacity.
-      </dd>
+      <dd>横断面漫反射颜色和不透明度。</dd>
       <dt>Cross-Section Plane Size</dt>
-      <dd>
-        Cross-section plane size. Increase this value if you use larger scene size.
-      </dd>
+      <dd>横截面尺寸。如果使用较大的场景大小，请增加该值。</dd>
     </dl>
 
 
-    <h2>Got Questions?</h2>
+    <h2>遇到问题？</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
   </article></body>

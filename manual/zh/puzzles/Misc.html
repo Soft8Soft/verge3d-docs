@@ -1,226 +1,139 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <title>Misc Puzzles Reference - Soft8Soft</title>
-    <meta charset="utf-8">
-    <meta name="description" content="How to use misc puzzles to perform various operations in your 3D applications."/>
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body><article>
 
+<head>
+  <title>杂项拼图参考 - Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="如何在3D网页应用中使用Misc类目的拼图来执行各种操作。" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
+
+<body>
+  <article>
     <!-- Deprecated since 3.3 -->
+    <h1>杂项 | Miscellaneous</h1>
 
-    <h1>Miscellaneous Puzzles</h1>
+    <p>杂项类目的拼图用于执行多项更高级的操作。</p><img src="files/puzzles/puzzles-misc.jpg">
+    <h2>内容</h2>
 
-    <p>
-    Miscellaneous puzzles to perform various operations on a high level.
-    </p>
+    [contents] [anchor:puzzles_reference]
 
-    <img src="files/puzzles/puzzles-misc.jpg">
-
-
-    <h2>Contents</h2>
-
-    [contents]
-
-
-    [anchor:puzzles_reference]
-
-    <h2>Puzzles Reference</h2>
-
+    <h2>拼图参考</h2>
 
     [anchor:open_web_page]
 
-    <h3>open web page</h3>
+    <h3>open web page(打开网页)</h3>
 
-    <p>
-    When this puzzle is triggered, a specified URL is opened in a new or in the same browser tab depending on the drop-down selection. When triggered from the Puzzles editor, it will ask for a user confirmation before leaving the tab.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-open-web-page.jpg">
-
-
+    <p>当此拼图被触发时，根据下拉选择，一个指定的URL会在一个新的或同一浏览器标签内打开。当从拼图编辑器中触发时，跳出当前页面前会弹出确认提示。</p><img
+      src="files/puzzles/puzzles-misc-open-web-page.jpg">
 
     [anchor:social_share_link]
 
-    <h3>social share link</h3>
+    <h3>social share link(社交网站分享链接)</h3>
 
-    <p>
-    Generates a link for sharing your application in popular social media.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-social-share-link.jpg">
-
-
+    <p>生成一个链接，以便在主流社交媒体上分享你的应用。</p><img src="files/puzzles/puzzles-misc-social-share-link.jpg">
 
     [anchor:call_JS_function]
 
-    <h3>call JS function</h3>
+    <h3>call JS function(调用JS函数)</h3>
 
-    <p>
-    Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-call-js-function.jpg">
-
-    <p>
-    In order to add a function to JavaScript code, open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with any text editor. Search for "prepareExternalInterface" and add your function inside that declaration (between the curly brackets), so that it looks like this:
-    </p>
-
-    <code>
-function prepareExternalInterface(app) {
-        app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
-            alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
-        }
-}
-    </code>
-
-
+    <p>执行一个在应用的JavaScript代码中指定的函数。可以选择传递参数，作为函数参数使用。</p><img src="files/puzzles/puzzles-misc-call-js-function.jpg">
+    <p>为了在JavaScript代码中添加一个函数，用任何文本编辑器打开应用 <strong>.js</strong> 文件（例如， <i>my_awesome_app.js</i> 位于
+      <i>verge3d/applications/my_awesome_app</i>）。搜索 &quot;prepareExternalInterface
+      &quot;并在该声明中添加您的函数（在大括号之间），这样它看起来像这样。</p>
+    
+<code>
+function prepareExternalInterface(app) { app.ExternalInterface.myJSFunction = function(numericArg, textArg) { alert(&apos;Got some params from Puzzles: &apos; + numericArg + &apos; and &apos; + textArg); } }
+</code>
 
     [anchor:when_called_from_JS]
 
-    <h3>when called from JS</h3>
+    <h3>when called from JS(当从JS调用时)</h3>
 
-    <p>
-      <span style="color:#f00">Deprecated.</span> Use the *v3d.puzzles.procedures*
-        object to directly call a procedure defined in Puzzles:
-      <code>
-function runCode(app) {
-        v3d.puzzles.procedures['myProcedure']();
-}
-      </code>
-    </p>
-
-
+    <p><span style="color:#f00">已弃用。</span>使用*v3d.puzzles.procedures*对象来直接调用拼图编辑器中定义的过程。
+      
+<code>
+function runCode(app) { v3d.puzzles.procedures[&apos;myProcedure&apos;](); }
+</code>
+</p>
 
     [anchor:load_data]
 
-    <h3>load data</h3>
+    <h3>load data(载入数据)</h3>
 
-    <p>
-    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/zh/puzzles/Misc.html#loaded_data">loaded data</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-load-data.jpg">
-
-
+    <p>试图从一个指定的位置加载数据。不管尝试是否成功，&quot;一旦准备好做 &quot;槽中的拼图都会被解释。检索到的数据可以通过 <a
+        href="manual/zh/puzzles/Misc.html#loaded_data">加载数据</a> 拼图进行访问。</p><img
+      src="files/puzzles/puzzles-misc-load-data.jpg">
 
     [anchor:send_data]
 
-    <h3>send data</h3>
+    <h3>send data(发送数据)</h3>
 
-    <p>
-    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/zh/puzzles/Misc.html#loaded_data">loaded data</a> puzzle.
-    </p>
-
-
-
-    <img src="files/puzzles/puzzles-misc-send-data.jpg">
-
-
+    <p>试图使用异步的 <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a>
+      请求将指定的数据发送到一个远程位置。不管尝试是否成功，&quot;一旦准备好做 &quot;槽中的拼图都会被解释。如果有任何响应数据，可以通过 <a
+        href="manual/zh/puzzles/Misc.html#loaded_data">loaded data</a> 拼图访问。</p><img
+      src="files/puzzles/puzzles-misc-send-data.jpg">
 
     [anchor:loaded_data]
 
-    <h3>loaded data</h3>
+    <h3>loaded data(已加载的数据)</h3>
 
-    <p>
-    Returns data retrieved by the <a href="manual/zh/puzzles/Misc.html#load_data">load data</a> or <a href="manual/zh/puzzles/Misc.html#send_data">send data</a> puzzles.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-loaded-data.jpg">
-
-
+    <p>返回由 <a href="manual/zh/puzzles/Misc.html#load_data">加载数据</a> 或 <a
+        href="manual/zh/puzzles/Misc.html#send_data">发送数据</a> 拼图获取的数据。</p><img
+      src="files/puzzles/puzzles-misc-loaded-data.jpg">
 
     [anchor:read_JSON]
 
-    <h3>read JSON</h3>
+    <h3>read JSON(读取JSON)</h3>
 
-    <p>
-    Interprets text as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which are returned in a dictionary.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-read-JSON.jpg">
-
-
+    <p>将文本（或 数据URI）解释为 <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object
+        Notation(JavaScript对象符号)</a> 数据，并以字典形式返回。</p><img src="files/puzzles/puzzles-misc-read-JSON.jpg">
 
     [anchor:read_CSV]
 
-    <h3>read CSV</h3>
+    <h3>read CSV(读取JSON)</h3>
 
-    <p>
-    Interprets text as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-read-CSV.jpg">
-
-    <p>
-    Table rows and values are accessed by their numeric indices starting from 0.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-csv-example.jpg">
-
-
+    <p>将文本（或 数据URI）解释为 <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example"
+        target="_blank">comma-separated values(逗号分隔的值)</a>。返回一个表格行的列表，每行表示为一个值的列表。分隔符可以通过下拉选择，以对应CSV文件的导出设置。&quot;从行
+      &quot;值表示从顶部开始跳过多少行。</p><img src="files/puzzles/puzzles-misc-read-CSV.jpg">
+    <p>表的行和值是通过它们的数字索引从0开始访问的。</p><img src="files/puzzles/puzzles-misc-csv-example.jpg">
 
     [anchor:save_state]
 
-    <h3>save state</h3>
+    <h3>save state(保存状态)</h3>
 
-    <p>
-    Saves the state of specified objects and/or the values of variables specified by their names. The objects are cloned and stored in memory. The values of the variables are retrieved and stored in memory for each specified variable name.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-save-state.jpg">
-
-    <p>
-    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/zh/puzzles/Misc.html#undo_state">undo state</a> puzzle.
-    </p>
-
-
+    <p>保存指定对象的状态和/或由其名称指定的变量值。对象被克隆并存储在内存中。变量的值被检索并存储在内存中，每个指定的变量名称都是如此。</p><img
+      src="files/puzzles/puzzles-misc-save-state.jpg">
+    <p>如果此拼图被多次调用，那么这些状态将被依次保存，这样就可以通过 <a href="manual/zh/puzzles/Misc.html#undo_state">undo state(撤销状态)</a>
+      拼图返回到之前的任一状态。</p>
 
     [anchor:undo_state]
 
-    <h3>undo state</h3>
+    <h3>undo state(撤销状态)</h3>
 
-    <p>
-    Restores the state of objects and/or variables saved with the <a href="manual/zh/puzzles/Misc.html#save_state">save state</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-undo-state.jpg">
-
-    <p>
-    If this puzzle is called several times, the states are restored from the saved sequence (if any) which makes it possible to return to any previously saved state from the stack.
-    </p>
-
-
+    <p>恢复用 <a href="manual/zh/puzzles/Misc.html#save_state">save state(保存状态)</a> 拼图保存的对象和/或变量的状态。</p><img
+      src="files/puzzles/puzzles-misc-undo-state.jpg">
+    <p>如果这个拼图被多次调用，状态会从保存的序列中恢复（如果有的话），这使得我们可以从堆栈中返回到任何先前保存的状态。</p>
 
     [anchor:all_variable_names]
 
-    <h3>all variable names</h3>
+    <h3>all variable names(所有变量名称)</h3>
 
-    <p>
-    Returns a list with the names of all variables used in Puzzles.
-    </p>
-
-    <img src="files/puzzles/puzzles-misc-all-variable-names.jpg">
-
-
+    <p>返回一个包含拼图中使用的所有变量名称的列表。</p><img src="files/puzzles/puzzles-misc-all-variable-names.jpg">
 
     [anchor:variable_value_by_name]
 
-    <h3>variable value by name</h3>
+    <h3>variable value by name(对应名称的变量的值)</h3>
 
-    <p>
-    Returns the value of a variable specified by its name. This puzzle works similarly to the standard variable value puzzle, yet does not require to select a variable from the predefined dropdown menu.
-    </p>
+    <p>返回指定名称的变量的值。此拼图的工作方式与标准的变量值拼图类似，但不需要从预定义的下拉菜单中选择一个变量。</p><img
+      src="files/puzzles/puzzles-misc-variable-value-by-name.jpg">
+    <h2>在使用拼图时遇到困难？</h2>
 
-    <img src="files/puzzles/puzzles-misc-variable-value-by-name.jpg">
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
+  </article>
+</body>
 
-    <h2>Having Troubles with Puzzles?</h2>
-
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
-  </article></body>
 </html>
