@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D for Blender: Shader Nodes Reference - Soft8Soft</title>
+    <title>Verge3D для Blender: Примеры Шейдерных Нод - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Information about Blender shader editor's features supported in Verge3D."/>
     <meta content="https://cdn.soft8soft.com/images/shader_nodes_reference_blender.jpg" property="og:image">
@@ -11,28 +11,28 @@
   </head>
   <body><article>
 
-    <h1>Shader Nodes Reference / Blender</h1>
+    <h1>Примеры Шейдерных Нод / Blender</h1>
 
     <p>
-    To some extent, Verge3D supports almost all nodes provided by Blender's Shader Editor. However, for most tasks of web-based real-time graphics it is sufficient to use just a limited set of them. Below we only list the nodes that are used in stock Verge3D demos.
+    В какой-то степени Verge3D поддерживает практически все ноды содержащиеся в Blender Shader Editor. Однако для большинства веб-задач связанных с рендером в реальном времени ограниченного набора шейдерных нод будет достаточно. Ниже мы перечислим те из них, которые используются в демонстрационных проектах Verge3D.
     </p>
 
     <p>
-    Inputs and outputs that are supported by Verge3D are marked with green check mark, while unsupported ones are marked with red one.
+    Входы и выходы нод, которые поддерживаются Verge3D, помечены зелеными галочками, а те которые не поддерживаются красными крестиками.
     </p>
 
 
-    <h2>Contents</h2>
+    <h2>Содержание</h2>
 
     [contents]
 
 
     [anchor:Shader_Nodes]
 
-    <h2>Shader Nodes</h2>
+    <h2>Шейдерные Ноды</h2>
 
     <p>
-    These nodes are in the core of any material, performing shading calculations for the object surface. Among them, the following nodes are used the most in Verge3D workflow:
+    Эти ноды являются основными для любого материала, они отвечают за вычисление затенения поверхностей объектов. При создании проектов в Verge3D чаще всего используются нижеуказанные ноды: 
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-nodes.jpg" class="centered" style="max-width: 1000px">
@@ -44,19 +44,19 @@
     <h3>Principled BSDF</h3>
 
     <p>
-    This universal node implements the physically-based rendering model (aka PBR). Suitable for creating most materials for Verge3D.
+    Данная универсальная нода реализует физически корректную визуализацию модели (также известую как PBR). Она отлично подходит для создания большинства материалов в Verge3D.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-principled-bsdf.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-    By tweaking just a few options in the *Principled BSDF* node, you can quickly setup various good-looking materials. For best results, you might use an <a href="manual/ru/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a> which provides reflections and image-based lighting, or just use the default cube template where the environment is set up for you.
+    Изменив всего несколько настроек в ноде *Principled BSDF*, можно достаточно быстро получить красивый материал. Для лучшего результата вы можете использовать ноду <a href="manual/ru/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a>, которая обеспечит отражения и освещение основанное на выбранном изображении, или просто используйте уже готовые настройки окружения из шаблонного проекта Cube.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-principled-bsdf-example.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Principled BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/principled.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Principled BSDF*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/principled.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -66,19 +66,19 @@
     <h3>Diffuse BSDF</h3>
 
     <p>
-    This node implements the diffuse component of PBR. It is used for adding baked ambient occlusion to materials, or sometimes combined with *Glossy BSDF* node for more flexibility compared to *Principled BSDF* node.
+    Данная нода реализует диффузный компонент PBR. Она используется для добавления в материал запечённой карты АО, а иногда в сочетании с нодой *Glossy BSDF* для большего контроля относительно *Principled BSDF*.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-diffuse-bsdf.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-    In the following example, *Diffuse BSDF* is used to add baked ambient occlusion to chrome material:
+    В следующем примере, *Diffuse BSDF* используется для того, чтобы добавить запечённую карту АО в материал хрома:
     </p>
 
     <img src="files/shader-nodes-reference-blender/chrome-material-example.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Diffuse BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/diffuse.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Diffuse BSDF*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/diffuse.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -88,13 +88,13 @@
     <h3>Glossy BSDF</h3>
 
     <p>
-    This node implements the specular component of PBR. It is used for purely metallic surfaces, or sometimes combined with *Diffuse BSDF* node for more flexibility.
+    Данная нода реализует отражающий компонент PBR. Она используется исключительно для металлических поверхностей или иногда в сочетании с *Diffuse BSDF* для большего контроля.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-glossy-bsdf.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Glossy BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/glossy.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Glossy BSDF*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/glossy.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -104,19 +104,19 @@
     <h3>Emission</h3>
 
     <p>
-    This node is used to represent unlit (shadeless) objects. It is also used to represent glowing objects when combined with the bloom post-effect in Verge3D.
+    Данная нода используется, чтобы представлять неосвещенные (без тени) объекты. Также она используется для обозначения светящихся объектов в сочетании с постэффектом bloom в Verge3D.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-emission.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-    In the following simplified example, *Emission* is used for shadeless UI icons:
+    В следующем упрощенном примере, *Emission* используется для незатенённых UI иконок:
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-emission-example.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Emission* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/emission.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Emission*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/emission.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -126,31 +126,27 @@
     <h3>Transparent BSDF</h3>
 
     <p>
-    This node implements transparent materials by mixing with other *Shader* nodes such as *Glossy BSDF*.
+    Данная нода реализует прозрачность материалов путём смешивания с другими шейдерными нодами, например с такими как *Glossy BSDF*.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-transparent-bsdf.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-      This node is supported partially. It resembles Blender's viewport better if
-      you follow these restrictions:
+      Данная нода поддерживается частично. Она будет иметь большее сходство с окном просмотра Blender, если следовать следующим ограничениям:
       </br>
-      - the *Color* input should be strictly white (R = 1, G = 1, B = 1)
+      - на входе *Color* должен быть строго белый цвет (R = 1, G = 1, B = 1)
       </br>
-      - the node should be used at the very end of a node tree, i.e. just
-      before the *Material Output* through a *Mix Shader* or an *Add Shader*
-      node (see the example below), or directly plugged into the *Surface* socket
-      of *Material Output*
+      - нода должна использоваться в самом конце дерева нод, т.е. подключаться перед *Material Output* через ноды *Mix Shader* или *Add Shader* (смотрите пример ниже) или непосредственно подключаться в разъем *Surface* *Material Output*
     </p>
 
     <p>
-    In the following simplified example, *Transparent BSDF* is used for the material of front glass:
+    В упрощённом примере, указанном ниже, *Transparent BSDF* используется для материала стекла обтекателя:
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-transparent-bsdf-example.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Transparent BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/transparent.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Transparent BSDF*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/transparent.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -160,19 +156,19 @@
     <h3>Refraction BSDF</h3>
 
     <p>
-    This node implements refractive materials by using the environment map for refraction.
+    Данная нода отвечает за преломление материала, используя для этого карту окружения.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-refraction-bsdf.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-    Below is a simple usage example:
+    Ниже приведён простой пример использования:
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-refraction-bsdf-example.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Refraction BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/refraction.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Refraction BSDF*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/refraction.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -181,13 +177,13 @@
     <h3>Glass BSDF</h3>
 
     <p>
-        This node implements the specular and the refraction components of PBR.
+    Данная нода реализует PBR компоненты отражения и преломления.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-glass-bsdf.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Glass BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/glass.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Glass BSDF*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/glass.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -197,13 +193,13 @@
     <h3>Translucent BSDF</h3>
 
     <p>
-        This node implements the translucency effect.
+    Данная нода отвечает за эффект прозрачности.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-translucent-bsdf.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Translucent BSDF* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/dev/render/shader_nodes/shader/translucent.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Translucent BSDF*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/dev/render/shader_nodes/shader/translucent.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -213,13 +209,13 @@
     <h3>Add Shader</h3>
 
     <p>
-    This node sums up two shaders together.
+    Данная нода складывает свойства двух шейдеров.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-add-shader.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Add Shader* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/add.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Add Shader*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/add.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -229,13 +225,13 @@
     <h3>Mix Shader</h3>
 
     <p>
-    This node mixes two shaders together.
+    Данная нода смешивает два шейдера.
     </p>
 
     <img src="files/shader-nodes-reference-blender/shader-mix-shader.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Mix Shader* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/mix.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Mix Shader*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/mix.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -245,7 +241,7 @@
     <h2>Output Nodes</h2>
 
     <p>
-    These nodes are the end point in a shader. For *Object* materials, only the following node is available (there is also a special output node for *World* materials):
+    Данные ноды являются конечной точкой шейдера. Для материалов типа *Object* доступны только нижеуказанные ноды (существует также специальная нода выхода для материалов типа *World*):
     </p>
 
     <img src="files/shader-nodes-reference-blender/output-nodes.jpg" class="centered" style="max-width: 1000px">
@@ -257,13 +253,13 @@
     <h3>Material Output</h3>
 
     <p>
-    This node provide shading results for the surface point.
+    Данная нода обеспечивает результат затенения поверхности.
     </p>
 
     <img src="files/shader-nodes-reference-blender/output-material-output.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Material Output* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/output/material.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Material Output*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/output/material.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -273,7 +269,7 @@
     <h2>Input Nodes</h2>
 
     <p>
-    These nodes provide various input information to the shader. Among them, the following nodes are used the most in Verge3D workflow:
+    Эти ноды обеспечивают разнообразную вводную информацию для шейдера. Те ноды, которые среди них используются чаще всего в работе с Verge3D, указаны ниже:
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-nodes.jpg" class="centered" style="max-width: 1000px">
@@ -285,13 +281,13 @@
     <h3>Geometry</h3>
 
     <p>
-    This node provides geometrical information (in world space) for the shaded point. At the moment, Verge3D supports only *Position*, *Normal*, *Tangent*, *Incoming* and *Backfacing* sockets.
+    Эта нода обеспечивает геометрическую информацию (в мировом пространстве) для точки затенения. На данный момент Verge3D поддерживает только разъемы *Position*, *Normal*, *Tangent*, *Incoming* и *Backfacing*.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-geometry.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Geometry* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/geometry.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Geometry*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/geometry.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -301,13 +297,13 @@
     <h3>Attribute</h3>
 
     <p>
-    This node retrieves mesh attributes. Only vertex colors are supported by Verge3D at the moment.
+    Данная нода извлекает из меша атрибуты. На данный момент Verge3D поддерживает только атрибут Vertex Color.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-attribute.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Attribute* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/attribute.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Attribute*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/attribute.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -317,13 +313,13 @@
     <h3>Texture Coordinate</h3>
 
     <p>
-    This node provides UV-mapped or procedurely assigned coordinates for texturing. Verge3D takes the first UV layer from the list of UV layers available on the mesh.
+    Данная нода обеспечивает развёртку или процедурно назначенные координаты для текстурирования. Verge3D использует первый слой UV развертки из списка слоёв доступных для меша.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-texture-coordinate.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Texture Coordinate* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/texture_coordinate.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Texture Coordinate*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/texture_coordinate.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -333,13 +329,13 @@
     <h3>UV Map</h3>
 
     <p>
-    This node retrieves the specified UV layer from mesh. Unlike the *Texture Coordinate* node, this node works with any UV layer available on the mesh.
+    Данная нода извлекает определённый слой UV развертки из меша. В отличие от ноды *Texture Coordinate*, она работает с любым слоем UV развёртки доступных для меша.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-uv-map.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *UV Map* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/uv_map.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *UV Map*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/uv_map.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -349,13 +345,13 @@
     <h3>Fresnel</h3>
 
     <p>
-    This node computes the proportion of light reflected vs refracted.
+    Данная нода вычисляет соотношение отражённого и преломлённого света.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-fresnel.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Fresnel* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/fresnel.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Fresnel*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/fresnel.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -365,13 +361,13 @@
     <h3>Layer Weight</h3>
 
     <p>
-    This node provides a mix factor thats depends on the direction upon which the object surface is observed.
+    Данная нода обеспечивает коэффицент смешения, который зависит от направления, в котором наблюдается поверхность объекта.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-layer-weight.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Layer Weight* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/layer_weight.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Layer Weight*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/layer_weight.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -381,13 +377,13 @@
     <h3>RGB</h3>
 
     <p>
-    This node provides a color value to the shader.
+    Данная нода передаёт шейдеру значение цвета.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-rgb.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *RGB* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/rgb.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *RGB*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/rgb.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -397,13 +393,13 @@
     <h3>Value</h3>
 
     <p>
-    This node provides a numeric value to the shader.
+    Данная нода передаёт шейдеру цифровое значение.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-value.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Value* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/value.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Value*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/value.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -413,13 +409,13 @@
     <h3>Camera Data</h3>
 
     <p>
-        This node provides information about objects position relative to the camera.
+    Данная нода передаёт информацию о расположении объекта относительно камеры.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-camera-data.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Camera Data* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/camera_data.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Camera Data*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/camera_data.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -429,16 +425,14 @@
     <h3>Tangent</h3>
 
     <p>
-        This node provides tangent directions. If *Direction Type* is set to
-        "UV Map" then the tangents will be calculated from the mesh's active UV
-        layer rather than from the UV layer specified in the node itself (this
-        parameter is not supported).
+        Данная нода задаёт тангенциальные направления. Если в значении *Direction Type* выставлена
+        "UV Map", то вычисления касательных будет зависеть от активного слоя развертки выбранного меша, а не от слоя развертки указанного в самой ноде (этот параметр не поддерживается).
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-tangent.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Tangent* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/tangent.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Tangent*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/tangent.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -448,13 +442,13 @@
     <h3>Vertex Color</h3>
 
     <p>
-        This node provides vertex color values.
+        Данная нода передаёт значения вертексных цветов.
     </p>
 
     <img src="files/shader-nodes-reference-blender/input-vertex-color.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Vertex Color* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/vertex_color.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Vertex Color*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/vertex_color.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -464,7 +458,7 @@
     <h2>Texture Nodes</h2>
 
     <p>
-    These nodes provide bitmaps to the shader. Among them, the following nodes are used the most in Verge3D workflow:
+    С помощью данных нод в шейдер добавляются растровые изображения. При работе в Verge3D чаще всего используются следующие из них:
     </p>
 
     <img src="files/shader-nodes-reference-blender/texture-nodes.jpg" class="centered" style="max-width: 1000px">
@@ -476,14 +470,14 @@
     <h3>Checker Texture</h3>
 
     <p>
-        This node provides a bitmap with checker patterns.
+        Данная нода предоставляет растровое изображение с шахматным паттерном.
     </p>
 
     <img src="files/shader-nodes-reference-blender/texture-checker-texture.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Checker Texture* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/checker.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Checker Texture*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/checker.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -493,20 +487,20 @@
     <h3>Image Texture</h3>
 
     <p>
-    This node provides an image file to be used as texture in the shader.
+    Данная нода предоставляет файл изображения, для использования в шейдере в качестве текстуры.
     </p>
 
     <img src="files/shader-nodes-reference-blender/texture-image-texture.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: some options are supported partially</br>
-        - interpolation modes: *Linear*, *Closest*</br>
-        - image source: *Single Image*, *Generated*</br>
-        - color space: *Linear*, *sRGB*</br>
+        ПРИМЕЧАНИЕ: некоторые опции поддерживаются частично</br>
+        - режим интерполяции: *Linear*, *Closest*</br>
+        - источник изображения: *Single Image*, *Generated*</br>
+        - цветовое пространство: *Linear*, *sRGB*</br>
     </p>
 
     </p>
-    See more information on the *Image Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/image.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Image Texture*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/image.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -516,13 +510,13 @@
     <h3>Gradient Texture</h3>
 
     <p>
-    This node provides a smoothly changing range of colors and intensities.
+    Данная нода обеспечивает плавно меняющуюся цветовую гамму и её интенсивность.
     </p>
 
     <img src="files/shader-nodes-reference-blender/texture-gradient-texture.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Gradient Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/gradient.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Gradient Texture*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/gradient.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -532,17 +526,17 @@
     <h3>Voronoi Texture</h3>
 
     <p>
-    This node provides a bitmap with Voronoi patterns.
+    Данная нода предоставляет растровое изображение с диаграммой Вороного.
     </p>
 
     <img src="files/shader-nodes-reference-blender/texture-voronoi-texture.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: only *3D* dimension is supported, which also means no support for the *W* input</br>
+        ПРИМЕЧАНИЕ: поддерживается только *3D* измерение, что означает отсутствие поддержки ввода *W*</br>
     </p>
 
     </p>
-    See more information on the *Voronoi Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/voronoi.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Voronoi Texture*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/voronoi.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -552,17 +546,17 @@
     <h3>Noise Texture</h3>
 
     <p>
-    This node provides a bitmap with noise patterns.
+    Данная нода предоставляет растровое изображение с текстурой шумома.
     </p>
 
     <img src="files/shader-nodes-reference-blender/texture-noise-texture.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: only *3D* dimension is supported, which also means no support for the *W* input</br>
+        ПРИМЕЧАНИЕ: поддерживается только *3D* измерение, что означает отсутствие поддержки ввода *W*</br>
     </p>
 
     </p>
-    See more information on the *Noise Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/noise.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Noise Texture*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/noise.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -572,14 +566,14 @@
     <h3>Wave Texture</h3>
 
     <p>
-        This node provides a bitmap with wave patterns.
+        Данная нода предоставляет растровое изображение с волнистым паттерном.
     </p>
 
     <img src="files/shader-nodes-reference-blender/texture-wave-texture.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Wave Texture* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/wave.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Wave Texture*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/wave.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -589,7 +583,7 @@
     <h2>Color Nodes</h2>
 
     <p>
-    These nodes provides various operations on colors. Among them, the following nodes are used the most in Verge3D workflow:
+    Данные ноды обеспечивают разнообразные взаимодействия с цветом. При работе в Verge3D чаще всего используются следующие из них:
     </p>
 
     <img src="files/shader-nodes-reference-blender/color-nodes.jpg" class="centered" style="max-width: 1000px">
@@ -601,14 +595,14 @@
     <h3>Bright/Contrast</h3>
 
     <p>
-        This node is used to change birghtness and contrast of the color input.
+        Данная нода используется для изменения яркости и контраста у цветового входа.
     </p>
 
     <img src="files/shader-nodes-reference-blender/color-bright-contrast.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Bright/Contrast* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/bright_contrast.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Bright/Contrast*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/bright_contrast.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -618,14 +612,14 @@
     <h3>Hue Saturation Value</h3>
 
     <p>
-        This node is used to transform the color input in the HSV space.
+        Данная нода используется для изменения HSV модели цветового входа.
     </p>
 
     <img src="files/shader-nodes-reference-blender/color-hue-saturation-value.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Hue Saturation Value* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/hue_saturation.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Hue Saturation Value*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/hue_saturation.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -635,13 +629,13 @@
     <h3>Mix</h3>
 
     <p>
-    This node mixes two color inputs together using various blending modes.
+    Данная нода смешивает два цветовых входа вместе, используя разнообразные режимы.
     </p>
 
     <img src="files/shader-nodes-reference-blender/color-mix.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Mix* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/mix.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Mix*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/mix.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -651,13 +645,13 @@
     <h3>RGB Curves</h3>
 
     <p>
-    This node is used for color correction and level adjustment.
+    Данная нода используется для коррекции цвета и регулировки уровней.
     </p>
 
     <img src="files/shader-nodes-reference-blender/color-rgb-curves.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *RGB Curves* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/rgb_curves.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *RGB Curves*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/rgb_curves.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -667,13 +661,13 @@
     <h3>Invert</h3>
 
     <p>
-    This node inverts the color input producing a negative.
+    Данная нода инвертирует цветовой вход, создавая негатив.
     </p>
 
     <img src="files/shader-nodes-reference-blender/color-invert.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Invert* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/invert.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Invert*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/invert.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -683,13 +677,13 @@
     <h3>Gamma</h3>
 
     <p>
-    This node applies gamma correction to the color input.
+    Данная нода применяет гамма-коррекцию к цветовому входу.
     </p>
 
     <img src="files/shader-nodes-reference-blender/color-gamma.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Gamma* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/gamma.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Gamma*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/color/gamma.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -699,7 +693,7 @@
     <h2>Vector Nodes</h2>
 
     <p>
-    These nodes provides various operations on vectors. Among them, the following nodes are used the most in Verge3D workflow:
+    Данные ноды обеспечивают разнообразные операции с векторами. При работе в Verge3D чаще всего используются следующие из них:
     </p>
 
     <img src="files/shader-nodes-reference-blender/vector-nodes.jpg" class="centered" style="max-width: 1000px">
@@ -711,14 +705,14 @@
     <h3>Bump</h3>
 
     <p>
-        This node generates a bump map.
+        Данная нода генерирует карту рельефа.
     </p>
 
     <img src="files/shader-nodes-reference-blender/vector-bump.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Bump* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/bump.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Bump*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/bump.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -728,13 +722,13 @@
     <h3>Mapping</h3>
 
     <p>
-    This node is used to transform a bitmap, including shifting, rotation and scale.
+    Данная нода используется для изменения растрового изображения, включая перемещение, вращение и масштабирование.
     </p>
 
     <img src="files/shader-nodes-reference-blender/vector-mapping.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Mapping* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/mapping.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Mapping*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/mapping.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -744,14 +738,14 @@
     <h3>Normal</h3>
 
     <p>
-        This node is used to define a normal vector and to generate a dot product.
+        Данная нода используется для определения вектора нормалей и генерации скалярного произведения.
     </p>
 
     <img src="files/shader-nodes-reference-blender/vector-normal.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-        See more information on the *Normal* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/normal.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Normal*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/normal.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -761,17 +755,17 @@
     <h3>Normal Map</h3>
 
     <p>
-    This node provides the normal vector from a bitmap interpreted as normal map.
+    Данная нода определяет направление нормаей из растрового изображения, интерпретируемого как карта нормалей.
     </p>
 
     <img src="files/shader-nodes-reference-blender/vector-normal-map.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: only *Tangent Space* is supported</br>
+        ПРИМЕЧАНИЕ: поддерживается только *Tangent Space*</br>
     </p>
 
     </p>
-    See more information on the *Normal Map* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/normal_map.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Normal Map*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/normal_map.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -781,13 +775,13 @@
     <h3>Vector Curves</h3>
 
     <p>
-        This node is used to map the input vector to a curve.
+        Данная нода используется для отображения входного вектора в виде кривой.
     </p>
 
     <img src="files/shader-nodes-reference-blender/vector-curves.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-        See more information on the *Vector Curves* node in Blender Manual:
+    Чтобы узнать больше информации о ноде *Normal Map*, ознакомьтесь с руководством Blender, пройдя по следующей 
         <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/curves.html" target="_blank">link</a>.
     </p>
 
@@ -798,14 +792,14 @@
     <h3>Vector Rotate</h3>
 
     <p>
-        This node is used for rotating the input vector around a pivot point.
+        Данная нода используется для вращения входного вектора вокруг точки опоры.
     </p>
 
     <img src="files/shader-nodes-reference-blender/vector-rotate.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-        See more information on the *Vector Rotate* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/vector_rotate.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Vector Rotate*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/vector_rotate.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -815,13 +809,13 @@
     <h3>Vector Transform</h3>
 
     <p>
-    This node is used to convert an input vector between world, camera or object coordinate spaces.
+    Данная нода используется для преобразования входного вектора между пространствами координат мира, камеры или объекта.
     </p>
 
     <img src="files/shader-nodes-reference-blender/vector-transform.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Vector Transform* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/transform.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Vector Transform*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/vector/transform.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -831,7 +825,7 @@
     <h2>Converter Nodes</h2>
 
     <p>
-    These nodes provides means for converting between data of various types. Among them, the following nodes are used the most in Verge3D workflow:
+    Данные ноды предоставляют данные для преобразования между различными типами. При работе в Verge3D чаще всего используются следующие из них:
     </p>
 
     <img src="files/shader-nodes-reference-blender/converter-nodes.jpg" class="centered" style="max-width: 1000px">
@@ -843,18 +837,17 @@
     <h3>Clamp</h3>
 
     <p>
-        This node clamps the input value to be in the specified range.
+        Данная нода фиксирует входное значение в указанном диапазоне.
     </p>
 
     <img src="files/shader-nodes-reference-blender/converter-clamp.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: only *Min Max* clamp type is supported</br>
+        ПРИМЕЧАНИЕ: поддерживается только тип фиксации *Min Max*</br>
     </p>
 
     <p>
-        See more information on the *Clamp* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/clamp.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Clamp*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/clamp.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -864,19 +857,19 @@
     <h3>Color Ramp</h3>
 
     <p>
-    This node converts values to colors by using a gradient.
+    Данная нода преобразует значения в цвета, используя градиент.
     </p>
 
     <img src="files/shader-nodes-reference-blender/converter-color-ramp.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: some options are supported partially</br>
-        - color mode: only *RGB* is supported</br>
-        - interpolation: *Linear*, *Constant*</br>
+        ПРИМЕЧАНИЕ: некоторые настройки поддерживаются частично</br>
+        - цветовой режим: поддерживается только *RGB*</br>
+        - интерполяция: *Linear*, *Constant*</br>
     </p>
 
     </p>
-    See more information on the *Color Ramp* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/color_ramp.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Color Ramp*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/color_ramp.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -886,18 +879,18 @@
     <h3>Map Range</h3>
 
     <p>
-        This node is used to transform a value from one range to another.
+        Данная нода используется для изменения значения из одного диапазона в другой.
     </p>
 
     <img src="files/shader-nodes-reference-blender/converter-map-range.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: only *Linear* interpolation is supported</br>
+        ПРИМЕЧАНИЕ: поддерживается только *Linear* интерполяция</br>
     </p>
 
     <p>
-        See more information on the *Map Range* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/map_range.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Map Range*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/map_range.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -907,13 +900,13 @@
     <h3>Shader to RGB</h3>
 
     <p>
-    This node replaces shading calculation results with plain color. Typically used for non-photorealistic rendering.
+    Данная нода заменяет шейдерные вычисления простым цветом. Обычно используется для нефотореалистичного рендеринга.
     </p>
 
     <img src="files/shader-nodes-reference-blender/converter-shader-to-rgb.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Shader to RGB* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/shader_to_rgb.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Shader to RGB*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/shader_to_rgb.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -923,13 +916,13 @@
     <h3>RGB to BW</h3>
 
     <p>
-    This node converts color to black and white imagery by using luminance.
+    Данная нода преобразует цвет в чёрно-белое изображения, используя яркость.
     </p>
 
     <img src="files/shader-nodes-reference-blender/converter-rgb-to-bw.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *RGB to BW* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/rgb_to_bw.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *RGB to BW*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/rgb_to_bw.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -939,7 +932,7 @@
     <h3>Math</h3>
 
     <p>
-    This node performs mathematical operations with numeric values:
+    Данная нода предоставляет математические вычисления с цифровыми значениями:
     </p>
 
     <ul>
@@ -968,7 +961,7 @@
     <img src="files/shader-nodes-reference-blender/converter-math.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Math* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/math.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Math*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/math.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -978,7 +971,7 @@
     <h3>Vector Math</h3>
 
     <p>
-    This node performs operations with vectors:
+    Данная нода выполняет операции с векторами:
     </p>
 
     <ul>
@@ -1003,7 +996,7 @@
     <img src="files/shader-nodes-reference-blender/converter-vector-math.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Vector Math* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/vector_math.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Vector Math*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/vector_math.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -1013,13 +1006,13 @@
     <h3>Combine/Separate Nodes</h3>
 
     <p>
-    These nodes compose a color/vector from, or split it to, the individual channels.
+    Данные ноды объединяют цвет/вектор из отдельных каналов или разделяют их на отдельные каналы.
     </p>
 
     <img src="files/shader-nodes-reference-blender/converter-combine-separate-nodes.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Combine* and *Separate* nodes in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/combine_separate.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о нодах *Combine* и *Separate Nodes*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/converter/combine_separate.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -1043,13 +1036,13 @@
     <h3>Background</h3>
 
     <p>
-    This node is used for setting up the background color, as well as for image-based lighting and reflections. It is rarely used on its own as it would produce just a solid color. You might combine with an <a href="manual/ru/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a> for best results.
+    Данная нода используется для настройки фонового цвета, а также для освещения и отражений на основе изображения. Она редко используется сама по себе, потому что обеспечиват только монотонный цвет. Вы можете сочетать её с <a href="manual/ru/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a> для наилучшего результата.
     </p>
 
     <img src="files/shader-nodes-reference-blender/world-background.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Background* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/background.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Background*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/shader/background.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -1059,13 +1052,13 @@
     <h3>World Output</h3>
 
     <p>
-    This node is the end point of *World* materials. It represents shading results for the environment.
+    Данная нода является конечной точкой материалов типа *World*. Она представляет результаты затенения окружения.
     </p>
 
     <img src="files/shader-nodes-reference-blender/world-output.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *World Output* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/output/world.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *World Output*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/output/world.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -1075,30 +1068,30 @@
     <h3>Environment Texture</h3>
 
     <p>
-    This node provides an image file to be used as environment texture in the shader. The images must be in equirectangular projection, and should typically be HDR, although JPEG or PNG formats can be used as well.
+    Данная нода предоставляет файл изображения, который будет использован в шейдере в качестве текстуры среды. Изображения должны быть равноугольной проекцией и, как правило, HDR формата, хотя форматы JPEG и PNG также можно использовать.
     </p>
 
     <p class="note">
-    The default cube template includes an HDR image which you may reuse in your projects.
+    Шаблон *default cube* уже содержит в себе HDR изображение, которое вы можете использовать в своих проектах.
     </p>
 
     <img src="files/shader-nodes-reference-blender/world-environment.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: some options are supported partially</br>
-        - interpolation mode: *Linear*, *Closest*</br>
-        - image source: *Single Image*, *Generated*</br>
-        - color space: *Linear*, *sRGB*</br>
+        ПРИМЕЧАНИЕ: некоторые опции поддерживаются частично</br>
+        - режим интерполяции: *Linear*, *Closest*</br>
+        - источник изображения: *Single Image*, *Generated*</br>
+        - цветовое пространство: *Linear*, *sRGB*</br>
     </p>
 
     <p>
-    In the following example, a JPEG image is used to provide image-based lighting, reflections and the background, all at once.
+    На примере, указанном ниже, изображение формата JPEG одновременно обеспечивает освещение, отражения и фон на основе изображения.
     </p>
 
     <img src="files/shader-nodes-reference-blender/world-environment-example.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Environment Texture* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/environment.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Environment Texture*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/environment.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -1108,20 +1101,20 @@
     <h3>Light Path</h3>
 
     <p>
-    This node provides various information of Boolean type to the shader. The *Is Camera Ray* output is supported by Verge3D with the purpose to control whether the <a href="manual/ru/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a> is visible in the background.
+    Данная нода предоставляет шейдеру различную информацию логического типа. Для того, чтобы контролировать видимость <a href="manual/ru/blender/Shader-Nodes-Reference.html#Environment_Texture">environment texture</a> на фоне, в Verge3D поддерживается выход *Is Camera Ray*.
     </p>
 
     <img src="files/shader-nodes-reference-blender/world-light-path.jpg" class="centered" style="max-width: 1000px">
 
 
     <p>
-    The following typical setup is used to provide environment lighting and reflections to the scene yet just render a white solid color in the background:
+    Следующая типичная настройка используется для обеспечения освещения окружающей среды и отражений сцены, но при этом просто отображает белый сплошной цвет на заднем плане:
     </p>
 
     <img src="files/shader-nodes-reference-blender/world-specific-nodes-example.jpg" class="centered" style="max-width: 1000px">
 
     </p>
-    See more information on the *Light Path* node in Blender Manual: <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/light_path.html" target="_blank">link</a>.
+    Чтобы узнать больше информации о ноде *Light Path*, ознакомьтесь с руководством Blender, пройдя по следующей <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/input/light_path.html" target="_blank">ссылке</a>.
     </p>
 
 
@@ -1131,62 +1124,62 @@
     <h3>Sky Texture</h3>
 
     <p>
-        This node provides a procedurally generated skydome texture.
+        Данная нода предоставляет процедурно сгенерированную текстуру небосвода.
     </p>
 
     <img src="files/shader-nodes-reference-blender/world-sky-texture.jpg" class="centered" style="max-width: 1000px">
 
     <p class="note">
-        NOTE: this node is Cycles-only and doesn't work with the Eevee renderer
+        ПРИМЕЧАНИЕ: данная нода поддерживается только в Cycles и не работает с движком Eevee.
     </p>
 
     <p>
-        See more information on the *Sky Texture* node in Blender Manual:
-        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/sky.html" target="_blank">link</a>.
+        Чтобы узнать больше информации о ноде *Sky Texture*, ознакомьтесь с руководством Blender, пройдя по следующей
+        <a href="https://docs.blender.org/manual/ru/latest/render/shader_nodes/textures/sky.html" target="_blank">ссылке</a>.
     </p>
 
 
 
     [anchor:performance_considerations]
 
-    <h2>Performance Considerations</h2>
+    <h2>Оптимизация Производительности</h2>
 
     [anchor:principled_bsdf_performance]
 
-    <h3>Principled BSDF Performance</h3>
+    <h3>Оптимизация Principled BSDF</h3>
 
-    <p>Being the most frequently used node, *Principled BSDF* nevertheless require more computing power from your GPU and slows down application loading. This is especially true if you have lots of such materials in your scene.</p>
+    <p>Несмотря на то, что *Principled BSDF* является наиболее часто используемой нодой, она требует большое количество вычислительной мощности вашего графического процессора и замедляет загрузку приложений. Это становится особенно актуально, когда в вашей сцене много материалов созданных на основе *Principled BSDF*</p>
 
-    <p>There are several ways to optimize Principled-based materials:</p>
+    <p>Есть несколько способов оптимизировать материалы основанные на *Principled BSDF*:</p>
 
     <ul>
-      <li>Replace *Principled BSDF* by *Diffuse BSDF* for non-specular or non-metallic surfaces.</li>
-      <li>Replace *Principled BSDF* by *Glossy BSDF* for pure metallic materials.</li>
-      <li>Replace *Principled BSDF* by *Emission* if you render color-only materials.</li>
-      <li>Tweak <a href="manual/ru/blender/Lighting-and-Rendering.html#global_rendering_properties">Cubemap Size</a> or <a href="manual/ru/blender/Lighting-and-Rendering.html#global_rendering_properties">IBL Environment Mode</a> property to improve environment lighting performance.</li>
-      <li>Switch to <a href="manual/ru/blender/GLTF-Materials.html">glTF 2.0 model</a>.</li>
+      <li>Замените *Principled BSDF* на *Diffuse BSDF* для матовых, неметаллических поверхностей.</li>
+      <li>Замените *Principled BSDF* на *Glossy BSDF* для металлических материалов.</li>
+      <li>Замените *Principled BSDF* на *Emission* если вы визуализируете материалы, в которых важен только цвет.</li>
+      <li>Настройте свойства <a href="manual/ru/blender/Lighting-and-Rendering.html#global_rendering_properties">Cubemap Size</a> или <a href="manual/ru/blender/Lighting-and-Rendering.html#global_rendering_properties">IBL Environment Mode</a> для улучшения характеристик освещения окружающей среды.</li>
+      <li>Пересоберите шейдер в совместимый с <a href="manual/ru/blender/GLTF-Materials.html">glTF 2.0 model</a>.</li>
     </ul>
 
-    <p class="note">Keep in mind, that the last two methods will make your materials look differently compared to Blender viewport.</a></p>
+    <p class="note">Имейте в виду, что последние два метода приведут к тому, что ваши материалы будут выглядеть по-другому по сравнению с окном просмотра Blender.</a></p>
 
 
     [anchor:slow_procedural_textures]
 
-    <h3>Slow Procedural Textures</h3>
+    <h3>Медленные Процедурные Текстуры</h3>
 
     <p>There are procedural textures that have reduced performance:</p>
 
     <ul>
-      <li>*Noise Texture*, especially with high *Detail* property (16 is the performance killer).</li>
-      <li>*Voronoi Texture*. Use *F1* as feature parameter as it works much better than any other.</li>
+      <li>*Noise Texture*, особенно с высоким значеним *Detail* (16 приведёт к сбою в производительности).</li>
+      <li>*Voronoi Texture* используйте параметр *F1*, так как он работает намного лучше, чем любой другой.</li>
     </ul>
 
-    <p>You can bake these textures to bitmaps and use the *Image Texture* node to achieve much better results.</p>
+    <p>Вы можете запечь данные текстуры в растровые изображения и использовать ноду *Image Texture*, чтобы достигнуть лучшей производительности.</p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
 
   </article></body>
