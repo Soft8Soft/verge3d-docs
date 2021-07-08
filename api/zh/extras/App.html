@@ -2,8 +2,8 @@
 <html lang="zh">
   <head>
     <meta charset="utf-8" />
-    <title>App - Verge3D User Manual - Soft8Soft</title>
-    <meta name="description" content="App is the main class to create and manage your Verge3D applications using JavaScript."/>
+    <title>App - Verge3D 用户手册 - Soft8Soft</title>
+    <meta name="description" content="App是使用JavaScript创建和管理3D应用程序的主类。"/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
@@ -14,12 +14,10 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      App class allows you to set up your 3D application more easily. It
-      includes code to init WebGL renderer, load glTF scenes, auto-start
-      animations as well as logic for basic camera controls.
+    App类可以更轻松地设置3D应用程序。它包括初始化WebGL渲染器的代码、加载glTF场景、自动播放动画以及基本相机控制器的逻辑。
     </p>
 
-    <h2>Example</h2>
+    <h2>示例</h2>
 
     <code>
     // loaded GLTF 2.0 asset
@@ -40,57 +38,62 @@
     }
     </code>
 
-    <h2>Constructor</h2>
+    <h2>构造函数</h2>
 
     <h3>[name](container, ctxSettings, preloader)</h3>
     <p>
-      container - the id of an HTML-element or the HTML-element itself to contain the canvas.<br />
-      ctxSettings - the WebGL context attributes to be passed in the <strong>canvas.getContext()</strong> method.<br />
-      preloader - the instance of application's [page:Preloader Preloader] class.<br />
+      container - html元素的id或包含画布的html元素本身。
+      <br />
+      ctxSettings - 在<strong>canvas.getContext()</strong>方法中传递的WebGL上下文属性。
+      <br />
+      preloader - 应用程序[page:Preloader Preloader]类的实例。
+      <br />
     </p>
 
-    <p>This constructor does the following:</p>
+    <p>这个构造函数做以下工作:</p>
 
     <ol>
-      <li>Creates a new container element (if necessary).</li>
-      <li>Checks whether WebGL technology is supported, if not displays an error dialog.</li>
-      <li>Initializes an application clock.</li>
-      <li>Creates a new 3D canvas with WebGL 1.0 or WebGL 2.0 context and adds it to the container element.</li>
-      <li>Initializes a GLTF loader.</li>
-      <li>Adds an app instance to <strong>v3d.apps</strong> list (in case of non-modularized engine).</li>
+      <li>创建一个新的容器元素(如果需要的话)。</li>
+      <li>检查是否支持WebGL技术，如果不支持则显示错误对话框。</li>
+      <li>初始化应用程序时钟。</li>
+      <li>创建一个带有WebGL 1.0或WebGL 2.0上下文的新3D画布，并将其添加到容器元素中。</li>
+      <li>初始化一个GLTF加载器。</li>
+      <li>添加一个应用程序实例到<strong>v3d.apps</strong>列表(在非模块化引擎的情况下)。</li>
     </ol>
 
-    <h2>Properties</h2>
+    <h2>属性</h2>
 
     <h3>[property:Array actions]</h3>
 
-    <p>Array of [page:AnimationAction animation actions] used to schedule app animations. Instead of accessing this list directly you can also use the [page:SceneUtils.getAnimationActionByName getAnimationActionByName] method to search for an action by its clip name.</p>
+    <p>用于调度应用程序动画的[page:AnimationAction animation actions]数组。除了直接访问这个列表，你还可以使用[page:SceneUtils.getAnimationActionByName getAnimationActionByName]方法根据剪辑名来搜索一个动作。</p>
 
     <h3>[property:Boolean clearBkgOnLoad]</h3>
 
-    <p>Set the scene background to *null* after loading a glTF scene. Default is *false*.</p>
+    <p>加载glTF场景后，设置场景背景为*null*。默认*false*。
+
+    </p>
 
     <h3>[property:HTMLElement container]</h3>
 
-    <p>A container element. This is a parent element for 3D Canvas used for rendering operations.</p>
+    <p>一个容器元素。这是用于渲染操作的3D画布的父元素。</p>
 
     <h3>[property:Scene scene]</h3>
 
-    <p>Application main scene.</p>
+    <p>应用程序的主场景。</p>
 
     <h3>[property:Camera camera]</h3>
 
-    <p>Application main camera.</p>
+    <p>应用程序的主相机。</p>
 
     <h3>[property:Clock clock]</h3>
 
-    <p>Application clock object.</p>
+    <p>应用程序的时钟对象。</p>
 
     <h3>[property:Array compileCallbacks]</h3>
 
-    <p>Array of functions which will be called just before shader compilation. Shader compilation occurs during scene loading right after all assets (glTF metadata, binary, textures) has been fetched.</p>
+    <p>在着色器编译之前将被调用的函数数组。着色器编译发生在场景加载所有资产(glTF元数据，二进制，纹理)被获取之后。</p>
 
-    <p>Use compile callback to enable post-processing or add fog, since adding these effects in runtime can negatively affect performance.</p>
+    <p>使用编译回调来启用后期处理或添加雾，因为在运行时添加这些效果会对性能产生负面影响。</p>
 
     <code>
 
@@ -118,238 +121,208 @@
 
     <h3>[property:null controls]</h3>
 
-    <p>Application main camera controls object.</p>
+    <p>应用程序主相机控制器物体。</p>
 
     <h3>[property:Number frame]</h3>
 
-    <p>Current rendering frame of the application.</p>
+    <p>应用程序的当前渲染帧。</p>
 
     <h3>[property:Number frameRateDivider]</h3>
 
-    <p>Application FPS divider. Use [page:.setFrameRateDivider setFrameDivider] to set this value.</p>
+    <p>应用程序FPS除数。 使用[page:.setFrameRateDivider setFrameDivider] 设置该值。</p>
 
     <h3>[property:AnimationMixer mixer]</h3>
 
-    <p>Mixer used to play animations loaded from glTF data.</p>
+    <p>混合器用于播放从glTF数据加载的动画。</p>
 
     <h3>[property:HTMLElement preloader]</h3>
 
-    <p>App preloader element (exists only during scene loading)</p>
+    <p>App preloader元素(仅在场景加载时存在)</p>
 
     <h3>[property:WebGLRenderer renderer]</h3>
 
-    <p>Application WebGL renderer.</p>
+    <p>应用程序WebGL渲染器。</p>
 
     <h3>[property:Array renderCallbacks]</h3>
 
-    <p>Array of functions which will be called every time when rendering begins.</p>
+    <p>每次渲染开始时将被调用的函数数组。</p>
 
     <h3>[property:GLTFLoader loader]</h3>
 
-    <p>Application glTF loader.</p>
+    <p>应用程序 glTF 加载器。</p>
 
     <h3>[property:Number worldCubemapRes]</h3>
 
-    <p>Resolution of the cubemap texture representing the world material. Default is 1024.</p>
+    <p>表示世界材质的立方体贴图纹理的分辨率。默认是1024。</p>
 
     <h3>[property:Material worldMaterial]</h3>
 
     <p>
-        <span style="color:#f00">Deprecated.</span> Use [page:Scene.worldMaterial]
-        instead. This is the material used to generate world environment.
+        <span style="color:#f00">已弃用。</span> 使用 [page:Scene.worldMaterial]
+        代替。 该材质用于生成世界环境。
     </p>
 
     <h3>[property:Array xrControllers]</h3>
 
-    <p>Array of controller objects for the active WebXR session.</p>
+    <p>活动WebXR会话的控制器对象数组。</p>
 
     <h3>[property:XRSession xrSession]</h3>
 
-    <p>Active WebXR session.</p>
+    <p>活动 WebXR 会话。</p>
 
 
 
-    <h2>Methods</h2>
+    <h2>方法</h2>
 
     <h3>[method:null animate]()</h3>
     <p>
-      Handler for scene updates: rendering, animations and camera controls. Do not change unless you know what you are doing.
+      场景更新处理程序:渲染，动画和相机控制。不要改变，除非你知道你在做什么。
     </p>
 
     <h3>[method:null appendScene](url, loadCb, progressCb, errorCb, loadCameras, loadLights)</h3>
     <p>
-      Append the scene from the specified glTF file to the current scene. The loadCb
-      callback will receive the loaded scene as a parameter after the loading is finished.<br/><br/>
-      If there is no active scene in the application, then nothing will be appended.<br/><br/>
-
-      Such parameters as *loadCameras* and *loadLights* are used to specify if
-      cameras and lights will be appended from the loaded scene. Both parameters
-      are *true* by default.
+      将指定glTF文件中的场景附加到当前场景。loadCb回调将在加载完成后作为参数接收加载的场景。<br/><br/>
+      如果应用程序中没有活动场景，则不会添加任何内容。<br/><br/>
+      *loadCameras*和*loadLights*等参数用于指定相机和灯光是否会从加载的场景中附加。默认情况下，两个参数都为*true*。
     </p>
 
     <h3>[method:null cleanup]()</h3>
     <p>
-      <span style="color:#f00">Deprecated.</span> Use [page:.dispose dispose]
-      or [page:.unload unload] instead.
+      <span style="color:#f00">已弃用。</span> 使用 [page:.dispose dispose]
+      或 [page:.unload unload] 代替。
     </p>
 
     <h3>[method:null disablePostprocessing](keepOutline)</h3>
     <p>
-      Disable all post-processing effects (except outline when keepOutline=true).
+      禁用所有后期处理效果(当keepOutline=true时，outline除外)。
     </p>
 
     <h3>[method:null disableRendering](after)</h3>
     <p>
-      Disable graphics updates in the animation loop after the given amount of frames (specify 0 to disable immediately). The controls and the animation mixer will keep being updated and the render callbacks will keep being called.
+      在给定帧数后禁用动画循环中的图形更新(指定0立即禁用)。控制器和动画混合器将不断更新，渲染回调将不断被调用。
     </p>
 
     <h3>[method:null disableSSAA]()</h3>
     <p>
-      Disable supersample anti-aliasing.
+      禁用超级采样抗锯齿。
     </p>
 
     <h3>[method:null dispose]()</h3>
     <p>
-      Unloads the scene (by calling [page:.unload unload]) and disposes the
-      whole application, which includes cleaning up the application's
-      [page:WebGLRenderer renderer] and removing the canvas element from the DOM.<br/><br/>
-
-      The application is no longer usable after disposing. This approach is best
-      suited for cases where the complete clean up is needed.
+      卸载场景(通过调用[page:.unload unload])并处理整个应用程序，包括清理应用程序的[page:WebGLRenderer renderer]和从DOM中删除canvas元素。<br/><br/>
+      处理后应用程序不再可用。这种方法最适合于需要彻底清理的情况。
     </p>
 
     <h3>[method:null enableControls]()</h3>
     <p>
-      Enable controls for the main app camera. Depending on the control type specified for the camera this method will give you  'ORBIT', 'FLYING' or static camera.
+      启用应用程序主相机的控制。根据为相机指定的控制类型，这个方法将提供“轨道”，“飞行”或静态相机。
     </p>
 
     <h3>[method:null enablePostprocessing](effects)</h3>
     <p>
-      Enable the given post-processing effects.
+      启用给定的后处理效果。
     </p>
 
     <h3>[method:null enableRendering]()</h3>
     <p>
-      Enable graphics updates in the animation loop.
+      在动画循环中启用图形更新。
     </p>
 
     <h3>[method:null enableSSAA](sampleLevel, iterative)</h3>
     <p>
-      Enable supersample anti-aliasing. The number of samples is calculated as 2^sampleLevel (e.g specify 4 to enable 16x SSAA).
+      开启超级采样抗锯齿。采样的数量计算为2^采样级别(例如指定4以启用16x SSAA)。
     </p>
 
     <h3>[method:Camera getCamera]()</h3>
     <p>
-      Returns main app camera.
+      返回应用程序的主相机。
     </p>
 
     <h3>[method:number getHeight]()</h3>
     <p>
-      Return calculated container element height.
+      返回计算的容器元素高度。
     </p>
 
     <h3>[method:number getWidth]()</h3>
     <p>
-      Return calculated container element width.
+      返回计算的容器元素宽度。
     </p>
 
     <h3>[method:null initPostprocessing]()</h3>
     <p>
-      Handler for app post-processing initialization. Do not change unless you know what you are doing.
+      应用程序后处理初始化的处理程序。除非你知道你在做什么，否则不要改变。
     </p>
 
     <h3>[method:null hideFPS]()</h3>
     <p>
-      Hide frame rate counter.
+      隐藏帧率计数器。
     </p>
 
     <h3>[method:null load](url, loadOkCb, loadErrorCb, autoStart)</h3>
     <p>
-      <span style="color:#f00">Deprecated.</span> Use [page:.loadScene loadScene]
-      instead.<br/><br/>
-      Load the glTF scene. The loadOkCb callback will receive the loaded scene as
-      a parameter after the loading is finished.<br/><br/>
-
-      If there already is an active scene (e.g. loaded before via the [page:.load load]
-      method), then use [page:.unload unload] first to avoid conflicts between the
-      existed scene and the loaded one.
+      <span style="color:#f00">已弃用。</span> 使用 [page:.loadScene loadScene]
+      代替。<br/><br/>
+      加载glTF场景。加载完成后，loadOkCb回调将接收加载的场景作为参数。<br/><br/>
+      如果已经有一个活动场景（例如，通过[page:.load load]方法在加载之前加载），则先使用[page:.unload unload]以避免现有场景与加载的场景之间发生冲突。
     </p>
 
     <h3>[method:null loadScene](url, loadCb, progressCb, errorCb)</h3>
     <p>
-      Load the glTF scene. The loadCb callback will receive the loaded scene as
-      a parameter after the loading is finished.<br/><br/>
-
-      If there already is an active scene (e.g. loaded before via the
-      [page:.loadScene loadScene] method), then use [page:.unload unload] first to
-      avoid conflicts between the existed scene and the loaded one.
+      加载glTF场景。加载完成后，loadOkCb回调将接收加载的场景作为参数。<br/><br/>
+      如果已经有一个活动场景（例如，通过[page:.load load]方法在加载之前加载），则先使用[page:.unload unload]以避免现有场景与加载的场景之间发生冲突。
     </p>
 
     <h3>[method:null onResize]()</h3>
     <p>
-      Handler for canvas resize event. Do not change unless you know what you are doing.
+      画布调整大小事件的处理程序。除非你知道你在做什么，否则不要改变。
     </p>
 
     <h3>[method:null printPerformanceInfo](delta)</h3>
     <p>
-      Estimate and print out rendering performance profile. delta is an optional period of estimation (default 1).
+      评估并打印渲染性能概要文件。Delta是一个可选的评估周期(默认为1)。
     </p>
 
     <h3>[method:null render]()</h3>
     <p>
-      Handler for scene rendering. Do not change unless you know what you are doing.
+      场景渲染处理程序。除非你知道你在做什么，否则不要改变。
     </p>
 
     <h3>[method:null run]()</h3>
     <p>
-      Starts the application by removing the preloader and starting the
-      rendering cycle.
+      通过移除预加载程序并开始渲染循环来启动应用程序。
     </p>
 
     <h3>[method:null setFrameRateDivider]([param:Integer divider])</h3>
     <p>
-      Lowers the maximum frame by dividing it by a specified integer number. By default the engine tries to render scenes at 60 frames per second. If the divider is set to 2, for example, the FPS will be topped out to 30.
+      通过将最大帧除以指定的整数来降低最大帧。默认情况下，引擎尝试以每秒60帧的速度渲染场景。例如，如果除数设置为2,FPS最高会达到30。
     </p>
 
     <h3>[method:null showFPS]()</h3>
     <p>
-      Show frame rate counter.
+      显示帧率计数器。
     </p>
 
     <h3>[method:null unload]([page:Object3D rootObj])</h3>
     <p>
-      [page:Object3D rootObj] -- (optional) an object to unload along with its
-      children; if no object is given or the given object is the main application
-      scene then the method performs full scene cleanup.<br/><br/>
+      [page:Object3D rootObj] -- （可选） 要和子物体一起卸载的物体；如果没有给定物体或给定物体是主应用程序场景，则该方法将执行完全场景清理。<br/><br/>
 
-      Unloads either a part or the whole scene depending on the parameters.<br/><br/>
+      根据参数，卸载部分或整个场景。<br/><br/>
 
-      If the given *rootObj* is one of the scene objects, then this method removes
-      the given object and its descendants from the scene and also frees the
-      related resources (geometries, materials, textures, etc...). If the given
-      *rootObj* is the scene instance itself, then this method performs full
-      scene cleanup, which includes disposing all objects, the scene's environment,
-      cameras and camera controls, animations, postprocessing, internal webgl
-      objects, etc...<br/><br/>
+      如果给定的*rootObj*是场景物体之一，则此方法将从场景中移除给定物体及其子物体，并释放相关资源（几何体、材质、纹理等）。如果给定的*rootObj*是场景实例本身，则该方法执行完整的场景清理，包括处理所有物体、场景环境、摄影机和摄影机控制器、动画、后处理、内部webgl对象等。。。<br/><br/>
 
-      After the application's scene was fully unloaded the [page:.loadScene loadScene]
-      method can be used to load a completely new scene. This approach is best
-      suited for loading/unloading multiple scenes without disposing the
-      whole application.
+      完全卸载应用程序的场景后，可以使用loadScene方法加载一个全新的场景。这种方法最适合在不处理整个应用程序的情况下加载/卸载多个场景。
     </p>
 
     <h3>[method:null updateEnvironment]([page:Material wMat])</h3>
     <p>
-      Update world environment from the specified material. Such material is
-      usually stored in the [page:Scene.worldMaterial] property.
+      从指定的材质更新世界环境。此类材质通常存储在[page:Scene.worldMaterial]属性中。
     </p>
 
     <h3>[method:null updateEnvMapProbes]([page:Object3D object3d])</h3>
     <p>
-      object3d - an object or a scene for searching probe objects among its descendants<br/><br/>
+      object3d - 在其子物体中搜寻探测对象的物体或场景<br/><br/>
 
-      Update all [page:CubeReflectionProbe] objects that are descendants of the
-      given *object3d* object.
+      更新给定*object3d*对象子物体的所有[page:CubeReflectionProbe]对象。
     </p>
 
 

@@ -12,12 +12,11 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A light probe that applies environment IBL to objects located inside its
-      volume of influence. Used for adding local IBL to a scene.
+      将环境 IBL（基于环境照明） 应用于位于其影响体积内的物体的光探头。用于将本地 IBL 添加到场景中。
     </p>
 
 
-    <h2>Code Example</h2>
+    <h2>代码示例</h2>
 
     <code>
     const probe = new v3d.CubeReflectionProbe();
@@ -26,171 +25,131 @@
     </code>
 
 
-    <h2>Constructor</h2>
+    <h2>构造函数</h2>
 
     <h3>[name]([param:Integer size])</h3>
     <p>
-      size - (optional) texture size. Default is 256.<br/><br/>
+      size - （可选）纹理大小。默认值为 256。<br/><br/>
 
-      Creates a new [name].
+      创建新的 [name]。
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>属性</h2>
 
-    <p>See the base [page:Object3D Object3D] class for common properties.</p>
+    <p>通用属性查看 [page:Object3D Object3D] 基类。</p>
 
 
     <h3>[property:Float influenceDistance]</h3>
     <p>
-      Controls how big the sphere/box of influence is. This parameter defines a
-      sphere radius if [page:.influenceType influenceType] equals
-      [page:Lights v3d.ReflectionProbeTypeSphere] and half the cube edge size
-      if [page:.influenceType influenceType] equals [page:Lights v3d.ReflectionProbeTypeBox].
-      The influence volume is used for testing which objects are affected by the
-      probe (simply those contained inside the volume). Default is 1.<br/><br/>
+      控制影响范围（球或框）的大小。如果[page:.influenceType influenceType]等于 [page:Lights v3d.ReflectionProbeTypeSphere]，则此参数定义球体半径，如果[page:.influenceType influenceType]等于 [page:Lights v3d.ReflectionProbeTypeBox]，则定义立方体边缘大小的一半。影响体积用于测试哪些对象受到探针的影响（简单地说是那些包含在体积内的物体）。默认值为 1。<br/><br/>
 
-      It's recommended to keep this value and [page:.parallaxDistance] the same for
-      more consistent results.
+
+      建议保持此值和 [page:.parallaxDistance] 相同以获得更一致的结果。
     </p>
 
     <h3>[property:Constant influenceType]</h3>
     <p>
-      Defines the type of the influence volume. Can be [page:Lights v3d.ReflectionProbeTypeInfinite]
-      (used for the [page:Scene.worldEnvMapProbe] probe object), [page:Lights v3d.ReflectionProbeTypeSphere]
-      or [page:Lights v3d.ReflectionProbeTypeBox]. The influence volume is used
-      for testing which objects are affected by the probe (simply those contained
-      inside the volume). Default is [page:Lights v3d.ReflectionProbeTypeSphere].<br/><br/>
+      定义影响体积的类型。可以是[page:Lights v3d.ReflectionProbeTypeInfinite]（用于 [page:Scene.worldEnvMapProbe] 探头物体）、[page:Lights v3d.ReflectionProbeTypeSphere] 或 [page:Lights v3d.ReflectionProbeTypeBox]。影响体积用于测试哪些对象受到探针的影响（简单地说是那些包含在体积内的对象）。默认为 [page:Lights v3d.ReflectionProbeTypeSphere]。<br/><br/>
 
-      It's recommended to keep this value and [page:.parallaxType] the same for
-      more consistent results.
+      建议保持此值和 [page:.parallaxDistance] 相同以获得更一致的结果。
     </p>
 
     <h3>[property:Matrix4 matrixWorldInverse]</h3>
     <p>
-      The inverse of [page:Object3D.matrixWorld matrixWorld].
+      [page:Object3D.matrixWorld matrixWorld]的逆矩阵。
     </p>
 
     <h3>[property:Float parallaxDistance]</h3>
     <p>
-      Controls how big the sphere/box for the parallax effect is. This parameter
-      defines a sphere radius if [page:.parallaxType parallaxType] equals
-      [page:Lights v3d.ReflectionProbeTypeSphere] and half the cube edge size if
-      [page:.parallaxType parallaxType] equals [page:Lights v3d.ReflectionProbeTypeBox].
-      The parallax volume is used for calculating the parallax effect. Default is 1.<br/><br/>
+      控制视差效果的球体/框有多大。如果 [page:.parallaxType parallaxType] 等于 [page:Lights v3d.ReflectionProbeTypeSphere]，则此参数定义球体半径，如果  [page:.parallaxType parallaxType] 等于 [page:Lights v3d.ReflectionProbeTypeBox]，则定义立方体边缘大小的一半。视差体积用于计算视差效果。默认值为 1。<br/><br/>
 
-      It's recommended to keep this value and [page:.influenceDistance] the same
-      for more consistent results.
+      建议保持此值和 [page:.parallaxDistance] 相同以获得更一致的结果。
+
     </p>
 
     <h3>[property:Constant parallaxType]</h3>
     <p>
-      Defines the type of the parallax volume. Can be [page:Lights v3d.ReflectionProbeTypeInfinite]
-      (used for the [page:Scene.worldEnvMapProbe] probe object), [page:Lights v3d.ReflectionProbeTypeSphere]
-      or [page:Lights v3d.ReflectionProbeTypeBox]. The parallax volume is used
-      for calculating the parallax effect. Default is [page:Lights v3d.ReflectionProbeTypeSphere].<br/><br/>
+      定义视差体积的类型。可以是[page:Lights v3d.ReflectionProbeTypeInfinite]（用于 [page:Scene.worldEnvMapProbe]探头物体）、[page:Lights v3d.ReflectionProbeTypeSphere] 或 [page:Lights v3d.ReflectionProbeTypeBox]。视差体积用于计算视差效果。默认为 [page:Lights v3d.ReflectionProbeTypeSphere]。<br/><br/>
 
-      It's recommended to keep this value and [page:.influenceType] the same
-      for more consistent results.
+      建议保持此值和 [page:.parallaxDistance] 相同以获得更一致的结果。
     </p>
 
     <h3>[property:Float probeClipEnd]</h3>
     <p>
-      Objects located further than this value won't appear on the probe's
-      environment map. Default is 100.
+      位于比此值更远的物体将不会出现在探头的环境贴图中。默认值为 100。
     </p>
 
     <h3>[property:Float probeClipStart]</h3>
     <p>
-      Objects located closer than this value won't appear on the probe's
-      environment map. Default is 0.1.
+      距离该值更近的物体不会出现在探头的环境贴图中。默认值为 0.1。
     </p>
 
     <h3>[property:Float probeIntensity]</h3>
     <p>
-      Controls the intensity (exposure) of the probe's environment map. Default
-      is 1.
+      控制探头环境贴图的强度（曝光）。默认值为 1。
     </p>
 
     <h3>[property:WebGLRenderTarget renderTarget]</h3>
     <p>
-      A [page:WebGLRenderTarget] instance containing the rendered environment map.
-      Default is null. Updated automatically after calling the [page:.update]
-      method.
+      包含渲染环境贴图的 [page:WebGLRenderTarget] 实例。默认为空。调用 [page:.update] 方法后自动更新。
     </p>
 
     <h3>[property:String type]</h3>
     <p>
-      A string 'CubeReflectionProbe'. This can be used to find all
-      CubeReflectionProbe objects. Shouldn't be changed.
+      一个字符串 'CubeReflectionProbe'。这可用于查找所有 CubeReflectionProbe 物体。不应该改变。
     </p>
 
     <h3>[property:String visibilityGroup]</h3>
     <p>
-      If not null, only objects from this group are rendered into the environment
-      map (see also [page:Object3D.groupNames]). Default is null, which means no
-      visibility group is used and the probe renders all scene objects.
+      如果不为 null，则仅将来自该组的物体渲染到环境贴图中（另请参阅 (see also [page:Object3D.groupNames]）。默认为空，这意味着不使用可见组并且探头渲染所有场景物体。
     </p>
 
     <h3>[property:Boolean visibilityGroupInv]</h3>
     <p>
-      If [page:.visibilityGroup] is not null this option (if true) makes it so
-      only objects that don't belong to the specified [page:.visibilityGroup] are
-      rendered into the environment map. Default is false.
+      如果[page:.visibilityGroup] 不为 null，则此选项（如果为 true）使其仅将不属于指定 [page:.visibilityGroup] 的物体呈现到环境贴图中。默认为false。
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>方法</h2>
 
-    <p>See the base [page:Object3D Object3D] class for common methods.</p>
+    <p>通用方法查看[page:Object3D Object3D]基类。</p>
 
     <h3>[method:null dispose]()</h3>
     <p>
-      Remove resources related to the render targets used by this object from memory.
+      从内存中移除与此物体使用的渲染目标相关的资源。
     </p>
 
     <h3>[method:Boolean intersectsMesh]([param:Mesh mesh])</h3>
     <p>
-      mesh - a [page:Mesh] object to test intersections with.<br/><br/>
+      mesh - 用于测试交叉点的 [page:Mesh] 物体。<br/><br/>
 
-      Check if there's any intersection between the probe's influence volume
-      (see [page:.influenceDistance] and [page:.influenceType]) and the given
-      mesh object. Returns the checking result. Exact calculations depend on
-      [page:.influenceType], for example for [page:Lights v3d.ReflectionProbeTypeInfinite]
-      the method always returns *true*.
+      检查探头的影响体积（参见 [page:.influenceDistance] 和 [page:.influenceType]）和给定的网格物体之间是否存在任何交集。返回检查结果。确切的计算取决于 [page:.influenceType]，例如对于[page:Lights v3d.ReflectionProbeTypeInfinite]，该方法始终返回  *true*。
     </p>
 
     <h3>[method:WebGLRenderTarget onUpdate]([param:WebGLCubeRenderTarget cubeRT])</h3>
     <p>
-      cubeRT - a cube render target containing the environment map.<br/><br/>
+      cubeRT - 包含环境贴图的立方体渲染目标。<br/><br/>
+   
+      在 [page:.update] 方法中渲染环境贴图后执行的回调。在包含渲染结果的 cubeRT 参数中接收一个 [page:WebGLCubeRenderTarget] 实例。此函数返回的值必须是 [page:WebGLCubeRenderTarget] 的实例，并将用作最终的 [page:WebGLCubeRenderTarget]。默认情况下返回相同的*cubeRT*渲染目标。<br/><br/>
 
-      A callback executed after the environment map is rendered in the
-      [page:.update] method. Receives a [page:WebGLCubeRenderTarget] instance in
-      the *cubeRT* parameter which contains the rendering results. The value
-      returned from this function must be an instance of [page:WebGLRenderTarget]
-      and will be used as a final [page:.renderTarget]. Returns the same *cubeRT*
-      render target by default.<br/><br/>
+      每次调用 [page:.update] 时，可以覆盖此回调以将自定义更改应用于环境映射。如果其 IBL 环境模式设置为*PMREM*，则它已用于场景中的所有立方体反射探头。
 
-      This callback can be overridden to apply custom changes to the environment
-      map each time [page:.update] is called. It is already used for all cube
-      reflection probes in the scene if it has its IBL environment mode set to
-      *PMREM*.
     </p>
 
     <h3>[method:null setSize]([param:Integer size])</h3>
     <p>
-      size - new environment map size.<br/><br/>
+      size - 新环境贴图的大小。<br/><br/>
 
-      Set the environment map size.
+      设置环境贴图的大小。
     </p>
 
     <h3>[method:null update]([param:Scene scene], [param:WebGLRenderer renderer])</h3>
     <p>
-      scene - a scene to render.<br/>
-      renderer - a [page:WebGLRenderer] instance.<br/><br/>
+      scene - 用于渲染的场景。<br/>
+      renderer - [page:WebGLRenderer] 的实例。<br/><br/>
 
-      Render the given scene into the probe's environment map. The rendering
-      result will be in the [page:.renderTarget] property.
+      将给定的场景渲染到探头的环境贴图中。渲染结果将在[page:.renderTarget] 属性中。
     </p>
 
     [sourceHint]

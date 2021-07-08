@@ -10,64 +10,57 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM) from a cubeMap environment texture.
-      This allows different levels of blur to be quickly accessed based on material roughness. It is packed into a special
-      CubeUV format that allows us to perform custom interpolation so that we can support nonlinear formats such as RGBE.
-      Unlike a traditional mipmap chain, it only goes down to the LOD_MIN level (above), and then creates extra even more
-      filtered 'mips' at the same LOD_MIN resolution, associated with higher roughness levels. In this way we maintain
-      resolution to smoothly interpolate diffuse lighting while limiting sampling computation.
+      这个类从一个cubeMap环境纹理生成一个Prefiltered, Mipmapped Radiance Environment Map (PMREM)。这允许基于材质粗糙度快速访问不同级别的模糊。它被打包成一个特殊的CubeUV格式，允许我们执行自定义插值，这样我们就可以支持非线性格式，如RGBE。与传统的mipmap链不同，它只下降到LOD_MIN级别(以上)，然后在相同的LOD_MIN分辨率下创建额外的甚至经过更多过滤的“mips”，与更高的粗糙度级别相关联。通过这种方式，我们可以在限制采样计算的同时保持平滑的漫射照明的分辨率。
     </p>
 
-    <h2>Constructor</h2>
+    <h2>构造函数</h2>
 
     <h3>[name]([param:WebGLRenderer renderer])</h3>
     <p>
-    This constructor creates a new [name].
+    创建新 [name] 的构造函数。
     </p>
 
-    <h2>Methods</h2>
+    <h2>方法</h2>
 
     <h3>[method:WebGLRenderTarget fromScene]([param:Scene scene], [param:Number sigma], [param:Number near], [param:Number far])</h3>
     <p>
-      [page:Scene scene] - The given scene.<br>
-      [page:Number sigma] - (optional) Specifies a blur radius in radians to be applied to the scene before PMREM generation. Default is *0*.<br>
-      [page:Number near] - (optional) The near plane value. Default is *0.1*.<br>
-      [page:Number far] - (optional) The far plane value. Default is *100*.<br /><br />
+      [page:Scene scene] - 给定场景。<br>
+      [page:Number sigma] - (可选) 指定要在生成PMREM之前应用于场景的模糊半径（以弧度为单位）。
 
-      Generates a PMREM from a supplied Scene, which can be faster than using an image if networking bandwidth is low.
-      Optional near and far planes ensure the scene is rendered in its entirety (the cubeCamera is placed at the origin).
+      默认为 *0*。<br>
+      [page:Number near] - (可选) 近平面值。 默认为 *0。1*。<br>
+      [page:Number far] - (可选) 远平面值。 默认为 *100*。<br /><br />
+
+      从提供的场景生成 PMREM，如果网络带宽较低，这可能比使用图像更快。可选的近平面和远平面确保场景整体渲染（cubeCamera 位于原点）。
     </p>
 
     <h3>[method:WebGLRenderTarget fromEquirectangular]([param:Texture equirectangular])</h3>
     <p>
-      [page:Texture equirectangular] - The equirectangular texture.<br /><br />
+      [page:Texture equirectangular] - 等距柱状纹理。<br /><br />
 
-      Generates a PMREM from an equirectangular texture, which can be either LDR (RGBFormat) or HDR (RGBEFormat).
-      The ideal input image size is 1k (1024 x 512), as this matches best with the 256 x 256 cubemap output.
+      从等距柱状纹理生成 PMREM，可以是 LDR (RGBFormat) 或 HDR (RGBEFormat)。理想的输入图像大小为 1k (1024 x 512)，因为这与 256 x 256 立方体贴图输出最匹配。
     </p>
 
     <h3>[method:WebGLRenderTarget fromCubemap]([param:CubeTexture cubemap])</h3>
     <p>
-      [page:CubeTexture cubemap] - The cubemap texture.<br /><br />
+      [page:CubeTexture cubemap] - 立方体贴图纹理。<br /><br />
 
-      Generates a PMREM from an cubemap texture, which can be either LDR (RGBFormat) or HDR (RGBEFormat).
-      The ideal input cube size is 256 x 256, as this matches best with the 256 x 256 cubemap output.
+      从立方体贴图纹理生成 PMREM，可以是 LDR (RGBFormat) 或 HDR (RGBEFormat)。理想的输入立方体大小为 256 x 256，因为这与 256 x 256 立方体贴图输出最匹配。
     </p>
 
     <h3>[method:void compileCubemapShader]()</h3>
     <p>
-      Pre-compiles the cubemap shader. You can get faster start-up by invoking this method during your texture's network fetch for increased concurrency.
+      预编译立方体贴图着色器。您可以通过在纹理的网络获取期间调用此方法来加快启动速度，以提高并发性。
     </p>
 
     <h3>[method:void compileEquirectangularShader]()</h3>
     <p>
-      Pre-compiles the equirectangular shader. You can get faster start-up by invoking this method during your texture's network fetch for increased concurrency.
+      预编译等距柱状贴图着色器。您可以通过在纹理的网络获取期间调用此方法来加快启动速度，以提高并发性。
     </p>
 
     <h3>[method:void dispose]()</h3>
     <p>
-      Disposes of the PMREMGenerator's internal memory. Note that PMREMGenerator is a static class, so you should not need more than one
-      PMREMGenerator object. If you do, calling dispose() on one of them will cause any others to also become unusable.
+      处置 PMREMGenerator 的内部存储器。请注意，PMREMGenerator 是一个静态类，因此您不应需要多个 PMREMGenerator 对象。如果这样做，对其中一个调用 dispose() 将导致其他任何一个也无法使用。
     </p>
 
     [sourceHint]

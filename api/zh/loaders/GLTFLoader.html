@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
-    <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
-  </head>
-  <body>
-    [page:Loader] &rarr;
-    <h1>[name]</h1>
 
-    <div class="desc">
-    A loader for *glTF* 2.0 resources.
+<head>
+  <meta charset="utf-8" />
+  <base href="../../../" />
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css" />
+</head>
+
+<body>
+  [page:Loader] &rarr;
+  <h1>[name]</h1>
+
+  <div class="desc">
+    *glTF* 2.0 资源加载器。
     <br /><br />
     <a href="https://www.khronos.org/gltf">glTF</a> (GL Transmission Format) is an
     <a href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">open format specification</a>
@@ -19,93 +21,109 @@
     or binary (.glb) format. External files store textures (.jpg, .png, ...) and additional binary
     data (.bin). A glTF asset may deliver one or more scenes, including meshes, materials,
     textures, skins, skeletons, morph targets, animations, lights, and/or cameras.
-    </div>
+  </div>
 
-    <h2>Extensions</h2>
+  <a href="https://www.khronos.org/gltf">glTF</a> (GL 传输格式) 是一种
+  <a href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">开放格式规范</a>，用于高效交付和加载 3D 内容。资产可以以 JSON
+  (.gltf) 或二进制 (.glb) 格式提供。外部文件存储纹理（.jpg、.png、...）和额外的二进制数据 (.bin)。 glTF 资产可以提供一个或多个场景，包括网格、材料、纹理、皮肤、骨架、变形目标、动画、灯光和/或相机。
+  </div>
 
-    <div>
-    GLTFLoader supports the following glTF extensions:
-    </div>
+  <h2>扩展</h2>
 
-    <ul>
-      <li>S8S_v3d_animation_data</li>
-      <li>S8S_v3d_data</li>
-      <li>S8S_v3d_camera_data</li>
-      <li>S8S_v3d_material_data</li>
-      <li>S8S_v3d_mesh_data</li>
-      <li>S8S_v3d_node_data</li>
-      <li>S8S_v3d_scene_data</li>
-      <li>S8S_v3d_texture_data</li>
-    </ul>
+  <div>
+    GLTFLoader 支持以下 glTF 扩展：
+  </div>
 
-    <h2>Example</h2>
+  <ul>
+    <li>S8S_v3d_animation_data</li>
+    <li>S8S_v3d_data</li>
+    <li>S8S_v3d_camera_data</li>
+    <li>S8S_v3d_material_data</li>
+    <li>S8S_v3d_mesh_data</li>
+    <li>S8S_v3d_node_data</li>
+    <li>S8S_v3d_scene_data</li>
+    <li>S8S_v3d_texture_data</li>
+  </ul>
 
-    <code>
+  <h2>示例</h2>
+
+  <code>
     // Instantiate a loader
     var loader = new v3d.GLTFLoader();
 
     // Load a glTF resource
     loader.load('models/gltf/duck/duck.gltf', function(gltf) {
-      scene.add(gltf.scene);
+    scene.add(gltf.scene);
 
-      gltf.animations; // Array&lt;v3d.AnimationClip&gt;
-      gltf.scene;      // v3d.Scene
-      gltf.scenes;     // Array&lt;v3d.Scene&gt;
-      gltf.cameras;    // Array&lt;v3d.Camera&gt;
+    gltf.animations; // Array&lt;v3d.AnimationClip&gt;
+    gltf.scene; // v3d.Scene
+    gltf.scenes; // Array&lt;v3d.Scene&gt;
+    gltf.cameras; // Array&lt;v3d.Camera&gt;
     });
-    </code>
+  </code>
 
-    [example:webgl_loader_gltf]
+  [example:webgl_loader_gltf]
 
-    <h2>Constructor</h2>
+  <h2>构造函数</h2>
 
-    <h3>[name]([page:LoadingManager manager])</h3>
-    <div>
-    [page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager v3d.DefaultLoadingManager].
-    </div>
-    <div>
-    Creates a new [name].
-    </div>
+  <h3>[name]([page:LoadingManager manager])</h3>
+  <div>
+    [page:LoadingManager manager] — 加载器使用的[page:LoadingManager loadingManager]。 默认为 [page:LoadingManager
+    v3d.DefaultLoadingManager]。<br>
 
-    <h2>Properties</h2>
+    创建一个新的 GLTFLoader。
+  </div>
+  <div>
+    新建 [name]。
+  </div>
+
+  <h2>属性</h2>
 
 
-    <h2>Methods</h2>
+  <h2>方法</h2>
 
-    <h3>[method:null load]([page:String url], [page:Function onLoad], [page:Function onProgress], [page:Function onError])</h3>
-    <div>
-    [page:String url] — required<br />
-    [page:Function onLoad] — Will be called when load completes. The argument will be the loaded JSON response returned from [page:Function parse].<br />
-    [page:Function onProgress] — Will be called while load progresses. The argument will be the XMLHttpRequest instance, that contains .[page:Integer total] and .[page:Integer loaded] bytes.<br />
-    [page:Function onError] — Will be called when load errors.<br />
-    </div>
-    <div>
-    Begin loading from url and call the callback function with the parsed response content.
-    </div>
+  <h3>[method:null load]([page:String url], [page:Function onLoad], [page:Function onProgress], [page:Function onError])
+  </h3>
+  <div>
+    [page:String url] — 必须<br />
+    [page:Function onLoad] — 加载完成时将被调用。参数是从 [page:Function parse] 返回的加载的 JSON 响应。<br />
+    [page:Function onProgress] — 将在加载进行时调用。 参数是包含 .[page:Integer total] 和 .[page:Integer loaded] 字节的 XMLHttpRequest 实例。<br />
+    [page:Function onError] — 加载错误时调用。<br />
+  </div>
+  <div>
+    从 url 开始加载并使用解析的响应内容调用回调函数。
+  </div>
 
-    <h3>[method:null setPath]([page:String path])</h3>
-    <div>
-    [page:String path] — Base path for loading additional resources e.g. textures and .bin data.
-    </div>
-    <div>
-    Set the base path for additional resources.
-    </div>
+  <h3>[method:null setPath]([page:String path])</h3>
+  <div>
+    [page:String path] — 加载其他资源的基本路径，例如纹理和 .bin 数据。
+  </div>
+  <div>
+    设置附加资源的基本路径。
+  </div>
 
-    <h3>[method:null setCrossOrigin]([page:String value])</h3>
-    <div>
-    [page:String value] — The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.
-    </div>
+  <h3>[method:null setCrossOrigin]([page:String value])</h3>
+  <div>
+    [page:String value] — 实现 CORS 的 crossOrigin 字符串，用于从允许 CORS 的不同域加载 url。
+  </div>
 
-    <h3>[method:null parse]([page:Object json], [page:Function callBack], [page:String path])</h3>
-    <div>
-    [page:Object json] — <em>JSON</em> object to parse.<br />
-    [page:Function callBack] — Will be called when parse completes.<br />
-    [page:String path] — The base path from which to find subsequent glTF resources such as textures and .bin data files.<br />
-    </div>
-    <div>
-    Parse a glTF-based <em>JSON</em> structure and fire [page:Function callback] when complete. The argument to [page:Function callback] will be an [page:object] that contains loaded parts: .[page:Scene scene], .[page:Array scenes], .[page:Array cameras], and .[page:Array animations].
-    </div>
+  <h3>[method:null parse]([page:Object json], [page:Function callBack], [page:String path])</h3>
+  <div>
+    [page:Object json] —  要解析的 <em>JSON</em> 对象。<br />
+    [page:Function callBack] — 解析完成时将被调用。<br />
+    [page:String path] — 从中查找后续 glTF 资源（例如纹理和 .bin 数据文件）的基本路径。
+    files.<br />
+  </div>
+  <div>
+    Parse a glTF-based <em>JSON</em> structure and fire [page:Function callback] when complete. The argument to
+    [page:Function callback] will be an [page:object] that contains loaded parts: .[page:Scene scene], .[page:Array
+    scenes], .[page:Array cameras], and .[page:Array animations].
 
-    [sourceHint]
-  </body>
+    解析基于 glTF 的 <em>JSON</em> 结构并在完成时触发[page:Function callback]。 [page:Function callback] 的参数将是一个包含加载部分的[page:object]：.[page:Scene scene], .[page:Array
+    scenes], .[page:Array cameras], 和 .[page:Array animations]。
+  </div>
+
+  [sourceHint]
+</body>
+
 </html>

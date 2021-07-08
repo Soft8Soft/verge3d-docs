@@ -349,6 +349,9 @@ function resolveTemplates(text, name, path, lang) {
     case 'ru':
         text = text.replace(/\[sourceHint\]/gi, "<h2>Исходный файл</h2><p>О том как получить исходный код этого модуля читайте <a href=\"manual/ru/programmers_guide/How-to-obtain-Verge3D-sources.html\">тут</a>.</p>");
         break;
+    case 'zh':
+        text = text.replace(/\[sourceHint\]/gi, "<h2>源代码</h2><p>关于如何获取此模块的源代码，请查看 <a href=\"manual/zh/programmers_guide/How-to-obtain-Verge3D-sources.html\">本页</a>。</p>");
+        break;
     default:
         text = text.replace(/\[sourceHint\]/gi, "<h2>Source</h2><p>For more info on how to obtain the source code of this module see <a href=\"manual/en/programmers_guide/How-to-obtain-Verge3D-sources.html\">this page</a>.</p>");
         break;

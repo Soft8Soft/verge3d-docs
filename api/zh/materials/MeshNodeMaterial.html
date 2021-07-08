@@ -13,14 +13,14 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A custom node-based material.<br /><br />
+      基于自定义节点的材质。<br /><br />
 
-      This material used to describe custom material setups exported from Blender or 3ds Max. I can be physically based or non-physical depending on the specified node graph.
+      此材质用于描述从 Blender 或 3ds Max 导出的自定义材质设置。 可以是基于物理的或非物理的，具体取决于指定的节点图。
     </p>
 
-    <h2>Examples</h2>
+    <h2>示例</h2>
 
-    <p>Change material color specified in the "RGB.001" node:</p>
+    <p>更改“RGB.001”节点中指定的材质颜色：</p>
     <code>
 var object = app.scene.getObjectByName("MyObj");
 var mat = object.material;
@@ -29,7 +29,7 @@ mat.nodeRGB[index] = new v3d.Vector4(1, 0, 0, 1); // new color in RGBA format
 mat.needsUpdate = true;
     </code>
 
-    <p>Change value specified in the "Value.001" node:</p>
+    <p>更改“Value.001”节点中指定的值：</p>
     <code>
 var object = app.scene.getObjectByName("Circle");
 var mat = object.material;
@@ -38,125 +38,107 @@ mat.nodeValue[index] = 0.5; // new value
 mat.needsUpdate = true;
     </code>
 
-    <h2>Constructor</h2>
+    <h2>构造函数</h2>
 
     <h3>[name]([param:Object parameters])</h3>
     <p>
-      [page:Object parameters] - (optional) an object with one or more properties defining the material's appearance.
-      Any property of the material (including any property inherited from [page:Material]) can be passed in here.<br /><br />
+      [page:Object parameters] - （可选）具有定义材质外观的一个或多个属性的对象。材质的任何属性（包括从 Material 继承的任何属性）都可以在这里传入。<br /><br />
 
-      The exception is the property [page:Hexadecimal color], which can be passed in as a hexadecimal
-      string and is *0xffffff* (white) by default. [page:Color.set](color) is called internally.
+      例外是属性颜色，它可以作为十六进制字符串传入，默认为 *0xffffff*（白色）。 [page:Color.set](color) 在内部被调用。
     </p>
 
 
-    <h2>Properties</h2>
-    <p>See the base [page:Material] class for common properties.</p>
+    <h2>属性</h2>
+    <p>通用属性查看[page:Material]基类。</p>
 
     <h3>[property:Texture envMap]</h3>
     <p>
-      The environment map. To ensure a physically correct rendering, you should
-      only add environment maps which were preprocessed by [page:PMREMGenerator].
-      Assigned automatically from a corresponding [page:CubeReflectionProbe]
-      object if [page:Material.envMapAutoAssign] is *true*. Default is null.
+      环境贴图。为了确保物理上正确的渲染，应只添加由 [page:PMREMGenerator] 预处理的环境贴图。如果 [page:Material.envMapAutoAssign] 为 true，则从相应的 [page:CubeReflectionProbe] 物体自动分配。默认为空。
     </p>
 
     <h3>[property:Float envMapIntensity]</h3>
     <p>
-      Scales the effect of the environment map by multiplying its color. Default
-      is 1.
+      通过乘以颜色来缩放环境贴图的效果。默认值为 1。
     </p>
 
     <h3>[property:Matrix4 envMapParallaxMatrix]</h3>
     <p>
-      A [page:Matrix4] used for applying the parallax effect to the material's
-      [page:.envMap]. This matrix carries the transformation from the world space
-      to the space of a particular [page:CubeReflectionProbe reflection probe],
-      which environment map this material uses for rendering. Calculated
-      automatically if [page:Material.envMapAutoAssign] is *true*. Default is
-      the identity matrix.
+      用于将视差效果应用于材质的 [page:.envMap] 的 [page:Matrix4]。该矩阵携带从世界空间到特定[page:CubeReflectionProbe reflection probe]空间的转换，该材质用于渲染的环境贴图。如果 [page:Material.envMapAutoAssign] 为*true*，则自动计算。默认是单位矩阵。
     </p>
 
     <h3>[property:Matrix4 envMapParallaxMatrixInv]</h3>
     <p>
-      A [page:Matrix4] inverse to [page:.envMapParallaxMatrix]. Used for
-      applying the parallax effect to the material's [page:.envMap]. Calculated
-      automatically if [page:Material.envMapAutoAssign] is *true*. Default is
-      the identity matrix.
+      一个 [page:.envMapParallaxMatrix] 的[page:Matrix4]逆矩阵。用于将视差效果应用于材质的 [page:.envMap]。如果[page:Material.envMapAutoAssign] 为*true*，则自动计算。默认是单位矩阵。
     </p>
 
     <h3>[property:Constant envMapParallaxType]</h3>
     <p>
-      Defines the type of the parallax volume. The same as
-      [page:CubeReflectionProbe.parallaxType]. Assigned automatically from the
-      corresponding [page:CubeReflectionProbe] if
-      [page:Material.envMapAutoAssign] is *true*. Default is
-      [page:Lights ReflectionProbeTypeInfinite].
+      定义视差体积的类型。与 [page:CubeReflectionProbe.parallaxType] 相同。如果 [page:Material.envMapAutoAssign] 为 true，则从相应的 [page:CubeReflectionProbe] 自动分配。默认值为 [page:Lights ReflectionProbeTypeInfinite]。
     </p>
 
     <h3>[property:DiGraph nodeGraph]</h3>
     <p>
-      Directed graph which contains material nodes.
+      包含材质节点的DirectGraph。
     </p>
     <h3>[property:Object additionalNodeGraphs]</h3>
     <p>
-      Additional graphs representing node groups of the main node graph.
+      表示主节点图的节点组的附​​加图。
     </p>
 
     <h3>[property:String profile]</h3>
     <p>
-      Node material profile, it can be "blender" or "max".
+      节点材质配置文件，可以是“blender”或“max”。
     </p>
 
     <h3>[property:Object nodeTextures]</h3>
     <p>
-      Object with material textures. It maps texture names to [page:Texture textures]. You can use it to dynamically assign new textures to a material.
+      具有材质纹理的物体。它将纹理名称映射到[page:Texture textures]。可以使用它为材质动态指定新纹理。
     </p>
 
     <h3>[property:Array nodeRGB]</h3>
     <p>
-      Array of [page:Vector4 Vector4] values which contains color values of a material's "RGB" nodes. Please note that these colors are represented by 4-dimentional vector, not the [page:Color Color] class.
+      [page:Vector4 Vector4] 值数组，其中包含材质“RGB”节点的颜色值。请注意，这些颜色由 4 维向量表示，而不是[page:Color Color] 类。
     </p>
     <h3>[property:Array nodeRGBMap]</h3>
-      Maps "RGB" node name to index in [page:.nodeRGB] array. Used to define which color value is to be updated, see the example listing above.
+      将“RGB”节点名称映射到 [page:.nodeRGB] 数组中的索引。用于定义要更新的颜色值，请参见上面的示例列表。
     <p>
     </p>
 
     <h3>[property:Array nodeValue]</h3>
     <p>
-      Array of float values which contain values of the material's "Value" nodes.
+      包含材质"Value"节点值的浮点值数组。
     </p>
     <h3>[property:Array nodeValueMap]</h3>
     <p>
-      Maps "Value" node name to index in [page:.nodeValue] array. Used to define which value is to be updated, see the example listing above.
+      将"Value"节点名称映射到 [page:.nodeValue] 数组中的索引。用于定义要更新的值，请参见上面的示例列表。
     </p>
 
     <h3>[property:Boolean isMeshNodeMaterial]</h3>
     <p>
-      Used to check whether this class represent node material.<br />
-      You should not change this, as it is used internally for optimization.
+      用于检查该类是否代表节点材质。<br />
+      不应更改此设置，因为它在内部用于优化。
     </p>
 
 
-    <h2>Methods</h2>
-    <p>See the base [page:Material] class for common methods.</p>
+    <h2>方法</h2>
+    <p>通用方法查看 [page:Material] 基类。</p>
 
     <h3>[method:null updateNodeGraph]()</h3>
     <p>
-      Generate shaders and update other material parameters based on the specified [page:.nodeGraph].
+      根据指定的 [page:.nodeGraph] 生成着色器并更新其他材质参数。
     </p>
 
-    <h2>Static Methods</h2>
+    <h2>静态方法</h2>
     <h3>[method:DiGraph nodeGraphFromGLTF]([param:Object gltfNodeGraph])</h3>
     <p>
-      Convert [page:GLTFLoader GLTF node graph] to the format used by the material's [page:.nodeGraph] property.
+      将 [page:GLTFLoader GLTF node graph]转换为材质的 [page:.nodeGraph] 属性使用的格式。
     </p>
 
-    <h2>Puzzles</h2>
+    <h2>拼图</h2>
     <p>
-      Use the following puzzles to manage your materials: <br />
-      [page:Puzzles.assign_material assign material] - assign the material to an object. <br />
-      [page:Puzzles.replace_texture replace texture] - replace the material's texture.
+      使用以下拼图来管理材质： <br />
+      [page:Puzzles.assign_material assign material] - 将材质指定给物体。 <br />
+      [page:Puzzles.replace_texture replace texture] - 替换材质的纹理。
     </p>
     [sourceHint]
   </body>
