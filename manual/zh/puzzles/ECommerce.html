@@ -16,7 +16,9 @@
     <h1>电子商务插件 | E-Commerce Plugin</h1>
 
     <p>此类目拼图通过Verge3D <a href="manual/zh/puzzles/Plugins.html">插件</a> 功能创建，生成了可用于实现WooCommerce
-      3D产品视图和配置器的拼图，也可用于创建独立的订单或咨询表单。</p><img src="files/puzzles/puzzles-ecommerce.jpg">
+      3D产品视图和配置器的拼图，也可用于创建独立的订单或咨询表单。</p>
+      
+    <img src="files/puzzles/puzzles-ecommerce.jpg">
     <h2>内容</h2>
 
     [contents] [anchor:puzzles_reference]
@@ -27,56 +29,56 @@
 
     <h3>connect to WooCommerce(连接到WooCommerce)</h3>
 
-    <p>连接到WooCommerce系统，开始接收产品信息。</p><img src="files/puzzles/puzzles-ecommerce-connect-to-woocommerce.jpg">
-    <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/"
-        target="_blank">英文版</a> ，[link:https://verge3d.funjoy.tech/blog/3/post/woocommerce3d-58 中文版]。</p>
+    <p>连接到WooCommerce系统，开始接收产品信息。</p>
+      
+    <img src="files/puzzles/puzzles-ecommerce-connect-to-woocommerce.jpg">
+    <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">英文版</a> ，<a href="https://verge3d.funjoy.tech/blog/3/post/woocommerce3d-58" target="_blank">中文版</a>。</p>
 
     [anchor:woo_product_info]
 
     <h3>product info(产品信息)</h3>
 
-    <p>返回一个 <a href="manual/zh/puzzles/Dictionaries.html">dictionary(字典)</a> ，其中包含由*connect to
-      WooCommerce*拼图检索的产品信息。这个字典（JavaScript对象）中包含以下字段。</p>
+    <p>返回一个 <a href="manual/zh/puzzles/Dictionaries.html">dictionary(字典)</a> ，其中包含由 *connect to WooCommerce* 拼图检索的产品信息。这个字典（JavaScript对象）中包含以下字段。</p>
 
     <p>
     <ul>
       <li>*price* - 客户选择的产品选项的价格，例如：12。</li>
       <li>*quantity* - 客户选择的产品项目的数量，例如：2。</li>
       <li>*sku* - 客户选择的产品选项的库存单位。</li>
-      <li>*name* - 产品的名称，因为它将在商店的购物车中看到，例如 &quot;Spinner - Yellow, Large&quot;。</li>
-      <li>*attributes* - 一个包含客户所选产品选项的属性名称/值对的字典，例如：{color: &quot;Yellow&quot;, size: &quot;Large&quot;}.</li>
+      <li>*name* - 产品的名称，因为它将在商店的购物车中看到，例如 "Spinner - Yellow, Large" 。</li>
+      <li>*attributes* - 一个包含客户所选产品选项的属性名称/值对的字典，例如：{color: "Yellow", size: "Large"}.</li>
       <li>*weight* - 客户选择的产品选项的实际产品重量。</li>
       <li>*length*, *width*, *height* - 客户选择的产品选项的实际产品尺寸。</li>
-      <li>*type* - 在WooCommerce管理面板中指定的以下产品类型之一：&quot;variable&quot;, &quot;simple&quot;, &quot;group&rdquo; 或or
-        &quot;external&rdquo;。</li>
-      <li>*children* - 只对 &quot;组 &quot;产品有效。包括每个子产品的信息。</li>
-      <li>*status* - 服务器响应：&quot;ok &quot;或 &quot;error&quot;。</li>
+      <li>*type* - 在WooCommerce管理面板中指定的以下产品类型之一： "variable", "simple", "group" 或 "external" 。</li>
+      <li>*children* - 只对 "group" 产品有效。包括每个子产品的信息。</li>
+      <li>*status* - 服务器响应： "ok" 或 "error" 。</li>
     </ul>
-    </p><img src="files/puzzles/puzzles-ecommerce-product-info.jpg">
+    </p>
+      
+    <img src="files/puzzles/puzzles-ecommerce-product-info.jpg">
 
     [anchor:woo_product_attribute]
 
     <h3>product attribute(产品属性)</h3>
 
-    <p>返回客户选择的产品选项属性值，例如：&quot;黄色&quot;。</p><img src="files/puzzles/puzzles-ecommerce-product-attribute.jpg">
-    <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/"
-        target="_blank">英文版</a> ，[link:https://verge3d.funjoy.tech/blog/3/post/woocommerce3d-58 中文版]。</p>
+    <p>返回客户选择的产品选项属性值，例如： "Yellow" 。</p>
+      
+    <img src="files/puzzles/puzzles-ecommerce-product-attribute.jpg">
+    <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">英文版</a> ，<a href="https://verge3d.funjoy.tech/blog/3/post/woocommerce3d-58" target="_blank">中文版</a>。</p>
 
     [anchor:place_order]
 
     <h3>place order(下单)</h3>
 
-    <p>用 &quot;title&quot;、&quot;content &quot;和 &quot;price
-      &quot;字段以及一个可选的屏幕截图组成一个隐藏的订单表单，并根据Wordpress插件部分阐述的规范将此表提交到指定的URL。默认情况下，订购表单会被提交到 <a
-        href="https://sandbox.soft8soft.com/order-form/" target="_blank">演示订购页面</a>。</p>
+    <p>用 "title" 、 "content" 和 "price" 字段以及一个可选的屏幕截图组成一个隐藏的订单表单，并根据Wordpress插件部分阐述的规范将此表提交到指定的URL。默认情况下，订购表单会被提交到 <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">演示订购页面</a>。</p>
 
-    <p>Verge3D带有一个免费的Wordpress插件，用于处理由这个拼图提交的请求。收到此类请求后，此 Wordpress
-      插件会生产带有扩展表单的页面，并补充有联系人和评论字段、嵌入的屏幕截图和验证码。填好的表单最后由客户提交，并在Wordpress管理界面创建一个新的订单。客户和销售经理都会收到关于该订单的电子邮件通知。</p>
+    <p>Verge3D带有一个免费的Wordpress插件，用于处理由这个拼图提交的请求。收到此类请求后，此Wordpress插件会生产带有扩展表单的页面，并补充有联系人和评论字段、嵌入的屏幕截图和验证码。填好的表单最后由客户提交，并在Wordpress管理界面创建一个新的订单。客户和销售经理都会收到关于该订单的电子邮件通知。</p>
 
     <p>请参考本手册的 <a href="manual/zh/introduction/Wordpress-Plugin.html">Wordpress插件</a> 章节，了解设置方法。</p>
 
-    <p>请确保在 <a href="manual/zh/puzzles/Initialization.html#configure_application" target="_parent">configure
-        application(配置应用程序)</a> 拼图中启用屏幕截图，否则屏幕截图可能会显示为纯黑色。</p><img src="files/puzzles/puzzles-misc-place-order.jpg">
+    <p>请确保在 <a href="manual/zh/puzzles/Initialization.html#configure_application" target="_parent">configure application(配置应用程序)</a> 拼图中启用屏幕截图，否则屏幕截图可能会显示为纯黑色。</p>
+      
+    <img src="files/puzzles/puzzles-misc-place-order.jpg">
     <h2>在使用拼图时遇到困难？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
