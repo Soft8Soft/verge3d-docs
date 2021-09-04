@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D for 3ds Max: Transparency - Soft8Soft</title>
+    <title>Verge3D для 3ds Max: Прозрачность - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Learn what kinds of transparency can be enabled for 3ds Max materials and used in Verge3D."/>
     <base href="../../../" />
@@ -10,10 +10,10 @@
   </head>
   <body><article>
 
-    <h1>Transparency / 3ds Max</h1>
+    <h1>Прозрачность / 3ds Max</h1>
 
     <p>
-    Here we show how to enable transparency for Standard, Physical and glTF-compliant PBR materials in 3ds Max.
+      Здесь мы покажем, как включить прозрачность для стандартных, физических и glTF-совместимых PBR-материалов в 3ds Max.
     </p>
 
     [contents]
@@ -25,59 +25,60 @@
     <h2>Blended vs Masked</h2>
 
     <p>
-    Being a real-time 3D engine, Verge3D offers two main methods to handle transparent objects: alpha blending and alpha clipping (usually with an image mask). Blending enables combining a translucent foreground color with a background color, using the foreground color's alpha as blending factor. Clipping, on the other hand, simply discards all pixels with alpha less than some predefined threshold (always equal to 0.5 in Verge3D for 3ds Max).
+      Verge3D, являясь 3D движком, работающим в реальном времени, предлагает два метода работы с прозрачными объектами: alpha blending и alpha clipping (обычно с изображением-маской). Alpha blending позволяет комбинировать полупрозрачный цвет переднего плана с цветом фона, используя альфа-канал в качестве фактора смешивания. Alpha clipping действует по принципу отбрасывания всех пикселей альфа канала меньше заданного порога (всегда равно 0,5 в Verge3D для 3ds Max).
     </p>
 
     <img src="files/transparency-common/blending-vs-clipping.jpg">
 
     <p>
-    Blending enables for smooth transitions, generally looks nicer but computationally more expensive than clipping. It may also produce z-sorting artifacts when polygons appear to be rendered in wrong order. Clipping works best for visualizing numerous small objects (such as grass or tree leaves). It also produces hard edges without any transitions which may be aliased.
+      Alpha blending дороже, чем Alpha clipping с точки зрения оптимизации, но обеспечивает мягкие переходы, которые выглядят красивее. Alpha blending также может вызвать артефакты связанные с Z-конфликтом, когда полигоны визуализируются в неправильном порядке. Alpha clipping лучше всего подходит для визуализации многочисленных небольших предметов (таких как трава или листья деревьев). Она также создает жёсткие края, которые не могут быть сглажены.
     </p>
 
     <p>
-    Use <strong>Alpha Mode</strong> dropdown in material settings to choose between blending and masking.
+    Используйте выпадающий список <strong>Alpha Mode</strong> в настройках материала, чтобы выбрать между blending и masking.
     </p>
 
     <img src="files/transparency-max/alpha-mode.jpg" class="centered" style="max-width: 338px">
 
     [anchor:alpha_add]
 
-    <h2>Additive Composing (aka No Depth Writes)</h2>
+    <h2>Additive Composing (также известный как No Depth Writes)</h2>
 
     <p>
-      Verge3D also offers a special mode for disabling writing to the depth buffer while rendering. This results in polygons being excluded from pixel depth comparison. Such polygons are composited in additive manner, which sometimes can help get rid of blending artifacts.
+      Verge3D также предлагает специальный режим, для отключения буфера глубины во время рендеринга. Это приводит к отмене сравнения значений глубины пикселей перекрываемых полигонов. Такие полигоны будут визуализированы аддитивным способом, который иногда позволяет избавиться от артефактов альфа-смешения.
     </p>
 
     <img src="files/transparency-common/no-depth-writes.jpg">
 
     <p>
-    Select *Add* or *Blend* in the *Alpha Mode* dropdown and uncheck the *Depth Write* option in material settings to enable this mode. In addition, you'll need to increase the *Rendering Order* value in <a href="manual/ru/max/Lighting-and-Rendering.html#per_object_rendering_settings">object settings</a> to make you transparent object rendered above all.
+      Выберите *Add* или *Blend* в выпадающем списке *Alpha Mode* и снимите флажок *Depth Write* в настройках материала, чтобы включить этот режим. Кроме того, вам нужно будет увеличить значение *Rendering Order* в <a href="manual/ru/max/Lighting-and-Rendering.html#per_object_rendering_settings">настройках объекта</a>, чтобы прозрачный объект рендерился выше всех. 
     </p>
 
 
     [anchor:physical_materials]
 
-    <h2>Transparency for Physical Materials</h2>
+    <h2>Прозрачность Физических Материалов</h2>
 
     <p>
-    Transparency of physical materials can be tweaked using the material setting of the same name.
+      Прозрачность физических материалов можно настроить с помощью одноименного параметра материала.
     </p>
 
     <img src="files/transparency-max/physical-transparency.jpg" class="centered" style="max-width: 342px">
 
-    <p>Parameters:</p>
+    <p>Параметры:</p>
 
     <ul>
-      <li>*Transparency* — transparency amount, color and roughness. The color and roughness parameters supported only for refraction-based transparency (*thin-walled* off).</li>
-      <li>*Thin-walled* — use generic (*thin-walled* on) or refraction-based (*thin-walled* off) transparency.</li>
-      <li>*Alpha Mode* — material transparency mode.</li>
-      <li>*Depth Write* — disable for additive transparency composing (see <a href="manual/ru/max/Transparency.html#alpha_add">above</a>).</li>
+      <li>*Transparency* — количество прозрачности, цвет и шероховатость. Параметры цвета и шероховатости поддерживаются только для прозрачности на основе преломления (*thin-walled* off).</li>
+      <li>*Thin-walled* — использовать генерируемый (*thin-walled* on) или на основе преломления (*thin-walled* off) прозрачности.</li>
+      <li>*Alpha Mode* — режим прозрачности материала.</li>
+      <li>*Depth Write* — отключение для аддитивного составления прозрачности (смотрите <a href="manual/ru/max/Transparency.html#alpha_add">выше</a>).</li>
     </ul>
 
-    <p class="note">By default in 3ds Max, the *Thin-walled* parameter is unchecked, which disables the most typical transparency rendering you expected to see in your interactive app. Always keep an eye on this setting when you're dealing with the transparent physical materials.</p>
+    <p class="note">
+      По умолчанию в 3ds Max параметр *Thin-walled* не включен, что отключает наиболее типичный рендеринг прозрачности, который вы ожидали увидеть в интерактивном приложении. Всегда следите за этим параметром, когда имеете дело с прозрачными физическими материалами.</p>
 
     <p>
-    Any combination of maps and images can be used to influence the transparency via the <strong>Transparency Map</strong> input.
+      Любая комбинация карт и изображений может быть использована для влияния на прозрачность через вход <strong>Transparency Map</strong>.
     </p>
 
     <img src="files/transparency-max/physical-transparency-with-map.jpg">
@@ -85,47 +86,47 @@
 
     [anchor:standard_materials]
 
-    <h2>Transparency for Standard Materials</h2>
+    <h2>Прозрачность для Стандартных Материалов</h2>
 
     <p>
-    Transparency in standard materials can be tweaked using <strong>Opacity</strong> in material settings.
+      Прозрачность стандартных материалов можно настроить с помощью параметра <strong>Opacity</strong> в настройках материала.
     </p>
 
     <img src="files/transparency-max/standard-simple.jpg">
 
     <p>
-    The <strong>Opacity</strong> input of standard materials can be used to create interesting dependencies for better realism.
+      Вход <strong>Opacity</strong> стандартных материалов можно использовать для создания интересных зависимостей для большей реалистичности. 
     </p>
 
     <img src="files/transparency-max/standard-falloff.jpg">
 
     <p>
-    An image with transparency information in its alpha channel can be used as input. A separate alpha image can also be used instead.
+      В качестве входных данных можно использовать изображение с информацией о прозрачности в альфа-канале. Вместо него можно также использовать отдельное альфа-изображение.
     </p>
 
     <img src="files/transparency-max/texture-settings-standard.jpg">
 
     <p>
-    Use the <strong>Alpha Mode</strong> dropdown to choose between transparency modes.
+      Используйте выпадающий список <strong>Alpha Mode</strong> для выбора режима прозрачности.
     </p>
 
     [anchor:gltf_materials]
 
-    <h2>Transparency for glTF-compliant PBR Materials</h2>
+    <h2>Прозрачность для glTF-совместимых PBR Материалов</h2>
 
     <p>
-    In order to enable transparency for such materials, one should use a <i>separate</i> alpha map connected with the <strong>Transparency Map</strong> input of the physical material.
+      Чтобы включить прозрачность для таких материалов, необходимо использовать <i>отдельную</i> альфа-карту, связанную с входом <strong>Transparency Map</strong> физического материала.
     </p>
 
     <img src="files/transparency-max/gltf-pbr-transparency.jpg">
 
     <p>
-    Use the <strong>Alpha Mode</strong> dropdown to choose between transparency modes.
+      Используйте выпадающий список <strong>Alpha Mode</strong> для выбора режима прозрачности.
     </p>
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>
