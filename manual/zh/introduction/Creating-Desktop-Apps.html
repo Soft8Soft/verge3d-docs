@@ -21,14 +21,20 @@
       Electronic是一个可以将网页应用打包成为跨平台桌面应用的工具。Electronic可以为Windows、macOS（同时支持Intel和Apple的芯片架构）和Linux创建应用程序。该工具完全免费，易于使用，并允许用JavaScript进行高级定制（如果需要）。
     </p>
 
-    [contents] [anchor:creating_app]
+    [contents]
+	
+	[anchor:creating_app]
 
     <h2>创建应用</h2>
 
-    <p>可以通过NPM安装Electron，也可以从GitHub Repo下载。为了简化操作，我们在应用管理器中集成了Electron应用构建工具。</p><img
-      src="files/creating-desktop-apps/app-manager-create-native-app.jpg">
-    <p>通过它，您可以为选定的目标平台直接下载Electron二进制文件，然后从您的Verge3D应用中打包一个对应平台的应用程序。</p><img
-      src="files/creating-desktop-apps/app-manager-electron.jpg">
+    <p>可以通过NPM安装Electron，也可以从GitHub Repo下载。为了简化操作，我们在应用管理器中集成了Electron应用构建工具。</p>
+    
+    <img src="files/creating-desktop-apps/app-manager-create-native-app.jpg">
+
+    <p>通过它，您可以为选定的目标平台直接下载Electron二进制文件，然后从您的Verge3D应用中打包一个对应平台的应用程序。</p>
+    
+    <img src="files/creating-desktop-apps/app-manager-electron.jpg">
+    
     <p>因为其可用于多种系统平台，请参考如下备忘录下载您所需的版本：</p>
 
     <dl>
@@ -68,10 +74,12 @@
 
     <h2>运行您的应用</h2>
 
-    <p>通过运行位于应用目录下的*electron.exe*（或macOS上的*electron.app*，或Linux上的*electron*)来运行应用。</p><img
-      src="files/creating-desktop-apps/electron-new-app.jpg" class="centered" style="max-width: 827px">
-    <p>请记住，由于您的应用程序是 <em>未签名</em>的版本，Windows和macOS（但Linux不会）会阻止它的直接运行。例如，在Windows上，您将看到以下 *Windows已经保护你的电脑* 对话框：</p><img
-      src="files/creating-desktop-apps/windows-protected-your-pc.jpg" class="centered">
+    <p>通过运行位于应用目录下的*electron.exe*（或macOS上的*electron.app*，或Linux上的*electron*)来运行应用。</p>
+    
+    <img src="files/creating-desktop-apps/electron-new-app.jpg" class="centered" style="max-width: 827px">
+    <p>请记住，由于您的应用程序是 <em>未签名</em>的版本，Windows和macOS（但Linux不会）会阻止它的直接运行。例如，在Windows上，您将看到以下 *Windows已经保护你的电脑* 对话框：</p>
+    
+    <img src="files/creating-desktop-apps/windows-protected-your-pc.jpg" class="centered">
     <p>单击 *更多信息* 链接，然后点击 *仍要运行* 来启动您的应用。为避免此问题，特别是当您将您的工作分发到最终用户时，您必须签署应用。请参阅Electron文档的 <a
         href="https://www.electronjs.org/docs/tutorial/code-signing" target="_blank">code signing(代码签名)</a> 部分。</p>
 
@@ -93,49 +101,51 @@
 
     <p>要完全禁用application菜单，请在*main.js*中的*loadFile()*方法后面插入以下一行：</p>
 
-    <code>
-      win.removeMenu();
-    </code>
+<code>
+win.removeMenu();
+</code>
 
     <p>要创建自己的菜单，首先将*menu*模块连接到应用程序：</p>
 
-    <code>
-      const { Menu } = require(&apos;electron&apos;);
-    </code>
+<code>
+const { Menu } = require(&apos;electron&apos;);
+</code>
 
     <p>我们将使用*shell*模块，在点击菜单时打开外部网站。因此，在这里也添加*shell*模块：</p>
 
-    <code>
-      const { shell } = require(&apos;electron&apos;);
-    </code>
+<code>
+const { shell } = require(&apos;electron&apos;);
+</code>
 
     <p>然后在*main.js*中的*loadFile()*方法后面添加以下代码：</p>
 
-    <code>
-    var menu = Menu.buildFromTemplate([{
-        label: 'Menu',
-        submenu: [
-            {
-                label: 'Soft8Soft Website',
-                click() {
-                    shell.openExternal('https://www.soft8soft.com');
-                }
-            },
-            {
-                label: 'Exit',
-                click() {
-                    app.quit()
-                }
+<code>
+var menu = Menu.buildFromTemplate([{
+    label: 'Menu',
+    submenu: [
+        {
+            label: 'Soft8Soft Website',
+            click() {
+                shell.openExternal('https://www.soft8soft.com');
             }
-        ]
-    }]);
-    Menu.setApplicationMenu(menu);
-    </code>
+        },
+        {
+            label: 'Exit',
+            click() {
+                app.quit()
+            }
+        }
+    ]
+}]);
+Menu.setApplicationMenu(menu);
+</code>
 
 
     <p>请参阅 <a href="files/creating-desktop-apps/menu-template/main.js" download>这里</a> 修改后的*main.js*文件的示例：</p>
 
-    <p>运行应用，您会得到以下内容：</p><img src="files/creating-desktop-apps/electron-app-with-menu.jpg" class="centered"
+    <p>运行应用，您会得到以下内容：</p>
+    
+    <img src="files/creating-desktop-apps/electron-app-with-menu.jpg" class="centered"
       style="max-width: 800px">
 
     [anchor:using_npm]

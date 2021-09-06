@@ -71,8 +71,9 @@
     <p class="note">
       请注意，您的WordPress服务器配置可能有严格的上传限制。如果您在上传应用时遇到问题，您需要调整php.ini文件中的以下设置：
 
-      <code>
-        upload_max_filesize = 128M post_max_size = 128M
+      <code class=" prettyprint">
+        upload_max_filesize = 128M
+        post_max_size = 128M
       </code>
 
       查看官方 <a href="http://php.net/manual/en/ini.core.php" target="_blank">PHP文档</a> 有关php.ini配置的更多信息。
@@ -120,7 +121,8 @@
           "id": THE_ID_OF_THE_UPLOADED_FILE,
           "link": LINK_TO_THE_UPLOADED_FILE,
           "size": FILE_SIZE
-      }</code>
+      }
+    </code>
 
     <p>使用请求中提供的链接或使用ID与 <em>get_file</em> REST API方法来检索文件：</p>
     
@@ -130,7 +132,7 @@
 
     <p>使用 <strong>send data</strong> 和 <strong>loaded data</strong> 拼图来上传文件。使用 <strong>in dict ... get key ...</strong>
       拼图解析API响应的JSON字段。</p>
-    <p>在下面的示例中，将用户在&ldquo;opened file&rdquo;拼图中指定的文件上载到Soft8Soft沙箱中，然后把web地址保存到 <strong>link</strong> 变量里：</p><img
+    <p>在下面的示例中，将用户在“opened file”拼图中指定的文件上载到Soft8Soft沙箱中，然后把web地址保存到 <strong>link</strong> 变量里：</p><img
       src="files/wordpress/send_load_puzzles.png">
     <p>若要检索/下载文件，请使用 <strong>load data</strong> 和 <strong>loaded data</strong> 拼图。</p>
 
@@ -142,7 +144,7 @@
 
     <code>[verge3d_order]</code>
 
-    <p>然后将指向该页面/应用的链接指定为&ldquo;place order&rdquo;拼图的&ldquo;send to&rdquo;参数。每次执行此拼图时，您的应用都会将用户重定向到您的订单表单：</p><img
+    <p>然后将指向该页面/应用的链接指定为“place order”拼图的“send to”参数。每次执行此拼图时，您的应用都会将用户重定向到您的订单表单：</p><img
       src="files/wordpress/order_form.png" style="max-width: 500px;">
 
     [anchor:Managing_Orders]
@@ -157,8 +159,8 @@
 
     <h2>高级电子商务应用</h2>
 
-    <p>在某些情况下，您可能希望扩展电子商务系统的功能。例如，如果您开发了3D配置器，或者需要从客户端获得更多信息以正确处理订单，则需要向请求添加更多数据，并在服务器上处理这些数据。对于这种情况，您需要使用&ldquo;send
-      data&rdquo;拼图将数据编码为JSON格式，然后为您的电子商务系统创建自定义模板表单。</p>
+    <p>在某些情况下，您可能希望扩展电子商务系统的功能。例如，如果您开发了3D配置器，或者需要从客户端获得更多信息以正确处理订单，则需要向请求添加更多数据，并在服务器上处理这些数据。对于这种情况，您需要使用“send
+      data”拼图将数据编码为JSON格式，然后为您的电子商务系统创建自定义模板表单。</p>
 
     <p>假设您想创建一个基本的表单定制器。以下是数据的外观：</p>
 
@@ -173,10 +175,11 @@
           "user_name", "John Smith",
           "user_email", "john.smith@example.com",
           "user_phone", "+123456789"
-      }</code>
+      }
+    </code>
 
-    <p>您可以使用<b>字典拼图</b>来组合这个结构，然后使用&ldquo;send
-      Data&rdquo;拼图将其发送到服务器。之后，您需要为订单管理管理页面创建自定义模板，以及将发送给客户和销售人员的电子邮件。为此，请将以下模板源文件复制到 <em>verge3d</em> 子目录：</p>
+    <p>您可以使用<b>字典拼图</b>来组合这个结构，然后使用“send
+      Data”拼图将其发送到服务器。之后，您需要为订单管理管理页面创建自定义模板，以及将发送给客户和销售人员的电子邮件。为此，请将以下模板源文件复制到 <em>verge3d</em> 子目录：</p>
 
     <code class="language-html">
         WORDPRESS/wp-content/plugins/verge3d/templates/order_admin_form.php -> THEME/verge3d
@@ -186,7 +189,7 @@
 
     <p>其中WORDPRESS是WordPress安装的根目录,而THEME是当前主题的目录。根据为您的订单指定的结构编辑这些文件。</p>
 
-    <p>最后一部分是为您的&ldquo;send data&rdquo;拼图分配一个适当的URL。类似这样：</p>
+    <p>最后一部分是为您的“send data”拼图分配一个适当的URL。类似这样：</p>
 
     <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/place_order/
 </code>
@@ -275,7 +278,7 @@
 
     <p class="note">本节针对具有高级服务器端编程经验的用户。</p>
 
-    <p>&ldquo;place order&rdquo;拼图使用基础协议处理订单。使用带有如下参数的HTTP POST请求，将订单从浏览器发送到服务器：</p>
+    <p>“place order”拼图使用基础协议处理订单。使用带有如下参数的HTTP POST请求，将订单从浏览器发送到服务器：</p>
 
     <table style="width:100%">
       <tr>
@@ -292,7 +295,7 @@
       </tr>
       <tr>
         <td>v3d_price</td>
-        <td>订单总价。它可以是一个数字或字符串，例如99、99.99、&ldquo;$99.99&rdquo;。</td>
+        <td>订单总价。它可以是一个数字或字符串，例如99、99.99、“$99.99”。</td>
       </tr>
       <tr>
         <td>v3d_screenshot</td>
@@ -312,7 +315,7 @@
       </tr>
       <tr>
         <td>price</td>
-        <td>订单总价。它可以是一个数字或字符串，例如99、99.99、&ldquo;$99.99&rdquo;。</td>
+        <td>订单总价。它可以是一个数字或字符串，例如99、99.99、“$99.99”。</td>
       </tr>
       <tr>
         <td>user_name</td>

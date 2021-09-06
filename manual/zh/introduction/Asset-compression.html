@@ -15,8 +15,7 @@
 
     <h1>资产压缩</h1>
 
-    <p>在Verge3D中，可通过LZMA2算法高效压缩场景有效降低文件大小。同时，LZMA2提供了在浏览器端快速解压的解决方案。在Verge3D场景中的典型压缩率为：<strong>.gltf</strong>
-      文件20倍，<strong>.bin</strong> 文件6倍。</p>
+    <p>在Verge3D中，可通过LZMA2算法高效压缩场景有效降低文件大小。同时，LZMA2提供了在浏览器端快速解压的解决方案。在Verge3D场景中的典型压缩率为：<strong>.gltf</strong> 文件20倍，<strong>.bin</strong> 文件6倍。</p>
 
     [contents] [anchor:When_Compress_Files]
 
@@ -28,14 +27,17 @@
       <li>预期的网络连接速度非常缓慢；</li>
       <li>标准服务器端的GZIP选项压缩未启用或效果不明显，或者您甚至无权访问服务器来为Verge3D场景文件设置GZIP压缩。</li>
     </ul>
-    </p><img src="files/asset_compression/compression_chart.png" class="centered with-caption"
-      style="max-width: 630px;"> <span class="img-caption">原始文件、GZIP压缩文件和LZMA2压缩文件的大小比较
-    </span> [anchor:Exporting_Compressed_Files]
+    </p>
+    
+    <img src="files/asset_compression/compression_chart.png" class="centered with-caption" style="max-width: 630px;">
+      
+    <span class="img-caption">原始文件、GZIP压缩文件和LZMA2压缩文件的大小比较</span>
+    
+    [anchor:Exporting_Compressed_Files]
 
     <h2>导出压缩文件</h2>
 
-    <p>Verge3D支持加载以 <strong>.xz</strong> 文件格式压缩的场景文件，其中包含LZMA2压缩算法。要在导出时自动创建 <strong>.xz</strong> 文件，只需在导出设置中打开相应的选项。
-    </p>
+    <p>Verge3D支持加载以 <strong>.xz</strong> 文件格式压缩的场景文件，其中包含LZMA2压缩算法。要在导出时自动创建 <strong>.xz</strong> 文件，只需在导出设置中打开相应的选项。</p>
 
     <v3d-tabs>
       <label>Blender</label>
@@ -50,27 +52,31 @@
 
     <h2>使用压缩文件</h2>
 
-    <p>压缩过的 <strong>.xz</strong> 文件（例如， <i>my_awesome_app.gltf.xz</i> 和 <i>my_awesome_app.bin.xz</i>
-      ）会保存在原始文件目录下。下一步就只需在应用中启用加载它们了。在场景中启用加载这些压缩文件，您需要打开拼图…</p><img
-      src="files/beginner_guide/app-manager-app-buttons-puzzles.png" class="centered" style="max-width: 1000px"></p>
-    ...并切换到 <strong>init</strong> 标签:</p><img src="files/asset_compression/puzzles-init.jpg" class="centered"
-      style="max-width: 600px">
-    <p>如果工作区中还没有 <strong>configure application(配置应用)</strong> 拼图，把它从 <strong>初始化 | Initialization</strong>
-      类目中拖拽出来，并且启用其上的 <strong>compressed assets(压缩资产)</strong> 复选框：</p><img
-      src="files/asset_compression/puzzles-configure-app.jpg" class="centered" style="max-width: 850px">
+    <p>压缩过的 <strong>.xz</strong> 文件（例如， <i>my_awesome_app.gltf.xz</i> 和 <i>my_awesome_app.bin.xz</i> ）会保存在原始文件目录下。下一步就只需在应用中启用加载它们了。在场景中启用加载这些压缩文件，您需要打开拼图…</p>
+    
+    <img src="files/beginner_guide/app-manager-app-buttons-puzzles.png" class="centered" style="max-width: 1000px">
+  
+    <p>...并切换到 <strong>init</strong> 标签:</p>
+    
+    <img src="files/asset_compression/puzzles-init.jpg" class="centered" style="max-width: 600px">
+
+    <p>如果工作区中还没有 <strong>configure application(配置应用)</strong> 拼图，把它从 <strong>初始化 | Initialization</strong> 类目中拖拽出来，并且启用其上的 <strong>compressed assets(压缩资产)</strong> 复选框：</p>
+    
+    <img src="files/asset_compression/puzzles-configure-app.jpg" class="centered" style="max-width: 850px">
+
     <p>最后，点击 <strong>Save</strong> 按钮即可。搞定！</p>
 
     [anchor:Checking_Your_Files]
 
     <h2>检查文件</h2>
 
-    <p>若要确认应用现在实际加载的是否为压缩资产，请（从应用管理器或部署应用的网站）运行应用，打开浏览器控制台并切换到 <strong>网络</strong> 选项卡。</p><img
-      src="files/asset_compression/console-check.jpg" class="centered">
-    <p>重新加载应用以便控制台从头开始显示文件。在列表中找到场景文件&mdash;&mdash;如果一切正常，它们应该以 <strong>.xz</strong> 结尾。</p>
+    <p>若要确认应用现在实际加载的是否为压缩资产，请（从应用管理器或部署应用的网站）运行应用，打开浏览器控制台并切换到 <strong>网络</strong> 选项卡。</p>
+    
+    <img src="files/asset_compression/console-check.jpg" class="centered">
 
-    <p>在Windows和Linux平台，Chrome，Firefox浏览器的控制台一般可用F12快捷键打开。在Mac电脑中，Chrome使用
-      View&gt;Developer&gt;JavaScript控制台菜单（快捷键：Option-Cmd-J）开启，Safari需使用 Developer&gt;Show Error
-      Console菜单（快捷键：Option-Cmd-C）开启浏览器控制台。</p>
+    <p>重新加载应用以便控制台从头开始显示文件。在列表中找到场景文件——如果一切正常，它们应该以 <strong>.xz</strong> 结尾。</p>
+
+    <p>在Windows和Linux平台，Chrome，Firefox浏览器的控制台一般可用F12快捷键打开。在Mac电脑中，Chrome使用 View > Developer > JavaScript控制台菜单（快捷键：Option-Cmd-J）开启，Safari需使用 Developer > Show Error Console菜单（快捷键：Option-Cmd-C）开启浏览器控制台。</p>
 
     [anchor:Code_Based_or_Player_Based_Apps]
 
@@ -87,9 +93,9 @@
 
       为：
 
-      <code>
-        var url = 'my_awesome_app.gltf.xz';
-      </code>
+    <code>
+      var url = 'my_awesome_app.gltf.xz';
+    </code>
 
       即可。
     </p>
@@ -100,7 +106,7 @@
 
       您只需将其替换为压缩的 <strong>.gltf.xz</strong> 文件的路径：
       
-      <code class="language-html">https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf.xz</code>
+    <code class="language-html">https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf.xz</code>
 
     </p>
 
@@ -122,8 +128,10 @@
 
     <p>1) 使用常用的 <a href="https://www.7-zip.org/download.html">7-Zip</a> 工具创建.xz文件时：</p>
 
-    <p>在您要压缩的文件上点击右键，选择&quot;7-Zip&quot; -&gt; &quot;添加到压缩包...&quot;- 这将打开对应的配置对话框：</p><img
-      src="files/asset_compression/7zip_add_to_archive.png" class="centered" style="max-width: 630px;">
+    <p>在您要压缩的文件上点击右键，选择"7-Zip" -> "添加到压缩包..."- 这将打开对应的配置对话框：</p>
+    
+    <img src="files/asset_compression/7zip_add_to_archive.png" class="centered" style="max-width: 630px;">
+    
     <p>压缩设置应如下所示：
     <ul>
       <li>压缩格式： xz</li>
@@ -139,15 +147,12 @@
 
         7z.exe a -m0=LZMA2:d23 scene.gltf.xz scene.gltf
         7z.exe a -m0=LZMA2:d23 scene.bin.xz scene.bin
-      
-</code>
+      </code>
 
 
     </p>
 
-    <p>2) 或者，您也可以使用一个名为 <strong>XZ Utils</strong> 的特殊命令行工具。它的Windows安装包可以在 <a href="https://tukaani.org/xz/">这里</a> 的
-      <strong>Pre-built binaries</strong> 部分找到。
-    </p>
+    <p>2) 或者，您也可以使用一个名为 <strong>XZ Utils</strong> 的特殊命令行工具。它的Windows安装包可以在 <a href="https://tukaani.org/xz/">这里</a> 的 <strong>Pre-built binaries</strong> 部分找到。</p>
 
     <p>使用方法很简单：
 

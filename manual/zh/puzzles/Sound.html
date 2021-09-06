@@ -14,7 +14,9 @@
   <article>
     <h1>音频与视频 | Audio and Video</h1>
 
-    <p>此类拼图用来加载和播放音频与视频文件，以及合成MIDI声音。</p><img src="files/puzzles/puzzles-sound.jpg">
+    <p>此类拼图用来加载和播放音频与视频文件，以及合成MIDI声音。</p>
+    
+    <img src="files/puzzles/puzzles-sound.jpg">
     <h2>内容</h2>
 
     [contents] [anchor:puzzles_reference]
@@ -26,54 +28,63 @@
     <h3>load sound(加载声音)</h3>
 
     <p>使用指定的URL加载一个音频文件。音频通过HTML5音频标签或WebAudio API播放，这取决于所选择的类型：<b>Music</b> 或 *sound*/*midi*
-      。此拼图会将加载的音频添加到内存缓存中，这样之后使用此这个拼图时调用相同的URL的音频，就无需再重新加载相同的文件。建议使用 <strong>.mp3</strong> 格式，大多数浏览器都支持。</p><img
+      。此拼图会将加载的音频添加到内存缓存中，这样之后使用此这个拼图时调用相同的URL的音频，就无需再重新加载相同的文件。建议使用 <strong>.mp3</strong> 格式，大多数浏览器都支持。</p>
+    
+    <img
       src="files/puzzles/puzzles-sound-load-sound.jpg" style="max-width: 1000px">
     <p id="load_sound_preloading"><b>预载音频</b></p>
     <p>音频文件需要一定的时间来加载，所以它们并不能立即使用。因此单纯在 <a href="manual/zh/puzzles/Sound.html#play">play(播放)</a> 拼图里使用 *load
       sound(加载声音)* ，音频可能无法直接开始播放。</p>
 
-    <p>为确保应用中的音频能够正常播放，我们建议预先加载音频文件，例如，在Verge3D应用初始化前执行的 <a
-        href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html#Tabs">init</a> 标签中预载。您也可以使用 <a
-        href="manual/zh/puzzles/Advanced.html#connector">connector(连接器)</a> 拼图，以更方便的方式组织一堆 &quot;加载声音 &quot;拼图。</p><img
-      class="centered" src="files/puzzles/puzzles-sound-preload-init.jpg" style="max-width: 1000px"> <span
-      class="img-caption">在 &quot;init&quot; 标签中预载音频。</span>
-    <p>之后在 <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html#Tabs">main</a>
-      标签或用户创建的标签中，使用预装的音频文件应该不会引起任何问题，因为在第一次使用 *load sound(加载声音)* 拼图后，音频已经被缓存了，不需要再次下载：</p><img class="centered"
-      src="files/puzzles/puzzles-sound-preload-usage.jpg" style="max-width: 1000px"> <span class="img-caption">在
-      &quot;main&quot; 标签中使用预装的音频。</span>
+    <p>为确保应用中的音频能够正常播放，我们建议预先加载音频文件，例如，在Verge3D应用初始化前执行的 <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html#Tabs">init</a> 标签中预载。您也可以使用 <a href="manual/zh/puzzles/Advanced.html#connector">connector(连接器)</a> 拼图，以更方便的方式组织一堆 "load sound(加载声音)" 拼图。</p>
+    
+    <img class="centered" src="files/puzzles/puzzles-sound-preload-init.jpg" style="max-width: 1000px">
+    
+    <span class="img-caption">在 "init" 标签中预载音频。</span>
+
+    <p>之后在 <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html#Tabs">main</a> 标签或用户创建的标签中，使用预装的音频文件应该不会引起任何问题，因为在第一次使用 *load sound(加载声音)* 拼图后，音频已经被缓存了，不需要再次下载：</p>
+    
+    <img class="centered" src="files/puzzles/puzzles-sound-preload-usage.jpg" style="max-width: 1000px">
+    
+    <span class="img-caption">在 "main" 标签中使用预装的音频。</span>
+    
     <p><b>自动播放限制</b></p>
-    <p>一般来说，以编程方式启动的音频播放（如使用拼图播放）很可能会被浏览器阻止。这是因为自动播放策略限制了音频在网页上的自动播放方式。这种限制的目的是为了改善整体的用户体验：阻止网页在未被触发的情况下自主播放音频，产生噪音干扰用户。
-    </p>
+
+    <p>一般来说，以编程方式启动的音频播放（如使用拼图播放）很可能会被浏览器阻止。这是因为自动播放策略限制了音频在网页上的自动播放方式。这种限制的目的是为了改善整体的用户体验：阻止网页在未被触发的情况下自主播放音频，产生噪音干扰用户。</p>
 
     <p>虽然在不同的浏览器中这种策略的实施方式不同，有各种允许或不允许自动播放的条件，但播放音频的一般规则是等待用户与网页互动。</p>
 
     <p>
-      如果这种互动已经隐含在应用逻辑中，例如，在点击时播放声音（无论是点击3D对象，还是点击HTML按钮），您就无需担心这些限制。但如果您想让应用在应用被加载时就开始播放播放背景音乐。由于这不可能总是以自动的方式完成，一个好的解决方案是制作一个
-      &quot;启动 &quot;按钮，在应用加载完成时启动。点击它算作一个用户交互，即可开始音频播放。</p>
+      如果这种互动已经隐含在应用逻辑中，例如，在点击时播放声音（无论是点击3D对象，还是点击HTML按钮），您就无需担心这些限制。但如果您想让应用在应用被加载时就开始播放播放背景音乐。由于这不可能总是以自动的方式完成，一个好的解决方案是制作一个 "启动" 按钮，在应用加载完成时启动。点击它算作一个用户交互，即可开始音频播放。</p>
 
-    <p><b>&quot;music&quot; vs &quot;sound&quot; vs &quot;midi&rdquo; 音频</b></p>
+    <p><b>"music" vs "sound" vs "midi" 音频</b></p>
+
     <p>此拼图允许您选择使用哪个API来加载和播放音频文件。
     <ul>
       <li><b>music</b> （默认，HTML5音频标签） 应该在大多数时候使用此类型；更适合于长的音频文件，例如背景音乐。</li>
       <li><b>Sound</b> (WebAudio API) - 更适合于短的音频文件，例如小的声音效果；建议只在以下情形使用这种类型：<ul>
-          <li>短的循环（见 <a href="manual/zh/puzzles/Sound.html#play">play(播放)</a> 拼图及其 <b>loop(循环)</b> 选项）音效 &mdash;&mdash;
-            &quot;sound&quot; 使循环的音频无缝衔接，而使用 &quot;music&quot; 则有明显的延迟。</li>
-          <li>应该立即播放的音效，例如在用户在Safari上交互时会有延迟&mdash;&mdash; &quot;sound&quot; 可以解决这个问题。</li>
+          <li>短的循环（见 <a href="manual/zh/puzzles/Sound.html#play">play(播放)</a> 拼图及其 <b>loop(循环)</b> 选项）音效 ——
+            "sound" 使循环的音频无缝衔接，而使用 "music" 则有明显的延迟。</li>
+          <li>应该立即播放的音效，例如在用户在Safari上交互时会有延迟—— "sound" 可以解决这个问题。</li>
         </ul>
       </li>
       <li><b>midi</b> (WebAudio API + GM Synth) - 特殊类型的 *sound*，用于播放标准MIDI文件（以 <strong>*.mid</strong> 为扩展名）。与存储在
         <strong>*.mp3</strong>中的音乐相比，MIDI文件体积非常小，对应用的加载时间影响最小。但MIDI存储的音频内容有限制，降低了配音质量。</li>
     </ul>
-    </p><img src="files/puzzles/puzzles-sound-load-sound-type.jpg" style="max-width: 1000px">
+    </p>
+    
+    <img src="files/puzzles/puzzles-sound-load-sound-type.jpg" style="max-width: 1000px">
     <p class="note">大多数现代浏览器都支持 <b>sound</b> 和 *midi* 类型所使用的网络音频API。但是，如果您需要您的音频在不支持网络音频的浏览器中也可使用（如Internet Explorer
       11），则必须使用 <b>music</b> 类型。 <br /><br /> 如果需要在有 *sound*/*music* 类型的浏览器中使用，并同时支持Internet Explorer 11，那么推荐的解决方案是使用 <a
         href="manual/zh/puzzles/System.html#feature_available">feature available(功能可用)</a> 拼图，并选择 <b>Web Audio API</b>
       选项来检查API是否可用，然后根据情况加载 <b>music</b> 或 <b>sound</b> 类型的音频。您可以对 <a
-        href="manual/zh/puzzles/Sound.html#load_sound_preloading">预加载</a> 和播放音频的方式进行设置，如下图所示。</p><img class="centered"
+        href="manual/zh/puzzles/Sound.html#load_sound_preloading">预加载</a> 和播放音频的方式进行设置，如下图所示。</p>
+    
+    <img class="centered"
       src="files/puzzles/puzzles-sound-load-feature-available-init.jpg" style="max-width: 1000px"> <span
-      class="img-caption">在 &quot;init&rdquo; 初始化选项卡中预装音频，并检查Web Audio API的可用性。</span> <img class="centered"
+      class="img-caption">在 "init" 初始化选项卡中预装音频，并检查Web Audio API的可用性。</span> <img class="centered"
       src="files/puzzles/puzzles-sound-load-feature-available-main.jpg" style="max-width: 1000px"> <span
-      class="img-caption">在 &quot;main&quot; 选项卡中使用预载的音频，并检查网络音频API的可用性。</span>
+      class="img-caption">在 "main" 选项卡中使用预载的音频，并检查网络音频API的可用性。</span>
 
     [anchor:load_video]
 
@@ -81,14 +92,18 @@
 
     <p>创建一个 <a href="https://www.w3schools.com/html/html5_video.asp" target="_blank">HTML5视频</a>
       元素并使用指定的URL加载一个视频文件。此拼图会将加载的视频添加到内存缓存中，这样之后使用此这个拼图时调用相同的URL的视频，就无需再重新加载相同的文件。建议使用 <strong>.mp4</strong>
-      格式，大多数浏览器都支持。</p><img src="files/puzzles/puzzles-sound-load-video.jpg">
+      格式，大多数浏览器都支持。</p>
+    
+    <img src="files/puzzles/puzzles-sound-load-video.jpg">
     <p>*Load load video(加载视频)* 拼图不会在您的场景中创建任何可见的元素。请使用 <a
         href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a> 拼图将视频纹理分配给材质以使其可见。</p>
     <!-- COMPAT: < 3.1.1 --> <a href="#" id="play_sound"></a> [anchor:play]
 
     <h3>play(播放)</h3>
 
-    <p>开始播放音频或视频。如果启用 *loop* 复选框，音视频会循环播放。</p><img src="files/puzzles/puzzles-sound-play.jpg" style="max-width: 722px">
+    <p>开始播放音频或视频。如果启用 *loop* 复选框，音视频会循环播放。</p>
+    
+    <img src="files/puzzles/puzzles-sound-play.jpg" style="max-width: 722px">
     <p>由于浏览器的限制（防止恶意网站播放噪音或视频），此拼图不适用于（在场景加载时）自动播放。您可以使用用户交互的事件来执行播放。使用 <a
         href="manual/zh/puzzles/Events.html#when_clicked">when clicked(当点击...时)</a> 或 <a
         href="manual/zh/puzzles/HTML.html#event">event(事件)</a> 来处理此类事件。</p>
@@ -98,53 +113,69 @@
 
     <h3>pause(暂停)</h3>
 
-    <p>暂停音频或视频播放。</p><img src="files/puzzles/puzzles-sound-pause.jpg" style="max-width: 459px"> <!-- COMPAT: < 3.1.1 -->
+    <p>暂停音频或视频播放。</p>
+    
+    <img src="files/puzzles/puzzles-sound-pause.jpg" style="max-width: 459px"> <!-- COMPAT: < 3.1.1 -->
     <a href="#" id="stop_sound"></a> [anchor:stop]
 
     <h3>stop(停止)</h3>
 
     <p>停止音频或视频的播放。使用此拼图相当于使用 <a href="manual/zh/puzzles/Sound.html#pause">pause(暂停)</a> 拼图后再使用 <a
-        href="manual/zh/puzzles/Sound.html#rewind">rewind(倒带)</a> 拼图。</p><img
+        href="manual/zh/puzzles/Sound.html#rewind">rewind(倒带)</a> 拼图。</p>
+    
+    <img
       src="files/puzzles/puzzles-sound-stop.jpg"> <!-- COMPAT: < 3.1.1 --> <a href="#" id="rewind_sound"></a>
     [anchor:rewind]
 
     <h3>rewind(倒带)</h3>
 
-    <p>使得音频或视频资产从头开始播放。</p><img src="files/puzzles/puzzles-sound-rewind.jpg" style="max-width: 459px">
+    <p>使得音频或视频资产从头开始播放。</p>
+    
+    <img src="files/puzzles/puzzles-sound-rewind.jpg" style="max-width: 459px">
 
     [anchor:set_playback_time]
 
     <h3>set playback time(设置播放时间)</h3>
 
-    <p>以秒为单位设置音视频当前播放时间。</p><img src="files/puzzles/puzzles-sound-set-playback-time.jpg">
+    <p>以秒为单位设置音视频当前播放时间。</p>
+    
+    <img src="files/puzzles/puzzles-sound-set-playback-time.jpg">
     <p class="note">不支持为 *sound* (WebAudio)类资产设置播放时间。</p>
 
     [anchor:get_playback_time]
 
     <h3>get playback time(获取播放时间)</h3>
 
-    <p>以秒为单位(获取音视频当前播放时间。</p><img src="files/puzzles/puzzles-sound-get-playback-time.jpg">
+    <p>以秒为单位(获取音视频当前播放时间。</p>
+    
+    <img src="files/puzzles/puzzles-sound-get-playback-time.jpg">
     <p class="note">不支持为 *sound* (WebAudio)类资产获取播放时间。</p>
 
     [anchor:set_playback_rate]
 
     <h3>set playback rate(设置播放速率)</h3>
 
-    <p>设置音频/视频的播放速率。指定值&lt;1为慢速播放，1为正常速度，&gt;1为加速播放。</p><img src="files/puzzles/puzzles-sound-set-playback-rate.jpg">
+    <p>设置音频/视频的播放速率。指定值&lt;1为慢速播放，1为正常速度，&gt;1为加速播放。</p>
+    
+    <img src="files/puzzles/puzzles-sound-set-playback-rate.jpg">
     <p class="note">不支持为 *midi* 类资产设置播放速率。</p>
 
     [anchor:set_volume]
 
     <h3>set volume(设置音量)</h3>
 
-    <p>设置声音的音量。输入音量被钳制在0.0-1.0的范围内。此拼图也适用于有嵌入式音轨的视频。</p><img src="files/puzzles/puzzles-sound-set-volume.jpg"
+    <p>设置声音的音量。输入音量被钳制在0.0-1.0的范围内。此拼图也适用于有嵌入式音轨的视频。</p>
+    
+    <img src="files/puzzles/puzzles-sound-set-volume.jpg"
       style="max-width: 700px">
 
     [anchor:is_playing]
 
     <h3>is playing(正在播放)</h3>
 
-    <p>检查一个声音或视频是否正在被播放。</p><img src="files/puzzles/puzzles-sound-is-playing.jpg" style="max-width: 595px">
+    <p>检查一个声音或视频是否正在被播放。</p>
+    
+    <img src="files/puzzles/puzzles-sound-is-playing.jpg" style="max-width: 595px">
 
     [anchor:mute]
 
@@ -152,24 +183,31 @@
 
     <p>将一个声音或视频静音。</p>
 
-    <p>除了控制音频音量之外，您还可以使用这个拼图来自动开始播放视频。这是有可行的，因为网络浏览器允许在没有用户互动的情况下播放静音的视频。</p><img
+    <p>除了控制音频音量之外，您还可以使用这个拼图来自动开始播放视频。这是有可行的，因为网络浏览器允许在没有用户互动的情况下播放静音的视频。</p>
+    
+    <img
       src="files/puzzles/puzzles-sound-mute.jpg" style="max-width: 557px">
 
     [anchor:unmute]
 
     <h3>unmute(取消静音)</h3>
 
-    <p>取消一个声音或视频的静音。</p><img src="files/puzzles/puzzles-sound-unmute.jpg" style="max-width: 511px">
+    <p>取消一个声音或视频的静音。</p>
+    
+    <img src="files/puzzles/puzzles-sound-unmute.jpg" style="max-width: 511px">
 
     [anchor:synth_sound]
 
     <h3>synth sound(合成声音)</h3>
 
     <p>使用内置的 <em>通用MIDI</em> 兼容的软件合成器（基于 <a href="https://github.com/g200kg/webaudio-tinysynth"
-        target="_blank">TinySynth库</a>）播放声音。支持各种乐器和效果。</p><img src="files/puzzles/puzzles-sound-synth-sound.jpg">
+        target="_blank">TinySynth库</a>）播放声音。支持各种乐器和效果。</p>
+    
+    <img src="files/puzzles/puzzles-sound-synth-sound.jpg">
+    
     <dl>
       <dt>note on(音符开)</dt>
-      <dd>开始使用给定的合成器 *chanel(通道)* 来演奏 *note(音符)* ，使用&ldquo;velocity&rdquo;指定声音强度 。使用 *at time* 值来指定播放开始时间，单位为秒。</dd>
+      <dd>开始使用给定的合成器 *chanel(通道)* 来演奏 *note(音符)* ，使用 "velocity" 指定声音强度 。使用 *at time* 值来指定播放开始时间，单位为秒。</dd>
 
       <dt>note off(音符关)</dt>
       <dd>停止演奏给定的 *note(音符)* 。</dd>
@@ -189,7 +227,9 @@
 
     <p>指定 *Drums* 为通道号来演奏鼓乐，用 <a href="manual/zh/puzzles/Sound.html#get_drum_number">drum number(鼓号)</a> 选择乐器。</p>
 
-    <p>示例：</p><img src="files/puzzles/puzzles-sound-synth-sound-example.jpg">
+    <p>示例：</p>
+    
+    <img src="files/puzzles/puzzles-sound-synth-sound-example.jpg">
 
     [anchor:get_note_number]
 
@@ -204,7 +244,9 @@
 
     <h3>drum number(鼓号)</h3>
 
-    <p>返回鼓的编号。用它来传递音符到 <a href="manual/zh/puzzles/Sound.html#synth_sound">synth sound(合成声音)</a> 拼图的 *drum* 通道。</p><img
+    <p>返回鼓的编号。用它来传递音符到 <a href="manual/zh/puzzles/Sound.html#synth_sound">synth sound(合成声音)</a> 拼图的 *drum* 通道。</p>
+    
+    <img
       src="files/puzzles/puzzles-sound-get-drum-number.jpg">
     <h2>在使用拼图时遇到困难？</h2>
 
