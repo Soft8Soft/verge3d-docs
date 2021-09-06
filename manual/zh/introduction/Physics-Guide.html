@@ -22,8 +22,7 @@
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
     </iframe>
 
-    <p>我们使用开源的物理引擎Bullet作为物理系统后端,它的web版本被称为 <a href="https://github.com/kripken/ammo.js" target="_blank">ammo.js</a>。
-    </p>
+    <p>我们使用开源的物理引擎Bullet作为物理系统后端,它的web版本被称为 <a href="https://github.com/kripken/ammo.js" target="_blank">ammo.js</a>。</p>
 
     <h2>内容</h2>
 
@@ -31,10 +30,11 @@
 
     <h2>物理系统入门</h2>
 
-    <p>在使用物理系统之前，必须将物理模块添加到应用中。您可以在应用管理器中创建新应用时启用该模块。</p><img src="files/physics-guide/app-manager-physics.jpg"
-      class="centered" style="max-width: 574px">
-    <p class="note">默认情况下，Verge3D使用物理引擎的所谓WebAssembly版本。与常规版本相比，此版本具有显著的性能提升，但不适用于Internet Explorer
-      11和更早的Safari浏览器（版本10或更低版本）。如果您需要您的应用在这些浏览器中得到支持，请在应用创建对话框中同时启用*Physics*和*IE11*模块。</p>
+    <p>在使用物理系统之前，必须将物理模块添加到应用中。您可以在应用管理器中创建新应用时启用该模块。</p>
+    
+    <img src="files/physics-guide/app-manager-physics.jpg" class="centered" style="max-width: 574px">
+
+    <p class="note">默认情况下，Verge3D使用物理引擎的所谓WebAssembly版本。与常规版本相比，此版本具有显著的性能提升，但不适用于Internet Explorer 11和更早的Safari浏览器（版本10或更低版本）。如果您需要您的应用在这些浏览器中得到支持，请在应用创建对话框中同时启用*Physics*和*IE11*模块。</p>
 
     <p>或者，您可以将物理模块添加到现有的应用中。为此，将文件*ammo.wasm.js*和*ammo.wasm.wasm*从*verge3d/build*文件夹复制到应用文件夹，并添加这行代码</p>
 
@@ -57,16 +57,10 @@
     <ul>
       <li>一定要在建模套件中应用比例，因为物理引擎会忽略对象的比例。</li>
       <li>为了得到最好的结果，对象的原点应该与质心重合。在Blender2.8中，请使用如下方式 <strong>物体 > 设置原点 > 原点到质心（体积）</strong>设置。</li>
-      <li>切勿直接对 <em>动态</em> 体直接进行位置和动画设置。作为替代，使用 <a href="manual/zh/puzzles/Physics.html#apply_vector">apply
-          vector(应用向量)</a> 执行力/冲量/向量操作，使用 <a href="manual/zh/puzzles/Physics.html#snap_body">snap body(绑定体)</a>
-        拼图执行绑定到另一个对象的操作。</li>
-      <li>出于性能优化考虑，Verge3D会禁用一段时间后不活动的 <em>动态</em> 实体。您可以通过应用一些矢量将它们与其他物体碰撞，或使用 <a
-          href="manual/zh/puzzles/Physics.html#set_body_state">set body state(设置体状态)</a>
-        拼图来重新激活它们。如果您需要这些体始终处于活动状态，使用此拼图为它们设置 *disable deactivation* 状态。</li>
-      <li>启用连续碰撞检测（CCD）技术，以提高快速运动物体的模拟质量，如射弹、弹球、台球、保龄球等。要做到这一点，请在该物体上设置 *CCD运动阈值* 和 *CCD扫描球体半径* 参数。参见 <a
-          href="manual/zh/puzzles/Physics.html#apply_body_param">这里</a> 的更多信息。</li>
-      <li>请记住，你不能在 *static*/*static*、*static*/*kinematic*或*kinematic*/*kinematic*物体之间 <a
-          href="manual/zh/puzzles/Physics.html#detect_collisions">检测碰撞</a> 。如果不能使用*dynamic* 实体，可以考虑指定 *ghost*
+      <li>切勿直接对 <em>动态</em> 体直接进行位置和动画设置。作为替代，使用 <a href="manual/zh/puzzles/Physics.html#apply_vector">apply vector(应用向量)</a> 执行力/冲量/向量操作，使用 <a href="manual/zh/puzzles/Physics.html#snap_body">snap body(绑定体)</a> 拼图执行绑定到另一个对象的操作。</li>
+      <li>出于性能优化考虑，Verge3D会禁用一段时间后不活动的 <em>动态</em> 实体。您可以通过应用一些矢量将它们与其他物体碰撞，或使用 <a href="manual/zh/puzzles/Physics.html#set_body_state">set body state(设置体状态)</a> 拼图来重新激活它们。如果您需要这些体始终处于活动状态，使用此拼图为它们设置 *disable deactivation* 状态。</li>
+      <li>启用连续碰撞检测（CCD）技术，以提高快速运动物体的模拟质量，如射弹、弹球、台球、保龄球等。要做到这一点，请在该物体上设置 *CCD运动阈值* 和 *CCD扫描球体半径* 参数。参见 <a href="manual/zh/puzzles/Physics.html#apply_body_param">这里</a> 的更多信息。</li>
+      <li>请记住，你不能在 *static*/*static*、*static*/*kinematic*或*kinematic*/*kinematic*物体之间 <a href="manual/zh/puzzles/Physics.html#detect_collisions">检测碰撞</a> 。如果不能使用*dynamic* 实体，可以考虑指定 *ghost*
         物理学来实现移动的非动态物体与 *static*/*kinematic* 环境的近似检测。</li>
     </ul>
 
@@ -74,41 +68,45 @@
 
     <h2>创造第一人称角色</h2>
 
-    <p>
-      第一人称角色模式不仅适用于射击游戏和RPG游戏，也适用于任何需要调查大型环境的应用。例如，建筑可视化应用，电子学习软件，交互式参观指南，虚拟博物馆，文化设施模拟，甚至是3D虚拟卖场等。此外，您可以在VR应用中融入第一人称角色，使它更加真实和有趣！
-    </p>
+    <p>第一人称角色模式不仅适用于射击游戏和RPG游戏，也适用于任何需要调查大型环境的应用。例如，建筑可视化应用，电子学习软件，交互式参观指南，虚拟博物馆，文化设施模拟，甚至是3D虚拟卖场等。此外，您可以在VR应用中融入第一人称角色，使它更加真实和有趣！</p>
 
     <p>实现FPS模式有很多可能的方法，但对于Verge3D初级用户，我们建议您遵循这篇简短的指南，以更快地实现效果。</p>
 
-    <p>创建一个胶囊形状对象代表角色。调整它的高度和宽度，使其看起来更逼真。确保正确设置对象的中心。</p><img src="files/physics-guide/capsule-shape.jpg"
-      class="centered" style="max-width: 639px">
-    <p>在拼图中，为角色指定*dynamic* *capsule*的body，并禁用其旋转自由度。通过这样，允许角色移动，但不允许旋转。同时，在胶囊上应用*disable deactivation*。</p><img
-      src="files/physics-guide/create-character-puzzles.jpg" style="max-width: 725px">
+    <p>创建一个胶囊形状对象代表角色。调整它的高度和宽度，使其看起来更逼真。确保正确设置对象的中心。</p>
+    
+    <img src="files/physics-guide/capsule-shape.jpg" class="centered" style="max-width: 639px">
+
+    <p>在拼图中，为角色指定*dynamic* *capsule*的body，并禁用其旋转自由度。通过这样，允许角色移动，但不允许旋转。同时，在胶囊上应用*disable deactivation*。</p>
+    
+    <img src="files/physics-guide/create-character-puzzles.jpg" style="max-width: 725px">
+
     <p>由于角色需要在地板(+墙壁）或地面上行走，使用相应的*create physics body*拼图来创建这样的体。</p>
 
-    <p>
-      下一步是配置摄影机。摄影机不会分配任何物理特征，因为我们只需要它作为“眼睛”即可。设置*First-Person*控件，但不要分配任何碰撞材质（我们将使用物理引擎提供的全功能碰撞检测，而不是基本的地板/墙壁模拟）。此外，取消选中*Allow
-      Panning*，并将*Movement Speed*值设置为零：</p><img src="files/physics-guide/firstperson-camera-settings.jpg"
-      class="centered" style="max-width: 320px">
-    <p>
-      现在需要把摄影机附加在角色的“头”上了。不需要为头部创建模型，在场景中添加一个名为“Head”的空对象，并将其设置为胶囊模型的上部的子物体。这样“Head”就会随着角色移动。
-    </p>
+    <p>下一步是配置摄影机。摄影机不会分配任何物理特征，因为我们只需要它作为“眼睛”即可。设置*First-Person*控件，但不要分配任何碰撞材质（我们将使用物理引擎提供的全功能碰撞检测，而不是基本的地板/墙壁模拟）。此外，取消选中*Allow Panning*，并将*Movement Speed*值设置为零：</p>
+    
+    <img src="files/physics-guide/firstperson-camera-settings.jpg" class="centered" style="max-width: 320px">
+
+    <p>现在需要把摄影机附加在角色的“头”上了。不需要为头部创建模型，在场景中添加一个名为“Head”的空对象，并将其设置为胶囊模型的上部的子物体。这样“Head”就会随着角色移动。</p>
+
+    <p>通过使用附加的“Head”对象，您可以在运行时将摄影机与角色连接或分离。若要连接摄影机，请使用 <a href="manual/zh/puzzles/Objects.html#parent">parent</a> 和 <a href="manual/zh/puzzles/Objects.html#snap_to_object">snap to object</a> 拼图：</p>
+    
+    <img src="files/physics-guide/snap-camera-puzzles.jpg" style="max-width: 560px">
 
     <p>通过使用附加的“Head”对象，您可以在运行时将摄影机与角色连接或分离。若要连接摄影机，请使用 <a
         href="manual/zh/puzzles/Objects.html#parent">parent</a> 和 <a
-        href="manual/zh/puzzles/Objects.html#snap_to_object">snap to object</a> 拼图：</p><img
-      src="files/physics-guide/snap-camera-puzzles.jpg" style="max-width: 560px">
+        href="manual/zh/puzzles/Objects.html#snap_to_object">snap to object</a> 拼图：</p>
+        
+        <img src="files/physics-guide/snap-camera-puzzles.jpg" style="max-width: 560px">
+        
     <p class="note">若要分离摄影机，请在使用*parent*拼图时将*to object*字段留空。</p>
 
-    <p>角色创建好了！现在是时候让它在场景中移动了。在最基本的情况下，我们需要在用户按下向上箭头键时向前移动。为此，将*linear velocity*矢量应用于角色，该矢量是从摄影机水平方向计算的。要使模拟稳健，应始终使用 <a
-        href="manual/zh/puzzles/Physics.html#on_simulation_tick">on simulation link</a> 拼图。</p><img
-      src="files/physics-guide/moving-character-puzzles.jpg" style="max-width: 981px">
-    <p>要在移动设备上移动您的角色，您需要额外的“controller”元素。您可以使用摄影机父级的3D对象创建它们，也可以使用 <a
-        href="manual/zh/introduction/HTML-based-user-interfaces.html">HTML元素</a>.</p>
+    <p>角色创建好了！现在是时候让它在场景中移动了。在最基本的情况下，我们需要在用户按下向上箭头键时向前移动。为此，将*linear velocity*矢量应用于角色，该矢量是从摄影机水平方向计算的。要使模拟稳健，应始终使用 <a href="manual/zh/puzzles/Physics.html#on_simulation_tick">on simulation link</a> 拼图。</p>
+    
+    <img src="files/physics-guide/moving-character-puzzles.jpg" style="max-width: 981px">
 
-    <p>若要在VR模式下移动角色，可以使用 <a href="manual/zh/puzzles/AR_VR.html#get_controller_prop">get controller property(获取控制器属性)</a>
-      和 <a href="manual/zh/puzzles/System.html#get_gamepad_prop">get gamepad property(获取游戏手柄属性)</a> 拼图来获得VR控制器按钮与轴的状态。
-    </p>
+    <p>要在移动设备上移动您的角色，您需要额外的“controller”元素。您可以使用摄影机父级的3D对象创建它们，也可以使用 <a href="manual/zh/introduction/HTML-based-user-interfaces.html">HTML元素</a>.</p>
+
+    <p>若要在VR模式下移动角色，可以使用 <a href="manual/zh/puzzles/AR_VR.html#get_controller_prop">get controller property(获取控制器属性)</a> 和 <a href="manual/zh/puzzles/System.html#get_gamepad_prop">get gamepad property(获取游戏手柄属性)</a> 拼图来获得VR控制器按钮与轴的状态。</p>
 
     [anchor:simulating_car_physics]
 

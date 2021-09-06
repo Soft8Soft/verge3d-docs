@@ -59,7 +59,9 @@
 
         <h2>Too Many Attributes</h2>
 
-        <p>在您的场景运行过程中，偶尔可能会遇到一些对象没有被渲染的问题，浏览器控制台会显示如下错误：</p><img
+        <p>在您的场景运行过程中，偶尔可能会遇到一些对象没有被渲染的问题，浏览器控制台会显示如下错误：</p>
+        
+        <img
             src="files/hardware-related-issues/too-many-attributes.jpg" class="centered" style="max-width: 846px"> <span
             class="img-caption">浏览器控制台中出现“Too Many Attributes（属性太多）”错误</span>
         <p>这个错误意味着一些对象(那些未被渲染的对象)超过了单个着色器可使用的顶点属性的最大数量限制。</p>
@@ -99,12 +101,10 @@
                 </tr>
                 <tr>
                     <td class="centered">+1x</td>
-                    <td>当对象材质中使用了不同<a
-                            href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>的<b>uv</b>贴图时，每增加一个以下节点（第一个除外，已包含在必要属性中，见第一行），则增加一个属性：
+                    <td>当对象材质中使用了不同<a href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>的<b>uv</b>贴图时，每增加一个以下节点（第一个除外，已包含在必要属性中，见第一行），则增加一个属性：
                         <ul>
                             <li>Blender: <b>UV贴图(UV Map)</b></li>
-                            <li>3ds Max: <b>Bitmap(位图)</b>（仅当“映射类型”设置为“纹理”时），<b>Gradient
-                                    Ramp(梯度渐变)</b>，<b>Noise(噪波)</b>（仅当“映射”设置为“显式贴图通道”时）</li>
+                            <li>3ds Max: <b>Bitmap(位图)</b>（仅当“映射类型”设置为“纹理”时），<b>Gradient Ramp(梯度渐变)</b>，<b>Noise(噪波)</b>（仅当“映射”设置为“显式贴图通道”时）</li>
                             <li>Maya: <b>place2dTexture</b></li>
                         </ul>
                     </td>
@@ -114,8 +114,7 @@
                     <td>如果对象材质有任意以下节点，每个增加1个属性：<ul>
                             <li>Blender: <b>Normal Map（法线贴图）</b>, <b>Tangent（切线）</b>， (仅计"UV Map"模式)</li>
                             <li>3ds Max: <b>法线凹凸</b></li>
-                            <li><b>aiNormalMap</b>, <b>bump2d</b> (仅在"Bump Interp"输入 > 0时计算),
-                                <b>samplerInfo</b></li>
+                            <li><b>aiNormalMap</b>, <b>bump2d</b> (仅在"Bump Interp"输入 > 0时计算), <b>samplerInfo</b></li>
                         </ul>
                     </td>
                 </tr>
@@ -137,29 +136,34 @@
 
         <h2>使用程序纹理时出现锯齿问题</h2>
 
-        <p>在使用过程纹理时，有时你可能会遇到锯齿问题。例如，当使用Checker映射贴图时：</p><img src="files/hardware-related-issues/aa_msaa.jpg">
-        <p>当 *Anti-Aliasing（抗锯齿）* 输出设置为 MSAA 或 Auto 时，这种情况就会发生（在任意兼容硬件上，这里默认设置为 MSAA 4x
-            ）。MSAA（多样本抗锯齿）技术可产生不错的图像质量，并且对性能的影响较小。但对于对象颜色突然变化的程序纹理效果不佳。</p>
+        <p>在使用过程纹理时，有时你可能会遇到锯齿问题。例如，当使用Checker映射贴图时：</p>
+        
+        <img src="files/hardware-related-issues/aa_msaa.jpg">
 
-        <p>将 *Anti-Aliasing（抗锯齿）* 技术切换为 FXAA 可解决该问题：</p><img src="files/hardware-related-issues/aa_fxaa.jpg">
+        <p>当 *Anti-Aliasing(抗锯齿)* 输出设置为 MSAA 或 Auto 时，这种情况就会发生(在任意)容硬件上，这里默认设置为 MSAA 4x）。MSAA（多样本抗锯齿）技术可产生不错的图像质量，并且对性能的影响较小。但对于对象颜色突然变化的程序纹理效果不佳。</p>
+
+        <p>将 *Anti-Aliasing(抗锯齿)* 技术切换为 FXAA 可解决该问题：</p>
+        
+        <img src="files/hardware-related-issues/aa_fxaa.jpg">
+
         <p>FXAA 使用后期处理渲染来减少锯齿，并在这类由程序贴图生成的“边缘”上表现很好。</p>
 
         [anchor:z_fighting]
 
         <h2>当两个物体过于靠近时出现相交伪影</h2>
 
-        <p>有时您可能会遇到类似下面的情况：</p><img src="files/hardware-related-issues/z-fighting.jpg" alt="z缓冲冲突伪影">
-        <p>这种现象称之为 *z-fighting（z缓冲冲突）* (见<a href="https://en.wikipedia.org/wiki/Z-fighting"
-                target="_blank">维基百科名词解释</a>)。当不同的多边形到摄影机的距离相等或非常相近时，就会发生这种情况。</p>
+        <p>有时您可能会遇到类似下面的情况：</p>
+        
+        <img src="files/hardware-related-issues/z-fighting.jpg" alt="z缓冲冲突伪影">
+
+        <p>这种现象称之为 *z-fighting(z缓冲冲突)* (见<a href="https://en.wikipedia.org/wiki/Z-fighting" target="_blank">维基百科名词解释</a>)。当不同的多边形到摄影机的距离相等或非常相近时，就会发生这种情况。</p>
 
         <p>要解决此问题，你可以采用以下方案之一：</p>
 
         <ul>
             <li>最直接且简单的解决办法是：将对象彼此位置放远一点。</li>
-            <li>增大摄影机的 <em>近</em> 距离（<em>裁切起点</em>），或减小 <em>远</em> 距离（<em>裁剪结束点</em>）。这将使摄影机的距离范围缩小，从而提高深度缓冲区中存储数值的精度。
-            </li>
-            <li>如果您需要在某个表面上放置billboard纹理——请禁用其材质上的 *Depth Test（深度测试）* 参数，并增大billboard对象的 *Rendering
-                Order（渲染顺序）* 参数。这样billboard对象将在表面对象渲染完成后再渲染，并且忽略了该对象存储的深度。这样可以有效消除两个对象之间可能发生的 *z-fighting（z缓冲冲突）* 。</li>
+            <li>增大摄影机的 <em>近</em> 距离（<em>裁切起点</em>），或减小 <em>远</em> 距离（<em>裁剪结束点</em>）。这将使摄影机的距离范围缩小，从而提高深度缓冲区中存储数值的精度。</li>
+            <li>如果您需要在某个表面上放置billboard纹理——请禁用其材质上的 *Depth Test(深度测试)* 参数，并增大billboard对象的 *Rendering Order(渲染顺序)* 参数。这样billboard对象将在表面对象渲染完成后再渲染，并且忽略了该对象存储的深度。这样可以有效消除两个对象之间可能发生的 *z-fighting(z缓冲冲突)* 。</li>
         </ul>
 
 
