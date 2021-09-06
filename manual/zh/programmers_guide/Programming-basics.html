@@ -21,9 +21,25 @@
 
     <p>Verge3D之前，您需要在某个地方展示它。将以下HTML保存到计算机上的一个文件中，同时将Verge3D的复制到应用目录中，然后在浏览器中打开。</p>
     
-<code>
-&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=utf-8&gt;&lt;title&gt;My first Verge3D app&lt;/title&gt;&lt;style&gt; body { margin: 0; } canvas { width: 100%; height: 100% } &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;script src=&quot;v3d.js&quot;&gt;&lt;/script&gt;&lt;script&gt; // Our Javascript will go here. &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
-</code>
+    <code>
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset=utf-8&gt;
+        &lt;title&gt;My first Verge3D app&lt;/title&gt;
+        &lt;style&gt;
+          body { margin: 0; }
+          canvas { width: 100%; height: 100% }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;script src="v3d.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
+          // Our Javascript will go here.
+        &lt;/script&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+    </code>
 
     <p>好了，接下来的所有代码将会写入到空的&lt;script&gt;标签中。</p>
 
@@ -33,9 +49,14 @@
 
     <p>为了真正能够用Verge3D显示内容，我们需要三样对象：场景、摄影机和渲染器，这样我们就可以通过摄影机来渲染场景。</p>
     
-<code>
-var scene = new v3d.Scene(); var camera = new v3d.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); var renderer = new v3d.WebGLRenderer(); renderer.setSize(window.innerWidth, window.innerHeight); document.body.appendChild(renderer.domElement);
-</code>
+    <code>
+    var scene = new v3d.Scene();
+    var camera = new v3d.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    var renderer = new v3d.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    </code>
 
     <p>让我们花点时间来解释一下其基本原理。我们现在已经建立了场景，摄影机和渲染器。</p>
 
@@ -43,7 +64,7 @@ var scene = new v3d.Scene(); var camera = new v3d.PerspectiveCamera(75, window.i
 
     <p>第一个属性是<strong>field of view(视场)</strong>.FOV是指在任何特定时刻在显示器上看到的场景的范围。该值以角度为单位。</p>
 
-    <p>第二个属性是 <strong>aspect ratio(长宽比)</strong>。您应该始终使用元素的宽度除以高度作为屏幕高宽比，否则画面将会如同在宽屏电视上播放老电影一样&mdash;&mdash;图像像是被压扁了。
+    <p>第二个属性是 <strong>aspect ratio(长宽比)</strong>。您应该始终使用元素的宽度除以高度作为屏幕高宽比，否则画面将会如同在宽屏电视上播放老电影一样——图像像是被压扁了。
     </p>
 
     <p>接下来的两个属性是剪切屏幕的 <strong>near</strong> 和 <strong>far</strong> 。这代表着，对象离摄影机的距离比 <strong>far</strong> 远的或比
@@ -51,7 +72,7 @@ var scene = new v3d.Scene(); var camera = new v3d.PerspectiveCamera(75, window.i
 
     <p>接下来是渲染器。这里是奇迹发生的地方。除了我们在这里使用的WebGLRenderer之外，Verge3D还附带了一些其他的渲染器，通常用作老式浏览器的用户或由于某种原因不支持WebGL的用户的后备措施。</p>
 
-    <p>除了创建渲染器实例之外，我们还需要设置应用中的渲染器尺寸。将应用填满需要显示区域的空间是个好主意&mdash;&mdash;在本案例中，我们使用浏览器窗口的宽度和高度定义尺寸。对于性能敏感的应用，您还可以将
+    <p>除了创建渲染器实例之外，我们还需要设置应用中的渲染器尺寸。将应用填满需要显示区域的空间是个好主意——在本案例中，我们使用浏览器窗口的宽度和高度定义尺寸。对于性能敏感的应用，您还可以将
       <strong>setSize</strong> 设置小一点，如 <strong>Window.InnerWidth/2</strong> 和
       <strong>Window.InnerHeight/2</strong>，这将使应用渲染尺寸长宽都是窗口的一半。</p>
 
@@ -62,11 +83,16 @@ var scene = new v3d.Scene(); var camera = new v3d.PerspectiveCamera(75, window.i
     <p>最后一步很重要，我们将 <strong>renderer（渲染器）</strong>
       的dom元素（renderer.domElement）添加到我们的HTML文档中。这就是渲染器用来显示场景给我们看的&lt;canvas&gt;元素。</p>
 
-    <p><em>&ldquo;嗯，看起来很不错，那您说的那个立方体在哪儿？&rdquo;</em>接下来，我们就来添加立方体。</p>
+    <p><em>“嗯，看起来很不错，那您说的那个立方体在哪儿？”</em>接下来，我们就来添加立方体。</p>
     
-<code>
-var geometry = new v3d.BoxGeometry(1, 1, 1); var material = new v3d.MeshBasicMaterial({ color: 0x00ff00 }); var cube = new v3d.Mesh(geometry, material); scene.add(cube); camera.position.z = 5;
-</code>
+    <code>
+    var geometry = new v3d.BoxGeometry(1, 1, 1);
+    var material = new v3d.MeshBasicMaterial({ color: 0x00ff00 });
+    var cube = new v3d.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.z = 5;
+    </code>
 
     <p>要创建一个立方体，我们需要一个 <strong>BoxGeometry（立方体）</strong>对象。这个对象包含了一个立方体中所有的顶点 (<strong>vertices</strong>)
       和面(<strong>faces</strong>) 。未来我们将在这方面进行更多的探索。</p>
@@ -86,24 +112,30 @@ var geometry = new v3d.BoxGeometry(1, 1, 1); var material = new v3d.MeshBasicMat
 
     <p>如果您把上面的代码复制到我们先前创建的HTML文件中，您将不会看到任何东西。这是因为我们还没开始真正的渲染。为此，我们需要 <strong>render or animate loop(渲染或动画循环)</strong>。
     </p>
-<code>
-function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); } animate();
-</code>
 
-    <p>这将创建一个循环，使渲染器每秒绘制场景60次。如果您刚开始在浏览器中编写游戏，您也许会问：<em>&ldquo;为什么我们不直接创建一个setInterval呢？&rdquo;</em>当然可以，但
+    <code>
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+    </code>
+
+    <p>这将创建一个循环，使渲染器每秒绘制场景60次。如果您刚开始在浏览器中编写游戏，您也许会问：<em>“为什么我们不直接创建一个setInterval呢？”</em>当然可以，但
       <strong>requestAnimationFrame</strong> 有许多优点。也许这是最重要的一个原因：当用户导航到另一个浏览器标签时，渲染器会暂停工作，因此不会浪费宝贵的CPU性能和电池功耗。</p>
 
     [anchor:animating_cube]
 
     <h2>为立方体做动画</h2>
 
-    <p>如果您将上面的所有代码插入到我们开始之前创建的文件中，应该会看到一个绿色的盒子。让我们来做一些更加有趣的事 &mdash;&mdash; 让它旋转起来。</p>
+    <p>如果您将上面的所有代码插入到我们开始之前创建的文件中，应该会看到一个绿色的盒子。让我们来做一些更加有趣的事 —— 让它旋转起来。</p>
 
     <p>在<strong>renderer.render</strong> 中调用 <strong>animate</strong> 功能：</p>
     
-<code>
-cube.rotation.x += 0.1; cube.rotation.y += 0.1;
-</code>
+    <code>
+    cube.rotation.x += 0.1;
+    cube.rotation.y += 0.1;
+    </code>
 
     <p>这将以每秒60帧运行场景，并给立方体一个漂亮的旋转动画。基本上，当应用运行时，任何您想要移动或改变的东西都必须经过动画循环。当然，您可以从那里调用其他函数，这样就不至于最后出现一个几百行的
       <strong>animate</strong> 函数。</p>
@@ -116,9 +148,46 @@ cube.rotation.x += 0.1; cube.rotation.y += 0.1;
 
     <p>完整的代码如下所示。玩玩它，以便更好地理解它的工作原理。</p>
     
-<code>
-&lt;html&gt;&lt;head&gt;&lt;title&gt;My first Verge3D app&lt;/title&gt;&lt;style&gt; body { margin: 0; } canvas { width: 100%; height: 100% } &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;script src=&quot;v3d.js&quot;&gt;&lt;/script&gt;&lt;script&gt; var scene = new v3d.Scene(); var camera = new v3d.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000); var renderer = new v3d.WebGLRenderer(); renderer.setSize(window.innerWidth, window.innerHeight); document.body.appendChild(renderer.domElement); var geometry = new v3d.BoxGeometry(1, 1, 1); var material = new v3d.MeshBasicMaterial({ color: 0x00ff00 }); var cube = new v3d.Mesh(geometry, material); scene.add(cube); camera.position.z = 5; var animate = function() { requestAnimationFrame(animate); cube.rotation.x += 0.1; cube.rotation.y += 0.1; renderer.render(scene, camera); }; animate(); &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
-</code>
+    <code>
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;My first Verge3D app&lt;/title&gt;
+        &lt;style&gt;
+          body { margin: 0; }
+          canvas { width: 100%; height: 100% }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;script src="v3d.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
+          var scene = new v3d.Scene();
+          var camera = new v3d.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+
+          var renderer = new v3d.WebGLRenderer();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          document.body.appendChild(renderer.domElement);
+
+          var geometry = new v3d.BoxGeometry(1, 1, 1);
+          var material = new v3d.MeshBasicMaterial({ color: 0x00ff00 });
+          var cube = new v3d.Mesh(geometry, material);
+          scene.add(cube);
+
+          camera.position.z = 5;
+
+          var animate = function() {
+            requestAnimationFrame(animate);
+
+            cube.rotation.x += 0.1;
+            cube.rotation.y += 0.1;
+
+            renderer.render(scene, camera);
+          };
+
+          animate();
+        &lt;/script&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+    </code>
 
   </article>
 </body>
