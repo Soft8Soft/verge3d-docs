@@ -10,14 +10,14 @@
   </head>
   <body><article>
 
-    <h1>Using JavaScript in Verge3D Applications</h1>
+    <h1>Использование JavaScript в приложениях Verge3D</h1>
 
     <p>
-    Thanks to the Puzzles, you can implement most of the functionality found in typical WebGL applications without writing a single line of code. However, there can be special cases where you may want to use JavaScript - for example, to leverage third-party programming libraries or to implement some non-trivial feature which cannot be realized with the Puzzles alone.
+        Благодаря пазлам вы можете реализовать большую часть функциональности, присутствующей в типичных приложениях WebGL, не написав ни строчки кода. Однако могут быть особые случаи, когда вам может понадобиться JavaScript - например, для использования библиотек программирования сторонних разработчиков или для реализации какой-либо нетривиальной функции, которую невозможно реализовать только с помощью пазлов.
     </p>
 
     <p>
-    You can use any text editor for adding JavaScript code, but it is more convenient to work if your editor supports syntax highlighting and line numbering, like Notepad++ or VS Code.
+        Вы можете использовать любой текстовый редактор для добавления кода JavaScript, но удобнее работать, если ваш редактор поддерживает подсветку синтаксиса и нумерацию строк, как Notepad++ или VS Code.
     </p>
 
     [contents]
@@ -26,34 +26,32 @@
 
     [anchor:Method_1_Basic]
 
-    <h2>Method #1 (Basic)</h2>
+    <h2>Метод #1 (Basic)</h2>
 
     <p>
-        The easiest way to incorporate a javascript code in your puzzles is to
-        use a special puzzle called <a href="manual/ru/puzzles/Advanced.html#exec_script">exec script</a>.
-        It has a built-in fully functional text editor capable of syntax
-        highlighting, syntax checking, code folding and many other features.
+        Самый простой способ включить код javascript в ваши пазлы - использовать специальный пазл под названием <a href="manual/ru/puzzles/Advanced.html#exec_script">exec script</a>.
+        Он имеет встроенный полнофункциональный текстовый редактор с возможностью синтаксической
+        подсветки, проверки синтаксиса, сворачивания кода и многих других функции.
     </p>
 
     <p>
-        What this puzzle does is execute a javascript code snippet right away.
-        The advantages of using "exec script" are:
+        Этот пазл выполняет фрагмент кода javascript.
+        Преимущества использования "exec script" следующие:
         <ul>
-            <li>it's a puzzles-only approach (no need to edit the project's .js files)</li>
-            <li>such code snippets can be saved into the puzzles library and easily reused in other projects</li>
+            <li>это подход, основанный только на пазлах (нет необходимости редактировать .js файлы проекта)</li>
+            <li>такие фрагменты кода можно сохранить в библиотеке пазлов и легко использовать повторно в других проектах</li>
         </ul>
     </p>
 
     <p>
-        In order to access <a href="manual/ru/puzzles/Variables.html">variable</a>
-        and <a href="manual/ru/puzzles/Procedures.html">procedure</a> puzzles
-        from the inside of "exec script" you can use <b>VARS</b> and <b>PROC</b>
-        built-ins. See more details in the <a href="manual/ru/puzzles/Advanced.html#exec_script">"exec script" documentation</a>.
+        Для того чтобы получить доступ к пазлам <a href="manual/ru/puzzles/Variables.html">переменных</a>
+        и <a href="manual/ru/puzzles/Procedures.html">процедур</a> puzzles
+        изнутри "exec script" вы можете использовать встроенные модули <b>VARS</b> и <b>PROC</b>. Более подробную информацию можно найти в документации <a href="manual/ru/puzzles/Advanced.html#exec_script">"exec script"</a>.
     </p>
 
     <p>
-        As an example the following puzzle setup utilizing "exec script" makes
-        scene objects change their material on click:
+        Например, настройка следующего пазла с использованием "exec script" заставляет
+        объекты сцены менять свой материал по щелчку мыши:
     </p>
 
     <img src="files/using-javascript/basics-exec-script-example.jpg" class="centered" style="max-width: 1000px">
@@ -62,38 +60,34 @@
 
     [anchor:Method_2_Standard]
 
-    <h2>Method #2 (Standard)</h2>
+    <h2>Метод #2 (Standard)</h2>
 
     <p>
-        If you want to have more control than what the "exec script" puzzle can
-        offer then this method is for you. It supposes using of the default
-        <b>Standard</b> application template (<b>Standard Light</b> or
-        <b>Standard Dark</b>):
+        Если вы хотите иметь больший контроль, чем тот, который может предложить пазл "exec script", тогда этот метод для вас. Он предполагает использование стандартного шаблона приложения
+        <b>Standard</b>  (<b>Standard Light</b> или <b>Standard Dark</b>):
     </p>
 
     <img src="files/using-javascript/standard-app-template.jpg" class="centered" style="max-width: 522px">
 
     <p>
-        Suppose you created your application using the App Manager (with default
-        configuration options), and named it <strong>my_awesome_app</strong>. Go
-        to the <i>verge3d/applications</i> folder and then to <i>my_awesome_app</i>
-        folder, and open the JavaScript file <i>my_awesome_app.js</i> with your
-        favorite text editor.
+        Предположим, вы создали свое приложение с помощью App Manager (с параметрами по умолчанию), и назвали его <strong>my_awesome_app</strong>. 
+        Переходите в папку <i>verge3d/applications</i>, затем в папку <i>my_awesome_app</i>
+        , и откройте файл JavaScript <i>my_awesome_app.js</i> вашим текстовым редактором.
     </p>
 
     <p>
-    Search for "runCode" - this place in the file should look something like this:
+        Найдите "runCode" - это место в файле должно выглядеть примерно так:
     </p>
 
     <code>
 function runCode(app) {
-        // add your code here, e.g. console.log('Hello, World!');
+        // добавьте сюда свой код, например console.log('Hello, World!');
 
 }
     </code>
 
     <p>
-    You can add some code inside that declaration (between the curly brackets), so that it turns to:
+        Вы можете добавить некоторый код между фигурными скобками, и тогда получится:
     </p>
 
     <code>
@@ -104,13 +98,13 @@ function runCode(app) {
     </code>
 
     <p>
-    Now, if you save the <strong>.js</strong> file and run your app you'll notice... nothing until you open the browser console. The latter can usually be opened with the F12 key (Chrome, Firefox on Windows, Linux). On Mac use the View > Developer > JavaScript Console menu (Option-Cmd-J) in Chrome, or the Develop > Show Error Console menu (Option-Cmd-C) in Safari.
+        Теперь, если вы сохраните <strong>.js</strong> файл и запустите свое приложение, вы заметите... ничего, пока не откроете консоль браузера. Она обычно открывается клавишей F12 (Chrome, Firefox в Windows, Linux). На Mac используйте меню View > Developer > JavaScript Console (Option-Cmd-J) в Chrome или меню Develop > Show Error Console (Option-Cmd-C) в Safari.
     </p>
 
     <img src="files/using-javascript/basics-console-log.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-    With code you can change something in your scene, for example, move the default Verge3D cube (named "Box001" in 3ds Max and "Cube" in Blender)...
+        С помощью кода вы можете изменить что-то в сцене, например, переместить дефолтный куб Verge3D (названный "Box001" в 3ds Max и "Cube" в Blender)...
     </p>
 
     <code>
@@ -121,7 +115,7 @@ function runCode(app) {
     </code>
 
     <p>
-    ... or create a new material out of thin air:
+        ...или создать новый материал:
     </p>
 
     <code>
@@ -134,7 +128,7 @@ function runCode(app) {
     <img src="files/using-javascript/basics-change-material.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-    Check out <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">Verge3D code examples</a> to get inspired. Click <strong>View source</strong> button to open the code for an example.
+        Посмотрите <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">примеры кода Verge3D</a>, чтобы вдохновиться. Нажмите кнопку <strong>View source</strong>, чтобы открыть код.
     </p>
 
     <img src="files/using-javascript/basics-code-examples.jpg" class="centered" style="max-width: 1000px">
@@ -143,19 +137,18 @@ function runCode(app) {
 
     [anchor:Method_3_Compact]
 
-    <h2>Method #3 (Compact)</h2>
+    <h2>Метод #3 (Compact)</h2>
 
     <p>
-        This method will suit experienced programmers who would like to have
-        just a minimal working code snippet to begin with. It's pretty much the
-        same as <b>Standard</b> except you choose a different application
-        template named <b>Code-Based</b> when creating a new application:
+        Этот метод подойдет опытным программистам, которые хотели бы иметь
+        минимальный рабочий фрагмент кода для начала. Это практически то же самое
+        как и <b>Standard</b> за исключением того, что вы используете другой шаблон приложения под названием <b>Code-Based</b> когда создаёте новое приложение:
     </p>
 
     <img src="files/using-javascript/compact-app-template.jpg" class="centered" style="max-width: 522px">
 
     <p>
-    This will result in a simpler project structure with no Puzzles editor attached to your application, and the app <strong>.js</strong> file will contain just a few lines of code:
+        Это приведет к упрощению структуры проекта, при этом редактор пазлов не будет прикреплен к вашему приложению, а файл app <strong>.js</strong> будет содержать всего несколько строк кода:
     </p>
 
     <code>
@@ -182,49 +175,49 @@ function runCode() {
     </code>
 
     <p>
-    Applications of this type are very simple yet they are still capable of loading a scene in <strong>.gltf</strong> format (with preloader), and offer standard camera controls to the user.
+        Приложения такого типа очень просты, но при этом они способны загружать сцену в формате <strong>.gltf</strong> (с прелоадером) и предоставлять пользователю стандартные средства управления камерой.
     </p>
 
     <p>
-    You can proceed by adding your code inside the "runCode" function as described in Method #2. Of course, you can completely overhaul this application template instead - for example, you can discard the App class, load the scene using some other file format or setup the controls in some specific way.
+        Вы можете продолжить, добавив свой код внутри функции "runCode", как описано в Методе #2. Конечно, вы можете полностью изменить этот шаблон приложения - например, отказаться от класса App, загрузить сцену с помощью другого формата файла или настроить элементы управления каким-то особым образом.
     </p>
 
 
 
     [anchor:Method_4_Hardcore]
 
-    <h2>Method #4 (Hardcore)</h2>
+    <h2>Метод #4 (Hardcore)</h2>
 
     <p>
-    This method will suit programmers who are familiar with the Three.js library, as you basically can use the same API with Verge3D.
+        Этот метод подойдет программистам, знакомым с библиотекой Three.js, поскольку в Verge3D вы можете использовать тот же API.
     </p>
 
     </p>
-    Copy the <strong>v3d.js</strong> file from the <i>verge3d/build</i> folder, link it to an <strong>.html</strong> file and <a href="manual/ru/programmers_guide/Programming-basics.html">start coding</a>! How did you think the <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">code examples</a> were created in the first place?
+    Скопируйте файл <strong>v3d.js</strong> из папки <i>verge3d/build</i>, свяжите его с файлом <strong>.html</strong> и <a href="manual/ru/programmers_guide/Programming-basics.html">начинайте кодить</a>! Как, по вашему мнению, были созданы <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">примеры кода</a>?
     </p>
 
 
 
     [anchor:Get_Inspired_by_Puzzles]
 
-    <h2>Get Inspired by Puzzles</h2>
+    <h2>Вдохновляйтесь пазлами</h2>
 
     <p>
-    This is not a method but rather a tip. In fact, when you click the *Save* button in the Puzzles editor, it will generate a self-contained, human-readable JavaScript module saved as *visual_logic.js* file in your app folder.
+        Это не метод, а скорее совет. На самом деле, когда вы нажмете кнопку *Сохранить* в редакторе пазлов, он создаст самодостаточный, читаемый модуль JavaScript, сохраненный как файл *visual_logic.js* в папке вашего приложения.
     </p>
 
 
     <img src="files/using-javascript/get-inspired-by-puzzles.jpg" class="centered" style="max-width: 1000px">
 
     <p>
-    This way you may have a working example of how certain JavaScript API methods work, and re-use the snippet generated for a puzzle of interest in your own code.
+        Таким образом, вы можете получить рабочий пример того, как работают определенные методы JavaScript API, и повторно использовать сгенерированный сниппет для интересующего вас пазла в собственном коде.
     </p>
 
 
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
 
   </article></body>

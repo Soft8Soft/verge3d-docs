@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D for Maya: glTF Materials (glTF 2.0-compliant PBR) - Soft8Soft</title>
+    <title>Verge3D для Maya: glTF Материалы (glTF 2.0-compliant PBR) - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to setup glTF-compliant PBR materials in Maya to be used with Verge3D."/>
     <base href="../../../" />
@@ -10,29 +10,29 @@
   </head>
   <body><article>
 
-    <h1>glTF Materials (glTF 2.0-compliant PBR) / Maya</h1>
+    <h1>glTF Материалы (glTF 2.0-compliant PBR) / Maya</h1>
 
-    <p>Verge3D for Maya supports <a href="manual/ru/introduction/FAQ.html#gltf_materials">glTF 2.0-compliant PBR materials</a> on top of the aiStanadardSurface (Standard Surface in Maya 2020+) shader.</p>
+    <p>Verge3D для Maya поддерживает <a href="manual/ru/introduction/FAQ.html#gltf_materials">PBR материалы соответствующие стандарту glTF 2.0</a> поверх aiStanadardSurface (Standard Surface in Maya 2020+) шейдера.</p>
 
     [contents]
 
 
     [anchor:setup]
 
-    <h2>Setup glTF Material</h2>
+    <h2>Настройка glTF Material</h2>
 
     <p>
-      Assign the *aiStandardSufrace* shader node to your material and enable the *glTF 2.0 Compatible* checker located on the *Verge3D* panel.
+      Назначьте *aiStandardSufrace* узел шейдера к вашему материалу и включите *glTF 2.0 Compatible* проверку, которая находится в панели *Verge3D*.
     </p>
 
     <img src="files/gltf-materials-maya/ai-standard-surface-overview.jpg" class="centered">
 
-    <p>The following aiStandardSurface settings are supported in Verge3D:</p>
+    <p>Настройки aiStandardSurface, которые поддерживаются в Verge3D:</p>
 
     <h3>Base Panel</h3>
     <ul>
-      <li>Weight or (Base input in Hypershade)</li>
-      <li>Color or (Base Color input in Hypershade)</li>
+      <li>Weight или (Base input in Hypershade)</li>
+      <li>Color или (Base Color input in Hypershade)</li>
       <li>Metalness</li>
     </ul>
 
@@ -53,55 +53,55 @@
       <li>Bump Mapping (Normal Camera input in Hypershade)</li>
     </ul>
 
-    <p>In addition, when dealing with Ambient Occlusion, you might also want to use *Weight* value from the *Specular* panel to make you Maya viewport look consistent with Verge3D rendering.</p>
+    <p>Кроме того, при работе с Ambient Occlusion, вы также можете использовать значение *Weight* из панели *Specular*, чтобы вьюпорт Maya выглядел схоже с рендерингом Verge3D.</p>
 
 
-    <h3>Creating PBR material for general use</h3>
+    <h3>Создание материала PBR для общего использования</h3>
 
-    <p>Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
+    <p>Выполните следующие шаги, чтобы настроить стандартный PBR шейдер с 3 картами: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
 
     <ol>
-      <li>Assign *aiStandardSurface* to your model.</li>
-      <li>Open the Hypershade editor, find and select this material in the *Browser* panel.</li>
-      <li>Create a *file* node with Base Color texture. Make sure that the *Color Space* setting of this node is set to *sRGB*.</li>
-      <li>Connect *Out Color* output of this texture to *Base Color* input of *aiStandardSurface* node.</li>
-      <li>Create a *file* node with ORM texture. This texture should contain 3 channels with AO (red), Roughness (green) and Metalness (blue) info. Make sure that the *Color Space* setting of this node is set to *Raw*.</li>
-      <li>Connect R channel of the ORM texture to *Base* and *Specular* inputs of the *aiStandardSurface* node to simulate the ambient occlusion effect.</li>
-      <li>Connect G channel of the ORM texture to *Specular Roughness* input of the *aiStandardSurface* node.</li>
-      <li>Connect B channel of the ORM texture to *Metalness* input of the *aiStandardSurface* node.</li>
-      <li>Create *file* and *bump2d* nodes with Normal Map texture. Make sure that the *Color Space* setting of the file node is set to *Raw* and the *Use as* setting of the bump node is set to *Tangent Space Normals*.</li>
-      <li>Connect *file* to *bump2d* node and *bump2d* node to *Normal Camera* input of the *aiStandardSurface* node.
+      <li>Назначьте *aiStandardSurface* вашей модели.</li>
+      <li>Откройте редактор Hypershade, найдите и выберите этот материал в панели *Browser*.</li>
+      <li>Создайте нод *file* с текстурой Base Color. Убедитесь, что параметр *Color Space* имеет значение *sRGB*.</li>
+      <li>Подключите выход *Out Color* этой текстуры с входом *Base Color*.</li>
+      <li>Создайте нод *file* с текстурой ORM. Эта текстура должна содержать 3 канала: AO (красный), Roughness (зеленый) и Metalness (синий). Убедитесь, что параметр *Color Space* установлен на *Raw*.</li>
+      <li>Подключите канал R текстуры ORM к входам *Base* и *Specular* для имитации эффекта окружающего затенения (Ambient Occlusion).</li>
+      <li>Подключите канал G текстуры ORM к входу *Specular Roughness*.</li>
+      <li>Подключите канал B текстуры ORM к входу *Metalness*.</li>
+      <li>Создайте нод *file* и *bump2d* с текстурой Normal Map. Убедитесь, что параметр *Color Space* нода file установлен на *Raw*, а параметр *Use as* нода bump установлен на *Tangent Space Normals*.</li>
+      <li>Подключите *file* к ноду *bump2d* и нод *bump2d* к входу *Normal Camera*.
     </ol>
 
-    <p>This is how the material should look in the Hypershade editor:</p>
+    <p>Вот как материал должен выглядеть в редакторе Hypershade:</p>
 
     <img src="files/materials-maya/pbr-example.jpg" class="centered">
 
 
     [anchor:exporting_substance]
 
-    <h2>Exporting Textures from Substance Painter</h2>
+    <h2>Экспорт текстур из Substance Painter</h2>
 
-    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
+    <p>Модели и запеченные карты нормалей и окклюзии (если таковые имеются) можно загрузить в Substance Painter через формат OBJ.</p>
 
     <img src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
 
-    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
+    <p>В конечном итоге в этой программе создаются 3 карты: базовый цвет/прозрачность, окклюзия/шероховатость/металлик и нормаль.</p>
 
     <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
 
 
     [anchor:export_to_gltf_in_runtime]
 
-    <h2>Export to glTF in Runtime</h2>
+    <h2>Экспорт в glTF во время запуска</h2>
 
-    <p>With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">reference</a>.</p>
+    <p>С помощью пазла *export to gltf* вы можете экспортировать свои модели или всю сцену в реальном времени. Затем вы можете скачать экспортированную модель или загрузить на сервер для постоянного хранения. Чтобы узнать более подробную информацию, перейдите по <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">ссылке</a>.</p>
 
 
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>
