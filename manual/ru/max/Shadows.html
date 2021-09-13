@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D for 3ds Max: Shadows - Soft8Soft</title>
+    <title>Verge3D для 3ds Max: Тени - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Learn how to setup beautiful shadows in Verge3D for 3ds Max."/>
     <base href="../../../" />
@@ -10,29 +10,28 @@
   </head>
   <body><article>
 
-    <h1>Shadows / 3ds Max</h1>
+    <h1>Тени / 3ds Max</h1>
 
     <p>
-      Here are described the settings and best practices to setup beautiful real-time shadows in Verge3D for 3ds Max.
+      Здесь описаны лучшие методы настроек используемых в 3ds Max для отображения красивых теней в реальном времени в Verge3D. 
     </p>
 
     <iframe class="video-480p" src="https://www.youtube.com/embed/L2SqP4MaaOQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-    <h2>Contents</h2>
+    <h2>Содержание</h2>
 
     [contents]
 
 
     [anchor:prepare_viewport]
-    <h2>Preparing Max Viewport</h2>
+    <h2>Подготовка вьюпорта 3ds Max'a</h2>
     <p class="note">
-        It's recommended to set up Max's viewport as described in this section
-        to make configuring shadows easier.
+        Чтобы облегчить настройку теней, рекомендуется настроить окно просмотра 3ds Max'a, как описано в этом разделе.
     </p>
 
     <p>
-        Enable the following viewport options:
+        Включите следующие параметры вьюпорта:
     </p>
     <ul>
         <li>
@@ -48,9 +47,9 @@
 
     [anchor:shadow_filtering]
 
-    <h2>Shadow Filtering Types</h2>
+    <h2>Типы Фильтрации Теней</h2>
 
-    <p>Shadows in Verge3D look very differently depending on what shadow map filtering algorithm is in use. The *Shadow Filtering* property located on the *Verge3D Export Settings* panel is used to specify the algorithm.</p>
+    <p>Тени в Verge3D выглядят по-разному в зависимости от того, какой алгоритм фильтрации карты теней используется. Свойство *Shadow Filtering*, расположенное на панели *Verge3D Export Settings*, используется для указания алгоритма.</p>
 
     <!--<img src="files/shadows-blender/shadow-filtering-settings.jpg" class="centered" style="max-width: 425px">-->
 
@@ -59,7 +58,7 @@
 
     <h3>Basic</h3>
 
-    <p>Disable filtering, render shadow map as is. This is the fastest method to render shadows.</p>
+    <p>Отключить фильтрацию, рендерить карту теней такой, какая она есть. Это самый быстрый метод рендеринга теней.</p>
 
     <img src="files/shadows-blender/shadow-filtering-basic.jpg">
 
@@ -68,7 +67,7 @@
 
     <h3>Bilinear</h3>
 
-    <p>Use bilinear filtering to smooth adjacent shadow map pixels.</p>
+    <p>Используйте билинейную фильтрацию для сглаживания соседних пикселей карты теней.</p>
 
     <img src="files/shadows-blender/shadow-filtering-bilinear.jpg">
 
@@ -77,7 +76,7 @@
 
     <h3>PCF</h3>
 
-    <p>Stands for Percentage Closer Filtering. Uses multiple shadow map lookups for smoothed shadow rendering. Average quality and performance.</p>
+    <p>Расшифровывается как Percentage Closer Filtering. Использует множественный поиск карты теней для сглаженного рендеринга. Среднее качество и производительность.</p>
 
     <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
 
@@ -86,7 +85,7 @@
 
     <h3>PCF (Bilinear)</h3>
 
-    <p>Similar to PCF but uses bilinear interpolation for each shadow map lookup. Gives smoothed shadows at the expense of more computation power.</p>
+    <p>Аналогичен PCF, но использует билинейную интерполяцию для каждого поиска карты теней. Дает сглаженные тени за счет большей вычислительной мощности.</p>
 
     <img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg">
 
@@ -95,7 +94,9 @@
 
     <h3>PCF (Poisson Disk)</h3>
 
-    <p>Uses pseudorandom <em>Poisson Disk Sampling</em> to eliminate shadow pixelation for PCF shadows. This was made the default setting because it corresponds the most to what you see in the 3D editor viewport. The performance is comparable to *PCF (Bilinear)* algorithm or better.</p>
+    <p>
+        Использует псевдослучайный <em>Poisson Disk Sampling</em> для устранения пикселизации для теней PCF. Эта настройка была выбрана по умолчанию, поскольку она наиболее соответствует тому, что вы видите во вьюпорте 3D-редактора. Производительность сравнима с алгоритмом *PCF (Bilinear)* или даже лучше. 
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
 
@@ -105,12 +106,7 @@
     <h3>ESM</h3>
 
     <p>
-        Stands for Exponential Shadow Maps. Shadows are smoothest but light
-        leaks are possible. Use <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>
-        setting on lights to remove light leaks artefacts. The performance is
-        comparable to *PCF (Bilinear)* algorithm. ESM shadows can be particularly
-        tricky to set up, therefore see ESM-related issues in the
-        <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a>
+        Расшифровывается как Exponential Shadow Maps. Этот режим позволяет получить наиболее плавные тени, но возможны утечки света. Используйте настройку <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a> для света, чтобы удалить возможные артефакты. Производительность сравнима с алгоритмом *PCF (Bilinear)*. Тени ESM могут быть особенно сложны в настройке, поэтому см. раздел <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a>, посвященный проблемам, связанным с ESM.
         section.
     </p>
 
@@ -119,27 +115,18 @@
 
     [anchor:shadow_filtering_choose]
 
-    <h3>Which filtering type to choose?</h3>
+    <h3>Какой тип фильтрации выбрать?</h3>
     <p>
-        It's recommended to try the default
-        <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson Disk)</a>
-        shadows first, because they offer good quality and performance. If you
-        need faster but less quality shadows then try
-        <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a>
-        or
-        <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a>.
-        Try <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
-        if you want more quality, soft shadows, but the drawback is that they
-        can be tricky to set up (artefact-wise) for a particular scene.
+        Рекомендуем попробовать использовать тени <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson Disk)</a>, выставленные по умолчанию, потому что они обеспечивают хорошее качество и производительность. Если вам вам нужны более быстрые, но менее качественные тени, то попробуйте <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Для большего качества стоит выбрать <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a> мягкие тени, но недостатком является то, что они могут быть сложными для настройки (исправление артефактов) для конкретной сцены.
     </p>
 
 
     [anchor:global_settings]
 
-    <h2>Global Settings</h2>
+    <h2>Глобальные Настройки</h2>
 
     <p>
-        Global settings for shadows are located in the *Verge3D Export Settings* menu.
+        Глобальные настройки для теней находятся в меню *Verge3D Export Settings*. 
     </p>
 
     <img src="files/shadows-max/shadow-settings-global-max.jpg" class="centered with-caption" style="max-width: 251px"></img>
@@ -147,27 +134,22 @@
     <dl>
         <dt>Shadow Filtering</dt>
         <dd>
-            shadow map filtering algorithm. See
-            <a href="manual/ru/max/Shadows.html#shadow_filtering">above</a>.
+            Алгоритм фильтрации карты теней. Смотрите 
+            <a href="manual/ru/max/Shadows.html#shadow_filtering">выше</a>.
         </dd>
         <dt id="esm-distance-scale">ESM Distance Scale</dt>
         <dd>
-            ESM shadows scaling factor. Since the ESM filtering algorithm uses
-            absolute distance values, decrease the scale value if you're working
-            on a scene which is much bigger than the default cube, and increase
-            it if your scene is much smaller. Default value is 0.3. Works only for
-            <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
-            shadows.
+            Коэффициент масштабирования теней ESM. Поскольку алгоритм фильтрации ESM использует абсолютные значения расстояния, уменьшите значение масштаба, если вы работаете над сценой, которая намного больше куба по умолчанию, и увеличьте его, если ваша сцена намного меньше. Значение по умолчанию - 0,3. Работает только для теней <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>.
         </dd>
     </dl>
 
 
     [anchor:per_light_settings]
 
-    <h2>Per-Light Settings</h2>
+    <h2>Настройки для каждого источника освещения</h2>
 
     <p>
-    Shadows can be enabled/disabled for each individual light using 3ds Max's native panels. Supported shadow settings are highlighted with green.
+        Тени можно включать/выключать для каждого отдельного света с помощью встроенных панелей 3ds Max. Поддерживаемые настройки теней выделены зеленым цветом. 
     </p>
 
     <img src="files/shadows-max/shadow-settings-perlight-max.jpg" class="centered with-caption" style="max-width: 349px">
@@ -177,59 +159,49 @@
     <dl>
         <dt id="target-distance">Target Distance</dt>
         <dd>
-            can affect the distance at which shadows stop rendering. Available
-            only for spot and directional lights. Tweak it only if you deal with
-            the shadow clipping issue from the
-            <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a> section.
+            Может повлиять на расстояние, на котором тени перестают отрисовываться. Доступно только для точечного и направленного света. Настраивайте его, только если вы решаете проблему обрезания теней из раздела <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a>.
         </dd>
         <dt>On</dt>
         <dd>
-            enable/disable shadows.
+            Включение/выключение теней. 
         </dd>
         <dt id="shadow-map-type">Shadow Map</dt>
         <dd>
-            must be selected in the dropdown for shadows to appear in Verge3D.
+            Должен быть выбран в выпадающем списке, чтобы тени появились в Verge3D.
         </dd>
         <dt id="falloff-field">Falloff/Field</dt>
         <dd>
-            defines the shadow volume (the less the better). Available only for
-            spot and directional lights.
+            Определяет объем теней (чем меньше, тем лучше). Доступно только для точечных и направленных светильников.
         </dd>
         <dt id="bias">Bias</dt>
         <dd>
-            can be tweaked until you get rid of self-shadow artefacts and/or the
-            peter-panning effect.
+            Можно настраивать до тех пор, пока вы не избавитесь от артефактов самозатенения и/или эффекта "peter-panning".
         </dd>
         <dt id="size">Size</dt>
         <dd>
-            controls how big is the shadow texture (trading between speed and
-            quality).
+            управляет размером текстуры тени (выбор между скоростью и качеством). .
         </dd>
         <dt id="sample-range">Sample Range</dt>
         <dd>
-            controls the blurriness ratio for shadows.
+            управляет коэффициентом размытости для теней. 
         </dd>
         <dt id="shadow-bias">Shadow Bias</dt>
         <dd>
-            additional bias setting similar to
-            <a href="manual/ru/max/Shadows.html#bias">Bias</a>. Used to get rid
-            of self-shadow artefacts and/or the peter-panning effect.
+            дополнительная настройка смещения, аналогичная <a href="manual/ru/max/Shadows.html#bias">Bias</a>. Используется для избавления от артефактов самозатенения и/или эффекта peter-panning. 
         </dd>
         <dt id="esm-bias">ESM Bias</dt>
         <dd>
-            bias to reduce ESM <em>light leaking</em> artefacts. Works only for
-            <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
-            shadows.
+            смещение для уменьшения артефактов <em>утечки света</em> ESM. Работает только для теней <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>. 
         </dd>
     </dl>
 
 
     [anchor:per_object_settings]
 
-    <h2>Per-Object Settings</h2>
+    <h2>Настройки для Каждого Объекта</h2>
 
     <p>
-    You can also enable and disable receiving and casting shadow on per-object basis.
+        Вы также можете включать и выключать прием и отбрасывание тени для каждого объекта.
     </p>
 
     <img src="files/shadows-max/object-properties.jpg" class="centered" style="max-width: 542px">
@@ -238,175 +210,139 @@
 
     <dl>
         <dt>Receive Shadows</dt>
-        <dd>enable/disable shadow receiving for this object.</dd>
+        <dd>Включить/выключить прием теней для этого объекта.</dd>
         <dt id="cast-shadows">Cast Shadows</dt>
-        <dd>enable/disable shadow casting for this object.</dd>
-        <dd></dd>
+        <dd>Включить/выключить отбрасывание тени для этого объекта.</dd>
     </dl>
 
     <br/>
 
     <p>
-    You may check out the following <a href="https://www.youtube.com/watch?v=ItsmBFa3lU0" target="_blank">video</a> explaining how to setup shadows in 3ds Max.
+        Вы можете посмотреть следующее <a href="https://www.youtube.com/watch?v=ItsmBFa3lU0" target="_blank">видео</a>, объясняющее, как настроить тени в 3ds Max.
     </p>
 
     <p>
-    See also Autodesk's official <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2018/ENU/3DSMax-Lighting-Shading/files/GUID-4BF878CD-5BD6-4F1A-A20B-8A6BD7D3703B-htm.html" target="_blank">documentation</a> for more information and best practices.
+        Дополнительную информацию и лучшие настройки смотрите в официальной <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2018/ENU/3DSMax-Lighting-Shading/files/GUID-4BF878CD-5BD6-4F1A-A20B-8A6BD7D3703B-htm.html" target="_blank">документации</a> Autodesk.
     </p>
 
 
     [anchor:troubleshooting]
 
-    <h2>Troubleshooting</h2>
+    <h2>Устранение Неполадок</h2>
 
-    <h3>Shadows in Verge3D and in the Max viewport look different</h3>
+    <h3>Тени в Verge3D и во вьюпорте Max выглядят по-разному</h3>
     <ul>
         <li>
-            Verge3D doesn't use the same shadow rendering
-            techniques as a 3d software can use - mostly for performance reasons.
-            This can include ray-traycing, various post-processing effects and
-            non-realtime methods. That's why there can be differences and
-            shadows won't look exactly the same as in the viewport.
+            Verge3D не использует те же методы рендеринга теней, которые могут использоваться в 3d-программах - в основном по соображениям производительности. Это может включать в себя трассировку лучей, различные эффекты не имеющие отношение к рендеру в реальном времени. Вот почему могут быть различия и тени не будут выглядеть точно так же, как во вьюпорте.
         </li>
         <li>
-            Verge3D aims to resemble the Max viewport. In order to make
-            configuring shadows easier, follow the instructions described here:
-            <a href="manual/ru/max/Shadows.html#prepare_viewport">Preparing Max Viewport</a>.
+            Verge3D стремится быть похожим на вьюпорт Max. Чтобы упростить настройку теней, следуйте инструкциям, описанным здесь: <a href="manual/ru/max/Shadows.html#prepare_viewport">Подготовка вьюпорта Max</a>.
         </li>
     </ul>
 
-    <h3>Shadows look too pixelated</h3>
+    <h3>Тени выглядят слишком Пикселизированными</h3>
     <ul>
         <li>
-            Use higher <a href="manual/ru/max/Shadows.html#size">Size</a> values.
+            Используйте более высокие значения <a href="manual/ru/max/Shadows.html#size">Size</a>.
         </li>
         <li>
-            If using directional light sources, try to decrease the
-            <a href="manual/ru/max/Shadows.html#falloff-field">Falloff/Field</a>
-            parameter as much as possible as long as it fits your scene.
+            При использовании направленных источников света постарайтесь уменьшить параметр <a href="manual/ru/max/Shadows.html#falloff-field">Falloff/Field</a> настолько, насколько это возможно, если это соответствует вашей сцене.
         </li>
         <li>
-            Try to mask low resolution with soft penumbra. Such shadow
-            filtering techniques as
+            Попробуйте замаскировать низкое разрешение мягкими полутенями. Такие методы фильтрации теней как
             <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a>
-            and
+            и
             <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
-            along with properly adjusted
+            вместе с правильно настроенным 
             <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>
-            can make pixelization less prominent.
+            может сделать пикселизацию менее заметной.
         </li>
     </ul>
 
-    <h3>Shadows are visible in the Max viewport but not in Verge3D</h3>
+    <h3>Тени видны во вьюпорте Max, но не видны в Verge3D</h3>
     <ul>
         <li>
-            In order to enable shadows in Verge3D the
-            <a href="manual/ru/max/Shadows.html#shadow-map-type">shadow map type</a>
-            dropdown must be set to *Shadow Map*.
+            Для включения теней в Verge3D в выпадающем списке типов <a href="manual/ru/max/Shadows.html#shadow-map-type">карт теней</a> необходимо установить значение *Shadow Map*.
         </li>
         <li>
-            Very high <a href="manual/ru/max/Shadows.html#bias">Bias</a>,
-            <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a> and
-            sometimes <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>
-            can partially or completely remove shadows. If that's the case try
-            to lower those values.
+            Очень высокие значения <a href="manual/ru/max/Shadows.html#bias">Bias</a>, <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a> и иногда <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a> могут частично или полностью удалить тени. Если это так, попробуйте снизить эти значения.
         </li>
     </ul>
 
-    <h3>Shadows have artefacts</h3>
+    <h3>Тени имеют артефакты</h3>
     <img src="files/shadows-blender/self-shadow-artefacts.jpg" class="centered" style="max-width: 485px">
     <ul>
         <li>
-            Such artefacts are called "shadow acne" or "self-shadow artefacts".
-            Increase the <a href="manual/ru/max/Shadows.html#bias">Bias</a>
-            and/or the <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a>
-            values to get rid of them.
+            Такие артефакты называются "теневым акнэ" или "самотеневыми артефактами". Увеличьте значения <a href="manual/ru/max/Shadows.html#bias">Bias</a> и/или <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a>, чтобы избавиться от них.
         </li>
     </ul>
 
-    <h3>Shadows have no/small penumbra</h3>
+    <h3>У теней нет полутени/полутень слишком мала</h3>
     <ul>
         <li>
-            In case of <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a>
-            or <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a>
-            shadows there's no control of the penumbra. Choose the other
-            <a href="manual/ru/max/Shadows.html#shadow_filtering">shadow filtering types</a>
-            instead.
+            При использовании <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a> теней нет контроля над полутенью. Вместо них выберите <a href="manual/ru/max/Shadows.html#shadow_filtering">shadow filtering types</a>. 
         </li>
         <li>
-            Increase <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
+            Увеличьте <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
         </li>
     </ul>
 
-    <h3>Shadows from spot and directional lights are clipped</h3>
+    <h3>Тени от точечных и направленных светильников обрезаются</h3>
     <img src="files/shadows-max/shadow-artefacts-far-clipping.jpg" class="centered" style="max-width: 500px">
     <ul>
         <li>
-            Increase the <a href="manual/ru/max/Shadows.html#target-distance">Target Distance</a>
-            value.
+            Увеличьте значение<a href="manual/ru/max/Shadows.html#target-distance">Target Distance</a>.
         </li>
     </ul>
 
-    <h3>ESM shadows look faded</h3>
+    <h3>Тени ESM выглядят блеклыми</h3>
     <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" class="centered" style="max-width: 500px">
     <ul>
         <li>
-            Increase the <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>
-            value.
+            Увеличьте значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
         </li>
         <li>
-            Increase the <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
-            value.
+            Увеличьте значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
         </li>
     </ul>
 
-    <h3>ESM shadows look too sharp or have no penumbra</h3>
+    <h3>ESM тени выглядят слишком резкими или не имеют полутени</h3>
     <img src="files/shadows-blender/esm-sharp-shadows.jpg" class="centered" style="max-width: 500px">
     <ul>
         <li>
-            Increase <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
+            Увеличьте <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
         </li>
         <li>
-            Decrease the <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>
-            value.
+            Уменьшите значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
         </li>
         <li>
-            Decrease the <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
-            value.
+            Уменьшите значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
         </li>
         <li>
-            Such artefacts can appear on a receiver object's edge.
+            Такие артефакты могут появляться на краю принимающего объекта.
             <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" class="centered" style="max-width: 500px">
-            It's one of ESM drawbacks. The solution is to avoid such situations.
+            Это один из недостатков ESM. Решение состоит в том, чтобы избегать таких ситуаций.
         </li>
         <li>
-            If an object receiving shadows doesn't cast shadows itself
-            (e.g. if they are disabled via <a href="manual/ru/max/Shadows.html#cast-shadows">Cast Shadows</a>),
-            then the shadows can have no penumbra at all no matter how large
-            <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>
-            is. The solution is to enable shadow casting on the receiving
-            object or use an additional shadow casting object as an underlay
-            to fix the penumbra.
+            Если объект, принимающий тени, сам не отбрасывает тени (например, если они отключены через <a href="manual/ru/max/Shadows.html#cast-shadows">Cast Shadows</a>), то тени могут вообще не иметь полутени, независимо от того, насколько велик <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>. Решением является включение отбрасывания теней на принимающем объекте или использование дополнительного объекта, отбрасывающего тени, в качестве подложки для исправления полутени. 
         </li>
     </ul>
 
-    <h3>ESM Shadows have artefacts</h3>
+    <h3>Артефакты ESM Shadows </h3>
     <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" class="centered" style="max-width: 500px">
     <ul>
         <li>
-            Decrease the <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>
-            value.
+            Уменьшить значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
         </li>
         <li>
-            Decrease the <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
-            value.
+            Уменьшить значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
         </li>
     </ul>
 
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>
