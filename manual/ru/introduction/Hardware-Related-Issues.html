@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Hardware-Related Issues - Soft8Soft</title>
+    <title>Неполадки, связанные с аппаратным обеспечением - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Learn how to deal with hardware-related problems and restrictions."/>
     <base href="../../../" />
@@ -41,11 +41,10 @@
   </head>
   <body><article>
 
-    <h1>Hardware-Related Issues</h1>
+    <h1>Неполадки, связанные с аппаратным обеспечением</h1>
 
     <p>
-        This manual section describes typical hardware and implementation-related
-        issues that can happen during development of a WebGL application.
+        В этом разделе руководства описаны типичные неполадки, связанные с аппаратным обеспечением и внедрением, которые могут возникнуть во время разработки приложения WebGL.
     </p>
 
     [contents]
@@ -53,65 +52,65 @@
 
     [anchor:too_many_attributes]
 
-    <h2>Too Many Attributes</h2>
+    <h2>Слишком Много Атрибутов</h2>
 
     <p>
-        Once in a while when working on your scene you may face a problem where
-        some objects are not rendered at all and the browser console shows the
-        following error:
+        Время от времени при работе над сценой вы можете столкнуться с проблемой, когда
+        некоторые объекты не отрисовываются вообще, а в консоли браузера появляется
+        следующая ошибка:
     </p>
 
     <img src="files/hardware-related-issues/too-many-attributes.jpg" class="centered" style="max-width: 846px">
-    <span class="img-caption">"Too many attributes" error in the browser console</span>
+    <span class="img-caption">Ошибка "Too many attributes" в консоли браузера</span>
 
     <p>
-        This error means that some objects (apparently, the ones that couldn't
-        be rendered) surpass the maximum amount of vertex attributes that can be
-        used per shader.
+        Эта ошибка означает, что некоторые объекты (очевидно те, которые не смогли
+        быть отрисованы) превышают максимальное количество вертексов, которые могут быть
+        использовать в одном шейдере.
     </p>
 
     <p>
-        How many attributes an object uses depends on different factors:
-        the presence and the number of shape keys (Blender) / morph targets
-        (3ds Max) / blend shapes (Maya), the presence of skinning, certain
-        material nodes, etc...
+        То, сколько атрибутов использует объект, зависит от различных факторов:
+        наличие и количество shape keys (Blender) / morph targets
+        (3ds Max) / blend shapes (Maya), наличие скиннинга, определенных
+        нод материалов и т.д.
     </p>
 
     <p>
-        Here's the table that explains how to calculate the number of attributes
-        used:
+        Вот таблица, которая объясняет, как рассчитать количество используемых
+        атрибутов:
     </p>
 
     <table>
         <thead>
             <tr>
-                <th>Number of Attributes</th>
-                <th>Description</th>
+                <th>Чисто атрибутов</th>
+                <th>Описание</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td class="centered">3</td>
-                <td>Mandatory attributes: <b>position</b>, <b>normal</b>, <b>uv</b>.</td>
+                <td>Обязательные атрибуты: <b>position</b>, <b>normal</b>, <b>uv</b>.</td>
             </tr>
             <tr>
                 <td class="centered">+2x</td>
                 <td>
-                    Add for each shape key (Blender) / morph target (3ds Max) /
-                    blend shape target (Maya). Maximum amount of attributes for
-                    this category is capped to <b>+12</b>.
+                    Добавляется за каждый shape key (Blender) / morph target (3ds Max) /
+                    blend shape target (Maya). Максимальное количество атрибутов для
+                    для этой категории ограничено <b>+12</b>.
                 </td>
             </tr>
             <tr>
                 <td class="centered">+2</td>
-                <td>Add if the object uses skinning.</td>
+                <td>Добавляется если объект использует скиннинг</td>
             </tr>
             <tr>
                 <td class="centered">+1x</td>
                 <td>
-                    Add for each of the following nodes in the object's material
-                    that use different<a href="manual/ru/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>
-                    vertex colors:
+                    Добавьте для каждой из следующих нод материала объекта,
+                    которые используют различные<a href="manual/ru/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>
+                    вертексные цвета:
                     <ul>
                         <li>Blender: <b>Attribute</b>, <b>Vertex Color</b></li>
                     </ul>
@@ -120,15 +119,14 @@
             <tr>
                 <td class="centered">+1x</td>
                 <td>
-                    Add for each of the following nodes in the object's material
-                    that use different<a href="manual/ru/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>
-                    uv maps except the first one (already covered by the mandatory
-                    <b>uv</b> attribute, see the first row):
+                    Добавьте для каждой из следующих нод материала объекта,
+                    которые используют различные<a href="manual/ru/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>
+                    карты нормалей кроме первой (она уже покрыта обязательным атрибутом uv, см. первую строку): 
                     <ul>
                         <li>Blender: <b>UV Map</b></li>
                         <li>
-                            3ds Max: <b>Bitmap</b> (only if "Mapping Type" set to "Texture"),
-                            <b>Gradient Ramp</b>, <b>Noise</b> (only if "Mapping" set to "Explicit Map Channel")
+                            3ds Max: <b>Bitmap</b> (только если "Mapping Type" выставлен на "Texture")
+                            <b>Gradient Ramp</b>, <b>Noise</b> (только если "Mapping" выставлен на "Explicit Map Channel")
                         </li>
                         <li>Maya: <b>place2dTexture</b></li>
                     </ul>
@@ -137,18 +135,18 @@
             <tr>
                 <td class="centered">+1</td>
                 <td>
-                    Add if the object's material has one of the following nodes:
+                    Добавьте, если материал объекта имеет одну из следующих нод:
                     <ul>
-                        <li>Blender: <b>Normal Map</b>, <b>Tangent</b> (only in "UV Map" mode)</li>
+                        <li>Blender: <b>Normal Map</b>, <b>Tangent</b> (только в режиме "UV Map")</li>
                         <li>3ds Max: <b>Normal Bump</b></li>
-                        <li>Maya: <b>aiNormalMap</b>, <b>bump2d</b> (only if the "Bump Interp" input > 0), <b>samplerInfo</b></li>
+                        <li>Maya: <b>aiNormalMap</b>, <b>bump2d</b> (только во вход "Bump Interp" > 0), <b>samplerInfo</b></li>
                     </ul>
                 </td>
             </tr>
             <tr>
                 <td class="centered">+1</td>
                 <td>
-                    Add if the object's material has one of the following nodes:
+                    Добавьте, если материал объекта имеет одну из следующих нод:
                     <ul>
                         <li>3ds Max: <b>Vertex Color</b></li>
                     </ul>
@@ -158,62 +156,62 @@
     </table>
 
     <p id="attribute-table0" style="font-size: 14px;">
-        *if several nodes use the same vertex color or a uv map then all those
-        nodes count as a one node towards the limit.
+        * Если несколько узлов используют один и тот же вертексный цвет или карту нормалей, то все эти ноды считаются как одна.
     </p>
 
     <p>
-        Generally, it's enough to stay in the limit of <b>16</b> vertex attributes
-        (although some old / low-end devices can support only 8). Most often you
-        should be concerned only about objects that use several shape keys.
-        Other than that the amount of vertex attributes usually stays under the
-        limit for a typical object/material.
+        Как правило, достаточно оставаться в пределах <b>16</b> вертексных атрибутов
+        (хотя некоторые старые/низкокачественные устройства могут поддерживать только 8). Чаще всего вам следует беспокоиться только об объектах, использующих несколько ключей формы. В остальном количество вертексных атрибутов обычно не превышает
+        лимит для типичного объекта/материала.
     </p>
 
 
     [anchor:aa_issues]
 
-    <h2>Aliasing Issues When Using Procedural Textures</h2>
+    <h2>Проблемы со Сглаживанием при Использовании Процедурных Текстур</h2>
 
-    <p>Sometimes you might experience aliasing issues when using procedural textures. For example, when using Checker map:</p>
+    <p>Иногда при использовании процедурных текстур могут возникать проблемы со сглаживанием. Например, при использовании карты Checker:</p>
 
     <img src="files/hardware-related-issues/aa_msaa.jpg">
 
     <p>
-      This happens when the *Anti-Aliasing* export setting is set to *MSAA* or *Auto* (which by default uses MSAA 4x on any compatible hardware). MSAA (multisample anti-aliasing) technique produces decent image quality and has low performance impact, however it does not work well for procedural textures with abrupt changes of object color.
+        Это происходит, когда в настройках экспорта *Anti-Aliasing* установлено значение *MSAA* или *Auto* (которое по умолчанию использует MSAA 4x на любом совместимом оборудовании). Техника MSAA ( мультисэмплерное сглаживание) обеспечивает достойное качество изображения и имеет низкое влияние на производительность, однако она не очень хорошо работает для процедурных текстур с резкими изменениями цвета объектов.
     </p>
 
-    <p>Switching *Anti-Aliasing* technique to *FXAA* fixes the issue:</p>
+    <p>Переключение метода *Anti-Aliasing* на *FXAA* устраняет проблему:</p>
 
     <img src="files/hardware-related-issues/aa_fxaa.jpg">
 
-    <p>*FXAA* uses post-processing rendering to reduce aliasing and works good for such "edges" generated by procedural maps.</p>
+    <p>*FXAA* использует пост-процессинговый рендеринг для уменьшения ступенчатости и хорошо работает для таких "граней", создаваемых процедурными картами.</p>
 
 
     [anchor:z_fighting]
 
-    <h2>Intersection Artifacts When Two Objects are Located Close to Each Other</h2>
+    <h2>Артефакты Пересечения, Когда Два Объекта Расположены Близко Друг к Другу</h2>
 
     <p>
-      Sometimes you might experience artifacts similar to these:
+        Иногда вы можете столкнуться с артефактами, подобными этим:
     </p>
 
     <img src="files/hardware-related-issues/z-fighting.jpg" alt="z-fighting artifacts">
 
     <p>
-      This is called *z-fighting* (<a href="https://en.wikipedia.org/wiki/Z-fighting" target="_blank">technical stuff on Wikipedia</a>) and happens when different polygons have equal distances to the camera, or their distances differ very slightly.
+        Это так называемый *z-fighting* (<a href="https://en.wikipedia.org/wiki/Z-fighting" target="_blank">техническая документация на Wikipedia</a>) и происходит он, когда разные полигоны имеют равную дистанцию до камеры, или их дистанция отличается очень незначительно.
     </p>
 
     <p>
-      To fix it you need to do one of the following:
+        Чтобы исправить это, вам нужно сделать одно из следующих действий:
     </p>
 
     <ul>
-      <li>The most straightforward fix — place your objects further from each other.</li>
-      <li>Increase <em>near</em> (or <em>clip start</em>) camera distance and/or decrease <em>far</em> (or <em>clip end</em>) camera distance. This will make camera distance range smaller and thus improve precision of the values stored in the depth buffer.</li>
-      <li>If you need to place a billboard texture above some surface — disable *Depth Test* on the billboard material and increase *Rendering Order* parameter on the billboard object. The billboard will be rendered after the surface object and will ignore depth stored by that object. This effectively eliminates any z-fighting which might happen between the two objects.</li>
+      <li>Самое простое решение - расположить объекты дальше друг от друга.</li>
+      <li>Увеличьте дистанцию<em>near</em> (или <em>clip start</em>) камеры и/или уменьшите дистанцию <em>far</em> (или <em>clip end</em>) камеры. Это сделает диапазон расстояний камеры меньше и тем самым повысит точность значений, хранящихся в буфере глубины.</li>
+      <li>Если вам нужно разместить текстуру билборда над какой-либо поверхностью - отключите *Depth Test* на материале билборда и увеличьте параметр *Rendering Order* на объекте. Билборд будет отображаться после объекта поверхности и будет игнорировать глубину, сохраненную этим объектом. Это эффективно устраняет z-fighting, который может произойти между этими двумя объектами.</li>
     </ul>
 
+    <h2>Остались вопросы?</h2>
 
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    
   </article></body>
 </html>

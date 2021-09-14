@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D for Maya: Lighting and Rendering - Soft8Soft</title>
+    <title>Verge3D для Maya: Освещение и рендеринг - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to configure environment lighting, lights and rendering settings in Verge3D for Maya."/>
     <base href="../../../" />
@@ -10,10 +10,10 @@
   </head>
   <body><article>
 
-    <h1>Lighting and Rendering / Maya</h1>
+    <h1>Освещение и рендеринг / Maya</h1>
 
     <p>
-      This page contains the information about lighting, rendering and background settings which can be used with Verge3D for Maya.
+      Эта страница содержит информацию о настройках освещения, рендеринга и фона, которые можно использовать в Maya для Verge3D.
     </p>
 
     [contents]
@@ -21,196 +21,181 @@
 
     [anchor:renderers]
 
-    <h2>Renderers</h2>
+    <h2>Рендереры</h2>
 
     <p>
-      Verge3D is designed to represent Maya's Viewport 2.0 hardware renderer as closely as possible. It supports physically-based shading, lights, shadows and image-based lighting (IBL).
+      Verge3D разработан для максимально возможного соответствия аппаратному рендереру Viewport 2.0 в Maya. Он поддерживает физически обоснованное затенение, освещение, тени и освещение на основе изображений (IBL).
     </p>
 
 
     [anchor:environment_lighting]
 
-    <h2>Environment Lighting</h2>
+    <h2>Освещение Окружающей Среды</h2>
 
     <p>
-      Environment lighting is a very important component of Verge3D graphics pipeline. You can illuminate your entire scene with just an environment map alone, without using any light objects. See the <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">Scooter demo</a> as an example of this approach.
+      Освещение Окружающей Среды - очень важная составляющая графического пайплайна в Verge3D. Вы можете осветить всю сцену, используя только карту окружения, без использования каких-либо источников освещения. Ознакомьтесь со <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">Scooter demo</a> в качестве примера такого подхода.
     </p>
 
-    <p>The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. To do so, simply append Arnold's *aiSkyDomeLight* object to your scene and assign some texture to it as *Color*.</p>
+    <p>Шаблон куба по умолчанию предоставляет HDR-текстуру для освещения на основе изображения. Вы можете заменить эту текстуру своим файлом или настроить освещение окружения с нуля. Для этого просто добавьте Arnold's *aiSkyDomeLight* к вашей сцене и присвойте ему текстуру в качестве *Color*.</p>
 
     <img src="files/lighting-maya/ai-sky-dome-light.jpg" class="centered" style="max-width: 892px">
 
-    <p>In addition, you may use the *Intensity* attribute to tweak intensity of your environment lighting and *Texture Resolution* to configure its quality:</p>
+    <p>Кроме того, вы можете использовать атрибут *Intensity* для настройки интенсивности освещения окружения и *Texture Resolution* для настройки его качества:</p>
 
     <ul>
-      <li><strong>Low (64x64)</strong> and <strong>Medium (128x128)</strong> - values are not supported, Verge3D will use <strong>High (256x256)</strong> setting instead of these.</li>
-      <li><strong>High (256x256)</strong> - optimum quality with low memory consumption (default value).</li>
-      <li><strong>Higher (512x512)</strong> - better quality with moderate memory consumption and reduced performance. Use it to render high quality reflections e.g for rendering jewelry.</li>
-      <li><strong>Ultra (1024x1024)</strong> - best quality with high memory consumption and low performance (generally not recommended).</li>
+      <li><strong>Low (64x64)</strong> и <strong>Medium (128x128)</strong> - значения не поддерживаются, вместо них Verge3D будет использовать настройку <strong>High (256x256)</strong> .</li>
+      <li><strong>High (256x256)</strong> - оптимальное качество при низком потреблении памяти (значение по умолчанию).</li>
+      <li><strong>Higher (512x512)</strong> - лучшее качество при умеренном потреблении памяти и снижении производительности. Используйте его для рендеринга отражений высокого качества, например, для рендеринга ювелирных изделий.</li>
+      <li><strong>Ultra (1024x1024)</strong> - наилучшее качество при высоком потреблении памяти и низкой производительности (обычно не рекомендуется).</li>
     </ul>
 
     <p>
-      When using HDR texture for your skydome, make sure you set the *Color Space* setting to *Raw*:
+      При использовании HDR текстуры для skydome, убедитесь, что для параметра *Цветовое пространство* вы установили значение *Raw*:
     </p>
 
     <img src="files/lighting-maya/ai-sky-dome-light-setup.jpg" class="centered" style="max-width: 458px">
 
     <p class="note">
-      You can also *aiSkyDomeLight* without any texture to simulate light coming evenly from all directions. However, it's much more efficient to use Ambient Lights for that.
+      Вы также можете использовать *aiSkyDomeLight* без текстуры, чтобы имитировать свет, равномерно исходящий со всех сторон. Однако гораздо эффективнее использовать для этого Ambient Lights.
     </p>
 
 
     [anchor:lights]
 
-    <h2>Lights</h2>
+    <h2>Источники освещения</h2>
 
     <p>
-      In some cases, using just image-based lighting to illuminate your scene is not enough. If you'd like to simulate some additional light source, need dynamic shadows, or if you need to move your lights (as with car lights), you may use <a href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2020/ENU/Maya-LightingShading/files/GUID-3B4D131E-D001-4415-8BF9-250612C3A81D-htm.html" target="_blank">direct light sources</a>.
+      В некоторых случаях использования только освещения на основе изображения недостаточно. Если вы хотите смоделировать дополнительный источник света, вам нужны динамические тени, или если вам нужно перемещать освещение (как в случае с автомобильными фарами), вы можете использовать <a href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2020/ENU/Maya-LightingShading/files/GUID-3B4D131E-D001-4415-8BF9-250612C3A81D-htm.html" target="_blank">источники прямого света</a>.
     </p>
 
     <p>
-      Verge3D supports the following light types:
+      Verge3D поддерживает следующие типы освещения: 
     </p>
 
     <ul>
-      <li>*Ambient Lights* - *Color* and *Intensity* attributes are supported in Verge3D.</li>
-      <li>*Directional Lights* - *Color* and *Intensity* attributes are supported in Verge3D.</li>
-      <li>*Point Lights* - *Color*, *Intensity* and *Decay Rate* attributes are supported in Verge3D.</li>
-      <li>*Spot Lights* - *Color*, *Intensity*, *Decay Rate*, *Cone Angle* and *Penumbra Angle* attributes are supported in Verge3D.</li>
-      <li>*Area Lights* — *Color*, *Intensity* attributes are supported in Verge3D. Light transform scaling controls the emissive area.</li>
+      <li>*Ambient Lights* - поддерживаются свойства *Color* и *Power*.</li>
+      <li>*Directional Lights* - поддерживаются свойства *Color* и *Intensity*.</li>
+      <li>*Point Lights* - поддерживаются свойства *Color*, *Intensity* и *Decay Rate*.</li>
+      <li>*Spot Lights* - поддерживаются свойства *Color*,, *Intensity*, *Decay Rate*, *Cone Angle* и *Penumbra Angle* .</li>
+      <li>*Area Lights* — поддерживаются свойства *Color*, *Intensity*. Масштабирование трансформации света управляет областью излучения.</li>
     </ul>
 
     <p>
-      In addition, you can assign Depth Map Shadow Attributes on Directional, Point and Spot lights. See <a href="manual/ru/maya/Shadows.html">here</a> for more info.
+      Кроме того, вы можете назначить свойства Depth Map Shadow Attributes для источников освещения типа directional, point, или spot. Смотрите <a href="manual/ru/maya/Shadows.html">здесь</a> для получения дополнительной информации
     </p>
 
 
     [anchor:light_probes]
 
-    <h2>Light Probes</h2>
+    <h2>Световые зонды</h2>
 
     <p>
-      Verge3D add-on adds a custom light probe object called *v3dReflectionCubemap*,
-      which can be used to apply indirect lighting to objects via a local
-      reflection cubemap.<br/><br/>
+      Аддон Verge3D добавляет настраеваемый объект светового зонда под названием *v3dReflectionCubemap*, который можно использовать для применения непрямого освещения к объектам с помощью локальной карты отражения.<br/><br/>
 
-      The new light probe object can be found inside the custom *Verge3D* shelf:
+      Новый объект светового зонда можно найти внутри специальной панели *Verge3D*:
     </p>
 
     <img src="files/lighting-maya/light-probe-reflection-cubemap-create.png" class="centered" style="max-width: 500px">
 
     <p>
-      This object defines a volume of influence represented by a box or a sphere.
-      All objects contained inside that volume will use a local reflection
-      cubemap generated in runtime instead of the scene's global environment
-      texture/color.<br/><br/>
+      Этот объект определяет область влияния, представленную кубом или сферой.
+      Все объекты, находящиеся внутри этой области, будут использовать локальное отражение, сгенерированное во время выполнения, вместо глобальной текстуры/цвета окружения сцены.<br/><br/>
 
-      The advantage of using a local reflection map is that it has surrounding
-      objects baked in it, while the scene's global map only contains the
-      background texture/color that can be specified via Arnold's
-      <a href="manual/ru/maya/Lighting-and-Rendering.html#environment_lighting">aiSkyDomeLight</a>
-      object. Local reflection maps also have a parallax effect depending on the
-      geometry of the <a href="manual/ru/maya/Lighting-and-Rendering.html#influence_volume">influence</a>
-      or <a href="manual/ru/maya/Lighting-and-Rendering.html#parallax_volume">parallax</a>
-      volume.
+      Преимущество использования локальной карты отражения заключается в том, что окружающие объекты запечены в неё, в то время как глобальная карта сцены содержит только
+      текстуру/цвет фона, который может быть задан через объект
+      <a href="manual/ru/maya/Lighting-and-Rendering.html#environment_lighting">aiSkyDomeLight</a> . Локальные карты отражения также имеют эффект параллакса в зависимости от настроек геометрии  <a href="manual/ru/maya/Lighting-and-Rendering.html#influence_volume">influence</a>
+      или <a href="manual/ru/maya/Lighting-and-Rendering.html#parallax_volume">parallax</a> .
     </p>
 
     <img src="files/lighting-maya/light-probe-reflection-cubemap-effect.png" class="centered" style="max-width: 1005px">
     <span class="img-caption">
-      Left - reflection cubemap object in Maya viewport, right - effect it adds
-      to a reflective material in Verge3D.
+      Слева - отражающий объект во вьюпорте Maya, справа - эффект, который он добавляет
+      к отражающему материалу в Verge3D.
     </span>
 
     <p>
-      v3dReflectionCubemap objects have the following parameters:
+      v3dReflectionCubemap объекты имеют следующие параметры:
     </p>
 
     <img src="files/lighting-maya/light-probe-reflection-cubemap-params.png" class="centered" style="max-width: 481px">
 
     <dl>
-      <dt>General Settings</dt>
+      <dt>Общие настройки</dt>
       <dd>
-        general light probe settings:
+        общие настройки светового зонда:
 
         <dl>
           <dt id="influence_volume">Influence Type</dt>
           <dd>
-            type of the influence volume: *Sphere* or *Box*. Only objects
-            located inside this volume are affected by the probe's lighting.
-            Default is *Sphere*.
+            тип области влияния: *Sphere* или *Box*. Только объекты
+            расположенные внутри этой области, подвергаются воздействию зонда освещения.
+            По умолчанию используется *Sphere*.
           </dd>
 
           <dt>Influence Distance</dt>
           <dd>
-            the size of the influence volume. You can also change object scaling
-            and make the shape of the influence volume non-uniform. Default is
+            размер области влияния. Можно также изменить масштабирование объекта
+            и сделать форму области влияния неоднородной. По умолчанию
             1.0.
           </dd>
 
           <dt>Intensity</dt>
           <dd>
-            the intensity of the indirect lighting. Any value different from 1.0
-            is not physically correct. Default is 1.0.
+            интенсивность непрямого освещения. Любое значение, отличное от 1,0
+            не является физически корректным. По умолчанию - 1,0.
           </dd>
 
           <dt>Clipping Start</dt>
           <dd>
-            near clip distance. Objects located closer than this value won't be
-            rendered into the reflection cubemap. Default is 0.1.
+            расстояние до отсечения. Объекты, расположенные ближе, чем это значение, не будут отображаться в карте отражения. По умолчанию 0,1.
           </dd>
 
           <dt>Clipping End</dt>
           <dd>
-            far clip distance. Objects located further than this value won't be
-            rendered into the reflection cubemap. Default is 100.0.
+            дальнее расстояние отсечения. Объекты, расположенные дальше этого значения не будут отображаться в карте отражения. По умолчанию 100.0.
           </dd>
         </dl>
       </dd>
 
-      <dt>Visibility Selection Set</dt>
+      <dt>Настройки видимости</dt>
       <dd>
-        object visibility settings:
+        настройки видимости объекта:
 
         <dl>
           <dt>Selection Set</dt>
           <dd>
-            limit objects that should appear on the reflection cubemap to those
-            belonging to this selection set. Choose the empty string option in
-            order to not specify any set of objects - that way all scene objects
-            will be used for generating the reflection cubemap. Default is empty
-            string.
+            ограничить объекты, которые должны появиться на кубокарте отражения, только теми, которые принадлежат данному набору. Выберите опцию пустой строки, чтобы не указывать никакого набора объектов - в этом случае все объекты сцены будут использованы для создания кубической карты отражения. По умолчанию используется пустая строка.
           </dd>
 
           <dt>Invert Visibility</dt>
           <dd>
-            invert the selection of objects visible to this light probe if
-            *Selection Set* is specified. Disabled by default.
+            инвертировать выбор объектов, видимых данным световым зондом, если задан *Selection Set*. По умолчанию отключено. 
           </dd>
         </dl>
       </dd>
 
       <dt id="parallax_volume">Custom Parallax</dt>
       <dd>
-        parallax settings:
+        настройки параллакса:
 
         <dl>
           <dt>Use Custom Parallax</dt>
           <dd>
-            enable custom settings for the parallax correction. This group of
-            settings defines a parallax volume, which is used to project the
-            lighting captured by the probe. If *Custom Parallax* is not enabled
-            the parallax effect is calculated based on *Influence Type* and
-            *Influence Distance*. Disabled by default.
+            включить пользовательские настройки для коррекции параллакса. Эта группа
+            настроек определяет область параллакса, который используется для проецирования
+            освещения, полученного датчиком. Если функция *Custom Parallax* не включена
+            эффект параллакса рассчитывается на основе *Influence Type* и
+            *Influence Distance*. По умолчанию отключено.
           </dd>
 
           <dt>Parallax Type</dt>
           <dd>
-            type of the parallax volume: *Sphere* or *Box*. Default is *Sphere*
+            тип области параллакса: *Sphere* или *Box*. По умолчанию это *Sphere*
           </dd>
 
           <dt>Parallax Distance</dt>
           <dd>
-            the size of the parallax volume. Default is 1.0.
+            размер области параллакса. По умолчанию это 1.0.
           </dd>
         </dl>
       </dd>
@@ -219,173 +204,173 @@
 
     [anchor:background]
 
-    <h2>Background</h2>
+    <h2>Фон</h2>
 
     <p>
-      By default Verge3D renders the same background you see in Maya's Viewport (grey in most cases). When using image-based lighting (provided by *aiSkyDomeLight* objects) you see the environment texture instead.
+      По умолчанию Verge3D отображает тот же фон, который вы видите во вьюпорте Maya (серый в большинстве случаев). При использовании освещения на основе изображения (обеспечиваемого объектами *aiSkyDomeLight*) вместо него отображается текстура окружения.
     </p>
 
 
     <p>
-      To change your background to some other color, do not edit Viewport settings in Maya, simply assign *Background Color* and enable the *Render Background* attribute on your main camera:
+      Чтобы изменить фон на другой цвет, не редактируйте настройки Viewport в Maya, просто назначьте *Background Color* и включите атрибут *Render Background* на основной камере:
     </p>
 
     <img src="files/lighting-maya/render-background.jpg" class="centered" style="max-width: 443px">
 
     <p class="note">
-      You can use Maya's *Render View* window or Verge3D's *Sneak Peek* feature to preview the scene with custom background.
+      Вы можете использовать окно *Render View* в Maya или функцию *Sneak Peek* в Verge3D для предварительного просмотра сцены с пользовательским фоном.
     </p>
 
 
     [anchor:global_rendering_settings]
 
-    <h2>Global Rendering Settings</h2>
+    <h2>Глобальные настройки рендеринга</h2>
 
-    <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (<strong>Verge3D->Export Settings...</strong> in Maya menu).</p>
+    <p>Глобальные настройки рендеринга, доступные из диалогового окна *Verge3D Export Settings*. (<strong>Verge3D->Export Settings...</strong> в меню Maya).</p>
 
     <img src="files/lighting-maya/rendering-settings-global.jpg" class="centered" style="max-width: 412px">
 
-    <p>*Anti-Aliasing* - select what anti-aliasing algorithm to use for the scene:</p>
+    <p>*Anti-Aliasing* - выбрать, какой алгоритм сглаживания использовать для сцены:</p>
 
     <ul>
-      <li>*Auto* - use system default method.</li>
-      <li>*MSAA 4x* - prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</li>
-      <li>*MSAA 8x* - prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</li>
-      <li>*MSAA 16x* - prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</li>
-      <li>*FXAA* - force FXAA.</li>
-      <li>*None* - disable anti-aliasing.</li>
+      <li>*Auto* - использовать системный метод по умолчанию.</li>
+      <li>*MSAA 4x* - использовать мультисэмпловое сглаживание с 4x сэмплами, если целевое оборудование поддерживает его.</li>
+      <li>*MSAA 8x* - использовать мультисэмпловое сглаживание с 8x сэмплами, если целевое оборудование поддерживает его.</li>
+      <li>*MSAA 16x* - использовать мультисэмпловое сглаживание с 16x сэмплами, если целевое оборудование поддерживает его.</li>
+      <li>*FXAA* - использовать FXAA.</li>
+      <li>*None* - отключить сглаживание.</li>
     </ul>
 
-    <p>*Use HDR Rendering* - enable high-dynamic-range rendering.</p>
+    <p>*Use HDR Rendering* - включить рендеринг с высоким динамическим диапазоном.</p>
 
     <p>*IBL Environment Mode*</p>
 
     <ul>
-      <li><strong>PMREM (slow)</strong> - high quality (default value).</li>
-      <li><strong>Light Probe + Cubemap (medium)</strong> - reduced quality of image-based specular reflections, better performance.</li>
-      <li><strong>Light Probe (fast)</strong> - disabled image-based specular reflections, highest performance.</li>
+      <li><strong>PMREM (slow)</strong> - высокое качество (по умолчанию).</li>
+      <li><strong>Light Probe + Cubemap (medium)</strong> - снижение качества зеркальных отражений на основе изображений, лучшая производительность.</li>
+      <li><strong>Light Probe (fast)</strong> - отключение зеркальных отражений на основе изображений, высочайшая производительность.</li>
     </ul>
 
-    <p>*Outlining Effect* - see below.</p>
+    <p>*Outlining Effect* - смотрите ниже.</p>
 
 
     [anchor:outline_rendering]
 
-    <h2>Outline Rendering</h2>
+    <h2>Контурный рендеринг</h2>
 
     <p>
-      Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
+      Рендеринг контура (он же рендеринг края силуэта) - это распространенная техника нефотореалистичного рендеринга (NPR), которая может значительно улучшить визуальное восприятие вашей сцены. Этот эффект можно использовать в различных приложениях, таких как электронное обучение, игры, архитектурная визуализация и техническое рисование.
     </p>
 
     <p>
-      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect on the Blender's *Render Properties* panel, then use the <a href="manual/ru/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
+      Чтобы использовать обводку объекта (и дополнительное свечение) в приложении Verge3D, сначала включите эффект на панели *Render Properties*, затем используйте пазл <a href="manual/ru/puzzles/Objects.html#outline">outline</a>, чтобы применить его к объекту (объектам).
     </p>
 
     <p class="note">
-      The outline rendering does not work inside AR/VR sessions. Use other methods to highlight your objects, such as animation or changing material's color.
+      Контурный рендеринг не работает в AR/VR. Для выделения объектов используйте другие методы выделения объектов, например анимацию или изменение цвета материала.
     </p>
 
     <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
 
-    <p>You can tweak outlining using the following properties:</p>
+    <p>Вы можете настроить контур с помощью следующих параметров:</p>
 
-    <p>*Enabled* — enable/disable the effect.</p>
+    <p>*Enabled* — включить/выключить эффект.</p>
 
-    <p>*Edge Strength* — outlining strength factor.</p>
+    <p>*Edge Strength* — фактор силы контура.</p>
 
-    <p>*Edge Glow* — intensity of additional glowing (rendered beyond the main outline edge).</p>
+    <p>*Edge Glow* — интенсивность дополнительного свечения (отрисовывается за пределами основного края контура).</p>
 
-    <p>*Edge Thickness* — outline edge thickness factor.</p>
+    <p>*Edge Thickness* — коэффициент толщины края контура.</p>
 
-    <p>*Pulse Period* — pulse period in seconds. Specify to make the effect animated.</p>
+    <p>*Pulse Period* — период импульса в секундах. Задайте, чтобы сделать эффект анимированным.</p>
 
-    <p>*Visible Edge Color* — visible edge color.</p>
+    <p>*Visible Edge Color* — цвет видимого края.</p>
 
-    <p>*Hidden Edge Color* — color of the outline edge being rendered behind any other scene objects.</p>
+    <p>*Hidden Edge Color* — цвет края контура, отображаемого за любыми другими объектами сцены.</p>
 
-    <p>*Render Hidden Edge* — enable/disable rendering of the outline edge behind other scene objects.</p>
+    <p>*Render Hidden Edge* — включить/выключить отрисовку края контура за другими объектами сцены.</p>
 
-    <p class="note">Though it's possible to render glowing objects, in the most cases the outline rendering is used to improve visual clarity of your scene. If you need glowing from lamps or another bright objects, consider using the <a href="manual/ru/puzzles/Postprocessing.html#bloom">bloom post-processing</a> instead.</p>
+    <p class="note">Хотя есть возможность визуализировать светящиеся объекты, в большинстве случаев контурный рендеринг используется для улучшения повышения чёткости сцены. Если вам нужно свечение от ламп или других ярких объектов, подумайте об использовании постобработки <a href="manual/ru/puzzles/Postprocessing.html#bloom">bloom</a>вместо этого.</p>
 
 
     [anchor:per_object_rendering_settings]
 
-    <h2>Per-Object Rendering Settings</h2>
+    <h2>Настройки рендеринга для каждого объекта</h2>
 
     <p>
-      Verge3D supports the following additional rendering settings for your geometry objects:
+      Verge3D поддерживает следующие дополнительные настройки рендеринга геометрических объектов:
     </p>
 
     <img src="files/lighting-maya/rendering-settings.jpg" class="centered" style="max-width: 454px">
 
     <p>
-      *Render Order* - modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
+      *Render Order* - изменяет порядок рендеринга для конкретного объекта. Чем меньше индекс, тем раньше будет отрисован объект. В большинстве случаев это значение необходимо подстроить при использовании прозрачности Blend для устранения артефактов прозрачности. 
     </p>
 
     <p>
-      *Frustum Culling* - enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
+      *Frustum Culling* - включает/выключает оптимизацию фруструм кулинга. Снимите этот флажок, если у вас есть какой-либо обтекаемый объект, который может выходить за пределы экранного пространства, чтобы предотвратить его обтекание.
     </p>
 
 
     [anchor:clipping_planes]
 
-    <h2>Clipping Planes</h2>
+    <h2>Clipping Planes(Секущие Плоскости)</h2>
 
     <p>
-      Clipping planes (aka section planes, cross-section planes, mesh sections) is a technique used to show internal arrangement of complex objects, such as buildings, cars, appliances, gadgets, machines etc.
+      Секущие плоскости (они же плоскости сечений) - это способ, используемый для отображения внутреннего устройства сложных объектов, таких как здания, автомобили, приборы, гаджеты, машины и т.д.
     </p>
 
     <img src="files/lighting-maya/clipping-plane-example.jpg" class="centered">
 
     <p>
-      To add a new clipping plane, use the <strong>Verge3D -> Add a v3dClippingPlane object</strong> button located on the Maya tool shelf:
+      Чтобы добавить новую плоскость, используйте кнопку <strong>Verge3D -> Add a v3dClippingPlane object</strong> расположенную на панели инструментов Maya:
     </p>
 
     <img src="files/lighting-maya/clipping-plane-new.jpg" class="centered">
 
     <p>
-      The objects on your scene will be clipped in the negative *Y* direction of the clipping plane object.
+      Объекты на сцене будут обрезаны в отрицательном направлении оси *Y* плоскости сечения.
     </p>
 
     <p>
-      Clipping planes have the following parameters:
+      Плоскости сечения имеют следующие параметры:
     </p>
 
     <dl>
       <dt>Affected Objects</dt>
       <dd>
-        Set of the objects clipped by the plane. If empty, all scene objects will be clipped.
+        Коллекция объектов, с которыми будет взаимодействовать секущая плоскость. Если коллекция не назначена, все объекты сцены будут обрезаны. 
       </dd>
       <dt>Negated</dt>
       <dd>
-        Swap clipped and unclipped sides.
+        Поменять местами обрезанную и необрезанную стороны.
       </dd>
       <dt>Clip Shadows</dt>
       <dd>
-        Clip shadows cast from the clipped objects.
+        Обрезать тени, отбрасываемые обрезанными объектами.
       </dd>
       <dt>Union Planes</dt>
       <dd>
-        Construct a union from all the clipping planes, affecting the object, not their intersection.
+        Построить объединение из всех плоскостей сечения, воздействуя на объект, а не на их пересечение. 
       </dd>
       <dt>Cross-Section</dt>
       <dd>
-        Fill cross-section between the clipping plane and the affected objects.
+        Заполнить отверстие образованное секущей плоскостью в затронутых объектах. 
       </dd>
       <dt>Cross-Section Color</dt>
       <dd>
-        Cross-section diffuse color and opacity.
+        Цвет и прозрачность поперечного сечения.
       </dd>
       <dt>Cross-Section Size</dt>
       <dd>
-        Cross-section plane size. Increase this value if you use larger scene size.
+        Размер плоскости сечения. Увеличьте это значение, если вы используете сцену большего размера.
       </dd>
     </dl>
 
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
 
   </article></body>

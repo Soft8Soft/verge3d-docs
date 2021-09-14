@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Spotting Verge3D performance bottlenecks - Soft8Soft</title>
+    <title>Определение тонкостей производительности в Verge3D - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Find out how to spot and eliminate performance bottlenecks in your Verge3D-based applications."/>
     <base href="../../../" />
@@ -13,310 +13,310 @@
   </head>
   <body><article>
 
-    <h1>Spotting Verge3D Performance Bottlenecks</h1>
+    <h1>Определение тонкостей производительности в Verge3D</h1>
 
     [contents]
 
 
     [anchor:intro]
 
-    <h2>Intro</h2>
+    <h2>Интро</h2>
 
-    <p>Since a broad internet audience can use your applications, your Verge3D-based apps must show good performance. For example, some classes of WebGL-capable devices may work much worse than you expect:</p>
+    <p>Учитывая, что вашими приложениями может пользоваться широкая интернет-аудитория, ваши приложения на базе Verge3D должны демонстрировать хорошую производительность. Например, некоторые классы устройств с поддержкой WebGL могут работать гораздо хуже, чем вы ожидаете:</p>
 
     <ul>
-      <li>Typical low-end or middle-end laptops with integrated GPUs (Intel, AMD APU graphics).</li>
-      <li>Old smartphones or tablet computers.</li>
-      <li>Mobile VR devices, such as Oculus Go or Oculus Quest. To prevent motion sickness symptoms, it's mandatory that these devices render with appropriate frame rate (60, 72, or even 90 FPS).</li>
-      <li>Devices with battery. Enormous GPU utilization quickly drains out the battery, powering mobile devices.</li>
+      <li>Обычные ноутбуки низкого или среднего класса с интегрированным GPU (графика Intel, AMD APU)</li>
+      <li>Устаревшие смартфоны или планшеты.</li>
+      <li>Мобильные устройства VR, такие как Oculus Go или Oculus Quest. Для предотвращения размытия необходимо, чтобы эти устройства выдавали изображение с подходящей частотой кадров. (60, 72, или даже 90 FPS).</li>
+      <li>Устройства с батареей. Огромная загрузка графического процессора быстро разряжает батарею, питающую мобильные устройства</li>
     </ul>
 
-    <p>To optimize efficiently, e.g., without degrading your apps' quality, you should understand basic <a href='manual/ru/introduction/Optimizing-WebGL-performance.html'>asset optimization techniques</a> and be able to spot places in your app that cause slow loading and rendering. These are called <em>performance bottlenecks</em>.</p>
+    <p>Для эффективной оптимизации без ухудшения качества вашего приложения вы должны понимать основу <a href='manual/ru/introduction/Optimizing-WebGL-performance.html'>оптимизации ассетов</a>, и понимать, как определить что именно в вашем приложении вызывает медленную загрузку и рендеринг. Это называется <em>performance bottlenecks</em>.</p>
 
 
     [anchor:fps]
 
-    <h2>Check your FPS</h2>
+    <h2>Проверьте FPS</h2>
 
-    <p>FPS (frames per second, or frame rate) is a crucial quantity representing the rendering time and user experience of your app:</p>
-
-    <ul>
-      <li>&lt; 20 — your app is really slow, almost impossible to use.</li>
-      <li>20-40 — slow, but acceptable.</li>
-      <li>40-60 — good enough.</li>
-      <li>60 — ideal frame rate on desktop and mobile browsers.</li>
-      <li>&gt; 60 — frame rate you should target on VR headsets.</li>
-    </ul>
-
-    <p>Starting from version 3.2, Verge3D comes with the built-in FPS counter. You can activate it by:</p>
+    <p>FPS (кадры в секунду, или частота кадров) это важнейшая величина, отражающая время рендеринга вашего приложения:</p>
 
     <ul>
-      <li>Quickly pressing *F*, *F*, *F* (triple F) on your keyboard.</li>
-      <li>Using JavaScript and the <a href="api/en/extras/App.html#showFPS">showFPS()</a> API method.</li>
+      <li>&lt; 20 — ваше приложение очень медленное, им почти невозможно пользоваться.</li>
+      <li>20-40 — медленно, но приемлемо.</li>
+      <li>40-60 — достаточно хорошо.</li>
+      <li>60 — идеальная частота кадров на компьютерных и мобильных браузерах.</li>
+      <li>&gt; 60 - частота кадров, на которую следует ориентироваться при использовании гарнитур VR.</li>
     </ul>
 
-    <p>Once activated, you can see the current FPS value (along with its range and history plot) on the small panel in the left top corner of your app's canvas:</p>
+    <p>Начиная с версии 3.2, Verge3D поставляется со встроенным счетчиком FPS. Активировать его можно следующим образом:</p>
+
+    <ul>
+      <li>Быстро нажимая *F*, *F*, *F* (тройное F) на вашей клавиатуре.</li>
+      <li>Использовать JavaScript и метод API <a href="api/en/extras/App.html#showFPS">showFPS()</a> .</li>
+    </ul>
+
+    <p>После активации вы сможете увидеть текущее значение FPS (вместе с его диапазоном и графиком истории) на небольшой панели в левом верхнем углу вашего приложения:</p>
 
     <img src="files/performance-bottlenecks/fps-counter.jpg" alt="Verge3D FPS counter window" class="centered" style="max-width: 879px;">
 
-    <p>To get legitimate values, you should measure FPS on the slowest / oldest devices you have. Also, most browsers do not allow frame rate be greater than 60 Hz (this improves frame syncing, saves your battery life, and reduces fan noise).</p>
+    <p>Чтобы получить достоверные значения, следует измерять FPS на самых медленных/старых устройствах, которые у вас есть. Кроме того, большинство браузеров не позволяют приложению работать с частотой кадров более 60 Гц (это улучшает синхронизацию кадров, экономит ресурс батареи и снижает шум вентилятора).</p>
 
 
     [anchor:performance_profile]
 
-    <h2>Performance Profile</h2>
+    <h2>Профиль Производительности</h2>
 
-    <p>Verge3D comes with a feature to generate performance profiles in real time. You can get a quick insight into what's happening with performance in your application and what you should do to increase it. To produce such profiles, you may use one of the following methods:</p>
+    <p>Verge3D оснащен функцией генерации профилей производительности в режиме реального времени. Вы можете получить быстрое представление о том, что происходит с производительностью в вашем приложении и что нужно сделать для ее повышения. Для создания таких профилей вы можете использовать один из следующих методов:</p>
 
     <ul>
-      <li>Quickly press *P*, *P*, *P* (triple P) on your keyboard (Verge3D 3.2+).</li>
-      <li>Use the <a href="manual/ru/puzzles/System.html#print_performance_info">print performance info</a> puzzle.</li>
-      <li>Use JavaScript and the <a href="api/en/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> API method.</li>
+      <li>Быстро нажимая *P*, *P*, *P* (тройное P) на вашей клавиатуре. (Verge3D 3.2+).</li>
+      <li>Используйте пазл <a href="manual/ru/puzzles/System.html#print_performance_info">print performance info</a> .</li>
+      <li>Использовать JavaScript и метод из API <a href="api/en/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> .</li>
     </ul>
 
-    <p>Wait at least 1 second while Verge3D collects profile data, then open the browser <a href="manual/ru/introduction/FAQ.html#browser_console">console</a>. Check out the string in the opened console window:</p>
+    <p>Подождите не менее 1 секунды, пока Verge3D соберет данные профиля, затем откройте <a href="manual/ru/introduction/FAQ.html#browser_console">консоль</a> браузера. Проверьте строку в открывшемся окне консоли:</p>
 
     <code>--- Verge3D Performance Profile (1s) ---</code>
 
-    <p>Below it, the lines with collected performance information:</p>
+    <p>Под ним - строки с собранной информацией о производительности:</p>
 
     <img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D performance profile" class="centered" style="max-width: 880px;">
 
-    <p>Here is what you can inquire from the generated performance profile:</p>
+    <p>Вот что можно узнать из созданного профиля производительности:</p>
 
     <dl>
       <dt>Scene Loading Time</dt>
-      <dd>Time in seconds it took to load the application's <em>main</em> scene. See <a href="manual/ru/introduction/Performance-Bottlenecks.html#scene_loading_time">below</a> on how to reduce it.</dd>
+      <dd>Время в секундах, необходимое для загрузки <em>основной</em> сцены приложения. Смотрите <a href="manual/ru/introduction/Performance-Bottlenecks.html#scene_loading_time">ниже</a> о том, как его уменьшить.</dd>
 
       <dt>FPS</dt>
-      <dd>Rendering frame rate. This is the same value reported by the FPS counter.</dd>
+      <dd>Частота кадров рендеринга. Это то же значение, о котором сообщает счетчик FPS.</dd>
 
       <dt>Render Calls</dt>
-      <dd>Amount of render calls per frame. An important value that shows how many draw operations are performed during one frame. This value represents the number of different materials on your scene + various supplementary render calls such as shadows, post-processing, etc. </dd>
+      <dd>Количество запросов рендера на кадр. Важное значение, показывающее, сколько операций отрисовки выполняется в течение одного кадра. Это значение представляет собой количество различных материалов на вашей сцене + различные дополнительные запросы рендера, такие как тени, постобработка и т.д. </dd>
 
       <dt>Triangles Rendered</dt>
-      <dd>How many triangles were rendered per frame. See more info about this value below.</dd>
+      <dd>Сколько треугольников было отрисовано за кадр. Подробнее об этом значении смотрите ниже.</dd>
 
       <dt>Geometry Buffers</dt>
-      <dd>How many geometry buffers your app uses.</dd>
+      <dd>Сколько буферов геометрии использует ваше приложение.</dd>
 
       <dt>HDR Rendering</dt>
-      <dd>Whether HDR rendering switched <em>on</em> or <em>off</em>.</dd>
+      <dd>Был ли  HDR рендеринг <em>включен</em> или <em>выключен</em>.</dd>
 
       <dt>Viewport Resolution</dt>
-      <dd>Rendering viewport resolution.</dd>
+      <dd>Разрешение рендера вьюпорта.</dd>
 
       <dt>Pixel Ratio</dt>
-      <dd>Current (used by renderer) and device (native) pixel ratios.</dd>
+      <dd>Текущее соотношение пикселей (используемое рендером) и соотношение пикселей устройства (нативное).</dd>
 
       <dt>Image-Based Lighting</dt>
-      <dd>Type of IBL lighting and IBL cube map tile size.</dd>
+      <dd>Тип освещения IBL и размер кубамапы IBL.</dd>
 
       <dt>Lights</dt>
-      <dd>The number of lights in your scene.</dd>
+      <dd>Количество источников света в вашей сцене.</dd>
 
       <dt>Post-Processing</dt>
-      <dd>Scene post-processing passes (in rendering order).</dd>
+      <dd>Проходы постобработки сцены (в порядке рендеринга).</dd>
 
       <dt>Shadow Map</dt>
-      <dd>Shadow map parameters: filtering size; the number of rendered shadow maps; shadow map resolution.</dd>
+      <dd>Параметры карты теней: размер фильтрации; количество отрисованных карт теней; разрешение карты теней.</dd>
 
       <dt>Materials and Shaders</dt>
-      <dd>The list of rendered materials and shaders. Each list item contains the following info: material name (or names if they share the same shader), shader name, and rendering time per frame (measured in milliseconds).</dd>
+      <dd>Список отрисованных материалов и шейдеров. Каждый элемент списка содержит следующую информацию: имя материала (или имена, если они используют один и тот же шейдер), имя шейдера и время рендеринга на кадр (измеряется в миллисекундах).</dd>
 
       <dt>Total Render Time</dt>
-      <dd>The total amount of time (in milliseconds) it took to render your scene.</dd>
+      <dd>Общее количество времени (в миллисекундах), которое потребовалось для рендеринга вашей сцены.</dd>
 
       <dt>Textures & Render Buffers</dt>
-      <dd>Textures and render buffers stats (resolutions). Textures are printed on the top of the list (prefixed with *Texture*), while render buffers printed at the bottom of the list (prefixed with *WebGLRenderTarget*).</dd>
+      <dd>Статистика текстур и буферов рендера. Текстуры выводятся в верхней части списка (с префиксом *Texture*), а буферы рендера - в нижней (с префиксом *WebGLRenderTarget*).</dd>
     </dl>
 
 
     [anchor:performance_bottlenecks]
 
-    <h2>Common Rendering Performance Bottlenecks</h2>
+    <h2>Общие Тонкости Рендера</h2>
 
-    <p>Here are the most frequent bottlenecks limiting your frame rate.</p>
+    <p>Вот наиболее часто встречающиеся слабые места, ограничивающие частоту кадров.</p>
 
 
     [anchor:complex_materials]
 
-    <h3>Complex Materials</h3>
+    <h3>Сложные материалы</h3>
 
-    <p>Graphics hardware can render a limited amount of pixels per second. In most scenarios, you can't render more because your materials use lengthy and sophisticated pixel (aka fragment) shaders, which in turn require too much processing power from the GPU.</p>
+    <p>Графическое оборудование способно отображать ограниченное количество пикселей в секунду. В большинстве сценариев вы не можете отрисовать больше, потому что ваши материалы используют длинные и сложные пиксельные (фрагментные) шейдеры, которые требуют слишком много вычислительной мощности от GPU.</p>
 
-    <p>You can easily detect the situation with limited pixel performance by reducing or increasing the browser window size. If your frame rate (FPS) grows substantially when you reduce the size, you have such a situation.</p>
+    <p>Вы можете легко определить ситуацию с ограниченной производительностью пикселей, уменьшив или увеличив размер окна браузера. Если частота кадров (FPS) существенно возрастает при уменьшении размера, то у вас именно такая ситуация.</p>
 
-    <p>The most straightforward way to increase performance is to simplify your materials. Pay attention at the top of the *Materials and Shaders* list in the <a href="manual/ru/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>.
+    <p>Самый простой способ повысить производительность - упростить материалы. Обратите внимание на верхнюю часть списка  *Materials and Shaders* в <a href="manual/ru/introduction/Performance-Bottlenecks.html#performance_profile">профиле производительности</a>.
 
     <img src="files/performance-bottlenecks/performance-profile-materials.jpg" alt="Profiling materials and shaders">
 
-    <p>In many cases, the issues with material performance happen due to slow shading nodes. See more in the <a href="manual/ru/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, <a href="manual/ru/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> or <a href="manual/ru/maya/Materials.html#performance_considerations">Maya</a> material performance subsections.</p>
+    <p>Во многих случаях проблемы с производительностью материалов возникают из-за медленной работы нод затенения. Подробнее смотрите в разделах об оптимизации материалов в <a href="manual/ru/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, <a href="manual/ru/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> or <a href="manual/ru/maya/Materials.html#performance_considerations">Maya</a> .</p>
 
-    <p>You can also get rid of the shader-limited performance problem, by setting the pixel ratio &lt; 1 with the <a href="manual/ru/puzzles/System.html#set_screen_scale">set screen scale</a> puzzle. This can severely impact the quality of your app, so consider it a last-hope solution.</p>
+    <p>Вы также можете избавиться от проблемы плохой производительности шейдеров, установив соотношение пикселей &lt; 1 с помощью пазла <a href="manual/ru/puzzles/System.html#set_screen_scale">set screen scale</a> . Это может сильно повлиять на качество вашего приложения, поэтому считайте это решением на крайний случай.</p>
 
 
     [anchor:postprocessing]
 
-    <h3>Post-processing</h3>
+    <h3>Постпроцессинг</h3>
 
-    <p>Several post-processing effects can substantially reduce the performance of your apps:</p>
+    <p>Несколько эффектов постобработки могут существенно снизить производительность ваших приложений:</p>
 
     <ul>
-      <li>Screen-space refraction and reflection (see <a href="manual/ru/puzzles/Postprocessing.html#ssr">puzzle</a>).</li>
-      <li>Ambient occlusion (see <a href="manual/ru/puzzles/Postprocessing.html#ssao">puzzle</a>).</li>
-      <li>Depth-of-field (see <a href="manual/ru/puzzles/Postprocessing.html#dof">puzzle</a>).</li>
+      <li>Screen-space refraction and reflection (см. пазл <a href="manual/ru/puzzles/Postprocessing.html#ssr"></a>).</li>
+      <li>Ambient occlusion (см. пазл <a href="manual/ru/puzzles/Postprocessing.html#ssao"></a>).</li>
+      <li>Depth-of-field (см. пазл <a href="manual/ru/puzzles/Postprocessing.html#dof"></a>).</li>
     </ul>
 
 
     [anchor:shadows]
 
-    <h3>Shadows</h3>
+    <h3>Тени</h3>
 
-    <p>Complex shadow algorithms with hight shadow map sizes can also negatively affect your rendering speed.</p>
+    <p>Сложные алгоритмы теней с большими размерами карт теней также могут негативно повлиять на скорость рендеринга.</p>
 
     <ol>
-      <li>If you have multiple lights on your scene, disable shadows for the weakest (with low intensity) ones.</li>
-      <li>In most cases, <em>point</em> light shadows require more calculations than <em>spot</em> or <em>sun/directional</em> shadows.</li>
-      <li>Reduce shadow map size (see <a href="manual/ru/blender/Shadows.html#global_settings">Blender</a>, <a href="manual/ru/max/Shadows.html#per_light_settings">3ds Max</a>, <a href="manual/ru/maya/Shadows.html#per_light_settings">Maya</a>).</li>
-      <li>Switch to less performance-hungry shadow filtering algorithm (see <a href="manual/ru/blender/Shadows.html#shadow_filtering">Blender</a>, <a href="manual/ru/max/Shadows.html#shadow_filtering">3ds Max</a>, <a href="manual/ru/maya/Shadows.html#shadow_filtering">Maya</a>).</li>
+      <li>Если на сцене несколько источников света, отключите тени для самых слабых (с низкой интенсивностью).</li>
+      <li>В большинстве случаев тени от источника освещения типа <em>point</em> требуют больше вычислений, чем тени от <em>spot</em> или <em>sun/directional</em>.</li>
+      <li>Уменьшите размер карты теней (см. <a href="manual/ru/blender/Shadows.html#global_settings">Blender</a>, <a href="manual/ru/max/Shadows.html#per_light_settings">3ds Max</a>, <a href="manual/ru/maya/Shadows.html#per_light_settings">Maya</a>).</li>
+      <li>Переход на менее требовательный к производительности алгоритм фильтрации теней (см. <a href="manual/ru/blender/Shadows.html#shadow_filtering">Blender</a>, <a href="manual/ru/max/Shadows.html#shadow_filtering">3ds Max</a>, <a href="manual/ru/maya/Shadows.html#shadow_filtering">Maya</a>).</li>
     </ol>
 
 
     [anchor:too_much_geometry]
 
-    <h3>Too Much Geometry</h3>
+    <h3>Слишком Много Геометрии</h3>
 
-    <p>Too complex geometry can also affect your rendering performance. We recommend using no more than 100K triangles per model or 1M triangles per entire scene.</p>
+    <p>Слишком сложная геометрия также может повлиять на производительность рендеринга. Мы рекомендуем использовать не более 100K треугольников на модель или 1M треугольников на всю сцену.</p>
 
 
     [anchor:slow_ibl]
 
-    <h3>Slow Image-Based Lighting</h3>
+    <h3>Медленное Освещение на Основе Изображения</h3>
 
-    <p>In Verge3D you can do several performance tweaks for your environment lighting:</p>
+    <p>В Verge3D можно выполнить несколько настроек производительности для освещения окружения:</p>
 
     <ol>
-      <li>Reduce environment cube map tile size (see <a href="manual/ru/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/ru/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/ru/maya/Lighting-and-Rendering.html#environment_lighting">Maya</a>). We recommend using 256 pixel cube maps for most cases.</li>
-      <li>Switch to more performance-efficient environment mode (see <a href="manual/ru/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/ru/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/ru/maya/Lighting-and-Rendering.html#global_rendering_settings">Maya</a>).</li>
+      <li>Уменьшите размер кубомапы (см. <a href="manual/ru/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/ru/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/ru/maya/Lighting-and-Rendering.html#environment_lighting">Maya</a>). В большинстве случаев мы рекомендуем использовать кубомапу размером в 256 pixel.</li>
+      <li>Переключитесь на более эффективный режим окружения (см. <a href="manual/ru/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/ru/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/ru/maya/Lighting-and-Rendering.html#global_rendering_settings">Maya</a>).</li>
     </ol>
 
 
     [anchor:too_many_lights]
 
-    <h3>Too Many Lights</h3>
+    <h3>Слишком Много Света</h3>
 
-    <p>Excessive light calculations increase the complexity of your shaders. Try to reduce their amount or switch to <a href="manual/ru/introduction/Optimizing-WebGL-performance.html#HDR_Lighting">IBL-only</a> lighting.</p>
+    <p>Чрезмерные расчеты света увеличивают сложность ваших шейдеров. Попробуйте уменьшить их количество или переключиться на освещение <a href="manual/ru/introduction/Optimizing-WebGL-performance.html#HDR_Lighting">IBL-only</a> .</p>
 
 
     [anchor:too_many_render_calls]
 
-    <h3>Too Many Render Calls</h3>
+    <h3>Слишком Много Запросов Рендеринга</h3>
 
     <p>
-      Hundreds of render calls significantly load your CPU. Hence you should keep that value as low as possible. In most situations, we recommend you to keep the amount of render calls below 100.
+      Сотни запросов рендеринга значительно нагружают процессор. Поэтому следует держать это значение как можно ниже. В большинстве ситуаций мы рекомендуем вам держать количество запросов рендеринга ниже 100.
     </p>
 
     <p>
-      If you render many static objects with the same material, you can significantly increase peformance by using the <a href="manual/ru/puzzles/Scenes.html#batch_geometry">batch geometry</a> puzzle.
+      Если вы рендерите много статических объектов с одним и тем же материалом, вы можете значительно увеличить производительность, используя пазл <a href="manual/ru/puzzles/Scenes.html#batch_geometry">batch geometry</a> .
     </p>
 
 
     [anchor:scene_loading_time]
 
-    <h2>Scene Loading Time</h2>
+    <h2>Время Загрузки Сцены</h2>
 
-    <p>Another thing that you need to pay attention to is the scene loading time. Users really don't like to wait too much for your application to load.</p>
+    <p>Еще один момент, на который необходимо обратить внимание, - это время загрузки сцены. Пользователи не любят долго ждать, пока загрузится ваше приложение.</p>
 
-    <p>Here are the most frequently occurring bottlenecks that slow down your app loading.</p>
+    <p>Вот наиболее часто встречающиеся слабые места, которые замедляют загрузку вашего приложения.</p>
 
 
     [anchor:large_binary_textures]
 
-    <h3>Large Binary Data or Textures</h3>
+    <h3>Большие Двоичные Данные или Текстуры</h3>
 
-    <p>Since your app assets are transferred over the network, you should minimize their size. To help you with asset optimization, there is a network inspecting tool accessible from the browser <a href="manual/ru/introduction/FAQ.html#browser_console">console</a>. Simply click on the *Network* tab and reload your page.</p>
+    <p>Поскольку ассеты вашего приложения передаются по сети, их размер следует минимизировать. Чтобы помочь вам в оптимизации ассетов, существует инструмент проверки сети, доступный из <a href="manual/ru/introduction/FAQ.html#browser_console">консоли</a> браузера. Просто нажмите на вкладку *Network* и перезагрузите страницу.</p>
 
     <img src="files/performance-bottlenecks/network-browser-profile.jpg" alt="Profiling network activity in Verge3D" class="centered" style="max-width: 943px;">
 
-    <p class="note">Check the browser documentation on how to use this feature: <a href="https://developers.google.com/web/tools/chrome-devtools/network" target="_blank">Chrome</a>, <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor" target="_blank">Firefox</a>, <a href="https://developer.apple.com/safari/tools/" target="_blank">Safari</a>.</p>
+    <p class="note">О том, как использовать эту функцию, читайте в документации к браузеру: <a href="https://developers.google.com/web/tools/chrome-devtools/network" target="_blank">Chrome</a>, <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor" target="_blank">Firefox</a>, <a href="https://developer.apple.com/safari/tools/" target="_blank">Safari</a>.</p>
 
-    <p>Sort the resources by size to get the ones affecting your loading time the most. In most cases, these assets can be divided into two categories:</p>
+    <p>Сортируйте ресурсы по размеру, чтобы отобрать те, которые больше всего влияют на время загрузки. В большинстве случаев эти ресурсы можно разделить на две категории:</p>
 
     <ol>
-      <li>*Verge3D Binary* (*.bin or *.bin.xz extensions) — contains geometry, morphing, and animation of your scene. Asset compression can significantly reduce the size of this file, always <a href="manual/ru/introduction/Asset-compression.html">enable</a> it for your apps.</li>
-      <li>*Textures* (*.jpg, *.png, or *.hdr extensions) — see <a href="manual/ru/introduction/Optimizing-WebGL-performance.html#Texturing">here</a> for more info on how to optimize them.</li>
+      <li>*Verge3D Binary* (*.bin или *.bin.xz расширения) — содержит геометрию, морфинг и анимацию вашей сцены. Сжатие ассетов может значительно уменьшить размер этого файла, всегда <a href="manual/ru/introduction/Asset-compression.html">учитывайте</a> это в ваших приложениях.</li>
+      <li>*Textures* (*.jpg, *.png, или *.hdr расширения) — см. <a href="manual/ru/introduction/Optimizing-WebGL-performance.html#Texturing">здесь</a> для получения дополнительной информации о том, как их оптимизировать.</li>
     </ol>
 
-    <p>Also, there are two dirty but highly effective methods to optimize your textures:</p>
+    <p>Кроме того, есть два грубых, но очень эффективных метода оптимизации текстур:</p>
 
     <ol>
-      <li>Downscale your textures by reducing their dimensions by factor 2 (e.g 2048x2048 to 1024x1024 or even 512x512).</li>
-      <li>Convert all PNG textures to JPEG (even normal maps).</li>
+      <li>Уменьшите масштаб текстур, уменьшив их размеры в 2 раза (например, 2048x2048 до 1024x1024 или даже 512x512).</li>
+      <li>Конвертируйте все текстуры PNG в JPEG (даже карты нормалей).</li>
     </ol>
 
 
     [anchor:shader_compilation]
 
-    <h3>Too Many or Too Complex Materials</h3>
+    <h3>Слишком Много Материалов или Слишком Сложные Материалы</h3>
 
-    <p>With some exceptions, each material on your scene requires compiling a pair of special programs called shaders: <em>vertex shader</em> and <em>fragment (aka pixel) shader</em>. A shader is a special program executed on your GPU to calculate various rendering entities like vertex positions, textures, lighting, reflections, refractions, etc.</p>
+    <p>За некоторыми исключениями, каждый материал на вашей сцене требует компиляции пары специальных программ, называемых шейдерами <em>vertex shader</em> и <em>fragment (или пиксельный) шейдер</em>. Шейдер - это специальная программа, выполняемая на вашем GPU для расчета различных объектов рендеринга, таких как положение вертексов, текстуры, освещение, отражения, преломления и т.д.</p>
 
-    <p>Shader compilation is a computation-intensitive task that is performed each time your app is being loaded. If you have a lot of different materials on your scene, shader compilation can significantly increase total loading time.</p>
+    <p>Компиляция шейдеров - это требовательная к вычислениям задача, которая выполняется при каждой загрузке вашего приложения. Если на сцене используется большое количество различных материалов, компиляция шейдеров может значительно увеличить общее время загрузки.</p>
 
-    <p>So the less shaders your application uses, the faster is loading. Also, shaders are cached by WebGL, so if your shader is used by multiple objects it is compiled only once.</p>
+    <p>Поэтому чем меньше шейдеров использует ваше приложение, тем быстрее оно загружается. Кроме того, шейдеры кэшируются WebGL, поэтому если шейдер используется несколькими объектами, он компилируется только один раз.</p>
 
-    <p>Therefore for fast loading, it is important to use as few unique shaders as possible. One of possible way to achieve this is to enable the glTF compatibility flag, which a) simplifies the shaders a lot so that they are compiled and work faster and b) standardizes them to enable for more effective caching.</p>
+    <p>Поэтому для быстрой загрузки важно использовать как можно меньше уникальных шейдеров. Одним из возможных способов достижения этого является включение флага совместимости glTF, который а) значительно упрощает шейдеры, чтобы они компилировались и работали быстрее, и б) стандартизирует их для более эффективного кэширования.</p>
 
-    <p>The obvious drawback of using glTF-compatible shaders is that they may be too simplistic for implementing desired graphics effects. So as it is always in real-time graphics, you need to balance between quality and performance.</p>
+    <p>Очевидным недостатком использования glTF-совместимых шейдеров является то, что они могут быть слишком упрощенными для реализации желаемых графических эффектов. Поэтому, как это всегда бывает в графике реального времени, необходимо балансировать между качеством и производительностью.</p>
 
 
     [anchor:gpu_memory_usage]
 
-    <h2>GPU Memory Usage</h2>
+    <h2>Использование Памяти GPU</h2>
 
-    <p>Excessive GPU memory usage can considerably reduce performance or even crash your app. The following things consume a lot of memory.</p>
+    <p>Чрезмерное использование памяти GPU может значительно снизить производительность или даже привести к закрытию вашего приложения. Следующие вещи потребляют много памяти.</p>
 
     [anchor:large_textures]
 
-    <h3>Large Textures</h3>
+    <h3>Большие Текстуры</h3>
 
-    <p>For example, a texture of size 4096x4096 alone occupies almost 90 Mb of video memory. To get all textures in your app, check out <strong>Textures & Render Buffers</strong> section in the <a href="manual/ru/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>.</p>
+    <p>Например, одна только текстура размером 4096x4096 занимает почти 90 Мб видеопамяти. Чтобы получить все текстуры в вашем приложении, проверьте раздел <strong>Textures & Render Buffers</strong> в <a href="manual/ru/introduction/Performance-Bottlenecks.html#performance_profile">профиле производительности</a>.</p>
 
     <img src="files/performance-bottlenecks/performance-profile-textures.jpg" alt="Profiling textures in Verge3D">
 
-    <p>See also <a href="manual/ru/introduction/FAQ.html#texture_memory_usage">here</a> for more info on how to calculate texture memory usage.</p>
+    <p>См. <a href="manual/ru/introduction/FAQ.html#texture_memory_usage">здесь</a> для получения дополнительной информации о том, как рассчитать использование памяти текстурами.</p>
 
 
     [anchor:many_postprocessing_passes]
 
-    <h3>Too Many Post-Processing Passes</h3>
+    <h3>Слишком Много Циклов Постобработки</h3>
 
-    <p>Most post-processing effects require additional rendering buffers which consume GPU memory. Check out the bottom part of the <strong>Textures & Render Buffers</strong> list in the <a href="manual/ru/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> to see all render buffers.</p>
+    <p>Большинство эффектов постобработки требуют дополнительных буферов рендеринга, которые потребляют память GPU. Обратите внимание на нижнюю часть списка <strong>Textures & Render Buffers</strong> в <a href="manual/ru/introduction/Performance-Bottlenecks.html#performance_profile">профиле производительности</a> чтобы увидеть все буферы рендеринга.</p>
 
     <img src="files/performance-bottlenecks/performance-profile-render-buffers.jpg" alt="Profiling render buffers in Verge3D" class="centered" style="max-width: 816px;">
 
 
     [anchor:large_geometry_buffers]
 
-    <h3>Large Geometry Buffers</h3>
+    <h3>Большие Буферы Геометрии</h3>
 
-    <p>Meshes with many triangles require large geometry buffers and hence consume a lot of video memory to store them.</p>
+    <p>Меши с большим количеством треугольников требуют больших буферов геометрии и потребляют много видеопамяти для их хранения.</p>
 
 
 
     [anchor:see_also]
 
-    <h2>See Also</h2>
+    <h2>Смотрите Также</h2>
 
     <p>
-      Check out the <a href='manual/ru/introduction/Optimizing-WebGL-performance.html'>Optimization Techniques</a> section for more asset optimization methods.
+      Ознакомьтесь с разделом <a href='manual/ru/introduction/Optimizing-WebGL-performance.html'>методы оптимизации</a> для получения дополнительной информации о способах оптимизации ассетов.
     </p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>
