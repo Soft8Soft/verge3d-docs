@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Optimizing scenes for better WebGL performance - Soft8Soft</title>
+    <title>Оптимизация сцен для повышения производительности WebGL - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Here we recommend some optimization techniques that proved to work well for creating WebGL-based interactive experiences."/>
     <base href="../../../" />
@@ -12,10 +12,10 @@
     <meta property="article:tag" content="performance">
   </head>
   <body><article>
-    <h1>Optimizing scenes for better WebGL performance</h1>
+    <h1>Оптимизация Сцен для Повышения Производительности WebGL</h1>
 
     <p>
-    Here we recommend some optimization techniques that proved to work well for creating web-based interactive experiences. This chapter is mostly based on Soft8Soft's <a href="https://www.youtube.com/watch?v=OkpIoU1l2sQ" target="_blank">presentation</a> at the conference Verge3Day Europe 2019.
+      В данной статье мы познакомим вас с несколькими методами оптимизации, которые хорошо зарекомендовали себя при создании интерактивных веб-приложений. Эта глава основана на <a href="https://www.youtube.com/watch?v=OkpIoU1l2sQ" target="_blank">презентации Soft8Soft</a> на конференции Verge3Day Europe 2019.
     </p>
 
     [contents]
@@ -23,28 +23,28 @@
 
     [anchor:Geometry_Meshes]
 
-    <h2>Geometry / Meshes</h2>
+    <h2>Геометрия / Меши(объекты)</h2>
 
     <p>
-    Geometry lies at the root of a 3D application as it forms the main shape of a model. To get smoother reflections and faster rendering you should keep the mesh as regular as possible. In the beginning, you should decide on the level of details you want to have in your scene, and stick to that when modeling.
+       В основе 3D-приложений лежит Геометрия, поскольку она формирует основу модели. Чтобы получить более гладкие отражения и ускорить рендеринг, необходимо, чтобы сетка была как можно более равномерной, а топология правильной. Вначале следует определиться с уровнем детализации сцены и придерживаться его на протяжении всего процесса моделирования.
     </p>
 
     <img src="files/optimization-techniques/topology.jpg" alt="Recommended topology for WebGL applications" class="centered" style="max-width: 1000px;">
 
     <p>
-    When modeling creases, better use smooth groups instead of adding more polygons.
+      При моделировании фасок лучше использовать группы сглаживания, вместо добавления дополнительных полигонов.
     </p>
 
     <img src="files/optimization-techniques/crease.jpg" alt="Using smooth groups to implement geometry creases" class="centered" style="max-width: 1000px;">
 
     <p>
-    When working on a cylindrical model, make effort to reduce the number of polygons by its center.
+      При работе над цилиндрической моделью приложите усилия, чтобы уменьшить количество многоугольников к ее центру.
     </p>
 
     <img src="files/optimization-techniques/cylindrical.jpg" alt="Optimizing cylindrical models for WebGL" class="centered" style="max-width: 1000px;">
 
     <p>
-    Do not overload a model with extra details that the user won't see anyway. As shown on the picture below, the edge highlighted with orange defines the level of details for the whole model, so you can use at as reference.
+      Не перегружайте модель лишними деталями, которые пользователь все равно не увидит. Как показано на рисунке ниже, грань, выделенная оранжевым цветом, определяет уровень детализации для всей модели, поэтому ее можно использовать в качестве ориентира.
     </p>
 
     <img src="files/optimization-techniques/details.jpg" alt="Managing level of detail for real-time" class="centered" style="max-width: 1000px;">
@@ -53,39 +53,39 @@
 
     [anchor:Normal_Maps]
 
-    <h2>Normal Maps</h2>
+    <h2>Карты Нормалей</h2>
 
     <p>
-    A common way to optimize WebGL performance is to reduce the amount of polygons by baking a normal map from a high-poly model to a low-poly model.
+      Одним из распространённых способов оптимизации производительности WebGL является уменьшение количества полигонов путем запекания карты нормалей от высокополигональной модели к низкополигональной.
     </p>
 
     <img src="files/optimization-techniques/normal-map.jpg" alt="Using normal maps for optimizing WebGL scenes" class="centered" style="max-width: 1000px;">
 
     <p>
-    However, normal maps may produce visible artifacts due to the limited precision of a 8 bit image. Some possible solutions are pictured below, but they are rather impracticable: using a higher precision image would produce a heavier file, while the second approach is rather time-consuming and does not guarantee a clean result. The third approach however may work in some cases: if you have rather *rough surfaces* we recommend to add noise to your materials to reduce those artifacts.
+      Однако, из-за ограниченной точности 8-битного изображения, карты нормалей могут создавать видимые артефакты. Некоторые возможные решения показаны ниже, но они практически неосуществимы: использование изображения более высокой точности приведет к созданию более тяжелого файла, а второй подход требует много времени и не гарантирует чистого результата. Третий подход, однако, может сработать в случаяе: если у вас "грубые" поверхности, мы рекомендуем добавить шум в ваши материалы, чтобы уменьшить эти артефакты.
     </p>
 
     <img src="files/optimization-techniques/normal-map-problems.jpg" alt="Normal map artifacts and possible solutions" class="centered" style="max-width: 1000px;">
 
     <p>
-    From our experience, we found that the best solution for *glossy objects* would be using middle-poly geometry with smooth groups, and without any normal map.
+      Исходя из нашего опыта, для *глянцевых объектов* мы рекомендуем использование геометрии middle-poly с группами сглаживания и без карты нормалей.
     </p>
 
     <img src="files/optimization-techniques/normal-map-best-solution.jpg" alt="Recommended way to deal with normal map artifacts" class="centered" style="max-width: 1000px;">
 
     <p>
-    Finally, here are some cases when you might want to use a normal map rather than a highly detailed mesh:
+      Наконец, вот несколько случаев, когда лучше использовать карту нормалей, а не высокодетализированную сетку:
     </p>
 
     <ul>
     <li>
-    Your object consists of many varying surfaces.
+      Ваш объект состоит из множества различных поверхностей.
     </li>
     <li>
-    You have a rough surface that does not produce precision artifacts.
+      У вас шероховатая поверхность, которая не создает артефактов точности.
     </li>
     <li>
-    Your objects are distant or small so the user won't notice any artifacts.
+      Ваши объекты находятся на расстоянии или малы, поэтому пользователь не заметит никаких артефактов, даже при их наличии.
     </li>
     </ul>
 
@@ -94,28 +94,28 @@
 
     [anchor:Texturing]
 
-    <h2>Texturing</h2>
+    <h2>Текстурирование</h2>
 
     <p>
-    Here is a typical set of textures used in the PBR pipeline (and in general).
+      Вот типичный набор текстур, используемых в создании PBR материала.
     </p>
 
     <img src="files/optimization-techniques/textures.jpg" alt="Common textures used in WebGL apps" class="centered" style="max-width: 1000px;">
 
     <p>
-    As you can see, most of them are black and white. Therefore you may combine b/w textures into the RGBA channels of a single image, up to 4 maps per image.
+      Как вы можете заметить, большинство из них черно-белые. Поэтому вы можете объединять ч/б текстуры в RGBA-каналы одного изображения, до 4 карт на изображение.
     </p>
 
     <img src="files/optimization-techniques/textures-pack-rgba.jpg" alt="Packing textures into RGBA channels of a single image" class="centered" style="max-width: 1000px;">
 
     <p>
-    If you only have one b/w texture you may combine it with any existing RGB texture by packing it into the alpha channel. Finally, if you have no image to combine with, you can convert your b/w image into jpeg format with 95% compressing and the grayscale mode enabled.
+      Если у вас есть только одна ч/б текстура, вы можете объединить ее с любой существующей RGB-текстурой, упаковав ее в альфа-канал. Наконец, если у вас нет изображения, с которым данную текстуру можно совместить, вы можете преобразовать ваше ч/б изображение в формат jpeg со сжатием 95% и включенным режимом оттенков серого.
     </p>
 
     <img src="files/optimization-techniques/textures-pack-a.jpg" alt="Packing black/white textures into alpha channel" class="centered" style="max-width: 1000px;">
 
     <p>
-    Another way to reduce the size of texture is to optimize the UV space. The more compact is your UV unwrapping, the more effectively your image will use the texture space. Therefore you can have smaller images without losing any quality.
+      Еще один способ уменьшить размер текстуры - оптимизировать UV-пространство. Чем компактнее развертка UV, тем эффективнее изображение будет использовать пространство текстуры. Поэтому вы можете получить изображения меньшего размера без потери качества.
     </p>
 
     <img src="files/optimization-techniques/uv-space.jpg" alt="Optimizing UV space for better WebGL performance" class="centered" style="max-width: 1000px;">
@@ -124,16 +124,16 @@
 
     [anchor:Vertex_Colors]
 
-    <h2>Vertex Colors</h2>
+    <h2>Вертексные цвета</h2>
 
     <p>
-    Using vertex colors instead of images is an efficient way to speed up the loading and improve the overall performance of your WebGL applications. Although it comes at the expense of additional edges which you have to add to your model in order to separate different vertex colors.
+      Использование вертексных цветов вместо изображений - эффективный способ ускорить загрузку и повысить общую производительность WebGL-приложений. Не смотря на то, что необходимо добавить дополнительные ребра, которые будут служить для разделения различных вертексных цветов.
     </p>
 
     <img src="files/optimization-techniques/vertex-colors.jpg" alt="Using vertex colors to optimize WebGL performance" class="centered" style="max-width: 1000px;">
 
     <p>
-    You can also use vertex colors to define roughness, metalness or specular surfaces, or any other parameters. Below you can see an example of such a material where only vertex colors are used.
+      Вы также можете использовать вертексные цвета для определения roughness, metalness или specular поверхностей, или любых других параметров. Ниже показан пример такого материала, в котором используются только вертексные цвета.
     </p>
 
     <img src="files/optimization-techniques/vertex-colors-pbr.jpg" alt="Using vertex colors in PBR pipeline" class="centered" style="max-width: 1000px;">
@@ -142,26 +142,26 @@
 
     [anchor:number_of_shaders]
 
-    <h2>Number of Shaders</h2>
+    <h2>Количество Шейдеров</h2>
 
     <p>
-    This is very beneficial to have less different materials/shaders in your scene. Shader processing in WebGL leads to prolonged loading, which is especially noticeable on Windows. Also if you have less shaders, the engine will spend less time on switching between them while rendering, thus improving the performance.
+      Хорошей практикой является, малое количество различных материалов/шейдеров в вашей сцене. Обработка шейдеров в WebGL приводит к длительной загрузке, что особенно заметно на Windows. Кроме того, если у вас меньше шейдеров, движок будет тратить меньше времени на переключение между ними во время рендеринга, что повышает производительность.
     </p>
 
     <p>
-    If you have similar materials that only differ by textures, you can use only one material and load/swap its textures at run time. For this, you can use the <a href='manual/ru/puzzles/Materials.html#replace_texture'>replace texture</a> puzzle or do it with JavaScript. This not only will optimize the number of shaders but also will reduce the number of images loaded at application startup.
+      Если у вас есть похожие материалы, которые отличаются только текстурами, вы можете использовать только один материал и загружать/заменять его текстуры во время работы приложения. Для этого можно использовать пазл <a href='manual/ru/puzzles/Materials.html#replace_texture'>replace texture</a> или реализовать данный способ с помощью JavaScript. Это не только оптимизирует количество шейдеров, но и уменьшит количество изображений, загружаемых при запуске приложения.
     </p>
 
     <img src="files/optimization-techniques/replacing-textures.jpg" alt="Replacing textures at run time with Verge3D Puzzles" class="centered" style="max-width: 1000px;">
 
     <p>
-    Here's an example of such the optimization. All these tires are represented by only one material and configured by swapping its textures.
+      Вот пример такой оптимизации. Все эти шины представлены только одним материалом и сконфигурированы путем замены его текстур.
     </p>
 
     <img src="files/optimization-techniques/replacing-textures-example.jpg" alt="Example of replacing textures at run time" class="centered" style="max-width: 1000px;">
 
     <p>
-    In order to reduce the number of shaders, you can combine 2 or more simple materials into one bigger material. This technique is especially effective if you plan to switch between these materials (e.g. you are making a configurator app), because it works faster this way and also allows for animated transitions.
+      Чтобы уменьшить количество шейдеров, вы можете объединить 2 или более простых материала в один большой более сложный материал. Эта техника особенно эффективна, если вы планируете переключаться между этими материалами (например, вы делаете приложение-конфигуратор), потому что она работает быстрее, а также позволяет анимировать переходы.
     </p>
 
     <img src="files/optimization-techniques/mixing-shaders.jpg" alt="Mixing shaders in WebGL" class="centered" style="max-width: 1000px;">
@@ -170,20 +170,20 @@
 
     [anchor:Draw_Calls]
 
-    <h2>Draw Calls</h2>
+    <h2>Draw Calls (Вызовы Отрисовки)</h2>
 
     <p>
-    In addition, there is another important aspect - the number of draw calls. This number can be obtained from the *Geometry Buffers* section of the <a href='manual/ru/puzzles/System.html#print_performance_info'>print performance info</a> puzzle's output. This roughly corresponds to the number of separate objects if only one material is assigned per object, while multi-material objects require even more draw calls to render them.
+      Кроме того, есть еще один важный аспект - количество вызовов отрисовки. Это число можно получить из раздела *Geometry Buffers* вывода информации о <a href='manual/ru/puzzles/System.html#print_performance_info'>производительности</a>. Их число примерно соответствует количеству отдельных объектов, если для каждого объекта назначен только один материал, в то время как для рендеринга объектов из нескольких материалов требуется еще больше вызовов рисования.
     </p>
 
     <p>
-    Therefore, you should strive to join meshes when possible, and use less unique materials, in order to reduce the number of draw calls and improve the performance.
+      Поэтому следует стремиться объединять меши, когда это возможно, и использовать меньше уникальных материалов, чтобы уменьшить количество вызовов отрисовки и улучшить производительность.
     </p>
 
     <img src="files/optimization-techniques/materials-number.jpg" alt="Reducing the number of materials for WebGL" class="centered" style="max-width: 1000px;">
 
     <p>
-    If you have an animated object, you can still join its parts together and use bones for animation, which is sometimes even more convenient when animating separate objects.
+      Если у вас есть анимированный объект, вы можете соединить его части вместе и использовать кости для анимации, что иногда удобнее даже при анимации отдельных объектов.
     </p>
 
     <img src="files/optimization-techniques/materials-number-armature.jpg" alt="Using armatures to reduce the number of draw calls in your 3D app" class="centered" style="max-width: 600px;">
@@ -192,10 +192,10 @@
 
     [anchor:HDR_Lighting]
 
-    <h2>HDR Lighting</h2>
+    <h2>HDR Освещение</h2>
 
     <p>
-    It helps a lot improve the performance if you lighten your scene by an HDR image only, without using any light sources. An HDR file may weight less than 1 Mb.
+      Это помогает значительно улучшить производительность, если вы освещаете сцену только HDR-изображением, не используя никаких источников света. Файл HDR может весить менее 1 Мб.
     </p>
 
     <img src="files/optimization-techniques/hdr-image.jpg" alt="Using HDR environment texture instead of light sources for better WebGL performance" class="centered" style="max-width: 1000px;">
@@ -204,16 +204,16 @@
 
     [anchor:Shadows]
 
-    <h2>Shadows</h2>
+    <h2>Тени</h2>
 
     <p>
-    Use dynamic shadows only when they help present your object nicely. On the picture below, dynamic shadows used in the Industrial Robot demo emphasize the shape of the robot model. The model itself is allowed to be rotated so the shadows cannot hide any part of the object from the user. On the other hand, shadows in the Scooter demo would cloud many details.
+      Используйте динамические тени только тогда, когда они помогают красиво представить объект. На рисунке ниже динамические тени, используемые в демонстрации промышленного робота, подчеркивают форму модели робота. Саму модель можно поворачивать, поэтому тени не могут скрыть от пользователя какую-либо часть объекта. С другой стороны, тени в демонстрационном ролике Scooter затенили бы многие интересные для пользователя детали.
     </p>
 
     <img src="files/optimization-techniques/dynamic-shadows.jpg" alt="Comparison of dynamic and baked shadows in different cases" class="centered" style="max-width: 1000px;">
 
     <p>
-    If your object does not move in your app, you may bake shadow and ambient occlusion maps and apply them to the plane under the object.
+      Если объект статичен, можно запечь карты теней и окклюзии и применить их к плоскости под объектом.
     </p>
 
     <img src="files/optimization-techniques/baked-shadows.jpg" alt="Using baked textures as replacement for ambient occlusion and shadows" class="centered" style="max-width: 700px;">
@@ -221,16 +221,16 @@
 
     [anchor:see_also]
 
-    <h2>See Also</h2>
+    <h2>Смотрите Также</h2>
 
     <p>
-      Check out the <a href="manual/ru/introduction/Performance-Bottlenecks.html">Performance Bottlenecks</a> section to learn how to spot performance bottlenecks in your app and the <a href='manual/ru/introduction/Asset-compression.html'>Asset Compression</a> section to find how to make your scenes even more compact.
+      Ознакомьтесь с разделом <a href="manual/ru/introduction/Performance-Bottlenecks.html">Тонкости производительности</a>, чтобы узнать, как обнаружить проблемные места в производительности вашего приложения, и с разделом <a href='manual/ru/introduction/Asset-compression.html'>Сжатие ассетов</a>, чтобы узнать, как сделать ваши сцены еще более компактными.
     </p>
 
 
-    <h2>Got Questions?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>
