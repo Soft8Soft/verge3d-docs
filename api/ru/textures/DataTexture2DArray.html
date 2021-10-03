@@ -11,29 +11,29 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">Creates an array of textures directly from raw data, width and height and depth. This type of texture can only be used with a WebGL 2 rendering context.</p>
+    <p class="desc">Создает массив текстур непосредственно из исходных данных, ширины и высоты и глубины. Этот тип текстуры можно использовать только в контексте рендеринга WebGL 2.</p>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name](data, width, height, depth)</h3>
     <p>
-      The data argument must be an [link:https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView ArrayBufferView].
-      The properties inherited from [page:Texture] are the default, except magFilter and minFilter default to v3d.NearestFilter. The properties flipY and generateMipmaps are intially set to false.
+      Аргумент данных должен быть [link:https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView ArrayBufferView].
+      Свойства, унаследованные от [page:Texture], используются по умолчанию, за исключением magFilter и minFilter по умолчанию к v3d.NearestFilter. Свойства flipY и generateMipmaps изначально имеют значение false.
     </p>
     <p>
-      The interpretation of the data depends on type and format:
-      If the type is v3d.UnsignedByteType, a Uint8Array will be useful for addressing the texel data.
-      If the format is v3d.RGBAFormat, data needs four values for one texel; Red, Green, Blue and Alpha (typically the opacity). Similarly, v3d.RGBFormat specifies a format where only three values are used for each texel.<br />
+      Интерпретация данных зависит от типа и формата:
+      Если тип - v3d.UnsignedByteType, то для адресации данных текселя пригодится Uint8Array.
+      Если формат v3d.RGBAFormat, то для одного текселя требуется четыре значения: красный, зеленый, синий и альфа (обычно непрозрачность). Аналогично, v3d.RGBFormat определяет формат, в котором для каждого текселя используется только три значения.<br />
 
-      For the packed types, v3d.UnsignedShort4444Type, v3d.UnsignedShort5551Type or v3d.UnsignedShort565Type, all color components of one texel can be addressed as bitfields within an integer element of a Uint16Array.<br />
+      Для упакованных типов, v3d.UnsignedShort4444Type, v3d.UnsignedShort5551Type или v3d.UnsignedShort565Type, все цветовые компоненты одного текселя могут быть адресованы как битовые поля внутри целочисленного элемента Uint16Array.<br />
 
-      In order to use the types v3d.FloatType and v3d.HalfFloatType, the WebGL implementation must support the respective extensions OES_texture_float and OES_texture_half_float. In order to use v3d.LinearFilter for component-wise, bilinear interpolation of the texels based on these types, the WebGL extensions OES_texture_float_linear or OES_texture_half_float_linear must also be present.
+      Для использования типов v3d.FloatType и v3d.HalfFloatType реализация WebGL должна поддерживать соответствующие расширения OES_texture_float и OES_texture_half_float. Чтобы использовать v3d.LinearFilter для билинейной покомпонентной интерполяции текселей на основе этих типов, расширения WebGL OES_texture_float_linear или OES_texture_half_float_linear также должны присутствовать.
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример кода</h2>
 
-    <p>This creates a [name] where each texture has a different color.</p>
+    <p>Создает [name], где каждая текстура имеет свой цвет.</p>
 
     <code>
     // create a buffer with color data
@@ -70,27 +70,27 @@
     texture.type = v3d.UnsignedByteType;
     </code>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
 
     <p>
       [example:webgl2_materials_texture2darray WebGL2 / materials / texture2darray]
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <p>
-    See the base [page:Texture Texture] class for common properties.
+      Общие свойства смотрите в базовом классе [page:Texture Texture].
     </p>
 
     <h3>[property:Image image]</h3>
     <p>
-    Overridden with a record type holding data, width and height and depth.
+      Переопределяется с помощью типа записи, содержащего данные, ширину, высоту и глубину.
     </p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <p>
-    See the base [page:Texture Texture] class for common methods.
+      Общие методы смотрите в базовом классе [page:Texture Texture].
     </p>
 
     [sourceHint]

@@ -8,58 +8,58 @@
   </head>
   <body><article>
 
-    <h1>Matrix Transformations</h1>
+    <h1>Матричные преобразования</h1>
 
     <p>
-    Verge3D uses *matrices* to encode 3D transformations---translations (position), rotations, and scaling. Every instance of [page:Object3D] has a [page:Object3D.matrix matrix] which stores that object's position, rotation, and scale. This page describes how to update an object's transformation.
+      Verge3D использует *матрицы* для кодирования 3D-трансформаций (положений), поворотов и масштабирования. Каждый экземпляр [page:Object3D] имеет матрицу [page:Object3D.matrix matrix], которая хранит положение, ротацию и масштаб этого объекта. На этой странице описано, как обновить трансформацию объекта.
     </p>
 
-    <h2>Convenience properties and matrixAutoUpdate</h2>
+    <h2>Свойства и matrixAutoUpdate</h2>
 
-    There are two ways to update an object's transformation:
+    Существует два способа обновления трансформации объекта:
     <ol>
       <li>
-        Modify the object's *position*, *quaternion*, and *scale* properties, and let Verge3D recompute
-        the object's matrix from these properties:
+        Изменить свойства объекта *position*, *quaternion* и *scale*, и позволить Verge3D пересчитать
+        матрицу объекта из этих свойств:
         <code>
         object.position.copy(start_position);
         object.quaternion.copy(quaternion);
         </code>
-        By default, the *matrixAutoUpdate* property is set true, and the matrix will be automatically recalculated.
-        If the object is static, or you wish to manually control when recalculation occurs, better performance can be obtained by setting the property false:
+        По умолчанию свойство *matrixAutoUpdate* имеет значение true, и матрица будет автоматически пересчитываться.
+        Если объект статичен или вы хотите вручную контролировать, когда происходит пересчет, для лучшей производительности установите свойство false:
         <code>
         object.matrixAutoUpdate = false;
         </code>
-        And after changing any properties, manually update the matrix:
+        А после изменения каких-либо свойств вручную обновите матрицу:
         <code>
         object.updateMatrix();
         </code>
       </li>
       <li>
-        Modify the object's matrix directly. The [page:Matrix4] class has various methods for modifying the matrix:
+        Модифицировать матрицу объекта напрямую. Класс [page:Matrix4] имеет различные методы для модификации матрицы:
         <code>
         object.matrix.setRotationFromQuaternion(quaternion);
         object.matrix.setPosition(start_position);
         object.matrixAutoUpdate = false;
         </code>
-        Note that *matrixAutoUpdate* <em>must</em> be set to *false* in this case, and you should make sure <em>not</em> to call *updateMatrix*. Calling *updateMatrix* will clobber the manual changes made to the matrix, recalculating the matrix from *position*, *scale*, and so on.
+        Обратите внимание, что *matrixAutoUpdate* <em>должен</em> иметь значение *false* в этом случае, и вы должны убедиться, что <em>не</em> обращаетесь к *updateMatrix*. Обращение к *updateMatrix* перечеркнет ручные изменения, внесенные в матрицу, пересчитав матрицу из *position*, *scale* и так далее.
       </li>
     </ol>
 
-    <h2>Object and world matrices</h2>
+    <h2>Матрицы объектов и мира</h2>
     <p>
-    An object's [page:Object3D.matrix matrix] stores the object's transformation <em>relative</em> to the object's [page:Object3D.parent parent]; to get the object's transformation in <em>world</em> coordinates, you must access the object's [page:Object3D.matrixWorld].
+      Объект [page:Object3D.matrix matrix] хранит трансформацию объекта <em>относительно</em> к объекту [page:Object3D.parent parent]; чтобы получить трансформацию объекта в <em>мировых</em> координатах, необходимо обратиться к объекту [page:Object3D.matrixWorld].
     </p>
     <p>
-    When either the parent or the child object's transformation changes, you can request that the child object's [page:Object3D.matrixWorld matrixWorld] be updated by calling [page:Object3D.updateMatrixWorld updateMatrixWorld]().
+      Когда преобразование родительского или дочернего объекта изменяется, вы можете запросить обновление [page:Object3D.matrixWorld matrixWorld] дочернего объекта, вызвав [page:Object3D.updateMatrixWorld updateMatrixWorld]().
     </p>
 
-    <h2>Rotation and Quaternion</h2>
+    <h2>Вращение и Кватернион</h2>
     <p>
-    Verge3D provides two ways of representing 3D rotations: [page:Euler Euler angles] and [page:Quaternion Quaternions], as well as methods for converting between the two. Euler angles are subject to a problem called "gimbal lock," where certain configurations can lose a degree of freedom (preventing the object from being rotated about one axis). For this reason, object rotations are <em>always</em> stored in the object's [page:Object3D.quaternion quaternion].
+      Verge3D предоставляет два способа трехмерных вращений: [page:Euler Euler angles] и [page:Quaternion Quaternions], а также методы преобразования между ними. Эйлеровы углы подвержены проблеме, называемой "gimbal lock", когда определенные конфигурации могут потерять степень свободы (не позволяя объекту вращаться вокруг одной оси). По этой причине вращение объекта <em>всегда</em> хранится в [page:Object3D.quaternion quaternion].
     </p>
     <p>
-    Previous versions of the library included a *useQuaternion* property which, when set to false, would cause the object's [page:Object3D.matrix matrix] to be calculated from an Euler angle. This practice is deprecated---instead, you should use the [page:Object3D.setRotationFromEuler setRotationFromEuler] method, which will update the quaternion.
+      Предыдущие версии библиотеки включали свойство *useQuaternion*, которое имело значение false и заставляло [page:Object3D.matrix matrix] объекта вычисляться на основе эйлерова угла. Эта практика устарела - вместо нее следует использовать метод [page:Object3D.setRotationFromEuler setRotationFromEuler], который обновляет кватернион.
     </p>
 
   </article></body>

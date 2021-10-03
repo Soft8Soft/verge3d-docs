@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D Animation - Soft8Soft</title>
+    <title>Анимация Verge3D - Soft8Soft</title>
     <meta charset="utf-8" />
     <meta name="description" content="How to animate your Verge3D scene using JavaScript."/>
     <base href="../../../" />
@@ -9,102 +9,66 @@
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
-    <h1>Animation System</h1>
+    <h1>Система Анимации</h1>
 
-    <h2>Overview</h2>
+    <h2>Обзор</h2>
 
     <p class="desc">
-      Within the Verge3D animation system you can animate various properties of your models:
-      the bones of a [page:SkinnedMesh skinned and rigged model],
-      [page:Geometry.morphTargets morph targets], different material properties (colors,
-      opacity, booleans), visibility and transforms. The animated properties can be faded in,
-      faded out, crossfaded and warped. The weight and time scales of different simultaneous
-      animations on the same object as well as on different objects can be changed
-      independently. Various animations on the same and on different objects can be
-      synchronized.<br /><br />
+      В системе анимации Verge3D вы можете анимировать различные свойства ваших моделей: кости модели [page:SkinnedMesh skinned and rigged model], [page:Geometry.morphTargets morph targets], различные свойства материалов (цвет, прозрачность, булевы функции), видимость и трансформации. Анимированные свойства могут быть затухающими, перекрестными и деформированными. Вес и временные шкалы различных одновременных анимаций на одном и том же объекте, а также на разных объектах могут быть изменены независимо друг от друга. Различные анимации на одном и том же и на разных объектах могут быть синхронизированы.<br /><br />
 
-      To achieve all this in one homogeneous system, the Verge3D animation system
-      [link:https://github.com/mrdoob/three.js/issues/6881 has completely changed in 2015]
-      (be aware of outdated information!), and it has now an architecture similar to
-      Unity/Unreal Engine 4. This page gives a short overview of the main components of the
-      system and how they work together.
+      Чтобы достичь всего этого в одной однородной системе, анимационная система Verge3D [ссылка:https://github.com/mrdoob/three.js/issues/6881 полностью изменилась в 2015 году] (следите за актуальностью информации!), и теперь она имеет архитектуру, схожую с Unity/Unreal Engine 4. На этой странице представлен краткий обзор основных компонентов системы и того, как они работают вместе.
 
     </p>
 
-    <h3>Animation Clips</h3>
+    <h3>Анимационные Клипы</h3>
 
     <p class="desc">
 
-      If you have successfully imported an animated 3D object (it doesn't matter if it has
-      bones or morph targets or both) - for example exporting it from Blender with the
-      Blender exporter and
-      loading it into a Verge3D scene using [page:GLTFLoader], one of the geometry's
-      properties of the loaded mesh should be an array named "animations", containing the
-      [page:AnimationClip AnimationClips] for this model (see a list of possible loaders below).<br /><br />
+      Если вы успешно импортировали анимированный 3D-объект (неважно, есть ли у него кости или morph targets или и то, и другое) - например, экспортировали его из Blender с помощью Blender exporter и загрузили в сцену Verge3D с помощью [page:GLTFLoader], одним из свойств геометрии загруженного меша должен быть массив с именем "animations", содержащий [page:AnimationClip AnimationClips] для этой модели (см. список возможных загрузчиков ниже)..<br /><br />
 
-      Each *AnimationClip* usually holds the data for a certain activity of the object. If the
-      mesh is a character, for example, there may be one AnimationClip for a walkcycle, a second
-      for a jump, a third for sidestepping and so on.
+      Каждый *AnimationClip* обычно содержит данные для определенного действия объекта. Например, если меш является персонажем, может быть один AnimationClip для ходьбы, второй для прыжка, третий для уклонения в сторону и так далее.
 
     </p>
 
-    <h3>Keyframe Tracks</h3>
+    <h3>Треки Ключевых Кадров</h3>
 
     <p class="desc">
 
-      Inside of such an *AnimationClip* the data for each animated property are stored in a
-      separate [page:KeyframeTrack]. Assumed a character object has a [page:Skeleton skeleton],
-      one keyframe track could store the data for the position changes of the lower arm bone
-      over time, a different track the data for the rotation changes of the same bone, a third
-      the track position, rotation or scaling of another bone, and so on. It should be clear,
-      that an AnimationClip can be composed of lots of such tracks.<br /><br />
+      Внутри такого *AnimationClip* данные для каждого анимированного свойства хранятся в отдельной [page:KeyframeTrack]. Предположим, что объект персонажа имеет [page:Skeleton skeleton], одна дорожка ключевых кадров может хранить данные об изменении положения кости нижней части руки со временем, другая дорожка - данные об изменении вращения той же кости, третья данные о положении, вращении или масштабировании другой кости, и так далее. Следует понимать, что AnimationClip может состоять из множества таких дорожек.<br /><br />
 
-      Assumed the model has [page:Geometry.morphTargets morph targets] (for example one morph
-      target showing a friendly face and another showing an angry face), each track holds the
-      information as to how the [page:Mesh.morphTargetInfluences influence] of a certain morph
-      target changes during the performance of the clip.
+      Предполагается, что модель имеет [page:Geometry.morphTargets morph targets] (например, один morph target показывает дружелюбное лицо, а другой - сердитое), каждая дорожка содержит информацию о том, как меняется влияние [page:Mesh.morphTargetInfluences] определенной morph target во время исполнения клипа.
 
     </p>
 
-    <h3>Animation Mixer</h3>
+    <h3>Микшер Анимации</h3>
 
     <p class="desc">
 
-      The stored data form only the basis for the animations - actual playback is controlled by
-      the [page:AnimationMixer]. You can imagine this not only as a player for animations, but
-      as a simulation of a hardware like a real mixer console, which can control several animations
-      simultaneously, blending and merging them.
+      Сохраненные данные составляют лишь основу для анимации - фактическое воспроизведение контролируется [page:AnimationMixer]. Вы можете представить его не только как плеер для анимаций, но и как имитацию аппаратуры, подобной настоящему микшерному пульту, который может управлять несколькими анимациями одновременно, смешивая и объединяя их.
 
     </p>
 
-    <h3>Animation Actions</h3>
+    <h3>Анимационные Действия</h3>
 
     <p class="desc">
 
-      The *AnimationMixer* itself has only very few (general) properties and methods, because it
-      can be controlled by the [page:AnimationAction AnimationActions]. By configuring an
-      *AnimationAction* you can determine when a certain *AnimationClip* shall be played, paused
-      or stopped on one of the mixers, if and how often the clip has to be repeated, whether it
-      shall be performed with a fade or a time scaling, and some additional things, such crossfading
-      or synchronizing.
+      Сам *AnimationMixer* имеет очень мало (общих) свойств и методов, поскольку им можно управлять с помощью [page:AnimationAction AnimationAction]. Настроив *AnimationAction*, вы можете определить, когда определенный *AnimationClip* должен быть воспроизведен или остановлен на одном из микшеров, будет ли и как часто клип должен повторяться, должен ли он выполняться с затуханием или масштабированием времени, и некоторые дополнительные вещи, такие как кроссфейдинг или синхронизация.
 
     </p>
 
-    <h3>Animation Object Groups</h3>
+    <h3>Анимация Группы Объектов</h3>
 
     <p class="desc">
 
-      If you want a group of objects to receive a shared animation state, you can use an
+      Если вы хотите, чтобы группа объектов получала общую анимацию, вы можете использовать элемент
       [page:AnimationObjectGroup].
 
     </p>
 
-    <h3>Supported Formats and Loaders</h3>
+    <h3>Поддерживаемые Форматы и Загрузчики</h3>
 
     <p class="desc">
-      Note that not all model formats include animation (OBJ notably does not), and that only some
-      Verge3D loaders support [page:AnimationClip AnimationClip] sequences. Several that <i>do</i>
-      support this animation type:
+      Обратите внимание, что не все форматы моделей включают анимацию (OBJ, например, не включает), и что только некоторые загрузчики Verge3D поддерживают последовательности [page:AnimationClip AnimationClip]. Некоторые из них поддерживают этот тип анимации:
     </p>
 
       <ul>
@@ -119,11 +83,10 @@
       </ul>
 
     <p class="desc">
-      Note that 3ds max and Maya currently can't export multiple animations (meaning animations which are not
-      on the same timeline) directly to a single file.
+      Обратите внимание, что 3ds max и Maya в настоящее время не могут экспортировать несколько анимаций (имеется в виду анимации, которые не находятся на одной временной шкале) непосредственно в один файл.
     </p>
 
-    <h2>Example</h2>
+    <h2>Пример</h2>
 
     <code>
     var mesh;
