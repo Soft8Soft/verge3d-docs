@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Advanced Puzzles Reference - Soft8Soft</title>
+    <title>Продвинутые Пазлы - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to use puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more."/>
     <base href="../../../" />
@@ -10,21 +10,22 @@
   </head>
   <body><article>
 
-    <h1>Advanced Puzzles</h1>
+    <h1>Продвинутые Пазлы</h1>
 
-    <p>Use these puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more.</p>
+    <p>Используйте эти пазлы для реализации расширенных возможностей в ваших приложениях, таких как работа в сети, взаимодействие с кодом JavaScript, преобразование данных, сохранение/восстановление состояния и многое другое.
+    </p>
 
     <img src="files/puzzles/puzzles-advanced.jpg">
 
 
-    <h2>Contents</h2>
+    <h2>Содержание</h2>
 
     [contents]
 
 
     [anchor:puzzles_reference]
 
-    <h2>Puzzles Reference</h2>
+    <h2>Перечень Пазлов</h2>
 
 
     [anchor:exec_script]
@@ -32,33 +33,26 @@
     <h3>exec script</h3>
 
     <p>
-        This puzzle executes the specified javascript code. The puzzle uses
-        <a href='https://ace.c9.io/'>Ace Editor</a> for displaying and editing
-        the content. See the relevant keyboard shortcuts here:
-        <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>Default Keyboard Shortcuts</a>.
+      Этот пазл выполняет указанный javascript код. Он использует редактор <a href='https://ace.c9.io/'>Ace Editor</a> для отображения и редактирования содержимого. Соответствующие сочетания клавиш можно посмотреть здесь: <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>Default Keyboard Shortcuts</a>.
     </p>
 
-    <p>You can use the following built-in variables:</p>
+    <p>Вы можете использовать следующие встроенные переменные:</p>
     <ul>
-        <li><b>app</b> - the application instance, see <a href="api/en/extras/App.html">App</a> for more details</li>
-        <li><b>v3d</b> - the v3d namespace which contains all the engine modules</li>
-        <li><b>VARS</b> - variable puzzles can be accessed through this object</li>
-        <li><b>PROC</b> - procedure puzzles can be accessed through this object</li>
+        <li><b>app</b> - экземпляр приложения, для получения подробной информации смотрите <a href="api/en/extras/App.html">App</a></li>
+        <li><b>v3d</b> - пространство имен v3d, которое содержит все модули движка</li>
+        <li><b>VARS</b> - доступ к переменным пазлам</li>
+        <li><b>PROC</b> - доступ к пазлам процедур</li>
     </ul>
 
     <img src="files/puzzles/puzzles-advanced-exec-script.jpg" style="max-width: 1000px">
 
-    <p><b>Specifics of using built-ins regarding to "Init" and other tabs</b></p>
+    <p><b>Особенности использования встроенных модулей для вкладки "Init" и других вкладок</b></p>
     <ul>
         <li>
-            The <b>app</b> built-in variable is not available for this puzzle if
-            it's used inside the <b>Init</b> tab, since at that stage the
-            application is not properly initialized yet.
+          Встроенная переменная <b>app</b> недоступна для этого пазла, если она используется внутри вкладки <b>Init</b>, поскольку на этом этапе приложение еще не инициализировано должным образом.
         </li>
         <li>
-            Variables and procedures declared in the <b>Init</b> tab can not be
-            accessed from other tabs via <b>VARS</b> and <b>PROC</b> and vice
-            versa.
+          Переменные и процедуры, объявленные на вкладке <b>Init</b>, не могут быть доступны из других вкладок через <b>VARS</b>, <b>PROC</b> и наоборот.
         </li>
     </ul>
 
@@ -70,13 +64,13 @@
     <h3>call external function</h3>
 
     <p>
-    Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
+      Выполняет функцию, указанную в JavaScript-коде приложения. По желанию передает параметры для использования в качестве аргументов функции.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-call-js-function.jpg">
 
     <p>
-    In order to add a function to JavaScript code, open the application <strong>.js</strong> file (for example, <i>my_awesome_app.js</i> located in <i>verge3d/applications/my_awesome_app</i>) with any text editor. Search for "prepareExternalInterface" and add your function inside that declaration (between the curly brackets), so that it looks like this:
+      Для того, чтобы добавить функцию в код JavaScript, откройте файл приложения <strong>.js</strong> (например, <i>my_awesome_app.js</i>, расположенный в <i>verge3d/applications/my_awesome_app</i>) любым текстовым редактором. Найдите "prepareExternalInterface" и добавьте свою функцию внутрь этого объявления (между фигурными скобками), чтобы она выглядела следующим образом:
     </p>
 
     <code>
@@ -93,7 +87,7 @@ function prepareExternalInterface(app) {
     <h3>load data</h3>
 
     <p>
-    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
+      Попытка загрузить данные из указанного места. Пазлы в слоте "once ready do" интерпретируются независимо от того, была ли попытка успешной. Доступ к полученным данным можно получить с помощью пазла <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a>.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-load-data.jpg">
@@ -105,7 +99,7 @@ function prepareExternalInterface(app) {
     <h3>send data</h3>
 
     <p>
-    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
+      Попытка отправить указанные данные с помощью асинхронного <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> запроса. Пазлы в слоте "once ready do" интерпретируются независимо от того, была ли попытка успешной. Если есть какие-либо ответные данные, к ним можно получить доступ через пазл <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a>.
     </p>
 
 
@@ -119,7 +113,7 @@ function prepareExternalInterface(app) {
     <h3>loaded data</h3>
 
     <p>
-    Returns data retrieved by the <a href="manual/ru/puzzles/Advanced.html#load_data">load data</a> or <a href="manual/ru/puzzles/Advanced.html#send_data">send data</a> puzzles.
+      Возвращает данные, полученные с помощью пазлов <a href="manual/ru/puzzles/Advanced.html#load_data">load data</a> или <a href="manual/ru/puzzles/Advanced.html#send_data">send data</a>.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-loaded-data.jpg">
@@ -131,7 +125,7 @@ function prepareExternalInterface(app) {
     <h3>read JSON</h3>
 
     <p>
-      Interprets text (or <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>) as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which is returned in a dictionary.
+      Интерпретирует текст (или <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>) как данные <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a>, которые обращаются к словарю.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-JSON.jpg">
@@ -143,13 +137,13 @@ function prepareExternalInterface(app) {
     <h3>read CSV</h3>
 
     <p>
-      Interprets text (or <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>) as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
+      Интерпретирует текст (или <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>) как <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">значения, разделенные запятыми</a>. Возвращает список строк таблицы, причем каждая строка представлена в виде списка значений. Разделитель может быть выбран с помощью выпадающего списка, чтобы соответствовать настройкам экспорта CSV-файла. Значение "От строки" указывает, сколько строк будет пропущено, начиная с верхней.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-CSV.jpg">
 
     <p>
-      Table rows and values are accessed by their numeric indices starting from 0.
+      Доступ к строкам и значениям таблицы осуществляется по их числовым индексам, начиная с 0.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-csv-example.jpg">
@@ -161,13 +155,13 @@ function prepareExternalInterface(app) {
     <h3>save state</h3>
 
     <p>
-    Saves the state of specified objects and/or the values of variables specified by their names. The objects are cloned and stored in memory. The values of the variables are retrieved and stored in memory for each specified variable name.
+      Сохраняет состояние указанных объектов и/или значения переменных, заданных их именами. Объекты клонируются и сохраняются в памяти. Значения переменных извлекаются и сохраняются в памяти для каждого указанного имени переменной.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-save-state.jpg">
 
     <p>
-    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/ru/puzzles/Advanced.html#undo_state">undo state</a> puzzle.
+      Если этот пазл вызывается несколько раз, состояния сохраняются в последовательности, чтобы можно было вернуться к любому предыдущему состоянию с помощью пазла <a href="manual/ru/puzzles/Advanced.html#undo_state">undo state</a>.
     </p>
 
 
@@ -177,13 +171,13 @@ function prepareExternalInterface(app) {
     <h3>undo state</h3>
 
     <p>
-    Restores the state of objects and/or variables saved with the <a href="manual/ru/puzzles/Advanced.html#save_state">save state</a> puzzle.
+      Восстанавливает состояние объектов и/или переменных, сохраненных с помощью пазла <a href="manual/ru/puzzles/Advanced.html#save_state">save state</a>.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-undo-state.jpg">
 
     <p>
-    If this puzzle is called several times, the states are restored from the saved sequence (if any) which makes it possible to return to any previously saved state from the stack.
+      Если этот пазл вызывается несколько раз, состояния восстанавливаются из сохраненной последовательности (если таковая имеется), что позволяет вернуться к любому ранее сохраненному состоянию из стека. 
     </p>
 
 
@@ -193,7 +187,7 @@ function prepareExternalInterface(app) {
     <h3>all variable names</h3>
 
     <p>
-    Returns a list with the names of all variables used in Puzzles.
+      Возвращает список с именами всех переменных, используемых в пазлах. 
     </p>
 
     <img src="files/puzzles/puzzles-advanced-all-variable-names.jpg">
@@ -205,7 +199,7 @@ function prepareExternalInterface(app) {
     <h3>variable value by name</h3>
 
     <p>
-    Returns the value of a variable specified by its name. This puzzle works similarly to the standard variable value puzzle, yet does not require to select a variable from the predefined dropdown menu.
+      Возвращает значение переменной, заданной ее именем. Этот пазл работает аналогично стандартному пазлу значение переменной, но не требует выбора переменной из предопределенного выпадающего меню.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
@@ -216,34 +210,36 @@ function prepareExternalInterface(app) {
     <h3>JavaScript object</h3>
 
     <p>
-      Returns a given JavaScript object.
+      Возвращает заданный объект JavaScript.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-javascript-object.jpg">
 
-    <p>You can get the following JavaScript objects with this puzzle:</p>
+    <p>С помощью этого пазла можно получить следующие объекты JavaScript::</p>
 
     <dl>
       <dt>window</dt>
-      <dd>Return the top-level *window* object as dictionary value.</dd>
+      <dd>Возвращает объект верхнего уровня *window* как значение словаря.</dd>
       <dt>arguments</dt>
-      <dd>Returns the list of arguments of the currently executed function. Can be used to get arguments of Puzzles procedures or additional arguments passed to internal Puzzles callbacks (see below).</dd>
+      <dd>Возвращает список аргументов текущей выполняемой функции. Может использоваться для получения аргументов процедур пазлов или дополнительных аргументов, передаваемых внутренним обратным вызовам пазлов (смотрите ниже).</dd>
       <dt>this</dt>
-      <dd>JavaScript *this* value.</dd>
+      <dd>JavaScript *this* значение.</dd>
     </dl>
 
-    <p>The *arguments* option can be used to retrieve additional puzzles options. For example, when using <a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a> puzzle, you can get the internal JavaScript event which triggers the puzzle logic using the first argument of the callback executed behind the *do* slot. In the example below we use this event to get X and Y coordinates of the mouse pointer:</p>
+    <p>
+      Параметр *arguments* можно использовать для получения дополнительных параметров пазла. Например, при использовании пазла <a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a> можно получить внутреннее событие JavaScript, которое запускает логику пазла, используя первый аргумент обратного вызова, выполняемого за слотом *do*. В примере ниже мы используем это событие для получения координат X и Y указателя мыши:
+    </p>
 
     <img src="files/puzzles/puzzles-advanced-javascript-object-example.jpg">
 
-    <p>The following puzzles support advanced options:</p>
+    <p>Следующие пазлы поддерживают расширенные опции:</p>
 
     <ul>
-      <li><a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/ru/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/ru/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> event which triggers puzzles in the <em>do</em> slots.</li>
-      <li><a href="manual/ru/puzzles/Time.html#after">after</a>, <a href="manual/ru/puzzles/Time.html#set_timer">set timer</a> — timer ID returned by the puzzles' <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> call.</li>
-      <li><a href="manual/ru/puzzles/Time.html#every_frame">every frame</a> — delta time and total elapsed time.</li>
-      <li><a href="manual/ru/puzzles/HTML.html#event">event</a> — event object.</li>
-      <li><a href="manual/ru/puzzles/AR_VR.html#session_event">on session event</a> — WebXR event object.</li>
+      <li><a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/ru/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/ru/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> или <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> события, которые запускают пазлы в слотах <em>do</em>.</li>
+      <li><a href="manual/ru/puzzles/Time.html#after">after</a>, <a href="manual/ru/puzzles/Time.html#set_timer">set timer</a> — идентификатор таймера, возвращаемый вызовом <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> пазлов.</li>
+      <li><a href="manual/ru/puzzles/Time.html#every_frame">every frame</a> — дельта-время и общее прошедшее время.</li>
+      <li><a href="manual/ru/puzzles/HTML.html#event">event</a> — объект события.</li>
+      <li><a href="manual/ru/puzzles/AR_VR.html#session_event">on session event</a> — WebXR объект события.</li>
     </ul>
 
 
@@ -252,19 +248,21 @@ function prepareExternalInterface(app) {
     <h3>wait promise</h3>
 
     <p>
-    Wait for the promise to be resolved or rejected and return its value (or rejection reason) in the <a href="manual/ru/puzzles/Advanced.html#promise_value">promise value</a> puzzle.
+      Дождитесь разрешения или отклонения промиса и верните его значение (или причину отклонения) в пазле <a href="manual/ru/puzzles/Advanced.html#promise_value">promise value</a>.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-wait-promise.jpg">
 
-    <p>This puzzle may be required to get value of the <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">export to gltf</a> and <a href="manual/ru/puzzles/Materials.html#generate_normal_map">generate normal map</a> puzzles. Being async puzzles by their nature, these puzzle do not return resolved values immediately. Instead, they return <em>promise</em> values which are resolved in the puzzles they are used as inputs. In some rare cases, however, this resolving does not happen. In these cases you should use *wait promise* to resolve promise values.</p>
+    <p>
+      Этот пазл может потребоваться для получения значения <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">export to gltf</a> и <a href="manual/ru/puzzles/Materials.html#generate_normal_map">generate normal map</a>. Будучи по своей природе асинхронными, эти пазлы не возвращают разрешенные значения немедленно. Вместо этого они возвращают значения промисов, которые разрешаются в пазлах, используемых в качестве входных данных. В некоторых редких случаях это разрешение не происходит. В этих случаях для разрешения значений промиса следует использовать *wait promise*.
+    </p>
 
 
     [anchor:promise_value]
 
     <h3>promise value</h3>
 
-    <p>Resolved promise value (in case of resolved promise) or error string (in case of rejected promise).</p>
+    <p>Значение разрешенного промиса (в случае разрешенного промиса) или строка ошибки (в случае отклоненного промиса).</p>
 
 
     [anchor:connector]
@@ -272,20 +270,15 @@ function prepareExternalInterface(app) {
     <h3>connector</h3>
 
     <p>
-        This puzzle facilitates connecting other puzzles with each other, to
-        make it more convenient to move, delete and use them in other puzzles.
-        The most notable application is to join <a href="manual/ru/puzzles/Sound.html#load_sound">load sound</a>
-        or <a href="manual/ru/puzzles/Sound.html#load_video">load video</a>
-        puzzles into a single group to organize preloading of media resources
-        in your application.
+      Этот пазл позволяет соединять другие пазлы между собой, чтобы их было удобнее перемещать, удалять и использовать в других пазлах. Наиболее заметное применение - объединение пазлов <a href="manual/ru/puzzles/Sound.html#load_sound">load sound</a> или <a href="manual/ru/puzzles/Sound.html#load_video">load video</a> в одну группу для организации предварительной загрузки медиаресурсов в вашем приложении.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-connector.jpg">
 
 
-    <h2>Having Troubles with Puzzles?</h2>
+    <h2>Проблемы с Пазлами?</h2>
 
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

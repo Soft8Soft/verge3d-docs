@@ -9,9 +9,9 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">Create a texture to apply to a surface or as a reflection or refraction map.</p>
+    <p class="desc">Создайте текстуру для применения к поверхности в качестве карты отражения или преломления.</p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <code>
     // load a texture, set wrap mode to repeat
@@ -21,253 +21,252 @@
     texture.repeat.set(4, 4);
     </code>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name](image, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding)</h3>
 
-    <h2>Properties</h2>
+    <h2>Свойста</h2>
 
     <h3>[property:Integer id]</h3>
     <p>
-    Readonly - unique number for this texture instance.
+      Readonly - уникальный номер для данного экземпляра текстуры.
     </p>
 
     <h3>[property:String uuid]</h3>
     <p>
-    [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this object instance.
-    This gets automatically assigned, so this shouldn't be edited.
+    [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] данного экземпляра объекта.
+    Он присваивается автоматически, поэтому его не нужно редактировать.
     </p>
 
     <h3>[property:String name]</h3>
     <p>
-    Optional name of the object (doesn't need to be unique). Default is an empty string.
+      Необязательное имя объекта (необязательно уникальное). По умолчанию это пустая строка.
     </p>
 
     <h3>[property:Image image]</h3>
     <p>
-    An image object, typically created using the [page:TextureLoader.load] method.
-    This can be any image (e.g., PNG, JPG, GIF, DDS) or video (e.g., MP4, OGG/OGV) type supported by Verge3D.<br /><br />
+      Объект изображения, обычно создаваемый с помощью метода [page:TextureLoader.load].
+      Это может быть любое изображение (например, PNG, JPG, GIF, DDS) или видео (например, MP4, OGG/OGV), поддерживаемое Verge3D.<br /><br />
 
-    To use video as a texture you need to have a playing HTML5
-    video element as a source for your texture image and continuously update this texture
-    as long as video is playing - the [page:VideoTexture VideoTexture] class handles this automatically.
+      Чтобы использовать видео в качестве текстуры, необходимо иметь воспроизводящий HTML5
+      видеоэлемент в качестве источника изображения текстуры и постоянно обновлять эту текстуру
+      пока видео воспроизводится - класс [page:VideoTexture VideoTexture] обрабатывает это автоматически.
     </p>
 
     <h3>[property:Array mipmaps]</h3>
     <p>
-    Array of user-specified mipmaps (optional).
+      Массив заданных пользователем мипмапов (необязательно).
     </p>
 
     <h3>[property:number mapping]</h3>
     <p>
-    How the image is applied to the object. An object type of [page:Textures v3d.UVMapping] is the default,
-    where the U,V coordinates are used to apply the map.<br />
+      Как изображение применяется к объекту. По умолчанию используется тип объекта [page:Textures v3d.UVMapping],
+      где для наложения карты используются координаты U,V.<br />
 
-    See the [page:Textures texture constants] page for other mapping types.
+      Другие типы отображения см. на странице [page:Textures texture constants].
     </p>
 
     <h3>[property:number wrapS]</h3>
     <p>
-    This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
-    The default is [page:Textures v3d.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
-    The other two choices are [page:Textures v3d.RepeatWrapping] and [page:Textures v3d.MirroredRepeatWrapping].
-    See the [page:Textures texture constants] page for details.
+      Определяет, как текстура будет обернута по горизонтали, и соответствует *U* в UV mapping.<br />
+      По умолчанию используется [page:Textures v3d.ClampToEdgeWrapping], где край крепится к текселям внешнего края.
+      Два других варианта - [page:Textures v3d.RepeatWrapping] и [page:Textures v3d.MirroredRepeatWrapping].
+      Подробности см. на странице [page:Textures texture constants].
     </p>
 
     <h3>[property:number wrapT]</h3>
     <p>
-    This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br />
-    The same choices are available as for [property:number wrapS].<br /><br />
+      Это определяет, как текстура будет обернута по вертикали, и соответствует *V* в UV mapping.<br />
+      Доступны те же варианты, что и для [property:number wrapS]..<br /><br />
 
-    NOTE: tiling of images in textures only functions if image dimensions are powers of two
-     (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.
-     Individual dimensions need not be equal, but each must be a power of two.
-     This is a limitation of WebGL, not Verge3D.
+      ПРИМЕЧАНИЕ: тайлинг изображений в текстурах работает только в том случае, если размеры изображения равны степени двойки
+      (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) в терминах пикселей.
+      Отдельные размеры не обязательно должны быть равны, но каждый из них должен быть равен степени двойки.
+      Это ограничение WebGL, а не Verge3D.
     </p>
 
     <h3>[property:number magFilter]</h3>
     <p>
-    How the texture is sampled when a texel covers more than one pixel. The default is
-     [page:Textures v3d.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.
-     The other option is [page:Textures v3d.NearestFilter], which uses the value of the closest texel.<br />
-     See the [page:Textures texture constants] page for details.
+      Способ дискретизации текстуры, когда тексель занимает более одного пикселя. По умолчанию используется
+      [page:Textures v3d.LinearFilter], который берет четыре ближайших текселя и билинейно интерполирует между ними.
+      Другой вариант - [page:Textures v3d.NearestFilter], который использует значение ближайшего текселя.<br />
+      Подробности см. на странице [page:Textures texture constants].
     </p>
 
     <h3>[property:number minFilter]</h3>
     <p>
-    How the texture is sampled when a texel covers less than one pixel. The default is
-    [page:Textures v3d.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter. <br /><br />
+      Способ дискретизации текстуры, когда тексель занимает менее одного пикселя. По умолчанию
+      [page:Textures v3d.LinearMipmapLinearFilter], который использует mipmapping и трилинейный фильтр. <br /><br />
 
-    See the [page:Textures texture constants] page for all possible choices.
+      Все возможные варианты см. на странице [page:Textures texture constants].
     </p>
 
     <h3>[property:number anisotropy]</h3>
     <p>
-    The number of samples taken along the axis through the pixel that has the highest density of texels.
-    By default, this value is 1. A higher value gives a less blurry result than a basic mipmap,
-    at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to
-    find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
+      Количество образцов, взятых вдоль оси через пиксель, имеющий наибольшую плотность текселей.
+      По умолчанию это значение равно 1. Большее значение дает менее размытый результат, чем базовая мипмапа,
+      за счет использования большего количества текстурных образцов. Используйте [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy](), чтобы
+      найти максимальное допустимое значение анизотропии для GPU; обычно это значение равно 2.
     </p>
 
     <h3>[property:number format]</h3>
     <p>
-    The default is [page:Textures v3d.RGBAFormat], although the [page:TextureLoader TextureLoader] will automatically
-    set this to [page:Textures v3d.RGBFormat] for JPG images. <br /><br />
+      По умолчанию используется [page:Textures v3d.RGBAFormat], хотя [page:TextureLoader TextureLoader] автоматически устанавливает [page:Textures v3d.RGBFormat] для изображений JPG. <br /><br />
 
-    See the [page:Textures texture constants] page for details of other formats.
+      Подробности о других форматах см. на странице [page:Textures texture constants].
     </p>
 
     <h3>[property:String internalFormat]</h3>
     <p>
-    The default value is obtained using a combination of [page:Texture.format .format] and
-    [page:Texture.type .type].<br />
+      Значение по умолчанию получается с помощью комбинации [page:Texture.format .format] и
+      [page:Texture.type .type].<br />
 
-    The GPU format allows the developer to specify how the data is going to be
-    stored on the GPU.<br /><br />
+      Формат GPU позволяет разработчику указать, как данные будут
+      храниться на графическом процессоре.<br /><br />
 
-    See the [page:Textures texture constants] page for details regarding all supported internal formats.
+      Подробности о всех поддерживаемых внутренних форматах см. на странице [page:Textures texture constants].
     </p>
 
     <h3>[property:number type]</h3>
     <p>
-    This must correspond to the [page:Texture.format .format]. The default is [page:Textures v3d.UnsignedByteType],
-    which will be used for most texture formats.<br /><br />
+      Оно должно соответствовать [page:Texture.format .format]. По умолчанию используется [page:Textures v3d.UnsignedByteType],
+      который будет использоваться для большинства форматов текстур.<br /><br />
 
-    See the [page:Textures texture constants] page for details of other formats.
+      Подробности о других форматах см. на странице [page:Textures texture constants].
     </p>
 
     <h3>[property:Vector2 offset]</h3>
     <p>
-    How much a single repetition of the texture is offset from the beginning, in each direction U and V.
-    Typical range is *0.0* to *1.0*.  _Note:_ The offset property is a convenience modifier and only affects
-    the Texture's application to the first set of UVs on a model.  If the Texture is used as a map requiring
-    additional UV sets (e.g. the aoMap or lightMap of most stock materials), those UVs must be manually
-    assigned to achieve the desired offset.
+      На сколько один повтор текстуры смещен от начала, в каждом направлении U и V.
+      Типичный диапазон от *0.0* до *1.0*.  _Примечание:_ Свойство смещения является модификатором удобства и влияет только
+      на применение текстуры к первому набору UV на модели.  Если текстура используется в качестве карты, требующей
+      дополнительные наборы UV (например, aoMap или lightMap большинства стоковых материалов), эти UV должны быть назначены вручную.
+      чтобы добиться желаемого смещения.
     </p>
 
     <h3>[property:Vector2 repeat]</h3>
     <p>
-    How many times the texture is repeated across the surface, in each direction U and V.  If repeat is set
-    greater than 1 in either direction, the corresponding Wrap parameter should also be set to
-    [page:Textures v3d.RepeatWrapping] or [page:Textures v3d.MirroredRepeatWrapping] to achieve the desired
-    tiling effect.  _Note:_ The repeat property is a convenience modifier and only affects
-    the Texture's application to the first set of UVs on a model.  If the Texture is used as a map requiring
-    additional UV sets (e.g. the aoMap or lightMap of most stock materials), those UVs must be manually
-    assigned to achieve the desired repetiton.
+      Сколько раз текстура повторяется по поверхности, в каждом направлении U и V. Если параметр repeat установлен
+      больше 1 в любом направлении, соответствующий параметр Wrap также должен быть установлен в значение
+      [page:Textures v3d.RepeatWrapping] или [page:Textures v3d.MirroredRepeatWrapping] для достижения желаемого
+      тайлинга.  _Примечание:_ Свойство repeat является удобным модификатором и влияет только
+      на применение текстуры к первому набору UV на модели.  Если текстура используется в качестве карты, требующей
+      дополнительные наборы UV (например, aoMap или lightMap большинства стоковых материалов), эти UV должны быть назначены вручную.
+      чтобы добиться желаемого повторения.
     </p>
 
     <h3>[property:number rotation]</h3>
     <p>
-    How much the texture is rotated around the center point, in radians. Positive values are counter-clockwise. Default is *0*.
+      На сколько повернута текстура вокруг центральной точки, в радианах. Положительные значения - против часовой стрелки. По умолчанию *0*.
     </p>
 
     <h3>[property:Vector2 center]</h3>
     <p>
-    The point around which rotation occurs. A value of (0.5, 0.5) corresponds to the center of the texture. Default is (0, 0), the lower left.
+      Точка, вокруг которой происходит вращение. Значение (0.5, 0.5) соответствует центру текстуры. По умолчанию (0, 0) - нижний левый угол.
     </p>
 
     <h3>[property:Boolean matrixAutoUpdate]</h3>
     <p>
-    Whether to update the texture's uv-transform [page:Texture.matrix .matrix] from the texture properties [page:Texture.offset .offset], [page:Texture.repeat .repeat],
-    [page:Texture.rotation .rotation], and [page:Texture.center .center]. True by default.
-    Set this to false if you are specifying the uv-transform matrix directly.
+      Обновлять ли uv-трансформацию текстуры [page:Texture.matrix .matrix] из свойств текстуры [page:Texture.offset .offset], [page:Texture.repeat .repeat],
+      [page:Texture.rotation .rotation] и [page:Texture.center .center]. По умолчанию значение True.
+      Установите значение false, если вы указываете матрицу uv-трансформации напрямую.
     </p>
 
     <h3>[property:Matrix3 matrix]</h3>
     <p>
-    The uv-transform matrix for the texture. Updated by the renderer from the texture properties [page:Texture.offset .offset], [page:Texture.repeat .repeat],
-    [page:Texture.rotation .rotation], and [page:Texture.center .center] when the texture's [page:Texture.matrixAutoUpdate .matrixAutoUpdate] property is true.
-    When [page:Texture.matrixAutoUpdate .matrixAutoUpdate] property is false, this matrix may be set manually.
-    Default is the identity matrix.
+      Матрица uv-трансформирования для текстуры. Обновляется рендерером из свойств текстуры [page:Texture.offset .offset], [page:Texture.repeat .repeat],
+      [page:Texture.rotation .rotation] и [page:Texture.center .center], когда свойство [page:Texture.matrixAutoUpdate .matrixAutoUpdate] текстуры равно true.
+      Когда свойство [page:Texture.matrixAutoUpdate .matrixAutoUpdate] ложно, эта матрица может быть установлена вручную.
+      По умолчанию используется матрица тождества.
     </p>
 
     <h3>[property:Boolean generateMipmaps]</h3>
     <p>
-    Whether to generate mipmaps (if possible) for a texture. True by default. Set this to false if you are
-    creating mipmaps manually.
+      Нужно ли генерировать мипмапы (если это возможно) для текстуры. По умолчанию - True. Установите значение false, если вы
+      создаете мипмапы вручную.
     </p>
 
     <h3>[property:Boolean premultiplyAlpha]</h3>
     <p>
-    If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br /><br />
+      Если установлено значение *true*, то альфа-канал, если он присутствует, умножается на цветовые каналы при загрузке текстуры на GPU. По умолчанию *false*.<br /><br />
 
-    Note that this property has no effect for [link:https://developer.mozilla.org/de/docs/Web/API/ImageBitmap ImageBitmap].
-    You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
+      Обратите внимание, что это свойство не имеет эффекта для [link:https://developer.mozilla.org/de/docs/Web/API/ImageBitmap ImageBitmap].
+      Вместо этого необходимо настроить при создании растрового изображения. См. [page:ImageBitmapLoader].
     </p>
 
     <h3>[property:Boolean flipY]</h3>
     <p>
-    If set to *true*, the texture is flipped along the vertical axis when uploaded to the GPU. Default is *true*.<br /><br />
+      Если установлено значение *true*, текстура переворачивается вдоль вертикальной оси при загрузке на GPU. По умолчанию *true*.<br /><br />
 
-    Note that this property has no effect for [link:https://developer.mozilla.org/de/docs/Web/API/ImageBitmap ImageBitmap].
-    You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
+      Обратите внимание, что это свойство не имеет эффекта для [link:https://developer.mozilla.org/de/docs/Web/API/ImageBitmap ImageBitmap].
+      Вместо этого необходимо настроить при создании растрового изображения. См. раздел [page:ImageBitmapLoader].
     </p>
 
     <h3>[property:number unpackAlignment]</h3>
     <p>
-    4 by default. Specifies the alignment requirements for the start of each pixel row in memory.
-    The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes),
-    4 (word-alignment), and 8 (rows start on double-word boundaries).
-    See [link:http://www.khronos.org/opengles/sdk/docs/man/xhtml/glPixelStorei.xml glPixelStorei]
-    for more information.
+      4 по умолчанию. Определяет требования к выравниванию начала каждой строки пикселей в памяти.
+      Допустимые значения: 1 (выравнивание по байтам), 2 (строки выравниваются по четным байтам),
+      4 (выравнивание по словам) и 8 (строки начинаются на границах двойных слов).
+      Смотрите [ссылка:http://www.khronos.org/opengles/sdk/docs/man/xhtml/glPixelStorei.xml glPixelStorei].
+      для получения дополнительной информации.
     </p>
 
     <h3>[property:number encoding]</h3>
     <p>
-    [page:Textures v3d.LinearEncoding] is the default.
-    See the [page:Textures texture constants] page for details of other formats.<br /><br />
+    [page:Textures v3d.LinearEncoding] по умолчанию.
+    Подробности о других форматах см. на странице [page:Textures texture constants].<br /><br />
 
-    Note that if this value is changed on a texture after the material has been used,
-    it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.
+    Обратите внимание, что если это значение изменяется на текстуре после использования материала,
+    необходимо обратиться к Material.needsUpdate, чтобы это значение было реализовано в шейдере.
     </p>
 
     <h3>[property:Integer version]</h3>
     <p>
-    This starts at *0* and counts how many times [property:Boolean needsUpdate] is set to *true*.
+      Он начинается с *0* и считает, сколько раз [property:Boolean needsUpdate] установлено в *true*.
     </p>
 
     <h3>[property:Function onUpdate]</h3>
     <p>
-    A callback function, called when the texture is updated (e.g., when needsUpdate has been set to true
-    and then the texture is used).
+    A Функция обратного вызова, вызываемая при обновлении текстуры (например, если для параметра needsUpdate было установлено значение true
+    и затем используется текстура).
     </p>
 
     <h3>[property:Boolean needsUpdate]</h3>
     <p>
-    Set this to *true* to trigger an update next time the texture is used. Particularly important for setting the wrap mode.
+      Установите значение *true*, чтобы вызвать обновление при следующем использовании текстуры. Особенно важно для установки режима обертывания.
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
-    <h3>[page:EventDispatcher EventDispatcher] methods are available on this class.</h3>
+    <h3>[page:EventDispatcher EventDispatcher] методы доступны для этого класса.</h3>
 
     <h3>[method:null updateMatrix]()</h3>
     <p>
-    Update the texture's uv-transform [page:Texture.matrix .matrix] from the texture properties [page:Texture.offset .offset], [page:Texture.repeat .repeat],
-    [page:Texture.rotation .rotation], and [page:Texture.center .center].
+      Обновите uv-трансформацию текстуры [page:Texture.matrix .matrix] из свойств текстуры [page:Texture.offset .offset], [page:Texture.repeat .repeat],
+      [page:Texture.rotation .rotation] и [page:Texture.center .center].
     </p>
 
     <h3>[method:Texture clone]()</h3>
     <p>
-    Make copy of the texture. Note this is not a "deep copy", the image is shared.
+      Создаёт копию текстуры. Обратите внимание, что это не "глубокая копия", изображение является общим.
     </p>
 
     <h3>[method:Object toJSON]([param:Object meta])</h3>
     <p>
-    meta -- optional object containing metadata.<br />
-    Convert the texture to Verge3D [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
+    мета - опциональный объект, содержащий метаданные.<br />
+    Конвертируйте сцену в Verge3D [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON в формате объекта/сцены].
     </p>
 
     <h3>[method:null dispose]()</h3>
     <p>
-    Call [page:EventDispatcher EventDispatcher].dispatchEvent with a 'dispose' event type.
+      Вызовите [page:EventDispatcher EventDispatcher].dispatchEvent с типом события 'dispose'.
     </p>
 
     <h3>[method:Vector2 transformUv]([param:Vector2 uv])</h3>
     <p>
-    Transform the uv based on the value of this texture's [page:Texture.offset .offset], [page:Texture.repeat .repeat],
-    [page:Texture.wrapS .wrapS], [page:Texture.wrapT .wrapT] and [page:Texture.flipY .flipY] properties.
+      Преобразование uv на основе значений свойств [page:Texture.offset .offset], [page:Texture.repeat .repeat] этой текстуры,
+      [page:Texture.wrapS .wrapS], [page:Texture.wrapT .wrapT] и [page:Texture.flipY .flipY].
     </p>
 
     [sourceHint]
