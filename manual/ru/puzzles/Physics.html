@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Physics Puzzles Reference - Soft8Soft</title>
+    <title>Физические Пазлы - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Using puzzles to simulate physics behavior."/>
     <base href="../../../" />
@@ -10,22 +10,22 @@
   </head>
   <body><article>
 
-    <h1>Physics</h1>
+    <h1>Физика</h1>
 
     <p>
-      These puzzles are used to simulate physics behavior of the objects.
+      Эти пазлы используются для моделирования физического поведения объектов.
     </p>
 
     <img src="files/puzzles/puzzles-physics.jpg" style="max-width: 1000px">
 
-    <h2>Contents</h2>
+    <h2>Содержание</h2>
 
     [contents]
 
 
     [anchor:physics_puzzles_reference]
 
-    <h2>Physics Puzzles Reference</h2>
+    <h2>Перечень Физических Пазлов</h2>
 
 
     [anchor:create_physics_world]
@@ -33,15 +33,15 @@
     <h3>create physics world</h3>
 
     <p>
-    Initializes the physics engine using the specified *gravity* and *frames-per-second* parameters. The default *gravity* value of 9.8 corresponds to Earth surface conditions. Zero value means no gravity as in space. The higher *fps* value the better simulation quality at the expense of performance.
+      Инициализирует физический движок, используя указанные параметры *gravity* и *frames-per-second*. Значение *gravity* по умолчанию 9.8 соответствует условиям на поверхности Земли. Нулевое значение означает отсутствие гравитации, как в космосе. Чем выше значение *fps*, тем выше качество симуляции в ущерб производительности.
     </p>
 
-    <p>The *soft body* checker activates the soft body simulation capability.</p>
+    <p>Флажок *soft body* активирует возможность симуляции мягкого тела.</p>
 
     <img src="files/puzzles/puzzles-physics-create-physics-world.jpg">
 
     <p>
-      Under the hood, this puzzle also enables collision detection and automatic synchronization with graphics.
+      Под капотом, этот пазл также обеспечивает обнаружение столкновений и автоматическую синхронизацию с графикой.
     </p>
 
 
@@ -53,56 +53,57 @@
     <h3>create rigid body</h3>
 
     <p>
-    Creates a physics body from a specified object, of *dynamic*, *kinematic*, *static* or *ghost* type. Assigns the collision shape and sets the mass for the body (valid for *dynamic* bodies only). Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Создает физическое тело из указанного объекта типа  *dynamic*, *kinematic*, *static* или *ghost*. Присваивает форму столкновения и задает массу тела (действительно только для *dynamic* тел). Также работает для списка объектов, группы (или списка групп) или с головоломкой <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
 
     <img src="files/puzzles/puzzles-physics-create-physics-body.jpg">
 
-    <p>Physics body types:</p>
+    <p>Физические типы тела:</p>
 
     <ul>
       <li>
-        *dynamic* - moved by the physics engine, influenced by collisions and collide with other bodies.
+        *dynamic* - перемещаются с помощью физического движка, подвержены влиянию столкновений и сталкиваются с другими телами.
       </li>
       <li>
-        *kinematic* - moved by animation or user action. Dynamic objects will be pushed away but there is no influence from dynamics objects.
+        *kinematic* - перемещаются с помощью анимации или действий пользователя. Динамические объекты будут отталкиваться, но влияние от динамических объектов отсутствует.
       </li>
       <li>
-        *static* - cannot move but collide with other bodies.
+        *static* - не могут двигаться, но сталкиваются с другими телами.
       </li>
       <li>
-        *ghost* - similar to *kinematic* but does not produce any collision response. Use it to <a href="manual/ru/puzzles/Physics.html#detect_collision">detect collision</a> between bodies (for example to implement proximity sensor).
+        *ghost* - 
+        аналогичен *kinematic*, но не производит никакой реакции на столкновение. Используйте его для <a href="manual/ru/puzzles/Physics.html#detect_collision">обнаружения столкновения</a> между телами (например, для реализации датчика приближения).
       </li>
     </ul>
 
-    <p>Supported rigid body shapes:</p>
+    <p>Поддерживаемые формы жесткого тела:</p>
 
     <ul>
       <li>
-        *box* - a box-shaped bounding.
+        *box* - ограничение в форме куба.
       </li>
       <li>
-        *sphere* - a sphere-shaped bounding.
+        *sphere* - ограничение в форме сферы.
       </li>
       <li>
-        *mesh* - a mesh shape.
+        *mesh* - форма меша.
       </li>
       <li>
-        *capsule* - a capsule shape stretched along up-down axis.
+        *capsule* - форма капсулы, вытянутая вдоль оси вверх-вниз.
       </li>
       <li>
-        *cone* - a cone shape stretched along up-down axis.
+        *cone* - конусообразная форма, вытянутая вдоль оси вверх-вниз.
       </li>
       <li>
-        *cylinder* - a cylinder shape stretched along up-down axis.
+        *cylinder* - цилиндрическая форма, вытянутая вдоль оси вверх-вниз.
       </li>
       <li>
-        *empty* - an empty shape. Usefull for creating constraint attachments and soft body anchor points.
+        *empty* - пустая форма. Полезно для создания привязок ограничений и точек привязки мягкого тела.
       </li>
     </ul>
 
     <p>
-      For performance reasons, give priority to primitive physics shapes (boxes, spheres, capsules, cones and cylinders) over mesh shapes. Also, *static* meshes have much better performance than *dynamic*, *kinematic* and *ghost*.
+      По соображениям производительности отдавайте предпочтение примитивным физическим формам (кубам, сферам, капсулам, конусам и цилиндрам), а не детальным мешам. Кроме того, *static* меши имеют гораздо лучшую производительность, чем *dynamic*, *kinematic* и *ghost*.
     </p>
 
 
@@ -111,26 +112,27 @@
     <h3>create soft body</h3>
 
     <p>
-      Creates a soft body from a specified object with a given total *mass* and optional *pressure* params. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Создает мягкое тело из указанного объекта с заданной общей *mass* и необязательными параметрами *pressure*. Также работает для списка объектов, группы (или списка групп) или с пазлом <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
 
     <img src="files/puzzles/puzzles-physics-create-soft-body.jpg">
 
-    <p>Supported soft body shapes:</p>
+    <p>Поддерживаемые мягкие формы тела:</p>
 
     <ul>
       <li>
-        *volume* - a closed pressurized 3D-dimentional volume.
+        *volume* - закрытый герметичный трехмерный объем.
       </li>
       <li>
-        *rope* - a line object which behaves like a rope.
+        *rope* - линейный объект, который ведет себя как веревка.
       </li>
       <li>
-        *patch* - a polygonal surface like cloth or textile patch.
+        *patch* - многоугольная поверхность, например, ткань или текстильная заплатка.
       </li>
     </ul>
 
-    <p class="note">Don't forget to activate soft body simulation on the <a href="manual/ru/puzzles/Physics.html#create_physics_world">physics world</a> before creating soft bodies.</p>
+    <p class="note">
+      Не забудьте активировать симуляцию мягких тел в <a href="manual/ru/puzzles/Physics.html#create_physics_world">physics world</a> перед созданием мягких тел.</p>
 
 
     [anchor:remove_physics_body]
@@ -138,7 +140,7 @@
     <h3>remove physics body</h3>
 
     <p>
-      Removes physics from a specified object by destroying the physics body associated with it. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Удаляет физику с указанного объекта, уничтожая связанное с ним физическое тело. Также работает для списка объектов, группы (или списка групп) или с пазлом <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
 
     <img src="files/puzzles/puzzles-physics-remove-physics-body.jpg">
@@ -150,28 +152,28 @@
     <h3>apply body param</h3>
 
     <p>
-      Sets parameters for the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Задает параметры для физического тела, связанного с указанным объектом.  Также работает для списка объектов, группы (или списка групп) или с пазлом <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
 
     <img src="files/puzzles/puzzles-physics-apply-body-param.jpg">
 
-    <p>Parameters:</p>
+    <p>Параметры:</p>
 
     <ul>
       <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
+        *angular damping* - коэффициент сопротивления, который замедлит вращающийся объект: 0 - демпфирование отсутствует, 1 - максимальное демпфирование. Входные значения ограничены диапазоном [0, 1].
       </li>
       <li>
-        *angular factor* - set rotational degrees of freedom for the specified body. For example by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
+        *angular factor* - установить степень свободного вращения для указанного тела. Например, установив компонент Z равным нулю, можно запретить вращение тела вокруг оси вверх-вниз (Blender, Max) или вперед-назад (Maya).
       </li>
       <li>
-        *angular velocity* - set rotation speed vector.
+        *angular velocity* - установить вектор скорости вращения.
       </li>
       <li>
-        *ccd motion threshold* - motion threshold used for simulating Continuous Collision Detection (CCD) physics. Specify low value, such as <em>0.001</em>
+        *ccd motion threshold* - порог движения, используемый для моделирования физики непрерывного обнаружения столкновений (CCD). Укажите низкое значение, например <em>0.001</em>
       </li>
       <li>
-        *ccd swept sphere radius* - radius of the swept spere used for simulating Continuous Collision Detection (CCD) physics. This value should correspond to the size of the colliding objects. For example, to simulate a small bullet of size 0.01 m this value could be safely set to 0.5.
+        *ccd swept sphere radius* - радиус сферы, используемой для моделирования физики непрерывного обнаружения столкновений (CCD). Это значение должно соответствовать размеру сталкивающихся объектов. Например, для моделирования маленькой пули размером 0,01 м это значение можно смело установить равным 0,5.
       </li>
     </ul>
 
@@ -179,16 +181,16 @@
 
     <ul>
       <li>
-        *force* - push a body in a specified direction.
+        *force* - толкать тело в заданном направлении.
       </li>
       <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
+        *friction* - коэффициент сопротивления относительному движению твердых тел, скользящих друг относительно друга.
       </li>
       <li>
-        *gravity* - assign gravity individually for a specified body.
+        *gravity* - назначить гравитацию индивидуально для определенного тела.
       </li>
       <li>
-        *impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
+        *impulse* - действует как *Linear Velocity*, но также учитывает массу тела (более тяжелые объекты приобретают меньшую скорость).
       </li>
     </ul>
 
@@ -196,33 +198,33 @@
 
     <ul>
       <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
+        *linear damping* - коэффициент сопротивления, который замедлит движущийся объект: 0 - нет демпфирования (например, свободное падение), 1 - максимальное демпфирование (например, объект падает без ускорения). Входные значения ограничены диапазоном [0, 1].
       </li>
       <li>
-        *linear factor* - set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
+        *linear factor* - установить степени свободного перемещения для указанного тела. Например, установив компонент Z равным нулю, можно отключить движение тела вверх-вниз (Blender, Max) или вперед-назад (Maya).
       </li>
       <li>
-        *linear velocity* - set movement speed vector.
+        *linear velocity* - установить вектор скорости движения.
       </li>
       <li>
-        *position* - set body position (works like the <a href="manual/ru/puzzles/Physics.html#snap_body">snap body</a> puzzle).
+        *position* - установить положение тела (работает как пазл <a href="manual/ru/puzzles/Physics.html#snap_body">snap body</a>).
       </li>
       <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
+        *restitution* - коэффициент упругости: 0 - тело не упругое, как глина, 1 - тело ведет себя как сделанное из резины.
       </li>
       <li>
-        *stiffness* - stiffness of soft bodies like volumes and ropes.
+        *stiffness* - жесткость мягких тел, таких как объемы и канаты.
       </li>
       <li>
-        *torque* - spin a body in a specified direction.
+        *torque* - вращение тела в заданном направлении.
       </li>
       <li>
-        *torque impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
+        *torque impulse* - действует как *Angular Velocity*, но учитывает массу тела (более тяжелые объекты приобретают меньшую скорость вращения).
       </li>
     </ul>
 
     <p class="note">
-      When two bodies collide, friction and restitution parameters of both of them are taken into consideration.
+      Когда два тела сталкиваются, учитываются параметры трения и реституции обоих тел.
     </p>
 
 
@@ -231,58 +233,58 @@
     <h3>get body param</h3>
 
     <p>
-    Gets a parameter from the physics body associated with a specified object.
+      Получает параметр из физического тела, связанного с указанным объектом.
     </p>
 
     <img src="files/puzzles/puzzles-physics-get-body-param.jpg">
 
-    <p>Parameters:</p>
+    <p>Параметры:</p>
 
     <ul>
       <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping.
+        *angular damping* - коэффициент сопротивления, который будет замедлять вращающийся объект: 0 - демпфирование отсутствует, 1 - максимальное демпфирование.
       </li>
       <li>
-        *angular factor* - rotational degrees of freedom for the specified body (XYZ).
+        *angular factor* - степени свободного вращения для указанного тела (XYZ).
       </li>
       <li>
-        *angular velocity* - rotation speed vector.
+        *angular velocity* - вектор скорости вращения.
       </li>
       <li>
-        *ccd motion threshold* - motion threshold used for simulating Continuous Collision Detection (CCD) physics.
+        *ccd motion threshold* - порог движения, используемый для моделирования физики непрерывного обнаружения столкновений (CCD).
       </li>
       <li>
-        *ccd swept sphere radius* - radius of the swept spere used for simulating Continuous Collision Detection (CCD) physics.
+        *ccd swept sphere radius* - радиус сферы, используемой для моделирования физики непрерывного обнаружения столкновений (CCD).
       </li>
       <li>
-        *force* - force vector applied to the body.
+        *force* - вектор силы, приложенной к телу.
       </li>
       <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
+        *friction* - коэффициент сопротивления относительному движению твердых тел, скользящих друг относительно друга.
       </li>
       <li>
-        *gravity* - gravity vector applied to a body.
+        *gravity* - вектор силы тяжести, приложенный к телу.
       </li>
       <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration).
+        *linear damping* - коэффициент сопротивления, который будет замедлять движущийся объект: 0 - отсутствие демпфирования (например, свободное падение), 1 - максимальное демпфирование (например, объект падает без ускорения).
       </li>
       <li>
-        *linear factor* - positional degrees of freedom for the specified body (XYZ).
+        *linear factor* - степени свободного перемещения для указанного тела (XYZ).
       </li>
       <li>
-        *linear velocity* - movement speed vector.
+        *linear velocity* - вектор скорости движения.
       </li>
       <li>
-        *position* - body XYZ position.
+        *position* - положение тела XYZ.
       </li>
       <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
+        *restitution* - коэффициент упругости: 0 - тело не упругое, как глина, 1 - тело ведет себя как сделанное из резины.
       </li>
       <li>
-        *stiffness* - stiffness of soft bodies like volumes and ropes.
+        *stiffness* - жесткость мягких тел, например канатов и тел имеющих объем.
       </li>
       <li>
-        *torque* - torque vector applied to the body.
+        *torque* - вектор крутящего момента, приложенного к телу.
       </li>
     </ul>
 
@@ -292,33 +294,34 @@
 
     <h3>physics body params</h3>
 
-    <p class="red">This puzzle is now deprecated. Please use <a href="manual/ru/puzzles/Physics.html#apply_body_param">apply body param</a> instead.</span>
-
+    <p class="red">
+      Этот пазл теперь устарел. Вместо него используйте <a href="manual/ru/puzzles/Physics.html#apply_body_param">apply body param</a>. 
+      </span>
     <p>
-    Sets parameters for the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Задает параметры для физического тела, связанного с указанным объектом. Также работает для списка объектов, группы (или списка групп) или с пазлом <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
 
     <img src="files/puzzles/puzzles-physics-body-params.jpg">
 
-    <p>Parameters:</p>
+    <p>Параметры:</p>
 
     <ul>
       <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
+        *friction* - коэффициент сопротивления относительному движению твердых тел, скользящих друг относительно друга.
       </li>
       <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
+        *linear damping* - коэффициент сопротивления, который замедлит движущийся объект: 0 - нет демпфирования (например, свободное падение), 1 - максимальное демпфирование (например, объект падает без ускорения). Входные значения ограничены диапазоном [0, 1].
       </li>
       <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
+        *angular damping* - коэффициент сопротивления, который замедлит вращающийся объект: 0 - демпфирование отсутствует, 1 - максимальное демпфирование. Входные значения ограничены диапазоном [0, 1].
       </li>
       <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
+        *restitution* - коэффициент упругости: 0 - тело не упругое, как глина, 1 - тело ведет себя как сделанное из резины.
       </li>
     </ul>
 
     <p>
-    When two bodies collide, friction and restitution parameters of both of them are taken into consideration.
+      Когда два тела сталкиваются, учитываются параметры трения и реституции обоих тел.
     </p>
 
     <img src="files/puzzles/puzzles-physics-body-params-example.jpg" style="max-width: 903px">
@@ -328,48 +331,50 @@
 
     <h3>apply vector</h3>
 
-    <p class="red">This puzzle is now deprecated. Please use <a href="manual/ru/puzzles/Physics.html#apply_body_param">apply body param</a> instead.</span>
+    <p class="red">
+      Этот пазл теперь устарел. Вместо него используйте параметр 
+       <a href="manual/ru/puzzles/Physics.html#apply_body_param">apply body</a>.</span>
 
     <p>
-      Applies *Force*, *Gravity*, *Linear Velocity*, *Angular Velocity*, *Impulse*, *Torque*, *Torque Impulse* or *Position* to the physics body associated with a specified object, in a specified direction in world space. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Применяется *Force*, *Gravity*, *Linear Velocity*, *Angular Velocity*, *Impulse*, *Torque*, *Torque Impulse* или *Position* к физическому телу, связанному с указанным объектом, в указанном направлении в мировом пространстве. Также работает для списка объектов, группы (или списка групп) или с пазлом <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
 
     <img src="files/puzzles/puzzles-physics-apply-vector.jpg">
 
     <p>
-    Parameters:
+    Параметры:
     </p>
 
     <ul>
       <li>
-        *force* - push a body in a specified direction.
+        *force* - толкать тело в заданном направлении.
       </li>
       <li>
-        *gravity* - assign gravity individually for a specified body.
+        *gravity* - назначить гравитацию индивидуально для определенного тела.
       </li>
       <li>
-        *linear velocity* - set movement speed.
+        *linear velocity* - установить скорость движения.
       </li>
       <li>
-        *angular velocity* - set rotation speed.
+        *angular velocity* - установить скорость вращения.
       </li>
       <li>
-        *impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
+        *impulse* -  действует как *Linear Velocity*, но также учитывает массу тела (более тяжелые объекты приобретают меньшую скорость).
       </li>
       <li>
-        *torque* - spin a body in a specified direction.
+        *torque* - вращает тело в заданном направлении.
       </li>
       <li>
-        *torque impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
+        *torque impulse* - действует как *Angular Velocity*, но учитывает массу тела (более тяжелые объекты приобретают меньшую скорость вращения).
       </li>
       <li>
-        *linear factor* - set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
+        *linear factor* - установить степени свободного позиционирования для указанного тела. Например, установив компонент Z равным нулю, можно отключить движение тела вверх-вниз (Blender, Max) или вперед-назад (Maya).
       </li>
       <li>
-        *angular factor* - set rotational degrees of freedom for the specified body. For example by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
+        *angular factor* - установить степени свободного вращения для указанного тела. Например, установив компонент Z равным нулю, можно запретить вращение тела вокруг оси вверх-вниз (Blender, Max) или вперед-назад (Maya).
       </li>
       <li>
-        *position* - set body position (works like the <a href="manual/ru/puzzles/Physics.html#snap_body">snap body</a> puzzle).
+        *position* - установить положение тела (работает как пазл <a href="manual/ru/puzzles/Physics.html#snap_body">snap body</a>).
       </li>
     </ul>
 
@@ -379,49 +384,49 @@
     <h3>set body state</h3>
 
     <p>
-      Change the state to the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Изменение состояния физического тела, связанного с указанным объектом. Также работает для списка объектов, группы (или списка групп) или с пазлом <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
 
     <img src="files/puzzles/puzzles-physics-set-body-state.jpg" class="centered" style="max-width: 764px">
 
-    <p>Parameters:</p>
+    <p>Параметры:</p>
 
     <ul>
       <li>
-        *activate* - activate sleeping physics body.
+        *activate* - активировать спящее физическое тело.
       </li>
       <li>
-        *sleep* - force sleeping state for the body.
+        *sleep* - усыпить физическое тело.
       </li>
       <li>
-        *enable simulation* - enable body simulation (enabled by default).
+        *enable simulation* - включить симуляцию тела (по умолчанию включено).
       </li>
       <li>
-        *disable simulation* - disable body simulation.
+        *disable simulation* - отключить симуляцию тела.
       </li>
       <li>
-        *reset* - clear all forces and velocities applied to the physics body.
+        *reset* - очистить все силы и скорости, приложенные к физическому телу.
       </li>
       <li>
-        *enable contact response* - allow body to collide with other bodies (enabled by default).
+        *enable contact response* - разрешить телу сталкиваться с другими телами (включено по умолчанию).
       </li>
       <li>
-        *disable contact response* - disable body colliding.
+        *disable contact response* - отключить столкновение тел.
       </li>
       <li>
-        *make dynamic* - make body dynamic.
+        *make dynamic* - придать телу динамику.
       </li>
       <li>
-        *make kinematic* - make body kinematic.
+        *make kinematic* - придать телу кинематическую форму.
       </li>
       <li>
-        *make static* - make body static.
+        *make static* - сделать тело статичным.
       </li>
       <li>
-        *enable deactivation* - allow body to turn into sleeping state after a period of inactivity (enabled by default).
+        *enable deactivation* - позволять телу переходить в спящее состояние после некоторого периода бездействия (включено по умолчанию).
       </li>
       <li>
-        *disable deactivation* - disable body sleeping.
+        *disable deactivation* - отключить засыпание тела.
       </li>
     </ul>
 
@@ -431,13 +436,13 @@
     <h3>on simulation tick</h3>
 
     <p>
-      Trigger puzzles specified in the *do" slot <em>just before</em> or <em>just after</em> the physics simulation tick.
+      Запуск пазлов, указанных в слоте *do", <em>непосредственно перед</em> или <em>сразу после</em> тика симуляции физики.
     </p>
 
     <img src="files/puzzles/puzzles-physics-on-simulation-tick.jpg" class="centered" style="max-width: 817px">
 
     <p>
-      Physics simulation tick corresponds to the FPS value specified when creating <a href="manual/ru/puzzles/Physics.html#create_physics_world">physics world</a> and does not coincide with rendering frame. As such, we recommend that you apply forces/velocities/impulses *before* simulation tick and detect collisions between your bodies *after* simulation tick. This way you can achieve more stable and realistic simulations.
+      Тик симуляции физики соответствует значению FPS, указанному при создании <a href="manual/ru/puzzles/Physics.html#create_physics_world">physics world</a>, и не совпадает с кадром рендеринга. Поэтому мы рекомендуем применять силы/скорости/импульсы *до* тика симуляции и определять столкновения между телами *после* тика симуляции. Таким образом, вы сможете добиться более стабильной и реалистичной симуляции.
     </p>
 
 
@@ -446,12 +451,12 @@
     <h3>snap body</h3>
 
     <p>
-    Moves a physics body associated with a specified object, and the object itself, to the position of another object by copying its transform data. Also copies rotation. Does not work with lists, groups or the "all objects" puzzle.
+      Перемещает физическое тело, связанное с указанным объектом, и сам объект в положение другого объекта, копируя его данные преобразования. Также копируется вращение. Не работает со списками, группами или пазлом "all objects".
     </p>
 
     <img src="files/puzzles/puzzles-physics-snap-body.jpg">
 
-    <p>Works similar to *apply body param / position* puzzle.</p>
+    <p>Работает аналогично пазлу *apply body param / position*.</p>
 
 
     [anchor:add_physics_constraint]
@@ -459,28 +464,28 @@
     <h3>add constraint to</h3>
 
     <p>
-      Connect two physics bodies by a constraint of the given type.
+      Соединяет два физических тела ограничением заданного типа.
     </p>
 
     <img src="files/puzzles/puzzles-physics-add-physics-constraint.jpg">
 
-    <p>Constraint types:</p>
+    <p>Виды ограничений:</p>
 
     <ul>
       <li>
-        *hinge* - connect the bodies by the shared axis.
+        *hinge* - соединить тела общей осью.
       </li>
       <li>
-        *ball* - connect the bodies by the ball-shaped socket.
+        *ball* - соедините тела с помощью шарообразного гнезда.
       </li>
       <li>
-        *slider* - limit movement of the bodies by the direction along the X axis.
+        *slider* - ограничить движение тел направлением вдоль оси X.
       </li>
       <li>
-        *spring* - connect two bodies by the spring-like joint.
+        *spring* - соединяют два тела с помощью пружинного шарнира.
       </li>
       <li>
-        *fixed* - connect two bodies tightly.
+        *fixed* - плотно соединяют два тела.
       </li>
     </ul>
 
@@ -492,7 +497,7 @@
     <h3>remove constraint from</h3>
 
     <p>
-      Remove physics constraint.
+      Удалите физическое ограничение.
     </p>
 
     <img src="files/puzzles/puzzles-physics-remove-physics-constraint.jpg">
@@ -503,7 +508,7 @@
     <h3>anchor soft body</h3>
 
     <p>
-      Anchor soft body to a given rigid body at the point in space represented by the given vector.
+      Привязка мягкого тела к заданному жесткому телу в точке пространства, представленной заданным вектором.
     </p>
 
     <img src="files/puzzles/puzzles-physics-anchor-soft-body.jpg">
@@ -517,37 +522,37 @@
     <h3>detect collisions and collision info</h3>
 
     <p>
-    Detects if there is a collision at the moment of a specified body with another body (or any body from a list or a group). If there is a collision, the puzzles in the "if touching do" slot are triggered, otherwise - in the "if not touching do".
+      Определяет, есть ли столкновение в данный момент указанного тела с другим телом (или любым телом из списка или группы). Если столкновение произошло, срабатывают пазлы в слоте "if touching do", иначе - в слоте "if not touching do".
     </p>
 
     <p>
-    The "detect collisions" puzzle triggers either of its callback slots every rendering frame.
+      Пазл "detect collisions" запускает любой из своих слотов обратного вызова каждый кадр рендеринга.
     </p>
 
     <img src="files/puzzles/puzzles-physics-detect-collisions.jpg">
 
     <p>
-    The *collision info* puzzle outputs a <a href="manual/ru/puzzles/Dictionaries.html">dictionary</a> with the following fields:
+    Пазл *collision info* выводит <a href="manual/ru/puzzles/Dictionaries.html">словарь</a> со следующими полями:
     </p>
 
     <ul>
       <li>
-        *objectA* - the name of the first colliding body.
+        *objectA* - имя первого столкнувшегося тела.
       </li>
       <li>
-        *objectB* - the name of the second colliding body.
+        *objectB* - имя второго сталкивающегося тела.
       </li>
       <li>
-        *distance* - distance between points of collisions.
+        *distance* - расстояние между точками столкновений.
       </li>
       <li>
-        *positionOnA* - XYZ coordinates of the collision point on the first object.
+        *positionOnA* - XYZ координаты точки столкновения на первом объекте.
       </li>
       <li>
-        *positionOnB* - XYZ coordinates of the collision point on the second object.
+        *positionOnB* - XYZ координаты точки столкновения на втором объекте.
       </li>
       <li>
-        *normalOnB* - XYZ components of the normal vector at the collision point on the second object.
+        *normalOnB* - XYZ компоненты вектора нормали в точке столкновения на втором объекте.
       </li>
     </ul>
 
@@ -556,26 +561,30 @@
 
     [anchor:extending_with_javascript]
 
-    <h2>Extending with JavaScript</h2>
+    <h2>Расширение с помощью JavaScript</h2>
 
-    <p class="note">Before you start reading, please get familiar with the <a href="manual/ru/introduction/Using-JavaScript.html">Using JavaScript</a> section of this User Manual</a>.</p>
+    <p class="note">Перед началом чтения, пожалуйста, ознакомьтесь с разделом <a href="manual/ru/introduction/Using-JavaScript.html">Использование JavaScript</a> данного руководства пользователя.</p>
 
-    <p>To build physics puzzles we use a JavaScript library called Ammo.js. This library is basically the popular Bullet physics engine compiled to be used in the browser.</p>
+    <p>Для создания физических пазловмы используем библиотеку JavaScript под названием Ammo.js. Эта библиотека представляет собой популярный физический движок Bullet, скомпилированный для использования в браузере.</p>
 
-    <p>To get familiar with Bullet, check out the <a href="https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf" target="_blank">Bullet Physics SDK Manual</a> available on GitHub as well as official <a href="https://pybullet.org/Bullet/BulletFull/index.html" target="_blank">Bullet API Reference</a>.</p>
+    <p>
+      Чтобы познакомиться с Bullet, ознакомьтесь с руководством по <a href="https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf" target="_blank">Bullet Physics SDK</a>, доступным на GitHub, а также с официальным справочником <a href="https://pybullet.org/Bullet/BulletFull/index.html" target="_blank">Bullet API Reference</a>.
+    </p>
 
-    <p>In Verge3D you can execute Bullet/Ammo.js APIs directly by using the Ammo namespace:</p>
+    <p>В Verge3D вы можете выполнять API Bullet/Ammo.js напрямую, используя пространство имен Ammo:</p>
 
     <code>
 var myVector = new Ammo.btVector3(1.0, 0.0, 0.0);
 console.log('My physics vector is:', myVector.x(), myVector.y(), myVector.z());
     </code>
 
-    <p>Also you can get access to the following data structures we use in Puzzles:</p>
+    <p>Также вы можете получить доступ к следующим структурам данных, которые мы используем в пазлах:</p>
 
     <h3>World</h3>
 
-    <p>Depending on the initialized physics world it can be an instance to <a href="https://pybullet.org/Bullet/BulletFull/classbtDiscreteDynamicsWorld.html">btDiscreteDynamicsWorld</a> or <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftRigidDynamicsWorld.html" target="_blank">btSoftRigidDynamicsWorld</a> class:</p>
+    <p>
+      В зависимости от инициализированного физического мира он может быть экземпляром класса <a href="https://pybullet.org/Bullet/BulletFull/classbtDiscreteDynamicsWorld.html">btDiscreteDynamicsWorld</a> или <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftRigidDynamicsWorld.html" target="_blank">btSoftRigidDynamicsWorld</a>:
+    </p>
 
     <code>
 var gravity = v3d.puzzles.physics.world.getGravity();
@@ -584,29 +593,30 @@ console.log('World gravity:', gravity.y());
 
     <h3>Physics Bodies</h3>
 
-    <p>Physics bodies are stored as key-value data inside the <strong>v3d.puzzles.physics.bodies</strong> object:</p>
+    <p>Физические тела хранятся как данные с ключевым значением внутри объекта <strong>v3d.puzzles.physics.bodies</strong>:</p>
 
     <code>
 var body = v3d.puzzles.physics.bodies['Whirligig'];
 console.log('Body mass:', 1.0 / body.getInvMass());
     </code>
 
-    <p>Rigid bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtRigidBody.html" target="_blank">btRigidBody</a> class, while soft bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftBody.html" target="_blank">btSoftBody</a> class.
-
+    <p>
+      Жесткие тела являются экземплярами класса <a href="https://pybullet.org/Bullet/BulletFull/classbtRigidBody.html" target="_blank">btRigidBody</a>, а мягкие тела - экземплярами класса <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftBody.html" target="_blank">btSoftBody</a>. 
+    
     <h3>Physics Constraints</h3>
 
-    <p>Bullet/Ammo constraints are stored as key-value data inside the two-dimensional <strong>v3d.puzzles.physics.constraints</strong> object:</p>
+    <p>Ограничения на пули/патроны хранятся в виде ключевых значений внутри двумерного объекта <strong>v3d.puzzles.physics.constraints</strong>:</p>
 
     <code>
 var hingeConstraint = v3d.puzzles.physics.constraints['Suzanne']['Axis'];
 hingeConstraint.enableAngularMotor(true, 10, 10);
     </code>
 
-    <p>The names represent the constraint's first and second bodies respectively.</p>
+    <p>Эти имена представляют первое и второе тела ограничения соответственно.</p>
 
     <h3>Physics Sync List</h3>
 
-    <p>Verge3D puzzles use the so-called synchronization list to move objects represented by physics bodies in space. Sync list is not directly accessible, so you need to use the following API methods to add/remove your bodies to/from that list.</p>
+    <p>Пазлы Verge3D используют так называемый список синхронизации для перемещения объектов, представленных физическими телами, в пространстве. Список синхронизации недоступен напрямую, поэтому для добавления/удаления тел в/из этого списка необходимо использовать следующие методы API.</p>
 
     <code>
 // add obj / body to the sync list
@@ -619,9 +629,9 @@ v3d.puzzles.physics.removeFromSyncList(obj, body);
 
 
 
-    <h2>Having Troubles with Puzzles?</h2>
+    <h2>Проблемы с Пазлами?</h2>
 
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Обратитесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

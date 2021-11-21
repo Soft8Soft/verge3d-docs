@@ -10,116 +10,111 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A [link:https://webglfundamentals.org/webgl/lessons/webgl-render-to-texture.html render target] is a buffer
-      where the video card draws pixels for a scene that  is being rendered in the background.
-      It is used in different effects, such as applying postprocessing to a rendered image
-      before displaying it on the screen.
+      [link:https://webglfundamentals.org/webgl/lessons/webgl-render-to-texture.html Render target] это буфер куда видеокарта выводит пиксели для сцены, которая рендерится в фоновом режиме. Он используется в различных эффектах, например, для применения постобработки к отрисованному изображению перед его выводом на экран.
     </p>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
 
     <h3>[name]([param:Number width], [param:Number height], [param:Object options])</h3>
 
     <p>
-    [page:Float width] - The width of the renderTarget. <br />
-    [page:Float height] - The height of the renderTarget.<br />
-    options - (optional object that holds texture parameters for an auto-generated target
-    texture and depthBuffer/stencilBuffer booleans.
+    [page:Float width] - Ширина renderTarget. <br />
+    [page:Float height] - Высота renderTarget.<br />
+    options - (необязательный объект, содержащий параметры текстуры для автогенерируемой целевой текстуры и булевы depthBuffer/stencilBuffer.
 
-    For an explanation of the texture parameters see [page:Texture Texture]. The following are
-    valid options:<br /><br />
+    Объяснение параметров текстуры см. в [page:Texture Texture]. Ниже перечислены допустимые параметры:<br /><br />
 
-    [page:Constant wrapS] - default is [page:Textures ClampToEdgeWrapping]. <br />
-    [page:Constant wrapT] - default is [page:Textures ClampToEdgeWrapping]. <br />
-    [page:Constant magFilter] - default is [page:Textures LinearFilter]. <br />
-    [page:Constant minFilter] - default is [page:Textures LinearFilter]. <br />
-    [page:Constant format] - default is [page:Textures RGBAFormat]. <br />
-    [page:Constant type] - default is [page:Textures UnsignedByteType]. <br />
-    [page:Number anisotropy] - default is *1*. See [page:Texture.anisotropy]<br />
-    [page:Constant encoding] - default is [page:Textures LinearEncoding]. <br />
-    [page:Boolean depthBuffer] - default is *true*. Set this to false if you don't need it. <br />
-    [page:Boolean stencilBuffer] - default is *false*. Set this to true if you need it.<br /><br />
+    [page:Constant wrapS] - по умолчанию [page:Textures ClampToEdgeWrapping]. <br />
+    [page:Constant wrapT] - по умолчанию [page:Textures ClampToEdgeWrapping]. <br />
+    [page:Constant magFilter] - по умолчанию [page:Textures LinearFilter]. <br />
+    [page:Constant minFilter] - по умолчанию [page:Textures LinearFilter]. <br />
+    [page:Constant format] - по умолчанию [page:Textures RGBAFormat]. <br />
+    [page:Constant type] - по умолчанию [page:Textures UnsignedByteType]. <br />
+    [page:Number anisotropy] - по умолчанию *1*. См. [page:Texture.anisotropy]<br />
+    [page:Constant encoding] - по умолчанию [page:Textures LinearEncoding]. <br />
+    [page:Boolean depthBuffer] - по умолчанию *true*. Установите значение false, если он вам не нужен. <br />
+    [page:Boolean stencilBuffer] - по умолчанию *false*. Установите значение true, если он вам не нужен.<br /><br />
 
     Creates a new [name]
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:number width]</h3>
     <p>
-    The width of the render target.
+    Ширина render target.
     </p>
 
     <h3>[property:number height]</h3>
     <p>
-    The height of the render target.
+    Высота render target.
     </p>
 
     <h3>[property:Vector4 scissor]</h3>
     <p>
-    A rectangular area inside the render target's viewport. Fragments that are outside the area will be discarded.
+    Прямоугольная область внутри вьюпорта объекта рендеринга. Фрагменты, находящиеся за пределами этой области, будут игнорированы.
     </p>
 
     <h3>[property:Boolean scissorTest]</h3>
     <p>
-    Indicates whether the scissor test is active or not.
+    Указывает, активен или нет ножницный тест.
     </p>
 
     <h3>[property:Vector4 viewport]</h3>
     <p>
-    The viewport of this render target.
+    Вьюпорт render target.
     </p>
 
     <h3>[property:Texture texture]</h3>
     <p>
-    This texture instance holds the rendered pixels. Use it as input for further processing.
+      Этот экземпляр текстуры содержит отрисованные пиксели. Используйте его в качестве исходного материала для дальнейшей обработки.
     </p>
 
     <h3>[property:Boolean depthBuffer]</h3>
     <p>
-    Renders to the depth buffer. Default is true.
+      Рендеринг в буфер глубины. По умолчанию - true.
     </p>
 
     <h3>[property:Boolean stencilBuffer]</h3>
     <p>
-    Renders to the stencil buffer. Default is false.
+      Рендеринг в буфер стенсила. По умолчанию false.
     </p>
 
     <h3>[property:DepthTexture depthTexture]</h3>
     <p>
-    If set, the scene depth will be rendered to this texture. Default is null.
+      Если установлено, то глубина сцены будет отрисовываться на эту текстуру. По умолчанию - null.
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:null setSize]([param:Number width], [param:Number height])</h3>
     <p>
-    Sets the size of the render target.
+      Устанавливает размер render target.
     </p>
 
     <h3>[method:WebGLRenderTarget clone]()</h3>
     <p>
-    Creates a copy of this render target.
+      Создает копию этого render target.
     </p>
 
     <h3>[method:WebGLRenderTarget copy]([param:WebGLRenderTarget source])</h3>
     <p>
-    Adopts the settings of the given render target.
+      Принимает настройки данного render target.
     </p>
 
     <h3>[method:null dispose]()</h3>
     <p>
-    Dispatches a dispose event.
+      Отправляет событие удаления.
     </p>
 
 
 
 
 
-    <h3>[page:EventDispatcher EventDispatcher] methods are available on this class.</h3>
+    <h3>[page:EventDispatcher EventDispatcher] методы доступны для этого класса.</h3>
 
     [sourceHint]
   </body>

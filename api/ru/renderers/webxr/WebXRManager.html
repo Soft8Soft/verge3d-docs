@@ -12,72 +12,70 @@
 
     <p class="desc">
 
-      This class represents an abstraction of the WebXR Device API and is internally used by [page:WebGLRenderer].
-      [name] also provides a public interface that allows users to enable/disable XR and perform XR related tasks like
-      for instance retrieving controllers.
+      Этот класс представляет собой абстракцию WebXR Device API и внутренне используется [page:WebGLRenderer]. [name] также предоставляет публичный интерфейс, который позволяет пользователям включать/выключать XR и выполнять связанные с XR задачи, такие как
+      например, извлечение контроллеров.
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Boolean enabled]</h3>
     <p>
-    This flag notifies the renderer to be ready for XR rendering. Default is *false*. Set it to *true* if you are going
-    to use XR in your app.
+      Это свойство уведомляет рендерер о готовности к XR-рендерингу. По умолчанию *false*. Установите его в *true*, если вы собираетесь
+      использовать XR в своем приложении.
     </p>
 
     <h3>[property:Boolean isPresenting]</h3>
     <p>
-    Whether XR presentation is active or not. Default is *false*. This flag is read-only and automatically set by [name].
+      Является ли презентация XR активной или нет. По умолчанию *false*. Это свойство доступно только для чтения и автоматически устанавливается [name].
     </p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:Group getController]([param:Integer index])</h3>
     <p>
-    [page:Integer index] — The index of the controller. <br /><br />
+    [page:Integer index] — Индекс контроллера. <br /><br />
 
-    Returns a [page:Group] representing the so called *target ray* space of the controller.
-    Use this space for visualizing 3D objects that support the user in pointing tasks like UI interaction.
+    Возвращает [page:Group], представляющий так называемое пространство *целевых лучей* контроллера.
+    Используйте это пространство для визуализации 3D-объектов, которые помогают пользователю в задачах наведения, таких как взаимодействие с пользовательским интерфейсом.
     </p>
 
     <h3>[method:Group getControllerGrip]([param:Integer index])</h3>
     <p>
-    [page:Integer index] — The index of the controller. <br /><br />
+    [page:Integer index] — Индекс контроллера. <br /><br />
 
-    Returns a [page:Group] representing the so called *grip* space of the controller.
-    Use this space if the user is going to hold other 3D objects like a lightsaber.
+    Возвращает [page:Group], представляющий так называемое пространство *grip* контроллера.
+    Используйте это пространство, если пользователь собирается держать другие 3D объекты, например световой меч.
     </p>
 
     <p>
-    Note: If you want to show something in the user's hand AND offer a pointing ray at the same time, you'll want to attached the handheld object to the
-    group returned by [page:.getControllerGrip]()  and the ray to the group returned by [page:.getController](). The idea is to have two different groups
-    in two different coordinate spaces for the same WebXR controller.
+      Примечание: Если вы хотите одновременно показать что-то в руке пользователя и предложить луч наведения, вам нужно прикрепить удерживаемый объект к
+      группе, возвращаемой [page:.getControllerGrip](), а луч - к группе, возвращаемой [page:.getController](). Идея заключается в том, чтобы иметь две разные группы
+      в двух разных координатных пространствах для одного и того же контроллера WebXR.
     </p>
 
     <h3>[method:void setFramebufferScaleFactor]([param:Float framebufferScaleFactor])</h3>
     <p>
-    [page:Float framebufferScaleFactor] — The framebuffer scale factor to set.<br /><br />
+    [page:Float framebufferScaleFactor] — Коэффициент масштабирования буфера фрейма для установки.<br /><br />
 
-    Specifies the scaling factor to use when determining the size of the framebuffer when rendering to a XR device.
-    The value is relative to the default XR device display resolution. Default is *1*. A value of *0.5* would specify
-    a framebuffer with 50% of the display's native resolution.
+    Указывает коэффициент масштабирования, используемый при определении размера буфера фрейма при рендеринге на XR-устройстве.
+    Значение задается относительно разрешения дисплея устройства XR по умолчанию. По умолчанию *1*. Значение *0.5* определяет
+    фреймбуфер с 50% от исходного разрешения дисплея.
     </p>
 
     <p>
-    Note: It is not possible to change the framebuffer scale factor while presenting XR content.
+      Примечание: Невозможно изменить коэффициент масштабирования буфера фрейма при отображении XR-контента.
     </p>
 
     <h3>[method:void setReferenceSpaceType]([param:String referenceSpaceType])</h3>
     <p>
-    [page:String referenceSpaceType] — The reference space type to set.<br /><br />
+    [page:String referenceSpaceType] — Тип пространства референса для установки.<br /><br />
 
-    Can be used to configure a spatial relationship with the user's physical environment. Depending on how the user moves in 3D space, setting an
-    appropriate reference space can improve tracking. Default is *local-floor*.
-    Please check out the [link:https://developer.mozilla.org/en-US/docs/Web/API/XRReferenceSpaceType MDN] for possible values and their use cases.
+    Может использоваться для настройки пространственных отношений с физическим окружением пользователя. В зависимости от того, как пользователь перемещается в трехмерном пространстве, установка соответствующего опорного пространства может улучшить отслеживание. По умолчанию *local-floor*.
+    Пожалуйста, посмотрите в  [link:https://developer.mozilla.org/en-US/docs/Web/API/XRReferenceSpaceType MDN] возможные значения и случаи их использования.
     </p>
 
     <p>
-    Note: It is not possible to change the reference space type while presenting XR content.
+      Примечание: Невозможно изменить тип опорного пространства во время представления XR-контента.
     </p>
 
     [sourceHint]
