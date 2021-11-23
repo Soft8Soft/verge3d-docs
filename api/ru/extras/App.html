@@ -14,12 +14,10 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      App class allows you to set up your 3D application more easily. It
-      includes code to init WebGL renderer, load glTF scenes, auto-start
-      animations as well as logic for basic camera controls.
+      Класс App позволяет упростить настройку 3D-приложения. Он включает код для инициализации WebGL рендерера, загрузки glTF сцен, автоматического запуска анимации, а также логику для основных элементов управления камерой.
     </p>
 
-    <h2>Example</h2>
+    <h2>Пример</h2>
 
     <code>
     // loaded GLTF 2.0 asset
@@ -40,57 +38,57 @@
     }
     </code>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name](container, ctxSettings, preloader)</h3>
     <p>
-      container - the id of an HTML-element or the HTML-element itself to contain the canvas.<br />
-      ctxSettings - the WebGL context attributes to be passed in the <strong>canvas.getContext()</strong> method.<br />
-      preloader - the instance of application's [page:Preloader Preloader] class.<br />
+      container - идентификатор HTML-элемента или сам HTML-элемент для размещения canvas.<br />
+      ctxSettings - атрибуты контекста WebGL, которые должны быть переданы в методе <strong>canvas.getContext()</strong> .<br />
+      preloader - экземпляр класса [page:Preloader Preloader] приложения.<br />
     </p>
 
-    <p>This constructor does the following:</p>
+    <p>Этот конструктор делает следующее:</p>
 
     <ol>
-      <li>Creates a new container element (if necessary).</li>
-      <li>Checks whether WebGL technology is supported, if not displays an error dialog.</li>
-      <li>Initializes an application clock.</li>
-      <li>Creates a new 3D canvas with WebGL 1.0 or WebGL 2.0 context and adds it to the container element.</li>
-      <li>Initializes a GLTF loader.</li>
-      <li>Adds an app instance to <strong>v3d.apps</strong> list (in case of non-modularized engine).</li>
+      <li>Создает новый элемент контейнера (если необходимо).</li>
+      <li>Проверяет, поддерживается ли технология WebGL, если нет, выводит диалог об ошибке.</li>
+      <li>Инициализирует часы приложения.</li>
+      <li>Создает новый 3D canvas с контекстом WebGL 1.0 или WebGL 2.0 и добавляет его к элементу контейнера.</li>
+      <li>Инициализирует загрузчик GLTF.</li>
+      <li>Добавляет экземпляр приложения в список <strong>v3d.apps</strong> (в случае немодулированного движка).</li>
     </ol>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Array actions]</h3>
 
-    <p>Array of [page:AnimationAction animation actions] used to schedule app animations. Instead of accessing this list directly you can also use the [page:SceneUtils.getAnimationActionByName getAnimationActionByName] method to search for an action by its clip name.</p>
+    <p>Массив [page:AnimationAction animation actions], используемых для планирования анимаций приложения. Вместо прямого доступа к этому списку можно также использовать метод [page:SceneUtils.getAnimationActionByName getAnimationActionByName] для поиска действия по имени клипа.</p>
 
     <h3>[property:Boolean clearBkgOnLoad]</h3>
 
-    <p>Set the scene background to *null* after loading a glTF scene. Default is *false*.</p>
+    <p>Устанавливает фон сцены на *null* после загрузки сцены glTF. По умолчанию *false*.</p>
 
     <h3>[property:HTMLElement container]</h3>
 
-    <p>A container element. This is a parent element for 3D Canvas used for rendering operations.</p>
+    <p>Элемент контейнера. Это родительский элемент для 3D Canvas, используемый для операций рендеринга.</p>
 
     <h3>[property:Scene scene]</h3>
 
-    <p>Application main scene.</p>
+    <p>Главная сцена приложения.</p>
 
     <h3>[property:Camera camera]</h3>
 
-    <p>Application main camera.</p>
+    <p>Главная камера приложения.</p>
 
     <h3>[property:Clock clock]</h3>
 
-    <p>Application clock object.</p>
+    <p>Объект часов приложения.</p>
 
     <h3>[property:Array compileCallbacks]</h3>
 
-    <p>Array of functions which will be called just before shader compilation. Shader compilation occurs during scene loading right after all assets (glTF metadata, binary, textures) has been fetched.</p>
+    <p>Массив функций, которые будут вызваны непосредственно перед компиляцией шейдера. Компиляция шейдеров происходит во время загрузки сцены, сразу после того, как все ассеты (метаданные glTF, бинарные файлы, текстуры) были получены.</p>
 
-    <p>Use compile callback to enable post-processing or add fog, since adding these effects in runtime can negatively affect performance.</p>
+    <p>Используйте обратный вызов компиляции для включения постобработки или добавления тумана, поскольку добавление этих эффектов во время выполнения может негативно сказаться на производительности.</p>
 
     <code>
 
@@ -118,238 +116,216 @@
 
     <h3>[property:null controls]</h3>
 
-    <p>Application main camera controls object.</p>
+    <p>Объект управления главной камерой приложения.</p>
 
     <h3>[property:Number frame]</h3>
 
-    <p>Current rendering frame of the application.</p>
+    <p>Текущий кадр рендеринга приложения.</p>
 
     <h3>[property:Number frameRateDivider]</h3>
 
-    <p>Application FPS divider. Use [page:.setFrameRateDivider setFrameDivider] to set this value.</p>
+    <p>Делитель FPS приложения. Используйте [page:.setFrameRateDivider setFrameDivider] для установки этого значения.</p>
 
     <h3>[property:AnimationMixer mixer]</h3>
 
-    <p>Mixer used to play animations loaded from glTF data.</p>
+    <p>Микшер, используемый для воспроизведения анимации, загруженной из данных glTF.</p>
 
     <h3>[property:HTMLElement preloader]</h3>
 
-    <p>App preloader element (exists only during scene loading)</p>
+    <p>Элемент предзагрузки приложения (существует только во время загрузки сцены)</p>
 
     <h3>[property:WebGLRenderer renderer]</h3>
 
-    <p>Application WebGL renderer.</p>
+    <p>Рендерер WebGL приложения.</p>
 
     <h3>[property:Array renderCallbacks]</h3>
 
-    <p>Array of functions which will be called every time when rendering begins.</p>
+    <p>Массив функций, которые будут вызываться каждый раз, когда начинается рендеринг.</p>
 
     <h3>[property:GLTFLoader loader]</h3>
 
-    <p>Application glTF loader.</p>
+    <p>Загрузчик glTF приложения.</p>
 
     <h3>[property:Number worldCubemapRes]</h3>
 
-    <p>Resolution of the cubemap texture representing the world material. Default is 1024.</p>
+    <p>Разрешение текстуры cubemap, представляющей материал мира. По умолчанию - 1024.</p>
 
     <h3>[property:Material worldMaterial]</h3>
 
     <p>
-        <span style="color:#f00">Deprecated.</span> Use [page:Scene.worldMaterial]
-        instead. This is the material used to generate world environment.
+        <span style="color:#f00">Устаревшее.</span> Вместо этого, используйте [page:Scene.worldMaterial]. Это материал, используемый для создания окружения мира.
     </p>
 
     <h3>[property:Array xrControllers]</h3>
 
-    <p>Array of controller objects for the active WebXR session.</p>
+    <p>Массив объектов контроллера для активной сессии WebXR.</p>
 
     <h3>[property:XRSession xrSession]</h3>
 
-    <p>Active WebXR session.</p>
+    <p>Активная сессия WebXR.</p>
 
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:null animate]()</h3>
     <p>
-      Handler for scene updates: rendering, animations and camera controls. Do not change unless you know what you are doing.
+      Обработчик обновлений сцены: рендеринга, анимации и управления камерой. Не стоит вносить изменения, если не знаете за что отвечают эти параметры.
     </p>
 
     <h3>[method:null appendScene](url, loadCb, progressCb, errorCb, loadCameras, loadLights)</h3>
     <p>
-      Append the scene from the specified glTF file to the current scene. The loadCb
-      callback will receive the loaded scene as a parameter after the loading is finished.<br/><br/>
-      If there is no active scene in the application, then nothing will be appended.<br/><br/>
+      Добавляет сцену из указанного файла glTF к текущей сцене. loadCb
+      получит загруженную сцену в качестве параметра после завершения загрузки.<br/><br/>
+      Если в приложении нет активной сцены, то ничего не будет добавлено.<br/><br/>
 
-      Such parameters as *loadCameras* and *loadLights* are used to specify if
-      cameras and lights will be appended from the loaded scene. Both parameters
-      are *true* by default.
+      Такие параметры, как *loadCameras* и *loadLights*, используются для указания того, будут ли камеры и освещение добавлены из загруженной сцены. По умолчанию оба параметра имеют значение *true*.
     </p>
 
     <h3>[method:null cleanup]()</h3>
     <p>
-      <span style="color:#f00">Deprecated.</span> Use [page:.dispose dispose]
-      or [page:.unload unload] instead.
+      <span style="color:#f00">Устаревший.</span> Вместо этого используйте [page:.dispose dispose]
+      или [page:.unload unload].
     </p>
 
     <h3>[method:null disablePostprocessing](keepOutline)</h3>
     <p>
-      Disable all post-processing effects (except outline when keepOutline=true).
+      Отключить все эффекты постобработки (кроме контура, когда keepOutline=true).
     </p>
 
     <h3>[method:null disableRendering](after)</h3>
     <p>
-      Disable graphics updates in the animation loop after the given amount of frames (specify 0 to disable immediately). The controls and the animation mixer will keep being updated and the render callbacks will keep being called.
+      Отключает обновление графики в цикле анимации после заданного количества кадров (укажите 0, чтобы отключить сразу). Элементы управления и микшер анимации будут продолжать обновляться, а обратные вызовы рендеринга - вызываться.
     </p>
 
     <h3>[method:null disableSSAA]()</h3>
     <p>
-      Disable supersample anti-aliasing.
+      Отключить сглаживание.
     </p>
 
     <h3>[method:null dispose]()</h3>
     <p>
-      Unloads the scene (by calling [page:.unload unload]) and disposes the
-      whole application, which includes cleaning up the application's
-      [page:WebGLRenderer renderer] and removing the canvas element from the DOM.<br/><br/>
+      Выгружает сцену (вызывая [page:.unload unload]) и утилизирует все приложение, что включает очистку [page:WebGLRenderer renderer] приложения и удаление элемента canvas из DOM.<br/><br/>
 
-      The application is no longer usable after disposing. This approach is best
-      suited for cases where the complete clean up is needed.
+      После утилизации приложение больше не может использоваться. Этот способ лучше всего
+      подходит для случаев, когда требуется полная очистка.
     </p>
 
     <h3>[method:null enableControls]()</h3>
     <p>
-      Enable controls for the main app camera. Depending on the control type specified for the camera this method will give you  'ORBIT', 'FLYING' or static camera.
+      Включает элементы управления для главной камеры приложения. В зависимости от типа управления, указанного для камеры, этот метод предоставит вам 'ORBIT', 'FLYING' или статичную камеру.
     </p>
 
     <h3>[method:null enablePostprocessing](effects)</h3>
     <p>
-      Enable the given post-processing effects.
+      Включает заданные эффекты постобработки.
     </p>
 
     <h3>[method:null enableRendering]()</h3>
     <p>
-      Enable graphics updates in the animation loop.
+      Включает обновление графики в цикле анимации.
     </p>
 
     <h3>[method:null enableSSAA](sampleLevel, iterative)</h3>
     <p>
-      Enable supersample anti-aliasing. The number of samples is calculated as 2^sampleLevel (e.g specify 4 to enable 16x SSAA).
+      Включить сглаживание. Количество выборок рассчитывается как 2^sampleLevel (например, укажите 4, чтобы включить 16x SSAA).
     </p>
 
     <h3>[method:Camera getCamera]()</h3>
     <p>
-      Returns main app camera.
+      Возвращает главную камеру приложения.
     </p>
 
     <h3>[method:number getHeight]()</h3>
     <p>
-      Return calculated container element height.
+      Возвращает рассчитанную высоту элемента контейнера.
     </p>
 
     <h3>[method:number getWidth]()</h3>
     <p>
-      Return calculated container element width.
+      Возвращает рассчитанную ширину элемента контейнера.
     </p>
 
     <h3>[method:null initPostprocessing]()</h3>
     <p>
-      Handler for app post-processing initialization. Do not change unless you know what you are doing.
+      Обработчик для инициализации постобработки приложения. Не изменяйте его, если не знаете, что делаете.
     </p>
 
     <h3>[method:null hideFPS]()</h3>
     <p>
-      Hide frame rate counter.
+      Скрывает счетчик частоты кадров.
     </p>
 
     <h3>[method:null load](url, loadOkCb, loadErrorCb, autoStart)</h3>
     <p>
-      <span style="color:#f00">Deprecated.</span> Use [page:.loadScene loadScene]
-      instead.<br/><br/>
-      Load the glTF scene. The loadOkCb callback will receive the loaded scene as
-      a parameter after the loading is finished.<br/><br/>
+      <span style="color:#f00">Устаревший.</span> Вместо этого используйте [page:.loadScene loadScene].<br/><br/>
+      Загрузите сцену glTF. Обратный вызов loadOkCb получит загруженную сцену в качестве параметра после завершения загрузки.<br/><br/>
 
-      If there already is an active scene (e.g. loaded before via the [page:.load load]
-      method), then use [page:.unload unload] first to avoid conflicts between the
-      existed scene and the loaded one.
+      Если уже существует активная сцена (например, загруженная ранее с помощью метода [page:.load load]), то сначала используйте [page:.unload unload], чтобы избежать конфликтов между существующей и загруженной сценами.
     </p>
 
     <h3>[method:null loadScene](url, loadCb, progressCb, errorCb)</h3>
     <p>
-      Load the glTF scene. The loadCb callback will receive the loaded scene as
-      a parameter after the loading is finished.<br/><br/>
+      Загружает сцену glTF. Обратный вызов loadCb получит загруженную сцену в качестве
+      параметра после завершения загрузки.<br/><br/>
 
-      If there already is an active scene (e.g. loaded before via the
-      [page:.loadScene loadScene] method), then use [page:.unload unload] first to
-      avoid conflicts between the existed scene and the loaded one.
+      Если уже существует активная сцена (например, загруженная ранее с помощью метода [page:.load load]), то сначала используйте [page:.unload unload], чтобы избежать конфликтов между существующей и загруженной сценами.
     </p>
 
     <h3>[method:null onResize]()</h3>
     <p>
-      Handler for canvas resize event. Do not change unless you know what you are doing.
+      Обработчик события изменения размера canvas. Не изменяйте его, если не знаете, что делаете.
     </p>
 
     <h3>[method:null printPerformanceInfo](delta)</h3>
     <p>
-      Estimate and print out rendering performance profile. delta is an optional period of estimation (default 1).
+      Оценивает и распечатывает профиль производительности рендеринга. delta - опциональный период оценки (по умолчанию 1).
     </p>
 
     <h3>[method:null render]()</h3>
     <p>
-      Handler for scene rendering. Do not change unless you know what you are doing.
+      Обработчик для рендеринга сцены. Не изменяйте его, если не знаете, что делаете.
     </p>
 
     <h3>[method:null run]()</h3>
     <p>
-      Starts the application by removing the preloader and starting the
-      rendering cycle.
+      Запускает приложение, удаляя прелоадер и запуская
+      цикл рендеринга.
     </p>
 
     <h3>[method:null setFrameRateDivider]([param:Integer divider])</h3>
     <p>
-      Lowers the maximum frame by dividing it by a specified integer number. By default the engine tries to render scenes at 60 frames per second. If the divider is set to 2, for example, the FPS will be topped out to 30.
+      Уменьшает максимальный кадр, деля его на заданное целое число. По умолчанию движок пытается рендерить сцены со скоростью 60 кадров в секунду. Если делитель установлен, например, на 2, FPS будет снижен до 30.
     </p>
 
     <h3>[method:null showFPS]()</h3>
     <p>
-      Show frame rate counter.
+      Показать счетчик частоты кадров.
     </p>
 
     <h3>[method:null unload]([page:Object3D rootObj])</h3>
     <p>
-      [page:Object3D rootObj] -- (optional) an object to unload along with its
-      children; if no object is given or the given object is the main application
-      scene then the method performs full scene cleanup.<br/><br/>
+      [page:Object3D rootObj] -- (опционально) объект для выгрузки вместе с его дочерними объектами; если объект не задан или заданный объект является основной сценой приложения, то метод выполняет полную очистку сцены.<br/><br/>
 
-      Unloads either a part or the whole scene depending on the parameters.<br/><br/>
+      Выгружает либо часть, либо всю сцену в зависимости от параметров.<br/><br/>
 
-      If the given *rootObj* is one of the scene objects, then this method removes
-      the given object and its descendants from the scene and also frees the
-      related resources (geometries, materials, textures, etc...). If the given
-      *rootObj* is the scene instance itself, then this method performs full
-      scene cleanup, which includes disposing all objects, the scene's environment,
-      cameras and camera controls, animations, postprocessing, internal webgl
-      objects, etc...<br/><br/>
+      Если заданный *rootObj* является одним из объектов сцены, то этот метод удаляет данный объект и его преемников из сцены, а также освобождает связанные с ним ресурсы (геометрии, материалы, текстуры и т.д...). Если данный *rootObj* является самим экземпляром сцены, то этот метод выполняет полную очистку сцены, которая включает удаление всех объектов, окружения сцены, камер и элементов управления камерами, анимации, постпроцессинга, внутренних объектов WebGL и т.д....<br/><br/>
 
-      After the application's scene was fully unloaded the [page:.loadScene loadScene]
-      method can be used to load a completely new scene. This approach is best
-      suited for loading/unloading multiple scenes without disposing the
-      whole application.
+      После того как сцена приложения была полностью выгружена, метод [page:.loadScene loadScene] может быть использован для загрузки совершенно новой сцены. Этот подход лучше всего подходит для загрузки/выгрузки нескольких сцен без выгрузки всего приложения.
     </p>
 
     <h3>[method:null updateEnvironment]([page:Material wMat])</h3>
     <p>
-      Update world environment from the specified material. Such material is
-      usually stored in the [page:Scene.worldMaterial] property.
+      Обновление окружения мира из указанного материала. Такой материал
+      обычно хранится в свойстве [page:Scene.worldMaterial].
     </p>
 
     <h3>[method:null updateEnvMapProbes]([page:Object3D object3d])</h3>
     <p>
-      object3d - an object or a scene for searching probe objects among its descendants<br/><br/>
+      object3d - объект или сцена для поиска объектов-зондов среди его преемников.<br/><br/>
 
-      Update all [page:CubeReflectionProbe] objects that are descendants of the
-      given *object3d* object.
+      Обновить все объекты [page:CubeReflectionProbe], которые являются преемниками
+      данного объекта *object3d*.
     </p>
 
 

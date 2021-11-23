@@ -12,11 +12,11 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Class for loading a [page:Texture texture].
-      This uses the [page:ImageLoader] internally for loading files.
+      Класс для загрузки текстуры [page:Texture].
+      Для загрузки файлов используется внутренний [page:ImageLoader].
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <code>
     const texture = new v3d.TextureLoader().load('textures/land_ocean_ice_cloud_2048.jpg');
@@ -25,7 +25,7 @@
     const material = new v3d.MeshBasicMaterial({ map: texture });
     </code>
 
-    <h2>Code Example with Callbacks</h2>
+    <h2>Пример кода с обратными вызовами</h2>
 
     <code>
     // instantiate a loader
@@ -55,41 +55,40 @@
     </code>
 
     <p>
-      Please note Verge3D r84 dropped support for TextureLoader progress events. For a TextureLoader that supports progress events, see [link:https://github.com/mrdoob/three.js/issues/10439#issuecomment-293260145 this thread].
+      Обратите внимание, что в Verge3D r84 отменена поддержка событий прогресса TextureLoader. Для TextureLoader, поддерживающего события прогресса, см. [link:https://github.com/mrdoob/three.js/issues/10439#issuecomment-293260145 эту тему].
     </p>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
 
     <p>
       [example:webgl_geometry_cube geometry / cube]
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:LoadingManager manager])</h3>
     <p>
-    [page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager v3d.DefaultLoadingManager].<br /><br />
+    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].<br /><br />
 
-    Creates a new [name].
+    Создает новый [name].
     </p>
 
 
-    <h2>Properties</h2>
-    <p>See the base [page:Loader] class for common properties.</p>
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Loader].</p>
 
     <h2>Methods</h2>
-    <p>See the base [page:Loader] class for common methods.</p>
+    <p>Общие методы см. в базовом классе [page:Loader].</p>
 
     <h3>[method:Texture load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
     <p>
-    [page:String url] — the path or URL to the file. This can also be a
+    [page:String url] — путь или URL-адрес к файлу. Это также может быть
       [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br />
-    [page:Function onLoad] — Will be called when load completes. The argument will be the loaded [page:Texture texture].<br />
-    [page:Function onProgress] — Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[page:Integer total] and .[page:Integer loaded] bytes.<br />
-    [page:Function onError] — Will be called when load errors.<br /><br />
+    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженная [page:Texture texture].<br />
+    [page:Function onProgress] — Будет вызываться во время загрузки. Аргументом будет экземпляр XMLHttpRequest, который содержит байты .[page:Integer total] и .[page:Integer loaded] .<br />
+    [page:Function onError] — Вызывается при ошибках загрузки.<br /><br />
 
-    Begin loading from the given URL and pass the fully loaded [page:Texture texture] to onLoad. The method also returns a new texture object which can directly be used for material creation.
-    If you do it this way, the texture may pop up in your scene once the respective loading process is finished.
+    Начните загрузку с заданного URL и передайте полностью загруженную [page:Texture текстуру] в onLoad. Метод также возвращает новый объект текстуры, который может быть непосредственно использован для создания материала. Если вы сделаете это таким образом, текстура может появиться в вашей сцене после завершения соответствующего процесса загрузки.
     </p>
 
     [sourceHint]

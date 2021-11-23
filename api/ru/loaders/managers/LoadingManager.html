@@ -10,18 +10,16 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Handles and keeps track of loaded and pending data. A default global instance of this class
-      is created and used by loaders if not supplied manually - see [page:DefaultLoadingManager].<br /><br />
+      Обрабатывает и отслеживает загруженные и ожидающие загрузки данные. Глобальный экземпляр этого класса по умолчанию создается и используется загрузчиками, если не задан вручную - см. [page:DefaultLoadingManager].<br /><br />
 
-      In general that should be sufficient, however there are times when it can be useful to have seperate loaders -
-      for example if you want to show seperate loading bars for objects and textures.
+      В общем, этого должно быть достаточно, однако бывают случаи, когда полезно иметь отдельные загрузчики - например, если вы хотите показать отдельные полосы загрузки для объектов и текстур.
 
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <p>
-      This example shows how to use LoadingManager to track the progress of
+      В этом примере показано, как использовать LoadingManager для отслеживания хода выполнения процесса
       [page:OBJLoader].
     </p>
 
@@ -61,10 +59,7 @@
     </code>
 
     <p>
-      In addition to observing progress, a LoadingManager can be used to
-      override resource URLs during loading. This may be helpful for assets
-      coming from drag-and-drop events, WebSockets, WebRTC, or other APIs. An
-      example showing how to load an in-memory model using Blob URLs is below.
+     Помимо наблюдения за ходом выполнения, менеджер LoadingManager можно использовать для переопределения URL-адресов ресурсов во время загрузки. Это может быть полезно для ассетов, поступающих из событий drag-and-drop, WebSockets, WebRTC или других API. Ниже приведен пример загрузки модели in-memory с использованием URL-адресов Blob.
     </p>
 
     <code>
@@ -96,7 +91,7 @@
     });
     </code>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
 
     <p>
       [example:webgl_loader_fbx WebGL / loader / fbx]<br />
@@ -105,66 +100,65 @@
       [example:webgl_postprocessing_outline WebGL / postprocesing / outline]
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
     <p>
-    [page:Function onLoad] — (optional) this function will be called when all loaders are done.<br />
-    [page:Function onProgress] — (optional) this function will be called when an item is complete.<br />
-    [page:Function onError] — (optional) this function will be called a loader encounters errors. <br />
+    [page:Function onLoad] — (опционально) эта функция будет вызвана, когда все загрузчики закончат работу.<br />
+    [page:Function onProgress] — (опционально) эта функция будет вызвана, когда элемент будет завершен.<br />
+    [page:Function onError] — (опционально) эта функция будет вызвана, если загрузчик столкнется с ошибками.<br />
 
-    Creates a new [name].
+    Создает новый [name].
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Function onStart]</h3>
     <p>
-      This function will be called when loading starts.
-      The arguments are:<br />
-      [page:String url] — The url of the item just loaded.<br />
-      [page:Integer itemsLoaded] — the number  of items already loaded so far.<br />
-      [page:Iteger itemsTotal] — the total amount of items to be loaded.<br /><br />
+      Эта функция будет вызвана, когда начнется загрузка.
+      Аргументы следующие:<br />
+      [page:String url] — URL только что загруженного элемента.<br />
+      [page:Integer itemsLoaded] — количество уже загруженных элементов на данный момент.<br />
+      [page:Iteger itemsTotal] — общее количество загружаемых элементов.<br /><br />
 
-      By default this is undefined.
+      По умолчанию эти значения не определены.
     </p>
 
     <h3>[property:Function onLoad]</h3>
     <p>
-      This function will be called when all loading is completed. By default this is undefined,
-      unless passed in the constructor.
+      Эта функция будет вызвана, когда вся загрузка будет завершена. По умолчанию она не определена,
+      если она не передана в конструкторе.
     </p>
 
     <h3>[property:Function onProgress]</h3>
     <p>
-    This function will be called when an item is complete.
-    The arguments are:<br />
-    [page:String url] — The url of the item just loaded.<br />
-    [page:Integer itemsLoaded] — the number  of items already loaded so far.<br />
-    [page:Iteger itemsTotal] — the total amount of items to be loaded.<br /><br />
+    Эта функция будет вызвана, когда элемент будет завершен.
+    Аргументы следующие:<br />
+    [page:String url] — URL только что загруженного элемента.<br />
+    [page:Integer itemsLoaded] — количество уже загруженных элементов на данный момент.<br />
+    [page:Iteger itemsTotal] — общее количество загружаемых элементов.<br /><br />
 
-    By default this is undefined, unless passed in the constructor.
+    По умолчанию эти значения не определены.
     </p>
 
     <h3>[property:Function onError]</h3>
     <p>
-      This function will be called when any item errors, with the argument:<br />
-      [page:String url] — The url of the item that errored.<br /><br />
+      Эта функция будет вызвана при ошибке любого элемента, с аргументом:<br />
+      [page:String url] — URL элемента, в котором произошла ошибка.<br /><br />
 
-      By default this is undefined, unless passed in the constructor.
+      По умолчанию эти значения не определены.
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:LoadingManager addHandler]([param:Object regex], [param:Loader loader])</h3>
     <p>
-    [page:Object regex] — A regular expression.<br />
-    [page:Loader loader] — The loader.
+    [page:Object regex] — Регулярное выражение.<br />
+    [page:Loader loader] — Загрузчик.
     <p>
-    Registers a loader with the given regular expression. Can be used to define what loader should be used in
-    order to load specific files. A typical use case is to overwrite the default loader for textures.
+    Регистрирует загрузчик с заданным регулярным выражением. Может использоваться для определения того, какой загрузчик должен использоваться для загрузки определенных файлов. Типичный случай использования - перезаписать загрузчик по умолчанию для текстур.
     </p>
     <code>
 // add handler for TGA textures
@@ -173,62 +167,56 @@ manager.addHandler(/\.tga$/i, new TGALoader());
 
     <h3>[method:null getHandler]([param:String file])</h3>
     <p>
-    [page:String file] — The file path.
+    [page:String file] — Путь файла.
     <p>
-    Can be used to retrieve the registered loader for the given file path.
+    Может использоваться для получения зарегистрированного загрузчика для заданного пути к файлу.
     </p>
 
     <h3>[method:LoadingManager removeHandler]([param:Object regex])</h3>
     <p>
-    [page:Object regex] — A regular expression.
+    [page:Object regex] — Регулярное выражение.
     <p>
-    Removes the loader for the given regular expression.
+    Удаляет загрузчик для заданного регулярного выражения.
     </p>
 
     <h3>[method:String resolveURL]([param:String url])</h3>
     <p>
-    [page:String url] — the url to load<br /><br />
+    [page:String url] — URL для загрузки<br /><br />
 
-    Given a URL, uses the URL modifier callback (if any) and returns a resolved URL. If no
-    URL modifier is set, returns the original URL.
+    Учитывая URL, использует обратный вызов модификатора URL (если таковой имеется) и возвращает разрешенный URL. Если модификатор URL не задан, возвращается оригинальный URL.
     </p>
 
     <h3>[method:null setURLModifier]([param:Function callback])</h3>
     <p>
-    [page:Function callback] — URL modifier callback. Called with [page:String url] argument, and
-    must return [page:String resolvedURL].<br /><br />
+    [page:Function callback] — Обратный вызов модификатора URL. Вызывается с аргументом [page:String url] , и должен выдавать [page:String resolvedURL].<br /><br />
 
-    If provided, the callback will be passed each resource URL before a request is sent. The
-    callback may return the original URL, or a new URL to override loading behavior. This
-    behavior can be used to load assets from .ZIP files, drag-and-drop APIs, and Data URIs.
+    Если указано, то обратный вызов будет передаваться каждому URL ресурса перед отправкой запроса. Обратный вызов может вернуть исходный URL или новый URL, чтобы переопределить поведение загрузки. Это поведение можно использовать для загрузки ассетов из .ZIP-файлов, API перетаскивания и данных URI.
     </p>
 
     <br />
 
     <p>
-      <em>Note: The following methods are designed to be called internally by loaders. You shouldn't call
-      them directly.</em>
+      <em>Примечание: Следующие методы предназначены для внутреннего вызова загрузчиками. Вы не должны вызывать их напрямую.</em>
     </p>
 
     <h3>[method:null itemStart]([param:String url])</h3>
     <p>
-    [page:String url] — the url to load<br /><br />
+    [page:String url] — URL для загрузки<br /><br />
 
-    This should be called by any loader using the manager when the loader starts loading an url.
-    </p>
+    Это должно вызываться любым загрузчиком, использующим менеджер, когда загрузчик начинает загрузку url.    </p>
 
     <h3>[method:null itemEnd]([param:String url])</h3>
     <p>
-    [page:String url] — the loaded url<br /><br />
+    [page:String url] — загруженный url<br /><br />
 
-    This should be called by any loader using the manager when the loader ended loading an url.
+    Это должно быть вызвано любым загрузчиком, использующим менеджер, когда загрузчик завершил загрузку url.
     </p>
 
     <h3>[method:null itemError]([param:String url])</h3>
     <p>
-    [page:String url] — the loaded url<br /><br />
+    [page:String url] — загруженный url<br /><br />
 
-    This should be called by any loader using the manager when the loader errors loading an url.
+    Это должно вызываться любым загрузчиком, использующим менеджер, когда загрузчик выдает ошибку при загрузке url.
     </p>
 
     [sourceHint]

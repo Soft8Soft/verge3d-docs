@@ -11,121 +11,111 @@
 
         <h1>[name]</h1>
         
-        <p style="color:#f00">Deprecated. Use [page:PuzzlesLoader] instead.</p>
+        <p style="color:#f00">Устаревшее. Вместо этого используйте [page:PuzzlesLoader].</p>
 
         <div class="desc">
-            A class for setting up a 3D application, capable of loading the Puzzles 
-            editor and executing visual logic code.<br /><br />
+            Класс для создания 3D-приложения, способного загружать редактор Пазлов
+            и выполнять визуальный логический код.<br /><br />
             
-            Performs app initialization/loading in the following order:
+            Выполняет инициализацию/загрузку приложения в следующем порядке:
             <ul>
-                <li>starts loading a scene, a logic script and the Puzzles Editor depending 
-                    on the method used ([page:.loadScene], [page:.loadSceneWithLogic], 
+                <li>начинает загрузку сцены, логического сценария и редактора Пазлов в зависимости от 
+                    используемого метода ([page:.loadScene], [page:.loadSceneWithLogic], 
                     [page:.loadSceneWithEditor])
                 </li>
-                <li>calls the corresponding callback ([page:.onSceneLoad], 
+                <li>вызывает соответствующий обратный вызов ([page:.onSceneLoad], 
                     [page:.onLogicLoad], [page:.onEditorLoad]) 
-                    when something is loaded or the [page:.onError] callback in 
-                    case of an error
+                    когда что-то загружается, или обратный вызов [page:.onError] в случае ошибки.
                 </li>
-                <li>calls the [page:.onLoadFinished] callback after all loading 
-                    actions were finished successfully or not
+                <li>вызывает обратный вызов [page:.onLoadFinished]после того, как все действия по загрузке  были завершены успешно или нет
                 </li>
-                <li>removes the preloader, starts the rendering cycle and 
-                    executes the logic script successively by calling the 
-                    [page:.run] method.
+                <li>удаляет прелоадер, запускает цикл рендеринга и 
+                    последовательно выполняет логический сценарий, вызывая метод 
+                    [page:.run].
                 </li>
             </ul>
 
         </div>
 
-        <h2>Constructor</h2>
+        <h2>Конструктор</h2>
 
         <h3>[name](containerId, ctxSettings, preloader)</h3>
         <div>
-            [page:String containerId] - the id of an HTML-element containing the canvas.<br />
-            [page:Object ctxSettings] - the WebGL context attributes to be passed in the 'canvas.getContext()' method.<br />
-            [page:Preloader preloader] - the application's Preloader.<br />
+            [page:String containerId] - идентификатор HTML-элемента, содержащего canvas.<br />
+            [page:Object ctxSettings] - атрибуты контекста WebGL для передачи в метод 'canvas.getContext()'.<br />
+            [page:Preloader preloader] - прелоадер приложения.<br />
         </div>
 
 
-        <h2>Properties</h2>
-        <div>See the base [page:App] class for common properties.</div>
+        <h2>Свойства</h2>
+        <div>Общие свойства см. в базовом классе [page:App].</div>
 
         <h3>[property:Object ExternalInterface]</h3>
         <div>
-            An object containing functions created in the Puzzles Editor to 
-            access them from the application's code. Typical usage: calling a 
-            function manually, setting/overriding a function.
+            Объект, содержащий функции, созданные в редакторе пазлов, для доступа к ним из кода приложения. Типичное использование: вызов функции вручную, установка/переопределение функции.
         </div>
 
 
-        <h2>Methods</h2>
-        <div>See the base [page:App] class for common methods.</div>
+        <h2>Методы</h2>
+        <div>Общие методы см. в базовом классе [page:App].</div>
 
         <h3>[method:null loadScene](url)</h3>
-        <div>Load a gltf scene specified by the url parameter.</div>
+        <div>Загружает сцену gltf, указанной параметром url.</div>
         
         <h3>[method:null loadSceneWithEditor](url, logicURL, editorDir)</h3>
         <div>
-            Load a gltf scene along with the Puzzles Editor. The editor needs 
-            to be provided with the path to the target logic JS file (specified 
-            by the logicURL parameter) and with the path to the Puzzles 
-            Editor's resource folder (specified by the editorDir parameter, 
-            should have the content of the SDK's 'puzzles' folder).
+            Загружает сцену gltf вместе с редактором пазлов. Редактору необходимо указать путь к целевому логическому JS-файлу (задается параметром logicURL) и путь к папке ресурсов редактора пазлов(задается параметром editorDir, должен иметь содержимое папки 'puzzles' SDK).
         </div>
         
         <h3>[method:null loadSceneWithLogic](url, logicURL)</h3>
         <div>
-            Load a gltf scene along with the code generated from the Puzzles 
-            Editor (specified by the logicURL parameter).
+            Загружает сцену gltf вместе с кодом, сгенерированным в редакторе пазлов (указанным параметром logicURL).
         </div>
 
         <h3>[method:null onEditorLoad]()</h3>
         <div>
-            A callback, called when the Puzzles Editor was successfully loaded.
+            Обратный вызов, вызываемый при успешной загрузке редактора пазлов.
         </div>
         
         <h3>[method:null onError](error)</h3>
         <div>
-            A callback, called when an error is occured during the loading process. 
-            Some specific errors with the following names are also generated:
+            Обратный вызов, вызываемый при возникновении ошибки в процессе загрузки. Также генерируются некоторые специфические ошибки со следующими именами:
             <ul>
                 <li>
-                    EditorLoadError - the Puzzles Editor wasn't properly loaded
+                    EditorLoadError - редактор пазлов не был загружен должным образом
                 </li>
                 <li>
-                    LogicLoadError - the logic file wasn't properly loaded
+                    LogicLoadError - файл логики не был загружен должным образом
                 </li>
                 <li>
-                    SceneLoadError - the scene file wasn't properly loaded
+                    SceneLoadError - файл сцены не был загружен должным образом
                 </li>
             </ul>
-            Prints all errors in the browser console by default.
+            По умолчанию выводит все ошибки в консоли браузера.
         </div>
 
         <h3>[method:null onLoadFinished](sceneLoaded, logicLoaded, editorLoaded)</h3>
         <div>
-            A callback, called when all loading actions are finsihed successfully 
-            or not, which is indicated by its parameters: sceneLoaded, 
-            logicLoaded and editorLoaded.
-            By default calls the [page:.run] method if a scene was loaded.
+            Обратный вызов, вызываемый, когда все действия по загрузке завершены успешно 
+            или нет, на что указывают его параметры: sceneLoaded, 
+            logicLoaded и editorLoaded.
+            По умолчанию вызывает метод [page:.run], если сцена была загружена.
         </div>
         
         <h3>[method:null onLogicLoad]()</h3>
         <div>
-            A callback, called when the logic file was successfully loaded.
+            Обратный вызов, вызываемый при успешной загрузке файла логики.
         </div>
 
         <h3>[method:null onSceneLoad]()</h3>
         <div>
-            A callback, called when the scene file was successfully loaded.
+            Обратный вызов, вызываемый при успешной загрузке файла сцены.
         </div>
 
         <h3>[method:null run]()</h3>
         <div>
-            Starts the application by removing the preloader, starting the 
-            rendering cycle and executing the logic script.
+            Запускает приложение, удаляя прелоадер, запуская 
+            цикл рендеринга и выполнение логического сценария.
         </div>
         
     </body>

@@ -9,108 +9,108 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">Base class for implementing loaders.</p>
+    <p class="desc">Базовый класс для реализации загрузчиков.</p>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
 
     <h3>[name]([param:LoadingManager manager])</h3>
     <p>
-      [page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager v3d.DefaultLoadingManager].
+      [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].
     </p>
     <p>
-      Creates a new [name].
+     Создает новый [name].
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:String crossOrigin]</h3>
     <p>
-    The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.
-    Default is *anonymous*.
+    Строка crossOrigin для осуществления CORS для загрузки url из другого домена, который разрешает CORS.
+    По умолчанию *anonymous*.
     </p>
 
     <h3>[property:Boolean withCredentials]</h3>
     <p>
-      Whether the XMLHttpRequest uses credentials. See [page:.setWithCredentials].
-      Default is *false*.
+      Использует ли XMLHttpRequest учетные данные. См. [page:.setWithCredentials].
+      По умолчанию *false*.
     </p>
 
     <h3>[property:LoadingManager manager]</h3>
     <p>
-      The [page:LoadingManager loadingManager]  the loader is using. Default is [page:DefaultLoadingManager].
+      [page:LoadingManager Менеджер Загрузки] используемый загрузчиком. По умолчанию [page:DefaultLoadingManager].
     </p>
 
     <h3>[property:String path]</h3>
     <p>
-      The base path from which the asset will be loaded.
-      Default is the empty string.
+      Базовый путь, с которого будет загружен ассет.
+      По умолчанию это пустая строка.
     </p>
 
     <h3>[property:String resourcePath]</h3>
     <p>
-      The base path from which additional resources like textures will be loaded.
-      Default is the empty string.
+      Базовый путь, с которого будут загружаться дополнительные ресурсы, например, текстуры.
+      По умолчанию это пустая строка.
     </p>
 
     <h3>[property:Object requestHeader]</h3>
     <p>
-      The [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request. See [page:.setRequestHeader]. Default is empty object.
+      [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header Заголовок запроса] используемый в запросе HTTP. См. [page:.setRequestHeader]. По умолчанию это пустой объект.
     </p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:void load]()</h3>
     <p>
-      This method needs to be implement by all concrete loaders. It holds the logic for loading the asset from the backend.
+      Этот метод должен быть реализован всеми конкретными загрузчиками. Он содержит логику загрузки ассета из бэкенда.
     </p>
 
     <h3>[method:Promise loadAsync]([param:String url], [param:Function onProgress])</h3>
     <p>
-    [page:String url] — A string containing the path/URL of the file to be loaded.<br />
-    [page:Function onProgress] — (optional) A function to be called while the loading is in progress. The argument will be the XMLHttpRequest instance, that contains .[page:Integer total] and .[page:Integer loaded] bytes.<br />
+    [page:String url] — Строка, содержащая путь/URL загружаемого файла.<br />
+    [page:Function onProgress] — (опционально) Функция, которая будет вызываться во время загрузки. Аргументом будет экземпляр XMLHttpRequest, который содержит байты .[page:Integer total] и .[page:Integer loaded].<br />
     </p>
     <p>
-    This method is equivalent to [page:.load], but returns a [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise].
+    Этот метод эквивалентен [page:.load], но возвращает значение [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise].
     </p>
     <p>
-    [page:Function onLoad] is handled by [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve Promise.resolve] and [page:Function onError] is handled by [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject Promise.reject].
+    [page:Function onLoad] обрабатывается [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve Promise.resolve] и [page:Function onError] обрабатывается [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject Promise.reject].
     </p>
 
     <h3>[method:void parse]()</h3>
     <p>
-      This method needs to be implement by all concrete loaders. It holds the logic for parsing the asset into Verge3D entities.
+      Этот метод должен быть реализован всеми конкретными загрузчиками. Он содержит логику парсинга ассета на объекты Verge3D.
     </p>
 
     <h3>[method:Loader setCrossOrigin]([param:String crossOrigin])</h3>
     <p>
-      [page:String crossOrigin] — The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.
+      [page:String crossOrigin] — Строка crossOrigin для осуществления CORS для загрузки url из другого домена, который разрешает CORS.
     </p>
 
     <h3>[method:Loader setWithCredentials]([param:Boolean value])</h3>
     <p>
-      Whether the XMLHttpRequest uses credentials such as cookies, authorization headers or
-      TLS client certificates. See [link:https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials XMLHttpRequest.withCredentials].<br />
-      Note that this has no effect if you are loading files locally or from the same domain.
+      Использует ли XMLHttpRequest учетные данные, такие как куки, заголовки авторизации или
+      сертификаты клиента TLS. См. [link:https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials XMLHttpRequest.withCredentials].<br />
+      Обратите внимание, что это не влияет, если вы загружаете файлы локально или из того же домена.
     </p>
 
     <h3>[method:Loader setPath]([param:String path])</h3>
     <p>
-      [page:String path] — Set the base path for the asset.
+      [page:String path] — Устанавливает базовый путь для ассета.
     </p>
 
     <h3>[method:Loader setResourcePath]([param:String resourcePath])</h3>
     <p>
-      [page:String resourcePath] — Set the base path for dependent resources like textures.
+      [page:String resourcePath] — Устанавливает базовый путь для зависимых ресурсов, таких как текстуры.
     </p>
 
     <h3>[method:Loader setRequestHeader]([param:Object requestHeader])</h3>
     <p>
-      [page:Object requestHeader] - key: The name of the header whose value is to be set. value: The value to set as the body of the header.<br /><br />
+      [page:Object requestHeader] - key: Имя заголовка, значение которого должно быть установлено. value: Значение, которое нужно установить в качестве тела заголовка.<br /><br />
 
-      Set the [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] used in HTTP request.
+      См. [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] используемый в HTTP-запросе.
     </p>
 
     [sourceHint]

@@ -11,20 +11,17 @@
     <h1>[name]</h1>
 
     <div class="desc">
-    A loader for *glTF* 2.0 resources.
+    Загрузчик для ресурсов *glTF* 2.0.
     <br /><br />
-    <a href="https://www.khronos.org/gltf">glTF</a> (GL Transmission Format) is an
-    <a href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">open format specification</a>
-    for efficient delivery and loading of 3D content. Assets may be provided either in JSON (.gltf)
-    or binary (.glb) format. External files store textures (.jpg, .png, ...) and additional binary
-    data (.bin). A glTF asset may deliver one or more scenes, including meshes, materials,
-    textures, skins, skeletons, morph targets, animations, lights, and/or cameras.
+    <a href="https://www.khronos.org/gltf">glTF</a> (GL Transmission Format) - это 
+    <a href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">спецификация открытого формата</a>
+    для эффективной доставки и загрузки 3D-контента. Ассеты могут предоставляться как в формате JSON (.gltf), так и в бинарном формате (.glb). Внешние файлы хранят текстуры (.jpg, .png, ...) и дополнительные двоичные данные (.bin). Ассет glTF может предоставлять одну или несколько сцен, включая сетки, материалы, текстуры, скины, скелеты, morph-targets, анимацию, свет и/или камеры.
     </div>
 
-    <h2>Extensions</h2>
+    <h2>Расширения</h2>
 
     <div>
-    GLTFLoader supports the following glTF extensions:
+    GLTFLoader поддерживает следующие расширения glTF:
     </div>
 
     <ul>
@@ -38,7 +35,7 @@
       <li>S8S_v3d_texture_data</li>
     </ul>
 
-    <h2>Example</h2>
+    <h2>Пример</h2>
 
     <code>
     // Instantiate a loader
@@ -57,53 +54,53 @@
 
     [example:webgl_loader_gltf]
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([page:LoadingManager manager])</h3>
     <div>
-    [page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager v3d.DefaultLoadingManager].
+    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].
     </div>
     <div>
-    Creates a new [name].
+    Создает новый [name].
     </div>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:null load]([page:String url], [page:Function onLoad], [page:Function onProgress], [page:Function onError])</h3>
     <div>
-    [page:String url] — required<br />
-    [page:Function onLoad] — Will be called when load completes. The argument will be the loaded JSON response returned from [page:Function parse].<br />
-    [page:Function onProgress] — Will be called while load progresses. The argument will be the XMLHttpRequest instance, that contains .[page:Integer total] and .[page:Integer loaded] bytes.<br />
-    [page:Function onError] — Will be called when load errors.<br />
+    [page:String url] — необходим<br />
+    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженный JSON-отклик, возвращенный из [page:Function parse].<br />
+    [page:Function onProgress] — Вызывается во время загрузки. Аргументом будет экземпляр XMLHttpRequest, содержащий байты .[page:Integer total] и .[page:Integer loaded].<br />
+    [page:Function onError] — Вызывается при ошибках загрузки.<br />
     </div>
     <div>
-    Begin loading from url and call the callback function with the parsed response content.
+    Начните загрузку из url и вызовите функцию обратного вызова с разобранным содержимым отклика.
     </div>
 
     <h3>[method:null setPath]([page:String path])</h3>
     <div>
-    [page:String path] — Base path for loading additional resources e.g. textures and .bin data.
+    [page:String path] — Базовый путь для загрузки дополнительных ресурсов, например, текстур и данных .bin.
     </div>
     <div>
-    Set the base path for additional resources.
+    Установите базовый путь для дополнительных ресурсов.
     </div>
 
     <h3>[method:null setCrossOrigin]([page:String value])</h3>
     <div>
-    [page:String value] — The crossOrigin string to implement CORS for loading the url from a different domain that allows CORS.
+    [page:String value] — Строка crossOrigin для выполнения CORS для загрузки url из другого домена, который разрешает CORS.
     </div>
 
     <h3>[method:null parse]([page:Object json], [page:Function callBack], [page:String path])</h3>
     <div>
-    [page:Object json] — <em>JSON</em> object to parse.<br />
-    [page:Function callBack] — Will be called when parse completes.<br />
-    [page:String path] — The base path from which to find subsequent glTF resources such as textures and .bin data files.<br />
+    [page:Object json] — <em>JSON</em> объект для парсинга.<br />
+    [page:Function callBack] — Будет вызван после завершения парсинга.<br />
+    [page:String path] — Базовый путь, по которому можно найти последующие ресурсы glTF, такие как текстуры и файлы данных .bin.<br />
     </div>
     <div>
-    Parse a glTF-based <em>JSON</em> structure and fire [page:Function callback] when complete. The argument to [page:Function callback] will be an [page:object] that contains loaded parts: .[page:Scene scene], .[page:Array scenes], .[page:Array cameras], and .[page:Array animations].
+    Разберите структуры <em>JSON</em> на основе glTF и выполните [page:Function callback] по завершении. Аргументом [page:Function callback] будет [page:object], содержащий загруженные части: .[page:Scene scene], .[page:Array scenes], .[page:Array cameras] и .[page:Array animations].
     </div>
 
     [sourceHint]

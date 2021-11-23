@@ -12,11 +12,11 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Class for loading a [page:CubeTexture CubeTexture].
-      This uses the [page:ImageLoader] internally for loading files.
+      Класс для загрузки [page:CubeTexture CubeTexture].
+      Для загрузки файлов используется внутренний [page:ImageLoader].
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <code>
 const scene = new v3d.Scene();
@@ -32,7 +32,7 @@ scene.background = new v3d.CubeTextureLoader()
       ]);
     </code>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
 
     <p>
       [example:webgl_materials_cubemap materials / cubemap]<br />
@@ -42,35 +42,34 @@ scene.background = new v3d.CubeTextureLoader()
       [example:webgl_materials_cubemap_refraction materials / cubemap / refraction]
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:LoadingManager manager])</h3>
     <p>
-    [page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager v3d.DefaultLoadingManager].<br /><br />
+    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком.
+    По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].<br /><br />
 
-    Creates a new [name].
+    Создает новый [name].
     </p>
 
-    <h2>Properties</h2>
-    <p>See the base [page:Loader] class for common properties.</p>
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Loader].</p>
 
-    <h2>Methods</h2>
-    <p>See the base [page:Loader] class for common methods.</p>
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Loader].</p>
 
     <h3>[method:CubeTexture load]([param:String urls], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
     <p>
-    [page:String urls] — array of 6 urls to images, one for each side of the CubeTexture.
-    The urls should be specified in the following order: pos-x, neg-x, pos-y, neg-y, pos-z, neg-z.
-    They can also be [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URIs].<br />
-    Note that, by convention, cube maps are specified in a coordinate system in which positive-x is to the right
-    when looking up the positive-z axis -- in other words, using a left-handed coordinate system.
-    Since Verge3D uses a right-handed coordinate system, environment maps used in Verge3D will have pos-x and neg-x swapped.<br />
-    [page:Function onLoad] — Will be called when load completes. The argument will be the loaded [page:Texture texture].<br />
-    [page:Function onProgress] — Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[page:Integer total] and .[page:Integer loaded] bytes.<br />
-    [page:Function onError] — Will be called when load errors.<br />
+    [page:String urls] — массив из 6 ссылок на изображения, по одной для каждой стороны CubeTexture.
+    Ссылки должны быть указаны в следующем порядке: pos-x, neg-x, pos-y, neg-y, pos-z, neg-z.
+    Они также могут быть [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URIs].<br />
+    Обратите внимание, что по традиции кубомапы задаются в системе координат, в которой положительный угол x находится справа, если смотреть вверх по положительной оси z - другими словами, используется левосторонняя система координат. Поскольку Verge3D использует правостороннюю систему координат, карты окружения, используемые в Verge3D, поменяют местами pos-x и neg-x.<br />
+    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженная [page:Texture texture].<br />
+    [page:Function onProgress] — Вызывается в процессе загрузки. Аргументом будет экземпляр XMLHttpRequest, который содержит байты .[page:Integer total] и .[page:Integer loaded].<br />
+    [page:Function onError] — Вызывается при ошибках загрузки.<br />
     </p>
     <p>
-    Begin loading from url and pass the loaded [page:CubeTexture texture] to onLoad.
+    Начните загрузку из url и передайте загруженную [page:CubeTexture texture] в onLoad.
     </p>
 
     [sourceHint]
