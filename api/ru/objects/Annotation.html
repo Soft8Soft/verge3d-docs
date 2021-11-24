@@ -12,27 +12,27 @@
     <h1>[name]</h1>
 
     <p class="desc">
-       This class is used to create and display 2D HTML sprites called annotations. Annotation may contain an optional dialog text (or HTML layout) which appears when the user clicks on the annotation label.
+      Этот класс используется для создания и отображения 2D HTML спрайтов, называемых аннотациями. Аннотация может содержать необязательный текст в диалоговом окне (или HTML-макет), который появляется, когда пользователь нажимает на метку аннотации.
     </p>
   
     <img src="files/api/annotation.jpg" class="centered" style="max-width: 819px;">
 
-    <h2>Example</h2>
+    <h2>Пример</h2>
 
     <code>
 var annotation = new v3d.Annotation(container, 'A', 'Hello! ...');
 app.scene.add(annotation);
     </code>
 
-    <h2>Styles</h2>
+    <h2>Стили</h2>
     <p>
-      Verge3D offers two CSS classes to define annotation look:
+      Verge3D предлагает два класса CSS для определения внешнего вида аннотаций:
       <ul>
-        <li><strong>.v3d-annotation</strong> - used for annotation labels.</li>
-        <li><strong>.v3d-annotation-dialog</strong> - used for annotation dialogs.</li>
+        <li><strong>.v3d-annotation</strong> - используется для меток аннотаций.</li>
+        <li><strong>.v3d-annotation-dialog</strong> - используется для диалогов аннотаций.</li>
       </ul>
 
-      You can override these classes in your own applications. For example, to make your annotations red:
+      Вы можете переопределить эти классы в своих собственных приложениях. Например, чтобы сделать аннотации красными:
 
       <code>
 .v3d-annotation {
@@ -45,75 +45,75 @@ app.scene.add(annotation);
     </p>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name](container, character, text)</h3>
     <p>
-      <strong>container</strong> - the id of an HTML-element or the HTML-element itself which will contain the annotation.<br />
-      <strong>character</strong> - a symbol displayed inside the annotation label e.g "1", "2", "3" or "A", "B", "C". In fact, the label character can be a string of any length.<br />
-      <strong>text</strong> - a text displayed in the annotation popup dialog. This dialog appears when the user clicks on the annotation. It may contain HTML formatted text as well. Specify an empty line to disable the popup dialog feature.
+      <strong>container</strong> - идентификатор HTML-элемента или сам HTML-элемент, который будет содержать аннотацию.<br />
+      <strong>character</strong> - символ, отображаемый внутри метки аннотации, например, "1", "2", "3" или "A", "B", "C". Фактически, символ метки может быть строкой любой длины.<br />
+      <strong>text</strong> - текст, отображаемый во всплывающем окне аннотации. Это окно появляется, когда пользователь щелкает по аннотации. Он может содержать также текст в формате HTML. Укажите пустую строку, чтобы отключить функцию всплывающего диалогового окна.
     </p>
 
-    <h2>Properties</h2>
-    <p>See the base [page:AnnotationControl] class for common properties.</p>
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:AnnotationControl].</p>
 
     <h3>[property:String character]</h3>
     <p>
-      Annotation character.
+      Характер аннотации.
     </p>
 
     <h3>[property:String text]</h3>
     <p>
-      Annotation dialog text.
+      Текст аннотации.
     </p>
 
     <h3>[property:HTMLElement annotation]</h3>
     <p>
-      Annotation label element (usually div).
+      Элемент метки аннотации (обычно div).
     </p>
 
     <h3>[property:HTMLElement annotationText]</h3>
     <p>
-      Annotation dialog element (usually div).
+      Элемент диалогового окна аннотации (обычно div).
     </p>
 
     <h3>[property:Boolean annotationTextVisible]</h3>
     <p>
-      Annotation dialog visibility flag. Calculated by the [page:AnnotationControl.update update] method.
+      Параметр видимости диалогового окна аннотации. Вычисляется методом [page:AnnotationControl.update update update].
     </p>
 
     <h3>[property:Boolean fadeObscured]</h3>
     <p>
-      Fade (make semi-transparent) the annotation if obscured by other objects. Default is true.
+      Обесцветить (сделать полупрозрачной) аннотацию, если она заслонена другими объектами. По умолчанию - true.
     </p>
 
     <h3>[property:Boolean isAnnotation]</h3>
     <p>
-      Used to check whether this or derived classes are annotations.<br />
-      You should not change this, as it is used internally for optimization.
+      Используется для проверки того, является ли данный или производные классы аннотациями.<br />
+      Вы не должны изменять этот параметр, так как он используется для внутренней оптимизации.
     </p>
 
-    <h2>Methods</h2>
-    <p>See the base [page:Object3D] class for common methods.</p>
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Object3D].</p>
 
     <h3>[method:Annotation clone]()</h3>
     <p>
-      Returns a clone of this Annotation object and any descendants.
+      Возвращает клон данного объекта-аннотации и всех его преемников..
     </p>
 
     <h3>[method:null dispose]()</h3>
     <p>
-      Removes the HTML layout and the corresponding event listeners.
+      Удаляет HTML-макет и соответствующих event listeners.
     </p>
 
     <h3>[method:null raycast]([param:Raycaster raycaster], [param:Array intersects])</h3>
     <p>
-      Not implemented yet.
+      Пока не реализовано.
     </p>
 
-    <h2>Puzzles</h2>
+    <h2>Пазлы</h2>
     <p>
-      Use [page:Puzzles.add_annotation add annotation] or [page:Puzzles.remove_annotation remove annotation] to manage annotations in the Puzzles editor.
+      Используйте [page:Puzzles.add_annotation add annotation] или [page:Puzzles.remove_annotation remove annotation] для управления аннотациями в редакторе пазлов.
     </p>
 
     [sourceHint]
