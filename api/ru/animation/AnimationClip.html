@@ -10,132 +10,117 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br /><br />
+      AnimationClip - это многократно используемый набор дорожек ключевых кадров, которые представляют анимацию.<br /><br />
 
-      For an overview of the different elements of the Verge3D animation system see the
-      "Animation System" article in the "Next Steps" section of the manual.
+      Обзор различных элементов системы анимации Verge3D смотрите в статье "Animation System" в разделе "Next Steps" руководства.
     </p>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
 
     <h3>[name]([param:String name], [param:Number duration], [param:Array tracks])</h3>
     <p>
-      [page:String name] - a name for this clip.<br />
-      [page:Number duration] - the duration of this clip (in seconds). If a negative value is passed,
-      the duration will be calculated from the passed *tracks* array.<br />
-      [page:Array tracks] - an array of [page:KeyframeTrack KeyframeTracks].<br /><br />
+      [page:String name] - название для этого клипа..<br />
+      [page:Number duration] - продолжительность этого клипа (в секундах). Если передано отрицательное значение, длительность будет вычислена из переданного массива *tracks*.<br />
+      [page:Array tracks] - массив [page:KeyframeTrack KeyframeTracks].<br /><br />
 
-      Note: Instead of instantiating an AnimationClip directly with the constructor, you can use one
-      of its static methods to create AnimationClips: from JSON ([page:.parse parse]), from morph
-      target sequences ([page:.CreateFromMorphTargetSequence CreateFromMorphTargetSequence],
-      [page:.CreateClipsFromMorphTargetSequences CreateClipsFromMorphTargetSequences]) or from
-      animation hierarchies ([page:.parseAnimation parseAnimation]) - if your model doesn't already
-      hold AnimationClips in its geometry's animations array.
+      Примечание: Вместо непосредственного создания AnimationClip с помощью конструктора, вы можете использовать один из его статических методов для создания AnimationClip: из JSON ([page:.parse parse]), из последовательностей морф-мишеней ([page:.CreateFromMorphTargetSequence CreateFromMorphTargetSequence], [page:. CreateClipsFromMorphTargetSequences CreateClipsFromMorphTargetSequences]) или из иерархий анимации ([page:.parseAnimation parseAnimation]) - если ваша модель еще не содержит AnimationClips в массиве анимаций своей геометрии.
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
 
     <h3>[property:Number duration]</h3>
     <p>
-      The duration of this clip (in seconds). This can be calculated from the [page:.tracks tracks]
-      array via [page:.resetDuration resetDuration].
+      Продолжительность этого клипа (в секундах). Она может быть вычислена из массива [page:.tracks tracks tracks] через [page:.resetDuration resetDuration].
     </p>
 
     <h3>[property:String name]</h3>
     <p>
-      A name for this clip. A certain clip can be searched via [page:.findByName findByName].
+      Наименование для этого клипа. Определенный клип можно искать через [page:.findByName findByName].
     </p>
 
     <h3>[property:Array tracks]</h3>
     <p>
-      An array containing a [page:KeyframeTrack] for each property that are animated by this clip.
+      Массив, содержащий [page:KeyframeTrack] для каждого свойства, которое анимируется этим клипом.
     </p>
 
     <h3>[property:String uuid]</h3>
     <p>
-      The [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this clip instance.
-      It gets automatically assigned and shouldn't be edited.
+      [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] данного экземпляра клипа. Он присваивается автоматически и не подлежит редактированию.
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
 
     <h3>[method:AnimationClip clone]()</h3>
     <p>
-      Returns a copy of this clip.
+      Возвращает копию этого клипа.
     </p>
 
     <h3>[method:this optimize]()</h3>
     <p>
-      Optimizes each track by removing equivalent sequential keys (which are common in morph target
-      sequences).
+      Оптимизирует каждую дорожку, удаляя эквивалентные последовательные ключи (которые часто встречаются в целевых последовательностях морфа).
     </p>
 
     <h3>[method:this resetDuration]()</h3>
     <p>
-      Sets the [page:.duration duration] of the clip to the duration of its longest
+      Устанавливает [page:.duration duration duration] клипа на длительность его самого длинного
       [page:KeyframeTrack].
     </p>
 
     <h3>[method:Object toJSON]()</h3>
     <p>
-      Returns a JSON object representing the serialized animation clip.
+      Возвращает объект JSON, представляющий сериализованный анимационный клип. 
     </p>
 
     <h3>[method:this trim]()</h3>
     <p>
-      Trims all tracks to the clip's duration.
+      Обрезает все дорожки до длительности клипа.
     </p>
 
     <h3>[method:Boolean validate]()</h3>
     <p>
-      Performs minimal validation on each track in the clip. Returns true if all tracks are valid.
+      Выполняет минимальную проверку каждой дорожки в клипе. Возвращает true, если все дорожки действительны.
     </p>
 
 
-    <h2>Static Methods</h2>
+    <h2>Статические методы</h2>
 
 
     <h3>[method:Array CreateClipsFromMorphTargetSequences]([param:String name], [param:Array morphTargetSequence], [param:Number fps], [param:Boolean noLoop])</h3>
     <p>
-      Returns an array of new AnimationClips created from the [page:Geometry.morphTargets morph
-      target sequences] of a geometry, trying to sort morph target names into animation-group-based
-      patterns like "Walk_001, Walk_002, Run_001, Run_002 ...".
+      Возвращает массив новых AnimationClips, созданных из [page:Geometry.morphTargets morph target sequences] геометрии, пытаясь отсортировать имена morph target в шаблоны, основанные на анимационных группах, таких как "Walk_001, Walk_002, Run_001, Run_002 ...".
     </p>
 
     <h3>[method:AnimationClip CreateFromMorphTargetSequence]([param:String name], [param:Array morphTargetSequence], [param:Number fps], [param:Boolean noLoop])</h3>
     <p>
-      Returns a new AnimationClip from the passed [page:Geometry.morphTargets morph targets array]
-      of a geometry, taking a name and the number of frames per second.<br /><br />
+      Возвращает новый AnimationClip из переданного [page:Geometry.morphTargets morph targets array] геометрии, принимая имя и количество кадров в секунду.<br /><br />
 
-      Note: The fps parameter is required, but the animation speed can be overridden in an
-      *AnimationAction* via [page:AnimationAction.setDuration animationAction.setDuration].
+      Примечание: Параметр fps является обязательным, но скорость анимации можно переопределить в *AnimationAction* через [page:AnimationAction.setDuration animationAction.setDuration].
     </p>
 
     <h3>[method:AnimationClip findByName]([param:Object objectOrClipArray], [param:String name])</h3>
     <p>
-      Searches for an AnimationClip by name, taking as its first parameter either an array of
-      AnimationClips, or a mesh or geometry that contains an array named "animations".
+      Ищет AnimationClip по имени, принимая в качестве первого параметра либо массив AnimationClips, либо сетку или геометрию, содержащую массив с именем "animations".
     </p>
 
     <h3>[method:AnimationClip parse]([param:Object json])</h3>
     <p>
-      Parses a JSON representation of a clip and returns an AnimationClip.
+      Парсит JSON-представление клипа и возвращает AnimationClip.
     </p>
 
     <h3>[method:AnimationClip parseAnimation]([param:Object animation], [param:Array bones])</h3>
     <p>
-      Parses the animation.hierarchy format and returns an AnimationClip.
+      Парсит формат animation.hierarchy и возвращает AnimationClip.
     </p>
 
     <h3>[method:Object toJSON]([param:AnimationClip clip])</h3>
     <p>
-      Takes an AnimationClip and returns a JSON object.
+      Принимает AnimationClip и возвращает объект JSON.
     </p>
 
 
