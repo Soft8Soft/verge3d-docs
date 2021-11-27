@@ -7,52 +7,46 @@
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body>
-    <h1>Draw Mode Constants</h1>
+    <h1>Константы Режима Отрисовки</h1>
 
     <p class="desc">
-      These are valid values for [page:Mesh.drawMode], and control how the list of vertices is interpeted once sent to the GPU.<br /><br />
+      Это допустимые значения для [page:Mesh.drawMode], которые управляют тем, как список вершин будет интерпретирован после отправки на GPU..<br /><br />
 
-      Note that these only work when [page:Mesh.geometry] is a [page:BufferGeometry]. Changing this
-      when [page:Mesh.geometry] is a [page:Geometry] will have no effect.<br /><br />
+      Обратите внимание, что они работают только тогда, когда [page:Mesh.geometry] является [page:BufferGeometry]. Изменение этого параметра когда [page:Mesh.geometry] является [page:Geometry] не будет иметь никакого эффекта.<br /><br />
 
 
 
     </p>
 
-    <h2>Draw Modes</h2>
+    <h2>Режимы Отрисовки</h2>
 
     <code>
       v3d.TrianglesDrawMode
     </code>
     <p>
-      This is the default, and results in every three consecutive vertices (v0, v1, v2), (v2, v3, v5), ...
-      being interpreted as a separate triangle. <br />
-      If the number of vertices is not a multiple of 3, excess vertices are ignored.
+      Это значение используется по умолчанию, в результате чего каждые три последовательные вершины (v0, v1, v2), (v2, v3, v5), ... интерпретируются как отдельный треугольник.  <br />
+      Если количество вершин не кратно 3, лишние вершины игнорируются.
     </p>
 
     <code>
       v3d.TriangleStripDrawMode
     </code>
     <p>
-      This will result in a series of triangles connected in a strip, given by (v0, v1, v2), (v2, v1, v3), (v2, v3, v4), ...
-      so that every subsequent triangle shares two vertices with the previous triangle.
+      В результате получится ряд треугольников, соединенных в полосу, заданную (v0, v1, v2), (v2, v1, v3), (v2, v3, v4), ... так, что каждый последующий треугольник имеет две общие вершины с предыдущим треугольником.
     </p>
 
     <code>
       v3d.TriangleFanDrawMode
     </code>
     <p>
-      This will result in a series of triangles each sharing the first vertex (like a fan),
-      given by (v0, v1, v2), (v0, v2, v3), (v0, v3, v4), ... <br /><br />
+      В результате получится серия треугольников, каждый из которых имеет общую первую вершину (как веер), заданных (v0, v1, v2), (v0, v2, v3), (v0, v3, v4), ... <br /><br />
 
-      <em>Note:</em> As of [link:https://en.wikipedia.org/wiki/DirectX#DirectX_10 DirectX10], this mode is not supported. As Chrome and Firefox
-      render WebGL using [link:https://en.wikipedia.org/wiki/ANGLE_(software) ANGLE] on Windows,
-      internally this mode will be converted to a supported mode, which will likely lead to lowered
-      performance on those browsers.
+      <em>Примечание:</em> По состоянию на [link:https://en.wikipedia.org/wiki/DirectX#DirectX_10 DirectX10], этот режим не поддерживается. Поскольку Chrome и Firefox рендерят WebGL, используя [link:https://en.wikipedia.org/wiki/ANGLE_(software) ANGLE] в Windows,
+      внутренне этот режим будет преобразован в поддерживаемый режим, что, вероятно, приведет к снижению производительности в этих браузерах.
     </p>
 
 
-    <h2>Usage</h2>
+    <h2>Применение</h2>
 
     <code>
     var geometry = new v3d.Geometry();

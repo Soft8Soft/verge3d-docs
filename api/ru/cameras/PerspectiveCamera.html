@@ -12,20 +12,19 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Camera that uses [link:https://en.wikipedia.org/wiki/Perspective_(graphical) perspective projection].<br /><br />
+      Камера, использующая [link:https://en.wikipedia.org/wiki/Perspective_(graphical) perspective projection].<br /><br />
 
-      This projection mode is designed to mimic the way the human eye sees. It is the most
-      common projection mode used for rendering a 3D scene.
+      Этот режим проецирования разработан для имитации того, как видит человеческий глаз. Это самый распространенный режим проецирования, используемый для рендеринга 3D-сцены.
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Примеры Кода</h2>
 
     <code>
     const camera = new v3d.PerspectiveCamera(45, width / height, 1, 1000);
     scene.add(camera);
     </code>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
 
     <p>
       [example:webgl_animation_skinning_blending animation / skinning / blending]<br />
@@ -35,119 +34,112 @@
       [example:webgl_loader_collada_skinning loader / collada / skinning]
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:Number fov], [param:Number aspect], [param:Number near], [param:Number far])</h3>
     <p>
-    fov — Camera frustum vertical field of view.<br />
-    aspect — Camera frustum aspect ratio.<br />
-    near — Camera frustum near plane.<br />
-    far — Camera frustum far plane.<br /><br />
+    fov — Вертикальное поле зрения фрустума камеры.<br />
+    aspect — Соотношение сторон фрустума камеры.<br />
+    near — Ближайшая плоскость фруструма камеры.<br />
+    far — Дальняя плоскость фруструма камеры.<br /><br />
 
-      Together these define the camera's [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum].
+     Вместе они определяют [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum] камеры.
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
     <p>
-      See the base [page:Camera] class for common properties.<br>
-      Note that after making changes to most of these properties you will have to call
-      [page:PerspectiveCamera.updateProjectionMatrix .updateProjectionMatrix] for the changes to take effect.
+      Общие свойства смотрите в базовом классе [page:Camera].<br>
+      Обратите внимание, что после внесения изменений в большинство из этих свойств вам придется вызвать
+[page:PerspectiveCamera.updateProjectionMatrix .updateProjectionMatrix], чтобы изменения вступили в силу.
     </p>
 
     <h3>[property:Float aspect]</h3>
-    <p>Camera frustum aspect ratio, usually the canvas width / canvas height. Default is *1* (square canvas).</p>
+    <p>Соотношение сторон фрустума камеры, обычно ширина холста / высота холста. По умолчанию *1* (квадратный холст).</p>
 
     <h3>[property:Float far]</h3>
     <p>
-      Camera frustum far plane. Default is *2000*.<br /><br />
+      Дальняя плоскость фруструма камеры. По умолчанию *2000*.<br /><br />
 
-      Must be greater than the current value of [page:.near near] plane.
+      Должно быть больше, чем текущее значение плоскости [page:.near near].
     </p>
 
     <h3>[property:Float filmGauge]</h3>
-    <p>Film size used for the larger axis. Default is 35 (millimeters). This parameter does not influence the projection matrix unless .filmOffset is set to a nonzero value.</p>
+    <p>Размер фотопленки, используемый для большей оси. По умолчанию 35 (миллиметров). Этот параметр не влияет на матрицу проекции, если .filmOffset не установлен в ненулевое значение.</p>
 
     <h3>[property:Float filmOffset]</h3>
-    <p>Horizontal off-center offset in the same unit as .filmGauge. Default is *0*.</p>
+    <p>Горизонтальное смещение от центра в тех же единицах, что и .filmGauge. По умолчанию *0*..</p>
 
     <h3>[property:Float focus]</h3>
-    <p>Object distance used for stereoscopy and depth-of-field effects.
-      This parameter does not influence the projection matrix unless a [page:StereoCamera] is being used.
-      Default is *10*.
+    <p>Расстояние до объекта, используемое для стереоскопии и эффектов глубины резкости. Этот параметр не влияет на матрицу проекции, если не используется [page:StereoCamera]. По умолчанию *10*.
     </p>
 
     <h3>[property:Float fov]</h3>
-    <p>Camera frustum vertical field of view, from bottom to top of view, in degrees. Default is *50*.</p>
+    <p>Вертикальное поле зрения фрустума камеры, снизу вверх, в градусах. По умолчанию *50*.</p>
 
 
     <h3>[property:Float near]</h3>
     <p>
-      Camera frustum near plane. Default is *0.1*.<br /><br />
+      Фрустум камеры вблизи плоскости. По умолчанию *0,1*.<br /><br />
 
-      The valid range is greater than 0 and less than the current value of the [page:.far far] plane.
-      Note that, unlike for the [page:OrthographicCamera], *0* is <em>not</em> a valid value
-      for a PerspectiveCamera's near plane.
+      Допустимый диапазон больше 0 и меньше текущего значения плоскости [page:.far far]. Обратите внимание, что в отличие от [page:OrthographicCamera], *0* является <em>не</em> допустимым значением для ближней плоскости PerspectiveCamera.
     </p>
 
     <h3>[property:Object view]</h3>
     <p>
-      Frustum window specification or null.
-      This is set using the [page:PerspectiveCamera.setViewOffset .setViewOffset] method
-      and cleared using [page:PerspectiveCamera.clearViewOffset .clearViewOffset].
+      Спецификация окна фрустума или null. Устанавливается с помощью метода [page:PerspectiveCamera.setViewOffset .setViewOffset] и очищается с помощью [page:PerspectiveCamera.clearViewOffset .clearViewOffset].
     </p>
 
     <h3>[property:number zoom]</h3>
-    <p>Gets or sets the zoom factor of the camera. Default is *1*.</p>
+    <p>Получает или устанавливает коэффициент масштабирования камеры. По умолчанию *1*.</p>
 
 
-    <h2>Methods</h2>
-    <p>See the base [page:Camera] class for common methods.</p>
+    <h2>Методы</h2>
+    <p>Общие методы смотрите в базовом классе [page:Camera].</p>
 
     <h3>[method:null clearViewOffset]()</h3>
-    <p>Removes any offset set by the [page:PerspectiveCamera.setViewOffset .setViewOffset] method.</p>
+    <p>Удаляет любое смещение, установленное методом [page:PerspectiveCamera.setViewOffset .setViewOffset].</p>
 
     <h3>[method:Float getEffectiveFOV]()</h3>
-    <p>Returns the current vertical field of view angle in degrees considering .zoom.</p>
+    <p>Возвращает текущий вертикальный угол поля зрения в градусах с учетом .zoom.</p>
 
     <h3>[method:Float getFilmHeight]()</h3>
     <p>
-    Returns the height of the image on the film. If .aspect is less than or equal to one
-    (portrait format), the result equals .filmGauge.
+      Возвращает высоту изображения на пленке. Если .aspect меньше или равно единице (портретный формат), результат равен .filmGauge.
     </p>
 
     <h3>[method:Float getFilmWidth]()</h3>
     <p>
-    Returns the width of the image on the film. If .aspect is greater than or equal to one
-    (landscape format), the result equals .filmGauge.
+      Возвращает ширину изображения на пленке. Если значение .aspect больше или равно единице (альбомный формат), результат равен .filmGauge.
     </p>
 
     <h3>[method:Float getFocalLength]()</h3>
-    <p>Returns the focal length of the current .fov in respect to .filmGauge.</p>
+    <p>Возвращает фокусное расстояние текущего .fov по отношению к .filmGauge.</p>
 
     <h3>[method:null setFocalLength]([param:Float focalLength])</h3>
     <p>
-    Sets the FOV by focal length in respect to the current [page:PerspectiveCamera.filmGauge .filmGauge].<br /><br />
+      Устанавливает FOV по фокусному расстоянию относительно текущего [page:PerspectiveCamera.filmGauge .filmGauge].
+      <br /><br />
 
-    By default, the focal length is specified for a 35mm (full frame) camera.
+      По умолчанию фокусное расстояние задается для 35-мм (полнокадровой) камеры.
     </p>
 
     <h3>[method:null setViewOffset]([param:Float fullWidth], [param:Float fullHeight], [param:Float x], [param:Float y], [param:Float width], [param:Float height])</h3>
     <p>
-    fullWidth — full width of multiview setup<br />
-    fullHeight — full height of multiview setup<br />
-    x — horizontal offset of subcamera<br />
-    y — vertical offset of subcamera<br />
-    width — width of subcamera<br />
-    height — height of subcamera
+    fullWidth — полная ширина многоракурсной установки<br />
+    fullHeight — полная высота многоракурсной установки<br />
+    x — горизонтальное смещение подкамеры<br />
+    y — вертикальное смещение подкамеры<br />
+    width — ширина подкамеры<br />
+    height — высота подкамеры
     </p>
 
     <p>
-    Sets an offset in a larger frustum. This is useful for multi-window or multi-monitor/multi-machine setups.
+      Устанавливает смещение в более крупном фрагменте. Это полезно для многооконных или мультимониторных/ мультимашинных настроек.
     </p>
 
     <p>
-    For example, if you have 3x2 monitors and each monitor is 1920x1080 and the monitors are in grid like this:<br />
+      Например, если у вас 3x2 монитора и каждый монитор имеет разрешение 1920x1080, а мониторы расположены в сетке следующим образом:<br />
 
     <pre>
 +---+---+---+
@@ -157,7 +149,7 @@
 +---+---+---+
     </pre>
 
-    then for each monitor you would call it like this:<br />
+    тогда для каждого монитора вы будете называть его следующим образом:<br />
 
     <code>const w = 1920;
 const h = 1080;
@@ -178,18 +170,18 @@ camera.setViewOffset(fullWidth, fullHeight, w * 1, h * 1, w, h);
 camera.setViewOffset(fullWidth, fullHeight, w * 2, h * 1, w, h);
 </code>
 
-    Note there is no reason monitors have to be the same size or in a grid.
+Обратите внимание, что мониторы не обязательно должны быть одинакового размера или располагаться в виде сетки.
     </p>
 
     <h3>[method:null updateProjectionMatrix]()</h3>
     <p>
-    Updates the camera projection matrix. Must be called after any change of parameters.
+      Обновляет матрицу проекции камеры. Должно вызываться после любого изменения параметров.
     </p>
 
     <h3>[method:Object toJSON]([param:Object meta])</h3>
     <p>
-    meta -- object containing metadata such as textures or images in objects' descendants.<br />
-    Convert the camera to Verge3D [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
+      meta -- объект, содержащий метаданные, такие как текстуры или изображения в дочерних объектах.
+      Конвертируйте камеру в формат Verge3D [ссылка:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
     </p>
 
     [sourceHint]
