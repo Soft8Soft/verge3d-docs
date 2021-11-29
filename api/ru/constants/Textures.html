@@ -7,9 +7,9 @@
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body>
-    <h1>Texture Constants</h1>
+    <h1>Константы Текстур</h1>
 
-    <h2>Mapping Modes</h2>
+    <h2>Режимы Маппинга</h2>
     <code>
     v3d.UVMapping
     v3d.CubeReflectionMapping
@@ -21,64 +21,51 @@
     </code>
 
     <p>
-    These define the texture's mapping mode.<br />
-    [page:Constant UVMapping] is the default, and maps the texture using the mesh's UV coordinates.<br /><br />
+      Они определяют режим отображения текстуры. <br />
+      [page:Constant UVMapping] - это режим по умолчанию, при котором текстура отображается с использованием UV-координат объекта.<br /><br />
 
-    The rest define environment mapping types.<br /><br />
+      Остальные определяют типы маппинга окруженающей среды.<br /><br />
 
-    [page:Constant CubeReflectionMapping] and [page:Constant CubeRefractionMapping] are for
-    use with a [page:CubeTexture CubeTexture], which is made up of six textures, one for each face of the cube.
-    [page:Constant CubeReflectionMapping] is the default for a [page:CubeTexture CubeTexture]. <br /><br />
+    [page:Constant CubeReflectionMapping] и [page:Constant CubeRefractionMapping] предназначены для использования с [page:CubeTexture CubeTexture], которая состоит из шести текстур, по одной для каждой грани куба. [page:Constant CubeReflectionMapping] - это значение по умолчанию для [page:CubeTexture CubeTexture]. <br /><br />
 
-    [page:Constant EquirectangularReflectionMapping] and [page:Constant EquirectangularRefractionMapping]
-    are for use with an equirectangular environment map.  Also called a lat-long map, an equirectangular
-    texture represents a 360-degree view along the horizontal centerline, and a 180-degree view along the
-    vertical axis, with the top and bottom edges of the image corresponding to the north and south poles
-    of a mapped sphere.<br /><br />
+    [page:Constant EquirectangularReflectionMapping] и [page:Constant EquirectangularRefractionMapping] предназначены для использования с равноугольной картой окружения. Также называемая картой широты, равноугольная текстура представляет собой 360-градусный вид вдоль горизонтальной центральной линии и 180-градусный вид вдоль вертикальной оси, причем верхний и нижний края изображения соответствуют северному и южному полюсам отображаемой сферы.<br /><br />
 
-    See the [example:webgl_materials_envmaps materials / envmaps] example.
-    </p>
+    Смотрите пример [example:webgl_materials_envmaps materials / envmaps].
+  </p>
 
 
-    <h2>Wrapping Modes</h2>
+    <h2>Режимы Обертывания</h2>
     <code>
     v3d.RepeatWrapping
     v3d.ClampToEdgeWrapping
     v3d.MirroredRepeatWrapping
     </code>
     <p>
-    These define the texture's [page:Texture.wrapS wrapS] and [page:Texture.wrapT wrapT] properties,
-    which define horizontal and vertical texture wrapping.<br /><br />
+      Они определяют свойства текстуры [page:Texture.wrapS wrapS] и [page:Texture.wrapT wrapT], которые определяют горизонтальное и вертикальное обертывание текстуры.<br /><br />
 
-    With [page:constant RepeatWrapping] the texture will simply repeat to infinity.<br /><br />
+      При использовании [page:constant RepeatWrapping] текстура будет просто повторяться до бесконечности.<br /><br />
 
-    [page:constant ClampToEdgeWrapping] is the default.
-    The last pixel of the texture stretches to the edge of the mesh.<br /><br />
+    [page:constant ClampToEdgeWrapping] по умолчанию.
+    Последний пиксель текстуры растягивается до края сетки.<br /><br />
 
-    With [page:constant MirroredRepeatWrapping] the texture will repeats to infinity, mirroring on each repeat.
+    При использовании [page:constant MirroredRepeatWrapping] текстура будет повторяться до бесконечности, зеркально отражаясь при каждом повторении.
     </p>
 
-    <h2>Magnification Filters</h2>
+    <h2>Magnification Filters (Фильтры Увеличения)</h2>
     <code>
     v3d.NearestFilter
     v3d.LinearFilter
     </code>
 
     <p>
-    For use with a texture's [page:Texture.magFilter magFilter]  property,
-    these define the texture magnification function to be used when the pixel being textured maps to an
-    area less than or equal to one texture element (texel).<br /><br />
+      Для использования со свойством [page:Texture.magFilter magFilter] текстуры, они определяют функцию увеличения текстуры, которая будет использоваться, когда пиксель, на который накладывается текстура, имеет площадь меньше или равную одному элементу текстуры (текселу).<br /><br />
 
-    [page:constant NearestFilter] returns the value of the texture element that is nearest
-    (in Manhattan distance) to the specified texture coordinates.<br /><br />
+      [page:constant NearestFilter] возвращает значение элемента текстуры, который является ближайшим (по расстоянию Манхэттена) к указанным координатам текстуры.<br /><br />
 
-    [page:constant LinearFilter] is the default and returns the weighted average
-    of the four texture elements that are closest to the specified texture coordinates,
-    and can include items wrapped or repeated from other parts of a texture,
-    depending on the values of [page:Texture.wrapS wrapS] and [page:Texture.wrapT wrapT], and on the exact mapping.
+      [page:constant LinearFilter] используется по умолчанию и возвращает средневзвешенное значение четырех элементов текстуры, которые ближе всего к указанным координатам текстуры, и может включать элементы, обернутые или повторенные из других частей текстуры, в зависимости от значений [page:Texture.wrapS wrapS] и [page:Texture.wrapT wrapT], а также от точного отображения.
     </p>
 
-    <h2>Minification Filters</h2>
+    <h2>Minification Filters (Фильтры Уменьшения)</h2>
     <code>
     v3d.NearestFilter
     v3d.NearestMipmapNearestFilter
@@ -89,32 +76,19 @@
     </code>
 
     <p>
-    For use with a texture's [page:Texture.minFilter minFilter]  property, these define
-    the texture minifying function that is used whenever the pixel being textured maps
-    to an area greater than one texture element (texel).<br /><br />
+      Для использования со свойством [page:Texture.minFilter minFilter] текстуры, они определяют функцию минимизации текстуры, которая используется всякий раз, когда пиксель, на который наносится текстура, отображается на область, превышающую один элемент текстуры (тексель).<br /><br />
 
-    In addition to [page:constant NearestFilter] and [page:constant LinearFilter],
-    the following four functions can be used for minification:<br /><br />
+      В дополнение к [page:constant NearestFilter] и [page:constant LinearFilter] для минификации можно использовать следующие четыре функции:<br /><br />
 
-    [page:constant NearestMipmapNearestFilter] chooses the mipmap that most closely
-    matches the size of the pixel being textured
-    and uses the [page:constant NearestFilter] criterion (the texel nearest to the
-    center of the pixel) to produce a texture value.<br /><br />
+      [page:constant NearestMipmapNearestFilter] выбирает мипмапу, наиболее точно соответствующую размеру текстурируемого пикселя, и использует критерий [page:constant NearestFilter] (ближайший к центру пикселя тексель) для получения значения текстуры.<br /><br />
 
-    [page:constant NearestMipmapLinearFilter] chooses the two mipmaps that most closely
-    match the size of the pixel being textured and uses the [page:constant NearestFilter] criterion to produce
-    a texture value from each mipmap. The final texture value is a weighted average of those two values.<br /><br />
+      [page:constant NearestMipmapLinearFilter] выбирает два отображения, которые наиболее точно соответствуют размеру текстурируемого пикселя, и использует критерий [page:constant NearestFilter] для получения значения текстуры из каждого отображения. Окончательное значение текстуры является средневзвешенным значением этих двух значений.<br /><br />
 
-    [page:constant LinearMipmapNearestFilter] chooses the mipmap that most closely matches
-    the size of the pixel being textured and uses the [page:constant LinearFilter] criterion
-    (a weighted average of the four texels that are closest to the center of the pixel)
-    to produce a texture value.<br /><br />
+      [page:constant LinearMipmapNearestFilter] выбирает мипмапу, наиболее точно соответствующую размеру текстурируемого пикселя, и использует критерий [page:constant LinearFilter] (средневзвешенное значение четырех текселей, наиболее близких к центру пикселя) для получения значения текстуры.<br /><br />
 
-    [page:constant LinearMipmapLinearFilter] is the default and chooses the two mipmaps
-    that most closely match the size of the pixel being textured and uses the [page:constant LinearFilter] criterion
-    to produce a texture value from each mipmap. The final texture value is a weighted average of those two values.<br /><br />
+      [page:constant LinearMipmapLinearFilter] используется по умолчанию и выбирает два отображения, которые наиболее точно соответствуют размеру текстурируемого пикселя, и использует критерий [page:constant LinearFilter] для получения значения текстуры из каждого отображения. Окончательное значение текстуры является средневзвешенным значением этих двух значений.<br /><br />
 
-    See the [example:webgl_materials_texture_filters materials / texture / filters] example.
+      Смотрите пример [example:webgl_materials_texture_filters materials / texture / filters].
     </p>
 
     <h2>Types</h2>
