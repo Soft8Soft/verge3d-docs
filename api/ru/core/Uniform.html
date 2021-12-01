@@ -9,12 +9,12 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">Uniforms are global [link:https://www.opengl.org/documentation/glsl/ GLSL] variables. They are passed to shader programs.
+    <p class="desc">Униформы являются глобальными [link:https://www.opengl.org/documentation/glsl/ GLSL] переменными. Они передаются в шейдерные программы.
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
     <p>
-    When declaring a uniform of a [page:ShaderMaterial], it is declared by value or by object.
+      При объявлении формы [page:ShaderMaterial] она объявляется по значению или по объекту.
     </p>
     <code>
     uniforms: {
@@ -23,17 +23,10 @@
     };
     </code>
 
-    <h2>Uniform types</h2>
+    <h2>Типы Униформ</h2>
 
     <p>
-    Each uniform must have a *value* property. The type of the value must correspond to the
-    type of the uniform variable in the GLSL code as specified for the primitive GLSL types
-    in the table below. Uniform structures and arrays are also supported. GLSL arrays of primitive
-    type must either be specified as an array of the corresponding v3d objects or as a flat
-    array containing the data of all the objects. In other words; GLSL primitives in arrays
-    must not be represented by arrays. This rule does not apply transitively.
-    An array of *vec2* arrays, each with a length of five vectors, must be an array of arrays,
-    of either five [page:Vector2] objects or ten *number*s.
+      Каждая униформа должна иметь свойство *value*. Тип значения должен соответствовать типу однородной переменной в коде GLSL, как указано для примитивных типов GLSL в таблице ниже. Также поддерживаются унифицированные структуры и массивы. Массивы GLSL примитивного типа должны быть заданы либо как массив соответствующих объектов v3d, либо как плоский массив, содержащий данные всех объектов. Другими словами, GLSL-примитивы в массивах не должны быть представлены массивами. Это правило не применяется транзитивно. Массив массивов *vec2*, каждый из которых имеет длину пять векторов, должен быть массивом массивов, состоящим либо из пяти объектов [page:Vector2], либо из десяти *number*.
     </p>
     <table>
       <caption><a id="uniform-types">Uniform types</a></caption>
@@ -182,14 +175,13 @@
     </table>
 
     <p>
-    (*) Same for an (innermost) array (dimension) of the same GLSL type, containing the components of all vectors or matrices in the array.
+    (*) То же самое для внутреннего(innermost) массива размерности (dimension) того же типа GLSL, содержащего компоненты всех векторов или матриц в массиве.
     </p>
 
-    <h2>Structured Uniforms</h2>
+    <h2>Структурированные Униформы</h2>
 
     <p>
-      Sometimes you want to organize uniforms as *structs* in your shader code. The following style must be used so *Verge3D* is able
-      to process structured uniform data.
+      Иногда вы хотите организовать униформы как *структуры* в коде шейдера. Чтобы *Verge3D* мог обрабатывать структурированные данные униформы, необходимо использовать следующий стиль.
     </p>
     <code>
     uniforms = {
@@ -201,7 +193,7 @@
       }
     };
     </code>
-    This definition can be mapped on the following GLSL code:
+    Это определение может быть отображено следующим кодом GLSL: 
     <code>
     struct Data {
       vec3 position;
@@ -211,10 +203,10 @@
     uniform Data data;
     </code>
 
-    <h2>Structured Uniforms with Arrays</h2>
+    <h2>Структурированные Униформы с Массивами</h2>
 
     <p>
-      It's also possible to manage *structs* in arrays. The syntax for this use case looks like so:
+      Также можно управлять *structs* в массивах. Синтаксис для этого случая выглядит следующим образом: 
     </p>
     <code>
     const entry1 = {
@@ -232,7 +224,7 @@
       }
     };
     </code>
-    This definition can be mapped on the following GLSL code:
+    Это определение может быть отображено на следующий код GLSL: 
     <code>
     struct Data {
       vec3 position;
@@ -242,27 +234,27 @@
     uniform Data data[2];
     </code>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:Object value])</h3>
     <p>
-    value -- An object containing the value to set up the uniform. It's type must be one of the Uniform Types described above.
+    value -- Объект, содержащий значение для настройки униформы. Его тип должен быть одним из типов униформы, описанных выше.
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Object value]</h3>
     <p>
-    Current value of the uniform.
+    Текущее значение униформы.
     </p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:Uniform clone]()</h3>
     <p>
-    Returns a clone of this uniform.<br />
-    If the uniform's value property is an [page:Object] with a clone() method, this is used, otherwise the value is copied by assignment.
-    Array values are shared between cloned [page:Uniform]s.
+    Возвращает клон данной униформы<br />
+    Если свойство value униформы является [page:Object] с методом clone(), то используется этот метод, в противном случае значение копируется путем присваивания.
+    Значения массива разделяются между клонированными [page:Uniform]s.
     </p>
 
     [sourceHint]

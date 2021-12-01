@@ -12,11 +12,10 @@
     <h1>[name]</h1>
 
     <p class="desc">
-    Defines an arbitrary 2d shape plane using paths with optional holes. It can be used with [page:ExtrudeGeometry],
-    [page:ShapeGeometry], to get points, or to get triangulated faces.
+      Определяет плоскость произвольной двумерной формы, используя пути с необязательными отверстиями. Может использоваться с [page:ExtrudeGeometry], [page:ShapeGeometry], для получения точек или для получения триангулированных граней. 
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <code>
     const heartShape = new v3d.Shape();
@@ -36,7 +35,7 @@
     const mesh = new v3d.Mesh(geometry, new v3d.MeshPhongMaterial());
     </code>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
 
     <p>
     [example:webgl_geometry_shapes geometry / shapes]<br/>
@@ -45,54 +44,52 @@
     </p>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
 
     <h3>[name]([param:Array points])</h3>
     <p>
-    points -- (optional) array of [page:Vector2 Vector2s].<br /><br />
+    points -- (необязательный) массив [page:Vector2 Vector2s].<br /><br />
 
-    Creates a Shape from the points. The first point defines the offset, then successive points
-    are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].<br /><br />
+    Создает фигуру из точек. Первая точка определяет смещение, затем последующие точки добавляются в массив [page:CurvePath.curves curves] как [page:LineCurve LineCurves].<br /><br />
 
-    If no points are specified, an empty shape is created and the [page:.currentPoint] is set to
-    the origin.
+    Если точки не указаны, создается пустая фигура, а [page:.currentPoint] устанавливается в начало координат.
     </p>
 
 
-    <h2>Properties</h2>
-    <p>See the base [page:Path] class for common properties.</p>
+    <h2>Свойства</h2>
+    <p>Общие свойства смотрите в базовом классе [page:Path]..</p>
 
     <h3>[property:String uuid]</h3>
     <p>
-    [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this instance. This gets automatically assigned, so this shouldn't be edited.
+    [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] данного экземпляра. Он присваивается автоматически, поэтому его не нужно редактировать.
     </p>
 
     <h3>[property:Array holes]</h3>
-    <p>An array of [page:Path paths] that define the holes in the shape.</p>
+    <p>Массив [page:Path paths], определяющий отверстия в фигуре.</p>
 
-    <h2>Methods</h2>
-    <p>See the base [page:Path] class for common methods.</p>
+    <h2>Методы</h2>
+    <p>Общие методы смотрите в базовом классе [page:Path].</p>
 
     <h3>[method:Array extractPoints]([param:Integer divisions])</h3>
     <p>
-    divisions -- The fineness of the result.<br /><br />
+    divisions -- Точность результата.<br /><br />
 
-    Call [page:Curve.getPoints getPoints] on the shape and the [page:.holes] array, and return an object of the form:
+    Вызовите [page:Curve.getPoints getPoints] на форме и массиве [page:.holes], и верните объект формы:
     <code>
 {
   shape
   holes
 }
     </code>
-    where shape and holes are arrays of [page:Vector2 Vector2s].
+    где shape и holes - массивы [page:Vector2 Vector2s].
     </p>
 
     <h3>[method:Array getPointsHoles]([param:Integer divisions])</h3>
     <p>
-    divisions -- The fineness of the result.<br /><br />
+    divisions -- Точность результата.<br /><br />
 
-    Get an array of [page:Vector2 Vector2s] that represent the holes in the shape.
+    Получите массив [page:Vector2 Vector2s], представляющий отверстия(holes) в фигуре.
     </p>
 
     [sourceHint]

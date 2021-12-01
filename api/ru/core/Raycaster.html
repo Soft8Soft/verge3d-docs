@@ -10,12 +10,10 @@
     <h1>[name]</h1>
 
     <p class="desc">
-    This class is designed to assist with [link:https://en.wikipedia.org/wiki/Ray_casting raycasting].
-    Raycasting is used for mouse picking (working out what objects in the 3d space the mouse is over) amongst
-    other things.
+      Этот класс предназначен для помощи в работе с [link:https://en.wikipedia.org/wiki/Ray_casting raycasting]. Raycasting используется для для захвата мыши (определение объектов в 3d пространстве, над которыми находится мышь) среди прочего. 
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
     <code>
     const raycaster = new v3d.Raycaster();
     const mouse = new v3d.Vector2();
@@ -54,7 +52,7 @@
 
     </code>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
 
     <p>
       [example:webgl_interactive_cubes Raycasting to a Mesh]<br />
@@ -68,46 +66,42 @@
       [example:webgl_raycast_texture Raycast to a Texture]
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:Vector3 origin], [param:Vector3 direction], [param:Float near], [param:Float far]) {</h3>
     <p>
-    [page:Vector3 origin] — The origin vector where the ray casts from.<br />
-    [page:Vector3 direction] — The direction vector that gives direction to the ray. Should be normalized.<br />
-    [page:Float near] — All results returned are further away than near. Near can't be negative. Default value is 0.<br />
-    [page:Float far] — All results returned are closer than far. Far can't be lower than near. Default value is Infinity.
+    [page:Vector3 origin] — Вектор начала координат, из которого отбрасывается луч.<br />
+    [page:Vector3 direction] — Вектор направления, задающий направление луча. Должен быть нормализован.<br />
+    [page:Float near] — Все возвращенные результаты находятся дальше, чем near. Near не может быть отрицательным. Значение по умолчанию 0.<br />
+    [page:Float far] — Все возвращенные результаты ближе, чем far. Far не может быть меньше, чем near. Значение по умолчанию - Infinity(Бесконечность).
     </p>
     <p>
-    This creates a new raycaster object.<br />
+      Это создает новый объект raycaster.<br />
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Float far]</h3>
     <p>
-    The far factor of the raycaster. This value indicates which objects can be discarded based on the distance.
-    This value shouldn't be negative and should be larger than the near property.
+      Коэффициент дальности луча. Это значение указывает, какие объекты могут быть отброшены на основании расстояния. Это значение не должно быть отрицательным и должно быть больше, чем свойство near. 
     </p>
 
     <h3>[property:Float near]</h3>
     <p>
-    The near factor of the raycaster. This value indicates which objects can be discarded based on the distance.
-    This value shouldn't be negative and should be smaller than the far property.
+      Коэффициент близости райкастера. Это значение указывает, какие объекты могут быть отброшены на основании расстояния. Это значение не должно быть отрицательным и должно быть меньше, чем свойство far.
     </p>
 
     <h3>[property:Camera camera]</h3>
     <p>
-    The camera to use when raycasting against view-dependent objects such as billboarded objects like [page:Sprites]. This field
-    can be set manually or is set when calling "setFromCamera".
+      Камера, которую следует использовать при создании лучей для объектов, зависящих от вида, таких как объекты с билбордами, например [page:Sprites]. Это поле может быть задано вручную или устанавливается при вызове команды "setFromCamera".
 
-    Defaults to null.
+      По умолчанию имеет значение null.
     </p>
 
     <h3>[property:Layers layers]</h3>
     <p>
-    Used by [name] to selectively ignore 3D objects when performing intersection tests. The following code example ensures that
-    only 3D objects on layer *1* will be honored by the instance of [name].
+      Используется [name] для выборочного игнорирования 3D-объектов при выполнении тестов пересечения. Следующий пример кода гарантирует, что экземпляр [name] будет игнорировать только 3D-объекты на слое *1*.
 
     <code>
     raycaster.layers.set(1);
@@ -118,7 +112,7 @@
 
     <h3>[property:Object params]</h3>
     <p>
-    An object with the following properties:
+      Объект со следующими свойствами:
 
       <code>
 {
@@ -130,70 +124,70 @@
 }
       </code>
 
-    Where threshold is the precision of the raycaster when intersecting objects, in world units.
+      Где порог - точность лучей при пересечении объектов, в мировых единицах.
     </p>
 
     <h3>[property:Ray ray]</h3>
-    <p>The [Page:Ray] used for the raycasting.</p>
+    <p>[Page:Ray] используемый для передачи лучей.</p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:null set]([param:Vector3 origin], [param:Vector3 direction])</h3>
     <p>
-    [page:Vector3 origin] — The origin vector where the ray casts from.<br />
-    [page:Vector3 direction] — The normalized direction vector that gives direction to the ray.
+    [page:Vector3 origin] — Вектор начала координат, из которого отбрасывается луч.<br />
+    [page:Vector3 direction] — Нормализованный вектор направления, задающий направление луча.
     </p>
     <p>
-    Updates the ray with a new origin and direction. Please note that this method only copies the values from the arguments.
+      Обновляет луч с новым началом и направлением. Обратите внимание, что этот метод только копирует значения из аргументов.
     </p>
 
     <h3>[method:null setFromCamera]([param:Vector2 coords], [param:Camera camera])</h3>
     <p>
-    [page:Vector2 coords] — 2D coordinates of the mouse, in normalized device coordinates (NDC)---X and Y components should be between -1 and 1.<br />
-    [page:Camera camera] — camera from which the ray should originate
+    [page:Vector2 coords] — 2D координаты мыши в нормализованных координатах устройства (NDC) --- компоненты X и Y должны быть в пределах от -1 до 1.<br />
+    [page:Camera camera] — камера, из которой должен исходить луч
     </p>
     <p>
-    Updates the ray with a new origin and direction.
+      Обновляет луч с новым началом и направлением.
     </p>
 
     <h3>[method:Array intersectObject]([param:Object3D object], [param:Boolean recursive], [param:Array optionalTarget])</h3>
     <p>
-    [page:Object3D object] — The object to check for intersection with the ray.<br />
-    [page:Boolean recursive] — If true, it also checks all descendants. Otherwise it only checks intersection with the object. Default is false.<br />
-    [page:Array optionalTarget] — (optional) target to set the result. Otherwise a new [page:Array] is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
+    [page:Object3D object] — Объект, который нужно проверить на пересечение с лучом.<br />
+    [page:Boolean recursive] — Если true, то проверяются также все потомки. В противном случае проверяется только пересечение с объектом. По умолчанию - false.<br />
+    [page:Array optionalTarget] — (необязательно) цель для установки результата. В противном случае создается новый [page:Array]. Если задан, то перед каждым вызовом необходимо очищать этот массив (т.е. array.length = 0;).
     </p>
     <p>
-    Checks all intersection between the ray and the object with or without the descendants. Intersections are returned sorted by distance, closest first. An array of intersections is returned...
+      Проверяет все пересечения между лучом и объектом с потомками или без них. Пересечения возвращаются отсортированными по расстоянию, сначала ближайшие. Возвращается массив пересечений...
     </p>
     <code>
         [{ distance, point, face, faceIndex, object }, ...]
     </code>
     <p>
-      [page:Float distance] – distance between the origin of the ray and the intersection<br />
-      [page:Vector3 point] – point of intersection, in world coordinates<br />
-      [page:Face3 face] – intersected face<br />
-      [page:Integer faceIndex] – index of the intersected face<br />
-      [page:Object3D object] – the intersected object<br />
-      [page:Vector2 uv] - U,V coordinates at point of intersection<br />
-      [page:Vector2 uv2] - Second set of U,V coordinates at point of intersection<br />
-      [page:Integer instanceId] – The index number of the instance where the ray intersects the InstancedMesh
+      [page:Float distance] – расстояние между началом луча и точкой пересечения<br />
+      [page:Vector3 point] – точка пересечения, в мировых координатах<br />
+      [page:Face3 face] – пересекаемая поверхность<br />
+      [page:Integer faceIndex] – индекс пересекаемой грани<br />
+      [page:Object3D object] – пересекаемый объект<br />
+      [page:Vector2 uv] - U,V координаты в точке пересечения<br />
+      [page:Vector2 uv2] - Второй набор координат U,V в точке пересечения<br />
+      [page:Integer instanceId] – Индексный номер экземпляра, в котором луч пересекает InstancedMesh
     </p>
     <p>
-    *Raycaster* delegates to the [page:Object3D.raycast raycast] method of the passed object, when evaluating whether the ray intersects the object or not. This allows [page:Mesh meshes] to respond differently to ray casting than [page:Line lines] and [page:Points pointclouds].
+      *Raycaster* делегирует метод [page:Object3D.raycast raycast] переданного объекта, когда оценивает, пересекает ли луч объект или нет. Это позволяет [page:Mesh meshes] реагировать на отбрасывание лучей иначе, чем [page:Line lines] и [page:Points pointclouds].
     </p>
     <p>
-    *Note* that for meshes, faces must be pointed towards the origin of the [page:.ray ray] in order to be detected; intersections of the ray passing through the back of a face will not be detected. To raycast against both faces of an object, you'll want to set the [page:Mesh.material material]'s [page:Material.side side] property to *v3d.DoubleSide*.
+      Обратите внимание, что для мешей грани должны быть направлены к ориджину [page:.ray ray], чтобы быть обнаруженными; пересечения луча, проходящего через заднюю часть грани, не будут обнаружены. Чтобы направить луч на обе грани объекта, нужно установить свойство [page:Mesh.material material] [page:Material.side side] в *v3d.DoubleSide*.
     </p>
 
     <h3>[method:Array intersectObjects]([param:Array objects], [param:Boolean recursive], [param:Array optionalTarget])</h3>
     <p>
-    [page:Array objects] — The objects to check for intersection with the ray.<br />
-    [page:Boolean recursive] — If true, it also checks all descendants of the objects. Otherwise it only checks intersection with the objects. Default is false.<br />
-    [page:Array optionalTarget] — (optional) target to set the result. Otherwise a new [page:Array] is instantiated. If set, you must clear this array prior to each call (i.e., array.length = 0;).
+    [page:Array objects] — Объекты для проверки пересечения с лучом.<br />
+    [page:Boolean recursive] — Если true, то также проверяются все потомки объектов. В противном случае проверяется только пересечение с объектами. По умолчанию false.<br />
+    [page:Array optionalTarget] — (необязательно) цель для установки результата. В противном случае создается новый [page:Array]. Если задан, то перед каждым вызовом необходимо очищать этот массив (т.е. array.length = 0;).
     </p>
     <p>
-    Checks all intersection between the ray and the objects with or without the descendants. Intersections are returned sorted by distance, closest first. Intersections are of the same form as those returned by [page:.intersectObject].
+      Проверяет все пересечения между лучом и объектами с потомками или без них. Пересечения возвращаются отсортированными по расстоянию, сначала возвращаются ближайшие. Пересечения имеют ту же форму, что и те, которые возвращает [page:.intersectObject].
     </p>
 
 

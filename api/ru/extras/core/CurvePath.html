@@ -12,60 +12,56 @@
     <h1>[name]</h1>
 
     <p class="desc">
-    An abstract base class extending [page:Curve]. A CurvePath is simply an array of connected curves,
-    but retains the api of a curve.
+      Абстрактный базовый класс, расширяющий [page:Curve]. CurvePath - это просто массив связанных кривых, но сохраняет api кривой. 
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]()</h3>
     <p>
-    The constructor take no parameters.
+      Конструктор не принимает никаких параметров.
     </p>
 
-    <h2>Properties</h2>
-    <p>See the base [page:Curve] class for common properties.</p>
+    <h2>Свойства</h2>
+    <p>Общие свойства смотрите в базовом классе [page:Curve].</p>
 
     <h3>[property:Array curves]</h3>
-    <p>The array of [page:Curve Curves].</p>
+    <p>Массив [page:Curve Curves].</p>
 
     <h3>[property:Boolean autoClose]</h3>
-    <p>Whether or not to automatically close the path.</p>
+    <p>Следует ли автоматически закрывать путь или нет.</p>
 
-    <h2>Methods</h2>
-    <p>See the base [page:Curve] class for common methods.</p>
+    <h2>Методы</h2>
+    <p>Общие методы смотрите в базовом классе [page:Curve].</p>
 
     <h3>[method:null add]([param:Curve curve])</h3>
-    <p>Add a curve to the [page:.curves] array.</p>
+    <p>Добавьте кривую в массив [page:.curves].</p>
 
     <h3>[method:null closePath]()</h3>
-    <p>Adds a [page:LineCurve lineCurve] to close the path.</p>
+    <p>Добавляет [page:LineCurve lineCurve] для закрытия пути.</p>
 
     <h3>[method:Array getCurveLengths]()</h3>
-    <p>Get list of cumulative curve lengths of the curves in the [page:.curves] array.</p>
+    <p>Получить список кумулятивных длин кривых в массиве [page:.curves].</p>
 
     <h3>[method:Vector getPoint]([param:Float t])</h3>
     <p>
-      [page:Float t] - A position on the curve. Must be in the range [0, 1]. <br><br />
+      [page:Float t] -Положение на кривой. Должно находиться в диапазоне [0, 1].. <br><br />
 
-      Returns a vector for a given position on the curve path.
+      Возвращает вектор для заданной позиции на траектории кривой.
     </p>
 
     <h3>[method:Array getPoints]([param:Integer divisions])</h3>
     <p>
-      divisions -- number of pieces to divide the curve into. Default is *12*.<br /><br />
+      divisions -- количество частей, на которые нужно разделить кривую. По умолчанию *12*.<br /><br />
 
-      Returns an array of points representing a sequence of curves. The *division* parameter defines
-      the number of pieces each curve is divided into. However, for optimization and quality purposes,
-      the actual sampling resolution for each curve depends on its type. For example, for a [page:LineCurve],
-      the returned number of points is always just 2.
+      Возвращает массив точек, представляющих последовательность кривых. Параметр *division* определяет количество частей, на которые делится каждая кривая. Однако, в целях оптимизации и качества, фактическое разрешение выборки для каждой кривой зависит от ее типа. Например, для [page:LineCurve] возвращаемое количество точек всегда равно 2.
     </p>
 
     <h3>[method:Array getSpacedPoints]([param:Integer divisions])</h3>
     <p>
-      divisions -- number of pieces to divide the curve into. Default is *40*.<br /><br />
+      divisions -- количество частей, на которые нужно разделить кривую. По умолчанию *40*.<br /><br />
 
-      Returns a set of divisions + 1 equi-spaced points using getPointAt(u).
+      Возвращает набор делений + 1 равноотстоящих друг от друга точек с помощью getPointAt(u).
     </p>
 
     [sourceHint]

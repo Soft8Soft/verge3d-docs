@@ -10,108 +10,107 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      "Interleaved" means that multiple attributes, possibly of different types, (e.g., position, normal, uv, color) are packed into a single array buffer.
+      "Interleaved" означает, что несколько атрибутов, возможно, разных типов (например, положение, нормаль, uv, цвет), упакованы в один буфер массива. 
       <br/><br/>
-      An introduction into interleaved arrays can be found here: [link:https://blog.tojicode.com/2011/05/interleaved-array-basics.html Interleaved array basics]
+      Введение в чередующиеся массивы можно найти здесь: [link:https://blog.tojicode.com/2011/05/interleaved-array-basics.html Interleaved array basics]
     </p>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
 
     <p>[example:webgl_buffergeometry_points_interleaved webgl / buffergeometry / points / interleaved]</p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
     <h3>[name]([param:TypedArray array], [param:Integer stride])</h3>
     <p>
-      [page:TypedArray array] -- A typed array with a shared buffer. Stores the geometry data.<br/>
-      [page:Integer stride] -- The number of typed-array elements per vertex.
+      [page:TypedArray array] -- Типизированный массив с общим буфером. Хранит геометрические данные.<br/>
+      [page:Integer stride] -- Количество элементов типизированного массива на вершину.
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Array array]</h3>
     <p>
-       A typed array with a shared buffer. Stores the geometry data.
+      Типизированный массив с общим буфером. Хранит геометрические данные.
     </p>
 
     <h3>[property:Integer stride]</h3>
     <p>
-      The number of typed-array elements per vertex.
+      Количество элементов типизированного массива на вершину.
     </p>
 
     <h3>[property:Integer count]</h3>
     <p>
-    Gives the total number of elements in the array.
+      Дает общее количество элементов в массиве.
     </p>
 
     <h3>[property:Object updateRange]</h3>
     <p>
-    Object containing offset and count.
+      Объект, содержащий смещение и количество.
     </p>
 
     <h3>[property:Number updateRange.offset]</h3>
     <p>
-    Default is *0*.
+    По умолчанию *0*.
     </p>
 
     <h3>[property:Number updateRange.count]</h3>
     <p>
-    Default is *-1*.
+      По умолчанию *-1*.
     </p>
 
     <h3>[property:String uuid]</h3>
     <p>
-    [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] of this instance. This gets automatically assigned, so this shouldn't be edited.
+    [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] данного экземпляра. Он присваивается автоматически, поэтому его не следует редактировать.
     </p>
 
     <h3>[property:Integer version]</h3>
     <p>
-    A version number, incremented every time the needsUpdate property is set to true.
+      Номер версии, увеличивающийся каждый раз, когда свойство needsUpdate установлено в true.
     </p>
 
     <h3>[property:Boolean needsUpdate]</h3>
     <p>
-    Default is *false*. Setting this to true increments [page:InterleavedBuffer.version version].
+      По умолчанию *false*. Установка этого значения в true увеличивает [page:InterleavedBuffer.version version].
     </p>
 
     <h3>[property:Usage usage]</h3>
     <p>
-      Defines the intended usage pattern of the data store for optimization purposes. Corresponds to the *usage* parameter of
-      [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
+      Определяет предполагаемую схему использования хранилища данных в целях оптимизации. Соответствует параметру *usage* в [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData]().
     </p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:InterleavedBuffer copy]([param:InterleavedBuffer source]) </h3>
     <p>
-     Copies another [name] to this [name].
+      Копирует другой [name] в этот [name].
     </p>
 
     <h3>[method:InterleavedBuffer copyAt]([param:Integer index1], [param:InterleavedBuffer attribute], [param:Integer index2]) </h3>
-    <p>Copies data from attribute[index2] to [page:InterleavedBuffer.array array][index1].</p>
+    <p>Копирует данные из атрибута[index2] в [page:InterleavedBuffer.array array][index1].</p>
 
     <h3>[method:InterleavedBuffer set]([param:TypedArray value], [param:Integer offset]) </h3>
     <p>
-      value - The source (typed) array.<br/>
-      offset - The offset into the target array at which to begin writing values from the source array. Default is *0*.<br/><br />
+      value - Исходный (типизированный) массив.<br/>
+      offset - Смещение в целевом массиве, с которого следует начать запись значений из исходного массива. По умолчанию *0*.<br/><br />
 
-      Stores multiple values in the buffer, reading input values from a specified array.
+      Сохраняет несколько значений в буфере, считывая входные значения из указанного массива.
     </p>
 
     <h3>[method:InterleavedBuffer clone]([param:Object data]) </h3>
     <p>
-      data - This object holds shared array buffers required for properly cloning geometries with interleaved attributes.<br/><br />
+      data - Этот объект содержит буферы общего массива, необходимые для правильного клонирования геометрии с чередующимися атрибутами.<br/><br />
 
-      Creates a clone of this [name].
+      Создает клон данного [name].
     </p>
 
     <h3>[method:InterleavedBuffer setUsage] ([param:Usage value]) </h3>
-    <p>Set [page:InterleavedBuffer.usage usage] to value.</p>
+    <p>Установите [page:InterleavedBuffer.usage usage] в значение.</p>
 
     <h3>[method:InterleavedBuffer toJSON]([param:Object data]) </h3>
     <p>
-      data - This object holds shared array buffers required for properly serializing geometries with interleaved attributes.<br/><br />
+      data - Этот объект содержит буферы общего массива, необходимые для правильной сериализации геометрии с чередующимися атрибутами.<br/><br />
 
-      Serializes this [name].
+      Сериализует этот [name].
     </p>
 
     [sourceHint]

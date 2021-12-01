@@ -10,28 +10,21 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      This buffer attribute class does not construct a VBO. Instead, it uses
-      whatever VBO is passed in constructor and can later be altered via the
-      *buffer* property.<br /><br />
-      It is required to pass additional params alongside the VBO. Those are:
-      the GL context, the GL data type, the number of components per vertex,
-      the number of bytes per component, and the number of vertices.<br /><br />
-      The most common use case for this class is when some kind of GPGPU
-      calculation interferes or even produces the VBOs in question.
+      Этот класс атрибутов буфера не создает VBO. Вместо этого он использует VBO, который передается в конструкторе и может быть изменен с помощью свойства *buffer*.<br /><br />
+      Вместе с VBO необходимо передать дополнительные параметры. К ним относятся: контекст GL, тип данных GL, количество компонентов на вершину, количество байт на компонент и количество вершин.<br /><br />
+      Наиболее распространенный случай использования этого класса - когда какой-либо вид вычислений на GPGPU вмешивается или даже производит соответствующие VBO.
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
     <h3>[name]([param:WebGLBuffer buffer], [param:GLenum type], [param:Integer itemSize], [param:Integer elementSize], [param:Integer count])</h3>
     <p>
-    *buffer* — Must be a <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer" target="_blank">WebGLBuffer</a>.
+    *buffer* — Должен быть <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer" target="_blank">WebGLBuffer</a>.
     <br />
-    *type* — One of <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants#Data_types" target="_blank">WebGL Data Types</a>.
+    *type* — Один из <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants#Data_types" target="_blank">WebGL Data Types</a>.
     <br />
-    *itemSize* — The number of values of the array that should be associated with
-    a particular vertex. For instance, if this
-    attribute is storing a 3-component vector (such as a position, normal, or color), then itemSize should be 3.
+    *itemSize* — Количество значений массива, которые должны быть связаны с конкретной вершиной. Например, если этот атрибут хранит трехкомпонентный вектор (такой как позиция, нормаль или цвет), то itemSize должен быть равен 3.
     <br />
-    *elementSize* — 1, 2 or 4. The corresponding size (in bytes) for the given "type" param.
+    *elementSize* — 1, 2 или 4. Соответствующий размер (в байтах) для заданного параметра "type".
     <ul>
       <li>gl.FLOAT: 4</li>
       <li>gl.UNSIGNED_SHORT: 2</li>
@@ -41,71 +34,70 @@
       <li>gl.BYTE: 1</li>
       <li>gl.UNSIGNED_BYTE: 1</li>
     </ul>
-    *count* — The expected number of vertices in VBO.
+    *count* — Ожидаемое количество вершин в VBO. 
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:WebGLBuffer buffer]</h3>
     <p>
-      The current <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer" target="_blank">WebGLBuffer</a> instance.
+      Текущий экземпляр <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer" target="_blank">WebGLBuffer</a>.
     </p>
 
     <h3>[property:Integer count]</h3>
     <p>
-      The expected number of vertices in VBO.
+      Ожидаемое количество вершин в VBO.
     </p>
 
     <h3>[property:Integer itemSize]</h3>
     <p>
-      How many values make up each item (vertex).
+      Сколько значений составляет каждый элемент (вершина).
     </p>
 
     <h3>[property:Integer elementSize]</h3>
     <p>
-      Stores the corresponding size in bytes for the current *type* property value.
+      Сохраняет соответствующий размер в байтах для текущего значения свойства *type*.
     </p>
     <p>
-      See above (constructor) for a list of known type sizes.
+      Список известных размеров типов смотрите выше (конструктор).
     </p>
 
     <h3>[property:GLenum type]</h3>
     <p>
-      A <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants#Data_types" target="_blank">WebGL Data Type</a>
-      describing the underlying VBO contents.
+      Тип данных <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants#Data_types" target="_blank">WebGL Data Type</a>
+      описывающий базовое содержимое VBO.
     </p>
     <p>
-      Set this property together with *elementSize*. The recommended way is
-      using the *setType* method.
+      Установите это свойство вместе с *elementSize*. Рекомендуемый способ - использовать метод *setType*. 
     </p>
 
     <h3>[property:Boolean isGLBufferAttribute]</h3>
     <p>
-      Read-only. Always *true*.
+      Только для чтения. Всегда *true*.
     </p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:null setBuffer](buffer) </h3>
-    <p>Sets the *buffer* property.</p>
+    <p>Устанавливает свойство *buffer*.</p>
 
     <h3>[method:null setType](type, elementSize) </h3>
-    <p>Sets the both *type* and *elementSize* properties.</p>
+    <p>Устанавливает свойства *type* и *elementSize*.</p>
 
     <h3>[method:null setItemSize](itemSize) </h3>
-    <p>Sets the *itemSize* property.</p>
+    <p>Устанавливает свойство *itemSize*.</p>
 
     <h3>[method:null setCount](count) </h3>
-    <p>Sets the *count* property.</p>
+    <p>Устанавливает свойство *count*.</p>
 
     <h3>[property:Integer version]</h3>
     <p>
-    A version number, incremented every time the needsUpdate property is set to true.
+      Номер версии, увеличивающийся каждый раз, когда свойство needsUpdate установлено в true.
     </p>
 
     <h3>[property:Boolean needsUpdate]</h3>
     <p>
-    Default is *false*. Setting this to true increments [page:GLBufferAttribute.version version].
+      По умолчанию *false*. Установка этого значения в true увеличивает [page:GLBufferAttribute.version version].
     </p>
 
     [sourceHint]

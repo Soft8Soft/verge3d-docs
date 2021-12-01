@@ -10,111 +10,101 @@
     <h1>[name]</h1>
 
     <p class="desc">
-    An abstract base class for creating a [name] object that contains methods for interpolation.
-    For an array of [name]s see [page:CurvePath].
+      Абстрактный базовый класс для создания объекта [name], содержащего методы интерполяции. Массив [name]s смотрите в [page:CurvePath]. 
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
 
     <h3>[name]()</h3>
     <p>
-    This constructor creates a new [name].
+      Этот конструктор создает новое [name].
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Integer arcLengthDivisions]</h3>
-    <p>This value determines the amount of divisions when calculating the cumulative segment lengths of a curve via [page:.getLengths].
-      To ensure precision when using methods like [page:.getSpacedPoints], it is recommended to increase [page:.arcLengthDivisions] if the curve is very large. Default is 200.</p>
+    <p>Это значение определяет количество делений при вычислении суммарной длины сегментов кривой через [page:.getLengths].
+      Для обеспечения точности при использовании таких методов, как [page:.getSpacedPoints], рекомендуется увеличить [page:.arcLengthDivisions], если кривая очень большая. По умолчанию это значение равно 200.</p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:Vector getPoint]([param:Float t], [param:Vector optionalTarget])</h3>
     <p>
-      [page:Float t] - A position on the curve. Must be in the range [0, 1]. <br>
-      [page:Vector optionalTarget] — (optional) If specified, the result will be copied into this Vector,
-      otherwise a new Vector will be created. <br /><br />
+      [page:Float t] - Положение на кривой. Должно находиться в диапазоне [0, 1].  <br>
+      [page:Vector optionalTarget] — (необязательно) Если указано, результат будет скопирован в этот Вектор, иначе будет создан новый Вектор. <br /><br />
 
-      Returns a vector for a given position on the curve.
+      Возвращает вектор для заданной позиции на кривой.
     </p>
 
     <h3>[method:Vector getPointAt]([param:Float u], [param:Vector optionalTarget])</h3>
     <p>
-      [page:Float u] - A position on the curve according to the arc length. Must be in the range [0, 1]. <br>
-      [page:Vector optionalTarget] — (optional) If specified, the result will be copied into this Vector,
-      otherwise a new Vector will be created. <br /><br />
+      [page:Float u] - Положение на кривой в соответствии с длиной дуги. Должно находиться в диапазоне [0, 1]. <br>
+      [page:Vector optionalTarget] — (необязательно) Если указано, результат будет скопирован в этот Вектор, иначе будет создан новый Вектор. <br /><br />
 
-      Returns a vector for a given position on the curve according to the arc length.
+      Возвращает вектор для заданной позиции на кривой в соответствии с длиной дуги.
     </p>
 
     <h3>[method:Array getPoints]([param:Integer divisions])</h3>
     <p>
-      divisions -- number of pieces to divide the curve into. Default is *5*.<br /><br />
+      divisions -- количество частей, на которые нужно разделить кривую. По умолчанию *5*.<br /><br />
 
-      Returns a set of divisions + 1 points using getPoint(t).
+      Возвращает набор делений + 1 точек с помощью getPoint(t).
     </p>
 
     <h3>[method:Array getSpacedPoints]([param:Integer divisions])</h3>
     <p>
-      divisions -- number of pieces to divide the curve into. Default is *5*.<br /><br />
+      divisions -- количество частей, на которые нужно разделить кривую. По умолчанию *5*.<br /><br />
 
-      Returns a set of divisions + 1 equi-spaced points using getPointAt(u).
+      Возвращает набор делений + 1 равноотстоящих друг от друга точек с помощью getPointAt(u).
     </p>
 
     <h3>[method:Float getLength]()</h3>
-    <p>Get total curve arc length.</p>
+    <p>Получение общей длины дуги кривой.</p>
 
     <h3>[method:Array getLengths]([param:Integer divisions])</h3>
-    <p>Get list of cumulative segment lengths.</p>
+    <p>Получить список кумулятивных длин сегментов.</p>
 
     <h3>[method:null updateArcLengths]()</h3>
-    <p>Update the cumlative segment distance cache.</p>
+    <p>Обновление кэша кумулятивного сегментного расстояния.</p>
 
     <h3>[method:Float getUtoTmapping]([param:Float u], [param:Float distance])</h3>
     <p>
-      Given u in the range (0 .. 1), returns [page:Float t] also in the range (0 .. 1).
-      u and t can then be used to give you points which are equidistant from the ends of the curve,
-      using [page:.getPoint].
+      Учитывая u в диапазоне (0 ... 1), возвращает [page:Float t] также в диапазоне (0 ... 1). Затем u и t можно использовать для получения точек, равноудаленных от концов кривой, используя [page:.getPoint].
      </p>
 
     <h3>[method:Vector getTangent]([param:Float t], [param:Vector optionalTarget])</h3>
     <p>
-      [page:Float t] - A position on the curve. Must be in the range [0, 1]. <br>
-      [page:Vector optionalTarget] — (optional) If specified, the result will be copied into this Vector,
-      otherwise a new Vector will be created. <br /><br />
+      [page:Float t] - Положение на кривой. Должно находиться в диапазоне [0, 1]. <br>
+      [page:Vector optionalTarget] — (необязательно) Если указано, результат будет скопирован в этот Вектор, иначе будет создан новый Вектор. <br /><br />
 
-      Returns a unit vector tangent at t. If the derived curve does not implement its
-      tangent derivation, two points a small delta apart will be used to find its gradient
-      which seems to give a reasonable approximation.
+      Возвращает единичный вектор, касательный к t. Если производная кривой не реализует вывод касательной, то для нахождения ее градиента будут использованы две точки, находящиеся на расстоянии небольшой дельты друг от друга, что, дает разумное приближение.
     </p>
 
     <h3>[method:Vector getTangentAt]([param:Float u], [param:Vector optionalTarget])</h3>
     <p>
-      [page:Float u] - A position on the curve according to the arc length. Must be in the range [0, 1]. <br>
-      [page:Vector optionalTarget] — (optional) If specified, the result will be copied into this Vector,
-      otherwise a new Vector will be created. <br /><br />
+      [page:Float u] - Положение на кривой в соответствии с длиной дуги. Должно находиться в диапазоне [0, 1]. <br>
+      [page:Vector optionalTarget] — (необязательно) Если указано, результат будет скопирован в этот Вектор, иначе будет создан новый Вектор. <br /><br />
 
-      Returns tangent at a point which is equidistant to the ends of the curve from the
-      point given in [page:.getTangent].
+      Возвращает касательную в точке, равноудаленной к концам кривой от точки, указанной в [page:.getTangent].
     </p>
 
     <h3>[method:Object computeFrenetFrames]([param:Integer segments], [param:Boolean closed])</h3>
     <p>
-    Generates the Frenet Frames. Requires a curve definition in 3D space. Used in geometries like [page:TubeGeometry] or [page:ExtrudeGeometry].
+      Генерирует рамки Френе. Требуется определение кривой в трехмерном пространстве. Используется в геометриях типа [page:TubeGeometry] или [page:ExtrudeGeometry].
     </p>
 
     <h3>[method:Curve clone]()</h3>
-    <p>Creates a clone of this instance.</p>
+    <p>Создает клон данного экземпляра.</p>
 
     <h3>[method:Curve copy]([param:Curve source])</h3>
-    <p>Copies another [name] object to this instance.</p>
+    <p>Копирует другой объект [name] в данный экземпляр.</p>
 
     <h3>[method:Object toJSON]()</h3>
-    <p>Returns a JSON object representation of this instance.</p>
+    <p>Возвращает объектное представление данного экземпляра в формате JSON.</p>
 
     <h3>[method:Curve fromJSON]([param:Object json])</h3>
-    <p>Copies the data from the given JSON object to this instance.</p>
+    <p>Копирует данные из заданного объекта JSON в данный экземпляр.</p>
 
     [sourceHint]
   </body>
