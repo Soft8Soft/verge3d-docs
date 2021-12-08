@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>E-Learning/SCORM Plugin Reference - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Puzzles from this plugin are used for implementing SCORM-based e-learning applications."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>E-Learning/SCORM Plugin</h1>
+
+    <p>
+      This stock <a href="manual/en/puzzles/Plugins.html">plugin</a> adds puzzles that can be used for implementing SCORM-based e-learning applications. The plugin supports <a href="https://scorm.com/scorm-explained/technical-scorm/run-time/run-time-reference/#section-2" target="_blank">version 1.2</a> of the SCORM standard.
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm.jpg">
+
+    <p>
+      For more information on creating SCORM courses check out the <a href="manual/en/introduction/Creating-SCORM-Courses.html">corresponding section</a> of this User Manual.
+    </p>
+
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+    [anchor:puzzles_reference]
+
+    <h2>Puzzles Reference</h2>
+
+
+    [anchor:lms_initialize]
+
+    <h3>lms initialize</h3>
+
+    <p>Start a communication session with the LMS.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-initialize.jpg">
+
+
+    [anchor:lms_finish]
+
+    <h3>lms finish</h3>
+
+    <p>Close a communication session with the LMS. You can exec this puzzle any time when you done communicating, however it's better to include it in the "beforeunload" event handler.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-finish.jpg">
+
+
+    [anchor:lms_set_value]
+
+    <h3>lms set value</h3>
+
+    <p>Set a value for the given LMS <a href="manual/en/puzzles/SCORM.html#data_model_elements">element</a>.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-set-value.jpg">
+
+
+    [anchor:lms_get_value]
+
+    <h3>lms get value</h3>
+
+    <p>Retrieves a value from the LMS <a href="manual/en/puzzles/SCORM.html#data_model_elements">element</a>.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-value.jpg">
+
+
+    [anchor:lms_commit]
+
+    <h3>lms commit</h3>
+
+    <p>Report to LMS that it should sync data received by the <a href="manual/en/puzzles/SCORM.html#lms_set_value">lms set value</a> puzzle. Executing commit is not strictly required, however it can increase responsiveness of the UI in some LMS. For example, the Moodle LMS updates scores and lesson status upon commit.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-commit.jpg">
+
+
+    [anchor:lms_get_last_error]
+
+    <h3>lms get last error</h3>
+
+    <p>Returns the error code (encoded as string) that resulted from the last communication with LMS. The "0" value indicates that there is no error happened.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-last-error.jpg">
+
+
+    [anchor:lms_get_error_string]
+
+    <h3>lms get error string</h3>
+
+    <p>Returns a short string describing the specified error code.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-error-string.jpg">
+
+
+    [anchor:lms_get_diagnostic]
+
+    <h3>lms get diagnostic</h3>
+
+    <p>Returns detailed information about the last error that occurred.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-diagnostic.jpg">
+
+
+    [anchor:data_model_elements]
+
+    <h3>data model elements</h3>
+
+    <p>List of the data model elements which can be assigned/retrieved by the SCORM package.</p>
+
+    <img src="files/puzzles/puzzles-scorm-data-model-elements.jpg">
+
+    <p class="note">
+      In SCORM terminology, "element" is just a parameter which is send to/received from the LMS. It has nothing to do with "HTML elements".
+    </p>
+
+    <table>
+      <tr>
+        <th>Element</th>
+        <th>Read/Write</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_status</td>
+        <td>Read/Write</td>
+        <td>Indicates whether the learner has completed and satisfied the requirements for the SCO. One of "passed", "completed", "failed", "incomplete", "browsed", "not attempted".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.student_id</td>
+        <td>Read Only</td>
+        <td>Identifies the student on behalf of whom the lesson was launched.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.student_name</td>
+        <td>Read Only</td>
+        <td>Name provided for the student by the LMS.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_location</td>
+        <td>Read/Write</td>
+        <td>The learner’s current location in the lesson.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.credit</td>
+        <td>Read Only</td>
+        <td>Indicates whether the learner will be credited for performance in the lesson. One of "credit", "no-credit".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.entry</td>
+        <td>Read Only</td>
+        <td>Asserts whether the learner has previously accessed the lesson. One of "ab-initio", "resume", "".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score_children</td>
+        <td>Read Only</td>
+        <td>Listing of supported data model elements.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.raw</td>
+        <td>Read/Write</td>
+        <td>Number that reflects the performance of the learner relative to the range bounded by the values of min and max.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.max</td>
+        <td>Read/Write</td>
+        <td>Maximum value in the range for the raw score.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.min</td>
+        <td>Read/Write</td>
+        <td>Minimum value in the range for the raw score.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.total_time</td>
+        <td>Read Only</td>
+        <td>Sum of all of the learner’s session times accumulated in the current learner attempt.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_mode</td>
+        <td>Read Only</td>
+        <td>Identifies one of three possible modes in which the lesson may be presented to the learner. One of "browse", "normal", "review".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.exit</td>
+        <td>Write Only</td>
+        <td>Indicates how or why the learner left the lesson. One of "time-out", "suspend", "logout", "".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.session_time</td>
+        <td>Write Only</td>
+        <td>Amount of time that the learner has spent in the current learner session for this lesson.</td>
+      </tr>
+      <tr>
+        <td>cmi.core._children</td>
+        <td>Read Only</td>
+        <td>Listing of supported data model elements.</td>
+      </tr>
+    </table>
+
+    <p>
+      For simplicity, this puzzle includes only "core" elements. If you need to pass other (including non-standard) elements to <a href="manual/en/puzzles/SCORM.html#lms_set_value">lms set value</a>/<a href="manual/en/puzzles/SCORM.html#lms_get_value">lms get value</a>, use the <a href="manual/en/puzzles/Text.html#text">text</a> puzzle:
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm-data-model-elements-custom.jpg">
+
+
+    [anchor:pack_add_item]
+
+    <h3>pack add item</h3>
+
+    <p>Add an item to the manifest of the generated SCORM pack.</p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-add-item.jpg">
+
+    <p>
+      This puzzle is useful for creating multi-page courses which can run different content depending on the selected item.
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-add-item-example.jpg">
+
+    <p>
+      To retrieve the current item ID use the <a href="manual/en/puzzles/SCORM.html#pack_get_item_id">pack get item ID</a> puzzle.
+    </p>
+
+
+    [anchor:pack_get_item_id]
+
+    <h3>pack get item ID</h3>
+
+    <p>Retrieve an ID of the currently loaded item from the SCORM pack.</p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-get-item-id.jpg">
+
+    <p>
+      The "in parent doc" checkbox should be enabled if the Verge3D apps's <strong>.html</strong> file is embedded using <strong>iframe</strong>.
+    </p>
+
+
+    <h2>Having Troubles with Puzzles?</h2>
+
+    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

@@ -123,12 +123,6 @@
     Nope, there is no all-in HTML format offered by Verge3D. If you need a standalone executable you can try to convert it with <a href="manual/en/introduction/Creating-Desktop-Apps.html">Electron</a>.
     </p>
 
-    [anchor:cinema4d]
-
-    <h3>Any plans to support Maxon Cinema 4D? Sketchup?</h3>
-
-    <p>See the <a href="https://www.soft8soft.com/topic/verge3d-for-cinema4d-call-for-discussion/" target="_blank">answer to this question</a> on the forums.</p>
-
     [anchor:ie11]
 
     <h3>Do Verge3D apps work in Internet Explorer 11?</h3>
@@ -212,6 +206,16 @@
         <p><strong>Gear Menu &gt; F12 Developer Tools</strong> or</p>
         <p>*F12* key.</p>
         <p>In the Developer Tools window, select the *Console* tab.</p>
+      </dd>
+
+      <dt>Google Chrome on Android</dt>
+      <dd>
+        It's not possible to display the browser console right on the Android device. Use the <a href="manual/en/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">USB debugging</a> feature instead.
+      </dd>
+
+      <dt>Apple Safari on iOS/iPadOS</dt>
+      <dd>
+        It's not possible to open the browser console right on the iOS/iPadOS device. You will require a Mac system and the <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Conceptual/Safari_Developer_Guide/GettingStarted/GettingStarted.html" target="_blank">Web Inspector</a> tool to access console content.
       </dd>
     </dl>
 
@@ -299,6 +303,62 @@ myconfigurator.bin
     </code>
 
 
+    [anchor:renaming_app]
+
+    <h3>How to rename my application properly?</h3>
+
+    <p>
+      Go to the *applications* directory located in your Verge3D installation, find and rename directory which contains your app (e.g *my_awesome_app* to *cool_3d_visualization*).
+    </p>
+
+    <p class="note">
+      Please note, that the app name is not the title displayed in the App Manager! For example, "my_awesome_app" app gets the "My Awesome App" title. This title is generated automatically by replacing underscore characters with spaces and placing initial characters of the words to upper case.
+    </p>
+
+    <p>
+      If you also want to rename the files <em>inside</em> your app, do the following:
+    </p>
+
+    <ol>
+      <li>Go to the app directory.</li>
+      <li>
+        Assign new names to all html/css/js/gltf/bin/blend/max/ma/mb assets (see more <a href="manual/en/introduction/Project-Structure.html">here</a>). Do not touch *v3d.js*, *visual_logic.xml*, and *visual_logic.js* scripts!
+      </li>
+      <li>Open and reexport your scene(s) to update paths inside exported glTF assets.</li>
+      <li>
+        Open the main HTML file (e.g *my_awesome_app.html*) and update the following JS/CSS paths:
+        <code>
+&lt;script src=&quot;my_awesome_app.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;my_awesome_app.css&quot;&gt;
+        </code>
+
+        Say you want to rename *my_awesome_app* to *cool_3d_visualization*. In this case, the paths become:
+        <code>
+&lt;script src=&quot;cool_3d_visualization.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;cool_3d_visualization.css&quot;&gt;
+        </code>
+      </li>
+      <li>
+        Open the main JavaScript file (e.g *my_awesome_app.js*) and update the following line with the preferred application name:
+        <code>
+          var sceneURL = params.load ? params.load : '__URL__my_awesome_app.gltf'.replace('__URL__', '');
+        </code>
+
+        Say you want to rename *my_awesome_app* to *cool_3d_visualization*. In this case, the sceneURL line becomes:
+        <code>
+          var sceneURL = params.load ? params.load : '__URL__cool_3d_visualization.gltf'.replace('__URL__', '');
+        </code>
+      </li>
+      <li>
+        Launch the app in the App Manager. If the app does not work, open the <a href="manual/en/introduction/FAQ.html#browser_console">browser console</a> to check for possible errors.
+      </li>
+    </ol>
+
+    <p>
+      Also, feel free to update the HTML metadata in the renamed app. See <a href="manual/en/introduction/Personalizing-Verge3D-Apps.html#title_description">here</a> for more info on how to do that.
+    </p>
+
+
     [anchor:Modelling]
 
     <h2>Modelling and Content Creation</h2>
@@ -326,7 +386,8 @@ myconfigurator.bin
       <li>In many cases, glTF materials work faster, making them a good choice for low-end devices.</li>
       <li>The shaders are compiled quicker thus speeding up the application startup.</li>
       <li>Thanks to their simplicity, glTF-compatible materials are much easier to create. They are also supported natively in the popular material designers such as Substance Painter.</li>
-      <li>You can export them in runtime with the GLTFExporter class (requires JavaScript coding).</li>
+      <li>You can export them into glTF 2.0 format with the <a href="manual/en/puzzles/Scenes.html#export_to_gltf">export to gltf</a> puzzle and preview/load in a great variety of model viewers.</li>
+      <li>You can export them into USDZ with the <a href="manual/en/puzzles/Scenes.html#export_to_usdz">export to usdz</a> puzzle and preview on Apple devices in AR mode.</li>
       <li>Last but not least, these materials will work properly in other software which supports assets in glTF format.</li>
     </ul>
 
@@ -356,7 +417,7 @@ myconfigurator.bin
     <ul>
       <li>You camera is not configured properly. Check out its <em>near</em> and <em>far</em> clipping distances as well as the target point (if your camera has the <em>Orbit</em> controls type).</li>
       <li>This could be <em>backface culling</em> or normals pointing in wrong direction. Check your materials and normals.</li>
-      <li>Sometimes it can be an issue with your hardware or a software bug preventing geometry to be rendered. Check out the browser console and see if there any errors reported.</li>
+      <li>Sometimes it can be an issue with your hardware or a software bug preventing geometry to be rendered. Check out the <a href="manual/en/introduction/FAQ.html#browser_console">browser console</a> and see if there any errors reported.</li>
     </ul>
 
     [anchor:supported_3d_formats]
@@ -369,6 +430,24 @@ myconfigurator.bin
 
     <p>
     Also, the script of the Standard application template is based on the [page:App] class which supports loading glTF files only. For loading other formats, use the corresponding <a href="https://cdn.soft8soft.com/demo/examples/index.html?q=loader" target="_blank">loaders</a> instead.
+    </p>
+
+
+    [anchor:is_maya_lt_supported]
+
+    <h3>Is Maya LT supported?</h3>
+
+    <p>
+      Unfortunately, no. Maya LT does not support Python scripting for some reason and as such exporting from it is not possible.
+    </p>
+
+
+    [anchor:cinema4d]
+
+    <h3>Any plans to support Maxon Cinema 4D? Sketchup?</h3>
+
+    <p>
+      See the <a href="https://www.soft8soft.com/topic/verge3d-for-cinema4d-call-for-discussion/" target="_blank">answer to this question</a> on the forums.
     </p>
 
 
@@ -448,6 +527,17 @@ myconfigurator.bin
     </p>
 
 
+    [anchor:hide_show_ray_reticle]
+
+    <h3>Is it possible to disable (hide) ray/reticle in VR mode?</h3>
+
+    <p>
+      Use the <a href="manual/en/puzzles/AR_VR.html#get_controller_prop">get controller property</a> puzzle to get the ray/reticle object and the <a href="manual/en/puzzles/Objects.html#hide">hide</a> puzzle to make it hidden:
+    </p>
+
+    <img src="files/faq/hide-show-ray-reticle.jpg">
+
+
 
     [anchor:advanced_programming_questions]
 
@@ -461,7 +551,7 @@ myconfigurator.bin
     <h3>You say Verge3D is based on Three.js. Is it compatible with Three.js API?</h3>
 
     <p>
-    To create Verge3D we modified Three.js code base a lot and thus we decided to use "v3d" prefix for our APIs. However, we'll try to maintain source code compatibility with Three.js. Most of the Three.js-based applications and <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">examples</a> should work in Verge3D without any modifications.
+      To create Verge3D we <a href="https://www.soft8soft.com/wiki/index.php/Verge3D_vs_Three.js" target="_blank">modified</a> the Three.js code base a lot so we decided to use the custom "v3d" prefix for the engine's APIs. However, since we maintain source code compatibility with Three.js, most of its applications and <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">examples</a> should work in Verge3D without any modifications.
     </p>
 
 

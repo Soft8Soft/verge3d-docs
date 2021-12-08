@@ -64,7 +64,31 @@
 
     <p>Replaces a texture found for a specified material with the one loaded from the provided image URI, <a href="manual/en/puzzles/Sound.html#load_video">video asset</a>, or <a href="manual/en/puzzles/HTML.html#create_canvas_elem">canvas</a>.</p>
 
-    <img src="files/puzzles/puzzles-materials-replace-texture.jpg">
+    <p>
+      Puzzle options:
+      <ul>
+        <li>
+          enable "once ready do" slot - show/hide the slot for puzzles which
+          will be executed right after the texture is done loading
+        </li>
+        <li>
+          flexible texture input - allow using
+          <a href="manual/en/puzzles/Text.html#text">text puzzles</a>
+          inside the "texture" input instead of the default dropdown selector
+        </li>
+        <li>
+          use canvas/video alpha - enable/disable transparency (if present)
+          for loaded canvas and video textures. Note: if the goal is to make
+          the object transparent don't forget to also set the material type to
+          *Blend* (see: transparency in
+          <a href="manual/en/blender/Transparency.html#transparency_eevee">Blender</a>/
+          <a href="manual/en/max/Transparency.html#blended_vs_masked">Max</a>/
+          <a href="manual/en/maya/Transparency.html#blended_vs_masked">Maya</a>).
+        </li>
+      </ul>
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-replace-texture.png">
 
 
 
@@ -245,7 +269,7 @@
       Creates an image from specified text and returns it in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format.
     </p>
 
-    <img src="files/puzzles/puzzles-materials-texture-from-text.jpg">
+    <img src="files/puzzles/puzzles-materials-texture-from-text-advanced.jpg">
 
     <p>
       Parameters:
@@ -270,13 +294,25 @@
       <dd>
         size of the text drawn on the generated image (in pixels).
       </dd>
-      <dt>align</dt>
+      <dt>horizontal align</dt>
       <dd>
-        how the text is aligned on the generated image: *center*, *left*, *right* or *fit*.
+        how the text is horizontally aligned on the generated image: *center*, *left*, *right*.
       </dd>
-      <dt>offset</dt>
+      <dt>vertical align</dt>
       <dd>
-        gap for the drawn text (in pixels).
+        how the text is vertically aligned on the generated image: *middle*, *top*, *bottom*.
+      </dd>
+      <dt>line height</dt>
+      <dd>
+        line height of the text (in pixels). If set to *0*, it is auto-detected.
+      </dd>
+      <dt>justify</dt>
+      <dd>
+        justify the text if enabled, inserts spaces between words when necessary.
+      </dd>
+      <dt>box x, y, width, height</dt>
+      <dd>
+        specify the box (field in pixels), in which the text will be printed on image. To achieve this, click on the gear icon and set on checkbox "box params".
       </dd>
     </dl>
 

@@ -12,7 +12,7 @@
 
     <h1>glTF Materials (glTF 2.0-compliant PBR) / Maya</h1>
 
-    <p>Verge3D for Maya supports <a href="manual/en/introduction/FAQ.html#gltf_materials">glTF 2.0-compliant PBR materials</a> on top of the aiStanadardSurface (Standard Surface in Maya 2020+) shader.</p>
+    <p>Verge3D for Maya supports <a href="manual/en/introduction/FAQ.html#gltf_materials">glTF 2.0-compliant PBR materials</a> on top of the aiStandardSurface (Standard Surface in Maya 2020+) shader.</p>
 
     [contents]
 
@@ -96,6 +96,58 @@
     <h2>Export to glTF in Runtime</h2>
 
     <p>With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/en/puzzles/Scenes.html#export_to_gltf">reference</a>.</p>
+
+
+    [anchor:using_usd_preview_material]
+
+    <h2>Using usdPreviewSurface Material</h2>
+
+    <p>
+        You can use these materials for both glTF and USD formats. Note: they can only be used with Maya 2022 and later.
+    </p>
+
+    <p>Assign the usdPreviewSufrace shader node to your material, the following settings are supported in Verge3D:</p>
+    
+    <ul>
+      <li>Color or (Diffuse Color input in Hypershade)</li>
+      <li>Emission Color or (Emissive Color input in Hypershade)</li>
+      <li>Occlusion</li>
+      <li>Opacity</li>
+      <li>Alpha Cutoff or (Opacity Threshold input in Hypershade)</li>
+    </ul>
+
+    <h3>Specular Panel</h3>
+    <ul>
+      <li>Metalness (Metallic input in Hypershade)</li>
+      <li>Roughness (Roughness input in Hypershade)</li>
+    </ul>
+
+    <h3>Displacement Panel</h3>
+    <ul>
+      <li>Normal Map (Normal input in Hypershade)</li>
+    </ul>
+
+    <h3>Creating USD material</h3>
+
+    <p>Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
+
+    <ol>
+      <li>Assign *usdPreviewSurface* to your model.</li>
+      <li>Open the Hypershade editor, find and select this material in the *Browser* panel.</li>
+      <li>Create a *file* node with Diffuse Color texture. Make sure that the *Color Space* setting of this node is set to *sRGB*.</li>
+      <li>Connect *Out Color* output of this texture to *Diffuse Color* input of *usdPreviewSurface* node.</li>
+      <li>Create a *file* node with ORM texture. This texture should contain 3 channels with AO (red), Roughness (green) and Metalness (blue) info. Make sure that the *Color Space* setting of this node is set to *Raw*.</li>
+      <li>Connect R channel of the ORM texture to *Occlusion* input of the *usdPreviewSurface* node to simulate the ambient occlusion effect.</li>
+      <li>Connect G channel of the ORM texture to *Roughness* input of the *usdPreviewSurface* node.</li>
+      <li>Connect B channel of the ORM texture to *Metallic* input of the *usdPreviewSurface* node.</li>
+      <li>Create *file* node with Normal Map texture. Make sure that the *Color Space* setting of the file node is set to *Raw*.
+      </li>
+      <li>Connect *file* node to *Normal* input of the *usdPreviewSurface* node.
+    </ol>
+
+    <p>This is how the material should look in the Hypershade editor:</p>
+
+    <img src="files/materials-maya/pbr-usd-surface-example.jpg" class="centered" style="max-width: 819px;">
 
 
 

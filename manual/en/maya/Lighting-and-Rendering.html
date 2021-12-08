@@ -87,13 +87,17 @@
 
     [anchor:light_probes]
 
-    <h2>Light Probes</h2>
+    <h2>Reflection Cubemap Light Probes</h2>
 
     <p>
       Verge3D add-on adds a custom light probe object called *v3dReflectionCubemap*,
       which can be used to apply indirect lighting to objects via a local
-      reflection cubemap.<br/><br/>
+      reflection cubemap.
+    </p>
 
+    <iframe class="video-480p" src="https://www.youtube.com/embed/KVSB3vFmv8M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>
       The new light probe object can be found inside the custom *Verge3D* shelf:
     </p>
 
@@ -214,7 +218,87 @@
           </dd>
         </dl>
       </dd>
+
+      <dt>Custom Influence</dt>
+      <dd>
+        custom influence settings:
+
+        <dl>
+          <dt>Use Custom Influence</dt>
+          <dd>
+            enable custom influence settings. This group of settings allows
+            defining a selection set of objects that will be affected by this
+            light probe. *Selection Set* (if specified) will be used instead of
+            the *Influence Type* and *Influence Distance* general probe settings.
+          </dd>
+
+          <dt>Selection Set</dt>
+          <dd>
+            limit objects that should be affected by this light probe to this
+            selection set. If specified it is used instead of the
+            *Influence Type* and *Influence Distance* general probe settings.
+          </dd>
+
+          <dt>Invert Influence</dt>
+          <dd>
+            invert the selection of objects affected by this probe if
+            *Selection Set* is specified.
+          </dd>
+        </dl>
+      </dd>
     </dl>
+
+
+    [anchor:reflection_plane_light_probes]
+
+    <h2>Reflection Plane Light Probes</h2>
+
+    <p>
+      Reflection Plane Light Probes used to apply real-time reflections (indirect lighting) to planar objects, such as mirrors, floors, walls, etc.
+    </p>
+
+    <img src="files/lighting-maya/light-probe-reflection-plane-example.png" class="centered" style="max-width: 804px">
+
+    <p>
+      The new light probe object can be found inside the custom *Verge3D* shelf:
+    </p>
+
+    <img src="files/lighting-maya/light-probe-reflection-plane-create.png" class="centered" style="max-width: 313px">
+
+    <p>
+      Reflection plane objects have the following parameters:
+    </p>
+
+    <img src="files/lighting-maya/light-probe-reflection-plane-params.png" class="centered" style="max-width: 462px">
+
+    <dl>
+      <dt>Influence Dist.</dt>
+      <dd>
+        Influence distance of the probe.
+      </dd>
+      <dt>Falloff</dt>
+      <dd>
+        Controls how fast the probe influence decreases.
+      </dd>
+      <dt>Clip Offset</dt>
+      <dd>
+        Near camera clipping for objects rendered in the light probe.
+      </dd>
+      <dt>Visibility Selection Set</dt>
+      <dd>
+        Selection set of the objects visible for the probe.
+      </dd>
+    </dl>
+
+    <p>
+      Reflection plane light probes can only act on surfaces with zero roughness and maximum metalness:
+    </p>
+
+    <img src="files/lighting-maya/light-probe-reflection-plane-note.png" class="centered" style="max-width: 804px">
+
+    <p class="note">
+      Planar reflection probes can greatly reduce performance of your scene, since they multiply the number of draw calls by a factor <strong>N+1</strong>. To make rendering faster, specify a limited set of reflected objects as the *Visibility Selection Set* property.
+    </p>
 
 
     [anchor:background]
@@ -243,30 +327,102 @@
 
     <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (<strong>Verge3D->Export Settings...</strong> in Maya menu).</p>
 
-    <img src="files/lighting-maya/rendering-settings-global.jpg" class="centered" style="max-width: 412px">
+    <img src="files/lighting-maya/rendering-settings-global.jpg" class="centered" style="max-width: 434px">
 
-    <p>*Anti-Aliasing* - select what anti-aliasing algorithm to use for the scene:</p>
+    <dl>
+      <dt>Anti-Aliasing</dt>
+      <dd>
+        select what anti-aliasing algorithm to use for the scene:
+        <dl>
+          <dt>Auto</dt>
+          <dd>use system default method.</dd>
+          <dt>MSAA 4x</dt>
+          <dd>prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</dd>
+          <dt>MSAA 8x</dt>
+          <dd>prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</dd>
+          <dt>MSAA 16x</dt>
+          <dd>prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</dd>
+          <dt>FXAA</dt>
+          <dd>force fast approximate anti-aliasing (FXAA).</dd>
+          <dt>None</dt>
+          <dd>disable anti-aliasing.</dd>
+        </dl>
+      </dd>
 
-    <ul>
-      <li>*Auto* - use system default method.</li>
-      <li>*MSAA 4x* - prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</li>
-      <li>*MSAA 8x* - prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</li>
-      <li>*MSAA 16x* - prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</li>
-      <li>*FXAA* - force FXAA.</li>
-      <li>*None* - disable anti-aliasing.</li>
-    </ul>
+      <dt>Use HDR Rendering</dt>
+      <dd>
+        <p>enable high-dynamic-range rendering.</p>
+        <p>If activated, Verge3D will use 16-bit float textures as rendering buffers. This feature can significantly improve rendering of the Bloom post-processing as well as smoothness of node-based gradient textures. The downside of this — increased GPU memory consumption and reduced performance.</p>
 
-    <p>*Use HDR Rendering* - enable high-dynamic-range rendering.</p>
+        <p class="note">This feature is not related to HDR textures which are commonly used to produce image-based lighting, thus activating it won't improve rendering of such textures.</p>
+      </dd>
 
-    <p>*IBL Environment Mode*</p>
+      <dt>IBL Environment Mode</dt>
+      <dd>
+        <dl>
+          <dt>PMREM (slow)</dt><dd>high quality (default value).</dd>
+          <dt>Light Probe + Cubemap (medium)</dt><dd>reduced quality of image-based specular reflections, better performance.</dd>
+          <dt>Light Probe (fast)</dt><dd>disabled image-based specular reflections, highest performance.</dd>
+        </dl>
+      </dd>
+    </dl>
 
-    <ul>
-      <li><strong>PMREM (slow)</strong> - high quality (default value).</li>
-      <li><strong>Light Probe + Cubemap (medium)</strong> - reduced quality of image-based specular reflections, better performance.</li>
-      <li><strong>Light Probe (fast)</strong> - disabled image-based specular reflections, highest performance.</li>
-    </ul>
 
-    <p>*Outlining Effect* - see below.</p>
+    [anchor:ambient_occlusion]
+
+    <h2>Ambient Occlusion</h2>
+
+    <p>
+      Ambient Occlusion is a rendering technique that improves a scene's realism
+      by adding soft shadows from indirect (ambient) lighting based on how much
+      the point is exposed to the light sources.
+    </p>
+
+    <p>
+      Verge3D implements Ground Truth Ambient Occlusion (GTAO), which settings
+      you can find in the *AO* section of *Verge3D Export Settings* (accessible
+      through <strong>Verge3D->Export Settings...</strong> in Maya menu):
+    </p>
+
+    <img src="files/lighting-maya/ambient-occlusion-properties.png" class="centered" style="max-width: 422px">
+
+    <p class="note">
+      Verge3D adds the ambient occlusion effect only for
+      <a href="manual/en/maya/Materials.html#standardSurface">Standard Sufrace</a>
+      and <a href="manual/en/maya/Materials.html#aiStandardSurface">aiStandardSufrace</a>
+      materials and only if the scene has environment lighting (via Arnold's
+      <a href="manual/en/maya/Lighting-and-Rendering.html#environment_lighting">aiSkyDomeLight</a> object).
+    </p>
+
+    <dl>
+      <dt>Enabled</dt>
+      <dd>
+        Enable Ambient Occlusion in the scene.
+      </dd>
+      <dt>Distance</dt>
+      <dd>
+        The radius (in system units) within which to calculate ambient occlusion.
+        Higher values make the effect more noticeable by over-darkening and
+        expanding the area of it, but also can decrease performance. Lower
+        values make occlusion less noticeable.
+      </dd>
+      <dt>Factor</dt>
+      <dd>
+        The strength of the occlusion effect.
+      </dd>
+      <dt>Trace Precision</dt>
+      <dd>
+        Higher precision means more accurate occlusion at increased performance
+        cost. Lower precision means better performance but the effect appears
+        less prominent.
+      </dd>
+      <dt>Bent Normals</dt>
+      <dd>
+        Use modified (or "bent") normals to sample the environment instead of
+        the original ones. The modified normals represent the least occluded
+        direction and make environment lighting a bit more realistic.
+      </dd>
+    </dl>
 
 
     [anchor:outline_rendering]
@@ -277,15 +433,21 @@
       Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
     </p>
 
+    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+
     <p>
-      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect on the Blender's *Render Properties* panel, then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
+      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect in the *Verge3D Exports Settings*:
+    </p>
+
+    <img src="files/lighting-maya/outline-settings.jpg" class="centered" style="max-width: 434px">
+
+    <p>
+      then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
     </p>
 
     <p class="note">
       The outline rendering does not work inside AR/VR sessions. Use other methods to highlight your objects, such as animation or changing material's color.
     </p>
-
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
 
     <p>You can tweak outlining using the following properties:</p>
 
@@ -325,6 +487,137 @@
     <p>
       *Frustum Culling* - enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
     </p>
+
+    <p>
+      In addition, there is a set of object transform settings located on the *Verge3D* -> *Advanced Rendering* panel:
+    </p>
+
+    <img src="files/lighting-maya/rendering-settings-transform.jpg" class="centered" style="max-width: 423px">
+
+
+    <dl>
+      <dt>HiDPI Compositing</dt>
+      <dd>
+        Render object using HiDPI compositing pass. See <a href="manual/en/maya/Lighting-and-Rendering.html#hidpi_rendering">below</a> for more info.
+      </dd>
+
+      <dt>Fix Ortho Zoom</dt>
+      <dd>
+        Apply inverse orthographic camera zoom as scaling factor for this object. Enable this property for object parented to ortho camera, so they don't move/scale when the user zooms the camera.
+      </dd>
+
+      <dt>Fit to Camera Edge</dt>
+      <dd>
+        See <a href="manual/en/maya/Lighting-and-Rendering.html#fit_to_camera_edge">here</a> for more info.
+      </dd>
+
+      <dt>Visibility Breakpoints</dt>
+      <dd>
+        Enable object visibility breakpoints. See <a href="manual/en/maya/Lighting-and-Rendering.html#visibility_breakpoints">here</a>.
+      </dd>
+    </dl>
+
+
+    [anchor:hidpi_rendering]
+
+    <h2>Rendering on HiDPI (Retina) Screens</h2>
+
+    <p>
+      As of today, most mobile and many desktop screens have high pixel density (so called "Retina" displays). These displays allow you to substantially increase quality of your renderings. The downside of rendering many pixels is reduced performance.
+    </p>
+
+    <p>
+      There are two approaches how to make your content look better and do not make your scenes really slow:
+    </p>
+
+    <ul>
+      <li>Using somewhat better resolution, e.g by setting screen scaling factor to 1.5 or so. See <a href="manual/en/puzzles/System.html#set_screen_scale">here</a> for more info.</li>
+      <li>Using HiDPI rendering only for important content, such as text, screen-space UI elements, etc.</li>
+    </ul>
+
+    <p>
+      The latter approach can be easily achieved by enabling the *HiDPI Compositing* property located on the *Advanced Rendering* panel:
+    </p>
+
+    <img src="files/lighting-maya/hidpi-compositing.jpg" class="centered" style="max-width: 423px">
+
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>Fit to Camera Edge</h2>
+
+    <p>
+      <em>Fit to Camera Edge</em> is a technique to draw screen-space UI elements based on 3ds Max models. This approach to UI design is more “native” to the 3D artist than using HTML/CSS, and does not require external tools. But there is more in it: since the UI elements are genuine 3D objects, you can apply shaders, lighting, animation, morphing – you name it – making them truly interactive and seamlessly integrated into the scene.
+    </p>
+
+    <p>
+      When you parent some object to the camera, the following settings appear on the *Advanced Rendering* panel:
+    </p>
+
+    <img src="files/lighting-maya/fit-to-camera-edge-properties.jpg" class="centered" style="max-width: 423px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        Horizontal canvas edge to fit object to. *None* — no horizontal fit, *Left* — fit to left edge, *Right* — fit to right edge, *Stretch* — scale object horizontally to fit on the screen.
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        Vertical canvas edge to fit object to. *None* — no vertical fit, *Top* — fit to top edge, *Bottom* — fit to bottom edge, *Stretch* — scale object vertically to fit on the screen.
+      </dd>
+      <dt>Shape</dt>
+      <dd>
+        Canvas fit shape. *Box* — use object's bounding box, *Sphere* — use object's bounding sphere to fit the object on the screen.
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        Additional offset used to fit object on the screen. Effectively, this value extends object bounding (box or sphere) by the specified absolute value.
+      </dd>
+    </dl>
+
+
+    [anchor:visibility_breakpoints]
+
+    <h2>Visibility Breakpoints</h2>
+
+    <p>
+      <em>Visibility Breakpoints</em> allow you to show/hide content depending on 3D viewport width/height or orientation settings. The most important use case of this feature — adapting your scene to different screen sizes and orientations. E.g you may have two different models for portrait and landscape screen orientations.
+    </p>
+
+    <p>
+      If assigned to the current camera, tries to switch to an alternative camera (must have acceptable visibility breakpoints) in the scene, if no alternative camera is found, does nothing.
+    </p>
+
+    <p>
+      You can configure the breakpoints on the *Advanced Rendering* panel:
+    </p>
+
+    <img src="files/lighting-maya/visibility-breakpoints.jpg" class="centered" style="max-width: 423px">
+
+    <dl>
+      <dt>Min Width</dt>
+      <dd>
+        Minimum canvas width the object stays visible.
+      </dd>
+      <dt>Max Width</dt>
+      <dd>
+        Maximum canvas width the object stays visible.
+      </dd>
+      <dt>Min Height</dt>
+      <dd>
+        Minimum canvas height the object stays visible.
+      </dd>
+      <dt>Max Height</dt>
+      <dd>
+        Maximum canvas height the object stays visible.
+      </dd>
+      <dt>Orientation</dt>
+      <dd>
+        Screen orientation the object stays visible.
+      </dd>
+    </dl>
+
+
 
 
     [anchor:clipping_planes]

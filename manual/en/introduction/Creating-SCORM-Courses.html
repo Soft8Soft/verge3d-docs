@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Creating SCORM-based e-learning applications with Verge3D - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how to use SCORM converter and Puzzles to create cross-platform e-learning applications."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+    <meta property="article:tag" content="scorm">
+  </head>
+  <body><article>
+
+    <h1>Creating SCORM-based E-Learning Apps</h1>
+
+    <p>
+      Verge3D is a perfect tool to convert your 3D content made with Blender, 3ds Max, or Maya to immersive educational materials. With Verge3D you have a choice to create standalone e-learning apps or integrate e-learning content into the existing learning management systems (LMS). To simplify the later task, we developed and included the SCORM tools right in our software.
+    </p>
+
+    [contents]
+
+
+    [anchor:why_scorm]
+
+    <h2>Why SCORM?</h2>
+
+    <p>
+      As of today, SCORM is the most widely used standard for creating e-learning content which is supported by many (if not the most) LMS. Put simply, it is a de facto standard in the e-learning industry.
+    </p>
+
+    <p>
+      SCORM is also excellent for creating interactive e-learning materials in 3D because:
+    </p>
+
+    <ul>
+      <li>It is web-friendly so you can run your courses using your favorite browser.</li>
+      <li>It allows running modern web technologies such as WebGL (3D) and WebXR (AR/VR).</li>
+      <li>It uses JavaScript for communicating with LMS.</li>
+    </ul>
+
+    <p class="note">
+      In Verge3D we implemented the most popular version of SCORM - 1.2. Supporting SCORM 2004 is under consideration.
+    </p>
+
+
+    [anchor:creating_scorm_course]
+
+    <h2>Creating SCORM Course</h2>
+
+    <p>
+      Verge3D comes with a built-in SCORM generator as of version 3.9. Just click on the following icon:
+    </p>
+
+    <img src="files/creating-scorm-courses/app-manager-create-scorm-course.jpg" class="centered">
+
+    <p>
+      Then select course name, course ID and default course item name in the *Create SCORM Course Package* dialog:
+    </p>
+
+    <img src="files/creating-scorm-courses/app-manager-create-scorm-course-form.jpg" class="centered" style="max-width: 348px">
+
+    <p>
+      Once created, download the ZIP archive with the SCORM course to a directory of your choice.
+    </p>
+
+
+    [anchor:running_course_in_lms]
+
+    <h2>Running your course in LMS</h2>
+
+    <p>
+      The course package can be uploaded to any LMS compatible with SCORM 1.2. If not sure, choose one of the following:
+    </p>
+
+    <ul>
+      <li><a href="https://rusticisoftware.com/products/scorm-cloud/" target="_blank">SCORM Cloud</a> — cloud-based e-learning solution. It costs money but includes a free trial plan for small institutions (10 user registrations per month, 100MB storage).</li>
+      <li><a href="https://moodle.org/" target="_blank">Moodle</a> — free and open-source solution which can be hosted on your own infrastructure.</li>
+    </ul>
+
+    <p class="note">
+      If you're creating content for an educational institution, consult with their technical staff for instructions on running your SCORM package.
+    </p>
+
+    <p>
+      In this guide we'll be using a SCORM Cloud to illustrate the task of uploading and running the SCORM course.
+    </p>
+
+    <p>
+      Login to your SCORM Cloud account and click on the *Add Content* button in the top right corner, then select *Import a SCORM, AICC, xAPI or cmi5 package*:
+    </p>
+
+    <img src="files/creating-scorm-courses/scorm-cloud-add-content.jpg" class="centered">
+
+    <p>
+      Click *Browse*, select the course ZIP, then press the *Import Course* button:
+    </p>
+
+    <img src="files/creating-scorm-courses/scorm-cloud-add-content.jpg" class="centered" style="max-width: 831px">
+
+    <p>
+      Wait for upload to complete, check that no errors happened during that process, then click *Launch* located on the *Course Sandbox* panel:
+    </p>
+
+    <img src="files/creating-scorm-courses/scorm-cloud-launch.jpg" class="centered">
+
+    <p>
+      Enjoy the course:
+    </p>
+
+    <img src="files/creating-scorm-courses/scorm-cloud-industrial-robot-running.jpg" class="centered">
+
+    <p>
+      When you're done, simply close the popup window to return back to the SCORM Cloud course configuration page.
+    </p>
+
+    <img src="files/creating-scorm-courses/scorm-cloud-after-launch.jpg" class="centered">
+
+    <p>
+      Note that we've got the completely meaningless statuses on that page. To make the LMS record our progress we need to use the SCORM API. Thankfully, Verge3D includes easy-to-use puzzles to make things as simple as possible.
+    </p>
+
+
+    [anchor:using_puzzles]
+
+    <h2>Using Puzzles</h2>
+
+    <p>
+      The minimal set of features we need to implement in a SCORM pack would be:
+    </p>
+
+    <ul>
+      <li><a href="manual/en/puzzles/SCORM.html#lms_initialize">Initiating</a> a communication session with the LMS.</li>
+      <li><a href="manual/en/puzzles/SCORM.html#lms_set_value">Reporting</a> a lesson status, such as "incomplete", "failed", or "passed".</li>
+      <li><a href="manual/en/puzzles/SCORM.html#lms_finish">Finishing</a> the communication session.</li>
+    </ul>
+
+    <p>
+      The puzzles implementing this are simple:
+    </p>
+
+    <img src="files/creating-scorm-courses/basic-puzzles.jpg" class="centered">
+
+    <p>
+      The *lms finish* puzzle executed in the *beforeunload* event handler (fired when the page closes). This is a good practice since we may do more communication with the LMS during app run time.
+    </p>
+
+    <p>
+      In many cases, reporting the lesson status is not sufficient. You might need to track achievements of the students as well. For this, store a score value to the *cmi.core.score.raw* element:
+    </p>
+
+    <img src="files/creating-scorm-courses/score-puzzles.jpg" class="centered">
+
+    <p class="note">
+      We used optional <a href="manual/en/puzzles/SCORM.html#lms_commit">lms commit</a> puzzle in this snippet to improve UI responsiveness of the LMS.
+    </p>
+
+
+    <p>
+      See <a href="manual/en/puzzles/SCORM.html">E-Learning/SCORM plugin reference</a> for more info on how to use the SCORM puzzles in your learning apps.
+    </p>
+
+
+    [anchor:creating_courses_with_multiple_pages]
+
+    <h2>Creating courses with multiple pages</h2>
+
+    <p>
+      You can use multiple HTML pages in the same SCORM pack each having a different Verge3D app. However, we don't recommend this method since it will make things quite complicated.
+    </p>
+
+    <p>
+      Instead, there is the <a href="manual/en/puzzles/SCORM.html#pack_add_item">pack add item</a> puzzle to add page-like items to the course. To make your app respond to the selected item, use the <a href="manual/en/puzzles/SCORM.html#pack_get_item_id">pack get item ID</a> puzzle. For example:
+    </p>
+
+    <img src="files/creating-scorm-courses/multi-page-puzzles.jpg" class="centered">
+
+    <p>
+      Download the example project <a href="files/creating-scorm-courses/scorm_test_multi.zip">here</a>.
+    </p>
+
+    <p class="note">
+      Make sure you set proper lesson status for each pack item even if you have no questions/quiz there (in this case just  set the *cmi.core.lesson_status* elment to *passed* once the user has loaded the page).
+    </p>
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

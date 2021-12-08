@@ -200,44 +200,25 @@ function writePage(pageFile, lang, navigation, sitemap) {
         }
 
         var metrika = JSDOM.fragment(`
-            <!-- Yandex.Metrika counter -->
-            <script type="text/javascript" >
-               (function(d, w, c) {
-                 if (document.domain === "www.soft8soft.com") {
-                   (w[c] = w[c] || []).push(function() {
-                       try {
-                           w.yaCounter46001298 = new Ya.Metrika({
-                               id:46001298,
-                               clickmap:true,
-                               trackLinks:true,
-                               accurateTrackBounce:true
-                           });
-                       } catch(e) { }
-                   });
-
-                   var n = d.getElementsByTagName("script")[0],
-                       s = d.createElement("script"),
-                       f = function() { n.parentNode.insertBefore(s, n); };
-                   s.type = "text/javascript";
-                   s.async = true;
-                   s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-                   if (w.opera == "[object Opera]") {
-                       d.addEventListener("DOMContentLoaded", f, false);
-                   } else { f(); }
-                 }
-               })(document, window, "yandex_metrika_callbacks");
-            </script>
-            <noscript><div><img src="https://mc.yandex.ru/watch/46001298" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-            <!-- /Yandex.Metrika counter -->
+<!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(46001298, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); ym(46001298, 'addFileExtension', 'xz');</script> <noscript><div><img src="https://mc.yandex.ru/watch/46001298" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
         `);
         body.appendChild(metrika);
 
         var now = new Date();
 
-        body.appendChild(JSDOM.fragment(`
-            <div class="copyright">© <a href="https://www.soft8soft.com/" target="_blank">Soft8Soft – 3D Solutions for the Web</a><div>Last updated on ${now.toDateString()}</div></div>
-        `));
+        let footerText = ''
+        switch (lang) {
+        case 'ru':
+            footerText = `<div class="copyright">© <a href="https://www.soft8soft.com/ru" target="_blank">Soft8Soft – трёхмерные решения для сайтов</a><div>Последнее обновление: ${now.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', year: 'numeric'})}</div></div>`;
+            break;
+        case 'zh':
+            footerText = `<div class="copyright">© <a href="https://www.soft8soft.com/cn" target="_blank">Soft8Soft – Web的3D解决方案</a><div>最后更新于 ${now.toLocaleDateString('zh-CN', { month: 'long', day: 'numeric', year: 'numeric'})}</div></div>`;
+            break;
+        default:
+            footerText = `<div class="copyright">© <a href="https://www.soft8soft.com/" target="_blank">Soft8Soft – 3D Solutions for the Web</a><div>Last updated on ${now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric'})}</div></div>`;
+            break;
+        }
+        body.appendChild(JSDOM.fragment(footerText));
 
         Array.from(body.getElementsByTagName('v3d-tabs'))
         .forEach(function(v3dTabsElem) {

@@ -8,24 +8,29 @@
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
     <style>
-      table, td, th {
-        border: 1px solid #2194CE;
-        border-collapse: collapse;
-        padding: 10px;
+      table, td, th !important {
         text-align: left;
         min-width: 180px;
         font-size: 16px;
       }
       table {
+        width:100%;
         margin-bottom: 20px;
       }
       th {
-        text-align: center;
-        text-decoration: none;
-        color: #0b7188;
         font-size: 17px;
-        font-family: 'Oswald', sans-serif;
-        font-weight: normal;
+      }
+      th:nth-of-type(1) {
+        width: 10%
+      }
+      th:nth-of-type(2) {
+        width: 30%
+      }
+      th:nth-of-type(3) {
+        width: 30%
+      }
+      th:nth-of-type(4) {
+        width: 30%
       }
       td ul {
         margin: 10px 0px;
@@ -79,8 +84,7 @@
 
     <h2>Features & Requirements</h2>
 
-    <table style="width:100%">
-
+    <table>
       <tr id="feature_dcc">
         <th rowspan=3>Content Creation</th>
         <th>Verge3D for Blender</th>
@@ -89,14 +93,14 @@
       </tr>
 
       <tr>
-        <td class="centered">Blender 2.80-2.93</td>
+        <td class="centered">Blender 2.80-3.0</td>
         <td class="centered">Autodesk 3ds Max 2019-2022</td>
         <td class="centered">Autodesk Maya 2018-2022</td>
       </tr>
 
       <tr>
         <td colspan=3>
-          In addition, you can use any modelling suite supporting export to glTF 2.0 format as well as any 3D graphics software supporting export to <a href="manual/en/introduction/Features.html#feature_import_formats">20+ import formats</a> including FBX, OBJ, COLLADA, and 3DS.
+          In addition, you can use any modelling suite supporting export to glTF 2.0 format as well as any 3D graphics software supporting export to <a href="manual/en/introduction/Features.html#feature_import_formats">20+ import formats</a> including USDZ, FBX, OBJ, COLLADA, and 3DS.
         </td>
       </tr>
 
@@ -174,6 +178,9 @@
             <li>
               Reflection Cubemap Light Probes.
             </li>
+            <li>
+              Reflection Plane Light Probes.
+            </li>
           </ul>
         </td>
         <td>
@@ -201,6 +208,9 @@
             <li>
               Reflection Cubemap Light Probes.
             </li>
+            <li>
+              Reflection Plane Light Probes.
+            </li>
           </td>
           <td>
           <ul>
@@ -217,9 +227,12 @@
             </li>
             <li>
               Image-based lighting via aiSkyDomeLight and shading nodes.
-
+            </li>
             <li>
               Reflection Cubemap Light Probes.
+            </li>
+            <li>
+              Reflection Plane Light Probes.
             </li>
           </ul>
         </td>
@@ -276,6 +289,7 @@
             <li>RGB/Value nodes animation.</li>
             <li>Shape keys (morphing) animation.</li>
             <li>Advanced procedural animation based on the <a href="manual/en/puzzles/Animation.html#animate_param">animate param</a> puzzle.</li>
+            <li>Animation constraints: Copy Location, Copy Rotation, Copy Scale, Copy Transforms, Limit Distance, Limit Location, Limit Rotation, Limit Scale, Damped Track, Locked Track, Track To, Floor.</li>
           </ul>
         </td>
         <td>
@@ -284,6 +298,7 @@
             <li>Object transform animation, including position, rotation and scale.</li>
             <li>Material controller animation. Supported float and color parameters.</li>
             <li>Advanced procedural animation based on the <a href="manual/en/puzzles/Animation.html#animate_param">animate param</a> puzzle.</li>
+            <li>Animation constraints: Position, LookAt, Orientation.</li>
           </ul>
         </td>
         <td>
@@ -293,6 +308,7 @@
             <li>Material params animation.</li>
             <li>Blend shapes (morphing) animation.</li>
             <li>Advanced procedural animation based on the <a href="manual/en/puzzles/Animation.html#animate_param">animate param</a> puzzle.</li>
+            <li>Animation constraints: Parent, Point, Orient, Scale, Aim.</li>
           </ul>
         </td>
       </tr>
@@ -349,6 +365,7 @@
             <li>You own server.</li>
             <li>Any web hosting service (GoDaddy, DigitalOcean, Amazon AWS etc).</li>
             <li><a href="https://www.soft8soft.com/verge3d-network/" target="_blank">Verge3D Network</a>.</li>
+            <li><a href="manual/en/introduction/Creating-SCORM-Courses.html">SCORM-compliant</a> learning-management systems (LMS) such as Moodle, Chamilo, SCORM Cloud, CANVAS, iSpring, etc.</li>
             <li>Google Play or App Store by <a href="manual/en/introduction/Creating-Mobile-Apps.html">wrapping</a> your Verge3D app to a mobile app.</li>
             <li>As stand-alone desktop application created with <a href="manual/en/introduction/Creating-Desktop-Apps.html">Electron</a> framework.</li>
           </ul>
@@ -379,9 +396,19 @@
       <tr id="feature_postprocessing">
         <th>Post-processing effects</th>
         <td colspan=3>
-          The following effects can be <a href="manual/en/puzzles/Postprocessing.html">enabled with Puzzles</a>:
+          The following effects can be enabled and exported from within
+          supported 3D editing software:
           <ul>
-            <li>Ambient Occlusion</li>
+            <li>
+              Ambient Occlusion (GTAO) - see
+              <a href="manual/en/blender/Lighting-and-Rendering.html#ambient_occlusion">Blender</a> /
+              <a href="manual/en/max/Lighting-and-Rendering.html#ambient_occlusion">Max</a> /
+              <a href="manual/en/maya/Lighting-and-Rendering.html#ambient_occlusion">Maya</a>
+              manual pages
+            </li>
+          </ul>
+          Also, these effects can be <a href="manual/en/puzzles/Postprocessing.html">enabled with Puzzles</a>:
+          <ul>
             <li>Bloom</li>
             <li>Brightness/Contrast</li>
             <li>Depth of Field</li>
@@ -390,7 +417,7 @@
             <li>Screen Space Reflection and Refraction (SSR)</li>
             <li>Supersampling Anti-Aliasing (SSAA)</li>
           </ul>
-          In addition, the following effects can be enabled with JavaScript:
+          And, in addition, the following effects can be enabled with JavaScript:
           <ul>
             <li>Adaptive Tone Mapping</li>
             <li>Crepuscular Rays (also known as sunbeams or god rays)</li>
@@ -422,7 +449,12 @@
       <tr id="feature_ar">
         <th>Augmented Reality</th>
         <td colspan=3>
-          Supported on Chrome for Android (requires a mobile device capable of running ARCore aka Google Play Services for AR) and Mozilla's WebXR Viewer on iOS.
+          <p>
+            Supported on Chrome for Android (requires a mobile device capable of running ARCore aka Google Play Services for AR) and Mozilla's WebXR Viewer on iOS.
+          </p>
+          <p>
+            Also, you can run simplified AR mode in the default Safari browser on iOS/iPadOS by using USDZ format.
+          </p>
         </td>
       </tr>
 
@@ -499,6 +531,7 @@
             <li><a href="https://cdn.soft8soft.com/demo/applications/augmented_reality/augmented_reality.html" target="_blank">Augmented Reality</a> — basic AR demo.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/clipping_planes/clipping_planes.html" target="_blank">Clipping Planes</a> — shows how clipping planes (aka cross-sections or plane sections) can be used for engineering and scientific purposes.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/custom_image/custom_image.html" target="_blank">Custom Image</a> — a virtual picture frame which allows uploading, storing and sharing your images.</li>
+            <li><a href="https://cdn.soft8soft.com/demo/player/player.html?load=../applications/e-learning/e-learning.gltf&logic=../applications/e-learning/visual_logic.js" target="_blank">E-Learning</a> — simple e-learning app.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/global_illumination/global_illumination.html" target="_blank">Global Illumination</a> — an interior demo with advanced lighting effects (such as dynamic cubemap probes and area lights).</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/farmers_journey/index.html" target="_blank">Farmer's Journey</a> — arcade browser game made without coding.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/industrial_robot/index.html" target="_blank">Industrial Robot VR</a> — interactive robot simulator with AR and VR capabilities.</li>
@@ -507,7 +540,7 @@
             <li><a href="https://cdn.soft8soft.com/demo/applications/parametric_models/index.html" target="_blank">Parametric Models</a> — 3D configurator featuring parametric modelling tools.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/pbr/pbr.html" target="_blank">PBR</a> — a demo featuring glTF 2.0 compatible materials.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/recliner/index.html" target="_blank">Recliner</a> — 3D configurator and ready-to-use e-commerce website.</li>
-            <li><a href="https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf" target="_blank">Ring</a> — simple 3D jewelry customizer with online ordering capabilities.</li>
+            <li><a href="https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf&logic=../applications/ring/visual_logic.js" target="_blank">Ring</a> — simple 3D jewelry customizer with online ordering capabilities.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/scooter/index.html" target="_blank">Scooter</a> — advanced 3D configurator with realistic PBR materials and millions possible combinations.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/scroll_animation/scroll_animation.html" target="_blank">Scroll Animation</a> — demo featuring modern scrollable website with customizable 3D model.</li>
             <li><a href="https://cdn.soft8soft.com/demo/applications/simple_configurator/simple_configurator.html" target="_blank">Simple Configurator</a> — basic tutorial demo for e-commerce.</li>

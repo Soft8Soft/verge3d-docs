@@ -82,13 +82,17 @@
 
     [anchor:light_probes]
 
-    <h2>Light Probes</h2>
+    <h2>Reflection Cubemap Light Probes</h2>
 
     <p>
       Verge3D add-on adds a custom light probe object called *V3DReflectionCubemap*,
       which can be used to apply indirect lighting to objects via a local
-      reflection cubemap.<br/><br/>
+      reflection cubemap.
+    </p>
 
+    <iframe class="video-480p" src="https://www.youtube.com/embed/J3gV2zpvgwo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>
       The object can be found in the *Create* panel -> *Helpers* category ->
       *Verge3D* subcategory:
     </p>
@@ -120,7 +124,7 @@
       Reflection Cubemap objects have the following parameters:
     </p>
 
-    <img src="files/lighting-max/light-probe-reflection-cubemap-params.png" class="centered" style="max-width: 335px">
+    <img src="files/lighting-max/light-probe-reflection-cubemap-params.png" class="centered" style="max-width: 312px">
 
     <dl>
       <dt>General</dt>
@@ -206,18 +210,90 @@
           </dd>
         </dl>
       </dd>
+
+      <dt>Custom Influence</dt>
+      <dd>
+        custom influence settings:
+
+        <dl>
+          <dt>Enable Custom Influence</dt>
+          <dd>
+            enable custom influence settings. This group of settings allows
+            defining a selection set of objects that will be affected by this
+            light probe. *Influence Selection Set* (if specified) will be used
+            instead of the *Influence Type* and *Influence Distance* general
+            probe settings.
+          </dd>
+
+          <dt>Influence Selection Set</dt>
+          <dd>
+            limit objects that should be affected by this light probe to this
+            selection set. If specified it is used instead of the
+            *Influence Type* and *Influence Distance* general probe settings.
+          </dd>
+
+          <dt>Invert Influence</dt>
+          <dd>
+            invert the selection of objects affected by this probe if
+            *Influence Selection Set* is specified.
+          </dd>
+        </dl>
+      </dd>
     </dl>
 
 
-    [anchor:per_object_rendering_settings]
+    [anchor:reflection_plane_light_probes]
 
-    <h2>Per-Object Rendering Settings</h2>
+    <h2>Reflection Plane Light Probes</h2>
 
-    <img src="files/lighting-max/rendering-settings.jpg" class="centered" style="max-width: 319px">
+    <p>
+      Reflection Plane Light Probes used to apply real-time reflections (indirect lighting) to planar objects, such as mirrors, floors, walls, etc.
+    </p>
 
-    <p>*Render Order* — modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.</p>
+    <img src="files/lighting-max/light-probe-reflection-plane-example.jpg" class="centered" style="max-width: 804px">
 
-    <p>*Frustum Culling* — enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.</p>
+    <p>
+      Verge3D plugin adds a custom light probe object called *V3DReflectionPlane*. The object can be found in the *Create* panel -> *Helpers* category -> *Verge3D* subcategory:
+    </p>
+
+    <img src="files/lighting-max/light-probe-reflection-plane-create.jpg" class="centered" style="max-width: 363px">
+
+    <p>
+      Reflection plane objects have the following parameters:
+    </p>
+
+    <img src="files/lighting-max/light-probe-reflection-plane-params.jpg" class="centered" style="max-width: 355px">
+
+    <dl>
+      <dt>Length</dt>
+      <dd>
+        Reflection plane length.
+      </dd>
+      <dt>Width</dt>
+      <dd>
+        Reflection plane width.
+      </dd>
+      <dt>Influence Dist.</dt>
+      <dd>
+        Influence distance of the probe.
+      </dd>
+      <dt>Falloff</dt>
+      <dd>
+        Controls how fast the probe influence decreases.
+      </dd>
+      <dt>Clip Offset</dt>
+      <dd>
+        Near camera clipping for objects rendered in the light probe.
+      </dd>
+      <dt>Visibility Selection Set</dt>
+      <dd>
+        Selection set of the objects visible for the probe.
+      </dd>
+    </dl>
+
+    <p class="note">
+      Planar reflection probes can greatly reduce performance of your scene, since they multiply the number of draw calls by a factor <strong>N+1</strong>. To make rendering faster, specify a limited set of reflected objects as the *Visibility Selection Set* property.
+    </p>
 
 
     [anchor:global_rendering_settings]
@@ -226,38 +302,115 @@
 
     <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (<strong>Verge3D->Export Settings...</strong> in 3ds Max menu).</p>
 
-    <img src="files/lighting-max/rendering-settings-global.jpg" class="centered" style="max-width: 252px">
+    <img src="files/lighting-max/rendering-settings-global.jpg" class="centered" style="max-width: 272px">
 
-    <p><strong>Anti-Aliasing</strong> — select what anti-aliasing algorithm to use for the scene:</p>
+    <dl>
+      <dt>Anti-Aliasing</dt>
+      <dd>
+        select what anti-aliasing algorithm to use for the scene:
+        <dl>
+          <dt>Auto</dt>
+          <dd>use system default method.</dd>
+          <dt>MSAA 4x</dt>
+          <dd>prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</dd>
+          <dt>MSAA 8x</dt>
+          <dd>prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</dd>
+          <dt>MSAA 16x</dt>
+          <dd>prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</dd>
+          <dt>FXAA</dt>
+          <dd>force fast approximate anti-aliasing (FXAA).</dd>
+          <dt>None</dt>
+          <dd>disable anti-aliasing.</dd>
+        </dl>
+      </dd>
 
-    <ul>
-      <li>*Auto* — use system default method.</li>
-      <li>*MSAA 4x* — prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</li>
-      <li>*MSAA 8x* — prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</li>
-      <li>*MSAA 16x* — prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</li>
-      <li>*FXAA* — force FXAA.</li>
-      <li>*None* — disable anti-aliasing.</li>
-    </ul>
+      <dt>Use HDR Rendering</dt>
+      <dd>
+        <p>enable high-dynamic-range rendering.</p>
+        <p>If activated, Verge3D will use 16-bit float textures as rendering buffers. This feature can significantly improve rendering of the Bloom post-processing as well as smoothness of node-based gradient textures. The downside of this — increased GPU memory consumption and reduced performance.</p>
 
-    <p>*Use HDR Rendering* — enable high-dynamic-range rendering.</p>
+        <p class="note">This feature is not related to HDR textures which are commonly used to produce image-based lighting, thus activating it won't improve rendering of such textures.</p>
+      </dd>
 
-    <p>*Environment Map Size* — texture size to use for environment lighting:</p>
+      <dt>Environment Map Size</dt>
+      <dd>
+        texture size to use for environment lighting:
+        <dl>
+          <dt>256</dt>
+          <dd>optimum quality with low memory consumption (default value).</dd>
+          <dt>512</dt>
+          <dd>better quality with moderate memory consumption and reduced performance. Use it to render high quality reflections e.g for rendering jewelry.</dd>
+          <dt>1024</dt>
+          <dd>best quality with high memory consumption and low performance (generally not recommended).</dd>
+        </dl>
+      </dd>
 
-    <ul>
-      <li>*256* — optimum quality with low memory consumption (default value).</li>
-      <li>*512* — better quality with moderate memory consumption and reduced performance. Use it to render high quality reflections e.g for rendering jewelry.</li>
-      <li>*1024* — best quality with high memory consumption and low performance (generally not recommended).</li>
-    </ul>
+      <dt id="ibl_environment_mode">IBL Environment Mode</dt>
+      <dd>
+        <dl>
+          <dt>PMREM (slow)</dt>
+          <dd>high quality (default value).</dd>
+          <dt>Light Probe + Cubemap (medium)</dt>
+          <dd>reduced quality of image-based specular reflections, better performance.</dd>
+          <dt>Light Probe (fast)</dt>
+          <dd>disabled image-based specular reflections, highest performance.</dd>
+        </dl>
+      </dd>
+    </dl>
 
-    <p>*IBL Environment Mode*</p>
+    [anchor:ambient_occlusion]
 
-    <ul>
-      <li><strong>PMREM (slow)</strong> — high quality (default value).</li>
-      <li><strong>Light Probe + Cubemap (medium)</strong> — reduced quality of image-based specular reflections, better performance.</li>
-      <li><strong>Light Probe (fast)</strong> — disabled image-based specular reflections, highest performance.</li>
-    </ul>
+    <h2>Ambient Occlusion</h2>
 
-    <p>*Object Outlining* — see below.</p>
+    <p>
+      Ambient Occlusion is a rendering technique that improves a scene's realism
+      by adding soft shadows from indirect (ambient) lighting based on how much
+      the point is exposed to the light sources.
+    </p>
+
+    <p>
+      Verge3D implements Ground Truth Ambient Occlusion (GTAO), which settings
+      you can find in the *AO* section of *Verge3D Export Settings* (accessible
+      through <strong>Verge3D->Export Settings...</strong> in 3ds Max menu):
+    </p>
+
+    <img src="files/lighting-max/ambient-occlusion-properties.png" class="centered" style="max-width: 272px">
+
+    <p class="note">
+      Verge3D adds the ambient occlusion effect only for *Physical Material*
+      nodes and only if the scene has <a href="manual/en/max/Lighting-and-Rendering.html#environment_lighting">environment lighting</a>
+      (either as a color or a map).
+    </p>
+
+    <dl>
+      <dt>Enabled</dt>
+      <dd>
+        Enable Ambient Occlusion in the scene.
+      </dd>
+      <dt>Distance</dt>
+      <dd>
+        The radius (in system units) within which to calculate ambient occlusion.
+        Higher values make the effect more noticeable by over-darkening and
+        expanding the area of it, but also can decrease performance. Lower
+        values make occlusion less noticeable.
+      </dd>
+      <dt>Factor</dt>
+      <dd>
+        The strength of the occlusion effect.
+      </dd>
+      <dt>Trace Precision</dt>
+      <dd>
+        Higher precision means more accurate occlusion at increased performance
+        cost. Lower precision means better performance but the effect appears
+        less prominent.
+      </dd>
+      <dt>Bent Normals</dt>
+      <dd>
+        Use modified (or "bent") normals to sample the environment instead of
+        the original ones. The modified normals represent the least occluded
+        direction and make environment lighting a bit more realistic.
+      </dd>
+    </dl>
 
 
     [anchor:outline_rendering]
@@ -268,15 +421,21 @@
       Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
     </p>
 
+    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+
     <p>
-      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect in the *Verge3D Export Settings* dialog, then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
+      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect in the *Verge3D Export Settings* dialog:
+    </p>
+
+    <img src="files/lighting-max/outline-settings.jpg" class="centered" style="max-width: 272px">
+
+    <p>
+      then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
     </p>
 
     <p class="note">
       The outline rendering does not work inside AR/VR sessions. Use other methods to highlight your objects, such as animation or changing material's color.
     </p>
-
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
 
     <p>You can tweak outlining using the following properties:</p>
 
@@ -311,6 +470,153 @@
     </ul>
 
     <p>See the Autodesk's official <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2021/ENU/3DSMax-Rendering/files/GUID-E1A6D466-CABB-4C8A-97A9-0C191C69F9BD-htm.html" target="_blank">documentation</a> for more information on how to configure exposure controls for your scene.</p>
+
+
+    [anchor:per_object_rendering_settings]
+
+    <h2>Per-Object Rendering Settings</h2>
+
+    <h3>Verge3D Rendering Params panel</h3>
+
+    <img src="files/lighting-max/rendering-settings.jpg" class="centered" style="max-width: 319px">
+
+    <dl>
+      <dt>Render Order</dt>
+      <dd>
+        Modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
+      </dd>
+
+      <dt>Frustum Culling</dt>
+      <dd>
+        Enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
+      </dd>
+    </dl>
+
+    <h3>Verge3D Adv. Rendering Params panel</h3>
+
+    <img src="files/lighting-max/adv-rendering-settings.jpg" class="centered" style="max-width: 362px">
+
+    <dl>
+      <dt>Fit to Camera Edge</dt>
+      <dd>
+        See <a href="manual/en/max/Lighting-and-Rendering.html#fit_to_camera_edge">here</a> for more info.
+      </dd>
+
+      <dt>Visibility Breakpoints</dt>
+      <dd>
+        Enable object visibility breakpoints. See <a href="manual/en/max/Lighting-and-Rendering.html#visibility_breakpoints">here</a>.
+      </dd>
+
+      <dt>HiDPI Compositing</dt>
+      <dd>
+        Render object using HiDPI compositing pass. See <a href="manual/en/max/Lighting-and-Rendering.html#hidpi_rendering">below</a> for more info.
+      </dd>
+
+      <dt>Fix Ortho Zoom</dt>
+      <dd>
+        Apply inverse orthographic camera zoom as scaling factor for this object. Enable this property for object parented to ortho camera, so they don't move/scale when the user zooms the camera.
+      </dd>
+    </dl>
+
+
+    [anchor:hidpi_rendering]
+
+    <h2>Rendering on HiDPI (Retina) Screens</h2>
+
+    <p>
+      As of today, most mobile and many desktop screens have high pixel density (so called "Retina" displays). These displays allow you to substantially increase quality of your renderings. The downside of rendering many pixels is reduced performance.
+    </p>
+
+    <p>
+      There are two approaches how to make your content look better and do not make your scenes really slow:
+    </p>
+
+    <ul>
+      <li>Using somewhat better resolution, e.g by setting screen scaling factor to 1.5 or so. See <a href="manual/en/puzzles/System.html#set_screen_scale">here</a> for more info.</li>
+      <li>Using HiDPI rendering only for important content, such as text, screen-space UI elements, etc.</li>
+    </ul>
+
+    <p>
+      The latter approach can be easily achieved by enabling the *HiDPI Compositing* property located on the *Verge3D Adv. Rendering Params* panel:
+    </p>
+
+    <img src="files/lighting-max/hidpi-compositing.jpg" class="centered" style="max-width: 362px">
+
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>Fit to Camera Edge</h2>
+
+    <p>
+      <em>Fit to Camera Edge</em> is a technique to draw screen-space UI elements based on 3ds Max models. This approach to UI design is more “native” to the 3D artist than using HTML/CSS, and does not require external tools. But there is more in it: since the UI elements are genuine 3D objects, you can apply shaders, lighting, animation, morphing – you name it – making them truly interactive and seamlessly integrated into the scene.
+    </p>
+
+    <p>
+      When you parent some object to the camera, the following settings appear on the *Verge3D Adv. Rendering Params* panel:
+    </p>
+
+    <img src="files/lighting-max/fit-to-camera-edge-properties.jpg" class="centered" style="max-width: 362px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        Horizontal canvas edge to fit object to. *None* — no horizontal fit, *Left* — fit to left edge, *Right* — fit to right edge, *Stretch* — scale object horizontally to fit on the screen.
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        Vertical canvas edge to fit object to. *None* — no vertical fit, *Top* — fit to top edge, *Bottom* — fit to bottom edge, *Stretch* — scale object vertically to fit on the screen.
+      </dd>
+      <dt>Shape</dt>
+      <dd>
+        Canvas fit shape. *Box* — use object's bounding box, *Sphere* — use object's bounding sphere to fit the object on the screen.
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        Additional offset used to fit object on the screen. Effectively, this value extends object bounding (box or sphere) by the specified absolute value.
+      </dd>
+    </dl>
+
+
+    [anchor:visibility_breakpoints]
+
+    <h2>Visibility Breakpoints</h2>
+
+    <p>
+      <em>Visibility Breakpoints</em> allow you to show/hide content depending on 3D viewport width/height or orientation settings. The most important use case of this feature — adapting your scene to different screen sizes and orientations. E.g you may have two different models for portrait and landscape screen orientations.
+    </p>
+
+    <p>
+      If assigned to the current camera, tries to switch to an alternative camera (must have acceptable visibility breakpoints) in the scene, if no alternative camera is found, does nothing.
+    </p>
+
+    <p>
+      You can configure the breakpoints on the *Verge3D Adv. Rendering Params* panel:
+    </p>
+
+    <img src="files/lighting-max/visibility-breakpoints.jpg" class="centered" style="max-width: 362px">
+
+    <dl>
+      <dt>Min Width</dt>
+      <dd>
+        Minimum canvas width the object stays visible.
+      </dd>
+      <dt>Max Width</dt>
+      <dd>
+        Maximum canvas width the object stays visible.
+      </dd>
+      <dt>Min Height</dt>
+      <dd>
+        Minimum canvas height the object stays visible.
+      </dd>
+      <dt>Max Height</dt>
+      <dd>
+        Maximum canvas height the object stays visible.
+      </dd>
+      <dt>Orientation</dt>
+      <dd>
+        Screen orientation the object stays visible.
+      </dd>
+    </dl>
 
 
     [anchor:clipping_planes]

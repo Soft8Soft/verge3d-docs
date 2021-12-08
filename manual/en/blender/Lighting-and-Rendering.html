@@ -74,20 +74,21 @@
 
     [anchor:light_probes]
 
-    <h2>Light Probes</h2>
+    <h2>Reflection Cubemap Light Probes</h2>
 
     <p>
-      Light Probes are objects intended for adding indirect lighting locally by
-      generating a local reflection cubemap. Verge3D currently supports only
-      *Reflection Cubemap* light probes. This type of light probe objects add
-      specular indirect ligthing to a scene.
+      Reflection Cubemap Light Probes are objects intended for adding indirect lighting locally by
+      generating a local reflection cubemap. This type of light probe objects add
+      specular indirect lighting to a scene.
     </p>
+
+    <iframe class="video-480p" src="https://www.youtube.com/embed/V39heuWD_vo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <p>
       The following properties are supported:
     </p>
 
-    <img src="files/lighting-blender/light-probe-reflection-cubemap.png" class="centered" style="max-width: 369px">
+    <img src="files/lighting-blender/light-probe-reflection-cubemap.png" class="centered" style="max-width: 453px">
 
     <dl>
       <dt>Probe</dt>
@@ -167,6 +168,29 @@
           </dd>
         </dl>
       </dd>
+
+      <dt>Custom Influence</dt>
+      <dd>
+        enable custom influence settings. This group of settings allows defining
+        a collection of objects that will be affected by this light probe.
+        *Influence Collection* (if specified) will be used instead of the
+        *Type* and *Radius/Distance* general probe settings.
+
+        <dl>
+          <dt>Influence Collection</dt>
+          <dd>
+            limit objects that should be affected by this light probe to this
+            collection. If specified it is used instead of the *Type* and
+            *Radius/Distance* general probe settings.
+          </dd>
+
+          <dt>Invert Influence Collection</dt>
+          <dd>
+            invert the selection of objects affected by this probe if
+            *Influence Collection* is specified.
+          </dd>
+        </dl>
+      </dd>
     </dl>
 
     <p>
@@ -222,6 +246,46 @@
     </p>
 
 
+    [anchor:reflection_plane_light_probes]
+
+    <h2>Reflection Plane Light Probes</h2>
+
+    <p>
+      Reflection Plane Light Probes used to apply real-time reflections (indirect lighting) to planar objects, such as mirrors, floors, walls, etc.
+    </p>
+
+    <img src="files/lighting-blender/light-probe-reflection-plane-example.jpg" class="centered" style="max-width: 776px">
+
+    <p>
+      The following properties are supported:
+    </p>
+
+    <img src="files/lighting-blender/light-probe-reflection-plane.jpg" class="centered" style="max-width: 368px">
+
+    <dl>
+      <dt>Distance</dt>
+      <dd>
+        Influence distance of the probe.
+      </dd>
+      <dt>Falloff</dt>
+      <dd>
+        Controls how fast the probe influence decreases.
+      </dd>
+      <dt>Clipping Offset</dt>
+      <dd>
+        Near camera clipping for objects rendered in the light probe.
+      </dd>
+      <dt>Visibility Collection</dt>
+      <dd>
+        Collection of the objects visible for the probe.
+      </dd>
+    </dl>
+
+    <p class="note">
+      Planar reflection probes can greatly reduce performance of your scene, since they multiply the number of draw calls by a factor <strong>N+1</strong>. To make rendering faster, specify a limited set of objects as the *Visibility Collection* property.
+    </p>
+
+
     [anchor:background]
 
     <h2>Background</h2>
@@ -242,7 +306,6 @@
     <img src="files/lighting-blender/rendering-properties-indirect.jpg" class="centered" style="max-width: 315px">
 
     <dl>
-
       <dt id="cubemap_size">Cubemap Size</dt>
       <dd>
         texture size to use for environment lighting:
@@ -278,13 +341,14 @@
           <dd>unsupported, Verge3D will use *Standard* instead.</dd>
         </dl>
 
-        <img src="files/lighting-blender/rendering-properties-global.jpg" class="centered" style="max-width: 318px">
-
       </dd>
+    </dl>
 
+    <img src="files/lighting-blender/rendering-properties-global.jpg" class="centered" style="max-width: 318px">
+
+    <dl>
       <dt>Enable Shadows and Shadow Map Side</dt>
       <dd>shadow properties, read more about these <a href="manual/en/blender/Shadows.html">here</a>.</dd>
-
 
       <dt>Anti-Aliasing</dt>
       <dd>
@@ -303,7 +367,7 @@
           <dd>prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</dd>
 
           <dt>FXAA</dt>
-          <dd>force FXAA.</dd>
+          <dd>force fast approximate anti-aliasing (FXAA).</dd>
 
           <dt>None</dt>
           <dd>disable anti-aliasing.</dd>
@@ -311,7 +375,12 @@
       </dd>
 
       <dt>Use HDR Rendering</dt>
-      <dd>enable high-dynamic-range rendering.</dd>
+      <dd>
+        <p>enable high-dynamic-range rendering.</p>
+        <p>If activated, Verge3D will use 16-bit float textures as rendering buffers. This feature can significantly improve rendering of the Bloom post-processing as well as smoothness of node-based gradient textures. The downside of this — increased GPU memory consumption and reduced performance.</p>
+
+        <p class="note">This feature is not related to HDR textures which are commonly used to produce image-based lighting, thus activating it won't improve rendering of such textures.</p>
+      </dd>
 
       <dt id="ibl_environment_mode">IBL Environment Mode</dt>
       <dd>
@@ -329,7 +398,60 @@
 
       <dt>*Outlining Effect*</dt>
       <dd>see <a href="manual/en/blender/Lighting-and-Rendering.html#outline_rendering">below</a>.</dd>
+    </dl>
 
+
+    [anchor:ambient_occlusion]
+
+    <h2>Ambient Occlusion</h2>
+
+    <p>
+      Ambient Occlusion is a rendering technique that improves a scene's realism
+      by adding soft shadows from indirect (ambient) lighting based on how much
+      the point is exposed to the light sources.
+    </p>
+
+    <p>
+      Blender uses Ground Truth Ambient Occlusion (GTAO)
+      (<a href="https://docs.blender.org/manual/en/latest/render/eevee/render_settings/ambient_occlusion.html">link</a>)
+      and Verge3D Implements the same technique under the hood.
+    </p>
+
+    <p>
+      Verge3D supports the following AO settings which can be found in the
+      *Ambient Occlusion* section on the *Render Properties* panel:
+    </p>
+
+    <img src="files/lighting-blender/ambient-occlusion-properties.png" class="centered" style="max-width: 405px">
+
+    <dl>
+      <dt>Ambient Occlusion</dt>
+      <dd>
+        Enable Ambient Occlusion in the scene.
+      </dd>
+      <dt>Distance</dt>
+      <dd>
+        The radius (in system units) within which to calculate ambient occlusion.
+        Higher values make the effect more noticeable by over-darkening and
+        expanding the area of it, but also can decrease performance. Lower
+        values make occlusion less noticeable.
+      </dd>
+      <dt>Factor</dt>
+      <dd>
+        The strength of the occlusion effect.
+      </dd>
+      <dt>Trace Precision</dt>
+      <dd>
+        Higher precision means more accurate occlusion at increased performance
+        cost. Lower precision means better performance but the effect appears
+        less prominent.
+      </dd>
+      <dt>Bent Normals</dt>
+      <dd>
+        Use modified (or "bent") normals to sample the environment instead of
+        the original ones. The modified normals represent the least occluded
+        direction and make environment lighting a bit more realistic.
+      </dd>
     </dl>
 
 
@@ -341,15 +463,21 @@
       Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
     </p>
 
+    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+
     <p>
-      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect on the Blender's *Render Properties* panel, then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
+      To use object outlining (and optional glowing) in your Verge3D application, first enable the effect on the Blender's *Render Properties* panel:
+    </p>
+
+    <img src="files/lighting-blender/outline-settings.jpg" class="centered" style="max-width: 332px">
+
+    <p>
+      then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
     </p>
 
     <p class="note">
       The outline rendering does not work inside AR/VR sessions. Use other methods to highlight your objects, such as animation or changing material's color.
     </p>
-
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
 
     <p>You can tweak outlining using the following properties:</p>
 
@@ -380,18 +508,177 @@
       Verge3D supports the following additional rendering properties for your geometry objects:
     </p>
 
-    <img src="files/lighting-blender/rendering-properties.jpg" class="centered" style="max-width: 313px">
+    <img src="files/lighting-blender/rendering-properties.jpg" class="centered" style="max-width: 383px">
+
+    <dl>
+      <dt>Rendering Order</dt>
+      <dd>
+        Modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
+      </dd>
+
+      <dt>Frustum Culling</dt>
+      <dd>
+        Enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
+      </dd>
+
+      <dt>Receive Shadows</dt>
+      <dd>
+        Render or not shadows on the given object. See <a href="manual/en/blender/Shadows.html">here</a> for more info.
+      </dd>
+
+      <dt>HiDPI Compositing</dt>
+      <dd>
+        Render object using HiDPI compositing pass. See <a href="manual/en/blender/Lighting-and-Rendering.html#hidpi_rendering">below</a> for more info.
+      </dd>
+
+      <dt>Fix Ortho Zoom</dt>
+      <dd>
+        Apply inverse orthographic camera zoom as scaling factor for this object. Enable this property for object parented to ortho camera, so they don't move/scale when the user zooms the camera.
+
+        <p class="note">
+          If your object is still zoomed in/out, clear its Parent Inverse matrix:
+          <img src="files/lighting-blender/clear-parent-inverse.jpg" class="centered" style="max-width: 266px">
+        </p>
+      </dd>
+
+      <dt>Fit to Camera Edge</dt>
+      <dd>
+        See <a href="manual/en/blender/Lighting-and-Rendering.html#fit_to_camera_edge">here</a> for more info.
+      </dd>
+
+      <dt>Visibility Breakpoints</dt>
+      <dd>
+        Enable object visibility breakpoints. See <a href="manual/en/blender/Lighting-and-Rendering.html#visibility_breakpoints">here</a>.
+      </dd>
+    </dl>
+
+
+    [anchor:hidpi_rendering]
+
+    <h2>Rendering on HiDPI (Retina) Screens</h2>
 
     <p>
-      *Rendering Order* — modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
+      As of today, most mobile and many desktop screens have high pixel density (so called "Retina" displays). These displays allow you to substantially increase quality of your renderings. The downside of rendering many pixels is reduced performance.
     </p>
 
     <p>
-      *Frustum Culling* — enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
+      There are two approaches how to make your content look better and do not make your scenes really slow:
+    </p>
+
+    <ul>
+      <li>Using somewhat better resolution, e.g by setting screen scaling factor to 1.5 or so. See <a href="manual/en/puzzles/System.html#set_screen_scale">here</a> for more info.</li>
+      <li>Using HiDPI rendering only for important content, such as text, screen-space UI elements, etc.</li>
+    </ul>
+
+    <p>
+      The latter approach can be easily achieved by enabling the *HiDPI Compositing* property located on the *Object Properties* panel:
+    </p>
+
+    <img src="files/lighting-blender/hidpi-compositing.jpg" class="centered" style="max-width: 408px">
+
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>Fit to Camera Edge</h2>
+
+    <p>
+      <em>Fit to Camera Edge</em> is a technique to draw screen-space UI elements based on Blender models. This approach to UI design is more “native” to the 3D artist than using HTML/CSS, and does not require external tools. But there is more in it: since the UI elements are genuine 3D objects, you can apply shaders, lighting, animation, morphing – you name it – making them truly interactive and seamlessly integrated into the scene.
     </p>
 
     <p>
-      *Receive Shadows* — render or not shadows on the given object. See <a href="manual/en/blender/Shadows.html">here</a> for more info.
+      When you parent some object to the camera, the following settings appear on the *Object Properties* panel:
+    </p>
+
+    <img src="files/lighting-blender/fit-to-camera-edge-properties.jpg" class="centered" style="max-width: 407px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        Horizontal canvas edge to fit object to. *None* — no horizontal fit, *Left* — fit to left edge, *Right* — fit to right edge, *Stretch* — scale object horizontally to fit on the screen.
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        Vertical canvas edge to fit object to. *None* — no vertical fit, *Top* — fit to top edge, *Bottom* — fit to bottom edge, *Stretch* — scale object vertically to fit on the screen.
+      </dd>
+      <dt>Fit Shape</dt>
+      <dd>
+        Canvas fit shape. *Box* — use object's bounding box, *Sphere* — use object's bounding sphere to fit the object on the screen.
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        Additional offset used to fit object on the screen. Effectively, this value extends object bounding (box or sphere) by the specified absolute value.
+      </dd>
+    </dl>
+
+    <p class="note">
+      To fix possible issues with camera fit, clear the object's Parent Inverse matrix:
+      <img src="files/lighting-blender/clear-parent-inverse.jpg" class="centered" style="max-width: 266px">
+    </p>
+
+    [anchor:visibility_breakpoints]
+
+    <h2>Visibility Breakpoints</h2>
+
+    <p>
+      <em>Visibility Breakpoints</em> allow you to show/hide content depending on 3D viewport width/height or orientation settings. The most important use case of this feature — adapting your scene to different screen sizes and orientations. E.g you may have two different models for portrait and landscape screen orientations.
+    </p>
+
+    <p>
+      If assigned to the current camera, tries to switch to an alternative camera (must have acceptable visibility breakpoints) in the scene, if no alternative camera is found, does nothing.
+    </p>
+
+    <p class="note">
+      Use the <a href="https://docs.blender.org/manual/en/latest/scene_layout/object/editing/duplicate_linked.html" target="_blank">Duplicate Linked</a> Blender feature to share geometry among two objects. One object will be rendered in portrait mode while another in landscape mode. This way you can save a lot of GPU memory and decrease app loading time.
+    </p>
+
+    <p>
+      You can configure the breakpoints on the *Object Properties* panel:
+    </p>
+
+    <img src="files/lighting-blender/visibility-breakpoints.jpg" class="centered" style="max-width: 410px">
+
+    <dl>
+      <dt>Min Width</dt>
+      <dd>
+        Minimum canvas width the object stays visible.
+      </dd>
+      <dt>Max Width</dt>
+      <dd>
+        Maximum canvas width the object stays visible.
+      </dd>
+      <dt>Min Height</dt>
+      <dd>
+        Minimum canvas height the object stays visible.
+      </dd>
+      <dt>Max Height</dt>
+      <dd>
+        Maximum canvas height the object stays visible.
+      </dd>
+      <dt>Orientation</dt>
+      <dd>
+        Screen orientation the object stays visible.
+      </dd>
+    </dl>
+
+
+    [anchor:line_rendering]
+
+    <h2>Line Rendering</h2>
+
+    <p>
+      With this feature you can render Blender objects by using lines. The most common use case of Line Rendering is drawing curve objects, which do not have any geometry on their own. However, you can also apply this technique to regular meshes and surfaces:
+    </p>
+
+    <img src="files/lighting-blender/line-rendering-example.jpg" class="centered">
+
+    <p>
+      Line Rendering is activated in *Verge3D Settings* located on the *Object Data Properties* panel:
+    </p>
+
+    <img src="files/lighting-blender/line-rendering-properties.jpg" class="centered" style="max-width: 360px">
+
+    <p>
+      Here you can also assign Emission color and width of the rendered lines.
     </p>
 
 
@@ -419,7 +706,7 @@
       Clipping planes have the following properties:
     </p>
 
-    <img src="files/lighting-blender/clipping-plane-properties.jpg" class="centered" style="max-width: 382px">
+    <img src="files/lighting-blender/clipping-plane-properties.jpg" class="centered" style="max-width: 385px">
 
     <dl>
       <dt>Affected Objects</dt>
@@ -446,7 +733,11 @@
       <dd>
         Cross-section diffuse color and opacity.
       </dd>
-      <dt>Cross-Section Plane Size</dt>
+      <dt>Render Side</dt>
+      <dd>
+        Cross-section render side. Specify <strong>Double-sided</strong> to render complex geometry with cuts and holes.
+      </dd>
+      <dt>Cross-Section Size</dt>
       <dd>
         Cross-section plane size. Increase this value if you use larger scene size.
       </dd>
