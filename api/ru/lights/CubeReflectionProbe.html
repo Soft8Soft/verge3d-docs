@@ -12,12 +12,11 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A light probe that applies environment IBL to objects located inside its
-      volume of influence. Used for adding local IBL to a scene.
+      Световой зонд, который применяет окружение типа IBL к объектам, находящимся в зоне его влияния. Используется для добавления локального IBL в сцену. 
     </p>
 
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <code>
     const probe = new v3d.CubeReflectionProbe();
@@ -26,171 +25,128 @@
     </code>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:Integer size])</h3>
     <p>
-      size - (optional) texture size. Default is 256.<br/><br/>
+      size - (необязателен) размер текстуры. По умолчанию 256.<br/><br/>
 
-      Creates a new [name].
+      Создает новый [name].
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
-    <p>See the base [page:Object3D Object3D] class for common properties.</p>
+    <p>Общие свойства смотрите в базовом классе [page:Object3D Object3D].</p>
 
 
     <h3>[property:Float influenceDistance]</h3>
     <p>
-      Controls how big the sphere/box of influence is. This parameter defines a
-      sphere radius if [page:.influenceType influenceType] equals
-      [page:Lights v3d.ReflectionProbeTypeSphere] and half the cube edge size
-      if [page:.influenceType influenceType] equals [page:Lights v3d.ReflectionProbeTypeBox].
-      The influence volume is used for testing which objects are affected by the
-      probe (simply those contained inside the volume). Default is 1.<br/><br/>
+      Управляет размером сферы/куба влияния. Этот параметр определяет радиус сферы, если [page:.influenceType influenceType] равно [page:Lights v3d.ReflectionProbeTypeSphere] и половину размера грани куба, если [page:.influenceType influenceType] равно [page:Lights v3d.ReflectionProbeTypeBox]. Объем влияния используется для проверки того, на какие объекты влияет зонд (только на те, которые содержатся внутри объема). По умолчанию - 1.<br/><br/>
 
-      It's recommended to keep this value and [page:.parallaxDistance] the same for
-      more consistent results.
+      Рекомендуется оставить это значение и [page:.parallaxDistance] одинаковыми для получения более стабильных результатов.
     </p>
 
     <h3>[property:Constant influenceType]</h3>
     <p>
-      Defines the type of the influence volume. Can be [page:Lights v3d.ReflectionProbeTypeInfinite]
-      (used for the [page:Scene.worldEnvMapProbe] probe object), [page:Lights v3d.ReflectionProbeTypeSphere]
-      or [page:Lights v3d.ReflectionProbeTypeBox]. The influence volume is used
-      for testing which objects are affected by the probe (simply those contained
-      inside the volume). Default is [page:Lights v3d.ReflectionProbeTypeSphere].<br/><br/>
+      Определяет тип объема влияния. Может быть [page:Lights v3d.ReflectionProbeTypeInfinite] (используется для объекта зонда [page:Scene.worldEnvMapProbe]), [page:Lights v3d.ReflectionProbeTypeSphere] или [page:Lights v3d.ReflectionProbeTypeBox]. Объем влияния используется для проверки того, на какие объекты влияет зонд (только на те, которые содержатся внутри объема). По умолчанию это [page:Lights v3d.ReflectionProbeTypeSphere].<br/><br/>
 
-      It's recommended to keep this value and [page:.parallaxType] the same for
-      more consistent results.
+      Рекомендуется оставить это значение и [page:.parallaxType] одинаковыми для получения более стабильных результатов.
     </p>
 
     <h3>[property:Matrix4 matrixWorldInverse]</h3>
     <p>
-      The inverse of [page:Object3D.matrixWorld matrixWorld].
+      Обратное значение [page:Object3D.matrixWorld matrixWorld].
     </p>
 
     <h3>[property:Float parallaxDistance]</h3>
     <p>
-      Controls how big the sphere/box for the parallax effect is. This parameter
-      defines a sphere radius if [page:.parallaxType parallaxType] equals
-      [page:Lights v3d.ReflectionProbeTypeSphere] and half the cube edge size if
-      [page:.parallaxType parallaxType] equals [page:Lights v3d.ReflectionProbeTypeBox].
-      The parallax volume is used for calculating the parallax effect. Default is 1.<br/><br/>
+      Управляет размером сферы/куба для эффекта параллакса. Этот параметр определяет радиус сферы, если [page:.parallaxType ParallaxType] равно [page:Lights v3d.ReflectionProbeTypeSphere] и половину размера грани куба, если [page:.parallaxType ParallaxType] равно [page:Lights v3d.ReflectionProbeTypeBox].  Объем параллакса используется для расчета эффекта параллакса. По умолчанию равен 1.<br/><br/>
 
-      It's recommended to keep this value and [page:.influenceDistance] the same
-      for more consistent results.
+      Рекомендуется оставить это значение и [page:.influenceDistance] одинаковыми для получения более стабильных результатов.
     </p>
 
     <h3>[property:Constant parallaxType]</h3>
     <p>
-      Defines the type of the parallax volume. Can be [page:Lights v3d.ReflectionProbeTypeInfinite]
-      (used for the [page:Scene.worldEnvMapProbe] probe object), [page:Lights v3d.ReflectionProbeTypeSphere]
-      or [page:Lights v3d.ReflectionProbeTypeBox]. The parallax volume is used
-      for calculating the parallax effect. Default is [page:Lights v3d.ReflectionProbeTypeSphere].<br/><br/>
+      Определяет тип параллаксного объема. Может быть [page:Lights v3d.ReflectionProbeTypeInfinite] (используется для объекта зонда [page:Scene.worldEnvMapProbe]), [page:Lights v3d.ReflectionProbeTypeSphere] или [page:Lights v3d.ReflectionProbeTypeBox]. Объем параллакса используется для расчета эффекта параллакса. По умолчанию это [page:Lights v3d.ReflectionProbeTypeSphere].<br/><br/>
 
-      It's recommended to keep this value and [page:.influenceType] the same
-      for more consistent results.
+      Рекомендуется оставить это значение и [page:.influenceType] одинаковыми для получения более стабильных результатов.
     </p>
 
     <h3>[property:Float probeClipEnd]</h3>
     <p>
-      Objects located further than this value won't appear on the probe's
-      environment map. Default is 100.
+      Объекты, расположенные дальше этого значения, не будут отображаться на карте окружения зонда. По умолчанию - 100.
     </p>
 
     <h3>[property:Float probeClipStart]</h3>
     <p>
-      Objects located closer than this value won't appear on the probe's
-      environment map. Default is 0.1.
+      Объекты, расположенные ближе, чем это значение, не будут отображаться на карте окружения. По умолчанию 0,1.
     </p>
 
     <h3>[property:Float probeIntensity]</h3>
     <p>
-      Controls the intensity (exposure) of the probe's environment map. Default
-      is 1.
+      Управляет интенсивностью (экспозицией) карты окружения зонда. По умолчанию - 1.
     </p>
 
     <h3>[property:WebGLRenderTarget renderTarget]</h3>
     <p>
-      A [page:WebGLRenderTarget] instance containing the rendered environment map.
-      Default is null. Updated automatically after calling the [page:.update]
-      method.
+      Экземпляр [page:WebGLRenderTarget], содержащий карту окружения для рендеринга. По умолчанию равен null. Обновляется автоматически после вызова метода [page:.update].
     </p>
 
     <h3>[property:String type]</h3>
     <p>
-      A string 'CubeReflectionProbe'. This can be used to find all
-      CubeReflectionProbe objects. Shouldn't be changed.
+      Строка 'CubeReflectionProbe'. Она может использоваться для поиска всех объектов CubeReflectionProbe. Не должно быть изменено.
     </p>
 
     <h3>[property:String visibilityGroup]</h3>
     <p>
-      If not null, only objects from this group are rendered into the environment
-      map (see also [page:Object3D.groupNames]). Default is null, which means no
-      visibility group is used and the probe renders all scene objects.
+      Если не null, то на карту окружения выводятся только объекты из этой группы (смотрите также [page:Object3D.groupNames]). По умолчанию равно null, что означает, что группа видимости не используется и зонд рендерит все объекты сцены.
     </p>
 
     <h3>[property:Boolean visibilityGroupInv]</h3>
     <p>
-      If [page:.visibilityGroup] is not null this option (if true) makes it so
-      only objects that don't belong to the specified [page:.visibilityGroup] are
-      rendered into the environment map. Default is false.
+      Если [page:.visibilityGroup] не равно null, то этот параметр (если он равен true) делает так, что на карту окружения выводятся только объекты, не принадлежащие указанной [page:.visibilityGroup]. По умолчанию - false.
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
-    <p>See the base [page:Object3D Object3D] class for common methods.</p>
+    <p>Общие методы смотрите в базовом классе [page:Object3D Object3D].</p>
 
     <h3>[method:null dispose]()</h3>
     <p>
-      Remove resources related to the render targets used by this object from memory.
+      Удалить из памяти ресурсы, связанные с целями рендеринга, используемыми этим объектом.
     </p>
 
     <h3>[method:Boolean intersectsMesh]([param:Mesh mesh])</h3>
     <p>
-      mesh - a [page:Mesh] object to test intersections with.<br/><br/>
+      mesh - объект [page:Mesh] для проверки пересечений.<br/><br/>
 
-      Check if there's any intersection between the probe's influence volume
-      (see [page:.influenceDistance] and [page:.influenceType]) and the given
-      mesh object. Returns the checking result. Exact calculations depend on
-      [page:.influenceType], for example for [page:Lights v3d.ReflectionProbeTypeInfinite]
-      the method always returns *true*.
+      Проверяет, есть ли пересечение между объемом влияния зонда (смотрите [page:.influenceDistance] и [page:.influenceType]) и заданным объектом. Возвращает результат проверки. Точные вычисления зависят от [page:.influenceType], например, для [page:Lights v3d.ReflectionProbeTypeInfinite] метод всегда возвращает *true*.
     </p>
 
     <h3>[method:WebGLRenderTarget onUpdate]([param:WebGLCubeRenderTarget cubeRT])</h3>
     <p>
-      cubeRT - a cube render target containing the environment map.<br/><br/>
+      cubeRT - цель кубического рендеринга, содержащая карту окружения.<br/><br/>
 
-      A callback executed after the environment map is rendered in the
-      [page:.update] method. Receives a [page:WebGLCubeRenderTarget] instance in
-      the *cubeRT* parameter which contains the rendering results. The value
-      returned from this function must be an instance of [page:WebGLRenderTarget]
-      and will be used as a final [page:.renderTarget]. Returns the same *cubeRT*
-      render target by default.<br/><br/>
+      Обратный вызов, выполняемый после рендеринга карты окружения в методе [page:.update]. Получает экземпляр [page:WebGLCubeRenderTarget] в параметре *cubeRT*, который содержит результаты рендеринга. Значение, возвращаемое из этой функции, должно быть экземпляром [page:WebGLRenderTarget] и будет использоваться в качестве конечного [page:.renderTarget]. По умолчанию возвращает ту же *cubeRT* цель рендеринга.<br/><br/>
 
-      This callback can be overridden to apply custom changes to the environment
-      map each time [page:.update] is called. It is already used for all cube
-      reflection probes in the scene if it has its IBL environment mode set to
-      *PMREM*.
+      Этот обратный вызов можно переопределить, чтобы применять пользовательские изменения к карте окружения при каждом вызове [page:.update]. Он уже используется для всех зондов кубического отражения в сцене, если режим среды IBL установлен на *PMREM*.
     </p>
 
     <h3>[method:null setSize]([param:Integer size])</h3>
     <p>
-      size - new environment map size.<br/><br/>
+      size - новый размер карты окружения.<br/><br/>
 
-      Set the environment map size.
+      Установите размер карты окружения.
     </p>
 
     <h3>[method:null update]([param:Scene scene], [param:WebGLRenderer renderer])</h3>
     <p>
-      scene - a scene to render.<br/>
-      renderer - a [page:WebGLRenderer] instance.<br/><br/>
+      scene - сцену для рендеринга.<br/>
+      renderer - экземпляр [page:WebGLRenderer].<br/><br/>
 
-      Render the given scene into the probe's environment map. The rendering
-      result will be in the [page:.renderTarget] property.
+      Рендеринг заданной сцены в карту окружения зонда. Результат рендеринга будет находиться в свойстве [page:.renderTarget].
     </p>
 
     [sourceHint]

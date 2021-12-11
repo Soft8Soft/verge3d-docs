@@ -12,31 +12,23 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A light that gets emitted in a specific direction. This light will behave as though it is
-      infinitely far away and the rays produced from it are all parallel. The common use case
-      for this is to simulate daylight; the sun is far enough away that its position can be
-      considered to be infinite, and all light rays coming from it are parallel.<br /><br />
+      Свет, который испускается в определенном направлении. Этот свет будет вести себя так, как будто он находится бесконечно далеко и все лучи, исходящие от него, параллельны. Обычно это используется для имитации дневного света; солнце находится достаточно далеко, чтобы его положение можно было считать бесконечным, и все лучи света, исходящие от него, параллельны.<br /><br />
 
-      This light can cast shadows - see the [page:DirectionalLightShadow] page for details.
+      Этот свет может отбрасывать тени - подробности смотрите на странице [page:DirectionalLightShadow].
     </p>
 
-    <h2>A Note about Position, Target and rotation</h2>
+    <h2>Примечание о позиции, цели и вращении</h2>
     <p>
-      A common point of confusion for directional lights is that setting the rotation has no effect.
-      This is because Verge3D's DirectionalLight is the equivalent to what is often called a 'Target
-      Direct Light' in other applications.<br /><br />
+      Распространенной причиной путаницы при работе с направленным светом является то, что установка вращения не имеет никакого эффекта. Это связано с тем, что DirectionalLight в Verge3D эквивалентен тому, что в других приложениях часто называют "Target Direct Light".<br /><br />
 
-      This means that its direction is calculated as pointing
-      from the light's [page:Object3D.position position] to  the [page:.target target]'s position
-      (as opposed to a 'Free Direct Light' that just has a rotation component).<br /><br />
+      Это означает, что его направление рассчитывается как направление от [page:Object3D.position position] света к [page:.target target] позиции (в отличие от "Free Direct Light", который имеет только компонент вращения).<br /><br />
 
-      The reason for this is to allow the light to cast shadows - the [page:.shadow shadow]
-      camera needs a position to calculate shadows from.<br /><br />
+      Это делается для того, чтобы свет отбрасывал тени - камере [page:.shadow shadow shadow] нужна позиция для расчета теней.<br /><br />
 
-      See the [page:.target target] property below for details on updating the target.
+      Подробности обновления цели смотрите в свойстве [page:.target target] ниже.
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <code>
     // White directional light at half intensity shining from the top.
@@ -44,7 +36,7 @@
     scene.add(directionalLight);
     </code>
 
-    <h2>Examples</h2>
+    <h2>Примеры</h2>
     <p>
       [example:misc_controls_fly controls / fly]<br />
       [example:webgl_effects_parallaxbarrier effects / parallaxbarrier]<br />
@@ -54,54 +46,48 @@
       [example:webgl_materials_cubemap_balls_reflection materials / cubemap / balls / reflection]
     </p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:Integer color], [param:Float intensity])</h3>
     <p>
-      [page:Integer color] - (optional) hexadecimal color of the light. Default is 0xffffff (white).<br />
-      [page:Float intensity] - (optional) numeric value of the light's strength/intensity. Default is 1.<br /><br />
+      [page:Integer color] - (необязательно) шестнадцатеричный цвет света. По умолчанию 0xffffffff (белый).<br />
+      [page:Float intensity] - (необязательно) числовое значение силы/интенсивности света. По умолчанию 1.<br /><br />
 
-      Creates a new [name].
+      Создает новый [name].
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
-    <p>See the base [page:Light Light] class for common properties.</p>
+    <p>Общие свойства смотрите в базовом классе [page:Light Light]..</p>
 
     <h3>[property:Boolean castShadow]</h3>
     <p>
-      If set to *true* light will cast dynamic shadows. *Warning*: This is expensive and
-      requires tweaking to get shadows looking right. See the [page:DirectionalLightShadow] for details.
-      The default is *false*.
+      Если установить значение *true*, свет будет отбрасывать динамические тени. Предупреждение: Это дорого и требует настройки, чтобы тени выглядели правильно. Подробности смотрите в [page:DirectionalLightShadow]. По умолчанию установлено значение *false*.
     </p>
 
     <h3>[property:Vector3 position]</h3>
     <p>
-      This is set equal to [page:Object3D.DefaultUp] (0, 1, 0), so that the light shines from the top down.
+      Он устанавливается равным [page:Object3D.DefaultUp] (0, 1, 0), чтобы свет светил сверху вниз.
     </p>
 
     <h3>[property:DirectionalLightShadow shadow]</h3>
     <p>
-      A [page:DirectionalLightShadow] used to calculate shadows for this light.
+      [page:DirectionalLightShadow], используемый для расчета теней для этого света.
     </p>
 
     <h3>[property:Object3D target]</h3>
     <p>
-      The DirectionalLight points from its [page:.position position] to target.position. The default
-      position of the target is *(0, 0, 0)*.<br />
+      DirectionalLight(направленный свет) указывает из своего положения [page:.position position] на target.position. По умолчанию позиция цели равна *(0, 0, 0)*.<br />
 
-      *Note*: For the target's position to be changed to anything other than the default,
-      it must be added to the [page:Scene scene] using
+      *Примечание*: Чтобы положение цели можно было изменить на любое другое, отличное от значения по умолчанию, ее необходимо добавить в [page:Scene scene] с помощью функции
     </p>
     <code>
     scene.add(light.target);
     </code>
     <p>
-      This is so that the target's [page:Object3D.matrixWorld matrixWorld] gets automatically
-      updated each frame.<br /><br />
+      Это делается для того, чтобы [page:Object3D.matrixWorld matrixWorld] цели автоматически обновлялся каждый кадр.<br /><br />
 
-      It is also possible to set the target to be another object in the scene (anything with a
-      [page:Object3D.position position] property), like so:
+      Также можно установить цель на другой объект в сцене (все, что имеет свойство [page:Object3D.position position]), например, так:
     </p>
     <code>
     const targetObject = new v3d.Object3D();
@@ -110,18 +96,17 @@
     light.target = targetObject;
     </code>
     <p>
-      The directionalLight will now track the target object.
+      Теперь направленный свет будет отслеживать целевой объект.
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
-    <p>See the base [page:Light Light] class for common methods.</p>
+    <p>Общие методы смотрите в базовом классе [page:Light Light].</p>
 
     <h3>[method:DirectionalLight copy]([param:DirectionalLight source])</h3>
     <p>
-    Copies value of all the properties from the [page:DirectionalLight source] to this
-    DirectionalLight.
+      Копирует значения всех свойств из источника [page:DirectionalLight source] в этот DirectionalLight.
     </p>
 
     [sourceHint]
