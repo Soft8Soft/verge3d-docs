@@ -10,94 +10,90 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      [link:http://en.wikipedia.org/wiki/Frustum Frustums] are used to determine what is
-      inside the camera's field of view. They help speed up the rendering process - objects which lie
-      outside a camera's frustum can safely be excluded from rendering.<br /><br />
+      Фрустумы [link:http://en.wikipedia.org/wiki/Frustum Frustums] используются для определения того, что находится в поле зрения камеры. Они помогают ускорить процесс рендеринга - объекты, находящиеся за пределами фрустума камеры, могут быть исключены из рендеринга.<br /><br />
 
-      This class is mainly intended for use internally by a renderer for calculating
-      a [page:Camera camera] or [page:LightShadow.camera shadowCamera]'s frustum.
+      Этот класс в основном предназначен для внутреннего использования рендерером для вычисления фрустума [page:Camera camera camera] или [page:LightShadow.camera shadowCamera].
     </p>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
 
     <h3>[name]([param:Plane p0], [param:Plane p1], [param:Plane p2], [param:Plane p3], [param:Plane p4], [param:Plane p5])</h3>
     <p>
-      [page:Plane p0] - (optional) defaults to a new [page:Plane].<br />
-      [page:Plane p1] - (optional) defaults to a new [page:Plane].<br />
-      [page:Plane p2] - (optional) defaults to a new [page:Plane].<br />
-      [page:Plane p3] - (optional) defaults to a new [page:Plane].<br />
-      [page:Plane p4] - (optional) defaults to a new [page:Plane].<br />
-      [page:Plane p5] - (optional) defaults to a new [page:Plane].<br /><br />
+      [page:Plane p0] - (необязательно) по умолчанию используется новый [page:Plane].<br />
+      [page:Plane p1] - (необязательно) по умолчанию используется новый [page:Plane].<br />
+      [page:Plane p2] - (необязательно) по умолчанию используется новый [page:Plane].<br />
+      [page:Plane p3] - (необязательно) по умолчанию используется новый [page:Plane].<br />
+      [page:Plane p4] - (необязательно) по умолчанию используется новый [page:Plane].<br />
+      [page:Plane p5] - (необязательно) по умолчанию используется новый [page:Plane].<br /><br />
 
-      Creates a new [name].
+      Создает новый [name].
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Array planes]</h3>
-    <p>Array of 6 [page:Plane planes].</p>
+    <p>Массив из 6 [page:Plane planes].</p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:Frustum clone]()</h3>
-    <p>Return a new Frustum with the same parameters as this one.</p>
+    <p>Возвращает новый Frustum с теми же параметрами, что и этот.</p>
 
 
     <h3>[method:Boolean containsPoint]([param:Vector3 point])</h3>
     <p>
-    [page:Vector3 point] - [page:Vector3] to test.<br /><br />
+    [page:Vector3 point] - [page:Vector3] для проверки.<br /><br />
 
-    Checks to see if the frustum contains the [page:Vector3 point].
+    Проверяет, содержит ли фрустум точку [page:Vector3 point].
     </p>
 
     <h3>[method:Frustum copy]([param:Frustum frustum])</h3>
     <p>
-    [page:Frustum frustum] - The frustum to copy<br /><br />
+    [page:Frustum frustum] - Фрустум для копирования.<br /><br />
 
-    Copies the properties of the passed [page:Frustum frustum] into this one.
+    Копирует свойства переданного [page:Frustum frustum] в этот.
     </p>
 
     <h3>[method:Boolean intersectsBox]([param:Box3 box])</h3>
     <p>
-    [page:Box3 box] - [page:Box3] to check for intersection.<br /><br />
+    [page:Box3 box] - [page:Box3] для проверки пересечения.<br /><br />
 
-     Return true if [page:Box3 box] intersects with this frustum.
+    Возвращает true, если [page:Box3 box] пересекается с этим фрустом.
     </p>
 
     <h3>[method:Boolean intersectsObject]([param:Object3D object])</h3>
     <p>
-      Checks whether the [page:Object3D object]'s [page:Geometry.boundingSphere bounding sphere] is intersecting the Frustum.<br /><br />
+      Проверяет, пересекает ли фрустум ограничительная сфера [page:Geometry.boundingSphere bounding sphere] объекта [page:Object3D object].<br /><br />
 
-      Note that the object must have a [page:Geometry] or [page:BufferGeometry] so that the bounding sphere
-      can be calculated.
+      Обратите внимание, что объект должен иметь [page:Geometry] или [page:BufferGeometry], чтобы можно было рассчитать ограничительную сферу. 
     </p>
 
     <h3>[method:Boolean intersectsSphere]([param:Sphere sphere])</h3>
     <p>
-    [page:Sphere sphere] - [page:Sphere] to check for intersection.<br /><br />
+    [page:Sphere sphere] - [page:Sphere] для проверки пересечения.<br /><br />
 
-     Return true if [page:Sphere sphere] intersects with this frustum.
+    Возвращает true, если [page:Sphere sphere] пересекается с этим фрустом.
     </p>
 
     <h3>[method:Boolean intersectsSprite]([param:Sprite sprite])</h3>
     <p>
-      Checks whether the [page:Sprite sprite] is intersecting the Frustum.<br /><br />
+      Проверяет, пересекает ли [page:Sprite sprite] фрустум.<br /><br />
     </p>
 
     <h3>[method:this set]([param:Plane p0], [param:Plane p1], [param:Plane p2], [param:Plane p3], [param:Plane p4], [param:Plane p5])</h3>
     <p>
-    Sets the frustum from the passed planes. No plane order is implied.<br>
-    Note that this method only copies the values from the given objects.
+      Устанавливает фрустум из переданных плоскостей. Порядок следования плоскостей не подразумевается.<br>
+      Обратите внимание, что этот метод копирует только значения из заданных объектов.
     </p>
 
     <h3>[method:this setFromProjectionMatrix]([param:Matrix4 matrix])</h3>
     <p>
-    [page:Matrix4 matrix] - Projection [page:Matrix4] used to set the [page:.planes planes]<br /><br />
-    Sets the frustum planes from the projection matrix.
+    [page:Matrix4 matrix] - Проекция [page:Matrix4] используемая для установки [page:.planes planes]<br /><br />
+    Устанавливает плоскости фрустума из матрицы проекции.
     </p>
 
 

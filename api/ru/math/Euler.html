@@ -10,13 +10,12 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A class representing [link:http://en.wikipedia.org/wiki/Euler_angles Euler Angles].<br /><br />
+      Класс, представляющий [link:http://en.wikipedia.org/wiki/Euler_angles Euler Angles].<br /><br />
 
-      Euler angles describe a rotational transformation by rotating an object on its various
-      axes in specified amounts per axis, and a specified axis order.
+      Углы Эйлера описывают вращательное преобразование путем вращения объекта по различным осям на заданную величину по каждой оси и в заданном порядке осей.
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <code>const a = new v3d.Euler(0, 1, 1.57, 'XYZ');
     const b = new v3d.Vector3(1, 0, 1);
@@ -24,148 +23,137 @@
     </code>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
 
     <h3>[name]([param:Float x], [param:Float y], [param:Float z], [param:String order])</h3>
     <p>
-    [page:Float x] - (optional) the angle of the x axis in radians. Default is *0*.<br />
-    [page:Float y] - (optional) the angle of the y axis in radians. Default is *0*.<br />
-    [page:Float z] - (optional) the angle of the z axis in radians. Default is *0*.<br />
-    [page:String order] - (optional) a string representing the order that the rotations are applied,
-    defaults to 'XYZ' (must be upper case).<br /><br />
+    [page:Float x] - (необязательно) угол наклона оси x в радианах. По умолчанию *0*.<br />
+    [page:Float y] - (необязательно) угол наклона оси y в радианах. По умолчанию *0*.<br />
+    [page:Float z] - (необязательно) угол наклона оси z в радианах. По умолчанию *0*.<br />
+    [page:String order] - (необязательно) строка, представляющая порядок применения вращений, по умолчанию 'XYZ' (должен быть в верхнем регистре).<br /><br />
 
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:String order]</h3>
     <p>
-      The order in which to apply rotations. Default is 'XYZ', which means that the object will first be
-      rotated around its X axis, then its Y axis and finally its Z axis. Other possibilities are:
-      'YZX', 'ZXY', 'XZY', 'YXZ' and 'ZYX'. These must be in upper case.<br /><br />
+      Порядок применения вращений. По умолчанию - 'XYZ', что означает, что сначала объект будет повернут вокруг оси X, затем вокруг оси Y и, наконец, вокруг оси Z. Другими вариантами являются: 'YZX', 'ZXY', 'XZY', 'YXZ' и 'ZYX'. Они должны быть в верхнем регистре.<br /><br />
 
-      Verge3D uses <em>intrinsic</em> Tait-Bryan angles. This means that rotations are performed with respect
-      to the <em>local</em> coordinate system. That is, for order 'XYZ', the rotation is first around the local-X
-      axis (which is the same as the world-X axis), then around local-Y (which may now be different from the
-      world Y-axis), then local-Z (which may be different from the world Z-axis).<br /><br />
+      Verge3D использует <em>intrinsic</em>(внутренние углы) Тайт-Брайана. Это означает, что вращение выполняется относительно локальной системы координат. То есть, для порядка 'XYZ' вращение происходит сначала вокруг локальной оси X (которая совпадает с мировой осью X), затем вокруг локальной оси Y (которая теперь может отличаться от мировой оси Y), затем локальной оси Z (которая может отличаться от мировой оси Z).<br /><br />
     </p>
 
     <h3>[property:Float x]</h3>
     <p>
-      The current value of the x component.<br /><br />
+      Текущее значение компонента x.<br /><br />
     </p>
 
     <h3>[property:Float y]</h3>
     <p>
-      The current value of the y component.<br /><br />
+      Текущее значение компонента y.<br /><br />
     </p>
 
     <h3>[property:Float z]</h3>
     <p>
-      The current value of the z component.<br /><br />
+      Текущее значение компонента z.<br /><br />
     </p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:Euler copy]([param:Euler euler])</h3>
-    <p>Copies value of [page:Euler euler] to this euler.</p>
+    <p>Копирует значение [page:Euler euler] в этот эйлер.</p>
 
     <h3>[method:Euler clone]()</h3>
-    <p>Returns a new Euler with the same parameters as this one.</p>
+    <p>Возвращает новый эйлер с теми же параметрами, что и данный.</p>
 
     <h3>[method:Boolean equals]([param:Euler euler])</h3>
-    <p>Checks for strict equality of this euler and [page:Euler euler].</p>
+    <p>Проверяет строгое равенство данного эйлера и [page:Euler euler].</p>
 
     <!-- Verge3D -->
 
     <h3>[method:Boolean equalsEps]([param:Euler euler], [param:Number eps])</h3>
     <p>
-    Checks for equality of this euler and the given [page:Euler euler] considering
-    the given *eps* margin.
+      Проверяет равенство данного эйлера и заданного [page:Euler euler] с учетом заданного *eps* поля
     </p>
 
     <h3>[method:Euler fromArray]([param:Array array])</h3>
     <p>
-    [page:Array array] of length 3 or 4. The optional 4th argument corresponds to the [page:.order order].<br /><br />
+    [page:Array array] длиной 3 или 4. Необязательный 4-й аргумент соответствует [page:.order order].<br /><br />
 
-    Assigns this euler's [page:.x x] angle to array[0]. <br />
-    Assigns this euler's [page:.y y] angle to array[1]. <br />
-    Assigns this euler's [page:.z z] angle to array[2]. <br />
-    Optionally assigns this euler's [page:.order order] to array[3].
+    Присваивает данный эйлеров угол [page:.x x] массиву[0]. . <br />
+    Присваивает данный эйлеров угол [page:.y y] массиву[1]. . <br />
+    Присваивает данный эйлеров угол [page:.z z] массиву[2]. . <br />
+    По желанию присваивает массиву [3] этот эйлеров угол [page:.order order].
     </p>
 
     <!-- Verge3D -->
 
     <h3>[method:Euler makeAlternative]()</h3>
     <p>
-      Changes this euler to an alternative set of rotations in range [-&pi;, &pi;)
-      corresponding to the same orientation (e.g: from (0, 0, &pi;)
-      to (-&pi;, -&pi;, 0)).
+      Меняет этот эйлер на альтернативный набор вращений в диапазоне [-&pi;, &pi;)
+      соответствующий той же ориентации (например: от (0, 0, &pi;)
+      до (-&pi;, -&pi;, 0)).
     </p>
 
     <h3>[method:Euler reorder]([param:String newOrder])</h3>
     <p>
-    Resets the euler angle with a new order by creating a quaternion from this euler angle
-    and then setting this euler angle with the quaternion and the new order. <br /><br />
+      Сброс эйлерова угла с новым порядком путем создания кватерниона из данного эйлерова угла, а затем установки данного эйлерова угла с кватернионом и новым порядком.<br /><br />
 
-    <em>WARNING</em>: this discards revolution information.
+    <em>ПРЕДУПРЕЖДЕНИЕ</em>: сбрасывает информацию о поворотах.
     </p>
 
     <h3>[method:Euler set]([param:Float x], [param:Float y], [param:Float z], [param:String order])</h3>
     <p>
-      [page:.x x] - the angle of the x axis in radians.<br />
-      [page:.y y] - the angle of the y axis in radians.<br />
-      [page:.z z] - the angle of the z axis in radians.<br />
-      [page:.order order] - (optional) a string representing the order that the rotations are applied.<br /><br />
+      [page:.x x] - угол наклона оси x в радианах.<br />
+      [page:.y y] - угол наклона оси y в радианах.<br />
+      [page:.z z] - угол наклона оси z в радианах.<br />
+      [page:.order order] - (необязательно) строка, представляющая порядок применения вращений.<br /><br />
 
-      Sets the angles of this euler transform and optionally the [page:.order order].
+      Устанавливает углы этого эйлерова преобразования и, по желанию, [page:.order order].
     </p>
 
     <h3>[method:Euler setFromRotationMatrix]([param:Matrix4 m], [param:String order])</h3>
     <p>
-    [page:Matrix4 m] - a [page:Matrix4] of which the upper 3x3 of matrix is a pure
-    [link:https://en.wikipedia.org/wiki/Rotation_matrix rotation matrix] (i.e. unscaled).<br />
-    [page:.order order] - (optional) a string representing the order that the rotations are applied.<br />
+    [page:Matrix4 m] - матрица [page:Matrix4] верхняя часть 3x3 которой является чистой матрицей вращения
+    [link:https://en.wikipedia.org/wiki/Rotation_matrix rotation matrix] (т.е. без масштабирования).<br />
+    [page:.order order] - (необязательно) строка, представляющая порядок применения вращений.<br />
 
-    Sets the angles of this euler transform from a pure rotation matrix based on the orientation
-    specified by order.
+    Устанавливает углы данного преобразования Эйлера от чистой матрицы вращения на основе ориентации, заданной порядком. 
     </p>
 
     <h3>[method:Euler setFromQuaternion]([param:Quaternion q], [param:String order])</h3>
     <p>
-    [page:Quaternion q] - a normalized quaternion.<br />
-    [page:.order order] - (optional) a string representing the order that the rotations are applied.<br />
+    [page:Quaternion q] - нормализованный кватернион.<br />
+    [page:.order order] - (необязательно) строка, представляющая порядок применения вращений.<br />
 
-    Sets the angles of this euler transform from a normalized quaternion based on the orientation
-    specified by [page:.order order].
+    Устанавливает углы данного преобразования Эйлера из нормализованного кватерниона на основе ориентации, указанной [page:.order order].
     </p>
 
 
     <h3>[method:Euler setFromVector3]([param:Vector3 vector], [param:String order])</h3>
     <p>
     [page:Vector3 vector] - [page:Vector3].<br />
-    [page:.order order] - (optional) a string representing the order that the rotations are applied.<br /><br />
+    [page:.order order] - (необязательно) строка, представляющая порядок применения вращений.<br /><br />
 
-    Set the [page:.x x], [page:.y y] and [page:.z z], and optionally update the [page:.order order].
+    Установите параметры [page:.x x], [page:.y y] и [page:.z z] и, по желанию, обновите [page:.order order].
     </p>
 
 
     <h3>[method:Array toArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - (optional) array to store the euler in.<br />
-    [page:Integer offset] (optional) offset in the array.<br />
+    [page:Array array] - (необязательно) массив для хранения эйлера.<br />
+    [page:Integer offset] (необязательно) смещение в массиве.<br />
 
-    Returns an array of the form [[page:.x x], [page:.y y], [page:.z z], [page:.order order]].
+    Возвращает массив вида [[page:.x x], [page:.y y], [page:.z z], [page:.order order]].
     </p>
 
     <h3>[method:Vector3 toVector3]([param:Vector3 optionalResult])</h3>
     <p>
-      [page:Vector3 optionalResult] — (optional) If specified, the result will be copied into this Vector,
-      otherwise a new one will be created. <br /><br />
+      [page:Vector3 optionalResult] — (необязательно) Если указано, результат будет скопирован в этот вектор, в противном случае будет создан новый. <br /><br />
 
-      Returns the Euler's [page:.x x], [page:.y y] and [page:.z z] properties as a [page:Vector3].
+      Возвращает свойства Эйлера [page:.x x], [page:.y y] и [page:.z z] в виде [page:Vector3].
     </p>
 
 
