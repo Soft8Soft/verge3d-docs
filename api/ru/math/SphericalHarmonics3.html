@@ -9,123 +9,122 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">Represents a third-order spherical harmonics (SH). Light probes use this class to encode lighting information.</p>
+    <p class="desc">Представляет сферическую гармонику третьего порядка (SH). Световые зонды используют этот класс для кодирования информации об освещении.</p>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
     <h3>[name]()</h3>
     <p>
-    Creates a new instance of [name].
+    Создает новый экземпляр [name].
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Array coefficients]</h3>
-    <p>An array holding the (9) SH coefficients. A single coefficient is represented as an instance of [page:Vector3].</p>
+    <p>Массив, содержащий (9) коэффициентов SH. Один коэффициент представлен как экземпляр [page:Vector3]..</p>
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:SphericalHarmonics3 add]([param:SphericalHarmonics3 sh])</h3>
     <p>
-      [page:SphericalHarmonics3 sh] - The SH to add.<br /><br />
+      [page:SphericalHarmonics3 sh] - SH, чтобы добавить.<br /><br />
 
-      Adds the given SH to this instance.
+      Добавляет данную SH к данному экземпляру.
     </p>
 
     <h3>[method:SphericalHarmonics3 addScaledSH]([param:SphericalHarmonics3 sh], [param:Number scale])</h3>
     <p>
-      [page:SphericalHarmonics3 sh] - The SH to add.<br />
-      [page:Number scale] - The scale factor.<br /><br />
+      [page:SphericalHarmonics3 sh] - SH, чтобы добавить.<br />
+      [page:Number scale] - Масштабный коэффициент.<br /><br />
 
-      A convenience method for performing [page:.add]() and [page:.scale]() at once.
+      Удобный метод для одновременного выполнения [page:.add]() и [page:.scale]().
     </p>
 
     <h3>[method:SphericalHarmonics3 clone]()</h3>
     <p>
-      Returns a new instance of [name] with equal coefficients.
+      Возвращает новый экземпляр [name] с равными коэффициентами.
     </p>
 
     <h3>[method:SphericalHarmonics3 copy]([param:SphericalHarmonics3 sh])</h3>
     <p>
-      [page:SphericalHarmonics3 sh] - The SH to copy.<br /><br />
+      [page:SphericalHarmonics3 sh] - SH для копирования.<br /><br />
 
-      Copies the given SH to this instance.
+      Копирует заданую SH в данный экземпляр.
     </p>
 
     <h3>[method:Boolean equals]([param:SphericalHarmonics3 sh])</h3>
     <p>
-      [page:SphericalHarmonics3 sh] - The SH to compare with.<br /><br />
+      [page:SphericalHarmonics3 sh] - SH для сравнения.<br /><br />
 
-      Returns true if the given SH and this instance have equal coefficients.
+      Возвращает true, если SH и данный экземпляр имеют одинаковые коэффициенты.
     </p>
 
     <h3>[method:SphericalHarmonics3 fromArray]([param:Array array], [param:Number offset])</h3>
     <p>
-      [page:Array array] - The array holding the numbers of the SH coefficients.<br />
-      [page:Number offset] - (optional) The array offset.<br /><br />
+      [page:Array array] - Массив, содержащий номера коэффициентов SH.<br />
+      [page:Number offset] - (необязательно) Смещение массива.<br /><br />
 
-      Sets the coefficients of this instance from the given array.
+      Устанавливает коэффициенты данного экземпляра из заданного массива.
     </p>
 
     <h3>[method:Vector3 getAt]([param:Vector3 normal], [param:Vector3 target])</h3>
     <p>
-      [page:Vector3 normal] - The normal vector (assumed to be unit length).<br />
-      [page:Vector3 target] - The result vector.<br /><br />
+      [page:Vector3 normal] - Нормальный вектор (предполагается единичной длины).<br />
+      [page:Vector3 target] - Вектор результата.<br /><br />
 
-      Returns the radiance in the direction of the given normal.
+      Возвращает освещенность в направлении заданной нормали.
     </p>
 
     <h3>[method:Vector3 getIrradianceAt]([param:Vector3 normal], [param:Vector3 target])</h3>
     <p>
-      [page:Vector3 normal] - The normal vector (assumed to be unit length).<br />
-      [page:Vector3 target] - The result vector.<br /><br />
+      [page:Vector3 normal] - Вектор нормали(предполагается единичной длины).<br />
+      [page:Vector3 target] - Результирующий вектор.<br /><br />
 
-      Returns the irradiance (radiance convolved with cosine lobe) in the direction of the given normal.
+      Возвращает irradiance(излучение) (radiance(освещенность), преобразованная с помощью косинусной доли) в направлении заданной нормали.
     </p>
 
     <h3>[method:SphericalHarmonics3 lerp]([param:SphericalHarmonics3 sh], [param:Number alpha])</h3>
     <p>
-      [page:SphericalHarmonics3 sh] - The SH to interpolate with.<br />
-      [page:Number alpha] - The alpha factor.<br /><br />
+      [page:SphericalHarmonics3 sh] - SH для интерполяции.<br />
+      [page:Number alpha] - Альфа-фактор.<br /><br />
 
-      Linear interpolates between the given SH and this instance by the given alpha factor.
+      Линейная интерполяция между заданной SH и данным экземпляром по заданному альфа-фактору.
     </p>
 
     <h3>[method:SphericalHarmonics3 scale]([param:Number scale])</h3>
     <p>
-      [page:Number scale] - The scale factor.<br /><br />
+      [page:Number scale] - Масштабный коэффициент.<br /><br />
 
-      Scales this SH by the given scale factor.
+      Масштабирует данную SH на заданный масштабный коэффициент.
     </p>
 
     <h3>[method:SphericalHarmonics3 set]([param:Array coefficients])</h3>
     <p>
-      [page:Array coefficients] - An array of SH coefficients.<br /><br />
+      [page:Array coefficients] - Массив коэффициентов SH.<br /><br />
 
-      Sets the given SH coefficients to this instance.
+      Устанавливает заданные коэффициенты SH для данного экземпляра.
     </p>
 
     <h3>[method:Array toArray]([param:Array array], [param:Number offset])</h3>
     <p>
-      [page:Array array] - (optional) The target array.<br />
-      [page:Number offset] - (optional) The array offset.<br /><br />
+      [page:Array array] - (необязательно) Целевой массив.<br />
+      [page:Number offset] - (необязательно) Смещение массива.<br /><br />
 
-      Returns an array with the coefficients, or copies them into the provided array. The coefficients
-      are represented as numbers.
+      Возвращает массив с коэффициентами или копирует их в предоставленный массив. Коэффициенты представляются в виде чисел.
     </p>
 
     <h3>[method:SphericalHarmonics3 zero]()</h3>
     <p>
-      Sets all SH coefficients to 0.
+      Устанавливает все коэффициенты SH в 0.
     </p>
 
-    <h2>Static Methods</h2>
+    <h2>Статические методы</h2>
 
     <h3>[method:void getBasisAt]([param:Vector3 normal], [param:Array shBasis])</h3>
     <p>
-      [page:Vector3 normal] - The normal vector (assumed to be unit length).<br />
-      [page:Array shBasis] - The resulting SH basis.<br /><br />
+      [page:Vector3 normal] - вектор нормали (предполагается единичной длины).<br />
+      [page:Array shBasis] - полученный базис SH.<br /><br />
 
-      Computes the SH basis for the given normal vector.
+      Вычисляет базис SH для заданного вектора нормали.
     </p>
 
     [sourceHint]

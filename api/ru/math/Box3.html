@@ -10,10 +10,10 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Represents an axis-aligned bounding box (AABB) in 3D space.
+      Представляет собой выровненную по оси ограничительный бокс (AABB) в трехмерном пространстве.
     </p>
 
-    <h2>Code Example</h2>
+    <h2>Пример кода</h2>
 
     <code>
     const box = new v3d.Box3();
@@ -33,269 +33,254 @@
     box.copy(mesh.geometry.boundingBox).applyMatrix4(mesh.matrixWorld);
     </code>
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
 
     <h3>[name]([param:Vector3 min], [param:Vector3 max])</h3>
     <p>
-    [page:Vector3 min] - (optional) [page:Vector3] representing the lower (x, y, z) boundary of the box.
-    Default is (+ Infinity, + Infinity, + Infinity).<br>
+    [page:Vector3 min] - (необязательно) [page:Vector3], представляющий нижнюю (x, y, z) границу бокса.
+    По умолчанию (+ Infinity, + Infinity, + Infinity).<br>
 
-    [page:Vector3 max] - (optional) [page:Vector3] representing the upper (x, y, z) boundary of the box.
-    Default is (- Infinity, - Infinity, - Infinity).<br /><br />
+    [page:Vector3 max] - (необязательно) [page:Vector3], представляющий верхнюю (x, y, z) границу бокса. По умолчанию (- Infinity, - Infinity, - Infinity).<br /><br />
 
-    Creates a [name] bounded by min and max.
+    Создает [name], ограниченное min и max..
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Vector3 min]</h3>
     <p>
-      [page:Vector3] representing the lower (x, y, z) boundary of the box.<br />
-      Default is (+ Infinity, + Infinity, + Infinity).
+      [page:Vector3] представляющая нижнюю (x, y, z) границу бокса.<br />
+      По умолчанию (+ Infinity, + Infinity, + Infinity).
     </p>
 
     <h3>[property:Vector3 max]</h3>
     <p>
-      [page:Vector3] representing the upper (x, y, z) boundary of the box.<br />
-      Default is (- Infinity, - Infinity, - Infinity).
+      [page:Vector3] представляющая верхнюю (x, y, z) границу бокса.<br />
+      По умолчанию (- Infinity, - Infinity, - Infinity).
     </p>
 
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:this applyMatrix4]([param:Matrix4 matrix])</h3>
     <p>
-    [page:Matrix4 matrix] - The [page:Matrix4] to apply<br /><br />
+    [page:Matrix4 matrix] - [page:Matrix4] для применения<br /><br />
 
-    Transforms this Box3 with the supplied matrix.
+    Преобразовывает данный Box3 с помощью предоставленной матрицы.
     </p>
 
     <h3>[method:Vector3 clampPoint]([param:Vector3 point], [param:Vector3 target])</h3>
     <p>
-    [page:Vector3 point] - [page:Vector3] to clamp. <br>
-    [page:Vector3 target] — the result will be copied into this Vector3.<br /><br />
+    [page:Vector3 point] - [page:Vector3] для ограничения. <br>
+    [page:Vector3 target] - результат будет скопирован в этот Vector3.<br /><br />
 
-    [link:https://en.wikipedia.org/wiki/Clamping_(graphics) Clamps] the [page:Vector3 point] within the bounds of this box.<br />
+    [link:https://en.wikipedia.org/wiki/Clamping_(graphics) Clamps] точка [page:Vector3 point] в границах этого поля.<br />
     </p>
 
     <h3>[method:Box3 clone]()</h3>
-    <p>Returns a new [page:Box3] with the same [page:.min min] and [page:.max max] as this one.</p>
+    <p>Возвращает новый [page:Box3] с теми же [page:.min min] и [page:.max max], что и данный.</p>
 
     <h3>[method:Boolean containsBox]([param:Box3 box])</h3>
     <p>
-    [page:Box3 box] - [page:Box3 Box3] to test for inclusion.<br /><br />
+    [page:Box3 box] - [page:Box3 Box3] для проверки на включение.<br /><br />
 
-    Returns true if this box includes the entirety of [page:Box3 box]. If this and [page:Box3 box] are identical, <br>
-    this function also returns true.
+    Возвращает true, если это поле включает в себя все поле [page:Box3 box]. Если это и [page:Box3 box] идентичны, <br>
+    эта функция также возвращает true.
     </p>
 
     <h3>[method:Boolean containsPoint]([param:Vector3 point])</h3>
     <p>
-    [page:Vector3 point] - [page:Vector3] to check for inclusion.<br /><br />
+    [page:Vector3 point] - [page:Vector3] для проверки на включение.<br /><br />
 
-    Returns true if the specified [page:Vector3 point] lies within or on the boundaries of this box.
+    Возвращает true, если указанная точка [page:Vector3 point] лежит внутри или на границах данного поля.
     </p>
 
     <h3>[method:this copy]([param:Box3 box])</h3>
     <p>
-    [page:Box3 box]  - [page:Box3] to copy.<br /><br />
+    [page:Box3 box]  - [page:Box3] для копирования.<br /><br />
 
-    Copies the [page:.min min] and [page:.max max] from [page:Box3 box] to this box.
+    Копирует значения [page:.min min] и [page:.max max] из [page:Box3 box] в этот box.
     </p>
 
     <h3>[method:Float distanceToPoint]([param:Vector3 point])</h3>
     <p>
-    [page:Vector3 point] - [page:Vector3] to measure distance to.<br /><br />
+    [page:Vector3 point] - [page:Vector3] для измерения расстояния до.<br /><br />
 
-    Returns the distance from any edge of this box to the specified point.
-    If the [page:Vector3 point] lies inside of this box, the distance will be 0.
+    Возвращает расстояние от любого края этого поля до указанной точки. Если точка [page:Vector3 point] лежит внутри этой области, расстояние будет равно 0.
     </p>
 
 
     <h3>[method:Boolean equals]([param:Box3 box])</h3>
     <p>
-    [page:Box3 box] - Box to compare with this one.<br /><br />
+    [page:Box3 box] - Box для сравнения с этой.<br /><br />
 
-    Returns true if this box and [page:Box3 box] share the same lower and upper bounds.
+    Возвращает true, если у этого поля и [page:Box3 box] одинаковые нижняя и верхняя границы.
     </p>
 
     <h3>[method:this expandByObject]([param:Object3D object])</h3>
     <p>
-    [page:Object3D object] - [page:Object3D] to expand the box by.<br /><br />
+    [page:Object3D object] - [page:Object3D] чтобы расширить box на.<br /><br />
 
-    Expands the boundaries of this box to include [page:Object3D object] and its children,
-    accounting for the object's, and children's, world transforms.
-    The function may result in a larger box than strictly necessary.
+    Расширяет границы этого поля, включая [page:Object3D object] и его дочерние объекты, учитывая преобразования мира объекта и его дочерних объектов. Функция может привести к созданию более крупной области, чем это необходимо.
 
     </p>
 
     <h3>[method:this expandByPoint]([param:Vector3 point])</h3>
     <p>
-    [page:Vector3 point] - [page:Vector3] that should be included in the box.<br /><br />
+    [page:Vector3 point] - [page:Vector3], которые должны быть включены в ищч.<br /><br />
 
-    Expands the boundaries of this box to include [page:Vector3 point].
+    Расширяет границы этого бокса, включая [page:Vector3 point].
     </p>
 
     <h3>[method:this expandByScalar]([param:Float scalar])</h3>
     <p>
-    [page:Float scalar] - Distance to expand the box by.<br /><br />
+    [page:Float scalar] - Расстояние, на которое нужно увеличить бокс.<br /><br />
 
-    Expands each dimension of the box by [page:Float scalar]. If negative, the dimensions of the box
-    will be contracted.
+    Расширяет каждое измерение бокса на [page:Float scalar]. При отрицательном значении размеры ячейки сужаются.
     </p>
 
     <h3>[method:this expandByVector]([param:Vector3 vector])</h3>
     <p>
     [page:Vector3 vector] - [page:Vector3] to expand the box by.<br /><br />
 
-    Expands this box equilaterally by [page:Vector3 vector]. The width of this box will be
-    expanded by the x component of [page:Vector3 vector] in both directions. The height of
-    this box will be expanded by the y component of [page:Vector3 vector] in both directions.
-    The depth of this box will be expanded by the z component of *vector* in both directions.
+    Равностороннее расширение этого поля на [page:Vector3 vector]. Ширина этого поля будет увеличена на x-компонент [page:Vector3 vector] в обоих направлениях. Высота этого поля будет увеличена на y-компонент [page:Vector3 vector] в обоих направлениях. Глубина этого поля будет увеличена на компонент z вектора *vector* в обоих направлениях.
     </p>
 
     <h3>[method:Sphere getBoundingSphere]([param:Sphere target])</h3>
     <p>
-    [page:Sphere target] — the result will be copied into this Sphere.<br /><br />
+    [page:Sphere target] — результат будет скопирован в эту Сферу.<br /><br />
 
-    Gets a [page:Sphere] that bounds the box.
+    Получает [page:Sphere], ограничивающую box.
     </p>
 
     <h3>[method:Vector3 getCenter]([param:Vector3 target])</h3>
     <p>
-    [page:Vector3 target] — the result will be copied into this Vector3.<br /><br />
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br /><br />
 
-    Returns the center point of the box as a [page:Vector3].
+    Возвращает центральную точку поля в виде [page:Vector3].
     </p>
 
     <h3>[method:Vector3 getParameter]([param:Vector3 point], [param:Vector3 target]) </h3>
     <p>
     [page:Vector3 point] - [page:Vector3].<br/>
-    [page:Vector3 target] — the result will be copied into this Vector3.<br /><br />
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br /><br />
 
-    Returns a point as a proportion of this box's width and height.
+    Возвращает точку как пропорцию ширины и высоты данного поля.
     </p>
 
     <h3>[method:Vector3 getSize]([param:Vector3 target])</h3>
     <p>
-    [page:Vector3 target] — the result will be copied into this Vector3.<br /><br />
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br /><br />
 
-    Returns the width, height and depth of this box.
+    Возвращает ширину, высоту и глубину этого поля.
     </p>
 
     <h3>[method:this intersect]([param:Box3 box])</h3>
     <p>
-    [page:Box3 box] - Box to intersect with.<br /><br />
+    [page:Box3 box] - Box для пересечения.<br /><br />
 
-    Computes the intersection of this and [page:Box3 box], setting the upper bound of this box to the lesser
-    of the two boxes' upper bounds and the lower bound of this box to the greater of the two boxes'
-    lower bounds. If there's no overlap, makes this box empty.
+    Вычисляет пересечение этого и [page:Box3 box], устанавливая верхнюю границу этого бокса на меньшую из верхних границ двух боксов, а нижнюю границу этого бокса на большую из нижних границ двух боксов. Если пересечения нет, делает этот бокс пустым.
     </p>
 
     <h3>[method:Boolean intersectsBox]([param:Box3 box])</h3>
     <p>
-    [page:Box3 box] - Box to check for intersection against.<br /><br />
+    [page:Box3 box] - Box для проверки пересечения.<br /><br />
 
-    Determines whether or not this box intersects [page:Box3 box].
+    Определяет, пересекает ли данный бокс [page:Box3 box].
     </p>
 
     <h3>[method:Boolean intersectsPlane]([param:Plane plane])</h3>
     <p>
-    [page:Plane plane] - [page:Plane] to check for intersection against.<br /><br />
+    [page:Plane plane] - [page:Plane] для проверки пересечения с ним.<br /><br />
 
-    Determines whether or not this box intersects [page:Plane plane].
+    Определяет, пересекает ли данный бокс [page:Plane plane].
     </p>
 
     <h3>[method:Boolean intersectsSphere]([param:Sphere sphere])</h3>
     <p>
-    [page:Sphere sphere] - [page:Sphere] to check for intersection against.<br /><br />
+    [page:Sphere sphere] - [page:Sphere] для проверки пересечения.<br /><br />
 
-    Determines whether or not this box intersects [page:Sphere sphere].
+    Определяет, пересекает ли данный бокс [page:Sphere sphere].
     </p>
 
     <h3>[method:Boolean intersectsTriangle]([param:Triangle triangle])</h3>
     <p>
-    [page:Triangle triangle] - [page:Triangle] to check for intersection against.<br /><br />
+    [page:Triangle triangle] - [page:Triangle] для проверки пересечения.<br /><br />
 
-    Determines whether or not this box intersects [page:Triangle triangle].
+    Определяет, пересекает ли данный box [page:Triangle треугольник].
     </p>
 
     <h3>[method:Boolean isEmpty]()</h3>
     <p>
-    Returns true if this box includes zero points within its bounds.<br>
-    Note that a box with equal lower and upper bounds still includes one point,
-    the one both bounds share.
+    Возвращает true, если этот бокс включает нулевые точки в своих границах.<br>
+    Обратите внимание, что box с равными нижней и верхней границами все еще включает одну точку, общую для обеих границ.
     </p>
 
     <h3>[method:this makeEmpty]()</h3>
-    <p>Makes this box empty.</p>
+    <p>Делает этот box пустым.</p>
 
     <h3>[method:this set]([param:Vector3 min], [param:Vector3 max])</h3>
     <p>
-    [page:Vector3 min] - [page:Vector3] representing the lower (x, y, z) boundary of the box.<br />
-    [page:Vector3 max] - [page:Vector3] representing the lower upper (x, y, z) boundary of the box.<br /><br />
+    [page:Vector3 min] - [page:Vector3], представляющий нижнюю (x, y, z) границу бокса.<br />
+    [page:Vector3 max] - [page:Vector3], представляющий нижнюю верхнюю (x, y, z) границу бокса.<br /><br />
 
-    Sets the lower and upper (x, y, z) boundaries of this box.<br>
-    Please note that this method only copies the values from the given objects.
+    Устанавливает нижнюю и верхнюю (x, y, z) границы данного бокса.<br>
+    Обратите внимание, что этот метод только копирует значения из заданных объектов.
     </p>
 
     <h3>[method:this setFromArray]([param:Array array])</h3>
     <p>
-    array -- An array of position data that the resulting box will envelop.<br /><br />
+    array -- Массив данных о положении, которое будет огибать результирующий бокс.<br /><br />
 
-    Sets the upper and lower bounds of this box to include all of the data in *array*.
+    Устанавливает верхнюю и нижнюю границы этого поля, чтобы включить все данные в *array*.
     </p>
 
     <h3>[method:this setFromBufferAttribute]([param:BufferAttribute attribute])</h3>
     <p>
-    [page:BufferAttribute attribute] - A buffer attribute of position data that the resulting box will envelop.<br /><br />
+    [page:BufferAttribute attribute] - Атрибут буфера с данными о положении, которые будет огибать результирующий бокс.<br /><br />
 
-    Sets the upper and lower bounds of this box to include all of the data in [page:BufferAttribute attribute].
+    Устанавливает верхнюю и нижнюю границы этого поля, чтобы включить все данные в [page:BufferAttribute attribute].
     </p>
 
     <h3>[method:this setFromCenterAndSize]([param:Vector3 center], [param:Vector3 size])</h3>
     <p>
-    [page:Vector3 center], - Desired center position of the box. <br>
-    [page:Vector3 size] - Desired x, y and z dimensions of the box.<br /><br />
+    [page:Vector3 center], - Желаемое положение центра бокса. <br>
+    [page:Vector3 size] - Желаемые размеры бокса по x, y и z.<br /><br />
 
-    Centers this box on [page:Vector3 center] and sets this box's width, height and depth to the values specified <br>
-    in [page:Vector3 size]
+    Центрирует этот бокс по [page:Vector3 center] и устанавливает ширину, высоту и глубину этого бокса на указанные значения <br>
+    в [page:Vector3 size]
     </p>
 
     <h3>[method:this setFromObject]([param:Object3D object])</h3>
     <p>
-    [page:Object3D object] - [page:Object3D] to compute the bounding box of.<br /><br />
+    [page:Object3D object] - [page:Object3D] для вычисления ограничивающего бокса.<br /><br />
 
-    Computes the world-axis-aligned bounding box of an [page:Object3D] (including its children),
-    accounting for the object's, and children's, world transforms.
-    The function may result in a larger box than strictly necessary.
+    Вычисляет граничную область объекта [page:Object3D] (включая его дочерние объекты), выровненную по мировой оси, с учетом мировых преобразований объекта и его дочерних объектов.
+    Функция может привести к тому, что бокс будет больше, чем это необходимо.
 
     </p>
 
     <h3>[method:this setFromPoints]([param:Array points])</h3>
     <p>
-    [page:Array points] - Array of [page:Vector3 Vector3s] that the resulting box will contain.<br /><br />
+    [page:Array points] - Массив [page:Vector3 Vector3s], который будет содержать результирующий бокс.<br /><br />
 
-    Sets the upper and lower bounds of this box to include all of the points in [page:Array points].
+    Устанавливает верхнюю и нижнюю границы этого бокса, чтобы включить все точки из [page:Array points].
     </p>
 
     <h3>[method:this translate]([param:Vector3 offset])</h3>
     <p>
-    [page:Vector3 offset] - Direction and distance of offset.<br /><br />
+    [page:Vector3 offset] - Направление и расстояние смещения.<br /><br />
 
-    Adds [page:Vector3 offset] to both the upper and lower bounds of this box, effectively moving this box
-    [page:Vector3 offset] units in 3D space.
+    Добавляет [page:Vector3 offset] к верхней и нижней границам этого поля, эффективно перемещая это поле на [page:Vector3 offset] единиц в трехмерном пространстве.
     </p>
 
     <h3>[method:this union]([param:Box3 box])</h3>
     <p>
-    [page:Box3 box] - Box that will be unioned with this box.<br /><br />
+    [page:Box3 box] - Бокс, который будет объединен с этим боксом.<br /><br />
 
-    Computes the union of this box and [page:Box3 box], setting the upper bound of this box to the greater of the
-    two boxes' upper bounds and the lower bound of this box to the lesser of the two boxes'
-    lower bounds.
+    Вычисляет объединение этого бокса и [page:Box3 box], устанавливая верхнюю границу этого бокса на большую из верхних границ двух боксов и нижнюю границу этого бокса на меньшую из нижних границ двух боксов.
     </p>
 
     [sourceHint]
