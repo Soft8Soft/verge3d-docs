@@ -1284,7 +1284,7 @@ function code(block) {
                     <p>
                         Выбранную по умолчанию опцию можно установить, выбрав метод
                         <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setValue">setValue</a>.
-                        TЧтобы указать, какая опция должна быть выбрана
+                        Чтобы указать, какая опция должна быть выбрана
                         по умолчанию, просто введите уникальный идентификатор опции в качестве
                         параметра в *setValue*.
                     </p>
@@ -1415,44 +1415,30 @@ function code(block) {
 
     <div class="indented">
         <p>
-            Puzzle blocks can have input, statement and output connections.
-            Input connections are added automatically for each input slot
-            created and serve the purpose of plugging in child blocks. See more
-            information on creating inputs here:
+            Блоки пазлов могут иметь входные, утверждающие и выходные соединения. Входные соединения добавляются автоматически для каждого созданного входного слота и служат для подключения дочерних блоков. Более подробную информацию о создании входов можно найти здесь:
             <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_adding_inputs">adding inputs</a>.
-            Statement (previous and next) and output connections are used for
-            connecting blocks to a parent block or sibling blocks.
+            Соединения определений (предыдущих и следующих) и выходов используются для соединения блоков с родительским блоком или блоками-потомками.
         </p>
         <p>
-            *Previous* and *next* add connections at the top and at the bottom
-            of a puzzle block respectively, so the block can be connected from
-            below/above to other blocks that have a matching connection.
+            *Previous* и *next* добавляют соединения сверху и снизу блока пазла соответственно, так что блок может быть соединен снизу/сверху с другими блоками, имеющими соответствующее соединение.
         </p>
         <p>
-            *Output* adds a connection at the left side of a block - this allows
-            the block to be plugged into an input slot of a parent block. The
-            output connection typically used for puzzle blocks that return a
-            value, e.g. the result of some math calculations.
+            *Выход* добавляет соединение в левой части блока - это позволяет подключить блок к входному разъему родительского блока. Выходное соединение обычно используется для блоков пазла, которые возвращают значение, например, результат некоторых математических вычислений.
         </p>
         <p>
-            By default a puzzle block doesn't have any connections at all. You
-            can add a single connection of any type to a puzzle block. You can
-            add even 2 statement/output connections to a block, but only the
-            following combinations are allowed: *previous* + *next* or
-            *next* + *output*.
+            По умолчанию блок пазла не имеет никаких связей. В блок пазла можно добавить одно соединение любого типа. Вы можете добавить в блок даже 2 связи определения/вывода, но разрешены только следующие комбинации: *предыдущий* + *следующий* или *следующий* + *вывод*.
         </p>
 
         <img src="files/puzzles/puzzles-plugins-output-connections.png" class="width-clear border-gray">
 
         <p>
-            Here's how all those connections can be added to a block:
+            Вот как все эти связи могут быть добавлены в блок:
         </p>
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                The *previous* statement connection can be enabled by setting the
-                *prev* attribute to *true*:
+                Связь *previous* оператора можно включить, установив атрибут *prev* в значение *true*:
                 <code>
     &lt;template prev="true"&gt;&lt;/template&gt;
                 </code>
@@ -1460,9 +1446,9 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                The *previous* statement connection can be enabled by calling
+                Связь с *previous* оператором может быть включена вызовом
                 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setPreviousStatement">block.setPreviousStatement</a>
-                with *true* as the first parameter:
+                с *true* в качестве первого параметра:
                 <code>
     &lt;script&gt;
     function template(block) {
@@ -1476,8 +1462,7 @@ function code(block) {
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                The *next* statement connection can be enabled by setting the
-                *next* attribute to *true*:
+                Связь с оператором *next* можно включить, установив атрибут *next* в значение *true*: 
                 <code>
     &lt;template next="true"&gt;&lt;/template&gt;
                 </code>
@@ -1485,9 +1470,9 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                The *next* statement connection can be enabled by calling
+                Подключение *next* оператора можно включить, вызвав
                 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setNextStatement">block.setNextStatement</a>
-                with *true* as the first parameter:
+                с *true* в качестве первого параметра: 
                 <code>
     &lt;script&gt;
     function template(block) {
@@ -1501,8 +1486,7 @@ function code(block) {
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                The *output* connection can be enabled by setting the *output*
-                attribute to an empty string:
+                Соединение *output* можно включить, установив атрибут *output* в пустую строку: 
                 <code>
     &lt;template output=""&gt;&lt;/template&gt;
                 </code>
@@ -1510,9 +1494,9 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                The *output* connection can be enabled by calling
+                Соединение *output* может быть включено вызовом
                 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setOutput">block.setOutput</a>
-                with *true* as the first parameter:
+                с *true* в качестве первого параметра: 
                 <code>
     &lt;script&gt;
     function template(block) {
@@ -1527,34 +1511,25 @@ function code(block) {
 
     [anchor:block_file_template_input_output_type_checking]
 
-    <h5>Input/Output Type Checking</h5>
+    <h5>Input/Output Type Проверка</h5>
 
     <div class="indented">
         <p>
-            By default all puzzle blocks that have suitable inputs/outputs can be
-            connected with each other. Yet, that doesn't mean all blocks should
-            be compatible. Let's say that we have a puzzle block returning an
-            array of coordinates, while some other block has an input that
-            expects an animation name. If we try to plug the first block into
-            the second one then things might not work as expected. The code
-            generated from those puzzles can be invalid and even lead to a crash.
+            По умолчанию все блоки пазла, имеющие подходящие входы/выходы, могут быть соединены друг с другом. Однако это не означает, что все блоки должны быть совместимы. Допустим, у нас есть блок пазла, возвращающего массив координат, а у другого блока есть вход, который ожидает имя анимации. Если мы попытаемся подключить первый блок ко второму, то все может работать не так, как ожидалось. Код, сгенерированный из этих пазлов, может быть некорректным и даже привести к сбою.
         </p>
         <p>
-            Fortunately, there's a way to resolve that situation. Every input
-            and output can be assigned a type and only those blocks that have
-            matching types can be connected with each other.
+            К счастью, есть способ разрешить эту ситуацию. Каждому входу и выходу можно присвоить тип, и только те блоки, которые имеют совпадающие типы, могут быть соединены друг с другом.
         </p>
         <p class="note">
-            For general information about output and other connections see
-            <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_connections">block connections</a>.
+            Для получения общей информации о выходных и других соединениях см. раздел
+            <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_connections">соединения блоков</a>.
         </p>
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                The output type can be specified via the <b>&lt;template&gt;</b>'s
-                *output* attribute. The types that a particular input can accept
-                are defined by the input's *type* attribute.
+                Тип вывода может быть указан через атрибут *output* шаблона <b>&lt;template&gt;</b>. 
+                Типы, которые может принимать конкретный вход, определяются атрибутом *type* входа. 
                 <code>
     &lt;!-- the block's output type is 'String' --&gt;
     &lt;template output="String"&gt;
@@ -1566,21 +1541,18 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                The output type can be assigned to a block by calling the
+                Тип вывода может быть назначен блоку вызовом метода
                 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setOutput">block.setOutput</a>
-                method while passing *true* as its first and the desired type as
-                its second parameter. The types that a particular input can
-                accept are set by calling the
-                <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setCheck">setCheck</a>
-                method.
+                передавая в качестве первого параметра *true*, а в качестве второго - желаемый тип. Типы, которые может принимать определенный вход, устанавливаются вызовом метода
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setCheck">setCheck</a>.
                 <code>
     &lt;script&gt;
     function template(block) {
-        // this input accepts only blocks of type 'Number'
+        // этот вход принимает только блоки типа 'Number'
         block.appendValueInput('myInput')
         .setCheck('Number');
 
-        // the block's output type is 'String'
+        //  тип вывода блока - 'String'
         block.setOutput(true, 'String');
     }
     &lt;/script&gt;
@@ -1589,26 +1561,20 @@ function code(block) {
         </v3d-tabs>
 
         <p>
-            In the example above the block has an input that can only accept
-            blocks of the type "Number" or of an unspecified type (if no type
-            was set via *setOutput*). The block also has the "String" output
-            type, which means that it can be only plugged into an input having
-            the "String" or an unspecified type (if no type was set via *setCheck*).
+            В приведенном примере блок имеет вход, который может принимать блоки только типа "Number" или неопределенного типа (если тип не был установлен через *setOutput*). Блок также имеет тип выхода "String", что означает, что он может быть подключен только к входу, имеющему тип "String" или неопределенный тип (если тип не был установлен через *setCheck*).
         </p>
         <p>
-            Inputs and outputs can also have more than one type:
+            Входы и выходы также могут иметь более одного типа:
         </p>
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                In order to have multiple input/output types fill the
-                corresponding *type* and *output* attributes with multiple type
-                values separated by space:
+                Для того чтобы иметь несколько типов ввода/вывода, заполните соответствующие атрибуты *type* и *output* значениями нескольких типов, разделенными пробелом:
                 <code>
-    &lt;!-- this block's output type is 'String' or 'Animation' --&gt;
+    &lt;!-- тип вывода этого блока - 'String' или 'Animation' --&gt;
     &lt;template output="String Animation"&gt;
-        &lt;!-- this input accepts only blocks of type 'Number' or 'Object3D' --&gt;
+        &lt;!-- этот вход принимает только блоки типа 'Number' или 'Object3D' --&gt;
         &lt;value name="myInput" type="Number Object3D"&gt;&lt;/value&gt;
     &lt;/template&gt;
                 </code>
@@ -1616,16 +1582,15 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                In order to have multiple input/output types provide the array of
-                types into *setCheck* and/or *setOutput* .
+                Чтобы иметь несколько типов ввода/вывода, предоставьте массив типов в *setCheck* и/или *setOutput*.
                 <code>
     &lt;script&gt;
     function template(block) {
-        // this input accepts only blocks of type 'Number' or 'Object3D'
+        // этот вход принимает только блоки типа 'Number' или 'Object3D'
         block.appendValueInput('myInput')
         .setCheck(['Number', 'Object3D']);
 
-        // this block's output type is 'String' or 'Animation'
+        // тип вывода этого блока - 'String' или 'Animation'
         block.setOutput(true, ['String', 'Animation']);
     }
     &lt;/script&gt;
@@ -1634,83 +1599,67 @@ function code(block) {
         </v3d-tabs>
 
         <p>
-            Standard Verge3D puzzles use several certain input/output types, which
-            you may borrow for your puzzles as well:
+            В стандартных пазлах Verge3D используется несколько определенных типов ввода/вывода, которые вы можете заимствовать и для своих пазлов:
         </p>
         <ul>
             <li>
-                for javascript types and built-in objects there are:
-                *Number*, *String*, *Boolean*, *Dictionary* (for js objects),
-                *Array*, *Promise*
+                для типов javascript и встроенных объектов есть: *Number*, *String*, *Boolean*, *Dictionary* (для js объектов), *Array*, *Promise*.
             </li>
             <li>
-                for scene entities: *Object3D*, *Material*, *Animation*
+                для сущностей сцены: *Object3D*, *Material*, *Animation*.
             </li>
             <li>
-                other types: *Canvas*, *Sound*, *Video*
+                другие типы:  *Canvas*, *Sound*, *Video*
             </li>
         </ul>
         <p>
-            You are not limited with the types described above and it's even
-            encouraged to come up with your own input/output types that suit
-            your puzzles better.
+            Вы не ограничены описанными выше типами, и даже поощряется придумывать свои собственные типы ввода/вывода, которые лучше подходят для ваших пазлов.
         </p>
     </div>
 
 
     [anchor:block_file_code]
 
-    <h4>Code Function</h4>
+    <h4>Функция Кода</h4>
 
     <p>
-        The *code()* function is used to provide javascript code that should be
-        generated for the puzzle if it's added to a workspace. Generally, this
-        is the place where you define the puzzle's logic and where you implement
-        most of the puzzle's features.
+        Функция *code()* используется для предоставления кода javascript, который должен быть сгенерирован для пазла, если он добавлен в рабочее пространство. Как правило, это место, где вы определяете логику пазла и реализуете большинство ее функций.
     </p>
 
     <p>
-        The function is expected to return a string containing js code. The way
-        it works is similar to how <a href="manual/ru/puzzles/Plugins.html#init_plug_script">init.plug's code function</a>
-        works, except that in this case the code will be added and used as many
-        times as how many puzzle blocks are added to a workspace. The *code()*
-        function receives a *block* parameter - it's the same instance of
+        Ожидается, что функция вернет строку, содержащую js-код. Принцип ее работы похож на работу <a href="manual/ru/puzzles/Plugins.html#init_plug_script">init.plug's code function</a>, за исключением того, что в данном случае код будет добавлен и использован столько раз, сколько блоков пазла будет добавлено в рабочее пространство. Функция *code()* получает параметр *block* - это тот же экземпляр
         <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a>
-        that's used in <a href="manual/ru/puzzles/Plugins.html#block_file_template">template()</a>.
+        который используется в <a href="manual/ru/puzzles/Plugins.html#block_file_template">template()</a>.
     </p>
 
     <p>
-        Let's look at what you can do with the *code()* function.
+        Давайте посмотрим, что можно сделать с помощью функции *code()*.
     </p>
 
 
     [anchor:block_file_code_basic_code_generation]
 
-    <h5>Basic Code Generation</h5>
+    <h5>Генерация Базового Кода</h5>
 
     <p class="indented">
-        The very simple thing that *code()* can do is to return a string with a
-        couple of lines of javascript code, which will be added into the
-        resulting visual_logic.js file.<br/>
+        Очень простая вещь, которую может сделать *code()* - это вернуть строку с парой строк кода javascript, который будет добавлен в результирующий файл visual_logic.js.<br/>
 
-        For example, the following code opens the standard browser alert dialog:
+        Например, следующий код открывает стандартный диалог оповещения браузера: 
         <code>
     function code(block) {
         return `alert('Test');`;
     }
         </code>
 
-        And here we just return a value of 1:
+        И здесь мы просто возвращаем значение 1:
         <code>
     function code(block) {
         return `1`;
     }
         </code>
-        - this example doesn't make much sense unless the block has the output
-        connection. In that case the returned value can be accessed from a
-        parent block that has this block plugged into one of the inputs.<br/><br/>
+        - этот пример не имеет особого смысла, если только блок не имеет выходного соединения. В этом случае доступ к возвращаемому значению можно получить из родительского блока, у которого этот блок подключен к одному из входов.<br/><br/>
 
-        And now for a bit more advanced example:
+        А теперь более сложный пример:
         <code>
     function code(block) {
         const fun = function() {
@@ -1723,25 +1672,18 @@ function code(block) {
         return `(${fun})();`;
     }
         </code>
-        - here all objects get a new material with a randomly generated color.
+        - здесь все объекты получают новый материал со случайно сгенерированным цветом. 
     </p>
 
 
     [anchor:block_file_code_mitigating_code_bloat]
 
-    <h5>Mitigating Code Bloat</h5>
+    <h5>Борьба с Разрастанием Кода</h5>
 
     <p class="indented">
-        By default, a puzzle's code is copied into the generated visual_logic.js
-        file each time the puzzle is used on a workspace. It's not a problem if
-        you have just a couple of lines of code. But if the code is bulky,
-        complex and split into several functions that you might want to declare
-        only once, then the default approach becomes inefficient and causes the
-        resulting visual_logic.js file to bloat.<br/><br/>
+        По умолчанию код пазла копируется в создаваемый файл visual_logic.js каждый раз, когда пазл используется в рабочем пространстве. Это не проблема, если у вас всего пара строк кода. Но если код громоздкий, сложный и разбит на несколько функций, которые вы, возможно, захотите объявить только один раз, то подход по умолчанию становится неэффективным и приводит к раздуванию результирующего файла visual_logic.js.<br/><br/>
 
-        To deal with that you can utilize a special method available inside the
-        *code()* function. It is called *Plug.provide()*. Let's demonstrate how
-        to use it with the following example:
+        Для решения этой проблемы можно использовать специальный метод, доступный внутри функции *code()*. Он называется *Plug.provide()*. Давайте продемонстрируем его использование на следующем примере: 
 
         <code>
     function code(block) {
@@ -1753,49 +1695,33 @@ function code(block) {
     }
         </code>
 
-        Here we have a function "myFunction" defined via *Plug.provide()*,
-        which means that no matter how many times the puzzle is used on a
-        workspace, "myFunction" will be copied to visual_logic.js just once. Also,
-        the value that is actualy returned from *code()* is just <b>${fun}(1, 2, 3);</b>,
-        which is basically the function call <b>"myFunction(1, 2, 3);"</b> that
-        will be inserted into visual_logic.js for every such puzzle used on a
-        workspace. And this is what we exactly would want from our puzzle,
-        because "myFunction" only needs to be declared just once, and after that
-        it can be called multiple times.<br/><br/>
+        Здесь у нас есть функция "myFunction", определенная через *Plug.provide()*, что означает, что независимо от того, сколько раз пазл используется в рабочем пространстве, "myFunction" будет скопирована в visual_logic.js только один раз. Кроме того, значение, которое фактически возвращается из *code()* - это ${fun}(1, 2, 3);, что, по сути, является вызовом функции "myFunction(1, 2, 3);", которая будет вставлена в visual_logic.js для каждого такого пазла, используемого на рабочем пространстве. И это именно то, чего мы хотим от нашего пазла, потому что "myFunction" нужно объявить только один раз, и после этого ее можно вызывать много раз.<br/><br/>
 
-        The first parameter in *Plug.provide()* should be a unique function
-        identifier. The returned variable *fun* is the name of the provided
-        function (it's usually almost the same as the value passed in the first
-        parameter, but can be different because the Puzzles Editor needs to
-        ensure that the name is valid and there's no collisions with other
-        functions/variables used on a workspace). That name (instead of the
-        original "myFunction") should be used to call the provided function -
-        that is how it's done in the part under the return statement.<br/><br/>
+        Первым параметром в *Plug.provide()* должен быть уникальный идентификатор функции. Возвращаемая переменная *fun* - это имя предоставленной функции (обычно оно почти совпадает со значением, переданным в первом параметре, но может быть и другим, так как редактору пазлов необходимо убедиться, что имя корректно и не имеет коллизий с другими функциями/переменными, используемыми на рабочем пространстве). Это имя (вместо исходного "myFunction") должно быть использовано для вызова предоставленной функции - именно так это делается в части под оператором возврата.
+<br/><br/>
     </p>
 
 
     [anchor:block_file_code_inputs_fields]
 
-    <h5>Accessing Inputs and Fields</h5>
+    <h5>Доступ к входам и полям</h5>
 
     <p class="indented">
-        If a puzzle block has <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields">fields</a>
-        or <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_adding_inputs">input slots</a>
-        defined in the <a href="manual/ru/puzzles/Plugins.html#block_file_template">template()</a> function,
-        then you would most likely want them to affect what is generated inside
-        the *code()* function. For example, a
-        <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields_checkbox">checkbox</a>
-        can enable or disable one of your puzzle's features.<br/><br/>
+        Если блок пазла имеет <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields">поля</a>
+        или <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_adding_inputs">слоты ввода</a>
+        определенные в функции <a href="manual/ru/puzzles/Plugins.html#block_file_template">template()</a>,
+        то вы, скорее всего, захотите, чтобы они влияли на то, что генерируется в функции *code()* function. Например,  
+        <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields_checkbox">флажок </a>
+        может включать или выключать одну из функций пазла.<br/><br/>
 
-        The API methods used to access <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value inputs</a>,
-        <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement inputs</a>
-        and <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields">fields</a>
+        Методы API, используемые для доступа к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value"> входам значений</a>,
+        <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">входам операторов</a>
+        и <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields">полям</a>
         are namely: <a href="https://developers.google.com/blockly/reference/js/Blockly.Generator#valueToCode">Blockly.JavaScript.valueToCode</a>,
         <a href="https://developers.google.com/blockly/reference/js/Blockly.Generator#statementToCode">Blockly.JavaScript.statementToCode</a>
-        and <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#getFieldValue">block.getFieldValue</a>.<br/><br/>
+        и <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#getFieldValue">block.getFieldValue</a>.<br/><br/>
 
-        Let's make a puzzle block that has both inputs and fields. Here's the
-        full content of the .block file:
+        Давайте создадим блок пазла, в котором есть и входы, и поля. Вот полное содержимое файла .block:
         <code>
     &lt;template color="green"&gt;
         &lt;dummy&gt;
@@ -1833,17 +1759,12 @@ function code(block) {
     }
     &lt;/script&gt;
         </code>
-        In this example the block defines a value input called "myValue", a
-        statement input "myStatement" and a checkbox field "myCheckbox". We obtain
-        their values via the API described above, but before we pass them into
-        "myFunction" they undergo some noteworthy changes:
+        В этом примере блок определяет ввод значения под названием "myValue", ввод утверждения "myStatement" и поле флажка "myCheckbox". Мы получаем их значения с помощью API, описанного выше, но прежде чем передать их в "myFunction", они претерпевают некоторые заметные изменения:
 
         <code>
     var myInput = Blockly.JavaScript.valueToCode(block, 'myValue', Blockly.JavaScript.ORDER_NONE) || `''`;
         </code>
-        - an input slot might have no blocks plugged into it, so we just ensure
-        that in such a case we get an empty string by adding the *|| `''`* part
-        at the end.
+        - Входной слот может не иметь блоков, подключенных к нему, поэтому мы просто гарантируем, что в этом случае мы получим пустую строку, добавив часть *|| `''`* в конце.
 
         <code>
     function wrapFn(contents) {
@@ -1854,23 +1775,19 @@ function code(block) {
 
     var myStatement = wrapFn(Blockly.JavaScript.statementToCode(block, 'myStatement'));
         </code>
-        - a statement input slot usually contains a group of statements. It is
-        convenient to wrap them in a function (see what *wrapFn* does) in order
-        to pass that function object as a parameter and then treat it as a
-        callback.
+        - слот ввода оператора обычно содержит группу операторов. Удобно обернуть их в функцию (см., что делает *wrapFn*), чтобы передать объект функции в качестве параметра и затем рассматривать его как обратный вызов.
 
         <code>
     var myCheckbox = block.getFieldValue('myCheckbox') === 'TRUE';
         </code>
-        - here the checkbox value is just compared against "TRUE" to produce a
-        boolean result.<br/><br/>
+        - здесь значение флажка просто сравнивается с "TRUE" для получения булевого результата.<br/><br/>
 
-        In the end, all of the values can be passed into "myFunction" as follows:
+        В итоге все значения можно передать в "myFunction" следующим образом:
         <code>
     return `${fun}(${myInput}, ${myStatement}, ${myCheckbox});`;
         </code>
 
-        So, now you are able to use them however you want:
+        Теперь вы можете использовать их по своему усмотрению: 
         <code>
     const fun = Plug.provide('myFunction', function(input, statements, checkbox) {
         console.log('input value:', input);
@@ -1885,19 +1802,14 @@ function code(block) {
 
     [anchor:plugin_errors]
 
-    <h2>Plugin and Block Errors</h2>
+    <h2>Ошибки Plugin и Block</h2>
 
     <p>
-        When developing or using plugins you can experience different errors
-        related to a certain puzzle block or even a whole plugin. This section
-        describes typical plugin and block errors and how to deal with them.
+        При разработке или использовании плагинов вы можете столкнуться с различными ошибками, связанными с определенным блоком пазла или даже со всем плагином. В этом разделе описаны типичные ошибки плагинов и блоков и способы их устранения.
     </p>
 
     <p>
-        If something goes wrong during loading a plugin or initializing its
-        puzzle blocks, then the Puzzles Editor prints a corresponding error
-        message in the browser console. Usually, such error looks like one of
-        the following:
+        Если при загрузке плагина или инициализации его блоков пазлов что-то идет не так, то редактор пазлов выводит соответствующее сообщение об ошибке в консоль браузера. Обычно такая ошибка выглядит следующим образом: 
     </p>
 
     <p class="code red">
@@ -1907,21 +1819,18 @@ function code(block) {
     </p>
 
     <p>
-        - they refer to a specific plugin and a specific block that caused the
-        error.
+        - они ссылаются на конкретный плагин и конкретный блок, который вызвал ошибку. 
     </p>
 
     <p>
-        In case of a plugin error the whole plugin's category will most likely
-        disappear from the toolbox. In case of a block error the affected
-        blocks will be marked as invalid and will have a distinct look:
+        В случае ошибки плагина вся категория плагина, скорее всего, исчезнет из панели инструментов. В случае ошибки блока затронутые блоки будут помечены как недействительные и будут иметь специфический вид:
     </p>
 
     <img src="files/puzzles/puzzles-plugins-dummy-block.jpg" id="dummy_block_appearance" class="centered" style="max-width: 852px">
-    <span class="img-caption">An invalid puzzle in the toolbox and on a workspace</span>
+    <span class="img-caption">Недопустимый пазл на панели инструментов и на рабочей области</span>
 
     <p>
-        Here's the list of the most common plugin and block errors:
+        Вот список наиболее распространенных ошибок плагинов и блоков:
     </p>
     <br/>
 
@@ -1929,9 +1838,7 @@ function code(block) {
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error parsing .block file - "This page contains the following errors:error on line ..."</h5>
     <p class="indented">
-        This means that there are XML errors in the corresponding .block
-        file preventing it from being parsed. For example, the missing ending
-        &lt;script&gt; tag leads to such error:
+        Это означает, что в соответствующем файле .block присутствуют ошибки XML, препятствующие его разбору. Например, отсутствие завершающего тега &lt;script&gt; приводит к такой ошибке:
         <code>
     &lt;script&gt;
     function template(block) {}
@@ -1944,9 +1851,7 @@ function code(block) {
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error parsing .block file - "ReferenceError (SyntaxError, TypeError, etc...) ..."</h5>
     <p class="indented">
-        The error occurs in case if the code in the corresponding .block file's
-        &lt;script&gt; element contains a JavaScript error of the kind specified
-        in the error message.
+        Ошибка возникает в том случае, если код в элементе &lt;script&gt; соответствующего файла .block содержит ошибку JavaScript вида, указанного в сообщении об ошибке.
     </p>
     <br/>
 
@@ -1954,12 +1859,7 @@ function code(block) {
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "TypeError: Child block does not have output or previous statement."</h5>
     <p class="indented">
-        The block this error refers to has a child block plugged into it.
-        However, the child block doesn't even have an <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_connections">output or a previous connection</a>
-        and therefore can not be used that way. This situation may happen either
-        with puzzle blocks inside the plugin's toolbox <a href="manual/ru/puzzles/Plugins.html#init_plug_category">category</a>
-        due to how they are configured in init.plug, and also this may happen
-        with blocks actually used on a workspace.
+        Блок, на который ссылается эта ошибка, имеет дочерний блок, подключенный к нему. Однако дочерний блок не имеет <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_connections"></a>ни выхода, ни предыдущего соединения</a>, и поэтому не может быть использован таким образом. Такая ситуация может произойти как с блоками пазлами внутри <a href="manual/ru/puzzles/Plugins.html#init_plug_category">категории</a> инструментов плагина из-за того, как они настроены в init.plug, так и с блоками, реально используемыми на рабочем пространстве. 
     </p>
     <br/>
 
@@ -1967,13 +1867,9 @@ function code(block) {
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "Error: Connection checks failed. Input "PARENT_INPUT_NAME" connection on "PLUGIN_NAME/BLOCK_NAME" block (id="BLOCK_ID") expected TYPE_PARENT, found TYPE_CHILD"</h5>
     <p class="indented">
-        The block this error refers to has a child block plugged into it but the
-        parent's input slot and the child's output connection have incompatible
-        <a href="manual/ru/puzzles/Plugins.html#block_file_template_input_output_type_checking">types</a>.
-        This situation may happen either with puzzle blocks inside the plugin's
-        toolbox <a href="manual/ru/puzzles/Plugins.html#init_plug_category">category</a>
-        due to how they are configured in init.plug, and also this may happen
-        with blocks actually used on a workspace.
+        Блок, на который ссылается эта ошибка, имеет подключенный к нему дочерний блок, но входной слот родителя и выходное соединение дочернего блока имеют несовместимые
+        <a href="manual/ru/puzzles/Plugins.html#block_file_template_input_output_type_checking">типы</a>.
+        Такая ситуация может произойти как с блоками пазлами внутри <a href="manual/ru/puzzles/Plugins.html#init_plug_category">категории</a> инструментов плагина из-за того, как они настроены в init.plug, так и с блоками, реально используемыми на рабочем пространстве.
     </p>
     <br/>
 
@@ -1981,9 +1877,8 @@ function code(block) {
 
     <h5>BlockError(PLUGIN_NAME/null): validation error - "TypeError: Unknown block type: PLUGIN_NAME/null"</h5>
     <p class="indented">
-        This error means that the plugin's init.plug file refers to a block
-        with no <a href="manual/ru/puzzles/Plugins.html#init_plug_available_puzzles">type attribute</a>
-        specified, which is not allowed. For example, this won't work:
+        Эта ошибка означает, что файл init.plug плагина ссылается на блок, в котором не указан <a href="manual/ru/puzzles/Plugins.html#init_plug_available_puzzles">атрибут типа</a>
+        что недопустимо. Например, это не сработает:
         <code>
     &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block&gt;&lt;/block&gt;
@@ -1996,10 +1891,9 @@ function code(block) {
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "TypeError: Unknown block type: PLUGIN_NAME/BLOCK_NAME"</h5>
     <p class="indented">
-        This error message usually appears after one of the
+        Это сообщение об ошибке обычно появляется после одной из ошибок
         <a href="manual/ru/puzzles/Plugins.html#plugin_errors_block_error_parsing_0">"error parsing .block file"</a>
-        errors and simply indicates that the mentioned puzzle block wasn't
-        properly loaded and initialized because of the original error.
+        и просто указывает на то, что упомянутый блок пазла не был правильно загружен и инициализирован из-за первоначальной ошибки. 
     </p>
     <br/>
 
@@ -2007,17 +1901,14 @@ function code(block) {
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling template() function ...</h5>
     <p class="indented">
-        The corresponding .block file either has an incorrectly defined
-        <a href="manual/ru/puzzles/Plugins.html#block_file_template">&lt;template&gt;</a> element
-        or contains JavaScript errors inside its <a href="manual/ru/puzzles/Plugins.html#block_file_template">template()</a>
-        function.
+        Соответствующий файл .block либо имеет неправильно определенный элемент
+        <a href="manual/ru/puzzles/Plugins.html#block_file_template">&lt;template&gt;</a>
+        либо содержит ошибки JavaScript внутри своей функции <a href="manual/ru/puzzles/Plugins.html#block_file_template">template()</a>.
         <ul>
             <li>
                 <b>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling template() function - "TypeError: Found invalid FieldDropdown options."</b><br/>
-                This particular error means that one of the puzzle's dropdown
-                fields has an unnamed option. See
-                <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields_dropdown">dropdown field</a>
-                for more information.
+                Эта конкретная ошибка означает, что одно из выпадающих полей пазла имеет неименованный параметр. Дополнительные сведения см. в разделе
+                <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields_dropdown">выпадающее поле</a>.
             </li>
         </ul>
     </p>
@@ -2027,9 +1918,8 @@ function code(block) {
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling code() function ...</h5>
     <p class="indented">
-        The corresponding .block file contains JavaScript errors inside its
-        <a href="manual/ru/puzzles/Plugins.html#block_file_code">code()</a>
-        function.
+        TСоответствующий файл .block содержит ошибки JavaScript внутри своей функции 
+        <a href="manual/ru/puzzles/Plugins.html#block_file_code">code()</a>.
     </p>
     <br/>
 
@@ -2037,9 +1927,7 @@ function code(block) {
 
     <h5>PluginError(PLUGIN_NAME): error parsing init.plug file - "This page contains the following errors:error on line ..."</h5>
     <p class="indented">
-        This means that there are XML errors in the plugin's init.plug file
-        preventing it from being parsed. For example, the missing
-        ending &lt;category&gt; tag leads to such error:
+        Это означает, что в файле init.plug плагина присутствуют XML-ошибки, препятствующие его разбору. Например, отсутствие завершающего тега &lt;category&gt; приводит к такой ошибке:
         <code>
     &lt;category name="MyAwesomePlugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;&lt;/block&gt;
@@ -2051,9 +1939,7 @@ function code(block) {
 
     <h5>PluginError(PLUGIN_NAME): error parsing init.plug file - "ReferenceError (SyntaxError, TypeError, etc...) ..."</h5>
     <p class="indented">
-        The error occurs in case if the code in the corresponding init.plug file's
-        &lt;script&gt; element contains a JavaScript error of the kind specified
-        in the error message.
+        Ошибка возникает в том случае, если код в элементе &lt;script&gt; соответствующего файла init.plug содержит ошибку JavaScript вида, указанного в сообщении об ошибке.
     </p>
     <br/>
 
@@ -2061,9 +1947,8 @@ function code(block) {
 
     <h5>PluginError(PLUGIN_NAME): error calling code() function ...</h5>
     <p class="indented">
-        The plugin's init.plug file contains JavaScript errors inside its
-        <a href="manual/ru/puzzles/Plugins.html#init_plug_script">code()</a>
-        function.
+        Файл init.plug плагина содержит ошибки JavaScript в функции
+        <a href="manual/ru/puzzles/Plugins.html#init_plug_script">code()</a>.
     </p>
     <br/>
 
@@ -2071,36 +1956,30 @@ function code(block) {
 
     <h5>Puzzle "PLUGIN_NAME/BLOCK_NAME" is not defined properly. Replaced with a dummy block.</h5>
     <p class="indented">
-        This error message usually appears after one of BlockError and/or
-        PluginError messages and simply indicates that the mentioned puzzle
-        block wasn't properly loaded and initialized due to the original errors.
-        In order to still be able to load puzzles and maintain their operability
-        to some degree, such blocks (both in the plugin's toolbox category and
-        on a workspace) are replaced with special dummy blocks. The example of
-        what a dummy block looks like can be seen on <a href="manual/ru/puzzles/Plugins.html#dummy_block_appearance">this picture</a>.
+        Это сообщение об ошибке обычно появляется после одного из сообщений BlockError и/или PluginError и просто указывает на то, что упомянутый блок пазла не был правильно загружен и инициализирован из-за первоначальных ошибок. Чтобы сохранить возможность загрузки пазлов и в какой-то степени сохранить их работоспособность, такие блоки (как в категории инструментов плагина, так и на рабочем пространстве) заменяются специальными фиктивными блоками. Пример того, как выглядит фиктивный блок, можно увидеть на <a href="manual/ru/puzzles/Plugins.html#dummy_block_appearance">этом рисунке</a>.
     </p>
     <br/>
 
 
     [anchor:sharing_your_plugin]
 
-    <h2>Sharing your Plugin</h2>
+    <h2>Поделитесь Своим Плагином</h2>
 
     <p>
-        Once plugin developed and tested, feel free to share it by:
+        Как только плагин будет разработан и протестирован, не стесняйтесь поделиться им:
     </p>
 
     <ul>
-        <li>Posting the link on the <a href="https://www.soft8soft.com/forum/plugins/" target="_blank">Verge3D Forum</a>.</li>
-        <li>Getting mentioned in the <a href="manual/ru/introduction/Useful-links.html#third_party_plugins">Useful Links</a> directory (<a href="https://www.soft8soft.com/contact/" target="_blank">contact us</a>!).</li>
-        <li>Sharing on social media by using <strong>#verge3d</strong> hashtag.</li>
-        <li>Publishing on <a href="https://gumroad.com/" target="_blank">Gumroad</a> or similar resources.</li>
+        <li>Размещая ссылку на <a href="https://www.soft8soft.com/forum/plugins/" target="_blank">Форуме Verge3D</a>.</li>
+        <li>Упоминая в <a href="manual/ru/introduction/Useful-links.html#third_party_plugins">Полезных Ссылках</a> справочников (<a href="https://www.soft8soft.com/contact/" target="_blank">свяжитесь с нами</a>!).</li>
+        <li>В социальных сетях, используя хэштег <strong>#verge3d</strong>.</li>
+        <li>Публикуя на <a href="https://gumroad.com/" target="_blank">Gumroad</a> или аналогичных ресурсах.</li>
     </ul>
 
 
-    <h2>Having Troubles with Puzzles?</h2>
+    <h2>Проблемы с Пазлами?</h2>
 
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Обратитесь за помощью на <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>
