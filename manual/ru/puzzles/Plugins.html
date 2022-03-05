@@ -1,73 +1,57 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Puzzles Plugins Reference - Soft8Soft</title>
+    <title>Пазлы Плагинов - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Custom plugins for Verge3D Puzzles."/>
+    <meta name="description" content="Пользовательские плагины для пазлов Verge3D."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
 
-    <h1>Plugins</h1>
+    <h1>Плагины</h1>
 
     <p>
-        <a href="manual/ru/introduction/Puzzles-Visual-Logic-Editor.html">Verge3D Puzzles Editor</a>
-        provides the ability to load your own custom puzzles, thus making it
-        possible to extend the Editor's functionality with features you've
-        always wanted.
+        <a href="manual/ru/introduction/Puzzles-Visual-Logic-Editor.html">Редактор пазлов Verge3D</a>
+         предоставляет возможность загрузки собственных пользовательских пазлов, что позволяет расширить функциональность редактора за счет функций, о которых вы всегда мечтали. 
     </p>
 
 
-    <h2>Contents</h2>
+    <h2>Содержание</h2>
 
     [contents]
 
 
     [anchor:installing]
 
-    <h2>Installing Plugins</h2>
+    <h2>Установка Плагинов</h2>
 
     <p>
-        Plugins are directories with a bunch of plugin-relevant files. Plugins
-        should be placed inside Verge3D's *puzzles/plugins* folder in order to
-        be recognized by the Puzzles Editor. And that's it! After reloading the
-        Editor's page all installed plugins should appear at the bottom of the
-        Editor's toolbox right after all the standard puzzle categories.
+        Плагины - это каталоги с большим количеством файлов, относящихся к плагинам. Они должны быть помещены в папку *puzzles/plugins* в Verge3D для того, чтобы они были распознаны редактором пазлов. И это все! После перезагрузки страницы редактора все установленные плагины должны появиться в нижней части панели инструментов редактора сразу после всех стандартных категорий пазлов.
     </p>
 
     <img src="files/puzzles/puzzles-plugins-ui-location.jpg" class="centered" style="max-width: 570px">
     <span class="img-caption">Plugin categories in the toolbox</span>
 
     <p id="example_plugin" class="note">
-        <u>For plugin developers</u><br/>
-        This helpful plugin contains examples of some typical puzzle blocks:
-        <a href="files/puzzles/ExamplePlugin.zip">ExamplePlugin.zip</a>. Just
-        unzip it into the *puzzles/plugins* folder and then check out the
-        "Example Plugin" puzzle category.
+        <u>Для разработчиков пазлов</u><br/>
+        
+        Этот полезный плагин содержит примеры некоторых типичных блоков пазлов: <a href="files/puzzles/ExamplePlugin.zip">ExamplePlugin.zip</a>. Просто распакуйте его в папку *puzzles/plugins*, а затем ознакомьтесь с категорией пазлов "Example Plugin".
     </p>
 
 
     [anchor:plugin_files_overview]
 
-    <h2>Plugin Files Overview</h2>
+    <h2>Обзор Файлов Плагинов</h2>
 
-        A typical plugin is just a directory with an *init.plug* file containing
-        general plugin settings and a bunch of <b>*.block</b> files each defining a
-        single puzzle block. If your text editor supports syntax highlighting,
-        then the HTML mode should work well for both file formats.
-
+    Типичный плагин представляет собой каталог с файлом *init.plug*, содержащим общие настройки с большим количеством файлов <b>*.block</b>, каждый из которых определяет один блок пазла. Если ваш текстовый редактор поддерживает подсветку синтаксиса, то режим HTML должен хорошо работать для обоих форматов файлов.
     [anchor:init_plug_file_format]
 
-    <h3>init.plug File Format</h3>
+    <h3>Формат файла init.plug </h3>
 
     <p>
-        *init.plug* is a mandatory plugin file, which is used for specifying
-        general plugin settings. In that file you can define what the toolbox
-        entry looks like. Also you can add there some preliminary javascript
-        code for your puzzles. Here's a simple example of what you can see in an
-        *init.plug* file:
+        *init.plug* - это обязательный файл плагина, который используется для задания общих настроек. В этом файле вы можете определить, как выглядит запись панели инструментов. Также вы можете добавить туда некоторый предварительный код javascript для ваших пазлов. Вот простой пример того, что вы можете увидеть в файле *init.plug*:
     </p>
 
     <code>
@@ -90,21 +74,19 @@
     <h4>Category</h4>
 
     <p>
-        The *category* part is an XML tree that defines how the plugin and its
-        puzzle blocks are displayed inside the Puzzles Editor's toolbox. Although
-        it is optional, still if you don't add it into the *init.plug* file then
-        the plugin won't be loaded at all.
+        Часть *category* представляет собой XML-дерево, которое определяет, как плагин и его блоки пазлов будут отображаться в панели инструментов редактора пазлов. Хотя она и необязательна, но если вы не добавите ее в файл *init.plug*, то плагин вообще не будет загружен.
+        
         <br/><br/>
-        There are several options that you can set up via *category*:
+        Существует несколько вариантов, которые можно настроить через *category*:
     </p>
 
 
     [anchor:init_plug_toolbox_entry_name]
 
-    <h5>Toolbox Entry Name</h5>
+    <h5>Имя панели инструментов</h5>
 
     <p class="indented">
-        Specified via the *name* attribute:
+        Указывается через атрибут *name*:
         <code>
 &lt;category name="My Awesome Plugin"&gt;&lt;/category&gt;
         </code>
@@ -113,29 +95,28 @@
 
     [anchor:init_plug_toolbox_entry_color]
 
-    <h5>Toolbox Entry Color</h5>
+    <h5>Цвет панели инструментов</h5>
 
     <p class="indented">
-        Specified via the *color* attribute:
+        Указывается с помощью атрибута *color*: 
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;&lt;/category&gt;
         </code>
-        The color can be defined in one of the following formats:
+        Цвет может быть задан в одном из следующих форматов:
     </p>
 
     <ul id="color_formats">
         <li>
-            hex triplet, e.g. <b>#f61</b> or <b>#f0562f</b>
+            hex triplet, например <b>#f61</b> или <b>#f0562f</b>
         </li>
         <li>
-            hue value in range 0°-360° (within the scope of HSV color model with
-            S and V fixed to 45% and 65% respectively), e.g. <b>140</b>
+            значение оттенка в диапазоне 0°-360° (в рамках цветовой модели HSV с S и V, установленными на 45% и 65% соответственно), например, <b>140</b>
         </li>
         <li>
-            color keywords such as <b>aqua</b>, <b>black</b>, <b>blue</b>,
+            цветовые ключевые слова, такие как <b>aqua</b>, <b>black</b>, <b>blue</b>,
             <b>fuchsia</b>, <b>gray</b>, <b>green</b>, <b>lime</b>,
             <b>maroon</b>, <b>navy</b>, <b>olive</b>, <b>purple</b>,
-            <b>red</b>, <b>silver</b>, <b>teal</b>, <b>white</b> and
+            <b>red</b>, <b>silver</b>, <b>teal</b>, <b>white</b> и
             <b>yellow</b>
         </li>
     </ul>
@@ -143,21 +124,16 @@
 
     [anchor:init_plug_available_puzzles]
 
-    <h5>Available Puzzles</h5>
+    <h5>Доступные Пазлы</h5>
 
     <div class="indented">
         <p>
-            To make a puzzle block available in the plugin's toolbox
-            category it should be specified via the *block* element and its
-            *type* attribute. The *type* attribute can reference such puzzles as:
+            Чтобы сделать блок пазла доступным в категории инструментов плагина, он должен быть указан через элемент *block* и его атрибут *type*. Атрибут *type* может ссылаться на такие пазлы, как:
         </p>
 
         <ul>
             <li id="available_puzzles_plugin">
-                puzzles defined by the plugin itself - in this case *type*
-                should be set according to the name of the corresponding
-                .block file inside your plugin's directory (e.g.
-                *myPuzzle* for a block file *my_awesome_plugin/myPuzzle.block*)
+                пазлы, определяемые самим плагином - в этом случае *type* должен быть установлен в соответствии с именем соответствующего .block файла внутри каталога вашего плагина (например, *myPuzzle* для файла блока *my_awesome_plugin/myPuzzle.block*)
                 <code>
     &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;&lt;/block&gt;
@@ -165,10 +141,7 @@
                 </code>
             </li>
             <li id="available_puzzles_stock">
-                stock puzzle blocks - *type* should be equal to the
-                type of a stock puzzle (e.g. *math_number*). This allows
-                adding stock puzzles directly into your plugin's toolbox
-                category
+                блоки стоковых пазлов - *type* должен быть равен типу стокового пазла(например, *math_number*). Это позволяет добавлять стоковые пазлы непосредственно в категорию инструментов вашего плагина
                 <code>
     &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="math_number"&gt;&lt;/block&gt;
@@ -176,10 +149,7 @@
                 </code>
             </li>
             <li>
-                puzzles defined by other plugins - *type* should be in the
-                form *PLUGIN_DIRECTORY_NAME/PUZZLE_TYPE*. For example,
-                puzzles from the standard <a href="manual/ru/puzzles/ECommerce.html">E-Commerce</a>
-                plugin can be referenced like this:
+                пазлы, определенные другими плагинами - *type* должен быть в форме *PLUGIN_DIRECTORY_NAME/PUZZLE_TYPE*. Например, на пазлы из стандартного плагина <a href="manual/ru/puzzles/ECommerce.html">E-Commerce</a> можно ссылаться следующим образом:
                 <code>
     &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="E-Commerce/placeOrder"&gt;&lt;/block&gt;
@@ -189,52 +159,41 @@
         </ul>
 
         <p id="puzzle-xml-tree">
-            To find out the type of a certain puzzle block you can use the
-            "Print Puzzle XML Tree" option from the puzzle context menu:
+            Чтобы узнать тип определенного блока пазла, можно воспользоваться опцией "Print Puzzle XML Tree" из контекстного меню пазла:
         </p>
         <img src="files/puzzles/puzzles-plugins-print-puzzle-xml-tree.png" class="width-clear border-gray">
 
         <p>
-            That menu option prints the puzzle XML tree into the browser console.
-            You can find there the puzzle type as well as the whole XML
-            structure, which might come in handy when setting the
-            <a href="manual/ru/puzzles/Plugins.html#init_plug_default_input_field_values">default input and field values</a>.
+            Этот пункт меню выводит дерево XML пазла в консоль браузера. В нем можно найти тип пазла, а также всю структуру XML, что может пригодиться при установке <a href="manual/ru/puzzles/Plugins.html#init_plug_default_input_field_values">значений по умолчанию для полей ввода</a>.
         </p>
         <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree.png" class="width-clear border-gray">
 
         <p>
-            The "Print Puzzle XML Tree" menu option provides an easy way of
-            adding a whole group of puzzle blocks to your plugin at once. This
-            is useful for creating some sort of "snippets" consisting of
-            connected puzzle blocks and putting them into your plugin, which
-            makes it a bit similar to the <a href="manual/ru/puzzles/Library.html">Puzzles Library</a>.
+            Опция меню "Print Puzzle XML Tree" обеспечивает простой способ добавления в ваш плагин сразу целой группы блоков пазлов. Это полезно для создания своего рода "snippets", состоящих из связанных блоков пазлов, и помещения их в ваш плагин, что делает его немного похожим на  <a href="manual/ru/puzzles/Library.html">Библиотеку пазлов</a>.
 
             <p>
-                The following example explains how to do that:
+                Следующий пример объясняет, как это сделать: :
             </p>
             <ul>
                 <li>
-                    create some puzzle blocks in the Puzzles Editor:<br/>
+                    создайте несколько блоков пазлов в Редакторе Пазлов:<br/>
                     <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-1.png" class="width-clear border-gray">
                 </li>
                 <li>
-                    use right mouse click on the top/outmost block and choose
-                    "Print Puzzle XML Tree":<br/>
+                    щелкните правой кнопкой мыши на самом верхнем/самом крайнем блоке и выберите "Print Puzzle XML Tree":<br/>
                     <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-2.png" class="width-clear border-gray">
                 </li>
                 <li>
-                    go to the browser console and copy the printed element (this
-                    is what it looks like in Google Chrome):<br/>
+                    перейдите в консоль браузера и скопируйте напечатанный элемент (вот как это выглядит в Google Chrome):<br/>
                     <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-3.png" class="width-clear border-gray">
                 </li>
                 <li>
-                    paste it into the *init.plug* file inside the <b>&lt;category&gt;</b>
-                    element and save the file:<br/>
+                    вставьте его в файл *init.plug* внутри элемента <b>&lt;category&gt;</b>
+                    и сохраните файл:<br/>
                     <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-4.png" class="width-clear border-gray">
                 </li>
                 <li>
-                    then after reloading the Puzzles Editor the copied block
-                    should appear inside the plugin's category
+                    затем после перезагрузки редактора пазлов скопированный блок должен появиться в категории плагина
                 </li>
             </ul>
         </p>
@@ -246,8 +205,7 @@
     <h5>Puzzles Order</h5>
 
     <p class="indented">
-        Puzzle blocks appear in the toolbox in the order you define in the
-        *init.plug* file:
+        Блоки пазлов появляются на панели инструментов в том порядке, который вы определили в файле *init.plug*: 
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;&lt;/block&gt;
@@ -257,18 +215,17 @@
 &lt;/category&gt;
         </code>
         <img src="files/puzzles/puzzles-plugins-block-order.jpg" style="max-width: 523px"></br>
-        Note how the commented out puzzle block "testPuzzle" isn't shown in the
-        toolbox.
+        Обратите внимание, что закомментированный блок пазла "testPuzzle" не отображается в панели инструментов. 
     </p>
 
 
     [anchor:init_plug_text_labels]
 
-    <h5>Text Labels</h5>
+    <h5>Текстовые метки</h5>
 
     <div class="indented">
         <p>
-            You can add text labels into the toolbox category via the *label* element:
+            Вы можете добавить текстовые метки в категорию инструментов с помощью элемента *label*:
         </p>
 
         <code>
@@ -285,16 +242,15 @@
         <img src="files/puzzles/puzzles-plugins-label-elements.jpg" style="max-width: 523px"></br>
 
         <p class="note">
-            *label* elements are not suitable for displaying multiline text, i.e.
-            no line breaks.
+            *label* элементы не подходят для отображения многострочного текста, т.е. без переносов строк.
         </p>
 
         <p>
-            *label* elements can also be stylized to some extent. They support a
-            *web-class* attribute, which is intended for assigning a custom CSS
-            class to the *label* element. The CSS rules for that class can be
-            defined in *init.plug*'s *script* section. This approach is illustrated
-            in the following example:
+            Элементы *label* также могут быть в некоторой степени стилизованы. Они поддерживают
+            атрибут *web-class*, который предназначен для назначения пользовательского CSS-класса
+            элементу *label*. Правила CSS для этого класса описаны
+            в разделе *init.plug*'s *script*. Этот подход проиллюстрирован
+            в следующем примере:
         </p>
 
         <code>
@@ -317,30 +273,30 @@
         </code>
 
         <p>
-            And here's the result of applying the custom CSS rules:
+            А вот результат применения пользовательских настроек CSS:
         </p>
         <img src="files/puzzles/puzzles-plugins-label-elements-styled.png" class="width-clear">
 
         <p class="note">
-            When deciding what CSS class name to put into the *web-class*
-            attribute it's recommended to consider some sort of CSS scoping, for
-            example by using a prefix unique to your puzzles plugin, i.e. in the
-            example above it's the "example-plugin" part of the
-            "example-plugin__label" class. That way you less likely accidentally
-            break any CSS classes already used on the page.
+            При выборе имени CSS-класса для атрибута *web-class*
+            рекомендуется учитывать особенную CSS-подстановку, например,
+            использовать префикс, уникальный для вашего плагина пазлов, т.е. в
+            примере выше это "example-plugin" часть класса
+            "example-plugin__label". Таким образом, вы с меньшей вероятностью случайно
+            нарушите какие-либо классы CSS, уже используемые на странице.
         </p>
     </div>
 
 
     [anchor:init_plug_separator_elements]
 
-    <h5>Separators</h5>
+    <h5>Разделители</h5>
 
     <p class="indented">
-        Separators can be used to change the distance between puzzle blocks. You
-        can add separators into the toolbox category via the *sep* element. The
-        *gap* attribute specifies the gap width in pixels. The default distance
-        between blocks (when not using *sep*) equals to 24 pixels.
+        Разделители можно использовать для изменения расстояния между блоками пазла. Вы
+        можете добавить разделители в категорию инструментов с помощью элемента *sep*. Атрибут
+        *gap* задает ширину расстояния в пикселях. По умолчанию расстояние
+        между блоками (если не используется *sep*) равно 24 пикселям.
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;&lt;/block&gt;
@@ -356,22 +312,22 @@
 
     [anchor:init_plug_available_puzzles_init]
 
-    <h5>Puzzle Blocks Available in the "init" Tab</h5>
+    <h5>Блоки пазла, доступные на вкладке "init"</h5>
 
     <p class="indented">
-        By default puzzle blocks only available in the *main* and
-        user-created tabs, but not in *init*. That's because the code generated by the *init* tab is
-        executed before a Verge3D application is loaded and fully
-        initialized. This means that puzzles intended to work with a
-        3d-scene, 3d-objects, materials, etc... are not suitable for
-        using inside *init* and can crash the application. However,
-        puzzles that don't require a 3d-scene to be available (e.g.
-        those that preload resources or set up the UI) shouldn't have such
-        problems and can be allowed in *init*.<br/><br/>
+        По умолчанию блоки пазла доступны только на вкладках *main* и на
+        созданных пользователем, но не на *init*. Это связано с тем, что код, генерируемый
+        вкладкой *init*, выполняется до загрузки и полной инициализации
+        приложения Verge3D. Это означает, что пазлы, предназначенные для работы
+        с 3d-сценой, 3d-объектами, материалами и т.д., не подходят для использования
+        внутри *init* и могут вызвать сбой приложения. Однако пазлы,
+        которые не требуют наличия 3d-сцены (например, те, которые предварительно
+        загружают ресурсы или настраивают пользовательский интерфейс) не должны иметь
+        таких проблем и могут быть разрешены в *init*.<br/><br/>
 
-        In order to make a puzzle appear in the *init* tab's toolbox you
-        need to set the *allow-init* attribute to *true* in the puzzle's *block*
-        element (this also works with *label* and *sep* elements):
+        Для того чтобы пазл появился на панели инструментов вкладки *init*,
+        вам необходимо установить для атрибута *allow-init* значение *true* в элементе *block*
+        пазлов (это также работает с элементами *label* и *sep*):
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;label text="My Awesome Plugin v1.0" allow-init="true"&gt;&lt;/label&gt;
@@ -383,27 +339,27 @@
 &lt;/category&gt;
         </code>
         <img src="files/puzzles/puzzles-plugins-allow-init.jpg" style="max-width: 523px"></br>
-        Note how the *block* and *label* elements without *allow-init* are not
-        displayed in the toolbox.
+        Обратите внимание, что элементы *block* и *label* без *allow-init* не отображаются
+        на панели инструментов.
     </p>
 
 
     [anchor:init_plug_default_input_field_values]
 
-    <h5>Default Input and Field Values</h5>
+    <h5>Значения ввода и полей по умолчанию</h5>
 
     <p class="indented">
-        If a puzzle block has block inputs (slots for connecting other
-        puzzle blocks) and/or field inputs (non-block UI elements such
-        as selectors, checkboxes, text fields, etc...), then you can
-        specify their placeholder blocks and/or default values. This
-        feature serves two purposes: it provides a hint for users on
-        what can be plugged into an input slot, and it also makes using
-        a puzzle block a bit more convenient.<br/><br/>
+        Если блок пазла имеет входы для блока (слоты для подключения других
+        блоков пазла) и/или поля ввода (неблочные элементы пользовательского
+        интерфейса, такие как селекторы, галочки, текстовые поля и т.д.), то вы можете
+        указать их блоки-заполнители и / или значения по умолчанию. Эта функция
+        служит двум целям: она даёт пользователям подсказку о том, что
+        можно вставить во входной слот, а также делает использование
+        пазла немного более удобным.<br/><br/>
 
-        Let's say that your puzzle block has an input named "myNumber".
-        Here's how you can add a placeholder block of type *math_number*
-        plugged into that slot:
+        Допустим, у вашего блока пазла есть вход с именем "myNumber".
+        Вот как вы можете добавить блок-заполнитель типа *math_number*
+        подключенный к этому слоту:
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;
@@ -413,20 +369,20 @@
         &lt;/block&gt;
 &lt;/category&gt;
         </code>
-        And here's what it will look like:<br/>
+        А вот как это будет выглядеть:<br/>
         <img src="files/puzzles/puzzles-plugins-default-value-input.jpg" style="max-width: 523px"><br/><br/>
 
-        A placeholder block plugged into an input slot can also be a *shadow*
-        block. *Shadow* blocks are basically the same as ordinary blocks
-        except they are automatically replaced with a block that you
-        insert into the corresponding input slot and they automatically
-        appear back when you remove that block from the slot. This makes
-        *shadow* blocks a bit easier to use than ordinary placeholder
-        blocks.<br/><br/>
+        Блок-заполнитель, вставленный во входной слот, также может быть *shadow*
+        блоком. Блоки *Shadow* в основном такие же, как и обычные блоки,
+        за исключением того, что они автоматически заменяются блоком, который вы
+        вставляете в соответствующий входной слот, и они автоматически
+        появляются обратно, когда вы удаляете этот блок из слота. Это делает
+        блоки *shadow* немного проще в использовании, чем обычные
+        блоки-заполнители.<br/><br/>
 
-        *Shadow* blocks are defined almost the same way as ordinary placeholder
-        blocks, the only difference is that the *block* element is replaced with
-        the similar *shadow* element:
+        Блоки *Shadow* определяются почти так же, как и обычные
+        блоки-заполнители, с той лишь разницей, что элемент *block* заменяется
+        аналогичным элементом *shadow*:
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;
@@ -436,13 +392,13 @@
         &lt;/block&gt;
 &lt;/category&gt;
         </code>
-        And it will look like this:<br/>
+        И это будет выглядеть следующим образом:<br/>
         <img src="files/puzzles/puzzles-plugins-default-value-input-shadow.jpg" style="max-width: 523px"><br/><br/>
 
-        Puzzle blocks can have statement inputs, which are inputs that usually
-        wrap a series of child puzzle blocks. Let's say that your puzzle block
-        has a statement input called "myStatement". Then you can add a couple
-        of placeholder blocks into that input as follows:
+        Блоки пазла могут иметь входные данные команд, которые обычно заключают в себе
+        серию дочерних блоков пазла. Предположим, что в вашем блоке пазла
+        есть ввод команд под названием "myStatement". Затем вы можете добавить
+        к этому входу пару блоков-заполнителей следующим образом:
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;
@@ -456,15 +412,15 @@
         &lt;/block&gt;
 &lt;/category&gt;
         </code>
-        The *statement* element used here references the "myStatement" input
-        via the *name* attribute. And it also has some placeholder blocks added
-        into the input. Also, the *next* element is used here for chaining a
-        series of placeholder blocks. The result of that setup is shown below:<br/>
+        Используемый здесь элемент *statement* ссылается на вход "myStatement" через
+        атрибут *name* attribute. Кроме того, в него добавлены некоторые
+        блоки-заполнители. Также здесь используется элемент *next* для цепочки
+        блоков-заполнителей. Результат этой настройки показан ниже:<br/>
         <img src="files/puzzles/puzzles-plugins-default-value-statement.jpg" style="max-width: 735px"><br/><br/>
 
-        If your puzzle block has a checkbox field named "myCheckbox",
-        then you can define its default state (*true* - enabled,
-        *false* - disabled) like this:
+        Если в вашем блоке пазле есть поле для галочки с именем "myCheckbox",
+        то вы можете задать его состояние по умолчанию (*true* - включен,
+        *false* - выключен) следующим образом:
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;
@@ -476,13 +432,13 @@
         <img src="files/puzzles/puzzles-plugins-default-dummy-input.jpg" style="max-width: 523px"><br/><br/>
 
         <span id="default_input_values_compound"></span>
-        Through using placeholder blocks and default field values you
-        can define complex compound puzzles akin to what you can add into
+        Используя блоки-заполнители и значения полей по умолчанию, вы
+        можете создавать сложные составные пазлы аналогичные тем, которые можно добавить в
         <a href="manual/ru/puzzles/Library.html#using_entries">the Puzzles Library</a>:
         <img src="files/puzzles/puzzles-plugins-compound-puzzle.jpg" style="max-width: 600px"><br/>
 
-        Code in *init.plug* for the complex puzzle setup on the picture above
-        can look like this:
+        Код в *init.plug* для сложного пазла на картинке выше
+        может выглядеть следующим образом:
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;
@@ -523,9 +479,10 @@
 
         <div class="indented">
             <p class="note">
-                Check out the <a href="manual/ru/puzzles/Plugins.html#puzzle-xml-tree">"Print Puzzle XML Tree"</a>
-                context menu option. It helps in finding out the XML structure (the
-                configuration of inputs and fields) of a puzzle block of interest.
+                Проверьте параметр контекстного меню 
+                <a href="manual/ru/puzzles/Plugins.html#puzzle-xml-tree">"Print Puzzle XML Tree".</a>
+                Это поможет найти XML структуру (конфигурацию
+                входов и полей) интересующего вас блока пазла.
             </p>
         </div>
     </p>
@@ -533,15 +490,15 @@
 
     [anchor:init_plug_toolbox_subcategories]
 
-    <h5>Toolbox Subcategories</h5>
+    <h5>Подкатегории панели интрументов</h5>
 
     <p class="indented">
-        A category in the Editor's toolbox can have subcategories, which
-        in their turn can also have subcategories, and so on... This
-        feature is useful if you want to organize your plugin's puzzles
-        into a tree-like structure.<br/><br/>
+        Категория в панели инструментов редактора может иметь подкатегории, которые,
+        в свою очередь, также могут иметь подкатегории, и так далее... Эта функция
+        полезна, если вы хотите организовать пазлы вашего плагина
+        в древовидную структуру.<br/><br/>
 
-        This can be achieved by using nested *category* elements:
+        Этого можно достичь с помощью встроенного элемента *category*:
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;&lt;/block&gt;
@@ -556,28 +513,28 @@
 &lt;/category&gt;
         </code>
         <img src="files/puzzles/puzzles-plugins-subcategories.jpg" style="max-width: 523px"><br/>
-        Any *category* can contain both *category* and *block* elements at the same
-        time (although it's not mandatory). That way it acts like a parent for
-        subcategories and also provides a selection of puzzle blocks.
+        Любая *category* может содержать одновременно элемент *category* и *block*
+        (хотя это не обязательно). Таким образом, она действует как
+        родитель для подкатегорий и также предоставляет выбор блоков пазла.
     </p>
 
 
     [anchor:init_plug_script]
 
-    <h4>Script</h4>
+    <h4>Скрипт</h4>
 
     <p>
-        The <b>&lt;script&gt;</b> element is an optional part of *init.plug*. It
-        can be used to add some initialization code for your puzzles. Sometimes
-        you might need to do heavy calculations and cache some data before any
-        of your puzzles can be used - that's where <b>&lt;script&gt;</b> comes
-        to rescue.
+        Элемент <b>&lt;script&gt;</b> является необязательной частью *init.plug*. Его
+        можно использовать для добавления кода инициализации для ваших пазлов. Иногда
+        вам может потребоваться выполнить тяжелые вычисления и кэшировать некоторые данные,
+        прежде чем можно будет использовать какой-либо из ваших пазлов, вот где на помощь приходит
+        <b>&lt;script&gt;</b>
     </p>
 
     <p>
-        If you define a *code()* function inside <b>&lt;script&gt;</b> it will be used to
-        generate the code that is executed once before any puzzles. The
-        *code()* function should return a string containing javascript code.
+        Если вы определите функцию *code()* внутри <b>&lt;script&gt;</b> она будет использоваться
+        для генерации кода, который выполняется один раз перед любым пазлом. Функция
+        *code()* должна возвращать строку, содержащую код javascript.
 
         <code>
     &lt;script&gt;
@@ -590,30 +547,30 @@
     </p>
 
     <p class="note">
-        The initialization code returned by the *code()* function is added into
-        the generated logic file only if the plugin's puzzles are actually used
-        in the application (added on a workspace and not being disabled).
+        Код инициализации, возвращаемый функцией *code()*, добавляется в сгенерированный файл
+        файл логики только в том случае, если пазлы плагина действительно используются
+        в приложении (добавлены на рабочее пространство и не отключены).
     </p>
 
 
     [anchor:block_file_format]
 
-    <h3>.block File Format</h3>
+    <h3>Формат файла .block</h3>
 
     <p>
-        Plugin files with the <b>.block</b> extension are used to define single
-        puzzle blocks, specifically, what a block can look like and the code
-        that it should generate if added to a workspace area. A plugin can have no
-        <b>.block</b> files at all. That can be useful if you want to create a
-        toolbox category with just <a href="manual/ru/puzzles/Plugins.html#available_puzzles_stock">stock</a>
-        puzzle blocks (even including <a href="manual/ru/puzzles/Plugins.html#default_input_values_compound">more complex block setups</a>).<br/><br/>
+        Файлы плагина с расширением <b>.block</b> используются для описания отдельных
+        блоков пазла, а именно: как может выглядеть блок и какой код
+        он должен генерировать при добавлении в рабочую область. Плагин может вообще
+        не иметь файлов <b>.block</b>. Это может быть полезно, если вы хотите создать
+        панель инструментов только с <a href="manual/ru/puzzles/Plugins.html#available_puzzles_stock">stock</a>
+        блоками пазла (даже включая <a href="manual/ru/puzzles/Plugins.html#default_input_values_compound">более сложные настройки блоков</a>).<br/><br/>
 
-        The name of a <b>.block</b> file is used to indicate which puzzle blocks
-        should be <a href="manual/ru/puzzles/Plugins.html#available_puzzles_plugin">included in the plugin's toolbox category</a>.
+        Имя файла <b>.block</b> используется для указания того, какие блоки пазла
+        должны быть <a href="manual/ru/puzzles/Plugins.html#available_puzzles_plugin">включены в категорию инструментов плагина</a>.
     </p>
 
     <p>
-        Here's a minimal example of a <b>.block</b> file:
+        Вот минимальный пример файла <b>.block</b>:
         <code>
 &lt;template color="green"&gt;
         &lt;dummy&gt;
@@ -627,31 +584,31 @@
     }
 &lt;/script&gt;
         </code>
-        Here we have a <b>&lt;template&gt;</b> element which defines the appearance
-        of the puzzle block. And also there is a <b>&lt;script&gt;</b> element
-        with a *code()* function inside it. The *code()* function returns a
-        string containing the code that will be generated in place of this
-        puzzle.<br/><br/>
+        Здесь у нас есть элемент <b>&lt;template&gt;</b>, который определяет внешний вид
+        блока пазла. А также есть элемент <b>&lt;script&gt;</b>, внутри которого
+        находится функция *code()*. Функция *code()* возвращает строку,
+        содержащую код, который будет сгенерирован на месте этого
+        пазла.<br/><br/>
 
-        So, based on the example above we can expect our simple puzzle block to
-        be green and to have a text label saying "myPuzzle":<br/>
+        Итак, исходя из приведенного выше примера, мы можем полагать, что наш
+        простой блок пазла будет зеленого цвета и будет иметь текстовую метку"myPuzzle":<br/>
         <img src="files/puzzles/puzzles-plugins-block-minimal-appearance.jpg" style="max-width: 523px"><br/><br/>
 
-        And if added to a workspace it should print the following message into
-        the browser console:<br/>
+        И если добавить его в рабочую область, он должен вывести следующее сообщение
+        в консоль браузера:<br/>
         <img src="files/puzzles/puzzles-plugins-block-minimal-console.jpg" style="max-width: 523px"><br/>
     </p>
 
 
     [anchor:block_file_template]
 
-    <h4>Block Template</h4>
+    <h4>Шаблон блока</h4>
 
     <p>
-        The appearance of a puzzle block can be defined in two ways: via the
-        <b>&lt;template&gt;</b> XML element and via the *template()* function. The
-        former variant is more simple and easy to use. For example, this is what
-        <b>&lt;template&gt;</b> of a typical puzzle can look like:
+        Внешний вид блока пазла можно задать двумя способами: через
+        <b>&lt;template&gt;</b> XML элемент и через функцию *template()*. Первый
+        вариант более прост и удобен в использовании. Например, вот как может
+        выглядеть <b>&lt;template&gt;</b> типичного пазла:
     </p>
 
     <code>
@@ -680,15 +637,15 @@
     </code>
 
     <p>
-        The other approach is to use the *template()* function. It's a function
-        that you can define inside the <b>&lt;script&gt;</b> element. It can
-        also be used to configure the puzzle appearance but this time through
-        the <a href="https://developers.google.com/blockly/reference/overview">Blockly JavaScript API</a>
-        rather than XML elements and attributes. It receives a *block* parameter,
-        which is an instance of <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a>.<br/><br/>
+        Другой подход заключается в использовании функции *template()*. Это функция,
+        которую вы можете определить внутри элемента <b>&lt;script&gt;</b>. Её также
+        можно использовать для настройки внешнего вида пазла, но на этот раз
+        через <a href="https://developers.google.com/blockly/reference/overview">Blockly JavaScript API</a>,
+        а не через элементы и атрибуты XML. Он получает параметр *block*,
+        который является копией <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a>.<br/><br/>
 
-        The same block as in the example above can be rewritten by using the
-        *template()* function as follows:
+        Тот же блок, что и в примере выше, можно переписать с помощью функции
+        *template()* следующим образом:
     </p>
 
     <code>
@@ -715,40 +672,40 @@ function code(block) {
     </code>
 
     <p>
-        This approach is more flexible but requires knowledge of the
-        corresponding APIs. It's especially useful if you need to do some
-        non-trivial setup that can't be achieved via the <b>&lt;template&gt;</b>
-        element. Moreover, you can use both <b>&lt;template&gt;</b> and *template()*
-        simultaneously.
+        Этот подход более гибкий, но требует знания
+        соответствующих APIs. Он особенно полезен, если вам нужно выполнить какую-то
+        нетривиальную настройку, которую невозможно осуществить с помощью элемента <b>&lt;template&gt;</b>.
+        Более того, вы можете использовать и <b>&lt;template&gt;</b> и *template()*.
+        одновременно.
     </p>
 
     <p class="note">
-        This section provides examples for both <b>&lt;template&gt;</b> (*XML*)
-        and *template()* (*JS*) variants.
+        В этом разделе приведены примеры как для <b>&lt;template&gt;</b> (*XML*)
+        так и для *template()* (*JS*).
     </p>
 
     <p class="note">
-        Please, note that this section is just a brief overview of how to create
-        a custom puzzle block. For more detailed information on general
-        customization check out the Google Blockly documentation about
-        <a href="https://developers.google.com/blockly/guides/create-custom-blocks/overview">custom blocks</a>
-        and <a href="https://developers.google.com/blockly/guides/create-custom-blocks/fields/overview">fields</a>.
+        Обратите внимание, что этот раздел - лишь краткий обзор того, как
+        создать пользовательский блок пазла. Для получения более подробной информации об общей
+        настройке, ознакомьтесь с документацией Google Blockly о
+        <a href="https://developers.google.com/blockly/guides/create-custom-blocks/overview">настраиваемых блоках</a>
+        и <a href="https://developers.google.com/blockly/guides/create-custom-blocks/fields/overview">полях</a>.
     </p>
 
 
     [anchor:block_file_template_block_color]
 
-    <h5>Block Color</h5>
+    <h5>Цвет блока</h5>
 
     <div class="indented">
 
-        <p>You can set block color to give your puzzles distinct appearance:</p>
+        <p>Вы можете установить цвет блока, чтобы придать пазлам особый вид:</p>
         <img src="files/puzzles/puzzles-plugins-template-color.png" class="width-clear border-gray">
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                Can be set via the *color* attribute:
+                Может быть задан с помощью атрибута *color*:
                 <code>
     &lt;template color="green"&gt;&lt;/template&gt;
                 </code>
@@ -756,7 +713,7 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                Can be set via <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setColour">block.setColor</a>:
+                Можно настроить с помощью <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setColour">block.setColor</a>:
                 <code>
     &lt;script&gt;
     function template(block) {
@@ -768,22 +725,22 @@ function code(block) {
         </v3d-tabs>
 
         <p>
-            Colors have to be in one of the formats described here:
-            <a href="manual/ru/puzzles/Plugins.html#color_formats">color formats</a>.
+            Цвета должны быть в одном из описанных здесь форматов:
+            <a href="manual/ru/puzzles/Plugins.html#color_formats">цветовой формат</a>.
         </p>
     </div>
 
 
     [anchor:block_file_template_block_tooltip]
 
-    <h5>Block Tooltip</h5>
+    <h5>Всплывающая подсказка блока</h5>
 
     <div class="indented">
         <p>
-            You can add a tooltip that appears when hovering above a block. The
-            tooltip is useful for providing a user with a simple description of
-            what the puzzle is intended for, how it works, what are the usage
-            tips, etc...
+            Можно добавить всплывающую подсказку, которая появляется при наведении курсора на блок.
+            Подсказка полезна для предоставления пользователю простого описания того,
+            для чего предназначен пазл, как он работает, какие есть советы
+            по использованию и т.д...
         </p>
 
         <img src="files/puzzles/puzzles-plugins-template-tooltip.png" class="width-clear border-gray">
@@ -791,7 +748,7 @@ function code(block) {
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                Can be set via the *tooltip* attribute:
+                Можно установить с помощью атрибута *tooltip*:
                 <code>
     &lt;template tooltip="This is my first puzzle!"&gt;&lt;/template&gt;
                 </code>
@@ -799,7 +756,7 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                Can be set via <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setTooltip">block.setTooltip</a>:
+                Можно настроить с помощью <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setTooltip">block.setTooltip</a>:
                 <code>
     &lt;script&gt;
     function template(block) {
@@ -814,15 +771,15 @@ function code(block) {
 
     [anchor:block_file_template_block_help_url]
 
-    <h5>Block Help URL</h5>
+    <h5>Блок URL справки</h5>
 
     <div class="indented">
 
         <p>
-            If the <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_tooltip">tooltip</a>
-            is not enough for documenting your puzzle you may also add a link to a
-            website with more thorough documentation. This link will be used for the
-            *Help* entry in the puzzle context menu (right click on a puzzle):
+            Если <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_tooltip">tooltip</a>
+            недостаточно для описания вашего пазла, вы также можете добавить ссылку
+            на сайт с более подробной документацией. Эта ссылка будет использоваться
+            для пункта *Help* в контекстном меню пазла (щелкните правой кнопкой мыши на пазле):
         </p>
 
         <img src="files/puzzles/puzzles-plugins-template-helpurl.png" class="width-clear border-gray">
@@ -830,7 +787,7 @@ function code(block) {
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                Can be set via the *help* attribute:
+                Может быть задан с помощью атрибута *help*:
                 <code>
     &lt;template help="https://www.soft8soft.com/"&gt;&lt;/template&gt;
                 </code>
@@ -838,7 +795,7 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                Can be set via <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setHelpUrl">block.setHelpUrl</a>:
+                Можно настроить с помощью <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setHelpUrl">block.setHelpUrl</a>:
                 <code>
     &lt;script&gt;
     function template(block) {
@@ -853,42 +810,42 @@ function code(block) {
 
     [anchor:block_file_template_block_adding_inputs]
 
-    <h5>Adding Inputs</h5>
+    <h5>Добавление входа</h5>
 
     <div class="indented">
         <p>
-            Puzzle blocks can contain input slots for plugging in other blocks.
-            Also they can have non-block UI elements such as checkboxes or text
-            fields. There are 3 different types of inputs: *value inputs*,
-            *statement inputs* and *dummy inputs*.
+            Блоки пазла могут содержать слоты ввода для подключения других блоков.
+            Также они могут содержать неблочные элементы пользовательского интерфейса,
+            такие как галочки или текстовые поля. Существует 3 различных типа входов:
+            *value inputs*,*statement inputs* и *dummy inputs*.
 
             <ul>
                 <li id="adding_inputs_value">
-                    *value inputs* - are input slots that can be used for
-                    plugging in blocks having a return value (an output connection),
-                    e.g. an input with some math blocks inside it - the math blocks
-                    calculate and return some value, which can be accessed by
-                    the parent block (the block containing the input slot)
+                    *value inputs* - входные слоты, которые можно использовать для
+                    подключения блоков, имеющих обратное значение (выходное соединение),
+                    например, вход с какими-либо математическими блоками. Внутри математического
+                    блока вычисляют и получают определенное значение, к которому может
+                    получить доступ родительский блок (блок, содержащий входной слот).
                 </li>
                 <li id="adding_inputs_statement">
-                    *statement inputs* - are inputs that can hold a group of
-                    blocks representing a series of consecutive actions, e.g.
-                    the <a href="manual/ru/puzzles/Logic.html#if_else">if-else</a>
-                    puzzle has exactly that type of input for grouping puzzle
-                    blocks under the "if" or "else" conditions
+                    *statement inputs* - это входы, которые могут содержать группу блоков,
+                    представляющих серию последовательных действий, например,
+                    пазл <a href="manual/ru/puzzles/Logic.html#if_else">if-else</a>
+                    имеет именно такой тип ввода для группы блоков пазла
+                    по условиям "true" или "false".
                 </li>
                 <li id="adding_inputs_dummy">
-                    *dummy inputs* - these are inputs suitable only for adding
-                    non-block UI elements like checkboxes, text fields, images,
-                    etc... See <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields">adding fields</a>
-                    for more info.
+                    *dummy inputs* - это входы, подходящие только для добавления неблочных
+                    элементов пользовательского интерфейса, таких как галочки, текстовые поля, изображения и т.д..
+                    Смотрите <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields">добавление полей</a>
+                    для получения дополнительной информации.
                 </li>
             </ul>
         </p>
 
         <p>
-            You can see the difference between those types of inputs on the
-            picture below:
+            Разницу между этими типами входов можно увидеть на 
+            рисунке ниже:
         </p>
 
         <img src="files/puzzles/puzzles-plugins-template-input-types.png" class="width-clear border-gray">
@@ -896,10 +853,10 @@ function code(block) {
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                Use the <b>&lt;value&gt;</b>, <b>&lt;statement&gt;</b> and
-                <b>&lt;dummy&gt;</b> elements to add inputs. *Value* and *statement*
-                inputs must have a name (use their *name* attribute for that).
-                *Dummy* inputs usually don't need names, they are merely containers for
+                Используйте элементы <b>&lt;value&gt;</b>, <b>&lt;statement&gt;</b> и
+                <b>&lt;dummy&gt;</b> для добавления входов. Входы *Value* и *statement*
+                должны иметь имя (для этого используйте их атрибут *name*). Входам
+                *Dummy* обычно не нужны имена, они являются просто областями для полей.
                 <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields">fields</a>.
                 <code>
     &lt;template&gt;
@@ -916,12 +873,13 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                Use the <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendValueInput">block.appendValueInput</a>,
+                Для добавления входов используйте способы
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendValueInput">block.appendValueInput</a>,
                 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendStatementInput">block.appendStatementInput</a>
-                and <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendDummyInput">block.appendDummyInput</a>
-                methods to add inputs. *Value* and *statement* inputs must be
-                named (via the *name* attribute). *Dummy* inputs usually don't
-                need names, they are merely containers for
+                и <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendDummyInput">block.appendDummyInput</a>.
+                Входы *Value* и *statement* должны иметь имя
+                (через атрибут *name*). Входы *Dummy* обычно не нуждаются в именах,
+                они являются просто контейнерами для
                 <a href="manual/ru/puzzles/Plugins.html#block_file_template_adding_fields">fields</a>.
                 <code>
     &lt;script&gt;
@@ -942,12 +900,12 @@ function code(block) {
 
     [anchor:block_file_template_arrangement_inputs]
 
-    <h5>Arrangement of Inputs</h5>
+    <h5>Расположение входов</h5>
 
     <div class="indented">
         <p>
-            Block inputs can be arranged either vertically (default) or
-            horizontally.
+            Входы блоков могут быть расположены вертикально (по умолчанию)
+            или горизонтально.
         </p>
 
         <img src="files/puzzles/puzzles-plugins-inputs-inline.png" class="width-clear border-gray">
@@ -955,9 +913,9 @@ function code(block) {
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                Can be set via the *inline* attribute, which can be either
-                *true* or *false*. *false* is for the vertical arrangement and
-                *true* is for the horizontal variant.
+                Может быть задан с помощью атрибута *inline*, который может быть либо
+                *true* либо *false*. *false*для вертикального расположения, а 
+                *true* - для горизонтального.
                 <code>
     &lt;template inline="true"&gt;&lt;/template&gt;
                 </code>
@@ -965,10 +923,10 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                Can be set via the <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setInputsInline">block.setInputsInline</a>
-                method. The method receives a parameter, which can be either
-                *true* or *false*. *false* is for the vertical arrangement and
-                *true* is for the horizontal variant.
+                Может быть установлен через <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setInputsInline">block.setInputsInline</a>
+                метод. Метод получает параметр, который может быть либо
+                *true* либо *false*. *false* - для вертикального расположения и
+                *true* - для горизонтального варианта.
                 <code>
     &lt;script&gt;
     function template(block) {
@@ -983,54 +941,55 @@ function code(block) {
 
     [anchor:block_file_template_adding_fields]
 
-    <h5>Adding Fields</h5>
+    <h5>Добавление полей</h5>
 
     <div class="indented">
         <p>
-            You can add such UI elements as text labels, checkboxes, drop-down lists,
-            text inputs and more into your puzzles. Those UI elements are called
-            "fields". They can be added to inputs of any type, but if you don't want
-            to additionally create input slots for puzzle blocks you should stick to
-            using <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy inputs</a>.
+            Вы можете добавить такие элементы пользовательского интерфейса, как
+            текстовые метки, галочки, выпадающие списки, текстовые вводы и многое другое в ваших пазлах.
+            Эти элементы пользовательского интерфейса называются "поля". Их можно добавлять к входам
+            любого типа, но если вы не хотите дополнительно создавать слоты ввода для блоков пазла,
+            вам следует придерживаться следующих правил использования 
+            <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy inputs</a>.
         </p>
 
         <p>
-            There are a couple of things that all fields have in common:
+            Есть несколько особенностей, которые объединяют все поля:
             <ul>
                 <li>
-                    The ability to specify an optional *name* parameter, which is
-                    often used for referencing the field in the
+                    Возможность указать дополнительное параметр *name*, который часто
+                    используется для ссылки на поле в функции
                     <a href="manual/ru/puzzles/Plugins.html#block_file_code">code()</a>
-                    function in order to obtain the field's value.
+                    для получения значения поля.
                 </li>
                 <li>
-                    The ability to provide an optional default value. Still, a
-                    default value specified in *init.plug*'s
-                    <a href="manual/ru/puzzles/Plugins.html#init_plug_default_input_field_values">category</a>
-                    always has a higher priority than the one defined in the
-                    puzzle template.
+                    Возможность предоставить дополнительное значение по умолчанию.
+                    Тем не менее, значение по умолчанию, указанное в *init.plug*'s
+                    <a href="manual/ru/puzzles/Plugins.html#init_plug_default_input_field_values">category</a>,
+                    всегда имеет более высокий приоритет, чем значение, указанное
+                    в шаблоне пазла.
                 </li>
             </ul>
         </p>
 
         <p>
-            Let's see how to add various fields to a puzzle.
+            Давайте посмотрим, как добавить различные поля в пазл.
         </p>
     </div>
 
     <ul>
         <li>
-            <p>label - a non-editable text field</p>
+            <p>label - нередактируемое текстовое поле</p>
 
             <img src="files/puzzles/puzzles-plugins-field-text-label.png" class="width-clear border-gray">
 
             <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
                 <div>
-                    Can be added via the <b>&lt;label&gt;</b> element nested inside a
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    Может быть добавлен с помощью элемента <b>&lt;label&gt;</b>, вложенного в элемент
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">заглушка</a>,
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">значение</a>
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">оператор</a>.
                     <code>
     &lt;template&gt;
         &lt;dummy&gt;
@@ -1042,11 +1001,12 @@ function code(block) {
 
                 <label>JS</label>
                 <div>
-                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
-                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldLabel">Blockly.FieldLabel</a>
-                    to a <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    Может быть добавлен через метод 
+                    <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    и <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldLabel">Blockly.FieldLabel</a>
+                    к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">заглушка</a>,
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">значение</a>
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">оператор</a>.
                     <code>
     &lt;script&gt;
     function template(block) {
@@ -1060,17 +1020,17 @@ function code(block) {
         </li>
 
         <li>
-            <p>text - an editable text field</p>
+            <p>text - редактируемое текстовое поле</p>
 
             <img src="files/puzzles/puzzles-plugins-field-text.png" class="width-clear border-gray">
 
             <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
                 <div>
-                    Can be added via the <b>&lt;text&gt;</b> element nested inside a
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    Может быть добавлен с помощью элемента <b>&lt;text&gt;</b> вложенного в элемент
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">заглушка</a>,
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">значение</a>
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">оператор</a>.
                     <code>
     &lt;template&gt;
         &lt;dummy&gt;
@@ -1082,11 +1042,12 @@ function code(block) {
 
                 <label>JS</label>
                 <div>
-                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
-                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldTextInput">Blockly.FieldTextInput</a>
-                    to a <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    Может быть добавлен через метод 
+                    <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    и <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldTextInput">Blockly.FieldTextInput</a>
+                    к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">заглушка</a>,
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">значение</a>
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">оператор</a>.
                     <code>
     &lt;script&gt;
     function template(block) {
@@ -1100,17 +1061,17 @@ function code(block) {
         </li>
 
         <li>
-            <p>multiline text - an editable multiline text field</p>
+            <p>multiline text - редактируемое многострочное текстовое поле</p>
 
             <img src="files/puzzles/puzzles-plugins-field-text-multiline.png" class="width-clear border-gray">
 
             <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
                 <div>
-                    Can be added via the <b>&lt;multiline&gt;</b> element nested inside a
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    Может быть добавлен с помощью элемента <b>&lt;multiline&gt;</b> вложенного в элемент
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">заглушка</a>,
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">значение</a>
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">оператор</a>.
                     <code>
     &lt;template&gt;
         &lt;dummy&gt;
@@ -1122,11 +1083,12 @@ function code(block) {
 
                 <label>JS</label>
                 <div>
-                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
-                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldMultilineInput">Blockly.FieldMultilineInput</a>
-                    to a <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
-                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    Может быть добавлен через метод
+                    <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    м <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldMultilineInput">Blockly.FieldMultilineInput</a>
+                    к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">заглушка</a>,
+                    <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">значение</a>
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">оператор</a>.
                     <code>
     &lt;script&gt;
     function template(block) {
@@ -1140,17 +1102,17 @@ function code(block) {
         </li>
 
         <li>
-            <p>number - an editable field for numeric values</p>
+            <p>number - редактируемое поле для числовых значений</p>
 
             <img src="files/puzzles/puzzles-plugins-field-number.png" class="width-clear border-gray">
 
             <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
                 <div>
-                    Can be added via the <b>&lt;number&gt;</b> element nested inside a
+                    Может быть добавлено через <b>&lt;number&gt;</b> элемент, вложенный внутрь
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
                     <code>
     &lt;template&gt;
         &lt;dummy&gt;
@@ -1162,11 +1124,11 @@ function code(block) {
 
                 <label>JS</label>
                 <div>
-                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
-                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldNumber">Blockly.FieldNumber</a>
-                    to a <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    Может быть добавлено через <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    метод и <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldNumber">Blockly.FieldNumber</a>
+                    к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
                     <code>
     &lt;script&gt;
     function template(block) {
@@ -1180,17 +1142,17 @@ function code(block) {
         </li>
 
         <li>
-            <p>angle - an editable field for numeric values representing angles (in degrees)</p>
+            <p>angle - редактируемое поле для числовых значений, представляющих углы (в градусах)</p>
 
             <img src="files/puzzles/puzzles-plugins-field-number-angle.png" class="width-clear border-gray">
 
             <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
                 <div>
-                    Can be added via the <b>&lt;angle&gt;</b> element nested inside a
+                    Может быть добавлено через <b>&lt;angle&gt;</b> элемент, вложенный внутрь
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
                     <code>
     &lt;template&gt;
         &lt;dummy&gt;
@@ -1202,11 +1164,11 @@ function code(block) {
 
                 <label>JS</label>
                 <div>
-                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
-                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldAngle">Blockly.FieldAngle</a>
-                    to a <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    Может быть добавлено через <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    метод и <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldAngle">Blockly.FieldAngle</a>
+                    к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
                     <code>
     &lt;script&gt;
     function template(block) {
@@ -1220,19 +1182,18 @@ function code(block) {
         </li>
 
         <li id="block_file_template_adding_fields_checkbox">
-            <p>checkbox - a typical checkbox field</p>
+            <p>checkbox - типичное поле с галочкой</p>
 
             <img src="files/puzzles/puzzles-plugins-field-checkbox.png" class="width-clear border-gray">
 
             <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
                 <div>
-                    Can be added via the <b>&lt;checkbox&gt;</b> element nested inside a
+                    Может быть добавлено через <b>&lt;checkbox&gt;</b> элемент, вложенный внутрь
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
-                    The default checkbox state should be set to either *true* or
-                    *false*.
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
+                    Состояние флажка по умолчанию должно быть установлено в *true* или *false*.
                     <code>
     &lt;template&gt;
         &lt;dummy&gt;
@@ -1244,13 +1205,12 @@ function code(block) {
 
                 <label>JS</label>
                 <div>
-                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
-                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldCheckbox">Blockly.FieldCheckbox</a>
-                    to a <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    Может быть добавлено через <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    метод и <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldCheckbox">Blockly.FieldCheckbox</a>
+                    к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
-                    The default checkbox state is passed as a parameter to
-                    *Blockly.FieldCheckbox* and can be either *true* or *false*.
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
+                    Состояние флажка по умолчанию передается в качестве параметра в *Blockly.FieldCheckbox* и может быть либо *true*, либо *false*.
                     <code>
     &lt;script&gt;
     function template(block) {
@@ -1264,7 +1224,7 @@ function code(block) {
         </li>
 
         <li id="block_file_template_adding_fields_dropdown">
-            <p>dropdown - a list of values to select from</p>
+            <p>dropdown - список значений для выбора</p>
 
             <img src="files/puzzles/puzzles-plugins-field-dropdown.png" class="width-clear border-gray">
 
@@ -1272,24 +1232,24 @@ function code(block) {
                 <label>XML</label>
                 <div>
                     <p>
-                        Can be added via the <b>&lt;dropdown&gt;</b> element nested inside a
+                        Может быть добавлено через <b>&lt;dropdown&gt;</b> элемент, вложенный внутрь
                         <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                         <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                        or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                        и <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
                     </p>
                     <p>
-                        To create the options list add <b>&lt;option&gt;</b>
-                        elements inside <b>&lt;dropdown&gt;</b>. All
-                        <b>&lt;option&gt;</b> elements must have their *name*
-                        attribute set to a unique identifier (something that
-                        would be more suitable for using in the code, e.g.
-                        COLOR_GREEN). The text contained between the starting
-                        and closing <b>&lt;option&gt;</b> tags is used as a label
-                        displayed in the dropdown widget for that option.
+                        Для создания списка опций добавьте элементы <b>&lt;option&gt;</b>
+                        внутри <b>&lt;dropdown&gt;</b>. У всех элементов
+                        <b>&lt;option&gt;</b> атрибут *name* должен быть установлен на
+                        уникальный идентификатор (что-то, что будет более подходящим
+                        wдля использования в коде, например COLOR_GREEN).
+                        Текст, содержащийся между начальным и конечным тегами
+                        <b>&lt;option&gt;</b>, используется в качестве метки, 
+                        отображаемой в выпадающем виджете для данной опции.
                     </p>
                     <p>
-                        The default selected option can be set by setting an
-                        option's *default* attribute to *true*.
+                        Выбранный по умолчанию параметр можно установить, задав атрибуту
+                        *default* параметра значение *true*.
                     </p>
                     <code>
     &lt;template&gt;
@@ -1307,26 +1267,26 @@ function code(block) {
                 <label>JS</label>
                 <div>
                     <p>
-                        Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
-                        method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldDropdown">Blockly.FieldDropdown</a>
-                        to a <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                        Может быть добавлено через <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                        метод и <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldDropdown">Blockly.FieldDropdown</a>
+                        к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                         <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                        or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                        или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
                     </p>
                     <p>
-                        The first parameter of *Blockly.FieldDropdown* can be an
-                        array of available options. Each option in its turn is also
-                        an array of 2 elements: a text for displaying in the UI (human
-                        friendly text denoting what the option is about) and a unique
-                        identifier (something that would be more suitable for using in the
+                        Первым параметром *Blockly.FieldDropdown* может быть массив доступных опций.
+                        Каждая опция, в свою очередь, также является массивом из 2 элементов:
+                        текст для отображения в UI интерфейсе in the UI (человеческий дружественный текст,
+                        обозначающий, о чем данная опция) и уникальный идентификатор (то, что было бы
+                        более подходящим для использования в коде, например, 
                         code, e.g. COLOR_GREEN).
                     </p>
                     <p>
-                        The default selected option can be set by calling the
-                        <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setValue">setValue</a>
-                        method. To specify which should be the default one
-                        simply pass the option's unique identifier as a parameter
-                        into *setValue*.
+                        Выбранную по умолчанию опцию можно установить, выбрав метод
+                        <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setValue">setValue</a>.
+                        TЧтобы указать, какая опция должна быть выбрана
+                        по умолчанию, просто введите уникальный идентификатор опции в качестве
+                        параметра в *setValue*.
                     </p>
                     <code>
     &lt;script&gt;
@@ -1351,17 +1311,17 @@ function code(block) {
         </li>
 
         <li>
-            <p>color picker - a color picker widget</p>
+            <p>color picker - виджет для выбора цвета</p>
 
             <img src="files/puzzles/puzzles-plugins-field-color.png" class="width-clear border-gray">
 
             <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
                 <div>
-                    Can be added via the <b>&lt;color&gt;</b> element nested inside a
+                    Может быть добавлено через <b>&lt;color&gt;</b> элемент, вложенный внутрь
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
                     <code>
     &lt;template&gt;
         &lt;dummy&gt;
@@ -1373,11 +1333,11 @@ function code(block) {
 
                 <label>JS</label>
                 <div>
-                    Can be added via the <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
-                    method and <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldColour">Blockly.FieldColor</a>
-                    to a <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
+                    Может быть добавлено через <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a>
+                    метод и <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldColour">Blockly.FieldColor</a>
+                    к <a href="manual/ru/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>,
                     <a href="manual/ru/puzzles/Plugins.html#adding_inputs_value">value</a>
-                    or <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a> input.
+                    или <a href="manual/ru/puzzles/Plugins.html#adding_inputs_statement">statement</a>.
                     <code>
     &lt;script&gt;
     function template(block) {
@@ -1394,17 +1354,17 @@ function code(block) {
 
     [anchor:block_file_template_field_alignment]
 
-    <h5>Field Alignment</h5>
+    <h5>Выравнивание полей</h5>
 
     <div class="indented">
         <p>
 
-            Field elements in a puzzle block always belong to a particular
-            input slot. Be it a single field or multiple fields per input, they
-            are always rendered following a certain layout. One thing that can
-            be changed about that is how fields are positioned inside an input,
-            specifically which side they are aligned. You can make them align
-            left (default), right and center.
+            Элементы поля в блоке пазла всегда принадлежат определенному слоту входа.
+            Будь то одно поле или несколько полей на вход, они всегда отображаются
+            в соответствии с определенным расположением. Одно, что можно изменить - это
+            расположение полей внутри входа, в частности, с какой стороны они
+            выравниваются. Их можно выровнять слева (по умолчанию),
+            справа и по центру.
         </p>
 
         <img src="files/puzzles/puzzles-plugins-field-alignment.png" class="width-clear border-gray">
@@ -1412,9 +1372,9 @@ function code(block) {
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
             <div>
-                To change the field alignment for a certain input use the *align*
-                attribute on the corresponding <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_adding_inputs">input element</a>.
-                This attribute's valid values are: *left*, *center* and *right*.
+                Чтобы изменить выравнивание поля для определенного ввода, используйте атрибут *align*
+                у соответствующего <a href="manual/ru/puzzles/Plugins.html#block_file_template_block_adding_inputs">input element</a>.
+                Действующими значениями этого атрибута являются: *left*, *center* и *right*.
                 <code>
     &lt;template&gt;
         &lt;dummy align="left"&gt;&lt;/dummy&gt;
@@ -1426,10 +1386,10 @@ function code(block) {
 
             <label>JS</label>
             <div>
-                To change the field alignment for a certain input use the
-                <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setAlign">setAlign</a> method.
-                Its first parameter should be *Blockly.ALIGN_LEFT*,
-                *Blockly.ALIGN_CENTER* or *Blockly.ALIGN_RIGHT*.
+                Чтобы изменить выравнивание поля для определенного ввода, используйте метод
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setAlign">setAlign</a>.
+                Его первый параметр должен быть  *Blockly.ALIGN_LEFT*,
+                *Blockly.ALIGN_CENTER* или *Blockly.ALIGN_RIGHT*.
                 <code>
     &lt;script&gt;
     function template(block) {
@@ -1451,7 +1411,7 @@ function code(block) {
 
     [anchor:block_file_template_block_connections]
 
-    <h5>Block Connections</h5>
+    <h5>Блочные соединения</h5>
 
     <div class="indented">
         <p>

@@ -9,58 +9,56 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">Class representing a 4D [link:https://en.wikipedia.org/wiki/Vector_space vector].
+    <p class="desc">Класс, представляющий четырехмерный  [link:https://en.wikipedia.org/wiki/Vector_space вектор].
 
-    A 4D vector is an ordered quadruplet of numbers (labeled x, y, z, and w), which can be used to
-    represent a number of things, such as:
+      Четырехмерный вектор - это упорядоченная четверка чисел (обозначенных x, y, z и w), которая может быть использована для представления ряда вещей, таких как:
     </p>
 
     <ul>
       <li>
-        A point in 4D space.
+        Точка в четырехмерном пространстве.
       </li>
       <li>
-        A direction and length in 4D space. In Verge3D the length will always be the
-        [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance]
-        (straight-line distance) from (0, 0, 0, 0) to (x, y, z, w) and the direction is also
-        measured from (0, 0, 0, 0) towards (x, y, z, w).
+        Направление и длина в четырехмерном пространстве. В Verge3D длина всегда будет равна
+        [link:https://en.wikipedia.org/wiki/Euclidean_distance Евклидово расстояние]
+        (расстояние по прямой) от (0, 0, 0, 0) до (x, y, z, w), а направление также измеряется от (0, 0, 0, 0) в сторону (x, y, z, w).
       </li>
       <li>
-        Any arbitrary ordered quadruplet of numbers.
+        Любая произвольная упорядоченная четверка чисел.
       </li>
     </ul>
 
     <p>
-    There are other things a 4D vector can be used to represent, however these are the most common uses in Verge3D.
+      Есть и другие вещи, для представления которых можно использовать 4D-вектор, однако это самые распространенные варианты использования в Verge3D.
     </p>
 
 
-    <h2>Code Example</h2>
+    <h2>Пример Кода</h2>
 
     <code>
     const a = new v3d.Vector4(0, 1, 0, 0);
 
-    //no arguments; will be initialised to (0, 0, 0, 1)
+    //без аргументов; инициализируется в (0, 0, 0, 0, 1)
     const b = new v3d.Vector4();
 
     const d = a.dot(b);
     </code>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:Float x], [param:Float y], [param:Float z], [param:Float w])</h3>
     <p>
-    [page:Float x] - the x value of this vector. Default is *0*.<br />
-    [page:Float y] -  the y value of this vector. Default is *0*.<br />
-    [page:Float z] - the z value of this vector. Default is *0*.<br />
-    [page:Float w] - the w value of this vector. Default is *1*.<br /><br />
+    [page:Float x] - значение x этого вектора. По умолчанию *0*.<br />
+    [page:Float y] - значение y этого вектора. По умолчанию *0*.<br />
+    [page:Float z] - значение z этого вектора. По умолчанию *0*.<br />
+    [page:Float w] - значение w этого вектора. По умолчанию *0*.<br /><br />
 
-    Creates a new [name].
+    Создает новый [name].
     </p>
 
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Float x]</h3>
 
@@ -71,260 +69,246 @@
     <h3>[property:Float w]</h3>
 
     <h3>[property:Float width]</h3>
-    <p>Alias for [page:.z z].</p>
+    <p>Псевдоним для [page:.z z].</p>
 
     <h3>[property:Float height]</h3>
-    <p>Alias for [page:.w w].</p>
+    <p>Псевдоним для  [page:.w w].</p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:this add]([param:Vector4 v])</h3>
-    <p>Adds [page:Vector4 v] to this vector.</p>
+    <p>Добавляет [page:Vector4 v] к данному вектору.</p>
 
     <h3>[method:this addScalar]([param:Float s])</h3>
-    <p>Adds the scalar value s to this vector's [page:.x x], [page:.y y], [page:.z z] and [page:.w w] values.</p>
+    <p>Добавляет скалярное значение s к значениям [page:.x x], [page:.y y], [page:.z z] и [page:.w w] этого вектора.</p>
 
     <h3>[method:this addScaledVector]([param:Vector4 v], [param:Float s])</h3>
-    <p>Adds the multiple of [page:Vector4 v] and [page:Float s] to this vector.</p>
+    <p>Добавляет кратное [page:Vector4 v] и [page:Float s] к данному вектору.</p>
 
     <h3>[method:this addVectors]([param:Vector4 a], [param:Vector4 b])</h3>
-    <p>Sets this vector to [page:Vector4 a] + [page:Vector4 b].</p>
+    <p>Устанавливает этот вектор в [page:Vector4 a] + [page:Vector4 b]..</p>
 
     <h3>[method:this applyMatrix4]([param:Matrix4 m])</h3>
     <p>
-    Multiplies this vector by 4 x 4 [page:Matrix4 m].
+      Умножает данный вектор на 4 x 4 [page:Matrix4 m].
     </p>
 
     <h3>[method:this ceil]()</h3>
     <p>
-    The [page:.x x], [page:.y y], [page:.z z] and [page:.w w] components of this vector are rounded up to the nearest integer value.
+      Компоненты [page:.x x], [page:.y y], [page:.z z] и [page:.w w] этого вектора округляются до ближайшего целого значения.
     </p>
 
     <h3>[method:this clamp]([param:Vector4 min], [param:Vector4 max])</h3>
     <p>
-    [page:Vector4 min] - the minimum [page:.x x], [page:.y y], [page:.z z] and [page:.w w] values.<br />
-    [page:Vector4 max] - the maximum [page:.x x], [page:.y y], [page:.z z] and [page:.w w] values in the desired range<br /><br />
+    [page:Vector4 min] - минимальные значения [page:.x x], [page:.y y], [page:.z z] и [page:.w w].<br />
+    [page:Vector4 max] - максимальные значения [page:.x x], [page:.y y], [page:.z z] и [page:.w w] в нужном диапазоне<br /><br />
 
-    If this vector's x, y, z or w value is greater than the max vector's x, y, z or w value, it is replaced by the corresponding value. <br /><br />
-    If this vector's x, y, z or w value is less than the min vector's x, y, z or w value, it is replaced by the corresponding value.
+    Если значение x, y, z или w этого вектора больше, чем значение x, y, z или w вектора max, оно заменяется соответствующим значением. <br /><br />
+    Если значение x, y, z или w этого вектора меньше, чем значение x, y, z или w вектора min, оно заменяется соответствующим значением.
     </p>
 
     <h3>[method:this clampLength]([param:Float min], [param:Float max])</h3>
     <p>
-    [page:Float min] - the minimum value the length will be clamped to <br />
-    [page:Float max] - the maximum value the length will be clamped to<br /><br />
+    [page:Float min] - минимальное значение, до которого будет зажиматься длина <br />
+    [page:Float max] - максимальное значение, до которого будет зажиматься длина<br /><br />
 
-    If this vector's length is greater than the max value, it is replaced by the max value. <br /><br />
-    If this vector's length is less than the min value, it is replaced by the min value.
+    Если длина этого вектора больше значения max, то он заменяется значением max. <br /><br />
+    Если длина этого вектора меньше минимального значения, он заменяется минимальным значением.
     </p>
 
     <h3>[method:this clampScalar]([param:Float min], [param:Float max])</h3>
     <p>
-    [page:Float min] - the minimum value the components will be clamped to <br />
-    [page:Float max] - the maximum value the components will be clamped to<br /><br />
+    [page:Float min] - минимальное значение, до которого будут зажиматься компоненты <br />
+    [page:Float max] - максимальное значение, на которое будут зажиматься компоненты<br /><br />
 
-    If this vector's x, y, z or w values are greater than the max value, they are replaced by the max value. <br /><br />
-    If this vector's x, y, z or w values are less than the min value, they are replaced by the min value.
+    Если значения x, y, z или w этого вектора больше максимального значения, они заменяются максимальным значением. <br /><br />
+    Если значения x, y, z или w этого вектора меньше минимального значения, они заменяются минимальным значением.
     </p>
 
     <h3>[method:Vector4 clone]()</h3>
     <p>
-    Returns a new Vector4 with the same [page:.x x], [page:.y y], [page:.z z] and [page:.w w] values as this one.
+      Возвращает новый Vector4 с теми же значениями [page:.x x], [page:.y y], [page:.z z] и [page:.w w], что и данный.
     </p>
 
     <h3>[method:this copy]([param:Vector4 v])</h3>
     <p>
-      Copies the values of the passed Vector4's [page:.x x], [page:.y y], [page:.z z] and [page:.w w]
-      properties to this Vector4.
+      Копирует значения свойств [page:.x x], [page:.y y], [page:.z z] и [page:.w w] переданного Vector4 в этот Vector4.
     </p>
 
     <h3>[method:this divideScalar]([param:Float s])</h3>
     <p>
-    Divides this vector by scalar [page:Float s].<br />
-    Sets vector to *(0, 0, 0, 0)* if *[page:Float s] = 0*.
+      Делит данный вектор на скаляр [page:Float s].<br />
+      Устанавливает вектор в *(0, 0, 0, 0, 0)*, если *[page:Float s] = 0*.
     </p>
 
     <h3>[method:Float dot]([param:Vector4 v])</h3>
     <p>
-    Calculates the [link:https://en.wikipedia.org/wiki/Dot_product dot product] of this
-    vector and [page:Vector4 v].
+      Вычисляет [link:https://en.wikipedia.org/wiki/Dot_product скалярное произведение] данного вектора и [page:Vector4 v].
     </p>
 
     <h3>[method:Boolean equals]([param:Vector4 v])</h3>
-    <p>Checks for strict equality of this vector and [page:Vector4 v].</p>
+    <p>Проверяет строгое равенство данного вектора и [page:Vector4 v].</p>
 
     <h3>[method:this floor]()</h3>
-    <p>The components of this vector are rounded down to the nearest integer value.</p>
+    <p>Компоненты этого вектора округляются до ближайшего целого значения.</p>
 
     <h3>[method:this fromArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - the source array.<br />
-    [page:Integer offset] - (optional) offset into the array. Default is 0.<br /><br />
+    [page:Array array] - исходный массив.<br />
+    [page:Integer offset] - (необязательно) смещение в массиве. По умолчанию равно 0.<br /><br />
 
-    Sets this vector's [page:.x x] value to be array[offset + 0], [page:.y y] value to be array[offset + 1]
-    [page:.z z] value to be array[offset + 2] and [page:.w w] value to be array[offset + 3].
+    Устанавливает значение [page:.x x] этого вектора в массив[offset + 0], [page:.y y] в массив[offset + 1] [page:.z z] в массив[offset + 2] и [page:.w w] в массив[offset + 3].
     </p>
 
     <h3>[method:this fromBufferAttribute]([param:BufferAttribute attribute], [param:Integer index])</h3>
     <p>
-    [page:BufferAttribute attribute] - the source attribute.<br />
-    [page:Integer index] - index in the attribute.<br /><br />
+    [page:BufferAttribute attribute] - атрибут источника.<br />
+    [page:Integer index] - индекс в атрибуте.<br /><br />
 
-    Sets this vector's [page:.x x], [page:.y y], [page:.z z] and [page:.w w] values from the [page:BufferAttribute attribute].
+    Устанавливает значения [page:.x x], [page:.y y], [page:.z z] и [page:.w w] этого вектора из атрибута [page:BufferAttribute].
     </p>
 
     <h3>[method:Float getComponent]([param:Integer index])</h3>
     <p>
-    [page:Integer index] - 0, 1, 2 or 3.<br /><br />
+    [page:Integer index] - 0, 1, 2 или 3.<br /><br />
 
-    If index equals 0 returns the [page:.x x] value. <br />
-    If index equals 1 returns the [page:.y y] value. <br />
-    If index equals 2 returns the [page:.z z] value.<br />
-    If index equals 3 returns the [page:.w w] value.
+    Если индекс равен 0, возвращается значение [page:.x x]. <br />
+    Если индекс равен 1, возвращается значение [page:.x x]. <br />
+    Если индекс равен 2, возвращается значение [page:.x x].<br />
+    Если индекс равен 3, возвращается значение [page:.x x].
     </p>
 
     <h3>[method:Float length]()</h3>
-    <p>Computes the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length]
-    (straight-line length) from (0, 0, 0, 0) to (x, y, z, w).</p>
+    <p>Вычисляет [link:https://en.wikipedia.org/wiki/Euclidean_distance Евклидову длину] (длину прямой линии) от (0, 0, 0, 0, 0) до (x, y, z, w).</p>
 
     <h3>[method:Float manhattanLength]()</h3>
     <p>
-    Computes the [link:http://en.wikipedia.org/wiki/Taxicab_geometry Manhattan length] of this vector.
+      Вычисляет [link:http://en.wikipedia.org/wiki/Taxicab_geometry расстояние городских кварталов] этого вектора.
     </p>
 
     <h3>[method:Float lengthSq]()</h3>
     <p>
-    Computes the square of the [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean length]
-    (straight-line length) from (0, 0, 0, 0) to (x, y, z, w). If you are   comparing the lengths of
-    vectors, you should compare the length squared instead as it is slightly more efficient to calculate.
+      Вычисляет квадрат [link:https://en.wikipedia.org/wiki/Euclidean_distance Евклидовой длины] (длины прямой) от (0, 0, 0, 0, 0) до (x, y, z, w). Если вы сравниваете длины векторов, то вместо этого следует сравнивать квадрат длины, так как он вычисляется немного эффективнее.
     </p>
 
     <h3>[method:this lerp]([param:Vector4 v], [param:Float alpha])</h3>
     <p>
-    [page:Vector4 v] - [page:Vector4] to interpolate towards.<br />
-    [page:Float alpha] - interpolation factor, typically in the closed interval [0, 1].<br /><br />
+    [page:Vector4 v] - [page:Vector4] для интерполяции в направлении.<br />
+    [page:Float alpha] - коэффициент интерполяции, обычно в замкнутом интервале [0, 1].<br /><br />
 
-    Linearly interpolates between this vector and [page:Vector4 v], where alpha is the
-    percent distance along the line - alpha = 0 will be this vector, and alpha = 1 will be [page:Vector4 v].
+    Линейно интерполирует между этим вектором и [page:Vector4 v], где alpha - процентное расстояние вдоль линии - alpha = 0 будет этот вектор, а alpha = 1 будет [page:Vector4 v].
     </p>
 
     <h3>[method:this lerpVectors]([param:Vector4 v1], [param:Vector4 v2], [param:Float alpha])</h3>
     <p>
-    [page:Vector4 v1] - the starting [page:Vector4].<br />
-    [page:Vector4 v2] - [page:Vector4] to interpolate towards.<br />
-    [page:Float alpha] - interpolation factor, typically in the closed interval [0, 1].<br /><br />
+    [page:Vector4 v1] - начальный [page:Vector4].<br />
+    [page:Vector4 v2] - [page:Vector4] для интерполяции в направлении.<br />
+    [page:Float alpha] - коэффициент интерполяции, обычно в замкнутом интервале [0, 1].<br /><br />
 
-    Sets this vector to be the vector linearly interpolated between [page:Vector4 v1] and
-    [page:Vector4 v2] where alpha is the percent distance along the line connecting the two vectors
-    - alpha = 0 will be [page:Vector4 v1], and alpha = 1 will be [page:Vector4 v2].
+    Устанавливает этот вектор как вектор, линейно интерполированный между [page:Vector4 v1] и [page:Vector4 v2], где alpha - процентное расстояние вдоль линии, соединяющей два вектора - alpha = 0 будет [page:Vector4 v1], а alpha = 1 будет [page:Vector4 v2].
     </p>
 
     <h3>[method:this negate]()</h3>
-    <p>Inverts this vector - i.e. sets x = -x, y = -y, z = -z and w = -w.</p>
+    <p>Инвертирует этот вектор - то есть устанавливает x = -x, y = -y, z = -z и w = -w.</p>
 
     <h3>[method:this normalize]()</h3>
     <p>
-    Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction
-    as this one, but [page:.length length] 1.
+      Преобразует этот вектор в [link:https://en.wikipedia.org/wiki/Unit_vector единичный вектор] - то есть устанавливает его равным вектору с тем же направлением, что и этот, но [page:.length length] 1.
     </p>
 
     <h3>[method:this max]([param:Vector4 v])</h3>
     <p>
-    If this vector's x, y, z or w value is less than [page:Vector4 v]'s x, y, z or w value, replace
-    that value with the corresponding max value.
+      Если значение x, y, z или w этого вектора меньше, чем значение x, y, z или w [page:Vector4 v], замените это значение соответствующим значением max.
     </p>
 
     <h3>[method:this min]([param:Vector4 v])</h3>
     <p>
-    If this vector's x, y, z or w value is greater than [page:Vector4 v]'s x, y, z or w value, replace
-    that value with the corresponding min value.
+      Если значение x, y, z или w этого вектора больше, чем значение x, y, z или w [page:Vector4 v], замените это значение соответствующим значением min.
     </p>
 
     <h3>[method:this multiplyScalar]([param:Float s])</h3>
-    <p>Multiplies this vector by scalar [page:Float s].</p>
+    <p>Умножает данный вектор на скаляр [page:Float s]..</p>
 
     <h3>[method:this round]()</h3>
-    <p>The components of this vector are rounded to the nearest integer value.</p>
+    <p>Компоненты этого вектора округляются до ближайшего целого значения.</p>
 
     <h3>[method:this roundToZero]()</h3>
     <p>
-    The components of this vector are rounded towards zero (up if negative, down if positive) to an integer value.
+      Компоненты этого вектора округляются в сторону нуля (вверх, если отрицательные, вниз, если положительные) до целого значения.
     </p>
 
     <h3>[method:this set]([param:Float x], [param:Float y], [param:Float z], [param:Float w])</h3>
-    <p>Sets the [page:.x x], [page:.y y], [page:.z z] and [page:.w w] components of this vector.</p>
+    <p>Задает компоненты [page:.x x], [page:.y y], [page:.z z] и [page:.w w] этого вектора.</p>
 
     <h3>[method:this setAxisAngleFromQuaternion]([param:Quaterion q])</h3>
     <p>
-      [page:Quaterion q] - a normalized [page:Quaterion]<br /><br />
+      [page:Quaterion q] - нормализованный [page:Quaterion].<br /><br />
 
-      Sets the [page:.x x], [page:.y y] and [page:.z z] components of this vector to the
-      quaternion's axis and [page:.w w] to the angle.
+      Устанавливает компоненты [page:.x x], [page:.y y] и [page:.z z] этого вектора на ось кватерниона, а [page:.w w] - на угол.
     </p>
 
     <h3>[method:this setAxisAngleFromRotationMatrix]([param:Matrix4 m])</h3>
     <p>
-       [page:Matrix4 m] - a [page:Matrix4] of which the upper left 3x3 matrix is a pure rotation matrix.<br /><br />
+       [page:Matrix4 m] - [page:Matrix4], левая верхняя матрица 3x3 которой является чистой матрицей вращения.<br /><br />
 
-      Sets the [page:.x x], [page:.y y] and [page:.z z] to the axis of rotation and [page:.w w] to the angle.
+       Задает [page:.x x], [page:.y y] и [page:.z z] ось вращения, а [page:.w w] - угол.
     </p>
 
     <h3>[method:null setComponent]([param:Integer index], [param:Float value])</h3>
     <p>
-    [page:Integer index] - 0, 1 or 2.<br />
+    [page:Integer index] - 0, 1 или 2.<br />
     [page:Float value] - [page:Float]<br /><br />
 
-    If index equals 0 set [page:.x x] to [page:Float value].<br />
-    If index equals 1 set [page:.y y] to [page:Float value].<br />
-    If index equals 2 set [page:.z z] to [page:Float value].<br />
-    If index equals 3 set [page:.w w] to [page:Float value].
+    Если индекс равен 0, установите [page:.x x] на [page:Float value].<br />
+    Если индекс равен 1, установите [page:.x x] на [page:Float value].<br />
+    Если индекс равен 2, установите [page:.x x] на [page:Float value].<br />
+    Если индекс равен 3, установите [page:.x x] на [page:Float value].
     </p>
 
 
     <h3>[method:this setLength]([param:Float l])</h3>
     <p>
-    Sets this vector to a vector with the same direction as this one, but [page:.length length]
-    [page:Float l].
+      Устанавливает этот вектор в вектор с тем же направлением, что и этот, но [page:.length length] [page:Float l].
     </p>
 
     <h3>[method:this setScalar]([param:Float scalar])</h3>
     <p>
-    Sets the [page:.x x], [page:.y y], [page:.z z] and [page:.w w] values of this vector both equal to [page:Float scalar].
+      Устанавливает значения [page:.x x], [page:.y y], [page:.z z] и [page:.w w] этого вектора равными [page:Float scalar].
     </p>
 
     <h3>[method:this setX]([param:Float x])</h3>
-    <p>Replaces this vector's [page:.x x] value with [page:Float x].</p>
+    <p>Заменяет значение [page:.x x] этого вектора на [page:Float x].</p>
 
     <h3>[method:this setY]([param:Float y])</h3>
-    <p>Replaces this vector's [page:.y y] value with [page:Float y].</p>
+    <p>Заменяет значение [page:.y y] этого вектора на [page:Float y].</p>
 
     <h3>[method:this setZ]([param:Float z])</h3>
-    <p>Replaces this vector's [page:.z z] value with [page:Float z].</p>
+    <p>Заменяет значение [page:.z z] этого вектора на [page:Float z].</p>
 
     <h3>[method:this setW]([param:Float w])</h3>
-    <p>Replaces this vector's [page:.w w] value with [page:Float w].</p>
+    <p>Заменяет значение [page:.w w] этого вектора на [page:Float w].</p>
 
     <h3>[method:this sub]([param:Vector4 v])</h3>
-    <p>Subtracts [page:Vector4 v] from this vector.</p>
+    <p>Вычитает [page:Vector4 v] из данного вектора.</p>
 
     <h3>[method:this subScalar]([param:Float s])</h3>
-    <p>Subtracts [page:Float s]  from this vector's [page:.x x], [page:.y y], [page:.z z] and [page:.w w] compnents.</p>
+    <p>Вычитает [page:Float s] из компонент [page:.x x], [page:.y y], [page:.z z] и [page:.w w] данного вектора.</p>
 
     <h3>[method:this subVectors]([param:Vector4 a], [param:Vector4 b])</h3>
-    <p>Sets this vector to [page:Vector4 a] - [page:Vector4 b].</p>
+    <p>Устанавливает этот вектор в [page:Vector4 a] - [page:Vector4 b].</p>
 
     <h3>[method:Array toArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - (optional) array to store this vector to. If this is not provided, a new array will be created.<br />
-    [page:Integer offset] - (optional) optional offset into the array.<br /><br />
+    [page:Array array] - (необязательный) массив для хранения этого вектора. Если он не указан, будет создан новый массив.<br />
+    [page:Integer offset] - (необязательный) необязательное смещение в массиве.<br /><br />
 
-    Returns an array [x, y, z, w], or copies x, y, z and w into the provided [page:Array array].
+    Возвращает массив [x, y, z, w], или копирует x, y, z и w в предоставленный [page:Array array].
     </p>
 
     <h3>[method:this random]()</h3>
     <p>
-      Sets each component of this vector to a pseudo-random value between 0 and 1, excluding 1.
+      Устанавливает каждый компонент этого вектора в псевдослучайное значение между 0 и 1, исключая 1.
     </p>
 
     [sourceHint]
