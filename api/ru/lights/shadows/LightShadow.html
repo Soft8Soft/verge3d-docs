@@ -11,164 +11,150 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Serves as a base class for the other shadow classes.
+      Служит базовым классом для других теневых классов.
     </p>
 
 
-    <h2>Constructor</h2>
+    <h2>Конструктор</h2>
 
     <h3>[name]([param:Camera camera])</h3>
     <p>
-    [page:Camera camera] - the light's view of the world.<br /><br />
+    [page:Camera camera] - взгляд на мир со стороны света.<br /><br />
 
-    Create a new [name]. This is not intended to be called directly - it is used as a base class by
-    other light shadows.
+    Создает новый [name]. Этот класс не предназначен для прямого вызова - он используется в качестве базового класса другими световыми тенями.
     </p>
 
-    <h2>Properties</h2>
+    <h2>Свойства</h2>
 
     <h3>[property:Boolean autoUpdate]</h3>
     <p>
-      Enables automatic updates of the light's shadow. Default is *true*.
-      If you do not require dynamic lighting / shadows, you may set this to *false*.
+      Включает автоматическое обновление тени света. По умолчанию *true*. Если вам не требуется динамическое освещение/тени, вы можете установить значение *false*.
     </p>
 
     <h3>[property:Camera camera]</h3>
     <p>
-      The light's view of the world. This is used to generate a depth map of the scene; objects behind
-      other objects from the light's perspective will be in shadow.
+      Вид света на мир. Это используется для создания карты глубины сцены; объекты, расположенные за другими объектами с точки зрения света, будут находиться в тени.
     </p>
 
     <h3>[property:Float bias]</h3>
     <p>
-      Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.<br />
-      The default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artefacts in shadows
+      Смещение карты теней, сколько прибавлять или вычитать из нормализованной глубины при определении того, находится ли поверхность в тени.<br />
+      По умолчанию установлено значение 0. Очень маленькие корректировки здесь (порядка 0.0001) могут помочь уменьшить артефакты в тенях.
     </p>
 
     <!--Verge3D-->
 
     <h3>[property:Float expBias]</h3>
     <p>
-      Exponential bias for [page:Renderer ESMShadowMap] to reduce light leaking which can happen near an occluder.<br />
-      The default is 1. Increasing it reduces light leaking but make shadows less soft and make self-shadowing artifacts a bit more noticeable.
+      Экспоненциальное смещение для [page:Renderer ESMShadowMap], чтобы уменьшить утечку света, которая может произойти вблизи окклюдера.<br />
+      По умолчанию - 1. Увеличение этого параметра уменьшает утечку света, но делает тени менее мягкими и делает артефакты самозатенения немного более заметными.
     </p>
 
     <h3>[property:Boolean isLightShadow]</h3>
     <p>
-      Used to check whether this or derived classes are light shadows. Default is *true*.<br /><br />
+      Используется для проверки того, является ли данный или производные классы светотенями. По умолчанию *true*.<br /><br />
 
-      You should not change this, as it used internally for optimization.
+      Вы не должны изменять это значение, так как оно используется для внутренней оптимизации.
     </p>
 
     <h3>[property:WebGLRenderTarget map]</h3>
     <p>
-      The depth map generated using the internal camera; a location beyond a pixel's depth is
-      in shadow. Computed internally during rendering.
+      Карта глубины, создаваемая с помощью внутренней камеры; место, находящееся за пределами глубины пикселя, находится в тени. Вычисляется внутренне во время рендеринга.
     </p>
 
     <h3>[property:WebGLRenderTarget mapPass]</h3>
     <p>
-      The distribution map generated using the internal camera; an occlusion is calculated based
-      on the distribution of depths. Computed internally during rendering.
+      Карта распределения, созданная с помощью внутренней камеры; окклюзия рассчитывается на основе распределения глубин. Вычисляется внутри во время рендеринга.
     </p>
 
     <h3>[property:Vector2 mapSize]</h3>
     <p>
-      A [Page:Vector2] defining the width and height of the shadow map.<br /><br />
+      [Page:Vector2], определяющий ширину и высоту карты теней.<br /><br />
 
-      Higher values give better quality shadows at the cost of computation time. Values must be
-      powers of 2, up to the [page:WebGLRenderer.capabilities].maxTextureSize for a given device,
-      although the width and height don't have to be the same (so, for example, (512, 1024) is valid).
-      The default is *(512, 512)*.
+      Большие значения дают лучшее качество теней ценой времени вычислений. Значения должны быть равны 2, вплоть до [page:WebGLRenderer.capabilities].maxTextureSize для данного устройства, хотя ширина и высота не обязательно должны быть одинаковыми (например, (512, 1024)). По умолчанию используется значение *(512, 512)*.
     </p>
 
     <h3>[property:Matrix4 matrix]</h3>
     <p>
-      Model to shadow camera space, to compute location and depth in shadow map. Stored
-      in a [page:Matrix4 Matrix4]. This is computed internally during rendering.
+      Модель для пространства камеры тени, для вычисления местоположения и глубины в карте теней. Хранится в [page:Matrix4 Matrix4]. Вычисляется внутри во время рендеринга.
     </p>
 
     <h3>[property:Boolean needsUpdate]</h3>
     <p>
-      When set to *true*, shadow maps will be updated in the next *render* call. Default is *false*.
-      If you have set [page:.autoUpdate] to *false*, you will need to set this property to *true* and then make a render call to update the light's shadow.
+      Если установлено значение *true*, карты теней будут обновлены в следующем вызове *render*. По умолчанию *false*. Если вы установили [page:.autoUpdate] в *false*, вам нужно установить это свойство в *true* и затем выполнить вызов рендеринга для обновления тени света.
     </p>
 
     <h3>[property:Float normalBias]</h3>
     <p>
-      Defines how much the position used to query the shadow map is offset along the object normal.
-      The default is 0. Increasing this value can be used to reduce shadow acne especially in large scenes where light shines onto geometry at a shallow angle. The cost is that shadows may appear distorted.
+      Определяет, насколько позиция, используемая для запроса карты теней, смещена вдоль нормали объекта. По умолчанию 0. Увеличение этого значения может быть использовано для уменьшения акне теней, особенно в больших сценах, где свет падает на геометрию под малым углом. В результате тени могут выглядеть искаженными.
     </p>
 
     <h3>[property:Float radius]</h3>
     <p>
-      Setting this to values greater than 1 will blur the edges of the shadow.<br />
+      Если установить значение этого параметра больше 1, края тени будут размыты.<br />
 
-      High values will cause unwanted banding effects in the shadows - a greater [page:.mapSize mapSize]
-      will allow for a higher value to be used here before these effects become visible.<br />
-      If [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer PCFSoftShadowMap], radius has
-      no effect and it is recommended to increase softness by decreasing [page:.mapSize mapSize] instead.<br /><br />
+      Высокие значения вызовут нежелательные эффекты полосатости в тенях - большее значение [page:.mapSize mapSize] позволит использовать здесь более высокое значение, прежде чем эти эффекты станут заметны.<br />
+      Если [page:WebGLRenderer.shadowMap.type] имеет значение [page:Renderer PCFSoftShadowMap], радиус не влияет, и вместо этого рекомендуется увеличить мягкость, уменьшив [page:.mapSize mapSize].<br /><br />
 
-      Note that this has no effect if the [page:WebGLRenderer.shadowMap.type] is set to [page:Renderer BasicShadowMap].
+      Обратите внимание, что это не имеет эффекта, если [page:WebGLRenderer.shadowMap.type] установлен в [page:Renderer BasicShadowMap].
     </p>
 
     <!--Verge3D-->
 
     <h3>[property:Number slopeScaledBias]</h3>
     <p>
-      An adaptive bias which depends on the polygon's slope relative to the light's camera.
-      Default is 0.<br /><br />
+      Адаптивное смещение, которое зависит от наклона полигона относительно камеры света.
+      По умолчанию 0.<br /><br />
 
-      Used mainly for shadow mapping.
+      Используется в основном для наложения теней.
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
     <h3>[method:Vector2 getFrameExtents]()</h3>
     <p>
-    Used internally by the renderer to extend the shadow map to contain all viewports
+      Используется внутри рендерера для расширения карты теней на все видовые экраны.
     </p>
 
     <h3>[method:null updateMatrices]([param:Light light])</h3>
     <p>
-    Update the matrices for the camera and shadow, used internally by the renderer.<br /><br />
+      Обновление матриц для камеры и тени, используемых внутри рендерера.<br /><br />
 
-    light -- the light for which the shadow is being rendered.
+    light -- свет, для которого создается тень.
     </p>
 
     <h3>[method:Frustum getFrustum]()</h3>
     <p>
-    Gets the shadow cameras frustum. Used internally by the renderer to cull objects.
+      Получает фрустум камеры тени. Используется рендерером для обводки объектов.
     </p>
 
     <h3>[method:number getViewportCount]()</h3>
     <p>
-    Used internally by the renderer to get the number of viewports that need to be rendered for this shadow.
+      Используется внутри рендерера для получения количества видовых экранов, которые должны быть отрисованы для этой тени.
     </p>
 
     <h3>[method:LightShadow copy]([param:LightShadow source])</h3>
     <p>
-    Copies value of all the properties from the [page:LightShadow source] to this
-    Light.
+      Копирует значение всех свойств из источника [page:LightShadow source] в этот Light.
     </p>
 
     <h3>[method:LightShadow clone]()</h3>
     <p>
-    Creates a new LightShadow with the same properties as this one.
+      Создает новый LightShadow с теми же свойствами, что и этот.
     </p>
 
     <!--Verge3D-->
 
     <h3>[method:null dispose]()</h3>
     <p>
-    Disposes shadow map render targets from memory. <br />
-    You need to call this when you want shadow map resources removed while the application is running.
+      Удаляет цели рендеринга карты теней из памяти. <br />
+      Вы должны вызвать эту функцию, когда хотите удалить ресурсы теневой карты во время работы приложения.
     </p>
 
     <h3>[method:Object toJSON]()</h3>
     <p>
-    Serialize this LightShadow.
+      Сериализуйте этот LightShadow.
     </p>
 
     [sourceHint]

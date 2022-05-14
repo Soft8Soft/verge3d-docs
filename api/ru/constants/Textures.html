@@ -107,9 +107,9 @@
     v3d.UnsignedInt248Type
     </code>
     <p>
-    For use with a texture's [page:Texture.type type]  property, which must correspond to the correct format. See below for details.<br /><br />
+      Используется со свойством [page:Texture.type type] текстуры, которое должно соответствовать правильному формату. Подробности см. ниже.<br /><br />
 
-    [page:constant UnsignedByteType] is the default.
+    [page:constant UnsignedByteType] по умолчанию.
     </p>
 
     <h2>Formats</h2>
@@ -130,64 +130,58 @@
     v3d.DepthStencilFormat
     </code>
     <p>
-    For use with a texture's [page:Texture.format format]  property, these define
-    how elements of a 2d texture, or *texels*, are read by shaders.<br /><br />
+      Для использования со свойством [page:Texture.format format] текстуры, они определяют, как элементы двухмерной текстуры, или *texels*(тексели), считываются шейдерами.<br /><br />
 
-    [page:constant AlphaFormat] discards the red, green and blue components and reads just the alpha component.<br /><br />
+    [page:constant AlphaFormat] отбрасывает красный, зеленый и синий компоненты и считывает только альфа-компонент.<br /><br />
 
-    [page:constant RedFormat] discards the green and blue components and reads just the red component.<br /><br />
+    [page:constant RedFormat] отбрасывает зеленый и синий компоненты и считывает только красный компонент.<br /><br />
 
-    [page:constant RedIntegerFormat] discards the green and blue components and reads just the red component.
-    The texels are read as integers instead of floating point.
-    (can only be used with a WebGL 2 rendering context).
+    [page:constant RedIntegerFormat] отбрасывает зеленый и синий компоненты и считывает только красный компонент.
+    Тексели считываются как целые числа, а не с плавающей точкой.
+    (может использоваться только с рендерингом WebGL 2).
     <br /><br />
 
-    [page:constant RGFormat] discards the alpha, and blue components and reads the red, and green components.
-    (can only be used with a WebGL 2 rendering context).
+    [page:constant RGFormat] отбрасывает альфа- и синие компоненты и считывает красную и зеленую компоненты.
+    (может использоваться только с рендерингом WebGL 2).
     <br /><br />
 
-    [page:constant RGIntegerFormat] discards the alpha, and blue components and reads the red, and green components.
-    The texels are read as integers instead of floating point.
-    (can only be used with a WebGL 2 rendering context).
+    [page:constant RGIntegerFormat] отбрасывает альфа- и синие компоненты и считывает красную и зеленую компоненты.
+    Тексели считываются как целые числа, а не с плавающей точкой.
+    (может использоваться только с рендерингом WebGL 2).
     <br /><br />
 
-    [page:constant RGBFormat] discards the alpha components and reads the red, green and blue components.<br /><br />
+    [page:constant RGBFormat] отбрасывает альфа-компоненты и считывает красные, зеленые и синие компоненты.<br /><br />
 
-    [page:constant RGBIntegerFormat] discards the alpha components and reads the red, green and blue components.
-    (can only be used with a WebGL 2 rendering context).
+    [page:constant RGBIntegerFormat] отбрасывает альфа-компоненты и считывает красные, зеленые и синие компоненты.
+    (может использоваться только с рендерингом WebGL 2).
     <br /><br />
 
-    [page:constant RGBAFormat] is the default and reads the red, green, blue and alpha components.<br /><br />
+    [page:constant RGBAFormat] используется по умолчанию и считывает красный, зеленый, синий и альфа-компоненты.<br /><br />
 
-    [page:constant RGBAIntegerFormat] is the default and reads the red, green, blue and alpha components.
-    The texels are read as integers instead of floating point.
-    (can only be used with a WebGL 2 rendering context).
+    [page:constant RGBAIntegerFormat] используется по умолчанию и считывает красный, зеленый, синий и альфа-компоненты.
+    Тексели считываются как целые числа, а не с плавающей точкой.
+    (может использоваться только с рендерингом WebGL 2).
     <br /><br />
 
-    [page:constant LuminanceFormat] reads each element as a single luminance component.
-     This is then converted to a floating point, clamped to the range [0,1], and then assembled
-     into an RGBA element by placing the luminance value in the red, green and blue channels,
-     and attaching 1.0 to the alpha channel.<br /><br />
+    [page:constant LuminanceFormat] считывает каждый элемент как один компонент яркости.
+    Затем это значение преобразуется в плавающую точку, ограничивается в диапазоне [0,1], а затем собирается в RGBA-элемент, помещая значение яркости в красный, зеленый и синий каналы и присоединяя 1.0 к альфа-каналу.<br /><br />
 
-    [page:constant LuminanceAlphaFormat] reads each element as a luminance/alpha double.
-    The same process occurs as for the [page:constant LuminanceFormat], except that the
-    alpha channel may have values other than *1.0*.<br /><br />
+    [page:constant LuminanceAlphaFormat] считывает каждый элемент как двойное значение яркости/альфа-канала. Происходит тот же процесс, что и для [page:constant LuminanceFormat], за исключением того, что альфа-канал может иметь значения, отличные от *1.0*.<br /><br />
 
-    [page:constant RGBEFormat] is identical to [page:constant RGBAFormat].<br /><br />
+    [page:constant RGBEFormat] идентичен [page:constant RGBAFormat].<br /><br />
 
-    [page:constant DepthFormat] reads each element as a single depth value, converts it to floating point, and clamps to the range [0,1].
-    This is the default for [page:DepthTexture DepthTexture].<br /><br />
+    [page:constant DepthFormat] считывает каждый элемент как одно значение глубины, преобразует его в значение с плавающей точкой и зажимает в диапазон [0,1].
+    Это значение по умолчанию для [page:DepthTexture DepthTexture].<br /><br />
 
-    [page:constant DepthStencilFormat] reads each element is a pair of depth and stencil values.
-    The depth component of the pair is interpreted as in [page:constant DepthFormat].
-    The stencil component is interpreted based on the depth + stencil internal format.
+    [page:constant DepthStencilFormat] каждый элемент представляет собой пару значений глубины и стенсиля.
+    Компонент глубины пары интерпретируется как в [page:constant DepthFormat]. Компонент стенсиля интерпретируется на основе внутреннего формата "глубина + стенсиль".
     <br /><br />
 
-    Note that the texture must have the correct [page:Texture.type type] set, as described above.
-    See [link:https://developer.mozilla.org/en/docs/Web/API/WebGLRenderingContext/texImage2D WebGLRenderingContext.texImage2D] for details.
+    Обратите внимание, что текстура должна иметь правильное значение [page:Texture.type type], как описано выше.
+    Ознакомьтес с [link:https://developer.mozilla.org/en/docs/Web/API/WebGLRenderingContext/texImage2D WebGLRenderingContext.texImage2D] для деталей.
     </p>
 
-    <h2>DDS / ST3C Compressed Texture Formats</h2>
+    <h2>DDS / ST3C Форматы Сжатия Текстур</h2>
     <code>
     v3d.RGB_S3TC_DXT1_Format
     v3d.RGBA_S3TC_DXT1_Format
@@ -195,19 +189,18 @@
     v3d.RGBA_S3TC_DXT5_Format
     </code>
     <p>
-    For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format]  property,
-    these require support for the
+      Для использования со свойством [page:CompressedTexture CompressedTexture] [page:Texture.format format] свойства [page:Texture.format format] требуют поддержки для
     [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc/ WEBGL_compressed_texture_s3tc]
-    extension. <br /><br />
+    расширение. <br /><br />
 
-    There are four [link:https://en.wikipedia.org/wiki/S3_Texture_Compression S3TC] formats available via this extension. These are:<br />
-    [page:constant RGB_S3TC_DXT1_Format]: A DXT1-compressed image in an RGB image format.<br />
-    [page:constant RGBA_S3TC_DXT1_Format]: A DXT1-compressed image in an RGB image format with a simple on/off alpha value.<br />
-    [page:constant RGBA_S3TC_DXT3_Format]: A DXT3-compressed image in an RGBA image format. Compared to a 32-bit RGBA texture, it offers 4:1 compression.<br />
-    [page:constant RGBA_S3TC_DXT5_Format]: A DXT5-compressed image in an RGBA image format. It also provides a 4:1 compression, but differs to the DXT3 compression in how the alpha compression is done.<br />
+    Через это расширение доступны четыре [link:https://en.wikipedia.org/wiki/S3_Texture_Compression S3TC] формата. К ним относятся:<br />
+    [page:constant RGB_S3TC_DXT1_Format]: Сжатое в DXT1 изображение в формате RGB.<br />
+    [page:constant RGBA_S3TC_DXT1_Format]: DXT1-сжатое изображение в формате RGB с простым включением/выключением альфа-значения.<br />
+    [page:constant RGBA_S3TC_DXT3_Format]: DXT3-сжатое изображение в формате RGBA-изображения. По сравнению с 32-битной RGBA-текстурой оно обеспечивает сжатие 4:1.<br />
+    [page:constant RGBA_S3TC_DXT5_Format]: DXT5-сжатое изображение в формате RGBA. Оно также обеспечивает сжатие 4:1, но отличается от сжатия DXT3 тем, как выполняется альфа-сжатие.<br />
     </p>
 
-    <h2>PVRTC Compressed Texture Formats</h2>
+    <h2>PVRTC Формат Сжатия Текстур</h2>
     <code>
     v3d.RGB_PVRTC_4BPPV1_Format
     v3d.RGB_PVRTC_2BPPV1_Format
@@ -215,32 +208,30 @@
     v3d.RGBA_PVRTC_2BPPV1_Format
     </code>
     <p>
-    For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format]  property,
-    these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_pvrtc/ WEBGL_compressed_texture_pvrtc]
-    extension. <br />
-    PVRTC is typically only available on mobile devices with PowerVR chipsets, which are mainly Apple devices.<br /><br />
+      Для использования свойства [page:CompressedTexture CompressedTexture] [page:Texture.format format] для [page:Texture.format format] требуется поддержка[link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_pvrtc/ WEBGL_compressed_texture_pvrtc]
+      расширения. <br />
+      PVRTC обычно доступен только на мобильных устройствах с чипсетами PowerVR, а это в основном устройства Apple.<br /><br />
 
-    There are four [link:https://en.wikipedia.org/wiki/PVRTC PVRTC] formats available via this extension. These are:<br />
-    [page:constant RGB_PVRTC_4BPPV1_Format]: RGB compression in 4-bit mode. One block for each 4×4 pixels.<br />
-    [page:constant RGB_PVRTC_2BPPV1_Format]: RGB compression in 2-bit mode. One block for each 8×4 pixels.<br />
-    [page:constant RGBA_PVRTC_4BPPV1_Format]: RGBA compression in 4-bit mode. One block for each 4×4 pixels.<br />
-    [page:constant RGBA_PVRTC_2BPPV1_Format]: RGBA compression in 2-bit mode. One block for each 8×4 pixels.<br />
+      Через это расширение доступны четыре [link:https://en.wikipedia.org/wiki/PVRTC PVRTC] формата. К ним относятся:<br />
+    [page:constant RGB_PVRTC_4BPPV1_Format]: Сжатие RGB в 4-битном режиме. Один блок на каждые 4×4 пикселя.<br />
+    [page:constant RGB_PVRTC_2BPPV1_Format]: Сжатие RGB в 2-битном режиме. Один блок на каждые 8×4 пикселя.<br />
+    [page:constant RGBA_PVRTC_4BPPV1_Format]: Сжатие RGBA в 4-битном режиме. Один блок на каждые 4×4 пикселя.<br />
+    [page:constant RGBA_PVRTC_2BPPV1_Format]: Сжатие RGBA в 2-битном режиме. Один блок на каждые 8×4 пикселя.<br />
     </p>
 
-    <h2>ETC Compressed Texture Format</h2>
+    <h2>ETC Формат Сжатия Текстур</h2>
     <code>
     v3d.RGB_ETC1_Format
     v3d.RGB_ETC2_Format
     v3d.RGBA_ETC2_EAC_Format
     </code>
     <p>
-    For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format]  property,
-    these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc1/ WEBGL_compressed_texture_etc1]
-    (ETC1) or [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc/ WEBGL_compressed_texture_etc]
-    (ETC2) extensions. <br /><br />
+      Для использования со свойством [page:CompressedTexture CompressedTexture] [page:Texture.format format] свойства [page:Texture.format format] требуют поддержки для [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc1/ WEBGL_compressed_texture_etc1]
+    (ETC1) или [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc/ WEBGL_compressed_texture_etc]
+    (ETC2) расширения. <br /><br />
     </p>
 
-    <h2>ASTC Compressed Texture Format</h2>
+    <h2>ASTC Формат Сжатия Текстур</h2>
     <code>
     v3d.RGBA_ASTC_4x4_Format
     v3d.RGBA_ASTC_5x4_Format
@@ -272,11 +263,10 @@
     v3d.SRGB8_ALPHA8_ASTC_12x12_Format
     </code>
     <p>
-    For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format]  property,
-    these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/ WEBGL_compressed_texture_astc] extension. <br /><br />
+      Для использования со свойством [page:CompressedTexture CompressedTexture] [page:Texture.format format], требуется поддержка [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/ WEBGL_compressed_texture_astc] разрешения. <br /><br />
     </p>
 
-    <h2>Internal Formats</h2>
+    <h2>Внутренние Форматы</h2>
     <code>
     'ALPHA'
     'RGB'
@@ -342,191 +332,187 @@
 
     <p>
 
-    Heads up: changing the internal format of a texture will only affect the
-    texture when using a WebGL 2 rendering context.<br /><br />
+      Внимание: изменение внутреннего формата текстуры будет влиять на текстуру только при использовании контекста рендеринга WebGL 2.<br /><br />
 
-    For use with a texture's [page:Texture.internalFormat internalFormat]  property,
-    these define how elements of a texture, or *texels*, are stored on the GPU.<br /><br />
+      Для использования со свойством [page:Texture.internalFormat internalFormat] текстуры, они определяют, как элементы текстуры, или *тексели*, хранятся на GPU.<br /><br />
 
-    [page:constant R8] stores the red component on 8 bits.<br /><br />
+    [page:constant R8] хранит красный компонент в 8 битах.<br /><br />
 
-    [page:constant R8_SNORM] stores the red component on 8 bits. The component is stored as normalized. <br /><br />
+    [page:constant R8_SNORM] хранит красный компонент в 8 битах. Компонент хранится в нормализованном виде. <br /><br />
 
-    [page:constant R8I] stores the red component on 8 bits. The component is stored as an integer. <br /><br />
+    [page:constant R8I]  хранит красный компонент в 8 битах. Компонент хранится как целое число. <br /><br />
 
-    [page:constant R8UI] stores the red component on 8 bits. The component is stored as an unsigned integer. <br /><br />
+    [page:constant R8UI]  хранит красный компонент в 8 битах. Компонент хранится как целое число без знака. <br /><br />
 
-    [page:constant R16I] stores the red component on 16 bits. The component is stored as an integer. <br /><br />
+    [page:constant R16I] хранит красный компонент в 16 битах. Компонент хранится как целое число. <br /><br />
 
-    [page:constant R16UI] stores the red component on 16 bits. The component is stored as an unsigned integer. <br /><br />
+    [page:constant R16UI] хранит красный компонент в 16 битах. Компонент хранится как целое число без знака. <br /><br />
 
-    [page:constant R16F] stores the red component on 16 bits. The component is stored as floating point. <br /><br />
+    [page:constant R16F] хранит красный компонент в 16 битах. Компонент хранится в формате с плавающей точкой. <br /><br />
 
-    [page:constant R32I] stores the red component on 32 bits. The component is stored as an integer. <br /><br />
+    [page:constant R32I] хранит красный компонент в 32 битах. Компонент хранится как целое число. <br /><br />
 
-    [page:constant R32UI] stores the red component on 32 bits. The component is stored as an unsigned integer. <br /><br />
+    [page:constant R32UI] хранит красный компонент в 32 битах. Компонент хранится как целое число без знака. <br /><br />
 
-    [page:constant R32F] stores the red component on 32 bits. The component is stored as floating point. <br /><br />
+    [page:constant R32F] хранит красный компонент в 32 битах. Компонент хранится в формате с плавающей точкой.<br /><br />
 
-    [page:constant RG8] stores the red and green components on 8 bits each.<br /><br />
+    [page:constant RG8]хранит красный компонент в 32 битах.<br /><br />
 
-    [page:constant RG8_SNORM] stores the red and green components on 8 bits each.
+    [page:constant RG8_SNORM] хранит красный и зеленый компоненты по 8 бит каждый.
+    Каждый компонент хранится в нормализованном виде.
+    <br /><br />
+
+    [page:constant RG8I] хранит красный и зеленый компоненты по 8 бит каждый.
+    Каждый компонент хранится как целое число.
+    <br /><br />
+
+    [page:constant RG8UI] хранит красный и зеленый компоненты по 8 бит каждый.
+    Каждый компонент хранится как целое число без знака.
+    <br /><br />
+
+    [page:constant RG16I] хранит красный и зеленый компоненты по 16 бит каждый.
+    Каждый компонент хранится как целое число.
+    <br /><br />
+
+    [page:constant RG16UI] хранит красный и зеленый компоненты по 16 бит каждый.
+    Каждый компонент хранится как целое число без знака.
+    <br /><br />
+
+    [page:constant RG16F] хранит красный и зеленый компоненты по 16 бит каждый.
+    Каждый компонент хранится в формате с плавающей точкой.
+    <br /><br />
+
+    [page:constant RG32I] хранит красный и зеленый компоненты по 32 бита каждый.
+    Каждый компонент хранится как целое число.
+    <br /><br />
+
+    [page:constant RG32UI] хранит красный и зеленый компоненты в 32 битах.
+    Каждый компонент хранится как целое число без знака.
+    <br /><br />
+
+    [page:constant RG32F] хранит красный и зеленый компоненты в 32 битах.
+    Каждый компонент хранится в формате с плавающей точкой.
+    <br /><br />
+
+    [page:constant RGB8] хранит красный, зеленый и синий компоненты по 8 бит каждый.
+
+    [page:constant RGB8_SNORM] хранит красный, зеленый и синий компоненты по 8 бит каждый.
+    Каждый компонент хранится в нормализованном виде.
+    <br /><br />
+
+    [page:constant RGB8I] хранит красный, зеленый и синий компоненты по 8 бит каждый.
+    Каждый компонент хранится как целое число.
+    <br /><br />
+
+    [page:constant RGB8UI] хранит красный, зеленый и синий компоненты по 8 бит каждый.
+    Каждый компонент хранится как целое число без знака.
+    <br /><br />
+
+    [page:constant RGB16I] хранит красный, зеленый и синий компоненты по 16 бит каждый.
+    Каждый компонент хранится как целое число.
+    <br /><br />
+
+    [page:constant RGB16UI] хранит красный, зеленый и синий компоненты по 16 бит каждый.
+    Каждый компонент хранится как целое число без знака.
+    <br /><br />
+
+    [page:constant RGB16F] хранит красный, зеленый и синий компоненты по 16 бит каждый.
+    Каждый компонент хранится в формате с плавающей точкой
+    <br /><br />
+
+    [page:constant RGB32I] хранит красный, зеленый и синий компоненты по 32 бита каждый.
+    Каждый компонент хранится как целое число.
+    <br /><br />
+
+    [page:constant RGB32UI] хранит красный, зеленый и синий компоненты по 32 бита каждый.
+    Каждый компонент хранится как целое число без знака.
+    <br /><br />
+
+    [page:constant RGB32F] хранит красный, зеленый и синий компоненты по 32 бита каждый.
+    Каждый компонент хранится в формате с плавающей точкой
+    <br /><br />
+
+    [page:constant R11F_G11F_B10F] хранит красный, зеленый и синий компоненты соответственно в 11 битах, 11 битах и 10 битах.
+    Каждый компонент хранится в формате с плавающей точкой.
+    <br /><br />
+
+    [page:constant RGB565] хранит красный, зеленый и синий компоненты соответственно в 5 битах, 6 битах и 5 битах.<br /><br />
+
+    [page:constant RGB9_E5] хранит красный, зеленый и синий компоненты по 9 бит каждый.<br /><br />
+
+    [page:constant RGBA8]хранит красный, зеленый, синий и альфа-компоненты по 8 бит каждый.<br /><br />
+
+    [page:constant RGBA8_SNORM] хранит красный, зеленый, синий и альфа компоненты в 8 битах.
     Every component is stored as normalized.
     <br /><br />
 
-    [page:constant RG8I] stores the red and green components on 8 bits each.
-    Every component is stored as an integer.
+    [page:constant RGBA8I] хранит красный, зеленый, синий и альфа-компоненты по 8 бит каждый.
+    Каждый компонент хранится как целое число.
     <br /><br />
 
-    [page:constant RG8UI] stores the red and green components on 8 bits each.
-    Every component is stored as an unsigned integer.
+    [page:constant RGBA8UI] хранит красный, зеленый, синий и альфа компоненты в 8 битах.
+    Каждый компонент хранится как целое число без знака.
     <br /><br />
 
-    [page:constant RG16I] stores the red and green components on 16 bits each.
-    Every component is stored as an integer.
+    [page:constant RGBA16I] хранит красный, зеленый, синий и альфа компоненты в 16 битах.
+    Каждый компонент хранится как целое число.
     <br /><br />
 
-    [page:constant RG16UI] stores the red and green components on 16 bits each.
-    Every component is stored as an unsigned integer.
+    [page:constant RGBA16UI] хранит красный, зеленый, синий и альфа компоненты в 16 битах.
+    Каждый компонент хранится как целое число без знака.
     <br /><br />
 
-    [page:constant RG16F] stores the red and green components on 16 bits each.
-    Every component is stored as floating point.
+    [page:constant RGBA16F] хранит красный, зеленый, синий и альфа компоненты в 16 битах.
+    Каждый компонент хранится в формате с плавающей точкой.
     <br /><br />
 
-    [page:constant RG32I] stores the red and green components on 32 bits each.
-    Every component is stored as an integer.
+    [page:constant RGBA32I] хранит красный, зеленый, синий и альфа компоненты в 32 битах.
+    Каждый компонент хранится как целое число.
     <br /><br />
 
-    [page:constant RG32UI] stores the red and green components on 32 bits.
-    Every component is stored as an unsigned integer.
+    [page:constant RGBA32UI] хранит красный, зеленый, синий и альфа компоненты в 32 битах.
+    Каждый компонент хранится как целое число без знака.
     <br /><br />
 
-    [page:constant RG32F] stores the red and green components on 32 bits.
-    Every component is stored as floating point.
+    [page:constant RGBA32F] хранит красный, зеленый, синий и альфа компоненты в 32 битах.
+    Каждый компонент хранится в формате с плавающей точкой.
     <br /><br />
 
-    [page:constant RGB8] stores the red, green, and blue components on 8 bits each.
+    [page:constant RGB5_A1] хранит красный, зеленый, синий и альфа компоненты соответственно в 5 битах, 5 битах, 5 битах и 1 бите.<br /><br />
 
-    [page:constant RGB8_SNORM] stores the red, green, and blue components on 8 bits each.
-    Every component is stored as normalized.
+    [page:constant RGB10_A2] хранит красный, зеленый, синий и альфа компоненты соответственно в 10 битах, 10 битах, 10 битах и 2 битах.<br /><br />
+
+    [page:constant RGB10_A2UI] хранит красный, зеленый, синий и альфа компоненты соответственно в 10 битах, 10 битах, 10 битах и 2 битах.
+
+    Каждый компонент хранится как целое число без знака.
     <br /><br />
 
-    [page:constant RGB8I] stores the red, green, and blue components on 8 bits each.
-    Every component is stored as an integer.
+    [page:constant SRGB8]хранит красный, зеленый и синюий компоненты по 8 бит.<br /><br />
+
+    [page:constant SRGB8_ALPHA8] хранит красный, зеленый, синий и альфа-компоненты по 8 бит каждый.<br /><br />
+
+    [page:constant DEPTH_COMPONENT16] хранит компонент глубины в 16 битах.<br /><br />
+
+    [page:constant DEPTH_COMPONENT24] хранит компонент глубины в 24 битах.<br /><br />
+
+    [page:constant DEPTH_COMPONENT32F] хранит компонент глубины в 32 битах. Компонент хранится в формате с плавающей точкой.<br /><br />
+
+    [page:constant DEPTH24_STENCIL8] хранит компоненты глубины и стенсиля соответственно в 24 битах и 8 битах.
+    Компонент стенсиля хранится как целое число без знака.
     <br /><br />
 
-    [page:constant RGB8UI] stores the red, green, and blue components on 8 bits each.
-    Every component is stored as an unsigned integer.
+    [page:constant DEPTH32F_STENCIL8] хранит компоненты глубины и стенсиля соответственно в 32 битах и 8 битах.
+    Компонент глубины хранится как плавающая точка, а компонент стенсиля - как целое число без знака.
     <br /><br />
 
-    [page:constant RGB16I] stores the red, green, and blue components on 16 bits each.
-    Every component is stored as an integer.
-    <br /><br />
+    Обратите внимание, что текстура должна иметь правильный набор [page:Texture.type type], а также правильный формат [page:Texture.format format].
 
-    [page:constant RGB16UI] stores the red, green, and blue components on 16 bits each.
-    Every component is stored as an unsigned integer.
-    <br /><br />
-
-    [page:constant RGB16F] stores the red, green, and blue components on 16 bits each.
-    Every component is stored as floating point
-    <br /><br />
-
-    [page:constant RGB32I] stores the red, green, and blue components on 32 bits each.
-    Every component is stored as an integer.
-    <br /><br />
-
-    [page:constant RGB32UI] stores the red, green, and blue components on 32 bits each.
-    Every component is stored as an unsigned integer.
-    <br /><br />
-
-    [page:constant RGB32F] stores the red, green, and blue components on 32 bits each.
-    Every component is stored as floating point
-    <br /><br />
-
-    [page:constant R11F_G11F_B10F] stores the red, green, and blue components respectively on 11 bits, 11 bits, and 10bits.
-    Every component is stored as floating point.
-    <br /><br />
-
-    [page:constant RGB565] stores the red, green, and blue components respectively on 5 bits, 6 bits, and 5 bits.<br /><br />
-
-    [page:constant RGB9_E5] stores the red, green, and blue components on 9 bits each.<br /><br />
-
-    [page:constant RGBA8] stores the red, green, blue, and alpha components on 8 bits each.<br /><br />
-
-    [page:constant RGBA8_SNORM] stores the red, green, blue, and alpha components on 8 bits.
-    Every component is stored as normalized.
-    <br /><br />
-
-    [page:constant RGBA8I] stores the red, green, blue, and alpha components on 8 bits each.
-    Every component is stored as an integer.
-    <br /><br />
-
-    [page:constant RGBA8UI] stores the red, green, blue, and alpha components on 8 bits.
-    Every component is stored as an unsigned integer.
-    <br /><br />
-
-    [page:constant RGBA16I] stores the red, green, blue, and alpha components on 16 bits.
-    Every component is stored as an integer.
-    <br /><br />
-
-    [page:constant RGBA16UI] stores the red, green, blue, and alpha components on 16 bits.
-    Every component is stored as an unsigned integer.
-    <br /><br />
-
-    [page:constant RGBA16F] stores the red, green, blue, and alpha components on 16 bits.
-    Every component is stored as floating point.
-    <br /><br />
-
-    [page:constant RGBA32I] stores the red, green, blue, and alpha components on 32 bits.
-    Every component is stored as an integer.
-    <br /><br />
-
-    [page:constant RGBA32UI] stores the red, green, blue, and alpha components on 32 bits.
-    Every component is stored as an unsigned integer.
-    <br /><br />
-
-    [page:constant RGBA32F] stores the red, green, blue, and alpha components on 32 bits.
-    Every component is stored as floating point.
-    <br /><br />
-
-    [page:constant RGB5_A1] stores the red, green, blue, and alpha components respectively on 5 bits, 5 bits, 5 bits, and 1 bit.<br /><br />
-
-    [page:constant RGB10_A2] stores the red, green, blue, and alpha components respectively on 10 bits, 10 bits, 10 bits and 2 bits.<br /><br />
-
-    [page:constant RGB10_A2UI] stores the red, green, blue, and alpha components respectively on 10 bits, 10 bits, 10 bits and 2 bits.
-    Every component is stored as an unsigned integer.
-    <br /><br />
-
-    [page:constant SRGB8] stores the red, green, and blue components on 8 bits each.<br /><br />
-
-    [page:constant SRGB8_ALPHA8] stores the red, green, blue, and alpha components on 8 bits each.<br /><br />
-
-    [page:constant DEPTH_COMPONENT16] stores the depth component on 16bits.<br /><br />
-
-    [page:constant DEPTH_COMPONENT24] stores the depth component on 24bits.<br /><br />
-
-    [page:constant DEPTH_COMPONENT32F] stores the depth component on 32bits. The component is stored as floating point.<br /><br />
-
-    [page:constant DEPTH24_STENCIL8] stores the depth, and stencil components respectively on 24 bits and 8 bits.
-    The stencil component is stored as an unsigned integer.
-    <br /><br />
-
-    [page:constant DEPTH32F_STENCIL8] stores the depth, and stencil components respectively on 32 bits and 8 bits.
-    The depth component is stored as floating point, and the stencil component as an unsigned integer.
-    <br /><br />
-
-    Note that the texture must have the correct [page:Texture.type type] set,
-    as well as the correct [page:Texture.format format].
-
-    See [link:https://developer.mozilla.org/en/docs/Web/API/WebGLRenderingContext/texImage2D WebGLRenderingContext.texImage2D], and
+    Смотрите [link:https://developer.mozilla.org/en/docs/Web/API/WebGLRenderingContext/texImage2D WebGLRenderingContext.texImage2D], и
     [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext/texImage3D WebGL2RenderingContext.texImage3D],
-    for more details regarding the possible combination of [page:Texture.format format], [page:Texture.internalFormat internalFormat],
-    and [page:Texture.type type].<br /><br />
+    для получения дополнительной информации о возможных комбинациях [page:Texture.format format], [page:Texture.internalFormat internalFormat],
+    и [page:Texture.type type].<br /><br />
 
-    For more in-depth information regarding internal formats, you can also refer directly
-    to the [link:https://www.khronos.org/registry/webgl/specs/latest/2.0/ WebGL2 Specification] and
-    to the [link:https://www.khronos.org/registry/OpenGL/specs/es/3.0/es_spec_3.0.pdf OpenGL ES 3.0 Specification].
+    Для получения более подробной информации о внутренних форматах вы также можете обратиться непосредственно к разделу [link:https://www.khronos.org/registry/webgl/specs/latest/2.0/ WebGL2 Specification] и к [link:https://www.khronos.org/registry/OpenGL/specs/es/3.0/es_spec_3.0.pdf OpenGL ES 3.0 Specification].
     </p>
 
     <h2>Encoding</h2>
@@ -543,13 +529,12 @@
     v3d.RGBADepthPacking
     </code>
     <p>
-    For use with a Texture's [page:Texture.encoding encoding]  property.<br /><br />
+      Для использования со свойством [page:Texture.encoding encoding] текстуры.<br /><br />
 
-    If the encoding type is changed after the texture has already been used by a material,
-    you will need to set [page:Material.needsUpdate Material.needsUpdate] to *true* to make the material recompile.<br /><br />
+      Если тип кодировки изменен после того, как текстура уже использовалась материалом, необходимо установить [page:Material.needsUpdate Material.needsUpdate] в *true*, чтобы материал перекомпилировался.<br /><br />
 
-    [page:constant LinearEncoding] is the default.
-    Values other than this are only valid for a material's map, envMap and emissiveMap.
+    [page:constant LinearEncoding] по умолчанию.
+    Значения, отличные от этого, действительны только для карты материала, envMap и emissiveMap.
     </p>
 
     [sourceHint]
