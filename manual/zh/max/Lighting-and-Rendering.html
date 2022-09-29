@@ -64,11 +64,15 @@
 
     [anchor:light_probes]
 
-    <h2>光照探头</h2>
+    <h2>立方体反射光照探头</h2>
 
-    <p>`Verge3D插件增加了一个名为 *V3DReflectionCubemap* 的自定义光照探头对象，可用于通过局部反射立方体贴图对对象施加间接照明。<br /><br />该对象可以在 *创建* 面板 -> *辅助对象* 类别 -> *Verge3D* 子类别中找到。</p>
+    <p>Verge3D插件增加了一个名为 *V3DReflectionCubemap* 的自定义光照探头对象，可用于通过局部反射立方体贴图对对象施加间接照明。 </p>
+
+    <iframe class="video-480p" src="https://player.bilibili.com/player.html?aid=806059893&bvid=BV1E34y1S7oY&cid=425260106&page=1&high_quality=1&danmaku=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+
+    <p>该对象可以在 *创建* 面板 -> *辅助对象* 类别 -> *Verge3D* 子类别中找到。</p>
     
-    <img src="files/lighting-max/light-probe-reflection-cubemap-create.pn" class="centered" style="max-width: 351px">
+    <img src="files/lighting-max/light-probe-reflection-cubemap-create.png" class="centered" style="max-width: 351px">
     
     <p>
       一个立方盒反射对象定义了一个由长方体或球体代表的影响范围。所有包含在该体积内的对象将使用在运行时生成的本地立方盒反射而不是场景的全局环境纹理或颜色。<br /><br />使用局部反射贴图的好处是，它有周围物体的烘焙，而场景的全局贴图只包含Max的环境设置中指定的背景纹理或颜色。局部反射贴图也有视差效应，这取决于 <a href="manual/zh/max/Lighting-and-Rendering.html#influence_volume">影响体积(influence volume)</a> 或 <a href="manual/zh/max/Lighting-and-Rendering.html#parallax_volume">视差体积(parallax volume)</a> 的几何形状。</p>
@@ -79,7 +83,7 @@
     
     <p>立方盒反射对象有以下属性参数：</p>
     
-    <img src="files/lighting-max/light-probe-reflection-cubemap-params.png" class="centered" style="max-width: 335px">
+    <img src="files/lighting-max/light-probe-reflection-cubemap-params.png" class="centered" style="max-width: 312px">
     
     <dl>
       <dt>General</dt>
@@ -124,15 +128,83 @@
           <dd>视差体积的大小。</dd>
         </dl>
       </dd>
+
+      <dt>Custom Influence</dt>
+      <dd>
+        自定义影响设置：
+        <dl>
+          <dt>Use Custom Influence</dt>
+          <dd>
+            启用自定义影响设置。这组设置允许定义将受此光照探针影响的一组对象。将使用 *Selection Set*（如果指定）代替 *Influence Type* 和 *Influence Distance* 常规探头设置。
+          </dd>
+          <dt>Selection Set</dt>
+          <dd>
+            将应受此光照探针影响的对象限制为此选择集。如果指定，则使用它代替 *Influence Type* 和 *Influence Distance* 常规探头设置。
+          </dd>
+          <dt>Invert Influence</dt>
+          <dd>
+            如果指定了 *Selection Set* ，则反转受此探头影响的对象的选择。
+          </dd>
+        </dl>
+      </dd>
+
     </dl>
 
-    [anchor:per_object_rendering_settings]
+    [anchor:reflection_plane_light_probes]
 
-    <h2>每个对象的渲染设置</h2><img src="files/lighting-max/rendering-settings.jpg" class="centered" style="max-width: 319px">
+    <h2>反射平面光照探头(Reflection Plane Light Probes)</h2>
+
+    <p>
+      反射平面光照探头，用于将实时反射（间接照明）应用于平面对象，如镜子、地板、墙壁等。
+    </p>
     
-    <p>*Rendering Order* — <b>渲染顺序</b>，修改特定对象的渲染顺序。索引值越小，该对象就越早被渲染。在大多数情况下，当使用混合透明度时，您需要调整这个值，以消除透明度的伪影。</p>
+    <img src="files/lighting-max/light-probe-reflection-plane-example.jpg" class="centered" style="max-width: 804px">
 
-    <p>*Frustum Culling* — <b>锥台剔除</b>，启用/禁用对象的锥台剔除优化。如果您有一些可以移动到屏幕空间之外的蒙皮对象，请取消勾选这个选项，以防止它被剔除。</p>
+    <p>
+      Verge3D插件添加了一个名为 *V3DReflectionPlane* 的自定义光照探头。该对象可以在 *创建* 面板 -> *辅助对象* 类别 -> *Verge3D* 子类别中找到：
+    </p>
+    
+    <img src="files/lighting-max/light-probe-reflection-plane-create.jpg" class="centered" style="max-width: 363px">
+    
+    <p>
+      反射平面对象具有以下参数：
+    </p>
+    
+    <img src="files/lighting-max/light-probe-reflection-plane-params.jpg" class="centered" style="max-width: 355px">
+    
+    <dl>
+      <dt>Length</dt>
+      <dd>
+        反射平面长度。
+      </dd>
+      <dt>Width</dt>
+      <dd>
+        反射平面宽度。
+      </dd>
+      <dt>Influence Dist.</dt>
+      <dd>
+        探头所影响的距离。
+      </dd>
+    
+      <dt>Falloff</dt>
+      <dd>
+        衰减：控制探头影响的下降速度。
+      </dd>
+    
+      <dt>Clip Offset</dt>
+      <dd>
+        剪切偏移：在靠近摄影机处对光照探头中渲染的对象进行剪切。
+      </dd>
+    
+      <dt>Visibility Selection Set</dt>
+      <dd>
+        可见选择集：光照探头可见对象的选择集。
+      </dd>
+    </dl>
+    
+    <p class="note">
+      平面反射探头会大大降低场景的性能，因为它们会将绘制调用(draw calls)次数乘以 <strong>N+1</strong> 的系数。若要加快渲染速度，请在 *Visibility Selection Set* 属性中指定一组有限的反射对象。
+    </p>
 
     [anchor:global_rendering_settings]
 
@@ -140,38 +212,109 @@
 
     <p>在3ds Max的主菜单点击<strong>Verge3D -> Export Settings...</strong> 来访问全局渲染设置。</p>
     
-    <img src="files/lighting-max/rendering-settings-global.jpg" class="centered" style="max-width: 252px">
-    
-    <p><strong>Anti-Aliasing</strong> — <b>抗锯齿</b>，选择场景使用何种反锯齿算法：</p>
+    <img src="files/lighting-max/rendering-settings-global.jpg" class="centered" style="max-width: 272px">
 
-    <ul>
-      <li><b>*Auto* — 自动</b>，使用系统默认方法。</li>
-      <li>*MSAA 4x* — 如果目标硬件支持的话，则首选使用4倍采样的多采样抗锯齿。</li>
-      <li>*MSAA 8x* — 如果目标硬件支持的话，则首选使用使用8倍采样的多采样抗锯齿。</li>
-      <li>*MSAA 16x* — 如果目标硬件支持的话，则首选使用使用16倍采样的多采样抗锯齿。</li>
-      <li>*FXAA* — 强制使用FXAA.</li>
-      <li>*None* — 禁用抗锯齿。</li>
-    </ul>
+    <dl>
+      <dt>Anti-Aliasing</dt>
+      <dd>
+        <b>抗锯齿</b>，选择场景使用何种反锯齿算法：
+        <dl>
+          <dt>Auto</dt>
+          <dd>自动，使用系统默认方法。</dd>
+          <dt>MSAA 4x</dt>
+          <dd>如果目标硬件支持的话，则首选使用4倍采样的多采样抗锯齿。</dd>
+          <dt>MSAA 8x</dt>
+          <dd>如果目标硬件支持的话，则首选使用使用8倍采样的多采样抗锯齿。</dd>
+          <dt>MSAA 16x</dt>
+          <dd>如果目标硬件支持的话，则首选使用使用16倍采样的多采样抗锯齿。</dd>
+          <dt>FXAA</dt>
+          <dd>强制使用快速近似抗锯齿(FXAA)。</dd>
+          <dt>None</dt>
+          <dd>禁用抗锯齿。</dd>
+        </dl>
+      </dd>
 
-    <p>*Use HDR Rendering* — <b>启用HDR渲染</b>，即高动态范围渲染。</p>
+      <dt>Use HDR Rendering</dt>
+      <dd>
+        <p><b>启用HDR渲染</b>，即高动态范围渲染。</p>
+        <p>如果激活，Verge3D 将使用 16 位浮点纹理作为渲染缓冲区。此功能可以显著改善 Bloom 后处理的渲染以及基于节点的渐变纹理的平滑度。这样做的缺点是增加了 GPU 内存消耗并降低了性能。</p>
 
-    <p>*Environment Map Size* — <b>环境贴图尺寸</b>，用于环境照明的纹理尺寸：</p>
+        <p class="note">此功能与HDR纹理无关，HDR纹理通常用于生成基于图像的照明，因此激活它不会改善此类纹理的渲染。</p>
+      </dd>
 
-    <ul>
-      <li>*256* — 最合适的质量和较低的内存消耗（默认值）。</li>
-      <li>*512* — 更好的质量，适中的内存消耗和相对降低的性能。可用在渲染高质量的反射的场景，例如渲染珠宝。</li>
-      <li>*1024* — 高内存消耗，低性能，最佳渲染质量（一般不推荐）。</li>
-    </ul>
+      <dt>Environment Map Size</dt>
+      <dd>
+        <b>环境贴图尺寸</b>，用于环境照明的纹理尺寸：
+        <dl>
+          <dt>256</dt>
+          <dd>最合适的质量和较低的内存消耗（默认值）。</dd>
+          <dt>512</dt>
+          <dd>更好的质量，适中的内存消耗和相对降低的性能。可用在渲染高质量的反射的场景，例如渲染珠宝。</dd>
+          <dt>1024</dt>
+          <dd>高内存消耗，低性能，最佳渲染质量（一般不推荐）。</dd>
+        </dl>
+      </dd>
 
-    <p><b>IBL Environment Mode(基于图像照明环境模式</b></p>
+      <dt id="ibl_environment_mode">IBL Environment Mode(基于图像照明环境模式)</dt>
+      <dd>
+        <dl>
+          <dt>PMREM (slow)</dt>
+          <dd><b>PMREM（慢速）</b>，高质量（默认值）。</dd>
+          <dt>Light Probe + Cubemap (medium)</dt>
+          <dd><b>光照探头+Cubemap（中速）</b>，降低基于图像的镜面反射质量，性能更好。</dd>
+          <dt>Light Probe (fast)</dt>
+          <dd><b>光照探头（快速）</b>，禁用基于图像的镜面反射，性能最高。</dd>
+        </dl>
+      </dd>
+    </dl>
 
-    <ul>
-      <li><strong>PMREM (slow)</strong> — <b>PMREM（慢速）</b>，高质量（默认值）。</li>
-      <li><strong>Light Probe + Cubemap (medium)</strong> — <b>光照探头+Cubemap（中速）</b>，降低基于图像的镜面反射质量，性能更好。</li>
-      <li><strong>Light Probe (fast)</strong> — <b>光照探头（快速）</b>，禁用基于图像的镜面反射，性能最高。</li>
-    </ul>
 
     <p>*Object Outlining* — <b>对象轮廓</b>，见下文。</p>
+
+    [anchor:ambient_occlusion]
+
+    <h2>环境光遮蔽(Ambient Occlusion)</h2>
+
+    <p>
+      环境光遮蔽是一种渲染技术，它根据点暴露在光源中的程度，从间接（环境）照明中添加柔和的阴影，从而提高场景的真实感。
+    </p>
+
+    <p>
+      Verge3D实现了地面实况环境光遮蔽（GTAO），您可以在 *Verge3D Export Settings* 的 *AO* 部分找到这些设置（3ds Max菜单 <strong>Verge3D->Export Settings...</strong> ）：
+    </p>
+
+    <img src="files/lighting-max/ambient-occlusion-properties.png" class="centered" style="max-width: 272px">
+
+    <p class="note">
+      Verge3D 仅对 *物理材质* 节点添加环境光遮蔽效果，并且仅当场景具有 <a href="manual/zh/max/Lighting-and-Rendering.html#environment_lighting">环境光照</a> （颜色或贴图）时才添加环境光遮蔽效果。
+    </p>
+
+    <dl>
+      <dt>Enabled</dt>
+      <dd>
+        在场景中启用环境光遮蔽。
+      </dd>
+
+      <dt>Distance</dt>
+      <dd>
+        距离：用于计算环境光遮蔽的半径（以系统为单位）。较高的值通过过度变暗和扩大其区域使效果更加明显，但也会降低性能。较低的值会使遮蔽不太明显。
+      </dd>
+
+      <dt>Factor</dt>
+      <dd>
+        因子：遮蔽效果的强度。
+      </dd>
+
+      <dt>Trace Precision</dt>
+      <dd>
+        跟踪精度：更高的精度意味着更准确的遮挡，同时提高性能成本。精度越低，意味着性能越好，但效果似乎不那么突出。
+      </dd>
+
+      <dt>Bent Normals</dt>
+      <dd>
+        使用修改的（或“弯曲”）法线对环境进行采样替代原有采样。修改后的法线表示遮蔽最少的方向，并使环境光照更加逼真。
+      </dd>
+    </dl>
 
     [anchor:outline_rendering]
 
@@ -179,11 +322,17 @@
 
     <p>轮廓渲染（又名剪影边缘渲染）是一种常见的非真实感渲染(NPR)技术，可以显著增强场景视觉感知。这种效果可用于各种应用，如电子学习、游戏、建筑可视化和技术绘图。</p>
 
-    <p>要在Verge3D应用中使用物体的轮廓（和可选的辉光），首先在*Verge3D Export Settings*设置窗口中启用该效果，然后将 <a href="manual/zh/puzzles/Objects.html#outline">outline(轮廓)</a> 拼图应用于对象物体。</p>
+    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+
+    <p>要在Verge3D应用中使用物体的轮廓（和可选的辉光），首先在 *Verge3D Export Settings* 设置窗口中启用该效果：</p>
+
+    <img src="files/lighting-max/outline-settings.jpg" class="centered" style="max-width: 272px">
+
+    <p>
+      然后将 <a href="manual/zh/puzzles/Objects.html#outline">outline(轮廓)</a> 拼图应用于对象物体。
+    </p>
 
     <p class="note">轮廓渲染在AR/VR进程中不起作用。可使用其他方法来突出对象物体，如动画或改变材质的颜色。</p>
-    
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
     
     <p>可以使用以下属性来调整轮廓：</p>
 
@@ -217,6 +366,139 @@
     </ul>
 
     <p>请参见Autodesk的 <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2021/ENU/3DSMax-Rendering/files/GUID-E1A6D466-CABB-4C8A-97A9-0C191C69F9BD-htm.html" target="_blank">官方文档</a> ，了解如何为场景设置曝光控制。</p>
+
+
+    [anchor:per_object_rendering_settings]
+
+    <h2>每个对象的渲染设置</h2>
+
+    <h3>Verge3D Rendering Params面板</h3>
+    <img src="files/lighting-max/rendering-settings.jpg" class="centered" style="max-width: 319px">
+    <dl>
+      <dt>Render Order</dt>
+      <dd>
+        <b>渲染顺序</b>，修改特定对象的渲染顺序。索引值越小，该对象就越早被渲染。在大多数情况下，当使用混合透明度时，您需要调整这个值，以消除透明度的伪影。
+      </dd>
+      <dt>Frustum Culling</dt>
+      <dd>
+        <b>锥台剔除</b>，启用/禁用对象的锥台剔除优化。如果您有一些可以移动到屏幕空间之外的蒙皮对象，请取消勾选这个选项，以防止它被剔除。
+      </dd>
+    </dl>
+    <h3>Verge3D Adv. Rendering Params面板</h3>
+    <img src="files/lighting-max/adv-rendering-settings.jpg" class="centered" style="max-width: 362px">
+    <dl>
+      <dt>Fit to Camera Edge</dt>
+      <dd>
+        请参阅 <a href="manual/zh/max/Lighting-and-Rendering.html#fit_to_camera_edge">此处</a> 了解详情。
+      </dd>
+      <dt>Visibility Breakpoints</dt>
+      <dd>
+        启用对象可见性断点。 请参阅 <a href="manual/zh/max/Lighting-and-Rendering.html#visibility_breakpoints">此处</a> 。
+      </dd>
+      <dt>HiDPI Compositing</dt>
+      <dd>
+        使用 HiDPI 合成通道渲染对象。有关详细信息，请参阅 <a href="manual/zh/max/Lighting-and-Rendering.html#hidpi_rendering">下文</a> 。
+      </dd>
+      <dt>Fix Ortho Zoom</dt>
+      <dd>
+        应用反向正交摄影机变焦作为此对象的比例因子。为父级为正射摄影机的对象启用此属性，以便在用户缩放摄影机时它们不会移动/缩放。
+      </dd>
+    </dl>
+
+    [anchor:hidpi_rendering]
+
+    <h2>在高分屏/视网膜屏（HiDPI/Retina）上渲染</h2>
+
+    <p>
+      如今，大多数移动终端和桌面终端都使用了高像素密度技术（即所谓的“Retina”显示器）。在这些显示器上，画面质量有了极大的提升，但其所带来的缺点是降低实时画面计算性能。
+    </p>
+    <p>
+      以下两种方法是可以在质量和效率之间取得平衡——既提升渲染画质，又不会让场景变得太慢：
+    </p>
+    <ul>
+      <li>使用相对更好的分辨率，例如通过将屏幕缩放因子设置为1.5左右。请参阅 <a href="manual/zh/puzzles/System.html#set_screen_scale">此处</a> 了解详情。</li>
+      <li>仅对重要内容（如文本、屏幕空间 UI 元素等）使用 HiDPI 呈现。</li>
+    </ul>
+    <p>
+      后一种方法可以通过启用位于 *Advanced Rendering* 面板上的 *HiDPI Compositing* 属性实现：
+    </p>
+
+    <img src="files/lighting-max/hidpi-compositing.jpg" class="centered" style="max-width: 362px">
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>贴合摄影机边界(Fit to Camera Edge)</h2>
+    
+    <p>
+      <em>Fit to Camera Edge</em> 是一种基于3D模型绘制屏幕空间UI元素的技术。与使用HTML/CSS相比，这种UI设计方法对3D艺术家来说更“原生”，并且不需要外部工具。但其中还有更多内容：因为UI元素是真正的3D对象，所以您可以应用着色器、照明、动画、变形（您可以自己命名），使它们真正交互式并无缝集成到场景中。
+    </p>
+    
+    <p>
+      将某个对象设置为摄影机的父对象时， *Verge3D Adv. Rendering Params* 面板上将显示以下设置：
+    </p>
+
+    <img src="files/lighting-max/fit-to-camera-edge-properties.jpg" class="centered" style="max-width: 362px">
+
+    <dl>
+      <dt>Horizontal(水平)</dt>
+      <dd>
+        贴合对象的水平画布边缘。*None* - 无水平贴合，*Left* - 贴合左边缘，*右*- 贴合右边缘，*Stretch* - 水平缩放对象以贴合屏幕。
+      </dd>
+
+      <dt>Vertical</dt>
+      <dd>
+        垂直画布边缘适合对象。*None* - 无垂直贴合，*Top* - 贴合上边缘，*Bottom* - 贴合下边缘，*Stretch* - 垂直缩放对象以贴合屏幕。
+      </dd>
+
+      <dt>Shape</dt>
+      <dd>
+        画布贴合形状。 *Box* — 使用对象的边界框， *Sphere* — 使用物体的边界球来适应屏幕上的对象。
+      </dd>
+
+      <dt>Fit Offset</dt>
+      <dd>
+        用于在屏幕上调整贴合对象的额外偏移量。实际上，该值按指定的绝对值扩展对象边界（长方体或球体）。
+      </dd>
+    </dl>
+
+    [anchor:visibility_breakpoints]
+    
+    <h2>可见性断点(Visibility Breakpoints)</h2>
+    <p>
+      <em>Visibility Breakpoints</em> 允许您根据 3D 视口宽度/高度或方向设置显示/隐藏内容。此功能最重要的用例 — 使场景适应不同的屏幕大小和方向。例如，您可能有两种不同的纵向和横向屏幕方向模型。
+    </p>
+    <p>
+      如果指定给当前摄像机，则尝试切换到场景中的备用摄像机（必须具有可用的Visibility Breakpoints），如果未找到备用摄像机，则不执行任何操作。
+    </p>
+
+    <p>
+      您可以在 *Verge3D Adv. Rendering Params* 面板上配置断点：
+    </p>
+
+    <img src="files/lighting-max/visibility-breakpoints.jpg" class="centered" style="max-width: 362px">
+    
+    <dl>
+      <dt>Min Width</dt>
+      <dd>
+        对象保持可见的最小画布宽度。
+      </dd>
+      <dt>Max Width</dt>
+      <dd>
+        对象保持可见的最大画布宽度。
+      </dd>
+      <dt>Min Height</dt>
+      <dd>
+        对象保持可见的最小画布高度。
+      </dd>
+      <dt>Max Height</dt>
+      <dd>
+        对象保持可见的最大画布高度。
+      </dd>
+      <dt>Orientation</dt>
+      <dd>
+        对象保持可见的屏幕方向。
+      </dd>
+    </dl>
 
     [anchor:clipping_planes]
 

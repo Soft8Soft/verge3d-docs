@@ -95,6 +95,50 @@
 
     <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
+    [anchor:using_usd_preview_material]
+    <h2>使用 Usd Preview Surface 材质</h2>
+    <p>
+      您可以将这些材质同时用于 glTF 和 USD 格式。注意：它们只能在 3ds Max 2022 及更高版本中使用。
+    </p>
+
+    <p>
+      指定 <b>Usd Preview Surface</b> 材质节点，然后即可以连接纹理节点。请注意，这里所有纹理都是可选的，并且可以安全地省略其中任何一个。Verge3D 支持以下设置：</p>
+    
+    <ul>
+      <li>Diffuse Color - 漫反射颜色</li>
+      <li>Metallic - 金属度</li>
+      <li>Roughness - 粗糙度</li>
+      <li>Occlusion - 遮蔽</li>
+      <li>Normal Map - 法线贴图</li>
+      <li>Emissive Color - 自发光颜色</li>
+      <li>Opacity - 不透明度</li>
+      <li>Opacity Threshold - 不透明度阈值</li>
+    </ul>
+
+    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" class="centered" style="max-width: 750px;">
+    
+    <h3>创建 USD 材质</h3>
+    
+    <p>按照以下步骤配置具有3个贴图的标准PBR着色器：Base Color、ORM（遮挡、粗糙度、金属度）和法线贴图：</p>
+    
+    <ol>
+      <li>指定 *Usd Preview Surface* 给模型。</li>
+
+      <li>
+      将 <b>Diffuse Color</b> 纹理连接到 <b>Diffuse Color Map</b> 输入。
+      </li>
+      <li>
+      连接一个 <b>Metallic</b> 纹理到 <b>Metallic Map</b> 输入。
+      </li>
+      <li>
+      连接一个 <b>Roughness</b> 纹理到 <b>Roughness Map</b> 输入。
+      </li>
+      <li>
+      连接一个 <b>Occlusion</b> 纹理到 <b>Occlusion Map</b> 输入。
+      <li>
+      连接一个 <b>Normal</b> 纹理到 <b>Normal Map</b> 输入。
+      </li>
+    </ol>
 
 
     <h2>遇到问题？</h2>

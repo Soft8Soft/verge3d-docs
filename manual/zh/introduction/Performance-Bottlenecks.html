@@ -31,7 +31,7 @@
       <li>使用电池供电的设备。GPU长时间高负荷会迅速耗尽移动设备的电池电量。</li>
     </ul>
 
-    <p>为了有效优化，即尽量不降低应用质量，您应该了解基本的 <a href='manual/en/introduction/Optimizing-WebGL-performance.html'>资产优化技术</a>
+    <p>为了有效优化，即尽量不降低应用质量，您应该了解基本的 <a href='manual/zh/introduction/Optimizing-WebGL-performance.html'>资产优化技术</a>
       并且能够在应用中找出导致加载和渲染缓慢的原因。这些被称为 <em>性能瓶颈</em>。</p>
 
     [anchor:fps]
@@ -41,22 +41,24 @@
     <p>FPS（每秒帧数，或帧率）是代表应用的渲染时间和用户体验的一个至关重要的量：</p>
 
     <ul>
-      <li><20 ：应用会非常卡顿，几乎无法使用。</li>
+      <li>&lt; 20 ：应用会非常卡顿，几乎无法使用。</li>
       <li>20-40 ：反应迟缓，但可以接受。</li>
       <li>40-60 ：足够好了。</li>
       <li>60 ：桌面和移动浏览器上的理想帧率。</li>
-      <li>>60 ：为VR头戴式设备做开发的目标帧率。</li>
+      <li>&gt; 60 ：为VR头戴式设备做开发的目标帧率。</li>
     </ul>
 
     <p>从3.2版本开始，Verge3D自带内置的FPS计数器。您可以通过以下方式启用它：</p>
 
     <ul>
       <li>在键盘上快速按下 *F*, *F*, *F* （连按3次F键）。</li>
-      <li>使用JavaScript和API方法 <a href="api/en/extras/App.html#showFPS">showFPS()</a> 。</li>
+      <li>使用JavaScript的API方法 <a href="api/zh/extras/App.html#showFPS">showFPS()</a> 。</li>
     </ul>
 
-    <p>一旦激活，您就可以在应用的画布左上角的小面板上看到当前的FPS值（帧率范围和历史）：</p><img src="files/performance-bottlenecks/fps-counter.jpg"
-      alt="Verge3D FPS计数器窗口" class="centered" style="max-width: 879px;">
+    <p>一旦激活，您就可以在应用的画布左上角的小面板上看到当前的FPS值（帧率范围和历史）：</p>
+    
+    <img src="files/performance-bottlenecks/fps-counter.jpg" alt="Verge3D FPS计数器窗口" class="centered" style="max-width: 879px;">
+
     <p>为获得合理的值，您应该在您拥有的最慢/最旧的设备上测量FPS。此外，大多数浏览器不允许帧速率大于60赫兹（目的是改善帧同步率，节省电池寿命，降低风扇噪音等）。</p>
 
     [anchor:performance_profile]
@@ -68,22 +70,24 @@
     <ul>
       <li>快速按键盘上的*P*,*P*,*P*（连按3次P键）(Verge3D 3.2+）。</li>
       <li>使用 <a href="manual/zh/puzzles/System.html#print_performance_info">print performance info（打印性能信息）</a> 拼图。</li>
-      <li>使用JavaScript和API方法 <a href="api/en/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> 。</li>
+      <li>使用JavaScript的API方法 <a href="api/zh/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> 。</li>
     </ul>
 
-    <p>Verge3D收集配置文件数据时，请至少等待1秒，然后打开浏览器 <a
-        href="manual/zh/introduction/FAQ.html#browser_console">控制台</a>。在打开的控制台窗口中检查输出的字符串：</p>
+    <p>Verge3D收集配置文件数据时，请至少等待1秒，然后打开浏览器 <a href="manual/zh/introduction/FAQ.html#browser_console">控制台</a>。在打开的控制台窗口中检查输出的字符串：</p>
 
     <code>--- Verge3D Performance Profile (1s) ---</code>
 
-    <p>以下是收集到的性能信息：</p><img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D性能概况"
-      class="centered" style="max-width: 880px;">
+    <p>以下是收集到的性能信息：</p><img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D性能概况" class="centered">
+
     <p>下面是您可以从生成的性能概况报告中查询的内容：</p>
 
     <dl>
       <dt>场景加载时间(Scene Loading Time)</dt>
       <dd>加载应用<em>主</em>场景。参见 <a href="manual/zh/introduction/Performance-Bottlenecks.html#scene_loading_time">下文</a>
         了解如何加快加载。</dd>
+
+      <dt>资产压缩(Asset Compression)</dt>
+      <dd>显示是否启用了资产压缩。</dd>
 
       <dt>FPS</dt>
       <dd>渲染帧速率。这与FPS计数器报告的值相同。</dd>
@@ -112,11 +116,14 @@
       <dt>灯光(Lights)</dt>
       <dd>场景中的灯光数。</dd>
 
+      <dt>反射光照探头(Reflection Probes)</dt>
+      <dd>场景中使用的立方体反射与平面反射光照探头的数量。</dd>
+
       <dt>后期处理(Post-Processing)</dt>
       <dd>场景后期处理过程（按渲染顺序）。</dd>
 
       <dt>阴影贴图(Shadow Map)</dt>
-      <dd>阴影贴图参数：过滤尺寸；已渲染阴影贴图的数量；阴影贴图的分辨率。</dd>
+      <dd>阴影贴图参数：过滤类型；已渲染阴影贴图的数量；阴影贴图的分辨率。</dd>
 
       <dt>材质和着色器(Materials and Shaders)</dt>
       <dd>已渲染材质和着色器的列表。列表各项包含了以下信息：材质名称，着色器名称，和每帧渲染时间（以毫秒为单位）。</dd>
@@ -127,6 +134,12 @@
       <dt>纹理和渲染缓存(Textures & Render Buffers)</dt>
       <dd>纹理和渲染缓存统计（分辨率）。纹理列印在列表的顶部（前缀为*texture*)，而渲染缓存列印在列表的底部（前缀为*WebGlRenderTarget*)。</dd>
     </dl>
+
+    <p>
+      要快速定位性能问题，您首先应注意被标记为红色的行。例如，在下图中的阴影贴图似乎太大（4K），这可能会导致渲染速度变慢。
+    </p>
+
+    <img src="files/performance-bottlenecks/performance-profile-red.png" class="centered" style="max-width: 622px;">
 
     [anchor:performance_bottlenecks]
 
@@ -142,16 +155,18 @@
 
     <p>您可以通过减小或增大浏览器窗口大小来简单地检测像素性能受限的情况。如果您的帧速率(FPS)在您减小尺寸时大幅增长，您就出现了这样的情况。</p>
 
-    <p>提高性能最直接的方法是简化材质。请关注 <a href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance
-        profile</a>顶部的 *Materials and Shaders* 列表。 <img
-        src="files/performance-bottlenecks/performance-profile-materials.jpg" alt="轮廓材质和着色器">
-    <p>在许多情况下，材质性能的问题是由于着色节点迟钝而发生的。请参阅 <a
-        href="manual/zh/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, <a
-        href="manual/zh/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> 或 <a
-        href="manual/zh/maya/Materials.html#performance_considerations">Maya</a> 的材质性能小节。</p>
+    <p>提高性能最直接的方法是简化材质。请关注 <a href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> 顶部的 *Materials and Shaders* 列表。
+      
+    <img src="files/performance-bottlenecks/performance-profile-materials.jpg" alt="轮廓材质和着色器">
 
-    <p>属性设置像素比 < 1，也可以解决着色器性能受限的问题 <a href="manual/zh/puzzles/System.html#set_screen_scale">set screen
-        scale（设置屏幕比例）</a> 拼图。但这会严重降低应用的质量表现，仅作为最后的备用解决方案。</p>
+    <p>在许多情况下，材质性能的问题是由于着色节点迟钝而发生的。请参阅 
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, 
+      <a href="manual/zh/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> 或 
+      <a href="manual/zh/maya/Materials.html#performance_considerations">Maya</a> 
+      的材质性能小节。
+    </p>
+
+    <p>属性设置像素比 &lt; 1，也可以解决着色器性能受限的问题 <a href="manual/zh/puzzles/System.html#set_screen_scale">set screen scale（设置屏幕比例）</a> 拼图。但这会严重降低应用的质量表现，仅作为最后的备用解决方案。</p>
 
     [anchor:postprocessing]
 
@@ -161,7 +176,13 @@
 
     <ul>
       <li>屏幕空间折射和反射（参见此 <a href="manual/zh/puzzles/Postprocessing.html#ssr">拼图</a>）。</li>
-      <li>环境遮蔽（参见此 <a href="manual/zh/puzzles/Postprocessing.html#ssao">拼图</a>）。</li>
+      <li>
+        环境遮蔽（参见 
+        <a href="manual/zh/blender/Lighting-and-Rendering.html#ambient_occlusion">Blender</a> /
+        <a href="manual/zh/max/Lighting-and-Rendering.html#ambient_occlusion">Max</a> /
+        <a href="manual/zh/maya/Lighting-and-Rendering.html#ambient_occlusion">Maya</a>
+        页)。
+      </li>
       <li>景深（请参见此 <a href="manual/zh/puzzles/Postprocessing.html#dof">拼图</a>）。</li>
     </ul>
 
@@ -174,12 +195,17 @@
     <ol>
       <li>如果您的场景中有多个灯光，为亮度最低的那一个禁用阴影。</li>
       <li>在大多数情况下, <em>点光源</em> 的阴影比 <em>聚光灯</em> 阴影或 <em>太阳光/平行光</em> 阴影需要更多的计算。</li>
-      <li>减小阴影贴图大小（请参见 <a href="manual/zh/blender/Shadows.html#global_settings">Blender</a>, <a
-          href="manual/zh/max/Shadows.html#per_light_settings">3ds Max</a>, <a
-          href="manual/zh/maya/Shadows.html#per_light_settings">Maya</a>）。</li>
-      <li>切换到性能要求较低的阴影过滤算法（请参见 <a href="manual/zh/blender/Shadows.html#shadow_filtering">Blender</a>, <a
-          href="manual/zh/max/Shadows.html#shadow_filtering">3ds Max</a>, <a
-          href="manual/zh/maya/Shadows.html#shadow_filtering">Maya</a>）。</li>
+      <li>减小阴影贴图大小（请参见 
+        <a href="manual/zh/blender/Shadows.html#global_settings">Blender</a>, 
+        <a href="manual/zh/max/Shadows.html#per_light_settings">3ds Max</a>, 
+        <a href="manual/zh/maya/Shadows.html#per_light_settings">Maya</a>）。
+      </li>
+
+      <li>切换到性能要求较低的阴影过滤算法（请参见 
+        <a href="manual/zh/blender/Shadows.html#shadow_filtering">Blender</a>,
+        <a href="manual/zh/max/Shadows.html#shadow_filtering">3ds Max</a>, 
+        <a href="manual/zh/maya/Shadows.html#shadow_filtering">Maya</a>）。
+      </li>
     </ol>
 
     [anchor:too_much_geometry]
@@ -308,7 +334,7 @@
 
     <h2>另请参阅</h2>
 
-    <p>查看 <a href='manual/en/introduction/Optimizing-WebGL-performance.html'>优化技巧</a> 部分，了解更多资产优化方法。</p>
+    <p>查看 <a href='manual/zh/introduction/Optimizing-WebGL-performance.html'>优化技巧</a> 部分，了解更多资产优化方法。</p>
 
 
     <h2>遇到问题？</h2>
