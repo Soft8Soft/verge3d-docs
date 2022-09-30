@@ -53,8 +53,26 @@
     <p>将指定材质中的纹理替换为从图片URI、 <a href="manual/zh/puzzles/Sound.html#load_video">视频资产</a>或 <a
         href="manual/zh/puzzles/HTML.html#create_canvas_elem">画布</a>中加载的纹理。</p>
       
-    <img
-      src="files/puzzles/puzzles-materials-replace-texture.jpg">
+    <p>
+      Puzzle options:
+      <ul>
+        <li>
+          启用 "once ready do(一旦准备好)" 插槽 - 显示/隐藏拼图的插槽，这些插槽将在纹理完成加载后立即执行
+        </li>
+        <li>
+          灵活的纹理输入 - 允许在 "texture(纹理)" 输入中使用 
+          <a href="manual/zh/puzzles/Text.html#text">text puzzles(文字拼图)</a>
+        </li>
+        <li>
+          使用 canvas/video alpha 为加载的画布和视频纹理启用/禁用透明度（如果存在）。注意：如果目标是使对象透明，请不要忘记也将材质类型设置为 *Blend(混合)*（请参见：
+          <a href="manual/zh/blender/Transparency.html#transparency_eevee">Blender</a>/
+          <a href="manual/zh/max/Transparency.html#blended_vs_masked">Max</a>/
+          <a href="manual/zh/maya/Transparency.html#blended_vs_masked">Maya</a> 
+          中的透明度）。
+        </li>
+      </ul>
+    </p>
+    <img src="files/puzzles/puzzles-materials-replace-texture.png">
 
     [anchor:get_texture_param]
 
@@ -189,8 +207,8 @@
 
     <p>使用指定的文本创建一个图像，并以 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a> 的格式返回。</p>
       
-    <img
-      src="files/puzzles/puzzles-materials-texture-from-text.jpg">
+    <img src="files/puzzles/puzzles-materials-texture-from-text-advanced.jpg">
+    
     <p>参数：</p>
 
     <dl>
@@ -204,10 +222,24 @@
           font(加载字体)</a> 拼图加载的自定义字体。</dd>
       <dt>size(尺寸)</dt>
       <dd>在生成的图片上绘制的文字的大小（单位：像素）。</dd>
-      <dt>align(对齐)</dt>
-      <dd>文本在生成的图像上如何对齐：*居中*、*左对齐*、*右对齐* 或 *适合* 。</dd>
-      <dt>offset(偏移)</dt>
-      <dd>绘制文本的间隙（以像素为单位）。</dd>
+      <dt>Horizontal align(水平对齐)</dt>
+      <dd>文本在生成的图像上如何水平对齐：*居中*、*左对齐*、*右对齐* 。</dd>
+      <dt>vertical align(垂直对齐)</dt>
+      <dd>
+        how the text is vertically aligned on the generated image: *middle*, *top*, *bottom*.
+      </dd>
+      <dt>line height(行高)</dt>
+      <dd>
+        文本的行高（以像素为单位）。如果设置为 *0* ，则自动检测。
+      </dd>
+      <dt>justify(两端对齐)</dt>
+      <dd>
+        如果启用了两端对齐文本，则在必要时在单词之间插入空格。
+      </dd>
+      <dt>box x, y, width, height(文本框坐标与宽高)</dt>
+      <dd>
+        指定将在图像上打印文本的框（以像素为单位的字段）。为此，单击齿轮图标并选中复选框 "box params(文本框参数)" 。
+      </dd>
     </dl>
 
     <p>在下面的示例中，使用 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a>

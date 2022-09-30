@@ -18,6 +18,7 @@
     <p>使用这些拼图可以在应用中实现高级功能，如网络、与JavaScript代码的交互、数据转换、状态保存/恢复等。</p>
       
     <img src="files/puzzles/puzzles-advanced.jpg">
+    
     <h2>内容</h2>
 
     [contents] [anchor:puzzles_reference]
@@ -33,7 +34,7 @@
 
     <p>您可以使用以下内置变量。</p>
     <ul>
-      <li><b>app</b> - 应用实例，详见 <a href="api/en/extras/App.html">App</a> 。</li>
+      <li><b>app</b> - 应用实例，详见 <a href="api/zh/extras/App.html">App</a> 。</li>
       <li><b>v3d</b> - 包含所有引擎模块的v3d命名空间。</li>
       <li><b>VARS</b> - 可以通过该对象访问变量拼图。</li>
       <li><b>PROC</b> - 可以通过这个对象访问过程拼图。</li>
@@ -138,7 +139,9 @@
     
     <img src="files/puzzles/puzzles-advanced-undo-state.jpg">
     
-    <p>如果这个拼图被多次调用，状态会从保存的序列中恢复（如果有的话），这使得我们可以从堆栈中返回到任何先前保存的状态。</p>
+    <p>如果这个拼图被多次调用，状态会从保存的序列中恢复（如果有的话），这使得我们可以从堆栈中返回到任何先前保存的状态。有时您需要解决诸如撤消历史记录中没有保存状的情况，例如在UI中进行更改等。为此，请使用状态计数器变量：</p>
+
+      <img src="files/puzzles/puzzles-advanced-save-state-and-undo-state-example.jpg">
 
     [anchor:all_variable_names]
 
@@ -200,17 +203,17 @@
 
     <h3>wait promise(等待promise)</h3>
 
-    <p>等待promise被解决或拒绝，并在 <a href="manual/zh/puzzles/Advanced.html#promise_value">promise value</a> 拼图中返回其值（或拒绝原因）。</p>
+    <p>等待promise被解析或被拒绝，并在 <a href="manual/zh/puzzles/Advanced.html#promise_value">promise value</a> 拼图中返回其值（或拒绝原因）。</p>
     <img src="files/puzzles/puzzles-advanced-wait-promise.jpg">
     <p>这个拼图可被用于获取 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">导出到gltf</a> 和 <a
         href="manual/zh/puzzles/Materials.html#generate_normal_map">generate normal map(生成法线贴图)</a>
-      的值。作为一个异步拼图，这些拼图不会立即返回解决的值。相反，它们会返回 <em>promise</em> 值，这些值在它们被用作输入的拼图中被解决。然而，在少数情况下，这种解决并没有发生。在这些情况下，您应该使用 *wait promise* 来解析promise值。</p>
+      的值。作为一个异步拼图，这些拼图不会立即返回解析值。相反，它们会返回 <em>promise</em> 值，这些值在它们被用作输入的拼图中被解析。但在少数情况下，这种解析并没有发生。在这些情况下，您应该使用 *wait promise* 来解析promise值。</p>
 
     [anchor:promise_value]
 
     <h3>promise值</h3>
 
-    <p>已解决的promise值（在已解决promise的情况下）或错误字符串（在拒绝promise的情况下）。</p>
+    <p>已解析的promise值（在已实现promise的情况下）或错误字符串（在已拒绝promise的情况下）。</p>
 
     [anchor:connector]
 
