@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>E-Learning/SCORM插件参考 - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="此插件的拼图用于实现基于SCORM的电子学习应用。"/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>E-Learning/SCORM插件</h1>
+
+    <p>
+      此官方<a href="manual/zh/puzzles/Plugins.html">插件</a>基于SCORM标准<a href="https://scorm.com/scorm-explained/technical-scorm/run-time/run-time-reference/#section-2" target="_blank">1.2版</a>，包含了一些可用于实现基于SCORM的电子学习应用的拼图。
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm.jpg">
+
+    <p>
+      关于创建SCORM课程的更多信息，请查看本手册中 <a href="manual/zh/introduction/Creating-SCORM-Courses.html">对应的章节</a> 。
+    </p>
+
+
+    <h2>内容</h2>
+
+    [contents]
+
+
+    [anchor:puzzles_reference]
+
+    <h2>拼图参考</h2>
+
+
+    [anchor:lms_initialize]
+
+    <h3>lms initialize(初始化lms)</h3>
+
+    <p>启动与LMS的通信会话。</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-initialize.jpg">
+
+
+    [anchor:lms_finish]
+
+    <h3>lms finish(结束lms)</h3>
+
+    <p>结束与LMS的通信会话。您可以在完成通信后的任何时候执行此拼图，但最好将其包含在“beforeunload”事件处理程序中。</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-finish.jpg">
+
+
+    [anchor:lms_set_value]
+
+    <h3>lms set value(设定lms值)</h3>
+
+    <p>为给定的LMS <a href="manual/zh/puzzles/SCORM.html#data_model_elements">元素</a> 设置一个值。</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-set-value.jpg">
+
+
+    [anchor:lms_get_value]
+
+    <h3>lms get value(获取lms值)</h3>
+
+    <p>从LMS <a href="manual/zh/puzzles/SCORM.html#data_model_elements">元素</a>检索值。</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-value.jpg">
+
+
+    [anchor:lms_commit]
+
+    <h3>lms commit(提交至lms)</h3>
+
+    <p>向LMS报告它应该同步的 <a href="manual/zh/puzzles/SCORM.html#lms_set_value">lms set value</a> 拼图收到的数据。执行提交并不是被严格要求的，但它可以提高某些LMS中的UI的响应能力。例如，Moddle LMS在提交时会更新分数和课程状态。</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-commit.jpg">
+
+
+    [anchor:lms_get_last_error]
+
+    <h3>lms get last error(获取lms最后一个错误)</h3>
+
+    <p>返回上次与LMS通信产生的错误代码（编码为字符串）。“0”值表示没有发生错误。
+      Returns the error code (encoded as string) that resulted from the last communication with LMS. The "0" value indicates that there is no error happened.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-last-error.jpg">
+
+
+    [anchor:lms_get_error_string]
+
+    <h3>lms get error string(获取lms的错误字符串)</h3>
+
+    <p>返回描述指定错误代码的短字符串。</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-error-string.jpg">
+
+
+    [anchor:lms_get_diagnostic]
+
+    <h3>lms get diagnostic(获取lms诊断)</h3>
+
+    <p>返回有关上次发生的错误的详细信息。</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-diagnostic.jpg">
+
+
+    [anchor:data_model_elements]
+
+    <h3>数据模型元素</h3>
+
+    <p>SCORM数据包中可以分配和检索的数据模型元素的列表。</p>
+
+    <img src="files/puzzles/puzzles-scorm-data-model-elements.jpg">
+
+    <p class="note">
+      在SCORM术语中，"element(元素)"只是一个可以被发送到LMS或从LMS获取的参数。它与“HTML”元素无关。
+    </p>
+
+    <table>
+      <tr>
+        <th>元素</th>
+        <th>读/写　　</th>
+        <th>描述</th>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_status</td>
+        <td>读/写</td>
+        <td>标示学习者是否已完成并满足上合组织的要求。“passed(通过)”，“completed(完成”)，“failed(失败)”，“incomplete(不完整)”，“browsed(浏览过)”，“not attempted(未尝试)”之一。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.student_id</td>
+        <td>只读</td>
+        <td>标识已启动课程的学生。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.student_name</td>
+        <td>只读</td>
+        <td>LMS为学生提供的姓名。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_location</td>
+        <td>读/写</td>
+        <td>学习者在当前课程中的位置。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.credit</td>
+        <td>只读</td>
+        <td>指示学生在此课程表现中将获得的学分。"credit(有学分)"或"no-credit(无学分)"。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.entry</td>
+        <td>只读</td>
+        <td>判断学习者是否之前已访问过课程。"ab-initio(从头开始)", "resume(恢复)" 或 ""。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score_children</td>
+        <td>只读</td>
+        <td>支持的数据模型元素列表。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.raw</td>
+        <td>读/写</td>
+        <td>反应学习者表现的数字，相对于由最小值和最大值限定范围的分数。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.max</td>
+        <td>读/写</td>
+        <td>原始分数范围中的最大值。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.min</td>
+        <td>读/写</td>
+        <td>原始分数范围中的最小值。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.total_time</td>
+        <td>只读</td>
+        <td>当前学习者尝试中累积的所有学习时间的总和。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_mode</td>
+        <td>只读</td>
+        <td>标识可能向学习者呈现课程的三种可能模式之一。“browse(浏览)”，“normal(正常)”，“review(评估)”之一。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.exit</td>
+        <td>仅写入</td>
+        <td>指示学习者离开课程的方式或原因。“time-out(超时)”，“suspend(暂停)”，“logout(登出)”，“”之一。</td>
+      </tr>
+      <tr>
+        <td>cmi.core.session_time</td>
+        <td>仅写入</td>
+        <td>学习者在本课程当前学习者会话中花费的时间。</td>
+      </tr>
+      <tr>
+        <td>cmi.core._children</td>
+        <td>只读</td>
+        <td>支持的数据模型元素列表。</td>
+      </tr>
+    </table>
+
+    <p>
+      为简单起见，此拼图只包括“core(核心)”元素。如果您需要将其他（包括非标准）元素传递给<a href="manual/zh/puzzles/SCORM.html#lms_set_value">lms set value(设定lms值)</a> / <a href="manual/zh/puzzles/SCORM.html#lms_get_value">lms get value(获取lms值)</a>，请使用文本拼图：
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm-data-model-elements-custom.jpg">
+
+
+    [anchor:pack_add_item]
+
+    <h3>pack add item(为包添加项目)</h3>
+
+    <p>将项添加到生成的 SCORM 包的清单中。</p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-add-item.jpg">
+
+    <p>
+      此拼图可用于创建多页课程，这些课程可以根据所选项目运行不同的内容。
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-add-item-example.jpg">
+
+    <p>
+      要检索当前项目的ID，请使用 <a href="manual/zh/puzzles/SCORM.html#pack_get_item_id">pack get item ID(从包获取项目ID)</a> 拼图。
+    </p>
+
+
+    [anchor:pack_get_item_id]
+
+    <h3>pack get item ID(从包中获取项目ID)</h3>
+
+    <p>从 SCORM 包中检索当前加载的项目的 ID。</p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-get-item-id.jpg">
+
+    <p>
+      如果 Verge3D 应用程序的 <strong>.html</strong> 文件是使用 <strong>iframe</strong> 嵌入的，则应启用 "in parent doc(在父文档中)" 复选框。
+    </p>
+
+    <h2>在使用拼图时遇到困难？</h2>
+
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
+
+  </article></body>
+</html>

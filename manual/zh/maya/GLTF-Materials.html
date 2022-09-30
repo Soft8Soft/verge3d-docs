@@ -88,6 +88,57 @@
     <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a
         href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
+    [anchor:using_usd_preview_material]
+
+    <h2>使用 usdPreviewSurface 材质</h2>
+
+    <p>
+      您可以将这些材质同时用于 glTF 和 USD 格式。注意：它们只能在 Maya 2022 及更高版本中使用。  
+    </p>
+
+    <p>
+      将 usdPreviewSurface 着色器节点分配给材质，Verge3D 支持以下设置：
+      
+    <ul>
+      <li>Color or (Diffuse Color input in Hypershade) <br /> 颜色或(Hypershade里的Diffuse Color输入)</li>
+      <li>Emission Color or (Emissive Color input in Hypershade) <br /> 自发光颜色或(Hypershade里的Emissive Color输入)</li>
+      <li>Occlusion - 遮蔽</li>
+      <li>Opacity - 不透明度</li>
+      <li>Alpha Cutoff or (Opacity Threshold input in Hypershade) <br /> Alpha修剪或(Hypershade里的Opacity Threshold输入)</li>
+    </ul>
+
+    <h3>Specular Panel(高光面板)</h3>
+    <ul>
+      <li>Metalness (Metallic input in Hypershade) <br /> 金属度(Hypershade里的Metallic输入)</li>
+      <li>Roughness (Roughness input in Hypershade) <br /> 粗糙度(Hypershade里的Roughness输入)</li>
+    </ul>
+
+    <h3>Displacement Panel(置换面板)</h3>
+    <ul>
+      <li>Normal Map (Normal input in Hypershade) <br /> 法线贴图(Hypershade里的Normal输入)</li>
+    </ul>
+
+    <h3>创建 USD 材质</h3>
+
+    <p>按照以下步骤配置具有3个贴图的标准PBR着色器：Base Color、ORM（遮挡、粗糙度、金属度）和法线贴图：</p>
+
+    <ol>
+      <li>指定 *usdPreviewSurface* 给模型。</li>
+      <li>打开Hypershade编辑器，在 *浏览器* 面板中查找并选择此材质。</li>
+      <li>创建一个 *文件* 节点，并给定漫反射颜色纹理。确保此节点的 *色彩空间* 设置设置为 *sRGB* 。</li>
+      <li>将此纹理的 *输出颜色* 输出连接到 *usdPreviewSurface* 节点的 *Diffuse Color* 输入。</li>
+      <li>创建具有 ORM 纹理的 *文件* 节点。此纹理应包含 3 个通道，其中包含 AO（红色）、粗糙度（绿色）和金属性（蓝色）信息。确保此节点的“色彩空间”设置设置为 *Raw* 。</li>
+      <li>将 ORM 纹理的 R 通道连接到 *usdPreviewSurface* 节点的 *Occlusion* 输入，以模拟环境光遮蔽效果。</li>
+      <li>将 ORM 纹理的 G 通道连接到 *usdPreviewSurface* 节点的 *Roughness* 输入。</li>
+      <li>将 ORM 纹理的 B 通道连接到 *usdPreviewSurface* 节点的 *Metallic* 输入。</li>
+      <li>创建具有法线贴图纹理的 *文件* 节点。确保文件节点的 *色彩空间* 设置设置为  *Raw* 。</li>
+      <li>将 *文件* 节点连接到 *usdPreviewSurface* 节点的 *Normal* 输入。
+    </ol>
+
+    <p>以下是材质在Hypershade编辑器中的外观：</p>
+
+    <img src="files/materials-maya/pbr-usd-surface-example.jpg" class="centered" style="max-width: 819px;">
+
 
 
     <h2>遇到问题？</h2>

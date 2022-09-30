@@ -51,11 +51,13 @@
 
     [anchor:light_probes]
 
-    <h2>光照探头</h2>
+    <h2>立方盒反射光照探头</h2>
 
-    <p>光照探头是一种用于通过生成局部立方盒反射来增加局部间接照明的对象。Verge3D目前只支持 *立方盒反射(Reflection Cubemap)* 光照探头。这种类型的光照探头对象在场景中增加了镜面间接照明。</p>
+    <p>*立方盒反射(Reflection Cubemap)* 光照探头是一种用于通过生成局部立方盒反射来增加局部间接照明的对象。这种类型的光照探头对象在场景中增加了镜面间接照明。</p>
 
-    <p>支持以下属性：</p><img src="files/lighting-blender/light-probe-reflection-cubemap.png" class="centered" style="max-width: 369px"><dl>
+    <iframe class="video-480p" src="//player.bilibili.com/player.html?aid=591013212&bvid=BV1tq4y1d7zL&cid=424930607&page=1&high_quality=1&danmaku=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <p>支持以下属性：</p><img src="files/lighting-blender/light-probe-reflection-cubemap.png" class="centered" style="max-width: 453px"><dl>
       <dt>探头</dt>
       <dd>常规探头设置：<dl>
           <dt>类型</dt>
@@ -72,6 +74,24 @@
 
           <dt>裁剪终点</dt>
           <dd>裁剪结束距离。位于比此值更远的对象将不会被渲染到立方盒反射中。</dd>
+
+      <dt>自定义影响</dt>
+      <dd>
+        启用自定义影响设置。这一组设置允许定义一个将受到此光照探头影响的对象集合。
+        （如果指定） *影响集合* ， 将不会使用 *类型* 和 *半径/距离* 等常规探头设置。
+
+        <dl>
+          <dt>影响集合</dt>
+          <dd>
+            将光照探头将会影响的对象限制为此集合内的对象。如果指定此项，则它将代替 *类型* 和 *半径/距离* 等中的常规设置。
+          </dd>
+
+          <dt>反选影响集合</dt>
+          <dd>
+            如果指定了 *影响集合* ，通过此选项可反选将受到光照探头影响的对象。
+          </dd>
+        </dl>
+      </dd>
         </dl>
       </dd>
 
@@ -108,6 +128,46 @@
         <li>为了让 *可见性集合* 属性在Blender中发挥作用，要求指定的集合也被链接到场景中。在Verge3D中不需要，只需将一个对象分配给一个集合即可。</li>
       </ul>
     </p>
+
+    [anchor:reflection_plane_light_probes]
+
+    <h2>反射平面光照探头</h2>
+
+    <p>
+      反射平面光照探头用于将实时反射（间接照明）应用于平面对象，例如镜子、地板和墙壁等。
+    </p>
+
+    <img src="files/lighting-blender/light-probe-reflection-plane-example.jpg" class="centered" style="max-width: 776px">
+
+    <p>
+      支持以下属性：
+    </p>
+
+    <img src="files/lighting-blender/light-probe-reflection-plane.jpg" class="centered" style="max-width: 368px">
+
+    <dl>
+      <dt>距离</dt>
+      <dd>
+        光照探头影响的距离。
+      </dd>
+      <dt>衰减</dt>
+      <dd>
+        控制光照探头影响减小的速度。
+      </dd>
+      <dt>钳制偏移</dt>
+      <dd>
+        在光照探头影响范围内的对象的近摄影机剪切。
+      </dd>
+      <dt>可见性集合</dt>
+      <dd>
+        光照探头中可见的对象集合。
+      </dd>
+    </dl>
+
+    <p class="note">
+      反射平面光照探头会大幅降低场景的性能，使用时将会对渲染调用乘以<strong>N+1</strong>。为了加快渲染速度，请在指定时适度控制 *可见性集合* 中的对象数量。
+    </p>
+
 
     [anchor:background]
 
@@ -150,7 +210,11 @@
 
           <dt>Filmic Log, Raw, False Color</dt>
           <dd>不被支持，Verge3D将改用*Standard*。</dd>
-        </dl><img src="files/lighting-blender/rendering-properties-global.jpg" class="centered" style="max-width: 318px"></dd>
+        </dl></dd>
+
+        <dl>
+          <img src="files/lighting-blender/rendering-properties-global.jpg" class="centered" style="max-width: 318px">
+        </dl>
 
       <dt><b>Enable Shadows and Shadow Map Side</b></dt>
       <dd><b>启用阴影和阴影贴图面</b>。阴影属性，请在 <a href="manual/zh/blender/Shadows.html">此处</a> 了解详情。</dd>
@@ -171,7 +235,7 @@
           <dd>如果目标硬件支持的话，则首选使用使用16倍采样的多采样抗锯齿。</dd>
 
           <dt><b>FXAA</b></dt>
-          <dd>强制使用FXAA。</dd>
+          <dd>强制使用快速近似抗锯齿（FXAA）。</dd>
 
           <dt><b>None</b></dt>
           <dd>禁用抗锯齿。</dd>
@@ -180,6 +244,13 @@
 
       <dt><b>Use HDR Rendering</b></dt>
       <dd>启用HDR渲染，即高动态范围渲染。</dd>
+
+      <dd>
+        <p>启用高动态范围渲染</p>
+        <p>如果激活，Verge3D将使用16位浮动纹理作为渲染缓冲区。此功能可以显著改善Bloom后期处理的渲染以及基于节点的渐变纹理的平滑度。这样做的缺点是增加了GPU内存消耗，降低了性能。</p>
+
+        <p class="note">此功能与通常用于生成基于图像的照明的HDR纹理无关，因此激活它不会改善此类纹理的渲染。</p>
+      </dd>
 
       <dt id="ibl_environment_mode">IBL Environment Mode(基于图像照明环境模式</dt>
       <dd>
@@ -197,7 +268,50 @@
 
       <dt>*Outlining Effect*</dt>
       <dd><b>轮廓效果</b>，见 <a href="manual/zh/blender/Lighting-and-Rendering.html#outline_rendering">下文</a> 。</dd>
+    </dl>
 
+
+    [anchor:ambient_occlusion]
+
+    <h2>环境光遮蔽</h2>
+
+    <p>
+      环境光遮蔽是一种渲染技术，通过根据点暴露于光源的程度从间接（环境光）照明添加柔和阴影来提高场景真实感。
+    </p>
+
+    <p>
+      Blender使用地面真实环境光遮蔽(GTAO)
+      (<a href="https://docs.blender.org/manual/zh-hans/latest/render/eevee/render_settings/ambient_occlusion.html">link</a>)
+      Verge3D已经在引擎中部署了相同的技术。
+    </p>
+
+    <p>
+      Verge3D支持如下AO设置，可在 *渲染属性* 面板中的 *环境光遮蔽* 部分找到：
+    </p>
+
+    <img src="files/lighting-blender/ambient-occlusion-properties.png" class="centered" style="max-width: 405px">
+
+    <dl>
+      <dt>环境光遮蔽</dt>
+      <dd>
+        在场景中启用环境光遮蔽。
+      </dd>
+      <dt>Distance</dt>
+      <dd>
+        计算环境光遮蔽的半径（使用系统单位）。值更高时会加深暗部和扩大暗部区域，效果更明显，但性能也会更低。值越低遮蔽越不明显。
+      </dd>
+      <dt>系数</dt>
+      <dd>
+        遮蔽效果的强度。
+      </dd>
+      <dt>追踪精度</dt>
+      <dd>
+        更高精度意味着更精确的遮蔽，同时增加性能消耗。较低的精度意味着更好的性能，但效果不太明显。
+      </dd>
+      <dt>弯曲法向</dt>
+      <dd>
+        使用修改后的（或“弯曲的”）法线来采样环境以取代原始环境。修改后的发现表示遮蔽最少的方向，使环境照明更加逼真。
+      </dd>
     </dl>
 
     [anchor:outline_rendering]
@@ -206,9 +320,17 @@
 
     <p>轮廓渲染（又名剪影边缘渲染）是一种常见的非真实感渲染(NPR)技术，可以显著增强场景视觉感知。这种效果可用于各种应用，如电子学习、游戏、建筑可视化和技术绘图。</p>
 
-    <p>要在Verge3D应用中使用物体的轮廓（和可选的辉光），首先在Blender的<b>渲染属性</b>面板上启用该效果，然后将 <a href="manual/zh/puzzles/Objects.html#outline">outline(轮廓)</a> 拼图应用于对象物体。</p>
+    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
 
-    <p class="note">轮廓渲染在AR/VR进程中不起作用。可使用其他方法来突出对象物体，如动画或改变材质的颜色。</p><img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px"><p>可以使用以下属性来调整轮廓：</p>
+    <p>要在Verge3D应用中使用物体的轮廓（和可选的辉光），首先在Blender的<b>渲染属性</b>面板上启用该效果：</p>
+
+    <img src="files/lighting-blender/outline-settings.jpg" class="centered" style="max-width: 332px">
+
+    <p>然后将 <a href="manual/zh/puzzles/Objects.html#outline">outline(轮廓)</a> 拼图应用于对象物体。</p>
+
+    <p class="note">轮廓渲染在AR/VR进程中不起作用。可使用其他方法来突出对象物体，如动画或改变材质的颜色。</p>
+    
+    <p>可以使用以下属性来调整轮廓：</p>
 
     <p>*Enabled* —  启用/禁用效果。</p>
 

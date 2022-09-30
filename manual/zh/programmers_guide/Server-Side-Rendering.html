@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>如何在Verge3D中执行服务器端渲染 - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="您可为Verge3D执行客户端渲染（在Web浏览器中）或服务器端渲染。如果用户的硬件较低端，或网络速度较慢，或需要在视觉效果最佳时仍可进行三维交互，则可以考虑使用服务器端渲染。"/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+
+    <meta property="og:image" content="https://cdn.soft8soft.com/images/server_social.jpg">
+    <meta property="article:tag" content="server-side">
+    <meta property="article:tag" content="rendering">
+  </head>
+  <body><article>
+    <h1>服务器端渲染</h1>
+
+    <p>
+      在本节中，您将了解如何在服务器上运行Verge3D以在无外设模式（headless mode）下执行渲染。如果用户的硬件较低端，或网络速度较慢，或需要在视觉效果最佳时仍可进行三维交互，则可以考虑使用服务器端渲染。
+    </p>
+
+    [contents]
+
+
+    [anchor:chrome_headless]
+
+    <h2>在服务器端以headless mode模式运行Chrome</h2>
+
+    <p>
+      您可以在headless mode下运行Chrome(或Chromium)，例如不使用屏幕或图形界面。要开启该模式，请指定 <strong>--headless</strong> 参数：
+    </p>
+
+    <code>
+      google-chrome --headless --use-gl=egl https://www.soft8soft.com/webglreport
+    </code>
+
+    <p>
+      指定 <strong>--use-gl=egl</strong> 参数，可启用headless模式下的GPU加速渲染：
+    </p>
+
+    <img src="files/server-side-rendering/webglreport-gpu.jpg" class="centered" style="max-width: 700px">
+    <span class="img-caption">Unmasked Vendor/Renderer 行表示Chrome Headless使用目标系统的真实GPU</span>
+
+    <p>
+      默认情况下，headless命令没有任何意义。要启用远程调试页面，还需指定 <strong>--remote-debugging-port=9222</strong> 参数。
+    </p>
+
+    <code>
+      google-chrome --headless --use-gl=egl --remote-debugging-port=9222 https://www.soft8soft.com/webglreport
+    </code>
+
+    <p>
+      之后即可运行常规桌面Chrome来检查页面。配置 *Discover network targets* ，然后点击 *inspect* ：
+    </p>
+
+    <img src="files/server-side-rendering/chrome-inspect.jpg" class="centered" style="max-width: 895px">
+
+    <p>
+      Headless模式的另一个重要功能是能够用于生成屏幕截图：
+    </p>
+
+    <code>
+      google-chrome --headless --use-gl=egl --screenshot https://www.soft8soft.com/webglreport
+    </code>
+
+    <p>
+      或者用来生成PDF文件：
+    </p>
+
+    <code>
+      google-chrome --headless --use-gl=egl --print-to-pdf https://www.soft8soft.com/webglreport
+    </code>
+
+    <p>
+      请在Google官方 <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" target="_blank">文档中</a> 了解有关Chrome Headless的更多信息。
+    </p>
+
+
+    [anchor:puppeteer]
+
+    <h2>使用 Node.js 和 Puppeteer</h2>
+
+    <p>
+      有时您可能需要更好地控制 Chrome Headless 模式，例如以自动方式截取屏幕截图，或实现一些客户端-服务器例程以从服务器请求屏幕截图。为此，Google 开发了一个不错的 Node.js 库，名为 Puppeteer 。
+    </p>
+
+    <p>
+      安装方式很简单，只需在任意目录下添加一个名为 <strong>package.json</strong> 的文件（<a href="files/server-side-rendering/package.json" download>点击下载</a>），添加如下脚本：
+    </p>
+
+    <code>
+    {
+        &quot;description&quot;: &quot;Headless Chrome tests with Puppeteer&quot;,
+        &quot;dependencies&quot;: {
+            &quot;commander&quot;: &quot;*&quot;,
+            &quot;puppeteer&quot;: &quot;*&quot;
+        }
+    }
+    </code>
+
+    <p>
+      然后转到该目录并执行：
+    </p>
+
+    <code>
+      npm install
+    </code>
+
+    <p>
+      以安装Puppeteer和所有必需的依赖项（包括Chromium浏览器的预构建二进制文件）。
+    </p>
+
+    <p>
+      使用以下 Node.js 脚本(<a href="files/server-side-rendering/screenshot.js" download>点击下载</a>)自动截取 Verge3D 应用的屏幕截图：
+    </p>
+
+    <code>
+    #!/usr/bin/node
+
+    const program = require('commander');
+    const puppeteer = require('puppeteer');
+
+    program
+        .option('-u, --url [url]', 'URL to open', 'http://localhost:8668/')
+        .option('-s, --screenshot-path [path]', 'A path where to save the screenshot', './screenshot.png')
+        .option('-t, --timeout [ms]', 'Timeout after page loading before taking the screenshot',
+                function(val) { return parseInt(val); }, 1000)
+        .option('-W, --viewport-width [px]', 'The width of the viewport',
+                function(val) { return parseInt(val); }, 1920)
+        .option('-H, --viewport-height [px]', 'The height of the viewport',
+                function(val) { return parseInt(val); }, 1080)
+        .parse(process.argv);
+
+    async function run() {
+        console.log('Launching headless Chrome...');
+        const browser = await puppeteer.launch({
+            args: ['--use-gl=egl']
+        });
+
+        console.log('Opening new page...');
+        const page = await browser.newPage();
+
+        const opts = program.opts();
+
+        console.log('Setting viewport size to ' + opts.viewportWidth + 'x' + opts.viewportHeight + '...');
+        await page.setViewport({ width: opts.viewportWidth, height: opts.viewportHeight });
+
+        console.log('Opening ' + opts.url + ' ...');
+        await page.goto(opts.url);
+
+        console.log('Waiting for ' + opts.timeout + 'ms ...');
+        await timeout(opts.timeout);
+
+        console.log('Taking screenshot...');
+        await page.screenshot({ path: opts.screenshotPath, type: 'png' });
+        console.log('Page\'s screenshot saved to ' + opts.screenshotPath);
+
+        console.log('Closing Chrome...');
+        await browser.close();
+    }
+
+    function timeout(ms) {
+        return new Promise(resolve =&gt; setTimeout(resolve, ms));
+    };
+
+    run();
+    </code>
+
+    <p>
+      将代码作为 <strong>screenshot.js</strong> 放在您安装 Puppetter 的同一目录中并启动：
+    </p>
+
+    <code>
+      node screenshot.js -u https://cdn.soft8soft.com/demo/applications/spinner/spinner.html
+    </code>
+
+    <p>
+      为Spinner应用截图并保存为 <strong>screenshot.png</strong> 图片文件：
+    </p>
+
+    <img src="files/server-side-rendering/puppeteer-screenshot.jpg" class="centered" style="max-width: 744px">
+
+    <p>
+      这个屏幕截图脚本还有各种有用的选项。在运行时带上 <strong>-h</strong> 参数可查看帮助信息：
+    </p>
+
+    <code>
+      node screenshot.js -h
+    </code>
+
+    <p class="note">
+      您还可以使用Puppeteer捕获Verge3D渲染的视频。有关详细信息，请参阅<a href="https://www.npmjs.com/package/puppeteer-video-recorder" target="_blank">此处</a>。
+    </p>
+
+
+    [anchor:next_steps]
+
+    <h2>后续步骤</h2>
+
+    <p>
+      在 <strong>screenshot.js</strong> 脚本中，我们使用 <em>timeout</em> 属性来等待应用加载。在实际场景中，您可能需要提供更高级的等待例程 (<a href="files/server-side-rendering/screenshot2.js" download>点击下载</a>)：
+    </p>
+
+    <code>
+    console.log('Waiting for application loading...');
+    await page.evaluate(() =&gt; {
+        return new Promise(resolve =&gt; {
+            const interval = setInterval(() =&gt; {
+                if (window.v3d.apps !== undefined &amp;&amp; window.v3d.apps.length &gt; 0) {
+                    clearInterval(interval);
+                    resolve();
+                }
+            }, 0);
+        });
+    });
+
+    await page.evaluate(() =&gt; {
+        const app = window.v3d.apps[0];
+        return new Promise(resolve =&gt; {
+            app.addEventListener('onAfterRender', () =&gt; {
+                resolve();
+            });
+        });
+    });
+    </code>
+
+    <p>
+      此外，我们没有涵盖任何客户端-服务器交互。如果需要，您可以通过 Node.js 实现简单的 <a href="https://www.npmjs.com/package/http-server" target="_blank">simple HTTP server</a>  或更高级的 <a href="https://www.npmjs.com/package/websocket" target="_blank">WebSocket server</a> 。
+    </p>
+
+
+    <h2>遇到问题？</h2>
+
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
+
+
+  </article></body>
+</html>

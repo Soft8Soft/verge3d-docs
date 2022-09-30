@@ -101,7 +101,7 @@
 
     <h3>我的应用在Chrome直接打开无法加载，但在应用管理器中或者是在Firefox中打开它可以直接运行……</h3>
 
-    <p>由于浏览器供应商实施的安全策略，Web应用无法跨域访问数据，包括从本地文件系统加载的数据（Firefox是一个例外）。因此，建议您使用应用管理器（呈现为本地服务器的形式）进行开发，并在web服务器（或Verge3D
+    <p>由于浏览器供应商实施的安全策略，Web应用无法跨域访问数据，包括从本地文件系统加载的数据（Firefox是一个例外）。因此，建议您使用应用管理器（体现为本地服务器的形式）进行开发，并在web服务器（或Verge3D
       Network）发布应用以供运行。</p>
 
     <p>如果您需要桌面或者移动端应用，您可以通过应用管理器将其转换对应版本的应用。关于如何使用Verge3D创建 <a
@@ -120,13 +120,6 @@
 
     <p>不可以，Verge3D不支持导出完整HTML包的功能。如果你需要制作成独立的可执行文件，请尝试使用 <a
         href="manual/zh/introduction/Creating-Desktop-Apps.html">Electron</a> 进行转换。</p>
-
-    [anchor:cinema4d]
-
-    <h3>有计划支持Maxon Cinema4D吗？还有Sketchup？</h3>
-
-    <p>请在论坛中查看关于 <a href="https://www.soft8soft.com/topic/verge3d-for-cinema4d-call-for-discussion/"
-        target="_blank">此问题的回答</a> 。</p>
 
     [anchor:ie11]
 
@@ -194,6 +187,23 @@
         <p>直接按下 F12 键.</p>
         <p>在开发者工具窗口，选择 *控制台* 标签。</p>
       </dd>
+
+      <dt>Android版Google Chrome</dt>
+      <dd>
+        您无法直接在Android设备上打开Chrome的浏览器控制台。请使用 <a href="manual/zh/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">USB debugging</a> 功能作为替代。
+      </dd>
+      <dd>
+        亦或者，您可以通过网页前端方式添加一个模拟控制台，详细方法请阅读此文的第三部分：<a href="https://mp.weixin.qq.com/s/RovMEMqmZYxK6skagvMEvg">使用vConsole，为任何页面添加控制台</a> 。
+      </dd>
+
+      <dt>Apple Safari on iOS/iPadOS</dt>
+      <dd>
+        您无法在iOS或iPadOS设备上直接打开Safari浏览器的控制台。您需要使用macOS系统的Safari的  <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Conceptual/Safari_Developer_Guide/GettingStarted/GettingStarted.html" target="_blank">Web Inspector</a> 工具来访问控制台内容。
+      </dd>
+      <dd>
+        亦或者，您可以通过网页前端方式添加一个模拟控制台，详细方法请阅读此文的第三部分：<a href="https://mp.weixin.qq.com/s/RovMEMqmZYxK6skagvMEvg">使用vConsole，为任何页面添加控制台</a> 。
+      </dd>
+
     </dl>
 
     [anchor:app_failed_to_load_on_remote]
@@ -278,6 +288,55 @@
     
 </code>
 
+[anchor:renaming_app]
+<h3>如何正确重命名我的应用？</h3>
+<p>
+  转到 Verge3D 安装中的 *applications* 目录（4.0版之后为您自行指定的应用存放目录），查找并重命名包含您的应用的文件夹（例如，改 *my_awesome_app* 为 *cool_3d_visualization*）。
+</p>
+<p class="note">
+  请注意，应用名成并不是应用管理器里显示的标题！例如， "my_awesome_app" 应用显示的标题为 "My Awesome App" 。此标题是通过将下划线替换为空格并将单词首字母大写来自动生成的。
+</p>
+<p>
+  如果您也想重命名应用 <em>内部</em> 的文件，请按如下步骤操作：
+</p>
+<ol>
+  <li>打开应用目录。</li>
+  <li>
+    指定新的应用名给所有的 html/css/js/gltf/bin/blend/max/ma/mb 资产文件 （详见 <a href="manual/zh/introduction/Project-Structure.html">此处</a> ）。
+    请勿修改 *v3d.js*, *visual_logic.xml*, and *visual_logic.js* 脚本！
+  </li>
+  <li>打开并重新导出场景以更新导出的 glTF 资源中的路径。</li>
+  <li>
+    打开主 HTML 文件（例如 *my_awesome_app.html* ）并更新以下 JS/CSS 路径
+    <code>
+&lt;script src=&quot;my_awesome_app.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;my_awesome_app.css&quot;&gt;
+    </code>
+    比如说，如果您改名 *my_awesome_app* 为 *cool_3d_visualization* 。那如此您需将路径做如下修改：
+    <code>
+&lt;script src=&quot;cool_3d_visualization.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;cool_3d_visualization.css&quot;&gt;
+    </code>
+  </li>
+  <li>
+    打开主 JavaScript 文件（比如 *my_awesome_app.js*），并使用首选应用名称更新以下行：
+    <code>
+      var sceneURL = params.load ? params.load : '__URL__my_awesome_app.gltf'.replace('__URL__', '');
+    </code>
+    假设您将 *my_awesome_app* 改名为 *cool_3d_visualization* ，按此修改如下路径：
+    <code>
+      var sceneURL = params.load ? params.load : '__URL__cool_3d_visualization.gltf'.replace('__URL__', '');
+    </code>
+  </li>
+  <li>
+    在应用管理器中启动该应用，如果应用没能正常运行，请打开 <a href="manual/zh/introduction/FAQ.html#browser_console">浏览器控制台</a> 检查其中所报错误的原因。
+  </li>
+</ol>
+<p>
+  此外，重命名后的应用，您可以放心地更新其HTML文件的元数据。有关如何执行此项操作，请查看 <a href="manual/zh/introduction/Personalizing-Verge3D-Apps.html#title_description">这里</a> 。
+</p>
+
+
 
     [anchor:Modelling]
 
@@ -307,7 +366,7 @@
       <li>在多数情况下glTF材质更高效，这对低端设备来说是一件好事。</li>
       <li>在启动过程中，其着色器编译更快速。</li>
       <li>有赖于其简洁性，glTF材质创建起来更容易，并且在大多数流行的材质编辑器软件中都可被原生支持，例如Substance Painter。</li>
-      <li>您可以通过GLTFExporter类在运行时中导出材质（需要JavaScript编程）。</li>
+      <li>您可以使用 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">export to gltf(导出为gltf)</a> 拼图将模型导出为 glTF 2.0 格式，并在各种模型查看器中预览与加载。</li>
       <li>最后但不限于此，这些材质可以在其他支持glTF格式的软件中得到正确的支持。</li>
     </ul>
 
@@ -336,7 +395,7 @@
     <ul>
       <li>可能是因为摄影机没有正确配置。检查其剪切距离的 <em>远</em> 、 <em>近</em> 参数以及目标点（如果您使用了 <em>轨道</em> 控制类型的摄影机）。</li>
       <li>可能是因为 <em>背面剔除</em> 或法线方向错误。请检查您的材质和法线设置。</li>
-      <li>可能是因为硬件出现问题或软件错误导致几何体无法渲染。请检查浏览器控制台是否报告了任何错误。</li>
+      <li>可能是因为硬件出现问题或软件错误导致几何体无法渲染。请检查 <a href="manual/zh/introduction/FAQ.html#browser_console">浏览器控制台</a> 是否报告了任何错误。</li>
     </ul>
 
     [anchor:supported_3d_formats]
@@ -348,6 +407,22 @@
 
     <p>此外，标准应用模板的脚本基于App类，该类仅支持加载glTF文件。如需加载其他格式，请改用对应的 <a
         href="https://cdn.soft8soft.com/demo/examples/index.html?q=loader" target="_blank">加载器</a> 。</p>
+
+    [anchor:is_maya_lt_supported]
+
+    <h3>Maya LT版本是否支持？</h3>
+
+    <p>
+      很遗憾，不支持。Maya LT 不支持 Python 脚本，因此无法从中导出。
+    </p>
+
+    [anchor:cinema4d]
+    
+    <h3>有没有支持Maxon Cinema 4D 或 Sketchup 的计划？</h3>
+    
+    <p>
+      请查看论坛中 <a href="https://www.soft8soft.com/topic/verge3d-for-cinema4d-call-for-discussion/" target="_blank">关于此问题的回复</a> 。
+    </p>
 
     [anchor:solidworks_to_webgl]
 
@@ -407,6 +482,16 @@
       src="files/faq/hide-show-annotations.jpg" class="centered" style="max-width: 628px">
     <p>通常来说，将 *display* 设置为 *none* 会隐藏标注，而将 *display* 设置为 *block* 则会显示标注。</p>
 
+    [anchor:hide_show_ray_reticle]
+
+    <h3>是否可以在VR模式下禁用（隐藏）光线投射/十字光标？</h3>
+
+    <p>
+      请使用 <a href="manual/zh/puzzles/AR_VR.html#get_controller_prop">get controller property(获取控制器属性)</a> 拼图来获取光纤投射/十字光标的对象，并使用 <a href="manual/zh/puzzles/Objects.html#hide">hide(隐藏)</a> 拼图将其隐藏。
+    </p>
+
+    <img src="files/faq/hide-show-ray-reticle.jpg">
+
     [anchor:advanced_programming_questions]
 
     <h2>高级编程问题</h2>
@@ -417,8 +502,8 @@
 
     <h3>既然Verge3D基于Three.js，那么它和Three.js的API兼容吗？</h3>
 
-    <p>在创建Verge3D过程中，我们对Three.js代码库做了大量修改，因此我们决定对API使用"v3d"前缀。但是，我们依然尝试与Three.js保持源代码的兼容性。大多数基于Three.js的应用和 <a
-        href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">实例</a> 都可以在Verge3D中直接运行，无需进行任何修改。</p>
+    <p>
+      在创建Verge3D过程中，我们对 Three.js 代码库做了 <a href="https://www.soft8soft.com/wiki/index.php/Verge3D_vs_Three.js" target="_blank">大量的修改</a> ，因此因此我们决定对API使用 "v3d" 前缀。 但是，我们依然尝试与Three.js保持源代码的兼容性。大多数基于Three.js的应用和 <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">实例</a> 都可以在Verge3D中直接运行，无需进行任何修改。</p>
 
     [anchor:texture_memory_usage]
 
