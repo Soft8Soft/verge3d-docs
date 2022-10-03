@@ -29,25 +29,25 @@
     Geometry lies at the root of a 3D application as it forms the main shape of a model. To get smoother reflections and faster rendering you should keep the mesh as regular as possible. In the beginning, you should decide on the level of details you want to have in your scene, and stick to that when modeling.
     </p>
 
-    <img src="files/optimization-techniques/topology.jpg" alt="Recommended topology for WebGL applications" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/topology.jpg" alt="Recommended topology for WebGL applications" style="max-width: 1000px;">
 
     <p>
     When modeling creases, better use smooth groups instead of adding more polygons.
     </p>
 
-    <img src="files/optimization-techniques/crease.jpg" alt="Using smooth groups to implement geometry creases" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/crease.jpg" alt="Using smooth groups to implement geometry creases" style="max-width: 1000px;">
 
     <p>
     When working on a cylindrical model, make effort to reduce the number of polygons by its center.
     </p>
 
-    <img src="files/optimization-techniques/cylindrical.jpg" alt="Optimizing cylindrical models for WebGL" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/cylindrical.jpg" alt="Optimizing cylindrical models for WebGL" style="max-width: 1000px;">
 
     <p>
     Do not overload a model with extra details that the user won't see anyway. As shown on the picture below, the edge highlighted with orange defines the level of details for the whole model, so you can use at as reference.
     </p>
 
-    <img src="files/optimization-techniques/details.jpg" alt="Managing level of detail for real-time" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/details.jpg" alt="Managing level of detail for real-time" style="max-width: 1000px;">
 
 
 
@@ -59,19 +59,19 @@
     A common way to optimize WebGL performance is to reduce the amount of polygons by baking a normal map from a high-poly model to a low-poly model.
     </p>
 
-    <img src="files/optimization-techniques/normal-map.jpg" alt="Using normal maps for optimizing WebGL scenes" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/normal-map.jpg" alt="Using normal maps for optimizing WebGL scenes" style="max-width: 1000px;">
 
     <p>
     However, normal maps may produce visible artifacts due to the limited precision of a 8 bit image. Some possible solutions are pictured below, but they are rather impracticable: using a higher precision image would produce a heavier file, while the second approach is rather time-consuming and does not guarantee a clean result. The third approach however may work in some cases: if you have rather *rough surfaces* we recommend to add noise to your materials to reduce those artifacts.
     </p>
 
-    <img src="files/optimization-techniques/normal-map-problems.jpg" alt="Normal map artifacts and possible solutions" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/normal-map-problems.jpg" alt="Normal map artifacts and possible solutions" style="max-width: 1000px;">
 
     <p>
     From our experience, we found that the best solution for *glossy objects* would be using middle-poly geometry with smooth groups, and without any normal map.
     </p>
 
-    <img src="files/optimization-techniques/normal-map-best-solution.jpg" alt="Recommended way to deal with normal map artifacts" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/normal-map-best-solution.jpg" alt="Recommended way to deal with normal map artifacts" style="max-width: 1000px;">
 
     <p>
     Finally, here are some cases when you might want to use a normal map rather than a highly detailed mesh:
@@ -89,7 +89,7 @@
     </li>
     </ul>
 
-    <img src="files/optimization-techniques/normal-map-usage.jpg" alt="When to use normal maps with WebGL applications" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/normal-map-usage.jpg" alt="When to use normal maps with WebGL applications" style="max-width: 1000px;">
 
 
     [anchor:Texturing]
@@ -100,25 +100,25 @@
     Here is a typical set of textures used in the PBR pipeline (and in general).
     </p>
 
-    <img src="files/optimization-techniques/textures.jpg" alt="Common textures used in WebGL apps" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/textures.jpg" alt="Common textures used in WebGL apps" style="max-width: 1000px;">
 
     <p>
     As you can see, most of them are black and white. Therefore you may combine b/w textures into the RGBA channels of a single image, up to 4 maps per image.
     </p>
 
-    <img src="files/optimization-techniques/textures-pack-rgba.jpg" alt="Packing textures into RGBA channels of a single image" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/textures-pack-rgba.jpg" alt="Packing textures into RGBA channels of a single image" style="max-width: 1000px;">
 
     <p>
     If you only have one b/w texture you may combine it with any existing RGB texture by packing it into the alpha channel. Finally, if you have no image to combine with, you can convert your b/w image into jpeg format with 95% compressing and the grayscale mode enabled.
     </p>
 
-    <img src="files/optimization-techniques/textures-pack-a.jpg" alt="Packing black/white textures into alpha channel" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/textures-pack-a.jpg" alt="Packing black/white textures into alpha channel" style="max-width: 1000px;">
 
     <p>
     Another way to reduce the size of texture is to optimize the UV space. The more compact is your UV unwrapping, the more effectively your image will use the texture space. Therefore you can have smaller images without losing any quality.
     </p>
 
-    <img src="files/optimization-techniques/uv-space.jpg" alt="Optimizing UV space for better WebGL performance" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/uv-space.jpg" alt="Optimizing UV space for better WebGL performance" style="max-width: 1000px;">
 
 
 
@@ -130,13 +130,13 @@
     Using vertex colors instead of images is an efficient way to speed up the loading and improve the overall performance of your WebGL applications. Although it comes at the expense of additional edges which you have to add to your model in order to separate different vertex colors.
     </p>
 
-    <img src="files/optimization-techniques/vertex-colors.jpg" alt="Using vertex colors to optimize WebGL performance" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/vertex-colors.jpg" alt="Using vertex colors to optimize WebGL performance" style="max-width: 1000px;">
 
     <p>
     You can also use vertex colors to define roughness, metalness or specular surfaces, or any other parameters. Below you can see an example of such a material where only vertex colors are used.
     </p>
 
-    <img src="files/optimization-techniques/vertex-colors-pbr.jpg" alt="Using vertex colors in PBR pipeline" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/vertex-colors-pbr.jpg" alt="Using vertex colors in PBR pipeline" style="max-width: 1000px;">
 
 
 
@@ -152,19 +152,19 @@
     If you have similar materials that only differ by textures, you can use only one material and load/swap its textures at run time. For this, you can use the <a href='manual/en/puzzles/Materials.html#replace_texture'>replace texture</a> puzzle or do it with JavaScript. This not only will optimize the number of shaders but also will reduce the number of images loaded at application startup.
     </p>
 
-    <img src="files/optimization-techniques/replacing-textures.jpg" alt="Replacing textures at run time with Verge3D Puzzles" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/replacing-textures.jpg" alt="Replacing textures at run time with Verge3D Puzzles" style="max-width: 1000px;">
 
     <p>
     Here's an example of such the optimization. All these tires are represented by only one material and configured by swapping its textures.
     </p>
 
-    <img src="files/optimization-techniques/replacing-textures-example.jpg" alt="Example of replacing textures at run time" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/replacing-textures-example.jpg" alt="Example of replacing textures at run time" style="max-width: 1000px;">
 
     <p>
     In order to reduce the number of shaders, you can combine 2 or more simple materials into one bigger material. This technique is especially effective if you plan to switch between these materials (e.g. you are making a configurator app), because it works faster this way and also allows for animated transitions.
     </p>
 
-    <img src="files/optimization-techniques/mixing-shaders.jpg" alt="Mixing shaders in WebGL" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/mixing-shaders.jpg" alt="Mixing shaders in WebGL" style="max-width: 1000px;">
 
 
 
@@ -180,13 +180,13 @@
     Therefore, you should strive to join meshes when possible, and use less unique materials, in order to reduce the number of draw calls and improve the performance.
     </p>
 
-    <img src="files/optimization-techniques/materials-number.jpg" alt="Reducing the number of materials for WebGL" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/materials-number.jpg" alt="Reducing the number of materials for WebGL" style="max-width: 1000px;">
 
     <p>
     If you have an animated object, you can still join its parts together and use bones for animation, which is sometimes even more convenient when animating separate objects.
     </p>
 
-    <img src="files/optimization-techniques/materials-number-armature.jpg" alt="Using armatures to reduce the number of draw calls in your 3D app" class="centered" style="max-width: 600px;">
+    <img src="files/optimization-techniques/materials-number-armature.jpg" alt="Using armatures to reduce the number of draw calls in your 3D app" style="max-width: 600px;">
 
 
 
@@ -198,7 +198,7 @@
     It helps a lot improve the performance if you lighten your scene by an HDR image only, without using any light sources. An HDR file may weight less than 1 Mb.
     </p>
 
-    <img src="files/optimization-techniques/hdr-image.jpg" alt="Using HDR environment texture instead of light sources for better WebGL performance" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/hdr-image.jpg" alt="Using HDR environment texture instead of light sources for better WebGL performance" style="max-width: 1000px;">
 
 
 
@@ -210,13 +210,13 @@
     Use dynamic shadows only when they help present your object nicely. On the picture below, dynamic shadows used in the Industrial Robot demo emphasize the shape of the robot model. The model itself is allowed to be rotated so the shadows cannot hide any part of the object from the user. On the other hand, shadows in the Scooter demo would cloud many details.
     </p>
 
-    <img src="files/optimization-techniques/dynamic-shadows.jpg" alt="Comparison of dynamic and baked shadows in different cases" class="centered" style="max-width: 1000px;">
+    <img src="files/optimization-techniques/dynamic-shadows.jpg" alt="Comparison of dynamic and baked shadows in different cases" style="max-width: 1000px;">
 
     <p>
     If your object does not move in your app, you may bake shadow and ambient occlusion maps and apply them to the plane under the object.
     </p>
 
-    <img src="files/optimization-techniques/baked-shadows.jpg" alt="Using baked textures as replacement for ambient occlusion and shadows" class="centered" style="max-width: 700px;">
+    <img src="files/optimization-techniques/baked-shadows.jpg" alt="Using baked textures as replacement for ambient occlusion and shadows" style="max-width: 700px;">
 
 
     [anchor:see_also]

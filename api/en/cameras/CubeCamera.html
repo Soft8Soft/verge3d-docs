@@ -17,7 +17,7 @@
 
     <code>
     // Create cube render target
-    const cubeRenderTarget = new v3d.WebGLCubeRenderTarget(128, { format: v3d.RGBFormat, generateMipmaps: true, minFilter: v3d.LinearMipmapLinearFilter });
+    const cubeRenderTarget = new v3d.WebGLCubeRenderTarget(128, { generateMipmaps: true, minFilter: v3d.LinearMipmapLinearFilter });
 
     // Create cube camera
     const cubeCamera = new v3d.CubeCamera(1, 100000, cubeRenderTarget);
@@ -25,7 +25,7 @@
 
     // Create car
     const chromeMaterial = new v3d.MeshLambertMaterial({ color: 0xffffff, envMap: cubeRenderTarget.texture });
-    const car = new Mesh(carGeometry, chromeMaterial);
+    const car = new v3d.Mesh(carGeometry, chromeMaterial);
     scene.add(car);
 
     // Update the render target cube
@@ -41,8 +41,7 @@
     <h2>Examples</h2>
 
     <p>
-      [example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic]<br />
-      [example:webgl_shading_physical shading / physical]
+      [example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic]
     </p>
 
     <h2>Constructor</h2>
@@ -71,7 +70,7 @@
     <h2>Methods</h2>
     <p>See the base [page:Object3D] class for common methods.</p>
 
-    <h3>[method:null update]([param:WebGLRenderer renderer], [param:Scene scene])</h3>
+    <h3>[method:undefined update]([param:WebGLRenderer renderer], [param:Scene scene])</h3>
     <p>
     renderer -- The current WebGL renderer <br />
     scene -- The current scene

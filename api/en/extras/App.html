@@ -23,10 +23,10 @@
 
     <code>
     // loaded GLTF 2.0 asset
-    var url = 'template.gltf';
+    const url = 'template.gltf';
 
     // construct a new application with simple rotating preloader
-    var app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
+    const app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
 
     // load main scene
     app.loadScene(url, function() {
@@ -57,6 +57,8 @@
       <li>Initializes an application clock.</li>
       <li>Creates a new 3D canvas with WebGL 1.0 or WebGL 2.0 context and adds it to the container element.</li>
       <li>Initializes a GLTF loader.</li>
+      <li>Prepares texture compression module.</li>
+      <li>Initializes methods for accelerated raycasting (BVH).</li>
       <li>Adds an app instance to <strong>v3d.apps</strong> list (in case of non-modularized engine).</li>
     </ol>
 
@@ -99,10 +101,10 @@
     }
 
     // loaded GLTF 2.0 asset
-    var url = 'my_scene.gltf';
+    const url = 'my_scene.gltf';
 
     // construct a new application with simple rotating preloader
-    var app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
+    const app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
 
     // initialize fog just before shader compilation
     app.compileCallbacks.push(initFog);
@@ -152,13 +154,6 @@
 
     <p>Resolution of the cubemap texture representing the world material. Default is 1024.</p>
 
-    <h3>[property:Material worldMaterial]</h3>
-
-    <p>
-        <span style="color:#f00">Deprecated.</span> Use [page:Scene.worldMaterial]
-        instead. This is the material used to generate world environment.
-    </p>
-
     <h3>[property:Array xrControllers]</h3>
 
     <p>Array of controller objects for the active WebXR session.</p>
@@ -185,12 +180,6 @@
       Such parameters as *loadCameras* and *loadLights* are used to specify if
       cameras and lights will be appended from the loaded scene. Both parameters
       are *true* by default.
-    </p>
-
-    <h3>[method:null cleanup]()</h3>
-    <p>
-      <span style="color:#f00">Deprecated.</span> Use [page:.dispose dispose]
-      or [page:.unload unload] instead.
     </p>
 
     <h3>[method:null disablePostprocessing](keepOutline)</h3>
@@ -240,7 +229,7 @@
 
     <h3>[method:Camera getCamera]()</h3>
     <p>
-      Returns main app camera.
+      Returns the main app camera.
     </p>
 
     <h3>[method:number getHeight]()</h3>
@@ -253,27 +242,29 @@
       Return calculated container element width.
     </p>
 
-    <h3>[method:null initPostprocessing]()</h3>
-    <p>
-      Handler for app post-processing initialization. Do not change unless you know what you are doing.
-    </p>
-
     <h3>[method:null hideFPS]()</h3>
     <p>
       Hide frame rate counter.
     </p>
 
-    <h3>[method:null load](url, loadOkCb, loadErrorCb, autoStart)</h3>
+    <h3>[method:null initPostprocessing]()</h3>
     <p>
-      <span style="color:#f00">Deprecated.</span> Use [page:.loadScene loadScene]
-      instead.<br/><br/>
-      Load the glTF scene. The loadOkCb callback will receive the loaded scene as
-      a parameter after the loading is finished.<br/><br/>
-
-      If there already is an active scene (e.g. loaded before via the [page:.load load]
-      method), then use [page:.unload unload] first to avoid conflicts between the
-      existed scene and the loaded one.
+      Handler for app post-processing initialization. Do not change unless you know what you are doing.
     </p>
+
+    <h3>[method:null initWebXR](mode, referenceSpaceType, successCb, failureCb, exitCb, options)</h3>
+    <p>
+      Initialize AR/VR session.
+    </p>
+
+    <ul>
+      <li>*mode* — "immersive-vr" for VR session, "immersive-ar" for AR session.</li>
+      <li>*referenceSpaceType* — one of "viewer", "local", "local-floor", "bounded-floor", "unbounded".</li>
+      <li>*successCb* — callback executed on success.</li>
+      <li>*failureCb* — callback executed when the method fails.</li>
+      <li>*exitCb* — callback executed when the user leaves WebXR session.</li>
+      <li>*options* — dictionary object with additional params, such as *domOverlay* to enable HTML in AR mode.</li>
+    </ul>
 
     <h3>[method:null loadScene](url, loadCb, progressCb, errorCb)</h3>
     <p>
@@ -304,6 +295,11 @@
     <p>
       Starts the application by removing the preloader and starting the
       rendering cycle.
+    </p>
+
+    <h3>[method:Camera setCamera](camera)</h3>
+    <p>
+      Set the main app camera.
     </p>
 
     <h3>[method:null setFrameRateDivider]([param:Integer divider])</h3>
@@ -351,7 +347,6 @@
       Update all [page:CubeReflectionProbe] objects that are descendants of the
       given *object3d* object.
     </p>
-
 
     [sourceHint]
   </body>

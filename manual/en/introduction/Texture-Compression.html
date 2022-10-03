@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Verge3D Texture Compression - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Verge3D supports textures compressed with the KTX2/BasisU compression algorithm. Find out how to enable this feature in your apps."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+
+    <h1>Texture Compression</h1>
+
+    <p>
+      In Verge3D, textures may be compressed using the highly effective KTX2/BasisU compression algorithm, thus significantly reducing GPU memory consumption and improving rendering speed.
+    </p>
+
+    <figure style="max-width: 900px">
+      <img src="files/texture-compression/ktx-comparison.jpg">
+      <figcaption>Size comparison for a sample lamp model, image courtesy of Khronos® Group.</figcaption>
+    </figure>
+
+    [contents]
+
+
+    [anchor:enabling_texture_compression]
+
+    <h2>Enabling Texture Compression</h2>
+
+    <p>
+      To enable texture compression automatically upon export, you can simply turn on the corresponding option in the export settings.
+    </p>
+
+    <v3d-tabs>
+      <label>Blender</label>
+      <div>
+        <img src="files/texture-compression/enable-blender.jpg" style="max-width: 320px">
+      </div>
+      <label>3ds Max</label>
+      <div>
+        <img src="files/texture-compression/enable-max.jpg" style="max-width: 272px">
+      </div>
+      <label>Maya</label>
+      <div>
+        <img src="files/texture-compression/enable-maya.jpg" style="max-width: 434px">
+      </div>
+    </v3d-tabs>
+
+
+    [anchor:checking_your_files]
+
+    <h2>Checking Your Files</h2>
+
+    <p>
+      To ensure that your app now actually loads compressed texture, run your app (either from App Manager or from a website where it is deployed). Open the <a href="manual/en/introduction/FAQ.html#browser_console">browser console</a> and switch to the <strong>Network</strong> tab.
+    </p>
+
+    <img src="files/texture-compression/console-check.jpg">
+
+    <p>
+      Reload your app so that the console starts displaying files from the beginning. Find the texture files in the list - if everything is ok, they should end with <strong>.ktx2</strong>.
+    </p>
+
+    <p>
+      Alternatively, you can check whether the compressed textures are enabled by using the <a href="manual/en/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> feature.
+    </p>
+
+
+    [anchor:tweaking_compression]
+
+    <h2>Tweaking Compression</h2>
+
+    <p>
+      There is an option available for each texture to tweak the compression algorithm:
+    </p>
+
+    <v3d-tabs>
+      <label>Blender</label>
+      <div>
+        <img src="files/texture-compression/tweak-blender.jpg" style="max-width: 440px">
+      </div>
+      <label>3ds Max</label>
+      <div>
+        <img src="files/texture-compression/tweak-max.jpg" style="max-width: 343px">
+      </div>
+      <label>Maya</label>
+      <div>
+        <img src="files/texture-compression/tweak-maya.jpg" style="max-width: 437px">
+      </div>
+    </v3d-tabs>
+
+    <dl>
+      <dt>Auto</dt>
+      <dd>Choose best algorithm automatically. Corresponds to using UASTC in the current implementation.</dd>
+      <dt>UASTC</dt>
+      <dd>modern method which offers best quality. It is good for everything including normal maps, ORM textures, etc.</dd>
+      <dt>ETC1S</dt>
+      <dd>offers best compression and generates smallest files. However, it may cripple textures so you might use it only for non-contrast images (such as grass, wood, bricks, etc).</dd>
+      <dt>Disable</dt>
+      <dd>disable texture compression.</dd>
+    </dl>
+
+
+    [anchor:compressing_hdr_textures]
+
+    <h2>Special Case - HDR textures</h2>
+
+    <p>
+      Besides genuine texture compression, all HDR images are compressed with lossless LZMA (i.e. same method used for glTF files). This makes the HDR files 4x-6x times smaller, although they still occupy the same amount of video memory. This feature is turned off when you set the texture compression setting to *Disabled*.
+    </p>
+
+
+    [anchor:limitations]
+
+    <h2>Limitations</h2>
+
+    <p>
+      In general, it's save to enable texture compression for all of your scenes, however you should be aware of some limitations and drawbacks introduced by this feature.
+    </p>
+
+    <h3>Compressing requires more data to load over network</h3>
+
+    <p>
+      As stated in the beginning of this section, texture compression significantly reduces GPU memory consumed by your apps. However it's not always true for data transferred over network. When using *UASTC* (or *Auto*) compression algorithm, you might experience increase of your texture files. If network bandwidth is priority, disable texture compression or use more efficient *ETC1S* algorithm.
+    </p>
+
+    <h3>Slower export</h3>
+
+    <p>
+      Compression requires additional time to compress your data during export.
+    </p>
+
+    <h3>Supported only for JPEG and PNG textures</h3>
+
+    <p>
+      Only JPEG/PNG textures can be converted to KTX2. Textures in other formats (WebP, BMP, etc) are left uncompressed.
+    </p>
+
+    <h3>Not supported for non-power-of-two (NPOT) textures</h3>
+
+    <p>
+      If the exporter detects that you try to compress NPOT textures (which we don't recommend using in your apps anyway), it will fallback to regular non-compressed data and prints a warning in the console of your modelling tool.
+    </p>
+
+    <h3>Not supported for PNG textures with embedded ICC profile</h3>
+
+    <p>
+      Do not use ICC profile for your PNG images. It will increase the size of your textures and prevent them from being compressed.
+    </p>
+
+    <h3>Not compatible with AR mode on iOS devices</h3>
+
+    <p>
+      Disable compression if you need to convert your models to USDZ to be shown in AR Quick Look mode on Apple devices. Alternatively, use two separate scenes for AR and non-AR modes or generate USDZ assets statically, e.g by using your modelling suite or model converter. See <a href="manual/en/introduction/AR-VR-development.html#creating_ar_apps_usdz">here</a> for more info.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

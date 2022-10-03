@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D Animation - Soft8Soft</title>
+    <title>Verge3D Animation System - Soft8Soft</title>
     <meta charset="utf-8" />
     <meta name="description" content="How to animate your Verge3D scene using JavaScript."/>
     <base href="../../../" />
@@ -15,9 +15,8 @@
 
     <p class="desc">
       Within the Verge3D animation system you can animate various properties of your models:
-      the bones of a [page:SkinnedMesh skinned and rigged model],
-      [page:Geometry.morphTargets morph targets], different material properties (colors,
-      opacity, booleans), visibility and transforms. The animated properties can be faded in,
+      the bones of a [page:SkinnedMesh skinned and rigged model], morph targets, different material properties
+      (colors, opacity, booleans), visibility and transforms. The animated properties can be faded in,
       faded out, crossfaded and warped. The weight and time scales of different simultaneous
       animations on the same object as well as on different objects can be changed
       independently. Various animations on the same and on different objects can be
@@ -25,7 +24,7 @@
 
       To achieve all this in one homogeneous system, the Verge3D animation system
       [link:https://github.com/mrdoob/three.js/issues/6881 has completely changed in 2015]
-      (be aware of outdated information!), and it has now an architecture similar to
+      (beware of outdated information!), and it has now an architecture similar to
       Unity/Unreal Engine 4. This page gives a short overview of the main components of the
       system and how they work together.
 
@@ -36,11 +35,11 @@
     <p class="desc">
 
       If you have successfully imported an animated 3D object (it doesn't matter if it has
-      bones or morph targets or both) - for example exporting it from Blender with the
-      Blender exporter and
-      loading it into a Verge3D scene using [page:GLTFLoader], one of the geometry's
-      properties of the loaded mesh should be an array named "animations", containing the
-      [page:AnimationClip AnimationClips] for this model (see a list of possible loaders below).<br /><br />
+      bones or morph targets or both) — for example exporting it from Blender with the
+      [link:https://github.com/KhronosGroup/glTF-Blender-IO glTF Blender exporter] and
+      loading it into a Verge3D scene using [page:GLTFLoader] — one of the response fields
+      should be an array named "animations", containing the [page:AnimationClip AnimationClips]
+      for this model (see a list of possible loaders below).<br /><br />
 
       Each *AnimationClip* usually holds the data for a certain activity of the object. If the
       mesh is a character, for example, there may be one AnimationClip for a walkcycle, a second
@@ -53,13 +52,13 @@
     <p class="desc">
 
       Inside of such an *AnimationClip* the data for each animated property are stored in a
-      separate [page:KeyframeTrack]. Assumed a character object has a [page:Skeleton skeleton],
+      separate [page:KeyframeTrack]. Assuming a character object has a [page:Skeleton skeleton],
       one keyframe track could store the data for the position changes of the lower arm bone
       over time, a different track the data for the rotation changes of the same bone, a third
       the track position, rotation or scaling of another bone, and so on. It should be clear,
       that an AnimationClip can be composed of lots of such tracks.<br /><br />
 
-      Assumed the model has [page:Geometry.morphTargets morph targets] (for example one morph
+      Assuming the model has morph targets (for example one morph
       target showing a friendly face and another showing an angry face), each track holds the
       information as to how the [page:Mesh.morphTargetInfluences influence] of a certain morph
       target changes during the performance of the clip.
@@ -70,7 +69,7 @@
 
     <p class="desc">
 
-      The stored data form only the basis for the animations - actual playback is controlled by
+      The stored data forms only the basis for the animations - actual playback is controlled by
       the [page:AnimationMixer]. You can imagine this not only as a player for animations, but
       as a simulation of a hardware like a real mixer console, which can control several animations
       simultaneously, blending and merging them.
@@ -108,14 +107,12 @@
     </p>
 
       <ul>
-        <li>[page:JSONLoader v3d.JSONLoader]</li>
         <li>[page:ObjectLoader v3d.ObjectLoader]</li>
         <li>v3d.BVHLoader</li>
         <li>v3d.ColladaLoader</li>
         <li>v3d.FBXLoader</li>
         <li>[page:GLTFLoader v3d.GLTFLoader]</li>
         <li>v3d.MMDLoader</li>
-        <li>v3d.SEA3DLoader</li>
       </ul>
 
     <p class="desc">
@@ -126,11 +123,11 @@
     <h2>Example</h2>
 
     <code>
-    var mesh;
+    let mesh;
 
     // Create an AnimationMixer, and get the list of AnimationClip instances
-    var mixer = new v3d.AnimationMixer(mesh);
-    var clips = mesh.animations;
+    const mixer = new v3d.AnimationMixer(mesh);
+    const clips = mesh.animations;
 
     // Update the mixer on each frame
     function update () {
@@ -138,8 +135,8 @@
     }
 
     // Play a specific animation
-    var clip = v3d.AnimationClip.findByName(clips, 'dance');
-    var action = mixer.clipAction(clip);
+    const clip = v3d.AnimationClip.findByName(clips, 'dance');
+    const action = mixer.clipAction(clip);
     action.play();
 
     // Play all animations

@@ -13,16 +13,21 @@
     <h1>Workflow</h1>
 
     <p>
-      Below is documented a typical workflow that is used internally by the Soft8Soft team and by Verge3D users (examples include the <a href="https://cdn.soft8soft.com/demo/applications/scooter/index.html" target="_blank">Scooter Configurator</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/teapot_heater_max/index.html" target="_blank">Teapot Heater</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/industrial_robot/index.html" target="_blank">Industrial Robot​</a> demo, <a href="https://cdn.soft8soft.com/demo/applications/jewelry_configurator/index.html" target="_blank">Jewelry Configurator</a> among others).
+      Below is documented a typical workflow that is used internally by the Soft8Soft team and by Verge3D users (examples include the <a href="https://cdn.soft8soft.com/demo/blender/scooter/index.html" target="_blank">Scooter Configurator</a> demo, <a href="https://cdn.soft8soft.com/demo/max/teapot_heater/index.html" target="_blank">Teapot Heater</a> demo, <a href="https://cdn.soft8soft.com/demo/maya/industrial_robot/index.html" target="_blank">Industrial Robot​</a> demo, <a href="https://cdn.soft8soft.com/demo/blender/jewelry_configurator/index.html" target="_blank">Jewelry Configurator</a> among others).
     </p>
+
+    <figure style="max-width: 819px;">
+      <img src="files/workflow/teapot-heater.jpg" alt="Steampunk WebGL-based visualization of teapot heater">
+      <figcaption>Teapot Heater demo.</figcaption>
+    </figure>
 
     [contents]
 
     <p>
-      To create interactive 3D web content you can use Blender, 3ds Max, or Maya version of Verge3D with equal success.
+      To create interactive 3D web content you can use Blender, 3ds Max, or Maya version of Verge3D with equal success. On the chart below you can see the main stages for creating a typical Verge3D application. Virtually all work can be done by only one person with basic 3D generalist skills.
     </p>
 
-    <img src="files/workflow/teapot-heater.jpg" class="centered" style="max-width: 819px;">
+    <img src="files/workflow/verge3d_workflow.svg" alt="Verge3D workflow chart">
 
 
     [anchor:Modeling_and_Baking]
@@ -33,10 +38,10 @@
       In our team, we practice the following modeling pipeline. At first, high-poly versions of models are created. At the next stage, low- to middle-poly models are obtained via simply removing the subsurf modifier or retopology. No more than 100k tris per model is recommended.
     </p>
 
-    <img src="files/workflow/teapot-modeling.jpg" class="centered" style="max-width: 819px;">
+    <img src="files/workflow/teapot-modeling.jpg" alt="Low-poly modelling workflow" style="max-width: 819px;">
 
     <p>
-      The low-poly models are then UV-unwrapped. Finally, the meshes are triangulated - this is not a requirement of Verge3D but rather recommended for baking maps. Also, triangulated models are better suited for loading to third-party editors such as Substance Painter.
+      The low-poly models are then UV-unwrapped. Finally, the meshes are triangulated - this is not a requirement of Verge3D but rather recommended for baking maps. Also, triangulated models are better suited for loading to third-party texture editors such as Substance Painter.
     </p>
 
     <p>
@@ -52,8 +57,8 @@
 
     <ul>
       <li><a href="manual/en/blender/Material-System.html">Blender</a> — shading nodes with Eevee as reference renderer.</li>
-      <li><a href="manual/en/max/Material-System.html">3ds Max</a> — Physical (with ART or Arnold as reference renderer) or Standard (with Scanline as reference renderer).</li>
-      <li><a href="manual/en/maya/Materials.html">Maya</a> — Standard Surface (v. 2020+) or aiStandardSurface (v.2019 or early) with Viewport 2.0 as reference renderer.</li>
+      <li><a href="manual/en/max/Material-System.html">3ds Max</a> — Physical material with Arnold as reference renderer.</li>
+      <li><a href="manual/en/maya/Materials.html">Maya</a> — Standard Surface material with Viewport 2.0 as reference renderer.</li>
     </ul>
 
     <p>Alternatively, if your content needs to be compatible with glTF 2.0 standard <a href="manual/en/introduction/FAQ.html#gltf_materials">for some reason</a>, you should use glTF-compatible materials (see the setups for <a href="manual/en/blender/GLTF-Materials.html">Blender</a>, <a href="manual/en/max/GLTF-Materials.html">3ds Max</a>, or <a href="manual/en/maya/GLTF-Materials.html">Maya</a>).</p>
@@ -125,10 +130,10 @@
     <h2>Environment Map (Image-Based Lighting)</h2>
 
     <p>
-      Environment map is a key component of a real-time scene used for providing the background and material reflections. We recommend artists to use equirectangular images in HDR or JPEG format. For performance reasons, the size of the environment map is better to not exceed 2048x1024 px.
+      Environment map is a key component of a real-time scene used for providing the background and material reflections. We recommend artists to use equirectangular images in HDR format. For performance reasons, the size of the environment map is better to not exceed 2048x1024 px.
     </p>
 
-    <img src="files/workflow/hdr-environment.jpg" class="centered" style="max-width: 772px;">
+    <img src="files/workflow/hdr-environment.jpg" alt="Assigning HDR environment in Blender" style="max-width: 772px;">
 
     <p>
       Besides that, HDR textures can be used for imitating complex lighting conditions – for example, if there are too many light sources to be represented by traditional lamps, or they are extended.
@@ -151,7 +156,10 @@
       HDR (high dynamic range) rendering pipeline can be enabled with the corresponding checkbox in Verge3D export settings window (3ds Max, Maya), or on Verge3D settings panel under the Render tab (Blender). In this mode, half-float textures are used by the engine for better precision and intensity range, which particularly, is important for proper rendering of the <a href="manual/en/puzzles/Postprocessing.html#bloom">bloom post-process effect</a>.
     </p>
 
-    <img src="files/workflow/scooter-bloom.jpg" class="centered" style="max-width: 919px;">
+    <figure style="max-width: 919px;">
+      <img src="files/workflow/scooter-bloom.jpg" alt="Scooter, a 3D visualization which uses HDR rendering capabilities">
+      <figcaption>Scooter, a 3D visualization which uses HDR rendering capabilities.</figcaption>
+    </figure>
 
 
     [anchor:Animation_]
@@ -159,19 +167,19 @@
     <h2>Animation</h2>
 
     <p>
-      Animation clips are created for relevant model parts as usual. Skinning, whole-object, morph-target and material animation can be used to produce various effects (see more in the <a href="manual/en/blender/Animation.html">Blender</a>, <a href="">3ds Max</a>, or <a href="manual/en/maya/Animation.html">Maya</a> animation guide).
+      Animation clips are created for relevant model parts as usual. Skinning, whole-object, morph-target and material animation can be used to produce various effects (see more in the <a href="manual/en/blender/Animation.html">Blender</a>, <a href="manual/en/max/Animation.html">3ds Max</a>, or <a href="manual/en/maya/Animation.html">Maya</a> animation guide).
     </p>
 
-    <img src="files/workflow/animation.png" class="centered" style="max-width: 819px;">
+    <img src="files/workflow/animation.jpg" alt="Creating animation for interactive rendering">
 
     <p>
       You might want to provide human-readable names to animated objects so that they can be easily found in the <a href="manual/en/puzzles/Animation.html">Puzzles editor</a>.
     </p>
 
-    <img src="files/workflow/advanced_animation_puzzle.jpg" class="centered" style="max-width: 819px;">
+    <img src="files/workflow/advanced_animation_puzzle.jpg" alt="Animation puzzles" style="max-width: 819px;">
 
     <p>
-      You may also check out the following videos explaining how to create animation: <a href="https://youtu.be/VkjEfSmI2xM" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=0dskMLdNpJ4" target="_blank">3ds Max</a>.
+      You may also check out the following videos explaining how to create animation: <a href="https://youtu.be/VkjEfSmI2xM" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=0dskMLdNpJ4" target="_blank">3ds Max</a>, <a href="https://youtu.be/_kwsXR2Qoxo" target="_blank">Maya</a>.
     </p>
 
 
@@ -180,10 +188,19 @@
     <h2>Layout and UI</h2>
 
     <p>
-      In our code-less workflow the HTML-based interface is built using external web design software. Any WYSIWYG editor capable of exporting HTML/CSS/JS files will work. One example is <a href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a> which we used to create most Verge3D demos such as Scooter, Farmer's Journey or Industrial Robot. You can, of course, build the HTML interface manually with code or using some other tools instead.
+      We suggest two different methods for creating user interfaces for your Verge3D-based apps. The first, more straightforward, is to design UI elements right in your modelling suite and then use camera-parenting and <em>fit to camera edge</em> feature to position them on the screen (see <a href="manual/en/blender/Lighting-and-Rendering.html#fit_to_camera_edge">Blender</a>, <a href="manual/en/max/Lighting-and-Rendering.html#fit_to_camera_edge">3ds Max</a>, <a href="manual/en/maya/Lighting-and-Rendering.html#fit_to_camera_edge">Maya</a> settings).
     </p>
 
-    <img src="files/workflow/webflow-project.jpg" class="centered" style="max-width: 819px;">
+    <figure>
+      <img src="files/workflow/e-learning-demo.jpg" alt="E-learning demo with 3D UI"></a>
+      <figcaption>E-learning, a Verge3D demo which uses UI modelled as 3D.</figcaption>
+    </figure>
+
+    <p>
+      Another approach is using some external web design software to create HTML in code-less manner. Any WYSIWYG editor capable of exporting HTML/CSS/JS files will work. One example is <a href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a> which we used to create most Verge3D demos such as Scooter, Farmer's Journey or Industrial Robot. You can, of course, build the HTML interface manually with code or using some other tools instead.
+    </p>
+
+    <img src="files/workflow/webflow-project.jpg" alt="Using Webflow editor for creating 3D web applications" style="max-width: 819px;">
 
     <p>
       Interface elements (menus, buttons, info boxes...) are created as part of a separate web page in which a Verge3D app is embedded. See the detailed <a href="manual/en/introduction/HTML-based-user-interfaces.html">guide on creating HTML-based GUI</a> for more details and examples.
@@ -202,10 +219,10 @@
     </p>
 
     <p>
-      Also, the following effects can be enabled with <a href="manual/en/puzzles/Postprocessing.html">post-processing puzzles</a>: bloom (which works best with HDR enabled), brightness-contrast, grayscale, depth of field, screen-space reflection and screen-space refraction. Parameters for these effects can be changed in runtime or animated with high performance thanks to internal caching. There is also a puzzle for removing all post-processing effects from a scene.
+      Also, the following effects can be enabled with <a href="manual/en/puzzles/Postprocessing.html">post-processing puzzles</a>: bloom (which works best with HDR enabled), brightness-contrast, grayscale, depth of field, afterimage (motion blur), screen-space reflection and screen-space refraction. Parameters for these effects can be changed in runtime or animated with high performance thanks to internal caching. There is also a puzzle for removing all post-processing effects from a scene.
     </p>
 
-    <img src="files/workflow/post-process-effects.png" class="centered" style="max-width: 755px;">
+    <img src="files/workflow/post-process-effects.png" alt="Assigning post-processing effects in Verge3D" style="max-width: 755px;">
 
 
     [anchor:Audio_]
@@ -213,28 +230,28 @@
     <h2>Audio</h2>
 
     <p>
-      Background music and/or event sounds can be added with <a href="manual/en/puzzles/Sound.html">Sound Puzzles</a> to be triggered by the user. You should use the <strong>mp3</strong> format for your audio files as it is supported in all web browsers.
+      Background music and/or event sounds can be added with <a href="manual/en/puzzles/Sound.html">sound puzzles</a> to be triggered by the user. You should use the <strong>mp3</strong> format for your audio files as it is supported in all web browsers.
     </p>
 
-    <img src="files/workflow/sounds.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/workflow/sounds.jpg" alt="Using sounds in interactive web apps">
 
     <p>
       There is a special restriction for playing sounds: the sound playback can only be initiated via direct interaction with a web page. For example, the following setup would work everywhere including on Apple's devices:
     </p>
 
-    <img src="files/workflow/audio-example1.jpg" class="centered" style="max-width: 389px;">
+    <img src="files/workflow/audio-example1.jpg" alt="Audio puzzles that work" style="max-width: 389px;">
 
     <p>
       However, if a sound is played upon some event which is not caused by direct user action, it wouldn't work:
     </p>
 
-    <img src="files/workflow/audio-example2.jpg" class="centered" style="max-width: 505px;">
+    <img src="files/workflow/audio-example2.jpg" alt="Audio puzzles that does not work" style="max-width: 505px;">
 
     <p>
       To overcome this problem, you can use the <strong>on event / touchstart</strong> puzzle that would play and immediately pause all the sounds used in a scene when the user taps on the screen for the first time:
     </p>
 
-    <img src="files/workflow/audio-example3.jpg" class="centered" style="max-width: 847px;">
+    <img src="files/workflow/audio-example3.jpg" alt="Audio puzzles with workaround" style="max-width: 847px;">
 
     <p>
       The above setup is available from the Puzzle Library under the name *Sound iOS Workaround*.

@@ -40,7 +40,7 @@
       The easiest way to make your app personalized - choose *Standard Light* or *Standard Dark* in the app creation dialog:
     </p>
 
-    <img src="files/personalizing-verge3d-apps/light-dark-theme.jpg" class="centered" style="max-width: 522px">
+    <img src="files/personalizing-verge3d-apps/light-dark-theme.jpg" style="max-width: 522px">
 
     <p>
       For more advanced customizations, check out the <em>src/style.css</em> file. Do not change this file as it is compiled right into Verge3D. Instead, add all styling code into your application main CSS file. For example if your app is called "My Awesome App" then you should modify the following file:
@@ -59,10 +59,12 @@
 
     <p>To modify your preloader change the following CSS classes:</p>
 
-    <p>*v3d-simple-preloader-background* - for changing background of the entire preloader screen.</p>
-    <p>*v3d-simple-preloader-container* - for changing container element with preloader image and bar. By overriding this class you can customize preloader position and size.</p>
-    <p>*v3d-simple-preloader-bar* - for changing loading bar.</p>
-    <p>*v3d-simple-preloader-logo* - for changing preloader image.</p>
+    <img src="files/personalizing-verge3d-apps/preloader-classes.jpg">
+
+    <p>*v3d-simple-preloader-background* — to customize the background of the entire preloader screen.</p>
+    <p>*v3d-simple-preloader-container* — to modify the container element with the preloader image and bar. By overriding this class you can customize position and size of the preloader.</p>
+    <p>*v3d-simple-preloader-bar* — to customize the loading bar.</p>
+    <p>*v3d-simple-preloader-logo* — to customize the preloader image.</p>
 
     <p>For example, if you need to make progress bar <em>red</em> instead of the default <em>blue</em>, add the following code to your application's main CSS file:</p>
 
@@ -96,7 +98,11 @@
     <p>With Puzzles, all three style customizations will look as follows:</p>
 
     <!-- HACK: minor styling fix -->
-    <img src="files/personalizing-verge3d-apps/puzzles.jpg" class="centered" style="margin-top:-20px">
+    <img src="files/personalizing-verge3d-apps/preloader-puzzles.jpg" style="margin: -10px">
+
+    <p class="note">
+      This snippet should be used in the *init* tab of the Puzzles editor because the preloader must be customized before the scene is loaded.
+    </p>
 
 
     [anchor:annotations]
@@ -120,7 +126,7 @@
     }
     </code>
 
-    <img src="files/personalizing-verge3d-apps/annotation.jpg" class="centered" style="max-width: 544px">
+    <img src="files/personalizing-verge3d-apps/annotation.jpg" style="max-width: 544px">
 
 
     [anchor:fullscreen_button]
@@ -148,6 +154,47 @@
     </code>
 
 
+    [anchor:webgl_error_screen]
+
+    <h2>Customizing WebGL Error Screen</h2>
+
+    <p>There are two CSS classes which define look of this error screen:</p>
+
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen.jpg">
+
+    <ul>
+      <li>*v3d-webgl-error* — for changing the style of the message box (including its border).</li>
+      <li>*v3d-webgl-error-link* — for styling the error message link.</li>
+    </ul>
+
+    <p>For example, the following CSS code:</p>
+
+    <code class="language-css">
+    .v3d-webgl-error {
+        color: white;
+        border-color: black;
+        background-color: red;
+    }
+    .v3d-webgl-error-link {
+        color: black;
+    }
+    </code>
+
+    <p>will make your WebGL error message look like this:</p>
+
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen-customized.jpg">
+
+    <p>
+      With Puzzles, this CSS code becomes:
+    </p>
+
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen-puzzles.jpg">
+
+    <p class="note">
+      Since WebGL error message generated before the engine initialized, this snippet will only work if placed in the *init* tab of the Puzzles editor.
+    </p>
+
+
     [anchor:title_description]
 
     <h2>Title and Description</h2>
@@ -160,13 +207,13 @@
       The title is displayed in the browser tab and also used to bookmark your app link:
     </p>
 
-    <img src="files/personalizing-verge3d-apps/app-title.jpg" class="centered">
+    <img src="files/personalizing-verge3d-apps/app-title.jpg">
 
     <p>
       Both title and description are used by the search engines to find your app and present it to the user in the search output:
     </p>
 
-    <img src="files/personalizing-verge3d-apps/google-title-description.jpg" class="centered">
+    <img src="files/personalizing-verge3d-apps/google-title-description.jpg">
 
     <p>
       To change app title, find the following snippet in your main HTML file (e.g. <em>my_awesome_app.html</em>):
@@ -189,7 +236,7 @@
     </p>
 
     <code>
-&lt;meta name=&quot;description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
     </code>
 
     <p>
@@ -251,7 +298,7 @@
 
     <code>
 &lt;meta name=&quot;twitter:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
-&lt;meta name=&quot;twitter:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
+&lt;meta name=&quot;twitter:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
 &lt;meta name=&quot;twitter:image:src&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
     </code>
 
@@ -265,7 +312,7 @@
 
     <code>
 &lt;meta property=&quot;og:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
-&lt;meta property=&quot;og:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
 &lt;meta property=&quot;og:image&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
     </code>
 

@@ -16,7 +16,7 @@
       These puzzles are used to simulate physics behavior of the objects.
     </p>
 
-    <img src="files/puzzles/puzzles-physics.jpg" style="max-width: 1000px">
+    <img src="files/puzzles/puzzles-physics.jpg">
 
     <h2>Contents</h2>
 
@@ -293,93 +293,6 @@
     </ul>
 
 
-
-    [anchor:physics_body_params]
-
-    <h3>physics body params</h3>
-
-    <p class="red">This puzzle is now deprecated. Please use <a href="manual/en/puzzles/Physics.html#apply_body_param">apply body param</a> instead.</span>
-
-    <p>
-    Sets parameters for the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-body-params.jpg">
-
-    <p>Parameters:</p>
-
-    <ul>
-      <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
-      </li>
-      <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
-      </li>
-      <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
-      </li>
-      <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
-      </li>
-    </ul>
-
-    <p>
-    When two bodies collide, friction and restitution parameters of both of them are taken into consideration.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-body-params-example.jpg" style="max-width: 903px">
-
-
-    [anchor:apply_vector]
-
-    <h3>apply vector</h3>
-
-    <p class="red">This puzzle is now deprecated. Please use <a href="manual/en/puzzles/Physics.html#apply_body_param">apply body param</a> instead.</span>
-
-    <p>
-      Applies *Force*, *Gravity*, *Linear Velocity*, *Angular Velocity*, *Impulse*, *Torque*, *Torque Impulse* or *Position* to the physics body associated with a specified object, in a specified direction in world space. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
-    </p>
-
-    <img src="files/puzzles/puzzles-physics-apply-vector.jpg">
-
-    <p>
-    Parameters:
-    </p>
-
-    <ul>
-      <li>
-        *force* - push a body in a specified direction.
-      </li>
-      <li>
-        *gravity* - assign gravity individually for a specified body.
-      </li>
-      <li>
-        *linear velocity* - set movement speed.
-      </li>
-      <li>
-        *angular velocity* - set rotation speed.
-      </li>
-      <li>
-        *impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
-      </li>
-      <li>
-        *torque* - spin a body in a specified direction.
-      </li>
-      <li>
-        *torque impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
-      </li>
-      <li>
-        *linear factor* - set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
-      </li>
-      <li>
-        *angular factor* - set rotational degrees of freedom for the specified body. For example by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
-      </li>
-      <li>
-        *position* - set body position (works like the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle).
-      </li>
-    </ul>
-
-
     [anchor:set_body_state]
 
     <h3>set body state</h3>
@@ -388,7 +301,7 @@
       Change the state to the physics body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
     </p>
 
-    <img src="files/puzzles/puzzles-physics-set-body-state.jpg" class="centered" style="max-width: 764px">
+    <img src="files/puzzles/puzzles-physics-set-body-state.jpg" style="max-width: 764px">
 
     <p>Parameters:</p>
 
@@ -440,7 +353,7 @@
       Trigger puzzles specified in the *do" slot <em>just before</em> or <em>just after</em> the physics simulation tick.
     </p>
 
-    <img src="files/puzzles/puzzles-physics-on-simulation-tick.jpg" class="centered" style="max-width: 817px">
+    <img src="files/puzzles/puzzles-physics-on-simulation-tick.jpg" style="max-width: 817px">
 
     <p>
       Physics simulation tick corresponds to the FPS value specified when creating <a href="manual/en/puzzles/Physics.html#create_physics_world">physics world</a> and does not coincide with rendering frame. As such, we recommend that you apply forces/velocities/impulses *before* simulation tick and detect collisions between your bodies *after* simulation tick. This way you can achieve more stable and realistic simulations.
@@ -577,23 +490,28 @@ var myVector = new Ammo.btVector3(1.0, 0.0, 0.0);
 console.log('My physics vector is:', myVector.x(), myVector.y(), myVector.z());
     </code>
 
-    <p>Also you can get access to the following data structures we use in Puzzles:</p>
+    <p>
+      Also you can get access to the following data structures we use in Puzzles
+      via the *puzzles* argument of the *runCode()* function of *your_app_name.js*
+      module or the built-in *puzzles* variable inside the
+      <a href="manual/en/puzzles/Advanced.html#exec_script">exec script</a> puzzle:
+    </p>
 
     <h3>World</h3>
 
     <p>Depending on the initialized physics world it can be an instance to <a href="https://pybullet.org/Bullet/BulletFull/classbtDiscreteDynamicsWorld.html">btDiscreteDynamicsWorld</a> or <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftRigidDynamicsWorld.html" target="_blank">btSoftRigidDynamicsWorld</a> class:</p>
 
     <code>
-var gravity = v3d.puzzles.physics.world.getGravity();
+var gravity = puzzles.physics.world.getGravity();
 console.log('World gravity:', gravity.y());
     </code>
 
     <h3>Physics Bodies</h3>
 
-    <p>Physics bodies are stored as key-value data inside the <strong>v3d.puzzles.physics.bodies</strong> object:</p>
+    <p>Physics bodies are stored as key-value data inside the <strong>puzzles.physics.bodies</strong> object:</p>
 
     <code>
-var body = v3d.puzzles.physics.bodies['Whirligig'];
+var body = puzzles.physics.bodies['Whirligig'];
 console.log('Body mass:', 1.0 / body.getInvMass());
     </code>
 
@@ -601,10 +519,10 @@ console.log('Body mass:', 1.0 / body.getInvMass());
 
     <h3>Physics Constraints</h3>
 
-    <p>Bullet/Ammo constraints are stored as key-value data inside the two-dimensional <strong>v3d.puzzles.physics.constraints</strong> object:</p>
+    <p>Bullet/Ammo constraints are stored as key-value data inside the two-dimensional <strong>puzzles.physics.constraints</strong> object:</p>
 
     <code>
-var hingeConstraint = v3d.puzzles.physics.constraints['Suzanne']['Axis'];
+var hingeConstraint = puzzles.physics.constraints['Suzanne']['Axis'];
 hingeConstraint.enableAngularMotor(true, 10, 10);
     </code>
 
@@ -617,10 +535,10 @@ hingeConstraint.enableAngularMotor(true, 10, 10);
     <code>
 // add obj / body to the sync list
 // the type can be 'DYNAMIC', 'KINEMATIC', 'STATIC', 'GHOST', or 'SOFT_BODY'
-v3d.puzzles.physics.addToSyncList(obj, body, 'DYNAMIC');
+puzzles.physics.addToSyncList(obj, body, 'DYNAMIC');
 
 // remove obj / body from the sync list
-v3d.puzzles.physics.removeFromSyncList(obj, body);
+puzzles.physics.removeFromSyncList(obj, body);
     </code>
 
 

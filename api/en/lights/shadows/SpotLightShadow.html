@@ -35,7 +35,7 @@
     light.shadow.focus = 1; // default
 
     //Create a sphere that cast shadows (but does not receive them)
-    const sphereGeometry = new v3d.SphereBufferGeometry(5, 32, 32);
+    const sphereGeometry = new v3d.SphereGeometry(5, 32, 32);
     const sphereMaterial = new v3d.MeshStandardMaterial({ color: 0xff0000 });
     const sphere = new v3d.Mesh(sphereGeometry, sphereMaterial);
     sphere.castShadow = true; //default is false
@@ -43,7 +43,7 @@
     scene.add(sphere);
 
     //Create a plane that receives shadows (but does not cast them)
-    const planeGeometry = new v3d.PlaneBufferGeometry(20, 20, 32, 32);
+    const planeGeometry = new v3d.PlaneGeometry(20, 20, 32, 32);
     const planeMaterial = new v3d.MeshStandardMaterial({ color: 0x00ff00 })
     const plane = new v3d.Mesh(planeGeometry, planeMaterial);
     plane.receiveShadow = true;
@@ -77,7 +77,6 @@
     </p>
 
     <!--Verge3D-->
-
     <h3>[property:Boolean useMinFov90]</h3>
     <p>
       Makes the shadow's camera vertical field of view 90 degrees even for spot lights with a cone more narrow than that.

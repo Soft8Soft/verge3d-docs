@@ -13,9 +13,7 @@
     <h1>E-Commerce Plugin</h1>
 
     <p>
-        This stock <a href="manual/en/puzzles/Plugins.html">plugin</a> adds
-        puzzles that can be used for implementing WooCommerce 3D product views
-        and configurators, as well as for creating standalone order/inquiry forms.
+      This stock <a href="manual/en/puzzles/Plugins.html">plugin</a> includes puzzles that can be used for implementing various e-commerce applications. It supports basic PayPal payments, WooCommerce 3D product views and configurators, as well as advanced ordering puzzles which work with WordPress-based e-commerce solution shipped with Verge3D.
     </p>
 
     <img src="files/puzzles/puzzles-ecommerce.jpg">
@@ -30,6 +28,34 @@
 
     <h2>Puzzles Reference</h2>
 
+
+    [anchor:paypal_create_order]
+
+    <h3>paypal create order</h3>
+
+    <p>
+      Place PayPal order. This puzzle is the simplest ecommerce solution possible because it does not require any server-side configuration. To use it you only need verified PayPal business account.
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-paypal-create-order.jpg">
+
+    <dl>
+      <dt>client ID</dt>
+      <dd>PayPal business account client ID. Use the <a href="https://developer.paypal.com/developer/applications/" target="_blank">following page</a> to obtain it. For testing purposes there are Sandbox credentials, while for real selling you need to perform <a href="https://developer.paypal.com/api/rest/production/" target="_blank">additional steps</a> to receive Live credentials.</dd>
+      <dt>title</dt>
+      <dd>Product title.</dd>
+      <dt>item price</dt>
+      <dd>Product item price.</dd>
+      <dt>currency</dt>
+      <dd>Currency.</dd>
+      <dt>quantity</dt>
+      <dd>Amount of product.</dd>
+      <dt>on success do</dt>
+      <dd>Puzzles in this slot are executed upon successfull transaction.</dd>
+      <dt>on error do</dt>
+      <dd>Puzzles in this slot are executed upon errors (insufficient funds or so).</dd>
+    </dl>
+
     [anchor:woo_connect]
 
     <h3>connect to WooCommerce</h3>
@@ -38,8 +64,9 @@
 
     <img src="files/puzzles/puzzles-ecommerce-connect-to-woocommerce.jpg">
 
-    <p>See <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial</a> for more details.</p>
+    [demo:drink_shop]
 
+    <p>See <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial</a> for more details.</p>
 
 
     [anchor:woo_product_info]
@@ -75,28 +102,86 @@
     <p>See <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial</a> for more details.</p>
 
 
-
     [anchor:place_order]
 
     <h3>place order</h3>
 
     <p>
-    Composes a hidden order form with the "title", "contents" and "total price" fields and an optional screenshot and submits this form to a specified URL according to the specification explicated in the Wordpress Plugin section. By default the order form is submitted to the <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">demo ordering page</a>.
+      Composes and submits an order form to a specified URL. By default the order form is submitted to the <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">sandbox ordering page</a>.
     </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order.jpg">
+
+    [demo:ring]
 
     <p>
-    Verge3D comes with a free Wordpress plug-in that is able to handle requests submitted by this puzzle. Upon receiving such a request, this Wordpress plug-in renders a page with an extended form supplemented with contact and comments fields, the embedded screenshot and a captcha. Filled out form is finally submitted by the customer and a new order is created in Wordpress admin interface. Both the customer and the sales manager are notified about the order by e-mail.
+      Verge3D comes with a free WordPress plug-in that is able to handle requests submitted by this puzzle. Upon receiving such a request, this WordPress plug-in renders a page with an extended form supplemented with contact info, comments fields, and optional screenshot. Filled out form is finally submitted by the customer and a new order is created in WordPress admin interface.
     </p>
+
+    <dl>
+      <dt>send to</dt>
+      <dd>The URL of the order form provided by the WordPress plugin. Please refer to the <a href="manual/en/introduction/Wordpress-Plugin.html#receiving_orders_with_order_form">following guide</a> for setup information.</dd>
+      <dt>content</dt>
+      <dd>Order contents in human-readable form.</dd>
+      <dt>item price</dt>
+      <dd>Product item price.</dd>
+      <dt>quantity</dt>
+      <dd>Amount of product.</dd>
+      <dt>make screenshot</dt>
+      <dd>Make application screenshot and attach it to the order. Be sure to enable screenshots in the <a href="manual/en/puzzles/Initialization.html#configure_application" target="_parent">configure application</a> puzzle otherwise the screenshot may be rendered in black.</dd>
+    </dl>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order-example.jpg">
+
+    <p class="note">
+      It's up to you (or sales manager) to verify corectness of the order content and price. Though very unlikely, a hacker may malform content submited by this puzzle and try to purchase a product for lesser price. To prevent it, you need to verify your orders by using the <a href="manual/en/puzzles/ECommerce.html#place_order_adv">place order +</a> puzzle which rely on product info assigned on the server.
+    </p>
+
+
+    [anchor:place_order_adv]
+
+    <h3>place order +</h3>
 
     <p>
-    Please refer to the <a href="manual/en/introduction/Wordpress-Plugin.html">Wordpress Plugin</a> section of this Manual for setup information.
+      Composes and submits an order form to a specified URL. This puzzle works similar to <a href="manual/en/puzzles/ECommerce.html#place_order">place order</a>, but has more features, greater security, and allows for customizations.
     </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order-adv.jpg">
+
+    [demo:recliner]
+
+    <dl>
+      <dt>send to</dt>
+      <dd>The URL of the order form provided by the WordPress plugin. Please refer to the <a href="manual/en/introduction/Wordpress-Plugin.html#receiving_orders_with_order_form">following guide</a> for setup information.</dd>
+      <dt>item(s)</dt>
+      <dd>Order item or a list of order items. See <a href="manual/en/puzzles/ECommerce.html#order_item">below</a> for more info.</dd>
+      <dt>attachment(s)</dt>
+      <dd>Order attachment or a list of order attachments. Attachment is a <a href="manual/en/puzzles/HTML.html#data_uri">Data URI link</a> which represents a screenshot, image, sound, video, PDF, text, or a glTF model.</dd>
+    </dl>
 
     <p>
-    Be sure to enable screenshots in the <a href="manual/en/puzzles/Initialization.html#configure_application" target="_parent">configure application</a> puzzle otherwise the screenshot may be rendered in black.
+      Example usage:
     </p>
 
-    <img src="files/puzzles/puzzles-misc-place-order.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-place-order-adv-example.jpg">
+
+
+    [anchor:order_item]
+
+    <h3>order item (sku, qty)</h3>
+
+    <p>
+      Order item to be used in the <a href="manual/en/puzzles/ECommerce.html#place_order_adv">place order +</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-order-item.jpg">
+
+    <dl>
+      <dt>sku</dt>
+      <dd>The SKU (stock keeping unit) of the product registered by WordPress plugin. Please refer to the <a href="manual/en/introduction/Wordpress-Plugin.html#managing_products">following guide</a> to find out how setup products.</dd>
+      <dt>quantity</dt>
+      <dd>Amount of product.</dd>
+    </dl>
 
 
     <h2>Having Troubles with Puzzles?</h2>

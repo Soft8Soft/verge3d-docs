@@ -74,6 +74,8 @@
 
     <img src="files/puzzles/puzzles-object-clone.jpg">
 
+    [demo:clone_object]
+
 
     [anchor:create_object]
 
@@ -87,8 +89,11 @@
     <img src="files/puzzles/puzzles-object-create-object.jpg">
 
     <p>
-      For geometry objects, such as boxes or teapots, this puzzles also creates white-colored dielectric glTF-compliant PBR material (with *roughness* value set to *1* and *metalness* set to *0*). Use <a href="manual/en/puzzles/Materials.html#materials_set_color">set color</a> and <a href="manual/en/puzzles/Materials.html#materials_set_value">set value</a> puzzles to tweak that material.
+      For geometry objects, such as boxes or teapots, this puzzle also creates white-colored dielectric glTF-compliant PBR material (with *roughness* value set to *1* and *metalness* set to *0*). Use the <a href="manual/en/puzzles/Materials.html#materials_set_color">set color</a> and <a href="manual/en/puzzles/Materials.html#materials_set_value">set value</a> puzzles to tweak that material.
     </p>
+
+    <p>
+      For *plane with texture* objects, this puzzle assigns a dummy checker texture to the model. Use the <a href="manual/en/puzzles/Materials.html#replace_texture">replace texture</a> puzzle to change this texture.</p>
 
 
     [anchor:remove]
@@ -327,6 +332,34 @@
 
     <img src="files/puzzles/puzzles-object-create-text.jpg">
 
+    <p>Basic options:</p>
+
+    <dl>
+      <dt>with text</dt>
+      <dd>Generated text.</dd>
+      <dt>font</dt>
+      <dd>Font used to generate text. The following formats supported: WOFF, TTF, OTF.</dd>
+      <dt>size</dt>
+      <dd>Rendered text size in engine units (depending on the modelling suite: meters, inches, etc.).</dd>
+      <dt>extrude</dt>
+      <dd>Amount of extrusion applied to text glyphs.</dd>
+    </dl>
+
+    <p>Advanced options:</p>
+
+    <dl>
+      <dt>segments</dt>
+      <dd>Number of segments used to render the text. Less — better performance, more — better quality.</dd>
+      <dt>bevel thickness</dt>
+      <dd>Thickness of the text bevel.</dd>
+      <dt>bevel size</dt>
+      <dd>Size of the text bevel.</dd>
+      <dt>horizontal align</dt>
+      <dd>Horizontal text alignment.</dd>
+      <dt>vertical align</dt>
+      <dd>Vertical text alignment.</dd>
+    </dl>
+
 
 
     [anchor:update_text_object]
@@ -334,11 +367,35 @@
     <h3>update text object</h3>
 
     <p>
-    Generates a new mesh for a text object according to specified textual content. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Updates mesh for a text object according to specified textual content. The text object should be created either by using the <a href="manual/en/puzzles/Objects.html#create_text_object">create text object</a> puzzle or <a href="manual/en/introduction/Text-Rendering.html#dynamic_text_geometry">exported</a> from the modeling suite.
     </p>
 
     <img src="files/puzzles/puzzles-object-update-text.jpg">
 
+    <p>
+      This puzzle also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    </p>
+
+
+    [anchor:get_object_dimension]
+
+    <h3>get object dimension</h3>
+
+    <p>
+      Outputs object dimensions as numberic X, Y, Z components or as vector. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-object-get-object-dimension.jpg">
+
+    <p>
+      Usage example:
+    </p>
+
+    <img src="files/puzzles/puzzles-object-get-object-dimension-example.jpg">
+
+    <p>
+      The puzzle has some limitations. For morphed objects, it returns <em>maximum dimensions</em> the object can be morphed to. For skinned objects, the puzzle returns the <em>original</em> dimensions for the object.
+    </p>
 
 
     [anchor:distance]
@@ -365,21 +422,21 @@
 
     <p>Custom properties can be assigned in *Blender* by using the *Custom Properties* panel:</p>
 
-    <img src="files/puzzles/puzzles-object-get-custom-props-blender.jpg" class="centered" style="max-width: 725px">
+    <img src="files/puzzles/puzzles-object-get-custom-props-blender.jpg" style="max-width: 725px">
 
     <p>or in *3ds Max* by typing properties in the *Object Properties* dialog:</p>
 
-    <img src="files/puzzles/puzzles-object-get-custom-props-max.jpg" class="centered" style="max-width: 402px">
+    <img src="files/puzzles/puzzles-object-get-custom-props-max.jpg" style="max-width: 402px">
 
     <p>or in *Maya* by using the <strong>Attributes->Add Attributes...</strong> menu in the attribute editor:</p>
 
-    <img src="files/puzzles/puzzles-object-get-custom-props-maya-add.jpg" class="centered" style="max-width: 463px">
+    <img src="files/puzzles/puzzles-object-get-custom-props-maya-add.jpg" style="max-width: 463px">
 
-    <img src="files/puzzles/puzzles-object-get-custom-props-maya.jpg" class="centered" style="max-width: 473px">
+    <img src="files/puzzles/puzzles-object-get-custom-props-maya.jpg" style="max-width: 473px">
 
     <p>In case of Maya you need to assign additional *customProperties* attribute with the list of space-separated custom property names.</p>
 
-    <img src="files/puzzles/puzzles-object-get-custom-props-maya-meta.jpg" class="centered" style="max-width: 501px">
+    <img src="files/puzzles/puzzles-object-get-custom-props-maya-meta.jpg" style="max-width: 501px">
 
 
     [anchor:outline]
@@ -392,13 +449,24 @@
 
     <img src="files/puzzles/puzzles-object-outline.jpg">
 
-    [anchor:update_light_probe]
 
-    <h3>Update light probe</h3>
+    [anchor:set_shadow_param]
+
+    <h3>set shadow param</h3>
 
     <p>
-      Updates/rerenders the reflection map for the given light probe object.
+      Enable/disable casting/receieving shadows for the given object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    </p>
 
+    <img src="files/puzzles/puzzles-object-set-shadow-param.jpg">
+
+
+    [anchor:update_light_probe]
+
+    <h3>update light probe object(s)</h3>
+
+    <p>
+      Updates/rerenders the reflection cubemap for the given light probe object.
     </p>
 
     <img src="files/puzzles/puzzles-object-update-light-probe.png">

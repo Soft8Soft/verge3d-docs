@@ -12,7 +12,9 @@
 
     <h1>AR/VR Development</h1>
 
-    <p>Verge3D allows for creating web-based Augmented Reality (AR) and Virtual Reality (VR) experiences running on top of the browser technology called *WebXR* (eXtended Reality on the Web). In addition to that you can use an older version of this technology called *WebVR* (enabled via *Legacy VR* compatibilty option, see below).</p>
+    <p>
+      Verge3D allows for creating web-based Augmented Reality (AR) and Virtual Reality (VR) experiences running on top of the browser technology called *WebXR* (eXtended Reality on the Web). In addition to that you can use USDZ format and Apple AR Quick Look technology to preview your models in AR mode on iPhones and iPads.
+    </p>
 
     <iframe class="video-480p" src="https://www.youtube.com/embed/92AMh4vV4zw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -23,20 +25,16 @@
 
     [anchor:virtual_reality]
 
-    <h2>Virtual Reality</h2>
+    <h2>Virtual Reality (VR)</h2>
 
 
     [anchor:Setting_up_VR]
 
     <h3>Setting Up</h3>
 
-    <p>We recommend to enable the *Legacy VR* option in app creation settings in the App Manager in order to support a wider range of browsers (such as Mozilla Firefox) and devices.</p>
-
-    <img src="files/ar-vr-development/legacy-vr-app-creation-settings.jpg" class="centered" style="max-width: 522px">
-
-    <p>Cardboard devices should work out of the box in any mobile browser, both on Android and iOS.</p>
-
-    <p>Google Daydream works in stable Chrome browser on Android phones while HTC and Oculus devices should work in both Chrome and Firefox browsers.</p>
+    <p>
+      HTC and Oculus devices should work with WebXR out of the box. Use Google Chrome browser for desktop-connected devices such as HTC Vive. Use the browser which comes with your headset in case of standalone devices, e.g run your VR apps in Oculus Browser on Oculus Quest 1/2.
+    </p>
 
     <p class="note">
       WebXR requires a secure context. Verge3D apps must be served over HTTPS/SSL, or from the localhost URL.
@@ -47,32 +45,37 @@
 
     <h3>Creating VR Apps</h3>
 
-    <p>The VR mode can be set up for any Verge3D app using <a href="manual/en/puzzles/AR_VR.html#enter_vr_mode">enter VR mode</a> puzzle.</p>
+    <p>
+      The VR mode can be checked with <a href="manual/en/puzzles/AR_VR.html#check_vr_mode">check VR mode</a> and set up using <a href="manual/en/puzzles/AR_VR.html#enter_vr_mode">enter VR mode</a> puzzle.
+    </p>
 
-    <img src="files/ar-vr-development/minimal-vr-puzzles.jpg" class="centered" style="max-width: 686px">
+    <img src="files/ar-vr-development/minimal-vr-puzzles.jpg">
 
-    <p>Interaction with 3D objects is performed by using the gaze-based reticle pointer automatically provided for VR devices <i>without controllers</i> (such as cardboards).</p>
+    <p>
+      Interaction with 3D objects is performed by using the gaze-based reticle pointer automatically provided for VR devices <i>without controllers</i> (such as cardboards).
+    </p>
 
-    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg" class="centered" style="max-width: 1000px">
+    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg">
 
     <p>For VR devices <i>with controllers</i>, interaction is performed by the virtual ray casted from the controllers.</p>
 
-    <img src="files/ar-vr-development/google-daydream-vr-controller.jpg" class="centered" style="max-width: 1000px">
+    <img src="files/ar-vr-development/google-daydream-vr-controller.jpg">
 
     <p>You can use the standard <a href="manual/en/puzzles/Events.html#when_hovered">when hovered</a> or <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> puzzles to capture user events as well as VR-specific <a href="manual/en/puzzles/AR_VR.html#session_event">on session event</a>.</p>
 
+    [demo:industrial_robot]
 
 
     [anchor:augmented_reality]
 
-    <h2>Augmented Reality</h2>
+    <h2>Augmented Reality (AR)</h2>
 
 
     [anchor:Setting_up_AR]
 
     <h3>Setting Up</h3>
 
-    <p>You can run your Verge3D-based augmented reality applications on mobile devices with Anroid or iOS/iPadOS operating systems.</p>
+    <p>You can run your Verge3D-based augmented reality applications on mobile devices with Android or iOS/iPadOS operating systems.</p>
 
     <p class="note">
       WebXR requires a secure context. Verge3D apps must be served over HTTPS/SSL, or from the localhost URL.
@@ -82,46 +85,142 @@
 
     <p>To enable augmented reality, you need an Android device which supports <a href="https://developers.google.com/ar/discover/supported-devices" target="_blank">ARCore technology</a> and latest Google Chrome browser. You also need to install Google Play Services for AR. The installation of this package is prompted automatically upon entering AR mode for the first time, if not pre-installed.</p>
 
-    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" class="centered" style="max-width: 720px">
+    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" style="max-width: 720px">
 
     <h4>iOS/iPadOS</h4>
 
-    <p>Mozilla's *WebXR Viewer* is a Firefox-based browser application which supports the AR technology on Apple devices (starting from iPhone 6s). Simply <a href="https://apps.apple.com/us/app/webxr-viewer/id1295998056" target="_blank">install</a> it from the App Store.</p>
+    <p>
+      For iPhones/iPads you have two choices:
+    </p>
+
+    <ol>
+      <li>install *WebXR Viewer* browser</li>
+      <li>preview assets in *USDZ* format using the conventional Safari browser</li>
+    </ol>
 
     <p>
-      By using USDZ assets, you can run simplified augmented reality experience in the default Safari browser. See <a href="manual/en/puzzles/Scenes.html#export_to_usdz">here</a> for more info.
+      Mozilla's WebXR Viewer is a Firefox-based browser application which supports the AR technology on Apple devices (starting from iPhone 6s). This app is <a href="https://apps.apple.com/us/app/webxr-viewer/id1295998056" target="_blank">available</a> from the Apple App Store. This solution has an advantage, that you can use the same WebXR technology (as well as Puzzles logic) that you use to run AR on Android devices. The disadvantage is obvious — you (as well as your users) should install WebXR Viewer browser manually.
+    </p>
+
+    <p>
+      With USDZ assets, you can use the <a href="https://developer.apple.com/augmented-reality/quick-look/" target="_blank">Apple AR Quick Look</a> technology to run simplified augmented reality experience in the default Safari browser. This approach requires you to use completely different rendering engine integrated in iOS, as such you can't make complex materials or use Puzzles logic for your apps running in AR mode.
     </p>
 
 
-    [anchor:Creating_AR_Apps]
+    <!-- COMPAT: < 4.0 -->
+    <a href="#" id="Creating_AR_Apps"></a>
 
-    <h3>Creating AR Apps</h3>
+    [anchor:creating_ar_apps_webxr]
 
-    <p>The AR mode can be set up for any Verge3D app using the <a href="manual/en/puzzles/AR_VR.html#enter_ar_mode">enter AR mode</a> puzzle.</p>
+    <h3>Creating WebXR-based AR apps (Android, WebXR Viewer)</h3>
 
-    <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" class="centered" style="max-width: 645px">
+    <p>
+      The AR mode can be set up for any Verge3D app using the <a href="manual/en/puzzles/AR_VR.html#enter_ar_mode">enter AR mode</a> puzzle.
+    </p>
 
-    <p>Upon entering AR mode you will be able to position your 3D content in the "real" coordinate system, which is aligned with your mobile device. In addition to that, you can detect horizontal surfaces (tables, shelves, floor etc) by using the <a href="manual/en/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR</a> puzzle.</p>
+    <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" style="max-width: 819px">
+
+    <p>
+      Upon entering AR mode you will be able to position your 3D content in the "real" coordinate system, which is aligned with your mobile device. In addition to that, you can detect horizontal surfaces (tables, shelves, floor etc) by using the <a href="manual/en/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR</a> puzzle.
+    </p>
 
     <!-- enabling transparency for AR is a hack for WebXR Viewer -->
 
-    <p>Also, to see the the real environment through your 3D canvas, you should enable the *transparent background* option in the <a href="manual/en/puzzles/Initialization.html#configure_application">configure application</a> puzzle.</p>
+    <p>
+      Also, to see the real environment through your 3D canvas, you should enable the *transparent background* option in the <a href="manual/en/puzzles/Initialization.html#configure_application">configure application</a> puzzle.
+    </p>
 
     <img src="files/ar-vr-development/transparent-background-puzzle.jpg">
+
+    [demo:augmented_reality]
+
+
+    [anchor:creating_ar_apps_usdz]
+
+    <h3>Creating USDZ-based AR apps</h3>
+
+    <p>
+      To enter AR Quick Look mode you need to create USDZ asset first. To do this, you can export your scene (or a single model) in runtime (on the fly) or use your favorite modelling suite to make it ahead of time.
+    </p>
+
+    <h4>Preparing USDZ asset in runtime</h4>
+
+    <p>
+      This approach is based on using <a href="manual/en/puzzles/Scenes.html#export_to_usdz">export to USDZ</a> puzzle to generate USDZ (see Puzzles snippet below).
+    </p>
+
+    <h4>Preparing USDZ asset in modelling suites</h4>
+
+    <p>
+      At the moment, USDZ export <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2022/ENU/3dsMax-USD/files/GUID-04F1DF51-0079-4DF8-8457-5AD12B6C0673-html.html" target="_blank">supported natively only in 3ds Max</a>. For Blender you can try unofficial <a href="https://github.com/robmcrosby/BlenderUSDZ" target="_blank">BlenderUSDZ</a> addon.
+
+    <p class="note">
+      USDZ is different from USD, being a container which combines USD models with media data, such as PNG, JPEG, MP3. Thus, modelling suites which able to export to USD not necessary support USDZ.
+    </p>
+
+    <p>
+      If you use macOS/iOS/iPadOS, there are plenty of <a href="https://developer.apple.com/augmented-reality/tools/" target="_blank">tools</a> available on Apple website to convert your models stored in OBJ/FBX/glTF/USD formats to USDZ.
+    </p>
+
+    <h4>Loading USDZ</h4>
+
+    <p>
+      To preview USDZ asset, exported by the modelling suite or some other tool, you need to create an HTML link with the image inside it:
+    </p>
+
+    <code>
+    &lt;a id=&quot;enter_AR_button&quot; rel=&quot;ar&quot; href=&quot;model.usdz&quot;&gt;
+      &lt;img src=&quot;media/enter_AR_button.png&quot;&gt;
+    &lt;/a&gt;
+    </code>
+
+    <p>
+      The link should reference a USDZ model asset, e.g <em>model.usdz</em>. The image should reference picture which shows some button with icon or text, e.g "Enter AR". In the example above, the image located at <em>media/enter_AR_button.png</em> inside the application directory.
+    </p>
+
+    <p>
+      When the user clicks on such link on Apple device, the system will detect USDZ asset referenced by the link and open an AR Quick Look mode so that you can position the model in the real world:
+    </p>
+
+    <img src="files/ar-vr-development/ar-quick-look.jpg" style="max-width: 310px">
+
+    <p>
+      With Puzzles, the same link can be created on demand:
+    </p>
+
+    <img src="files/ar-vr-development/usdz-puzzles-static.jpg">
+
+    <p>
+      To generate and load USDZ assets in runtime use the following code:
+    </p>
+
+    <img src="files/ar-vr-development/usdz-puzzles-dynamic.jpg">
+
+    <p>
+      Check out the differences — we used *export to USDZ* puzzle here and assigned additional *download* attribute to the link.
+    </p>
+
+    [demo:augmented_reality]
 
 
     [anchor:chrome_debugging]
 
     <h2>Chrome Debugging</h2>
 
-    <p>For faster iterations during development, you can use Chrome's <a href="manual/en/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port forwarding</a> feature to run your AR or VR app in mobile browser. This will save you from re-uploading it to a remote web server each time.</p>
+    <p>
+      For faster iterations during development of WebXR-based apps (but not USDZ-based), you can use Chrome's <a href="manual/en/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port forwarding</a> feature to run your AR or VR app in mobile browser. This will save you from re-uploading it to a remote web server each time.
+    </p>
 
 
     [anchor:whats_next]
 
     <h2>What's Next</h2>
 
-    <p>To find out how to script your AR/VR app with Puzzles, read the <a href="manual/en/puzzles/AR_VR.html">following</a> section. Also, check out the <a href="manual/en/introduction/Physics-Guide.html">Physics Guide</a > if you're going to simulate a realistic virtual environment with colliding objects and/or character.</p>
+    <p>
+      To find out how to script your AR/VR app with Puzzles, read the <a href="manual/en/puzzles/AR_VR.html">following</a> section. Also, check out the <a href="manual/en/introduction/Physics-Guide.html">Physics Guide</a > if you're going to simulate a realistic virtual environment with colliding objects and/or character.
+    </p>
+
+    [demo:snowballs_vr]
 
 
     <h3>Got Questions?</h3>

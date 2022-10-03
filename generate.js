@@ -23,7 +23,7 @@ generate();
 
 function generate() {
 
-    console.log('Generating Documenation (' + LANGUAGES.join(', ') + ')');
+    console.log('Generating Documentation (' + LANGUAGES.join(', ') + ')');
 
     list = JSON.parse(fs.readFileSync(path.join(__dirname, 'list.json')));
 
@@ -279,6 +279,12 @@ function createImgLicenseData(dom) {
         return null;
 }
 
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }).replace('Gltf', 'GLTF').replace('Vr', 'VR');
+}
+
 function resolveTemplates(text, name, path, lang) {
 
     var pathOrigRel = path.replace(/^\//,'');
@@ -320,8 +326,8 @@ function resolveTemplates(text, name, path, lang) {
     });
 
     text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, "[link:$1 $1]"); // [link:url] to [link:url title]
-    text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_|\(|\)|\#|\=|\?|\&]+) ([\w|\:|\/|\.|\-|\_|\s|\=|\?|\u4e00-\u9fa5|\uff08|\uff09]+)\]/gi, "<a href=\"$1\"  target=\"_blank\">$2</a>"); // [link:url title]
-    text = text.replace(/\*([\u4e00-\u9fa5|\w|\d|\"|\-|\(][\u4e00-\u9fa5|\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\u4e00-\u9fa5|\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *
+    text = text.replace(/\[link:([\w|\u0400-\u04ff|\:|\/|\.|\-|\_|\(|\)|\#|\=|\?|\&]+) ([\w|\u0400-\u04ff|\:|\/|\.|\-|\_|\s|\=|\?|\u4e00-\u9fa5|\uff08|\uff09|\u0400-\u04ff]+)\]/gi, "<a href=\"$1\"  target=\"_blank\">$2</a>"); // [link:url title]
+    text = text.replace(/\*([\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\-|\(][\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *
 
     text = text.replace(/\[example:([\w\_]+)\]/gi, "[example:$1 $1]"); // [example:name] to [example:name title]
     text = text.replace(/\[example:([\w\_]+) ([\w\:\/\.\-\_ \s]+)\]/gi, "<a href=\"https://cdn.soft8soft.com/demo/examples/index.html#$1\"  target=\"_blank\">$2</a>"); // [example:name title]
@@ -329,12 +335,29 @@ function resolveTemplates(text, name, path, lang) {
     switch (lang) {
     case 'ru':
         text = text.replace(/\[sourceHint\]/gi, "<h2>Исходный файл</h2><p>О том как получить исходный код этого модуля читайте <a href=\"manual/ru/programmers_guide/How-to-obtain-Verge3D-sources.html\">тут</a>.</p>");
+        text = text.replace(/\[demo:([\w\_]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.replace('_', ' '));
+            return `<p class="demoNote">Смотрите пример в магазине ассетов — <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\">${demoTitle}</a>.</p>`;
+        });
+
         break;
     case 'zh':
         text = text.replace(/\[sourceHint\]/gi, "<h2>源代码</h2><p>关于如何获取此模块的源代码，请查看 <a href=\"manual/zh/programmers_guide/How-to-obtain-Verge3D-sources.html\">本页</a>。</p>");
+
+        text = text.replace(/\[demo:([\w\_]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.replace('_', ' '));
+            return `<p class="demoNote">例如，请参考资产商店中的以下演示 — <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\">${demoTitle}</a>.</p>`;
+        });
+
         break;
     default:
         text = text.replace(/\[sourceHint\]/gi, "<h2>Source</h2><p>For more info on how to obtain the source code of this module see <a href=\"manual/en/programmers_guide/How-to-obtain-Verge3D-sources.html\">this page</a>.</p>");
+
+        text = text.replace(/\[demo:([\w\_]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.replace('_', ' '));
+            return `<p class="demoNote">For usage example, check out the following demo from the asset store: <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\">${demoTitle}</a>.</p>`;
+        });
+
         break;
     }
 

@@ -25,7 +25,7 @@
     &lt;!DOCTYPE html&gt;
     &lt;html&gt;
       &lt;head&gt;
-        &lt;meta charset=utf-8&gt;
+        &lt;meta charset="utf-8"&gt;
         &lt;title&gt;My first Verge3D app&lt;/title&gt;
         &lt;style&gt;
           body { margin: 0; }
@@ -51,10 +51,10 @@
     <p>To actually be able to display anything with Verge3D, we need three things: scene, camera and renderer, so that we can render the scene with camera.</p>
 
     <code>
-    var scene = new v3d.Scene();
-    var camera = new v3d.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const scene = new v3d.Scene();
+    const camera = new v3d.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    var renderer = new v3d.WebGLRenderer();
+    const renderer = new v3d.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     </code>
@@ -71,7 +71,7 @@
 
     <p>Next up is the renderer. This is where the magic happens. In addition to the WebGLRenderer we use here, Verge3D comes with a few others, often used as fallbacks for users with older browsers or for those who don't have WebGL support for some reason.</p>
 
-    <p>In addition to creating the renderer instance, we also need to set the size at which we want it to render our app. It's a good idea to use the width and height of the area we want to fill with our app - in this case, the width and height of the browser window. For performance intensive apps, you can also give <strong>setSize</strong> smaller values, like <strong>window.innerWidth/2</strong> and <strong>window.innerHeight/2</strong>, which will make the app render at half size.</p>
+    <p>In addition to creating the renderer instance, we also need to set the size at which we want it to render our app. It's a good idea to use the width and height of the area we want to fill with our app - in this case, the width and height of the browser window. For performance intensive apps, you can also give <strong>setSize</strong> smaller values, like <strong>window.innerWidth/2</strong> and <strong>window.innerHeight/2</strong>, which will make the app render at quarter size.</p>
 
     <p>If you wish to keep the size of your app but render it at a lower resolution, you can do so by calling <strong>setSize</strong> with false as <strong>updateStyle</strong> (the third argument). For example, <strong>setSize(window.innerWidth/2, window.innerHeight/2, false)</strong> will render your app at half resolution, given that your &lt;canvas&gt; has 100% width and height.</p>
 
@@ -80,9 +80,9 @@
     <p><em>"That's all good, but where's that cube you promised?"</em> Let's add it now.</p>
 
     <code>
-    var geometry = new v3d.BoxGeometry(1, 1, 1);
-    var material = new v3d.MeshBasicMaterial({ color: 0x00ff00 });
-    var cube = new v3d.Mesh(geometry, material);
+    const geometry = new v3d.BoxGeometry();
+    const material = new v3d.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new v3d.Mesh(geometry, material);
     scene.add(cube);
 
     camera.position.z = 5;
@@ -111,7 +111,7 @@
     animate();
     </code>
 
-    <p>This will create a loop that causes the renderer to draw the scene 60 times per second. If you're new to writing games in the browser, you might say <em>"why don't we just create a setInterval ?"</em> The thing is - we could, but <strong>requestAnimationFrame</strong> has a number of advantages. Perhaps the most important one is that it pauses when the user navigates to another browser tab, hence not wasting their precious processing power and battery life.</p>
+    <p>This will create a loop that causes the renderer to draw the scene every time the screen is refreshed (on a typical screen this means 60 times per second). If you're new to writing games in the browser, you might say <em>"why don't we just create a setInterval ?"</em> The thing is - we could, but <strong>requestAnimationFrame</strong> has a number of advantages. Perhaps the most important one is that it pauses when the user navigates to another browser tab, hence not wasting their precious processing power and battery life.</p>
 
 
     [anchor:animating_cube]
@@ -123,24 +123,24 @@
     <p>Add the following right above the <strong>renderer.render</strong> call in your <strong>animate</strong> function:</p>
 
     <code>
-    cube.rotation.x += 0.1;
-    cube.rotation.y += 0.1;
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
     </code>
 
-    <p>This will be run every frame (60 times per second), and give the cube a nice rotation animation. Basically, anything you want to move or change while the app is running has to go through the animate loop. You can of course call other functions from there, so that you don't end up with a <strong>animate</strong> function that's hundreds of lines.
-    </p>
+    <p>This will be run every frame (normally 60 times per second), and give the cube a nice rotation animation. Basically, anything you want to move or change while the app is running has to go through the animate loop. You can of course call other functions from there, so that you don't end up with an <strong>animate</strong> function that's hundreds of lines.</p>
 
     [anchor:result]
 
     <h2>The result</h2>
-
-    <p>Congratulations! You have now completed your first Verge3D application. It's simple, you have to start somewhere.</p>
+    <p>Congratulations! You have now completed your first Verge3D application. It's simple, but you have to start somewhere.</p>
 
     <p>The full code is available below. Play around with it to get a better understanding of how it works.</p>
 
     <code>
+    &lt;!DOCTYPE html&gt;
     &lt;html&gt;
       &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
         &lt;title&gt;My first Verge3D app&lt;/title&gt;
         &lt;style&gt;
           body { margin: 0; }
@@ -150,25 +150,25 @@
       &lt;body&gt;
         &lt;script src="v3d.js"&gt;&lt;/script&gt;
         &lt;script&gt;
-          var scene = new v3d.Scene();
-          var camera = new v3d.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+          const scene = new v3d.Scene();
+          const camera = new v3d.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-          var renderer = new v3d.WebGLRenderer();
+          const renderer = new v3d.WebGLRenderer();
           renderer.setSize(window.innerWidth, window.innerHeight);
           document.body.appendChild(renderer.domElement);
 
-          var geometry = new v3d.BoxGeometry(1, 1, 1);
-          var material = new v3d.MeshBasicMaterial({ color: 0x00ff00 });
-          var cube = new v3d.Mesh(geometry, material);
+          const geometry = new v3d.BoxGeometry();
+          const material = new v3d.MeshBasicMaterial({ color: 0x00ff00 });
+          const cube = new v3d.Mesh(geometry, material);
           scene.add(cube);
 
           camera.position.z = 5;
 
-          var animate = function() {
+          function animate() {
             requestAnimationFrame(animate);
 
-            cube.rotation.x += 0.1;
-            cube.rotation.y += 0.1;
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
 
             renderer.render(scene, camera);
           };

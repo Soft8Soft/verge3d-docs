@@ -24,7 +24,7 @@
     <h2>Renderers</h2>
 
     <p>
-      Verge3D is designed to represent Blender's EEVEE renderer as closely as possible. It supports physically-based shading, lights, shadows and image-based lighting (IBL).
+      Verge3D is designed to represent Blender's Eevee renderer as closely as possible. It supports physically-based shading, lights, shadows and image-based lighting (IBL).
     </p>
 
 
@@ -42,7 +42,7 @@
       The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. Here is the basic <em>World nodes</em> setup which uses the same texture for both environment lighting and background:
     </p>
 
-    <img src="files/lighting-blender/world-nodes.jpg" class="centered" style="max-width: 852px">
+    <img src="files/lighting-blender/world-nodes.jpg" style="max-width: 852px">
 
     <p class="note">
       When using HDR textures, make sure you set the *Color Space* setting to *Linear*.
@@ -84,11 +84,13 @@
 
     <iframe class="video-480p" src="https://www.youtube.com/embed/V39heuWD_vo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+    [demo:light_probe]
+
     <p>
       The following properties are supported:
     </p>
 
-    <img src="files/lighting-blender/light-probe-reflection-cubemap.png" class="centered" style="max-width: 453px">
+    <img src="files/lighting-blender/light-probe-reflection-cubemap.png" style="max-width: 453px">
 
     <dl>
       <dt>Probe</dt>
@@ -254,13 +256,15 @@
       Reflection Plane Light Probes used to apply real-time reflections (indirect lighting) to planar objects, such as mirrors, floors, walls, etc.
     </p>
 
-    <img src="files/lighting-blender/light-probe-reflection-plane-example.jpg" class="centered" style="max-width: 776px">
+    <img src="files/lighting-blender/light-probe-reflection-plane-example.jpg" style="max-width: 776px">
+
+    [demo:light_probe]
 
     <p>
       The following properties are supported:
     </p>
 
-    <img src="files/lighting-blender/light-probe-reflection-plane.jpg" class="centered" style="max-width: 368px">
+    <img src="files/lighting-blender/light-probe-reflection-plane.jpg" style="max-width: 368px">
 
     <dl>
       <dt>Distance</dt>
@@ -294,7 +298,7 @@
       By default Blender and Verge3D render the same image for background and environment lighting. To render them separate, use the advanced World nodes setup based on *Is Camera Ray* output of the <a href="manual/en/blender/Shader-Nodes-Reference.html#Light_Path">Light Path</a> node. For example, to set the background color to solid grey and continue using the HDR map for environment lighting:
     </p>
 
-    <img src="files/lighting-blender/world-nodes-advanced.jpg" class="centered" style="max-width: 886px">
+    <img src="files/lighting-blender/world-nodes-advanced.jpg" style="max-width: 886px">
 
 
     [anchor:global_rendering_properties]
@@ -303,7 +307,7 @@
 
     <p>Global rendering properties accessible on the Blender's *Render Properties* panel.</p>
 
-    <img src="files/lighting-blender/rendering-properties-indirect.jpg" class="centered" style="max-width: 315px">
+    <img src="files/lighting-blender/rendering-properties-indirect.jpg" style="max-width: 315px">
 
     <dl>
       <dt id="cubemap_size">Cubemap Size</dt>
@@ -344,7 +348,7 @@
       </dd>
     </dl>
 
-    <img src="files/lighting-blender/rendering-properties-global.jpg" class="centered" style="max-width: 318px">
+    <img src="files/lighting-blender/rendering-properties-global.jpg" style="max-width: 318px">
 
     <dl>
       <dt>Enable Shadows and Shadow Map Side</dt>
@@ -422,7 +426,7 @@
       *Ambient Occlusion* section on the *Render Properties* panel:
     </p>
 
-    <img src="files/lighting-blender/ambient-occlusion-properties.png" class="centered" style="max-width: 405px">
+    <img src="files/lighting-blender/ambient-occlusion-properties.png" style="max-width: 405px">
 
     <dl>
       <dt>Ambient Occlusion</dt>
@@ -463,13 +467,13 @@
       Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
     </p>
 
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+    <img src="files/lighting-blender/outline-example.jpg" style="max-width: 819px">
 
     <p>
       To use object outlining (and optional glowing) in your Verge3D application, first enable the effect on the Blender's *Render Properties* panel:
     </p>
 
-    <img src="files/lighting-blender/outline-settings.jpg" class="centered" style="max-width: 332px">
+    <img src="files/lighting-blender/outline-settings.jpg" style="max-width: 332px">
 
     <p>
       then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
@@ -508,7 +512,7 @@
       Verge3D supports the following additional rendering properties for your geometry objects:
     </p>
 
-    <img src="files/lighting-blender/rendering-properties.jpg" class="centered" style="max-width: 383px">
+    <img src="files/lighting-blender/rendering-properties.jpg" style="max-width: 383px">
 
     <dl>
       <dt>Rendering Order</dt>
@@ -535,10 +539,10 @@
       <dd>
         Apply inverse orthographic camera zoom as scaling factor for this object. Enable this property for object parented to ortho camera, so they don't move/scale when the user zooms the camera.
 
-        <p class="note">
-          If your object is still zoomed in/out, clear its Parent Inverse matrix:
-          <img src="files/lighting-blender/clear-parent-inverse.jpg" class="centered" style="max-width: 266px">
-        </p>
+        <div class="note">
+          <p>If your object is still zoomed in/out, clear its Parent Inverse matrix:</p>
+          <img src="files/lighting-blender/clear-parent-inverse.jpg" alt="Clear parent inverse matrix in Blender" style="max-width: 266px">
+        </div>
       </dd>
 
       <dt>Fit to Camera Edge</dt>
@@ -574,7 +578,9 @@
       The latter approach can be easily achieved by enabling the *HiDPI Compositing* property located on the *Object Properties* panel:
     </p>
 
-    <img src="files/lighting-blender/hidpi-compositing.jpg" class="centered" style="max-width: 408px">
+    <img src="files/lighting-blender/hidpi-compositing.jpg" style="max-width: 408px">
+
+    [demo:ring]
 
 
     [anchor:fit_to_camera_edge]
@@ -589,7 +595,7 @@
       When you parent some object to the camera, the following settings appear on the *Object Properties* panel:
     </p>
 
-    <img src="files/lighting-blender/fit-to-camera-edge-properties.jpg" class="centered" style="max-width: 407px">
+    <img src="files/lighting-blender/fit-to-camera-edge-properties.jpg" style="max-width: 407px">
 
     <dl>
       <dt>Horizontal</dt>
@@ -610,10 +616,10 @@
       </dd>
     </dl>
 
-    <p class="note">
-      To fix possible issues with camera fit, clear the object's Parent Inverse matrix:
-      <img src="files/lighting-blender/clear-parent-inverse.jpg" class="centered" style="max-width: 266px">
-    </p>
+    <div class="note">
+      <p>To fix possible issues with camera fit, clear the object's Parent Inverse matrix:</p>
+      <img src="files/lighting-blender/clear-parent-inverse.jpg" alt="Clear parent inverse matrix in Blender" style="max-width: 266px">
+    </div>
 
     [anchor:visibility_breakpoints]
 
@@ -635,7 +641,7 @@
       You can configure the breakpoints on the *Object Properties* panel:
     </p>
 
-    <img src="files/lighting-blender/visibility-breakpoints.jpg" class="centered" style="max-width: 410px">
+    <img src="files/lighting-blender/visibility-breakpoints.jpg" style="max-width: 410px">
 
     <dl>
       <dt>Min Width</dt>
@@ -669,13 +675,13 @@
       With this feature you can render Blender objects by using lines. The most common use case of Line Rendering is drawing curve objects, which do not have any geometry on their own. However, you can also apply this technique to regular meshes and surfaces:
     </p>
 
-    <img src="files/lighting-blender/line-rendering-example.jpg" class="centered">
+    <img src="files/lighting-blender/line-rendering-example.jpg">
 
     <p>
       Line Rendering is activated in *Verge3D Settings* located on the *Object Data Properties* panel:
     </p>
 
-    <img src="files/lighting-blender/line-rendering-properties.jpg" class="centered" style="max-width: 360px">
+    <img src="files/lighting-blender/line-rendering-properties.jpg" style="max-width: 360px">
 
     <p>
       Here you can also assign Emission color and width of the rendered lines.
@@ -690,23 +696,25 @@
       Clipping planes (aka section planes, cross-section planes, mesh sections) is a technique used to show internal arrangement of complex objects, such as buildings, cars, appliances, gadgets, machines etc.
     </p>
 
-    <img src="files/lighting-blender/clipping-plane-example.jpg" class="centered">
+    <img src="files/lighting-blender/clipping-plane-example.jpg">
 
     <p>
       To add a new clipping plane, use the *Clipping Plane* menu item from the Blender's *Add Object* menu:
     </p>
 
-    <img src="files/lighting-blender/clipping-plane-new.jpg" class="centered">
+    <img src="files/lighting-blender/clipping-plane-new.jpg">
 
     <p>
       The objects on your scene will be clipped in the negative *Z* direction of the clipping plane object.
     </p>
 
+    [demo:clipping_planes]
+
     <p>
       Clipping planes have the following properties:
     </p>
 
-    <img src="files/lighting-blender/clipping-plane-properties.jpg" class="centered" style="max-width: 385px">
+    <img src="files/lighting-blender/clipping-plane-properties.jpg" style="max-width: 385px">
 
     <dl>
       <dt>Affected Objects</dt>

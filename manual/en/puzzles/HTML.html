@@ -378,7 +378,7 @@
     <img src="files/puzzles/puzzles-html-create-canvas-elem.jpg">
 
     <p>
-      Once created, the canvas becomes available for drawing on it via JavaScript. You can update the canvas inside the <em>runCode()</em> function of <em>your_app_name.js</em> module or by using <a href="manual/en/puzzles/Advanced.html#exec_script">exec script</a> puzzle.
+      Once created, the canvas becomes available for drawing on it via JavaScript. You can update the canvas inside the <em>runCode()</em> function of <em>your_app_name.js</em> module or by using the <a href="manual/en/puzzles/Advanced.html#exec_script">exec script</a> puzzle.
     </p>
 
     <p>
@@ -386,7 +386,7 @@
     </p>
 
     <code>
-    var canvasTex = v3d.puzzles.canvasTextures['my_canvas'];
+    var canvasTex = puzzles.canvasTextures['my_canvas'];
     </code>
 
     <p>After that, you can access the HTML canvas element as follows:</p>
@@ -424,6 +424,8 @@
     </code>
 
     <img src="files/puzzles/puzzles-html-create-canvas-elem-example.jpg">
+
+    [demo:canvas_texture]
 
 
     [anchor:draw_line]
@@ -498,11 +500,25 @@
     <h3>open web page</h3>
 
     <p>
-    When this puzzle is triggered, a specified URL is opened in a new or in the same browser tab depending on the drop-down selection. When triggered from the Puzzles editor, it will ask for a user confirmation before leaving the tab.
+      When this puzzle is triggered, a specified URL is opened in a new or in the same browser tab depending on the drop-down selection. When triggered from the Puzzles editor, it will ask for a user confirmation before leaving the tab.
     </p>
 
     <img src="files/puzzles/puzzles-html-open-web-page.jpg">
 
+    <p>Options:</p>
+
+    <dl>
+      <dt>a new tab</dt>
+      <dd>Open URL in a new tab. To overcome the browser restriction which prevents opening new tabs, you must use this puzzle inside <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> or <a href="manual/en/puzzles/HTML.html#event">event</a> puzzle.</dd>
+      <dt>the same tab</dt>
+      <dd>Open in the same tab.</dd>
+      <dt>the same tab (ignore frames)</dt>
+      <dd>Open in the same tab. Used for iframe-ed apps to open page inside the top-most browsing context.</dd>
+      <dt>the same tab (parent frame)</dt>
+      <dd>Open in the same tab. Used for iframe-ed apps to open page inside the parent browsing context.</dd>
+      <dt>replace URL (no reload)</dt>
+      <dd>Just put a given URL to the browser address bar.</dd>
+    </dl>
 
 
     [anchor:social_share_link]
@@ -641,13 +657,77 @@
 
     [anchor:open_file]
 
-    <h3>open file and opened file</h3>
+    <h3>open file</h3>
 
     <p>
-      Invokes the browser's native dialog window for selecting files from the user's device. Once the user have selected a file, returns the file's contents in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format.
+      Invokes the browser's native dialog window for selecting files from the user's device. Once the user have selected a file, returns the file's contents/info by means of the <a href="manual/en/puzzles/HTML.html#opened_file">opened file</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-html-open-file.jpg">
+
+
+    [anchor:opened_file]
+
+    <h3>opened file</h3>
+
+    <p>
+      Returns file contents or metadata.
+    </p>
+
+    <img src="files/puzzles/puzzles-html-opened-file.jpg">
+
+    <p>Options:</p>
+
+    <dl>
+      <dt>data</dt>
+      <dd>File contents encoded in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format.</dd>
+      <dt>name</dt>
+      <dd>File name.</dd>
+      <dt>extension</dt>
+      <dd>File extension without leading dot: <em>txt</em>, <em>jpg</em>, <em>mp3</em>, etc...</dd>
+      <dt>size</dt>
+      <dd>File size in bytes.</dd>
+      <dt>mime type</dt>
+      <dd>
+        File media type (aka MIME type).
+        List of mime types typically used by Verge3D applications include:
+
+        <table style="width: auto">
+          <tr>
+            <td>application/json</td>
+            <td>JSON file, can also be used for glTF assets.</td>
+          </tr>
+          <tr>
+            <td>application/octet-stream</td>
+            <td>Binary (.bin) file.</td>
+          </tr>
+          <tr>
+            <td>audio/mpeg</td>
+            <td>MP3 file.</td>
+          </tr>
+          <tr>
+            <td>image/jpeg</td>
+            <td>JPEG image.</td>
+          </tr>
+          <tr>
+            <td>image/png</td>
+            <td>PNG image.</td>
+          </tr>
+          <tr>
+            <td>text/csv</td>
+            <td>A file with comma-separated values (CSV).</td>
+          </tr>
+          <tr>
+            <td>text/plain</td>
+            <td>Plain text file (TXT).</td>
+          </tr>
+          <tr>
+            <td>video/mp4</td>
+            <td>MPEG-4 video.</td>
+          </tr>
+        </table>
+      </dd>
+    </dl>
 
 
     [anchor:drop_file_to]
@@ -655,7 +735,7 @@
     <h3>drop file to</h3>
 
     <p>
-      Returns a file dragged from a file manager (or other program) and dropped to the given HTML element inside the browser window. Once the user have dropped the file, returns its contents as <a href="manual/en/puzzles/HTML.html#open_file">opened file</a> puzzle (using the <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format).
+      Returns a file dragged from a file manager (or other program) and dropped to the given HTML element inside the browser window. Once the user have dropped the file, returns its contents/info by means of the <a href="manual/en/puzzles/HTML.html#opened_file">opened file</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-html-drop-file-to.jpg">
@@ -665,12 +745,71 @@
     </p>
 
 
+    [anchor:url_paths]
+
+    <h2>How to specify URL paths to web resources</h2>
+
+    <p>
+      For some puzzles one should specify the URL (aka URI) paths to some web resource, e.g:
+    </p>
+
+    <ul>
+      <li><a href="manual/en/puzzles/HTML.html#open_web_page">open web page</a> — web page to go.</li>
+      <li><a href="manual/en/puzzles/Materials.html#replace_texture">replace texture</a> — path to the texture.</li>
+      <li><a href="manual/en/puzzles/Sound.html#load_sound">load sound</a> — path to the sound asset.</li>
+      <li><a href="manual/en/puzzles/Scenes.html#load_scene">load scene</a> — glTF asset.</li>
+      <li><a href="manual/en/puzzles/Objects.html#create_text_object">create text object</a> — font.</li>
+    </ul>
+
+    <p>
+      When talking about URL paths, you need to understand that these are completely different from the paths you see on your local machine because all resources on the web are accessed indirectly, by means of <em>web browsers</em> that fetch resources from <em>web servers</em>.
+    </p>
+
+    <p>
+      Basically that means you never specify URL paths like these:
+    </p>
+
+    <ul>
+      <li><em>C:\Users\User\Documents\verge3d_apps\my_app\my_scene.gltf</em></li>
+      <li><em>/Users/User/Downloads/my_sound.mp3</em></li>
+      <li><em>/home/user/Desktop/my_texture.jpg</em></li>
+    </ul>
+
+    <p>
+      Paths on the web specified only with forward slashes (<strong>/</strong>) and can be:
+    </p>
+
+    <dl>
+      <dt>Relative</dt>
+      <dd>
+        These paths specified relatively to the app HTML:
+        <ul>
+          <li><em>my_scene.gltf</em> or <em>./my_scene.gltf</em> — the scene located in the same directory as the app HTML file.</li>
+          <li><em>sounds/my_sound.mp3</em> — the sound located in the <em>sounds</em> subdirectory of the directory where app HTML stored.</li>
+          <li><em>../textures/my_texture.jpg</em> — the texture located in the <em>textures</em> directory which is located one level up (thats why two dots for) from the directory of the app HTML file.</li>
+        </ul>
+      </dd>
+
+      <dt>Absolute</dt>
+      <dd>These used to specify paths when you know where exactly the resource is located on the <em>web server</em>:
+        <ul>
+          <li><em>https://www.my_host.com/my_app/my_scene.gltf</em> — the scene stored in the <em>my_app</em> directory on the <em>my_host</em> server.</li>
+          <li><em>/my_app/fonts/my_font.woff</em> — the font stored in the <em>fonts</em> subdirectory of the <em>my_app</em> directory on whatever (its name is not known or does not matter) host.</li>
+        </ul>
+      </dd>
+
+      <dt>Data URI</dt>
+      <dd>Special kind of URL which represents encoded resource which is not stored on a web server. We use such links to return data generated or retrieved by some puzzles. Read more about them <a href="manual/en/puzzles/HTML.html#data_uri">here</a>.
+      </dd>
+    </dl>
+
+
     [anchor:data_uri]
 
     <h2>Data URI Links</h2>
 
     <p>
-      Data URI (or Data URL) is a convenient method to embed various assets, such as images, glTF models, sounds, JSON or CSV inside links (<a href="https://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">techie stuff</a>).
+      Data URI (aka Data URL) is a convenient method to embed various assets, such as images, glTF models, sounds, JSON or CSV inside links (<a href="https://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">techie stuff</a>).
     </p>
 
     <p>

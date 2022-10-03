@@ -48,7 +48,7 @@
       <li>&gt; 60 — frame rate you should target on VR headsets.</li>
     </ul>
 
-    <p>Starting from version 3.2, Verge3D comes with the built-in FPS counter. You can activate it by:</p>
+    <p>Verge3D comes with the built-in FPS counter. You can activate it by:</p>
 
     <ul>
       <li>Quickly pressing *F*, *F*, *F* (triple F) on your keyboard.</li>
@@ -57,7 +57,7 @@
 
     <p>Once activated, you can see the current FPS value (along with its range and history plot) on the small panel in the left top corner of your app's canvas:</p>
 
-    <img src="files/performance-bottlenecks/fps-counter.jpg" alt="Verge3D FPS counter window" class="centered" style="max-width: 879px;">
+    <img src="files/performance-bottlenecks/fps-counter.jpg" alt="Verge3D FPS counter window" style="max-width: 879px;">
 
     <p>To get legitimate values, you should measure FPS on the slowest / oldest devices you have. Also, most browsers do not allow frame rate be greater than 60 Hz (this improves frame syncing, saves your battery life, and reduces fan noise).</p>
 
@@ -80,7 +80,7 @@
 
     <p>Below it, the lines with collected performance information:</p>
 
-    <img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D performance profile" class="centered">
+    <img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D performance profile">
 
     <p>Here is what you can inquire from the generated performance profile:</p>
 
@@ -134,14 +134,14 @@
       <dd>The total amount of time (in milliseconds) it took to render your scene.</dd>
 
       <dt>Textures & Render Buffers</dt>
-      <dd>Textures and render buffers stats (resolutions). Textures are printed on the top of the list (prefixed with *Texture*), while render buffers printed at the bottom of the list (prefixed with *WebGLRenderTarget*).</dd>
+      <dd>Textures and render buffers stats (resolutions). Textures are printed on the top of the list (prefixed with *Texture*), while render buffers printed at the bottom of the list (prefixed with *RenderTarget*). For textures, there is format info: *RGBA* for uncompressed textures, <strong>RGBA_[METHOD]</strong> for compressed textures.</dd>
     </dl>
 
     <p>
       To help you spot performance issues, lines which you should pay attention to first, are marked in red. For example, on the screenshot below, the shadow map appears to be too big (4K) which may result in slower rendering.
     </p>
 
-    <img src="files/performance-bottlenecks/performance-profile-red.png" class="centered" style="max-width: 622px;">
+    <img src="files/performance-bottlenecks/performance-profile-red.png" style="max-width: 622px;">
 
 
     [anchor:performance_bottlenecks]
@@ -255,7 +255,7 @@
 
     <p>Since your app assets are transferred over the network, you should minimize their size. To help you with asset optimization, there is a network inspecting tool accessible from the browser <a href="manual/en/introduction/FAQ.html#browser_console">console</a>. Simply click on the *Network* tab and reload your page.</p>
 
-    <img src="files/performance-bottlenecks/network-browser-profile.jpg" alt="Profiling network activity in Verge3D" class="centered" style="max-width: 943px;">
+    <img src="files/performance-bottlenecks/network-browser-profile.jpg" alt="Profiling network activity in Verge3D" style="max-width: 943px;">
 
     <p class="note">Check the browser documentation on how to use this feature: <a href="https://developers.google.com/web/tools/chrome-devtools/network" target="_blank">Chrome</a>, <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor" target="_blank">Firefox</a>, <a href="https://developer.apple.com/safari/tools/" target="_blank">Safari</a>.</p>
 
@@ -299,11 +299,13 @@
 
     <h3>Large Textures</h3>
 
-    <p>For example, a texture of size 4096x4096 alone occupies almost 90 Mb of video memory. To get all textures in your app, check out <strong>Textures & Render Buffers</strong> section in the <a href="manual/en/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>.</p>
+    <p>For example, a texture of size 4096x4096 alone occupies almost 90 Mb of video memory. To get all textures in your app, check out the <strong>Textures & Render Buffers</strong> section in the <a href="manual/en/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>.</p>
 
     <img src="files/performance-bottlenecks/performance-profile-textures.jpg" alt="Profiling textures in Verge3D">
 
-    <p>See also <a href="manual/en/introduction/FAQ.html#texture_memory_usage">here</a> for more info on how to calculate texture memory usage.</p>
+    <p>See <a href="manual/en/introduction/FAQ.html#texture_memory_usage">here</a> for more info on how to calculate texture memory usage.</p>
+
+    <p>See <a href="manual/en/introduction/Texture-Compression.html">texture compression</a> section to find out how to reduce texture memory consumption.</p>
 
 
     [anchor:many_postprocessing_passes]
@@ -312,7 +314,7 @@
 
     <p>Most post-processing effects require additional rendering buffers which consume GPU memory. Check out the bottom part of the <strong>Textures & Render Buffers</strong> list in the <a href="manual/en/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> to see all render buffers.</p>
 
-    <img src="files/performance-bottlenecks/performance-profile-render-buffers.jpg" alt="Profiling render buffers in Verge3D" class="centered" style="max-width: 816px;">
+    <img src="files/performance-bottlenecks/performance-profile-render-buffers.jpg" alt="Profiling render buffers in Verge3D" style="max-width: 816px;">
 
 
     [anchor:large_geometry_buffers]

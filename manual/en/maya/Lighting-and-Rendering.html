@@ -38,7 +38,7 @@
 
     <p>The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. To do so, simply append Arnold's *aiSkyDomeLight* object to your scene and assign some texture to it as *Color*.</p>
 
-    <img src="files/lighting-maya/ai-sky-dome-light.jpg" class="centered" style="max-width: 892px">
+    <img src="files/lighting-maya/ai-sky-dome-light.jpg" style="max-width: 892px">
 
     <p>In addition, you may use the *Intensity* attribute to tweak intensity of your environment lighting and *Texture Resolution* to configure its quality:</p>
 
@@ -53,7 +53,7 @@
       When using HDR texture for your skydome, make sure you set the *Color Space* setting to *Raw*:
     </p>
 
-    <img src="files/lighting-maya/ai-sky-dome-light-setup.jpg" class="centered" style="max-width: 458px">
+    <img src="files/lighting-maya/ai-sky-dome-light-setup.jpg" style="max-width: 458px">
 
     <p class="note">
       You can also *aiSkyDomeLight* without any texture to simulate light coming evenly from all directions. However, it's much more efficient to use Ambient Lights for that.
@@ -97,11 +97,13 @@
 
     <iframe class="video-480p" src="https://www.youtube.com/embed/KVSB3vFmv8M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+    [demo:light_probe]
+
     <p>
       The new light probe object can be found inside the custom *Verge3D* shelf:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-create.png" class="centered" style="max-width: 500px">
+    <img src="files/lighting-maya/light-probe-reflection-cubemap-create.png" style="max-width: 500px">
 
     <p>
       This object defines a volume of influence represented by a box or a sphere.
@@ -119,17 +121,19 @@
       volume.
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-effect.png" class="centered" style="max-width: 1005px">
-    <span class="img-caption">
-      Left - reflection cubemap object in Maya viewport, right - effect it adds
-      to a reflective material in Verge3D.
-    </span>
+    <figure style="max-width: 1005px">
+      <img src="files/lighting-maya/light-probe-reflection-cubemap-effect.png" alt="Reflection cubemap in Maya viewport and Verge3D">
+      <figcaption>
+        Left - reflection cubemap object in Maya viewport, right - effect it adds
+        to a reflective material in Verge3D.
+      </figcaption>
+    </figure>
 
     <p>
       v3dReflectionCubemap objects have the following parameters:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-params.png" class="centered" style="max-width: 481px">
+    <img src="files/lighting-maya/light-probe-reflection-cubemap-params.png" style="max-width: 481px">
 
     <dl>
       <dt>General Settings</dt>
@@ -257,19 +261,21 @@
       Reflection Plane Light Probes used to apply real-time reflections (indirect lighting) to planar objects, such as mirrors, floors, walls, etc.
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-example.png" class="centered" style="max-width: 804px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-example.png" style="max-width: 804px">
+
+    [demo:light_probe]
 
     <p>
       The new light probe object can be found inside the custom *Verge3D* shelf:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-create.png" class="centered" style="max-width: 313px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-create.png" style="max-width: 313px">
 
     <p>
       Reflection plane objects have the following parameters:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-params.png" class="centered" style="max-width: 462px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-params.png" style="max-width: 462px">
 
     <dl>
       <dt>Influence Dist.</dt>
@@ -294,7 +300,7 @@
       Reflection plane light probes can only act on surfaces with zero roughness and maximum metalness:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-note.png" class="centered" style="max-width: 804px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-note.png" style="max-width: 804px">
 
     <p class="note">
       Planar reflection probes can greatly reduce performance of your scene, since they multiply the number of draw calls by a factor <strong>N+1</strong>. To make rendering faster, specify a limited set of reflected objects as the *Visibility Selection Set* property.
@@ -314,7 +320,7 @@
       To change your background to some other color, do not edit Viewport settings in Maya, simply assign *Background Color* and enable the *Render Background* attribute on your main camera:
     </p>
 
-    <img src="files/lighting-maya/render-background.jpg" class="centered" style="max-width: 443px">
+    <img src="files/lighting-maya/render-background.jpg" style="max-width: 443px">
 
     <p class="note">
       You can use Maya's *Render View* window or Verge3D's *Sneak Peek* feature to preview the scene with custom background.
@@ -327,7 +333,7 @@
 
     <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (<strong>Verge3D->Export Settings...</strong> in Maya menu).</p>
 
-    <img src="files/lighting-maya/rendering-settings-global.jpg" class="centered" style="max-width: 434px">
+    <img src="files/lighting-maya/rendering-settings-global.jpg" style="max-width: 434px">
 
     <dl>
       <dt>Anti-Aliasing</dt>
@@ -384,7 +390,7 @@
       through <strong>Verge3D->Export Settings...</strong> in Maya menu):
     </p>
 
-    <img src="files/lighting-maya/ambient-occlusion-properties.png" class="centered" style="max-width: 422px">
+    <img src="files/lighting-maya/ambient-occlusion-properties.png" style="max-width: 422px">
 
     <p class="note">
       Verge3D adds the ambient occlusion effect only for
@@ -433,13 +439,13 @@
       Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
     </p>
 
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+    <img src="files/lighting-blender/outline-example.jpg" style="max-width: 819px">
 
     <p>
       To use object outlining (and optional glowing) in your Verge3D application, first enable the effect in the *Verge3D Exports Settings*:
     </p>
 
-    <img src="files/lighting-maya/outline-settings.jpg" class="centered" style="max-width: 434px">
+    <img src="files/lighting-maya/outline-settings.jpg" style="max-width: 434px">
 
     <p>
       then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
@@ -478,7 +484,7 @@
       Verge3D supports the following additional rendering settings for your geometry objects:
     </p>
 
-    <img src="files/lighting-maya/rendering-settings.jpg" class="centered" style="max-width: 454px">
+    <img src="files/lighting-maya/rendering-settings.jpg" style="max-width: 454px">
 
     <p>
       *Render Order* - modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
@@ -492,7 +498,7 @@
       In addition, there is a set of object transform settings located on the *Verge3D* -> *Advanced Rendering* panel:
     </p>
 
-    <img src="files/lighting-maya/rendering-settings-transform.jpg" class="centered" style="max-width: 423px">
+    <img src="files/lighting-maya/rendering-settings-transform.jpg" style="max-width: 423px">
 
 
     <dl>
@@ -539,7 +545,9 @@
       The latter approach can be easily achieved by enabling the *HiDPI Compositing* property located on the *Advanced Rendering* panel:
     </p>
 
-    <img src="files/lighting-maya/hidpi-compositing.jpg" class="centered" style="max-width: 423px">
+    <img src="files/lighting-maya/hidpi-compositing.jpg" style="max-width: 423px">
+
+    [demo:ring]
 
 
     [anchor:fit_to_camera_edge]
@@ -547,14 +555,14 @@
     <h2>Fit to Camera Edge</h2>
 
     <p>
-      <em>Fit to Camera Edge</em> is a technique to draw screen-space UI elements based on 3D models. This approach to UI design is more “native” to the 3D artist than using HTML/CSS, and does not require external tools. But there is more in it: since the UI elements are genuine 3D objects, you can apply shaders, lighting, animation, morphing – you name it – making them truly interactive and seamlessly integrated into the scene.
+      <em>Fit to Camera Edge</em> is a technique to draw screen-space UI elements based on Maya models. This approach to UI design is more “native” to the 3D artist than using HTML/CSS, and does not require external tools. But there is more in it: since the UI elements are genuine 3D objects, you can apply shaders, lighting, animation, morphing – you name it – making them truly interactive and seamlessly integrated into the scene.
     </p>
 
     <p>
       When you parent some object to the camera, the following settings appear on the *Advanced Rendering* panel:
     </p>
 
-    <img src="files/lighting-maya/fit-to-camera-edge-properties.jpg" class="centered" style="max-width: 423px">
+    <img src="files/lighting-maya/fit-to-camera-edge-properties.jpg" style="max-width: 423px">
 
     <dl>
       <dt>Horizontal</dt>
@@ -592,7 +600,7 @@
       You can configure the breakpoints on the *Advanced Rendering* panel:
     </p>
 
-    <img src="files/lighting-maya/visibility-breakpoints.jpg" class="centered" style="max-width: 423px">
+    <img src="files/lighting-maya/visibility-breakpoints.jpg" style="max-width: 423px">
 
     <dl>
       <dt>Min Width</dt>
@@ -628,17 +636,19 @@
       Clipping planes (aka section planes, cross-section planes, mesh sections) is a technique used to show internal arrangement of complex objects, such as buildings, cars, appliances, gadgets, machines etc.
     </p>
 
-    <img src="files/lighting-maya/clipping-plane-example.jpg" class="centered">
+    <img src="files/lighting-maya/clipping-plane-example.jpg">
 
     <p>
       To add a new clipping plane, use the <strong>Verge3D -> Add a v3dClippingPlane object</strong> button located on the Maya tool shelf:
     </p>
 
-    <img src="files/lighting-maya/clipping-plane-new.jpg" class="centered">
+    <img src="files/lighting-maya/clipping-plane-new.jpg">
 
     <p>
       The objects on your scene will be clipped in the negative *Y* direction of the clipping plane object.
     </p>
+
+    [demo:clipping_planes]
 
     <p>
       Clipping planes have the following parameters:

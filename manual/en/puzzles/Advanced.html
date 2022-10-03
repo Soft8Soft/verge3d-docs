@@ -27,6 +27,17 @@
     <h2>Puzzles Reference</h2>
 
 
+    [anchor:comment]
+
+    <h3>comment</h3>
+
+    <p>
+      This puzzle does nothing except places a comment line to make your script easier to grasp. It also adds a JavaScript comment line to <em>visual_logic.js</em>.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-comment.jpg">
+
+
     [anchor:exec_script]
 
     <h3>exec script</h3>
@@ -36,17 +47,19 @@
         <a href='https://ace.c9.io/'>Ace Editor</a> for displaying and editing
         the content. See the relevant keyboard shortcuts here:
         <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>Default Keyboard Shortcuts</a>.
+        The puzzle can be resized to change the editor's width and height.
     </p>
 
     <p>You can use the following built-in variables:</p>
     <ul>
         <li><b>app</b> - the application instance, see <a href="api/en/extras/App.html">App</a> for more details</li>
         <li><b>v3d</b> - the v3d namespace which contains all the engine modules</li>
+        <li><b>puzzles</b> - the "Puzzles Logic" object containing procedures defined in puzzles, API for physics puzzles, etc...</li>
         <li><b>VARS</b> - variable puzzles can be accessed through this object</li>
         <li><b>PROC</b> - procedure puzzles can be accessed through this object</li>
     </ul>
 
-    <img src="files/puzzles/puzzles-advanced-exec-script.jpg" style="max-width: 1000px">
+    <img src="files/puzzles/puzzles-advanced-exec-script.png">
 
     <p><b>Specifics of using built-ins regarding to "Init" and other tabs</b></p>
     <ul>
@@ -96,7 +109,13 @@ function prepareExternalInterface(app) {
     Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
     </p>
 
+    <p>In the case the request should not be cached, click on the gear icon and activate "disable caching" checkbox. Caching logic in puzzles: when an url is used for the first time with caching - it will be cached and all subsequent uses of the url with caching will use the saved cache, if url used with disabled caching - it will neither create cache nor use the saved cache.</p>
+
     <img src="files/puzzles/puzzles-advanced-load-data.jpg">
+
+    <p>Browsers attempt to keep local copies of assets for optimization purposes. *To avoid browser caching*, an additional parameter can be used to change the URL each time you make a request. To add this parameter, use the <a href="manual/en/puzzles/HTML.html#set_url_param">set URL param</a> and <a href="manual/en/puzzles/Time.html#elapsed_total">elapsed total</a> puzzles:</p>
+
+    <img src="files/puzzles/puzzles-advanced-load-data-tip-browser-cache.jpg">
 
 
 
@@ -108,9 +127,11 @@ function prepareExternalInterface(app) {
     Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
     </p>
 
-
-
     <img src="files/puzzles/puzzles-advanced-send-data.jpg">
+
+    <p>Browsers attempt to keep local copies of assets for optimization purposes. *To avoid browser caching*, an additional parameter can be used to change the URL each time you make a request. To add this parameter, use the <a href="manual/en/puzzles/HTML.html#set_url_param">set URL param</a> and <a href="manual/en/puzzles/Time.html#elapsed_total">elapsed total</a> puzzles:</p>
+
+    <img src="files/puzzles/puzzles-advanced-send-data-tip-browser-cache.jpg">
 
 
 
@@ -269,6 +290,36 @@ function prepareExternalInterface(app) {
     <p>Resolved promise value (in case of resolved promise) or error string (in case of rejected promise).</p>
 
 
+    [anchor:get_procedure]
+
+    <h3>get procedure</h3>
+
+    <p>
+      This puzzle can be used to obtain a <a href="manual/en/puzzles/Procedures.html">procedure</a>
+      defined in Puzzles. The returned value can be assigned to a variable or
+      passed into another procedure as a parameter and then executed later via
+      the <a href="manual/en/puzzles/Advanced.html#call_procedure">call procedure</a>
+      puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-get-procedure.png" style="max-width: 818px">
+
+
+    [anchor:call_procedure]
+
+    <h3>call procedure</h3>
+
+    <p>
+      Executes Puzzles' procedure obtained through the
+      <a href="manual/en/puzzles/Advanced.html#get_procedure">get procedure</a>
+      puzzle. Optionally passes parameters to be used as procedure arguments.
+      There are 2 variants of the "call procedure" puzzle - with and without a
+      return value.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-call-procedure.png" style="max-width: 820px">
+
+
     [anchor:connector]
 
     <h3>connector</h3>
@@ -283,6 +334,40 @@ function prepareExternalInterface(app) {
     </p>
 
     <img src="files/puzzles/puzzles-advanced-connector.jpg">
+
+
+    [anchor:add_event_listener]
+
+    <h3>add event listener</h3>
+
+    <p>
+      Adds a listener to the specified event type, i.e. executes Puzzles' procedure obtained through the <a href="manual/en/puzzles/Advanced.html#get_procedure">get procedure</a>
+      puzzle when the specified event type is raised.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-add-event-listener.jpg">
+
+
+    [anchor:remove_event_listener]
+
+    <h3>remove event listener</h3>
+
+    <p>
+      Removes listener from the specified event type, i.e. removes given procedure from the event type listener.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-remove-event-listener.jpg">
+
+
+    [anchor:dispatch_event]
+
+    <h3>dispatch event</h3>
+
+    <p>
+      Trigger an event of the specified type. Optionally passes parameters to be used as procedure arguments (i.e. the same arguments for each procedure).
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-dispatch-event.jpg">
 
 
     <h2>Having Troubles with Puzzles?</h2>

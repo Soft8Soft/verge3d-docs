@@ -7,25 +7,187 @@
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body><article>
 
     <h1>glTF Materials (glTF 2.0-compliant PBR) / 3ds Max</h1>
 
     <p>
-    If your content needs to be compatible with glTF 2.0 standard <a href="manual/en/introduction/FAQ.html#gltf_materials">for some reason</a>, you can use physical materials for this purpose as described below.
+      If your content needs to be compatible with glTF 2.0 standard <a href="manual/en/introduction/FAQ.html#gltf_materials">for some reason</a>, you can use physical materials for this purpose as described below.
     </p>
 
     <img src="files/physical-material/phmat_00.png">
+
+    [demo:gltf_compat]
+
 
     <h2>Contents</h2>
 
     [contents]
 
 
-    [anchor:setting_up]
+    [anchor:introduction]
 
-    <h2>Setting Up</h2>
+    <h2>Introduction</h2>
+
+    <p>The following usage of PBR materials is recommended:</p>
+
+    <table style="width:450px">
+      <tr>
+        <th>3ds Max version</th>
+        <th>Material</th>
+      </tr>
+      <tr>
+        <td>2023</td>
+        <td><a href="manual/en/max/GLTF-Materials.html#gltf_material">glTF Material</a></td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td><a href="manual/en/max/GLTF-Materials.html#using_usd_preview_material">Usd Preview Surface</a></td>
+      </tr>
+      <tr>
+        <td>2021 - 2020</td>
+        <td><a href="manual/en/max/GLTF-Materials.html#physical_material">Physical Material</a></td>
+      </tr>
+    </table>
+
+
+    [anchor:gltf_material]
+
+    <h2>glTF Material</h2>
+
+    <p>
+      The *glTF Material* is fully compatible with glTF 2.0.
+    </p>
+
+    <p class="note">
+      This material can only be used with 3ds Max 2023 and later.
+    </p>
+
+    <p>
+      Add a <b>glTF Material</b> shader node as follows: go to <b>Materials/Map Browser</b> and choose <b>glTF Material</b> from the <b>General</b> material list.
+    </p>
+
+    <img src="files/gltf-materials-max/gltf_mat_in_map_browser.jpg" style="max-width: 540px;">
+
+    <p>
+      Then you can connect texture nodes, note that all textures are optional and any of them can be safely omitted. For example:
+    </p>
+
+    <img src="files/gltf-materials-max/gltf_mat_example_00.jpg" style="max-width: 713px;">
+
+    <ol>
+      <li>Assign *glTF Material* to your model.</li>
+      <li>
+      Connect a <b>Base Color</b> texture to the <b>Base Color Map</b> input.
+      </li>
+      <li>
+      Connect a <b>Transparency</b> texture to the <b>Alpha Map</b> input, otherwise the alpha channel will be taken from <b>Base Color Map</b>.
+      </li>
+      <li>
+      Connect a <b>Metallic</b> texture to the <b>Metalness Map</b> input.
+      </li>
+      <li>
+      Connect a <b>Roughness</b> texture to the <b>Roughness Map</b> input.
+      </li>
+      <li>
+      Connect an <b>Normal</b> texture to the <b>Normal Map</b> input.
+      </li>
+      <li>
+      Connect an <b>Occlusion</b> texture to the <b>Occlusion (AO) Map</b> input.
+      </li>
+    </ol>
+
+    <p>
+      All inputs are supported in Verge3D. So you can use extensions too, by enabling corresponding checkers:
+    </p>
+
+    <img src="files/gltf-materials-max/gltf_mat_extension_settings.jpg" style="max-width: 1000px;">
+
+    <ol>
+      <li>
+        *Unlit Material* - makes shading independent of lighting, constantly shaded surface.
+      </li>
+      <li>
+        *Clearcoat* - adds a reflective extra layer on top of any another layer that may be irregular or rough.
+      </li>
+      <li>
+        *Sheen Color* - adds a sheen layer (an independent roughness layer).
+      </li>
+      <li>
+        *Specular* - configures specular reflection in the dielectric.
+      </li>
+      <li>
+        *Transmission* - adds advanced transparency rendering, takes into account light reflections. Material's *Alpha Mode* should be *Blend*.
+      </li>
+      <li>
+        *Volume* - used to describe the transmission of light through the object's surface.
+      </li>
+      <li>
+        *IOR* - the index of refraction.
+      </li>
+    </ol>
+
+
+    [anchor:using_usd_preview_material]
+
+    <h2>Using Usd Preview Surface Material</h2>
+
+    <p>
+        You can use these materials for both glTF and USD formats. Note: they can only be used with 3ds Max 2022 and later (it is "USD for 3ds Max 2022" plugin, you have to get it from "Product Updates" in your Autodesk account).
+    </p>
+
+    <p>Assign the <b>Usd Preview Surface</b> material node. Then you can connect texture nodes, note that all textures are optional and any of them can be safely omitted. The following settings are supported in Verge3D:</p>
+
+    <ul>
+      <li>Diffuse Color </li>
+      <li>Metallic </li>
+      <li>Roughness</li>
+      <li>Occlusion</li>
+      <li>Normal Map</li>
+      <li>Emissive Color</li>
+      <li>Opacity</li>
+      <li>Opacity Threshold</li>
+    </ul>
+
+    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" style="max-width: 750px;">
+
+    <h3>Creating USD material</h3>
+
+    <p>
+      Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:
+    </p>
+
+    <ol>
+      <li>Assign *Usd Preview Surface* to your model.</li>
+      <li>
+      Connect a <b>Diffuse Color</b> texture to the <b>Diffuse Color Map</b> input.
+      </li>
+      <li>
+      Connect a <b>Metallic</b> texture to the <b>Metallic Map</b> input.
+      </li>
+      <li>
+      Connect a <b>Roughness</b> texture to the <b>Roughness Map</b> input.
+      </li>
+      <li>
+      Connect an <b>Occlusion</b> texture to the <b>Occlusion Map</b> input.
+      </li>
+      <li>
+      Connect an <b>Normal</b> texture to the <b>Normal Map</b> input.
+      </li>
+    </ol>
+
+
+    [anchor:physical_material]
+
+    <h2>Physical Material</h2>
 
     <p>
     Add a <b>Physical Material</b> shader node as follows: go to <b>Materials/Map Browser</b> and choose <b>Physical Material</b> from the <b>General</b> material list.
@@ -65,6 +227,20 @@
 
     <img src="files/physical-material/phmat_03.png">
 
+    <h3>Transparency Texture</h3>
+
+    <p>
+    The engine will use the <b>Alpha</b> channel from the <b>Base Color</b> texture as a transparency map automatically, if it is present. To make the transparency visible in the 3ds Max viewport, connect the <b>Alpha</b> channel of the <b>Base Color</b> texture to the <b>Transparency Color Map</b> input.
+    </p>
+
+    <img src="files/physical-material/phmat_06.png">
+
+    <p>
+    Also in the <b>Preferences</b> of the texture, in the <b>Bitmap Parameters</b> panel you should set <b>Mono Chanel Output</b> to <b>Alpha</b> and <b>RGB Channel Output</b> to <b>Alpha as Gray</b>.
+    </p>
+
+    <img src="files/physical-material/phmat_07.png">
+
 
     [anchor:color_space]
 
@@ -83,34 +259,17 @@
     <img src="files/physical-material/phmat_05.png">
 
 
-    [anchor:transparency_texture]
-
-    <h2>Transparency Texture</h2>
-
-    <p>
-    The engine will use the <b>Alpha</b> channel from the <b>Base Color</b> texture as a transparency map automatically, if it is present. To make the transparency visible in the 3ds Max viewport, connect the <b>Alpha</b> channel of the <b>Base Color</b> texture to the <b>Transparency Color Map</b> input.
-    </p>
-
-    <img src="files/physical-material/phmat_06.png">
-
-    <p>
-    Also in the <b>Preferences</b> of the texture, in the <b>Bitmap Parameters</b> panel you should set <b>Mono Chanel Output</b> to <b>Alpha</b> and <b>RGB Channel Output</b> to <b>Alpha as Gray</b>.
-    </p>
-
-    <img src="files/physical-material/phmat_07.png">
-
-
     [anchor:exporting_substance]
 
     <h2>Exporting Textures from Substance Painter</h2>
 
     <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
 
-    <img src="files/physical-material/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
+    <img src="files/physical-material/substance_screenshot.jpg" style="max-width: 819px;">
 
     <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
 
-    <img src="files/physical-material/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
+    <img src="files/physical-material/pbr_texture_set_preview.jpg" style="max-width: 819px;">
 
     <p>
       To facilitate exporting textures from Substance Painter and to ensure maximum capabilities within the Verge3D engine we recommend using <a href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D export preset</a>. Place this preset file to the *export-presets* folder usually located in the <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> directory (create it if does not exist).
@@ -126,54 +285,6 @@
     <h2>Export to glTF in Runtime</h2>
 
     <p>With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/en/puzzles/Scenes.html#export_to_gltf">reference</a>.</p>
-
-
-    [anchor:using_usd_preview_material]
-
-    <h2>Using Usd Preview Surface Material</h2>
-
-    <p>
-        You can use these materials for both glTF and USD formats. Note: they can only be used with 3ds Max 2022 and later.
-    </p>
-
-    <p>Assign the <b>Usd Preview Surface</b> material node. Then you can connect texture nodes, note that all textures are optional and any of them can be safely omitted. The following settings are supported in Verge3D:</p>
-    
-    <ul>
-      <li>Diffuse Color </li>
-      <li>Metallic </li>
-      <li>Roughness</li>
-      <li>Occlusion</li>
-      <li>Normal Map</li>
-      <li>Emissive Color</li>
-      <li>Opacity</li>
-      <li>Opacity Threshold</li>
-    </ul>
-
-    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" class="centered" style="max-width: 750px;">
-
-    <h3>Creating USD material</h3>
-
-    <p>Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
-
-    <ol>
-      <li>Assign *Usd Preview Surface* to your model.</li>
-      <li>
-      Connect a <b>Diffuse Color</b> texture to the <b>Diffuse Color Map</b> input.
-      </li>
-      <li>
-      Connect a <b>Metallic</b> texture to the <b>Metallic Map</b> input.
-      </li>
-      <li>
-      Connect a <b>Roughness</b> texture to the <b>Roughness Map</b> input.
-      </li>
-      <li>
-      Connect an <b>Occlusion</b> texture to the <b>Occlusion Map</b> input.
-      </li>
-      <li>
-      Connect an <b>Normal</b> texture to the <b>Normal Map</b> input.
-      </li>
-    </ol>
-
 
 
     <h2>Got Questions?</h2>

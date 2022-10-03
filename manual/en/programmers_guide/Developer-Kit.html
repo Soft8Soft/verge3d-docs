@@ -73,7 +73,7 @@
       </tr>
       <tr>
         <td>addons/verge3d</td>
-        <td>Source code of Blender add-on (Verge3D for Blender only).</td>
+        <td>Source code of Blender add-on (Verge3D for Blender or Verge3D Ultimate).</td>
       </tr>
       <tr>
         <td>build</td>
@@ -81,11 +81,11 @@
       </tr>
       <tr>
         <td>max_plugin</td>
-        <td>Source code of 3ds Max plugin (Verge3D for 3ds Max only).</td>
+        <td>Source code of 3ds Max plugin (Verge3D for 3ds Max or Verge3D Ultimate).</td>
       </tr>
       <tr>
         <td>maya_plugin</td>
-        <td>Source code of Maya plugin (Verge3D for Maya only).</td>
+        <td>Source code of Maya plugin (Verge3D for Maya or Verge3D Ultimate).</td>
       </tr>
       <tr>
         <td>puzzles</td>
@@ -102,6 +102,10 @@
       <tr>
         <td>templates</td>
         <td>Verge3D application templates.</td>
+      </tr>
+      <tr>
+        <td>utils</td>
+        <td>Various utility scripts.</td>
       </tr>
       <tr>
         <td>wordpress</td>
@@ -153,6 +157,21 @@
     </p>
 
 
+    [anchor:activating_engine_module]
+
+    <h2>Activating engine module</h2>
+
+    <p>
+      To sign the compiled engine module with your license key, use the <strong>keymanager.py</strong> script from the *utils* directory (python required):
+    </p>
+
+    <code>./keymanager activate ../build/v3d.js XXXXXXXXXX</code>
+
+    <p>
+      Where XXXXXXXXXX is your license key. Since this command does not print anything, you need to verify if the activation was a success by copying the module to some app folder and checking for the *MADE WITH VERGE3D TRIAL* watermark.
+    </p>
+
+
     [anchor:Custom_API_Method]
 
     <h2>Adding New Method to JavaScript API</h2>
@@ -190,11 +209,11 @@
     <code>export { MyAwesomeClass } from './extras/MyAwesomeClass.js';</code>
 
     <p>
-    <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Verge3D runtime to your application, and try it out in the browser console.
+      <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Verge3D runtime to your application, and try it out in the browser console.
     </p>
 
     <code>
-    var myAwesomeStuff = new v3d.MyAwesomeClass();
+    const myAwesomeStuff = new v3d.MyAwesomeClass();
     myAwesomeStuff.whatEver();
     </code>
 

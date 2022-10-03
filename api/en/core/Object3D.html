@@ -35,15 +35,13 @@
     <h3>[property:Boolean castShadow]</h3>
     <p>Whether the object gets rendered into shadow map. Default is *false*.</p>
 
-    <h3>[property:Object3D children]</h3>
+    <h3>[property:Array children]</h3>
     <p>Array with object's children. See [page:Group] for info on manually grouping objects.</p>
 
     <h3>[property:Material customDepthMaterial]</h3>
     <p>
     Custom depth material to be used when rendering to the depth map. Can only be used in context of meshes.
-    When shadow-casting with a [page:DirectionalLight] or [page:SpotLight], if you are (a) modifying vertex positions in the vertex shader,
-    (b) using a displacement map, (c) using an alpha map with alphaTest, or (d) using a transparent texture with alphaTest,
-    you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
+    When shadow-casting with a [page:DirectionalLight] or [page:SpotLight], if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows. Default is *undefined*.
     </p>
 
     <h3>[property:Material customDistanceMaterial]</h3>
@@ -53,10 +51,10 @@
 
     <h3>[property:Boolean frustumCulled]</h3>
     <p>
-    When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object.
-    Otherwise the object gets rendered every frame even if it isn't visible. Default is *true*.
+    When this is set, it checks every frame if the object is in the frustum of the camera before rendering the object. If set to `false` the object gets rendered every frame even if it is not in the frustum of the camera. Default is `true`.
     </p>
 
+    <!-- Verge3D -->
     <h3>[property:Array groupNames]</h3>
     <p>
       An array specifying groups this object belongs to. Used for
@@ -111,16 +109,26 @@
 
     <h3>[property:Function onAfterRender]</h3>
     <p>
-    An optional callback that is executed immediately after the Object3D is rendered.
+    An optional callback that is executed immediately after a 3D object is rendered.
     This function is called with the following parameters: renderer, scene, camera, geometry,
     material, group.
+    </p>
+    <p>
+    Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual
+    appearance with geometries and materials like instances of [page:Mesh], [page:Line], [page:Points] or [page:Sprite].
+    Instances of [page:Object3D], [page:Group] or [page:Bone] are not renderable and thus this callback is not executed for such objects.
     </p>
 
     <h3>[property:Function onBeforeRender]</h3>
     <p>
-    An optional callback that is executed immediately before the Object3D is rendered.
+    An optional callback that is executed immediately before a 3D object is rendered.
     This function is called with the following parameters: renderer, scene, camera, geometry,
     material, group.
+    </p>
+    <p>
+    Please notice that this callback is only executed for *renderable* 3D objects. Meaning 3D objects which define their visual
+    appearance with geometries and materials like instances of [page:Mesh], [page:Line], [page:Points] or [page:Sprite].
+    Instances of [page:Object3D], [page:Group] or [page:Bone] are not renderable and thus this callback is not executed for such objects.
     </p>
 
     <h3>[property:Object3D parent]</h3>
@@ -213,14 +221,16 @@
     See [page:Group] for info on manually grouping objects.
     </p>
 
-    <h3>[method:null applyMatrix4]([param:Matrix4 matrix])</h3>
+    <h3>[method:undefined applyMatrix4]([param:Matrix4 matrix])</h3>
     <p>Applies the matrix transform to the object and updates the object's position, rotation and scale.</p>
 
     <h3>[method:this applyQuaternion]([param:Quaternion quaternion])</h3>
     <p>Applies the rotation represented by the quaternion to the object.</p>
 
     <h3>[method:this attach]([param:Object3D object])</h3>
-    <p>Adds *object* as a child of this, while maintaining the object's world transform.</p>
+    <p>Adds *object* as a child of this, while maintaining the object's world transform.<br/><br/>
+    Note: This method does not support scene graphs having non-uniformly-scaled nodes(s).
+    </p>
 
     <h3>[method:Object3D clone]([param:Boolean recursive])</h3>
     <p>
@@ -255,7 +265,7 @@
     have to set it manually to make use of this method.
     </p>
 
-    <h3>[method:Object3D getObjectByProperty]([param:String name], [param:Float value])</h3>
+    <h3>[method:Object3D getObjectByProperty]([param:String name], [param:Any value])</h3>
     <p>
     name -- the property name to search for. <br />
     value -- value of the given property. <br /><br />
@@ -277,6 +287,7 @@
     Returns a quaternion representing the rotation of the object in world space.
     </p>
 
+    <!-- Verge3D -->
     <h3>[method:Euler getWorldEuler]([param:Euler target], [param:String order])</h3>
     <p>
     [page:Euler target] — the result will be copied into this Euler. <br />
@@ -307,8 +318,8 @@
     Converts the vector from this object's local space to world space.
     </p>
 
-    <h3>[method:null lookAt]([param:Vector3 vector])<br />
-    [method:null lookAt]([param:Float x], [param:Float y], [param:Float z])</h3>
+    <h3>[method:undefined lookAt]([param:Vector3 vector])<br />
+    [method:undefined lookAt]([param:Float x], [param:Float y], [param:Float z])</h3>
     <p>
     vector - A vector representing a position in world space.<br /><br />
     Optionally, the [page:.x x], [page:.y y] and [page:.z z] components of the world space position.<br /><br />
@@ -328,6 +339,11 @@
     <h3>[method:this remove]([param:Object3D object], ...)</h3>
     <p>
     Removes *object* as child of this object. An arbitrary number of objects may be removed.
+    </p>
+
+    <h3>[method:this removeFromParent]()</h3>
+    <p>
+    Removes this object from its current parent.
     </p>
 
     <h3>[method:this clear]()</h3>
@@ -373,7 +389,7 @@
     Rotates the object around z axis in local space.
     </p>
 
-    <h3>[method:null setRotationFromAxisAngle]([param:Vector3 axis], [param:Float angle])</h3>
+    <h3>[method:undefined setRotationFromAxisAngle]([param:Vector3 axis], [param:Float angle])</h3>
     <p>
       axis -- A normalized vector in object space. <br />
       angle -- angle in radians<br /><br />
@@ -382,7 +398,7 @@
       on the [page:.quaternion].
     </p>
 
-    <h3>[method:null setRotationFromEuler]([param:Euler euler])</h3>
+    <h3>[method:undefined setRotationFromEuler]([param:Euler euler])</h3>
     <p>
       euler -- Euler angle specifying rotation amount.<br />
 
@@ -390,7 +406,7 @@
       on the [page:.quaternion].
     </p>
 
-    <h3>[method:null setRotationFromMatrix]([param:Matrix4 m])</h3>
+    <h3>[method:undefined setRotationFromMatrix]([param:Matrix4 m])</h3>
     <p>
       m -- rotate the quaternion by the rotation component of the matrix.<br />
 
@@ -400,7 +416,7 @@
       Note that this assumes that the upper 3x3 of m is a pure rotation matrix (i.e, unscaled).
     </p>
 
-    <h3>[method:null setRotationFromQuaternion]([param:Quaternion q])</h3>
+    <h3>[method:undefined setRotationFromQuaternion]([param:Quaternion q])</h3>
     <p>
       q -- normalized Quaternion.<br /><br />
 
@@ -430,7 +446,7 @@
     <h3>[method:this translateZ]([param:Float distance])</h3>
     <p>Translates object along z axis in object space by *distance* units.</p>
 
-    <h3>[method:null traverse]([param:Function callback])</h3>
+    <h3>[method:undefined traverse]([param:Function callback])</h3>
     <p>
     callback - A function with as first argument an object3D object.<br /><br />
 
@@ -438,7 +454,7 @@
     Note: Modifying the scene graph inside the callback is discouraged.
     </p>
 
-    <h3>[method:null traverseVisible]([param:Function callback])</h3>
+    <h3>[method:undefined traverseVisible]([param:Function callback])</h3>
     <p>
     callback - A function with as first argument an object3D object.<br /><br />
 
@@ -447,7 +463,7 @@
     Note: Modifying the scene graph inside the callback is discouraged.
     </p>
 
-    <h3>[method:null traverseAncestors]([param:Function callback])</h3>
+    <h3>[method:undefined traverseAncestors]([param:Function callback])</h3>
     <p>
     callback - A function with as first argument an object3D object.<br /><br />
 
@@ -455,13 +471,13 @@
     Note: Modifying the scene graph inside the callback is discouraged.
     </p>
 
-    <h3>[method:null updateMatrix]()</h3>
+    <h3>[method:undefined updateMatrix]()</h3>
     <p>Updates the local transform.</p>
 
-    <h3>[method:null updateMatrixWorld]([param:Boolean force])</h3>
+    <h3>[method:undefined updateMatrixWorld]([param:Boolean force])</h3>
     <p>Updates the global transform of the object and its descendants.</p>
 
-    <h3>[method:null updateWorldMatrix]([param:Boolean updateParents], [param:Boolean updateChildren])</h3>
+    <h3>[method:undefined updateWorldMatrix]([param:Boolean updateParents], [param:Boolean updateChildren])</h3>
     <p>
     updateParents - recursively updates global transform of ancestors.<br />
     updateChildren - recursively updates global transform of descendants.<br /><br />
