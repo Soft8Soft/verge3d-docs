@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D Texture Compression - Soft8Soft</title>
+    <title>Verge3D Texture Compression — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Verge3D supports textures compressed with the KTX2/BasisU compression algorithm. Find out how to enable this feature in your apps."/>
     <base href="../../../" />
@@ -17,7 +17,7 @@
     </p>
 
     <figure style="max-width: 900px">
-      <img src="files/texture-compression/ktx-comparison.jpg">
+      <img src="files/texture-compression/ktx-comparison.jpg" alt="Comparing JPG/PNG with UASTC and ETC1">
       <figcaption>Size comparison for a sample lamp model, image courtesy of Khronos® Group.</figcaption>
     </figure>
 
@@ -35,15 +35,15 @@
     <v3d-tabs>
       <label>Blender</label>
       <div>
-        <img src="files/texture-compression/enable-blender.jpg" style="max-width: 320px">
+        <img src="files/texture-compression/enable-blender.jpg" alt="Enable texture compression in Blender" style="max-width: 320px">
       </div>
       <label>3ds Max</label>
       <div>
-        <img src="files/texture-compression/enable-max.jpg" style="max-width: 272px">
+        <img src="files/texture-compression/enable-max.jpg" alt="Enable texture compression in 3ds Max" style="max-width: 272px">
       </div>
       <label>Maya</label>
       <div>
-        <img src="files/texture-compression/enable-maya.jpg" style="max-width: 434px">
+        <img src="files/texture-compression/enable-maya.jpg" alt="Enable texture compression in Maya" style="max-width: 434px">
       </div>
     </v3d-tabs>
 
@@ -56,7 +56,7 @@
       To ensure that your app now actually loads compressed texture, run your app (either from App Manager or from a website where it is deployed). Open the <a href="manual/en/introduction/FAQ.html#browser_console">browser console</a> and switch to the <strong>Network</strong> tab.
     </p>
 
-    <img src="files/texture-compression/console-check.jpg">
+    <img src="files/texture-compression/console-check.jpg" alt="Check texture compressing in Chrome console">
 
     <p>
       Reload your app so that the console starts displaying files from the beginning. Find the texture files in the list - if everything is ok, they should end with <strong>.ktx2</strong>.
@@ -78,15 +78,15 @@
     <v3d-tabs>
       <label>Blender</label>
       <div>
-        <img src="files/texture-compression/tweak-blender.jpg" style="max-width: 440px">
+        <img src="files/texture-compression/tweak-blender.jpg" alt="Tweaking texture compressing in Blender" style="max-width: 440px">
       </div>
       <label>3ds Max</label>
       <div>
-        <img src="files/texture-compression/tweak-max.jpg" style="max-width: 343px">
+        <img src="files/texture-compression/tweak-max.jpg" alt="Tweaking texture compression in 3ds Max" style="max-width: 343px">
       </div>
       <label>Maya</label>
       <div>
-        <img src="files/texture-compression/tweak-maya.jpg" style="max-width: 437px">
+        <img src="files/texture-compression/tweak-maya.jpg" alt="Tweaking texture compression in Maya" style="max-width: 437px">
       </div>
     </v3d-tabs>
 
@@ -122,13 +122,17 @@
     <h3>Compressing requires more data to load over network</h3>
 
     <p>
-      As stated in the beginning of this section, texture compression significantly reduces GPU memory consumed by your apps. However it's not always true for data transferred over network. When using *UASTC* (or *Auto*) compression algorithm, you might experience increase of your texture files. If network bandwidth is priority, disable texture compression or use more efficient *ETC1S* algorithm.
+      As stated in the beginning of this section, texture compression significantly reduces GPU memory consumed by your apps. However, it is not always true for data transferred over network. When using *UASTC* compression algorithm (or *Auto*), the textures can get bigger in some cases. If network bandwidth is a priority, disable texture compression altogether or use the more efficient *ETC1S* algorithm.
+    </p>
+
+    <p>
+      Starting from Verge3D 4.2, we implemented a countermeasure to limit the size of compressed textures. Should the resulting image get more than 3x times larger than the original image, the exporter keeps the original uncompressed image intact.
     </p>
 
     <h3>Slower export</h3>
 
     <p>
-      Compression requires additional time to compress your data during export.
+      Compression requires more time to compress your data during export. To save time, you can only enable it at final stages of development.
     </p>
 
     <h3>Supported only for JPEG and PNG textures</h3>
@@ -146,7 +150,11 @@
     <h3>Not supported for PNG textures with embedded ICC profile</h3>
 
     <p>
-      Do not use ICC profile for your PNG images. It will increase the size of your textures and prevent them from being compressed.
+      PNG images with embedded color profile chunks (ICC aka iCCP) are not supported by the texture compressor. As such, to process such images we strip ICC data entirely before passing them to the compressor. In case of non-standard color profiles (non-sRGB) this might result in somewhat distorted colors.
+    </p>
+
+    <p>
+      If stripping ICC data is not desirable, disable texture compression for the said images or apply color profile using some image editing software (Photoshop, GIMP).
     </p>
 
     <h3>Not compatible with AR mode on iOS devices</h3>

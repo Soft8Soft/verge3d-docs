@@ -18,7 +18,7 @@ if (/#(manual|api|examples)/.test(href)) {
 }
 
 var list = null;
-var pageProperties = {};
+var pageProperties = [];
 var titles = {};
 var categoryElements = [];
 
@@ -91,8 +91,7 @@ function onDocumentLoad() {
 
     document.head.appendChild(prettify);
 
-    // TODO
-    var language = 'en';
+    var language = document.getElementsByTagName('html')[0].lang;
 
     var localList = list[language];
 
@@ -112,12 +111,13 @@ function onDocumentLoad() {
                     continue;
 
                 // Gather the main properties for the current subpage
-                pageProperties[pageName] = {
-                   section: section,
-                   category: category,
-                   pageURL: pageURL,
-                   linkElement: linkElement
-                };
+                pageProperties.push({
+                    pageName: pageName,
+                    section: section,
+                    category: category,
+                    pageURL: pageURL,
+                    linkElement: linkElement
+                });
 
                 // Gather the document titles (used for easy access on browser navigation)
                 titles[pageURL] = pageName;
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 
 
-window.addEventListener('load', function() {
+document.fonts.addEventListener('loadingdone', () => {
     if (localStorage.scrollPosition) {
         var panel = document.querySelector('#panel');
 
@@ -189,25 +189,27 @@ window.addEventListener('unload', function() {
 
 
 
-  // Filtering
+// Filtering
 
 function updateFilter() {
 
-    var regExp = new RegExp(filterInput.value, 'gi');
+    const regExp = new RegExp(filterInput.value, 'gi');
 
-    for (var pageName in pageProperties) {
+    pageProperties.forEach(prop => {
 
-        var linkElement = pageProperties[pageName].linkElement;
-        var categoryClassList = linkElement.parentElement.classList;
-        var filterResults = pageName.match(regExp);
+        let pageName = prop.pageName;
+        const linkElement = prop.linkElement;
+
+        const categoryClassList = linkElement.parentElement.classList;
+        const filterResults = pageName.match(regExp);
 
         if (filterResults && filterResults.length > 0) {
 
             // Accentuate matching characters
 
-            for (var i = 0; i < filterResults.length; i++) {
+            for (let i = 0; i < filterResults.length; i++) {
 
-                var result = filterResults[i];
+                const result = filterResults[i];
 
                 if (result !== '') {
                     pageName = pageName.replace(result, '<b>' + result + '</b>');
@@ -226,7 +228,7 @@ function updateFilter() {
 
         }
 
-    }
+    });
 
     displayFilteredPanel();
 
@@ -274,7 +276,11 @@ function displayFilteredPanel() {
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
-    if (window.location.href.indexOf('/ru/') > -1)
+    if (window.location.href.indexOf('/ru/') > -1) {
         document.body.style.fontFamily = 'Golos, sans-serif';
         document.body.style.fontSize = '17px';
+        document.body.querySelector('nav#panel').style.padding = '0px 10px 0px 15px';
+        document.body.querySelectorAll('nav#panel ul').forEach(e => { e.style.marginLeft = '5px' });
+        document.body.querySelectorAll('strong, dt').forEach(e => { e.style.fontSize = '17px' });
+    }
 });

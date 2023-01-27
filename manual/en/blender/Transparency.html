@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D for Blender: Transparency - Soft8Soft</title>
+    <title>Verge3D for Blender: Transparency — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Learn what kinds of transparency can be enabled for Blender materials and used in Verge3D."/>
     <base href="../../../" />
@@ -30,11 +30,12 @@
       Being a real-time 3D engine, Verge3D offers two main methods to handle transparent objects: alpha blending and alpha clipping (usually with an image mask). Blending enables combining a translucent foreground color with a background color, using the foreground color's alpha as blending factor. Clipping, on the other hand, simply discards all pixels with alpha less than some predefined threshold (by default 0, but can be changed in material settings).
     </p>
 
-    <img src="files/transparency-common/blending-vs-clipping.jpg">
+    <img src="files/transparency-common/blending-vs-clipping.jpg" alt="Blender Alpha Blend vs Alpha Clip comparison">
 
     <p>
       Blending enables for smooth transitions, generally looks nicer but computationally more expensive than clipping. It may also produce z-sorting artifacts when polygons appear to be rendered in wrong order. Clipping works best for visualizing numerous small objects (such as grass or tree leaves). It also produces hard edges without any transitions which may be aliased.
     </p>
+
 
     [anchor:alpha_add]
 
@@ -44,11 +45,12 @@
       Verge3D also offers a special mode for disabling writing to the depth buffer while rendering. This results in polygons being excluded from pixel depth comparison. Such polygons are composited in additive manner, which sometimes can help get rid of blending artifacts.
     </p>
 
-    <img src="files/transparency-common/no-depth-writes.jpg">
+    <img src="files/transparency-common/no-depth-writes.jpg" alt="Rendering with no depth write">
 
     <p>To enable this mode, disable the *Depth Write* option located on the *Verge3D Settings* panel.</p>
 
-    <img src="files/transparency-blender/depth-write.jpg" style="max-width: 294px;">
+    <img src="files/transparency-blender/depth-write.jpg" alt="Depth write setting in Blender" style="max-width: 294px;">
+
 
     [anchor:rendering_order]
 
@@ -62,13 +64,14 @@
       To modify the rendering order for a particular object, change the numeric field in the Verge3D settings panel. The smaller the index, the earlier the object will be rendered.
     </p>
 
-    <img src="files/transparency-blender/rendering-order.jpg" alt="Rendering order setting" style="max-width: 326px">
+    <img src="files/transparency-blender/rendering-order.jpg" alt="Render order setting" style="max-width: 326px">
 
     <p>
       So, if you have a transparent, continuous object in the rear and want other transparent objects in the front to render correctly, set some negative value as the rendering order of the rear object.
     </p>
 
-    <img src="files/transparency-common/rendering-order-example.jpg">
+    <img src="files/transparency-common/rendering-order-example.jpg" alt="Rendering order example">
+
 
     [anchor:transparency_eevee]
 
@@ -78,13 +81,13 @@
       Transparency for Eevee materials can be enabled by using a combination of the *Transparent BSDF* and the *Mix Shader* nodes. The factor in the *Mix Shader* node can be used to define the alpha value - you can directly specify a value or create a dependency from some other nodes such as *Fresnel* for more realistic look.
     </p>
 
-    <img src="files/transparency-blender/eevee-ztransparency.jpg">
+    <img src="files/transparency-blender/eevee-ztransparency.jpg" alt="Blender Blend mode setting">
 
     <p>Use the *Blend Mode* dropdown to choose between transparency modes.</p>
 
     <p>Alternatively, you can use *Alpha* input of the Principled BSDF node.</p>
 
-    <img src="files/transparency-blender/eevee-ztransparency-principled.jpg">
+    <img src="files/transparency-blender/eevee-ztransparency-principled.jpg" alt="Principled BSDF shader with transparency">
 
     <p>To tweak your the material's transparency there are other options available on the *Settings* panel:</p>
 
@@ -94,6 +97,7 @@
       <li>*Show Backface* - enable to render backside geometry of your objects.</li>
     </ul>
 
+
     [anchor:transparency_gltf]
 
     <h2>Transparency for glTF-compliant Materials</h2>
@@ -102,7 +106,7 @@
       In order to enable transparency for such materials, add alpha mask information to the alpha channel of the base color texture. Also you can tweak the alpha channel with the <strong>Alpha</strong> input of the Principled BSDF node.
     </p>
 
-    <img src="files/transparency-blender/gltf-PBR-ztransparency.jpg">
+    <img src="files/transparency-blender/gltf-PBR-ztransparency.jpg" alt="Transparent glTF material">
 
     <p>Use the <strong>Blend Mode</strong> dropdown to choose between transparency modes.</p>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D for Maya: Lighting and Rendering - Soft8Soft</title>
+    <title>Verge3D for Maya: Lighting and Rendering — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to configure environment lighting, lights and rendering settings in Verge3D for Maya."/>
     <base href="../../../" />
@@ -33,12 +33,14 @@
     <h2>Environment Lighting</h2>
 
     <p>
-      Environment lighting is a very important component of Verge3D graphics pipeline. You can illuminate your entire scene with just an environment map alone, without using any light objects. See the <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">Scooter demo</a> as an example of this approach.
+      Environment lighting is a very important component of Verge3D graphics pipeline. You can illuminate your entire scene with just an environment map alone, without using any light objects. See the [demoLink:scooter] as an example of this approach.
     </p>
+
+    <iframe class="video-480p" src="https://www.youtube.com/embed/9BzE98XIOnI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <p>The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. To do so, simply append Arnold's *aiSkyDomeLight* object to your scene and assign some texture to it as *Color*.</p>
 
-    <img src="files/lighting-maya/ai-sky-dome-light.jpg" style="max-width: 892px">
+    <img src="files/lighting-maya/ai-sky-dome-light.jpg" alt="Using Maya's aiSkyDomeLight object" style="max-width: 892px">
 
     <p>In addition, you may use the *Intensity* attribute to tweak intensity of your environment lighting and *Texture Resolution* to configure its quality:</p>
 
@@ -53,7 +55,7 @@
       When using HDR texture for your skydome, make sure you set the *Color Space* setting to *Raw*:
     </p>
 
-    <img src="files/lighting-maya/ai-sky-dome-light-setup.jpg" style="max-width: 458px">
+    <img src="files/lighting-maya/ai-sky-dome-light-setup.jpg" alt="Setting color space for aiSkyDomeLight" style="max-width: 458px">
 
     <p class="note">
       You can also *aiSkyDomeLight* without any texture to simulate light coming evenly from all directions. However, it's much more efficient to use Ambient Lights for that.
@@ -103,7 +105,7 @@
       The new light probe object can be found inside the custom *Verge3D* shelf:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-create.png" style="max-width: 500px">
+    <img src="files/lighting-maya/light-probe-reflection-cubemap-create.jpg" alt="Creating reflection cubemap light probe in Maya">
 
     <p>
       This object defines a volume of influence represented by a box or a sphere.
@@ -133,43 +135,43 @@
       v3dReflectionCubemap objects have the following parameters:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-params.png" style="max-width: 481px">
+    <img src="files/lighting-maya/light-probe-reflection-cubemap-params.png" alt="Reflection cubemap params" style="max-width: 481px">
 
     <dl>
       <dt>General Settings</dt>
       <dd>
-        general light probe settings:
+        General light probe settings:
 
         <dl>
           <dt id="influence_volume">Influence Type</dt>
           <dd>
-            type of the influence volume: *Sphere* or *Box*. Only objects
+            Type of the influence volume: *Sphere* or *Box*. Only objects
             located inside this volume are affected by the probe's lighting.
             Default is *Sphere*.
           </dd>
 
           <dt>Influence Distance</dt>
           <dd>
-            the size of the influence volume. You can also change object scaling
+            The size of the influence volume. You can also change object scaling
             and make the shape of the influence volume non-uniform. Default is
             1.0.
           </dd>
 
           <dt>Intensity</dt>
           <dd>
-            the intensity of the indirect lighting. Any value different from 1.0
+            The intensity of the indirect lighting. Any value different from 1.0
             is not physically correct. Default is 1.0.
           </dd>
 
           <dt>Clipping Start</dt>
           <dd>
-            near clip distance. Objects located closer than this value won't be
+            Near clip distance. Objects located closer than this value won't be
             rendered into the reflection cubemap. Default is 0.1.
           </dd>
 
           <dt>Clipping End</dt>
           <dd>
-            far clip distance. Objects located further than this value won't be
+            Far clip distance. Objects located further than this value won't be
             rendered into the reflection cubemap. Default is 100.0.
           </dd>
         </dl>
@@ -177,21 +179,20 @@
 
       <dt>Visibility Selection Set</dt>
       <dd>
-        object visibility settings:
+        Object visibility settings:
 
         <dl>
           <dt>Selection Set</dt>
           <dd>
-            limit objects that should appear on the reflection cubemap to those
-            belonging to this selection set. Choose the empty string option in
+            Limit objects that should appear on the reflection cubemap to those
+            belonging to this selection set. Choose empty in
             order to not specify any set of objects - that way all scene objects
-            will be used for generating the reflection cubemap. Default is empty
-            string.
+            will be used for generating the reflection cubemap.
           </dd>
 
           <dt>Invert Visibility</dt>
           <dd>
-            invert the selection of objects visible to this light probe if
+            Invert the selection of objects visible to this light probe if
             *Selection Set* is specified. Disabled by default.
           </dd>
         </dl>
@@ -199,12 +200,12 @@
 
       <dt id="parallax_volume">Custom Parallax</dt>
       <dd>
-        parallax settings:
+        Parallax settings:
 
         <dl>
           <dt>Use Custom Parallax</dt>
           <dd>
-            enable custom settings for the parallax correction. This group of
+            Enable custom settings for the parallax correction. This group of
             settings defines a parallax volume, which is used to project the
             lighting captured by the probe. If *Custom Parallax* is not enabled
             the parallax effect is calculated based on *Influence Type* and
@@ -213,24 +214,24 @@
 
           <dt>Parallax Type</dt>
           <dd>
-            type of the parallax volume: *Sphere* or *Box*. Default is *Sphere*
+            Type of the parallax volume: *Sphere* or *Box*. Default is *Sphere*
           </dd>
 
           <dt>Parallax Distance</dt>
           <dd>
-            the size of the parallax volume. Default is 1.0.
+            The size of the parallax volume. Default is 1.0.
           </dd>
         </dl>
       </dd>
 
       <dt>Custom Influence</dt>
       <dd>
-        custom influence settings:
+        Custom influence settings:
 
         <dl>
           <dt>Use Custom Influence</dt>
           <dd>
-            enable custom influence settings. This group of settings allows
+            Enable custom influence settings. This group of settings allows
             defining a selection set of objects that will be affected by this
             light probe. *Selection Set* (if specified) will be used instead of
             the *Influence Type* and *Influence Distance* general probe settings.
@@ -238,14 +239,14 @@
 
           <dt>Selection Set</dt>
           <dd>
-            limit objects that should be affected by this light probe to this
+            Limit objects that should be affected by this light probe to this
             selection set. If specified it is used instead of the
             *Influence Type* and *Influence Distance* general probe settings.
           </dd>
 
           <dt>Invert Influence</dt>
           <dd>
-            invert the selection of objects affected by this probe if
+            Invert the selection of objects affected by this probe if
             *Selection Set* is specified.
           </dd>
         </dl>
@@ -261,7 +262,7 @@
       Reflection Plane Light Probes used to apply real-time reflections (indirect lighting) to planar objects, such as mirrors, floors, walls, etc.
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-example.png" style="max-width: 804px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-example.png" alt="Reflection plane example" style="max-width: 804px">
 
     [demo:light_probe]
 
@@ -269,16 +270,16 @@
       The new light probe object can be found inside the custom *Verge3D* shelf:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-create.png" style="max-width: 313px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-create.jpg" alt="Creating reflection plane object in Maya">
 
     <p>
       Reflection plane objects have the following parameters:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-params.png" style="max-width: 462px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-params.png" alt="Reflection plane params panel" style="max-width: 462px">
 
     <dl>
-      <dt>Influence Dist.</dt>
+      <dt>Influence Distance</dt>
       <dd>
         Influence distance of the probe.
       </dd>
@@ -286,13 +287,17 @@
       <dd>
         Controls how fast the probe influence decreases.
       </dd>
-      <dt>Clip Offset</dt>
+      <dt>Clipping Offset</dt>
       <dd>
         Near camera clipping for objects rendered in the light probe.
       </dd>
-      <dt>Visibility Selection Set</dt>
+      <dt>Selection Set</dt>
       <dd>
-        Selection set of the objects visible for the probe.
+        Selection set of the objects visible for the probe. Specify empty value to make all scene objects visible for the probe.
+      </dd>
+      <dt>Invert Visibility</dt>
+      <dd>
+        Invert the selection of objects visible to this light probe if *Selection Set* is specified. Disabled by default.
       </dd>
     </dl>
 
@@ -300,7 +305,7 @@
       Reflection plane light probes can only act on surfaces with zero roughness and maximum metalness:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-note.png" style="max-width: 804px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-note.png" alt="Specifying maximum metalness for reflective surfaces in Maya">
 
     <p class="note">
       Planar reflection probes can greatly reduce performance of your scene, since they multiply the number of draw calls by a factor <strong>N+1</strong>. To make rendering faster, specify a limited set of reflected objects as the *Visibility Selection Set* property.
@@ -320,7 +325,7 @@
       To change your background to some other color, do not edit Viewport settings in Maya, simply assign *Background Color* and enable the *Render Background* attribute on your main camera:
     </p>
 
-    <img src="files/lighting-maya/render-background.jpg" style="max-width: 443px">
+    <img src="files/lighting-maya/render-background.jpg" alt="Render background feature in Maya" style="max-width: 443px">
 
     <p class="note">
       You can use Maya's *Render View* window or Verge3D's *Sneak Peek* feature to preview the scene with custom background.
@@ -331,14 +336,14 @@
 
     <h2>Global Rendering Settings</h2>
 
-    <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (<strong>Verge3D->Export Settings...</strong> in Maya menu).</p>
+    <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (*Verge3D* → <strong>Export Settings...</strong> in Maya menu).</p>
 
-    <img src="files/lighting-maya/rendering-settings-global.jpg" style="max-width: 434px">
+    <img src="files/lighting-maya/rendering-settings-global.jpg" alt="Verge3D Export Settings window in Maya" style="max-width: 434px">
 
     <dl>
       <dt>Anti-Aliasing</dt>
       <dd>
-        select what anti-aliasing algorithm to use for the scene:
+        Select what anti-aliasing algorithm to use for the scene:
         <dl>
           <dt>Auto</dt>
           <dd>use system default method.</dd>
@@ -357,7 +362,7 @@
 
       <dt>Use HDR Rendering</dt>
       <dd>
-        <p>enable high-dynamic-range rendering.</p>
+        <p>Enable high-dynamic-range rendering.</p>
         <p>If activated, Verge3D will use 16-bit float textures as rendering buffers. This feature can significantly improve rendering of the Bloom post-processing as well as smoothness of node-based gradient textures. The downside of this — increased GPU memory consumption and reduced performance.</p>
 
         <p class="note">This feature is not related to HDR textures which are commonly used to produce image-based lighting, thus activating it won't improve rendering of such textures.</p>
@@ -387,10 +392,10 @@
     <p>
       Verge3D implements Ground Truth Ambient Occlusion (GTAO), which settings
       you can find in the *AO* section of *Verge3D Export Settings* (accessible
-      through <strong>Verge3D->Export Settings...</strong> in Maya menu):
+      through *Verge3D* → <strong>Export Settings...</strong> in Maya menu):
     </p>
 
-    <img src="files/lighting-maya/ambient-occlusion-properties.png" style="max-width: 422px">
+    <img src="files/lighting-maya/ambient-occlusion-properties.png" alt="Ambient occlusion settings tab in Maya" style="max-width: 422px">
 
     <p class="note">
       Verge3D adds the ambient occlusion effect only for
@@ -439,13 +444,13 @@
       Outline rendering (aka silhouette edge rendering) is a common non-photorealistic rendering (NPR) technique that can significantly enhance the visual perception of your scene. This effect can be used for various applications such as e-learning, games, architecture visualization, and technical drawing.
     </p>
 
-    <img src="files/lighting-blender/outline-example.jpg" style="max-width: 819px">
+    <img src="files/lighting-blender/outline-example.jpg" alt="Example of a scene with outline rendering">
 
     <p>
       To use object outlining (and optional glowing) in your Verge3D application, first enable the effect in the *Verge3D Exports Settings*:
     </p>
 
-    <img src="files/lighting-maya/outline-settings.jpg" style="max-width: 434px">
+    <img src="files/lighting-maya/outline-settings.jpg" alt="Outline settings tab in Maya" style="max-width: 434px">
 
     <p>
       then use the <a href="manual/en/puzzles/Objects.html#outline">outline</a> puzzle to apply it to your object(s).
@@ -457,23 +462,35 @@
 
     <p>You can tweak outlining using the following properties:</p>
 
-    <p>*Enabled* — enable/disable the effect.</p>
+    <dl>
+      <dt>Enabled</dt>
+      <dd>Enable/disable the effect.</dd>
 
-    <p>*Edge Strength* — outlining strength factor.</p>
+      <dt>Edge Strength</dt>
+      <dd>Outlining strength factor.</dd>
 
-    <p>*Edge Glow* — intensity of additional glowing (rendered beyond the main outline edge).</p>
+      <dt>Edge Glow</dt>
+      <dd>Intensity of additional glowing (rendered beyond the main outline edge).</dd>
 
-    <p>*Edge Thickness* — outline edge thickness factor.</p>
+      <dt>Edge Thickness</dt>
+      <dd>Outline edge thickness factor.</dd>
 
-    <p>*Pulse Period* — pulse period in seconds. Specify to make the effect animated.</p>
+      <dt>Pulse Period</dt>
+      <dd>Pulse period in seconds. Specify to make the effect animated.</dd>
 
-    <p>*Visible Edge Color* — visible edge color.</p>
+      <dt>Visible Edge Color</dt>
+      <dd>Visible edge color.</dd>
 
-    <p>*Hidden Edge Color* — color of the outline edge being rendered behind any other scene objects.</p>
+      <dt>Hidden Edge Color</dt>
+      <dd>Color of the outline edge being rendered behind any other scene objects.</dd>
 
-    <p>*Render Hidden Edge* — enable/disable rendering of the outline edge behind other scene objects.</p>
+      <dt>Render Hidden Edge</dt>
+      <dd>Enable/disable rendering of the outline edge behind other scene objects.</dd>
+    </dl>
 
-    <p class="note">Though it's possible to render glowing objects, in the most cases the outline rendering is used to improve visual clarity of your scene. If you need glowing from lamps or another bright objects, consider using the <a href="manual/en/puzzles/Postprocessing.html#bloom">bloom post-processing</a> instead.</p>
+    <p class="note">
+      Though it's possible to render glowing objects, in the most cases the outline rendering is used to improve visual clarity of your scene. If you need glowing from lamps or another bright objects, consider using the <a href="manual/en/puzzles/Postprocessing.html#bloom">bloom post-processing</a> instead.
+    </p>
 
 
     [anchor:per_object_rendering_settings]
@@ -484,21 +501,25 @@
       Verge3D supports the following additional rendering settings for your geometry objects:
     </p>
 
-    <img src="files/lighting-maya/rendering-settings.jpg" style="max-width: 454px">
+    <img src="files/lighting-maya/rendering-settings.jpg" alt="Per-object rendering settings in Maya" style="max-width: 454px">
+
+    <dl>
+      <dt>Render Order</dt>
+      <dd>
+        Modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
+      </dd>
+
+      <dt>Frustum Culling</dt>
+      <dd>
+        Enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
+      </dd>
+    </dl>
 
     <p>
-      *Render Order* - modifies the rendering order for a particular object. The smaller the index, the earlier the object will be rendered. In most cases, you need to tweak this value when using Blend transparency to eliminate transparency artifacts.
+      In addition, there is a set of object transform settings located on the *Verge3D* → *Advanced Rendering* panel:
     </p>
 
-    <p>
-      *Frustum Culling* - enables/disables frustum culling optimization for the object. Uncheck this option if you have some skinned object which can move beyond the screen space to prevent it from being culled.
-    </p>
-
-    <p>
-      In addition, there is a set of object transform settings located on the *Verge3D* -> *Advanced Rendering* panel:
-    </p>
-
-    <img src="files/lighting-maya/rendering-settings-transform.jpg" style="max-width: 423px">
+    <img src="files/lighting-maya/rendering-settings-transform.jpg" alt="Advanced rendering settings panel" style="max-width: 423px">
 
 
     <dl>
@@ -514,7 +535,7 @@
 
       <dt>Fit to Camera Edge</dt>
       <dd>
-        See <a href="manual/en/maya/Lighting-and-Rendering.html#fit_to_camera_edge">here</a> for more info.
+        See <a href="manual/en/maya/Camera.html#fit_to_camera_edge">here</a> for more info.
       </dd>
 
       <dt>Visibility Breakpoints</dt>
@@ -545,43 +566,9 @@
       The latter approach can be easily achieved by enabling the *HiDPI Compositing* property located on the *Advanced Rendering* panel:
     </p>
 
-    <img src="files/lighting-maya/hidpi-compositing.jpg" style="max-width: 423px">
+    <img src="files/lighting-maya/hidpi-compositing.jpg" alt="HiDPI compositing setting in Maya" style="max-width: 423px">
 
     [demo:ring]
-
-
-    [anchor:fit_to_camera_edge]
-
-    <h2>Fit to Camera Edge</h2>
-
-    <p>
-      <em>Fit to Camera Edge</em> is a technique to draw screen-space UI elements based on Maya models. This approach to UI design is more “native” to the 3D artist than using HTML/CSS, and does not require external tools. But there is more in it: since the UI elements are genuine 3D objects, you can apply shaders, lighting, animation, morphing – you name it – making them truly interactive and seamlessly integrated into the scene.
-    </p>
-
-    <p>
-      When you parent some object to the camera, the following settings appear on the *Advanced Rendering* panel:
-    </p>
-
-    <img src="files/lighting-maya/fit-to-camera-edge-properties.jpg" style="max-width: 423px">
-
-    <dl>
-      <dt>Horizontal</dt>
-      <dd>
-        Horizontal canvas edge to fit object to. *None* — no horizontal fit, *Left* — fit to left edge, *Right* — fit to right edge, *Stretch* — scale object horizontally to fit on the screen.
-      </dd>
-      <dt>Vertical</dt>
-      <dd>
-        Vertical canvas edge to fit object to. *None* — no vertical fit, *Top* — fit to top edge, *Bottom* — fit to bottom edge, *Stretch* — scale object vertically to fit on the screen.
-      </dd>
-      <dt>Shape</dt>
-      <dd>
-        Canvas fit shape. *Box* — use object's bounding box, *Sphere* — use object's bounding sphere to fit the object on the screen.
-      </dd>
-      <dt>Fit Offset</dt>
-      <dd>
-        Additional offset used to fit object on the screen. Effectively, this value extends object bounding (box or sphere) by the specified absolute value.
-      </dd>
-    </dl>
 
 
     [anchor:visibility_breakpoints]
@@ -600,7 +587,7 @@
       You can configure the breakpoints on the *Advanced Rendering* panel:
     </p>
 
-    <img src="files/lighting-maya/visibility-breakpoints.jpg" style="max-width: 423px">
+    <img src="files/lighting-maya/visibility-breakpoints.jpg" alt="Visibility breakpoint feature in Maya" style="max-width: 423px">
 
     <dl>
       <dt>Min Width</dt>
@@ -626,6 +613,30 @@
     </dl>
 
 
+    [anchor:line_rendering]
+
+    <h2>Line Rendering</h2>
+
+    <p>
+      With this feature you can render Maya objects by using lines. The most common use case of Line Rendering is drawing curve objects, which do not have any geometry on their own. However, you can also apply this technique to regular meshes and surfaces:
+    </p>
+
+    <figure>
+      <img src="files/lighting-maya/line-rendering-example.jpg" alt="Object wireframes displayed with the line rendering feature">
+      <figcaption>Object wireframes displayed with the line rendering feature.</figcaption>
+    </figure>
+
+    <p>
+      Line Rendering is activated in *Verge3D Settings* located on the *Object Data Properties* panel:
+    </p>
+
+    <img src="files/lighting-maya/line-rendering-properties.jpg" style="max-width: 446px" alt="Line rendering properties in Maya">
+
+    <p>
+      Here you can also assign color and width of the rendered lines. In Verge3D lines are rendered with the Emission shader.
+    </p>
+
+    [demo:lines]
 
 
     [anchor:clipping_planes]
@@ -636,19 +647,20 @@
       Clipping planes (aka section planes, cross-section planes, mesh sections) is a technique used to show internal arrangement of complex objects, such as buildings, cars, appliances, gadgets, machines etc.
     </p>
 
-    <img src="files/lighting-maya/clipping-plane-example.jpg">
+    <figure>
+      <img src="files/lighting-maya/clipping-plane-example.jpg" alt="Example of a scene with clipping planes">
+      <figcaption>Example of a scene with clipping planes.</figcaption>
+    </figure>
 
     <p>
-      To add a new clipping plane, use the <strong>Verge3D -> Add a v3dClippingPlane object</strong> button located on the Maya tool shelf:
+      To add a new clipping plane, use the *Verge3D* → *Clipping Plane* button located on the Maya tool shelf:
     </p>
 
-    <img src="files/lighting-maya/clipping-plane-new.jpg">
+    <img src="files/lighting-maya/clipping-plane-new.jpg" alt="Creating a clipping plane object in Maya">
 
     <p>
       The objects on your scene will be clipped in the negative *Y* direction of the clipping plane object.
     </p>
-
-    [demo:clipping_planes]
 
     <p>
       Clipping planes have the following parameters:
@@ -675,15 +687,21 @@
       <dd>
         Fill cross-section between the clipping plane and the affected objects.
       </dd>
-      <dt>Cross-Section Color</dt>
+      <dt>Color</dt>
       <dd>
         Cross-section diffuse color and opacity.
       </dd>
-      <dt>Cross-Section Size</dt>
+      <dt>Render Side</dt>
+      <dd>
+        Cross-section render side. Specify <strong>Double-sided</strong> to render complex geometry with cuts and holes.
+      </dd>
+      <dt>Size</dt>
       <dd>
         Cross-section plane size. Increase this value if you use larger scene size.
       </dd>
     </dl>
+
+    [demo:clipping_planes]
 
 
     <h2>Got Questions?</h2>

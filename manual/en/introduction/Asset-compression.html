@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D Asset Compression - Soft8Soft</title>
+    <title>Verge3D Asset Compression — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Verge3D supports loading assets compressed using the XZ/LZMA compression. Find out how to enable this feature on this page."/>
     <base href="../../../" />
@@ -39,6 +39,7 @@
       <figcaption>Size comparison for a sample file: raw vs GZIP-compressed vs LZMA2-compressed</figcaption>
     </figure>
 
+
     [anchor:Exporting_Compressed_Files]
 
     <h2>Exporting Compressed Files</h2>
@@ -50,15 +51,15 @@
     <v3d-tabs>
       <label>Blender</label>
       <div>
-        <img src="files/asset_compression/lzma-blender.jpg" style="max-width: 525px">
+        <img src="files/asset_compression/lzma-blender.jpg" alt="Enable LZMA compression in Blender" style="max-width: 325px">
       </div>
       <label>3ds Max</label>
       <div>
-        <img src="files/asset_compression/lzma-max.jpg" style="max-width: 709px">
+        <img src="files/asset_compression/lzma-max.jpg" alt="Enable LZMA compression in 3ds Max" style="max-width: 709px">
       </div>
       <label>Maya</label>
       <div>
-        <img src="files/asset_compression/lzma-maya.jpg" style="max-width: 708px">
+        <img src="files/asset_compression/lzma-maya.jpg" alt="Enable LZMA compression in Maya" style="max-width: 708px">
       </div>
     </v3d-tabs>
 
@@ -71,19 +72,19 @@
       The compressed <strong>.xz</strong> files (for example, <i>my_awesome_app.gltf.xz</i> and <i>my_awesome_app.bin.xz</i>) should appear near the original ones. What is left is to enable loading them in your app. To do this, go to Puzzles...
     </p>
 
-    <img src="files/beginner_guide/app-manager-app-buttons-puzzles.png">
+    <img src="files/beginners-guide-blender/app-manager-app-buttons-puzzles.jpg" alt="Button to run Puzzles logic of My Awesome App" style="max-width: 800px">
 
     </p>
     ...and switch to the <strong>init</strong> tab:
     </p>
 
-    <img src="files/asset_compression/puzzles-init.jpg" style="max-width: 600px">
+    <img src="files/asset_compression/puzzles-init.jpg" alt="Init tab in Puzzles">
 
     <p>
-        Drag out the <strong>configure application</strong> puzzle from the <strong>Initialization</strong> category, if it is not already present in the workspace, and turn on the <strong>compressed assets</strong> checkbox on it:
+      Drag out the <strong>configure application</strong> puzzle from the <strong>Initialization</strong> category, if it is not already present in the workspace, and turn on the <strong>compressed assets</strong> checkbox on it:
     </p>
 
-    <img src="files/asset_compression/puzzles-configure-app.jpg" style="max-width: 850px">
+    <img src="files/asset_compression/puzzles-configure-app.jpg" alt="Enable LZMA compression in configure application puzzle">
 
     <p>
       Finally, click the <strong>Save</strong> button. That's it!
@@ -98,7 +99,7 @@
       To ensure that your app now actually loads compressed assets, run your app (either from App Manager or from a website where it is deployed). Open the <a href="manual/en/introduction/FAQ.html#browser_console">browser console</a> and switch to the <strong>Network</strong> tab.
     </p>
 
-    <img src="files/asset_compression/console-check.jpg">
+    <img src="files/asset_compression/console-check.jpg" alt="Checking compression in Chrome console">
 
     <p>
       Reload your app so that the console starts displaying files from the beginning. Find the scene files in the list - if everything is ok, they should end with <strong>.xz</strong>.
@@ -109,14 +110,17 @@
     </p>
 
 
-    [anchor:Code_Based_or_Player_Based_Apps]
+    <!-- COMPAT < 4.1 -->
+    <a href="#" id="Code_Based_or_Player_Based_Apps"></a>
 
-    <h2>Code-Based or Player-Based Apps</h2>
+    [anchor:code_based_apps]
+
+    <h2>Code-Based Apps</h2>
 
     <p>If you don't want to use Puzzles for some reason, follow these steps to enable asset compression for your apps.</p>
 
     <p>
-      For <strong>Code-Based</strong> applications simply change
+      Simply change:
 
       <code>
         var url = 'my_awesome_app.gltf';
@@ -127,18 +131,6 @@
       </code>
 
       in <i>your_awesome_app.js</i> file.
-
-    </p>
-
-    <p>
-      For Player-based applications that have a scene <strong>.gltf</strong> file specified in the URL as follows:
-      <code class="language-html">
-        https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf
-      </code>
-      you can simply replace it with the path to the compressed <strong>.gltf.xz</strong> file:
-      <code class="language-html">
-        https://cdn.soft8soft.com/demo/player/player.html?load=../applications/ring/ring.gltf.xz
-      </code>
     </p>
 
     <p>
@@ -180,7 +172,7 @@
       opens the corresponding dialog window:
     </p>
 
-    <img src="files/asset_compression/7zip_add_to_archive.png" style="max-width: 630px;">
+    <img src="files/asset_compression/7zip_add_to_archive.png" alt="Compressing with 7zip" style="max-width: 630px;">
 
     <p>
       The archivation settings should look like this:

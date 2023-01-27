@@ -15,6 +15,12 @@ let document = dom.window.document;
 const HOST = 'https://www.soft8soft.com/docs/';
 const OUTDIR = path.join(__dirname, 'output');
 const LANGUAGES = ['en', 'ru', 'zh'];
+const LOCALES = {'en': 'en_US', 'ru': 'ru_RU', 'zh': 'zh_CN'};
+const SEARCH_HINT = {
+    'en': 'Type to filter',
+    'ru': 'Поиск',
+    'zh': '寻找'
+};
 
 let list = null;
 let titles = {};
@@ -134,17 +140,34 @@ function writePage(pageFile, lang, navigation, sitemap) {
 
         // add missing title and description
         if (!dom.window.document.getElementsByTagName('title').length) {
-            var titleDesc = JSDOM.fragment(`
-                <title>${pageTitle} - Verge3D User Manual - Soft8Soft</title>
-                <meta name="description" content="Learn how to use ${pageTitle} in your interactive 3D apps made with Verge3D or Three.js">
-            `);
+            let titleDesc = '';
+            switch (lang) {
+            case 'ru':
+                titleDesc = JSDOM.fragment(`
+                    <title>${pageTitle} — Руководство по Вердж3Д — Софт Эйт Софт</title>
+                    <meta name="description" content="Узнайте как использовать ${pageTitle} в интерактивных 3Д-веб-приложениях сделанных на Вердж3Д">
+                `);
+                break;
+            case 'zh':
+                titleDesc = JSDOM.fragment(`
+                    <title>${pageTitle} - Verge3D 用户手册 - Soft8Soft</title>
+                    <meta name="description" content="了解如何在使用 Verge3D 或 Three.js 制作的交互式 3D 应用程序中使用 ${pageTitle}">
+                `);
+                break;
+            default:
+                titleDesc = JSDOM.fragment(`
+                    <title>${pageTitle} - Verge3D User Manual - Soft8Soft</title>
+                    <meta name="description" content="Learn how to use ${pageTitle} in your interactive 3D apps made with Verge3D or Three.js">
+                `);
+                break;
+            }
             head.insertBefore(titleDesc, head.firstChild);
         }
 
         var title = dom.window.document.getElementsByTagName('title')[0].textContent;
         var description = getMeta(dom.window.document, 'description', false);
         var image = getMeta(dom.window.document, 'og:image', true) ||
-                'https://cdn.soft8soft.com/images/manual.jpg';
+                `https://www.soft8soft.com/docs/files/blank/manual_social_${lang}.png`;
 
         head.appendChild(JSDOM.fragment(`
             <link rel="canonical" href="${url}">
@@ -156,8 +179,8 @@ function writePage(pageFile, lang, navigation, sitemap) {
             <meta property="og:image:width" content="1200">
             <meta property="og:image:height" content="630">
             <meta property="og:url" content="${url}">
-            <meta property="og:site_name" content="Soft8Soft">
-            <meta property="og:locale" content="en_US">
+            <meta property="og:site_name" content="${lang == 'ru' ? 'Софт Эйт Софт' : 'Soft8Soft'}">
+            <meta property="og:locale" content="${LOCALES[lang] || 'en_US'}">
 
             <meta property="article:author" content="https://www.facebook.com/soft8soft">
 
@@ -181,11 +204,11 @@ function writePage(pageFile, lang, navigation, sitemap) {
             <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
             <!-- favicons from realfavicongenerator.net -->
-            <link rel="apple-touch-icon" sizes="180x180" href="files/icons/apple-touch-icon.png">
-            <link rel="icon" type="image/png" sizes="32x32" href="files/icons/favicon-32x32.png">
-            <link rel="icon" type="image/png" sizes="16x16" href="files/icons/favicon-16x16.png">
-            <link rel="manifest" href="files/icons/manifest.json">
-            <link rel="mask-icon" href="files/icons/safari-pinned-tab.svg" color="#5bbad5 ">
+            <link rel="apple-touch-icon" sizes="180x180" href="${HOST}files/icons/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="${HOST}files/icons/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="${HOST}files/icons/favicon-16x16.png">
+            <link rel="manifest" href="${HOST}files/icons/manifest.json">
+            <link rel="mask-icon" href="${HOST}files/icons/safari-pinned-tab.svg" color="#0048a5">
         `));
 
         var imgLicenseData = createImgLicenseData(dom);
@@ -209,13 +232,13 @@ function writePage(pageFile, lang, navigation, sitemap) {
         let footerText = ''
         switch (lang) {
         case 'ru':
-            footerText = `<div class="copyright">© <a href="https://www.soft8soft.com/ru" target="_blank">Soft8Soft – трёхмерные решения для сайтов</a><div>Последнее обновление: ${now.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', year: 'numeric'})}</div></div>`;
+            footerText = `<footer class="copyright">© <a href="https://www.soft8soft.com/ru" target="_blank">«Софт Эйт Софт» – трёхмерные решения для веба</a><div>Последнее обновление: ${now.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', year: 'numeric'})}</div></footer>`;
             break;
         case 'zh':
-            footerText = `<div class="copyright">© <a href="https://www.soft8soft.com/cn" target="_blank">Soft8Soft – Web的3D解决方案</a><div>最后更新于 ${now.toLocaleDateString('zh-CN', { month: 'long', day: 'numeric', year: 'numeric'})}</div></div>`;
+            footerText = `<footer class="copyright">© <a href="https://www.soft8soft.com/cn" target="_blank">Soft8Soft – Web的3D解决方案</a><div>最后更新于 ${now.toLocaleDateString('zh-CN', { month: 'long', day: 'numeric', year: 'numeric'})}</div></footer>`;
             break;
         default:
-            footerText = `<div class="copyright">© <a href="https://www.soft8soft.com/" target="_blank">Soft8Soft – 3D Solutions for the Web</a><div>Last updated on ${now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric'})}</div></div>`;
+            footerText = `<footer class="copyright">© <a href="https://www.soft8soft.com/" target="_blank">Soft8Soft – 3D Solutions for the Web</a><div>Last updated on ${now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric'})}</div></footer>`;
             break;
         }
         body.appendChild(JSDOM.fragment(footerText));
@@ -231,10 +254,7 @@ function writePage(pageFile, lang, navigation, sitemap) {
         if (sitemap) {
             // changefreq and priority ignored by Google
             // date without milliseconds
-
-            // HACK: temporary disable untranslated Russian/Chinese docs
-            if (url.indexOf('/en/') >= 0)
-                sitemap.write({ url: url, lastmodISO: new Date().toISOString().split('.')[0] + 'Z' });
+            sitemap.write({ url: url, lastmodISO: new Date().toISOString().split('.')[0] + 'Z' });
         }
 
         var pageFileOut = path.join(OUTDIR, pageFile);
@@ -265,9 +285,15 @@ function createImgLicenseData(dom) {
                 {
                     "@context": "https://schema.org/",
                     "@type": "ImageObject",
-                    "url": "${HOST + src}",
+                    "contentUrl": "${HOST + src}",
                     "license": "https://creativecommons.org/licenses/by/4.0/",
-                    "acquireLicensePage": "https://www.soft8soft.com/contact/"
+                    "acquireLicensePage": "https://www.soft8soft.com/contact/",
+                    "creditText": "Verge3D developers",
+                    "creator": {
+                        "@type": "Organization",
+                        "name": "Soft8Soft"
+                    },
+                    "copyrightNotice": "Soft8Soft"
                 }
             `);
         }
@@ -303,15 +329,15 @@ function resolveTemplates(text, name, path, lang) {
 
     text = text.replace(/\[name\]/gi, name);
     text = text.replace(/\[path\]/gi, path);
-    text = text.replace(/\[page:([\w\.]+)\]/gi, "[page:$1 $1]"); // [page:name] to [page:name title]
-    text = text.replace(/\[page:\.([\w\.]+) ([\w\.\s]+)\]/gi, "[page:" + name + ".$1 $2]"); // [page:.member title] to [page:name.member title]
+    text = text.replace(/\[page:([\w\u0400-\u04ff\.]+)\]/gi, "[page:$1 $1]"); // [page:name] to [page:name title]
+    text = text.replace(/\[page:\.([\w\u0400-\u04ff\.]+) ([\w\u0400-\u04ff\.\s]+)\]/gi, "[page:" + name + ".$1 $2]"); // [page:.member title] to [page:name.member title]
 
     // resolve [page:name title]
-    text = text.replace(/\[page:([\w\.]+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
+    text = text.replace(/\[page:([\w\u0400-\u04ff\.]+) ([\w\u0400-\u04ff\.\s]+)\]/gi, function(match, p1, p2) {
         return `<a href=\"${getPageURL(p1, lang)}\">${p2}</a>`;
     });
 
-    text = text.replace(/\[(member|property|method|param):([\w]+)\]/gi, "[$1:$2 $2]"); // [member:name] to [member:name title]
+    text = text.replace(/\[(member|property|method|param|def):([\w]+)\]/gi, "[$1:$2 $2]"); // [member:name] to [member:name title]
 
     text = text.replace(/\[(?:member|property|method):([\w]+) ([\w\.\s]+)\]\s*(\(.*\))?/gi, function(match, p1, p2, p3) {
         var urlProp = getPageURL(name + '.' + p2, lang);
@@ -325,6 +351,11 @@ function resolveTemplates(text, name, path, lang) {
         return `${p2} : <a href=\"${getPageURL(p1, lang)}\" class="param">${p1}</a>`;
     });
 
+    text = text.replace(/\[def:(\w+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
+        var urlProp = getPageURL(name + '.' + p1, lang);
+        return `<a href="${urlProp}" class="permalink">#</a><a href="${urlProp}" id="${p1}">${p2}</a>`;
+    });
+
     text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, "[link:$1 $1]"); // [link:url] to [link:url title]
     text = text.replace(/\[link:([\w|\u0400-\u04ff|\:|\/|\.|\-|\_|\(|\)|\#|\=|\?|\&]+) ([\w|\u0400-\u04ff|\:|\/|\.|\-|\_|\s|\=|\?|\u4e00-\u9fa5|\uff08|\uff09|\u0400-\u04ff]+)\]/gi, "<a href=\"$1\"  target=\"_blank\">$2</a>"); // [link:url title]
     text = text.replace(/\*([\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\-|\(][\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *
@@ -335,9 +366,15 @@ function resolveTemplates(text, name, path, lang) {
     switch (lang) {
     case 'ru':
         text = text.replace(/\[sourceHint\]/gi, "<h2>Исходный файл</h2><p>О том как получить исходный код этого модуля читайте <a href=\"manual/ru/programmers_guide/How-to-obtain-Verge3D-sources.html\">тут</a>.</p>");
-        text = text.replace(/\[demo:([\w\_]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.replace('_', ' '));
-            return `<p class="demoNote">Смотрите пример в магазине ассетов — <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\">${demoTitle}</a>.</p>`;
+
+        text = text.replace(/\[demo:([\w\_]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
+            const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.replace('_', ' '));
+            return `<p class="demoNote">Смотрите пример в магазине ассетов — <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow" title="Открыть ${demoTitle} в магазине ассетов «Вёрдж3Д» (потребуется запустить менеджер приложений)">${demoTitle}</a>.</p>`;
+        });
+
+        text = text.replace(/\[demoLink:([\w\_]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
+            const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.replace('_', ' '));
+            return `<a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow" title="Открыть ${demoTitle} в магазине ассетов «Вёрдж3Д» (потребуется запустить менеджер приложений)">${demoTitle}</a>`;
         });
 
         break;
@@ -346,7 +383,12 @@ function resolveTemplates(text, name, path, lang) {
 
         text = text.replace(/\[demo:([\w\_]+)\]/gi, function(match, p1) {
             const demoTitle = toTitleCase(p1.replace('_', ' '));
-            return `<p class="demoNote">例如，请参考资产商店中的以下演示 — <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\">${demoTitle}</a>.</p>`;
+            return `<p class="demoNote">例如，请参考资产商店中的以下演示 — <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow">${demoTitle}</a>.</p>`;
+        });
+
+        text = text.replace(/\[demoLink:([\w\_]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.replace('_', ' '));
+            return `<a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow">${demoTitle}</a>`;
         });
 
         break;
@@ -355,15 +397,21 @@ function resolveTemplates(text, name, path, lang) {
 
         text = text.replace(/\[demo:([\w\_]+)\]/gi, function(match, p1) {
             const demoTitle = toTitleCase(p1.replace('_', ' '));
-            return `<p class="demoNote">For usage example, check out the following demo from the asset store: <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\">${demoTitle}</a>.</p>`;
+            return `<p class="demoNote">For usage example, check out the following demo from the Asset Store: <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow" title="Open ${demoTitle} in Verge3D Asset Store (requires App Manager running)">${demoTitle}</a>.</p>`;
         });
+
+        text = text.replace(/\[demoLink:([\w\_]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.replace('_', ' '));
+            return `<a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow" title="Open ${demoTitle} in Verge3D Asset Store (requires App Manager running)">${demoTitle}</a>`;
+        });
+
 
         break;
     }
 
     text = text.replace(/\[contents\]/g, function() { return createTOC(text, pathOrigRel) });
 
-    text = text.replace(/\[anchor:([\w]+)\]/gi, '<p><a href="' + pathOrigRel + '#$1" id="$1" class="permalink">#</a></p>');
+    text = text.replace(/\[anchor:([\w|\u4e00-\u9fa5|\u0400-\u04ff]+)\]/gi, '<p><a href="' + pathOrigRel + '#$1" id="$1" class="permalink">#</a></p>');
 
     text = text.replace(/\[anchor:%TOC_DECLEVEL_HACK\][\n ]*<h(\d)[\w"= ]*>(.*)<\/h\d>/gi, '');
 
@@ -383,7 +431,7 @@ function resolveTemplates(text, name, path, lang) {
 function createTOC(text, path) {
     var contents = '<!-- TOC -->\n';
 
-    var anchors = text.matchAll(/\[anchor:([\w]+|%TOC_DECLEVEL_HACK)\][\n ]*<h(\d)[\w"= ]*>(.*)<\/h\d>/g);
+    var anchors = text.matchAll(/\[anchor:([\w|\u4e00-\u9fa5|\u0400-\u04ff]+|%TOC_DECLEVEL_HACK)\][\n ]*<h(\d)[\w"= ]*>(.*)<\/h\d>/g);
 
     var listLevel = 0;
     var listLevelDepth = 0;
@@ -448,7 +496,7 @@ function createNavigation(list, language, section, indexLink) {
           </a>
 
           <div class="filterBlock" >
-            <input type="text" id="filterInput" placeholder="Type to filter" autocapitalize="off" spellcheck="false">
+            <input type="text" id="filterInput" placeholder="${SEARCH_HINT[language]}" autocapitalize="off" spellcheck="false">
             <a href="#" id="clearFilterButton">x</a>
           </div>
 

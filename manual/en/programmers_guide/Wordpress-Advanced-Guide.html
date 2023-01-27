@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WordPress Advanced Guide — Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to customize Verge3D WordPress plugin with JavaScript."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+    <h1>WordPress Advanced Guide</h1>
+
+    <p>
+      This guide includes more in-depth topics on how to use Verge3D with WordPress, including customization of WordPress plugin, e-commerce protocol specification, etc.
+    </p>
+
+    <h2>Contents</h2>
+
+    [contents]
+
+
+    [anchor:customizing_ecommerce_forms]
+
+    <h2>Customizing e-commerce forms</h2>
+
+    <p>To modify e-commerce forms copy the form templates located in the <em>templates</em> directory of the Verge3D plugin to your WordPress theme directory under the <em>verge3d</em> subdirectory.</p>
+
+    <p>For example, if you need to modify order email template:</p>
+
+    <code class="language-html">WORDPRESS/wp-content/plugins/verge3d/templates/order_email_body.php → THEME/verge3d</code>
+
+    <p>Where WORDPRESS is the root directory of your WordPress installation and THEME is the directory of your current theme.</p>
+
+    <p>Here is the list of templates you can customize:</p>
+
+    <table>
+      <tr>
+        <th>Template File</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>order_email_body.php</td>
+        <td>Order email body template. This template used both for order notifications sent to you and to your customers.</td>
+      </tr>
+      <tr>
+        <td>order_pdf.php</td>
+        <td>Order email PDF attachment template. This template is used to generate HTML files which will be converted to PDF and attached to order emails.</td>
+      </tr>
+      <tr>
+        <td>order_form.php</td>
+        <td>Order form template. This form is displayed to you customers on the pages where <strong>[verge3d_order]</strong> shortcode is present.</td>
+      </tr>
+      <tr>
+        <td>order_success.php</td>
+        <td>Message displayed when the order was accepted.</td>
+      </tr>
+      <tr>
+        <td>order_failed.php</td>
+        <td>Message displayed when the order was rejected.</td>
+      </tr>
+    </table>
+
+    <h3>Security Measures</h3>
+
+    <p>When using custom forms for your e-commerce applications be sure to properly escape output data sent by your customers. Use the following <a href="https://developer.wordpress.org/plugins/security/securing-output/" target="_blank">guide</a> for more info.</p>
+
+    [anchor:ecommerce_protocol_specification]
+
+    <h2>E-commerce protocol specification</h2>
+
+    <p>The <strong>place order</strong> and <strong>place order +</strong> puzzles use the following protocol to handle orders. Orders are sent from the browser to server using HTTP POST requests with the following parameters:</p>
+
+    <table>
+      <tr>
+        <th>POST parameters</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>v3d_items</td>
+        <td>Order items. A JSON-encoded array with order items.</td>
+      </tr>
+      <tr>
+        <td>v3d_attachments[]</td>
+        <td>Order attachments. This optional value must be an array of data URIs representing order attachments.
+      </tr>
+    </table>
+
+    <p>
+      The order item has one of the following formats, depending on the puzzle you use. For <strong>place order</strong>:
+    </p>
+
+    <table>
+      <tr>
+        <th>Fields</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>Order item title.</td>
+      </tr>
+      <tr>
+        <td>price</td>
+        <td>Order item price.</td>
+      </tr>
+      <tr>
+        <td>quantity</td>
+        <td>Order item quantity: number of units, weight, length, etc.</td>
+      </tr>
+    </table>
+
+    <p>
+      For <strong>place order +</strong>:
+    </p>
+
+    <table>
+      <tr>
+        <th>Fields</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>sku</td>
+        <td>Order item SKU (stock keeping unit). This SKU is used as an ID to retrieve information about the product from the server.</td>
+      </tr>
+      <tr>
+        <td>quantity</td>
+        <td>Order item quantity: number of units, weight, length, etc.</td>
+      </tr>
+    </table>
+
+    <p>The more advanced JSON-based protocol uses the following set of parameters:</p>
+
+    <table>
+      <tr>
+        <th>JSON fields</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>user_name</td>
+        <td>Customer's full name (also used as billing name).</td>
+      </tr>
+      <tr>
+        <td>user_email</td>
+        <td>Customer's e-mail address.</td>
+      </tr>
+      <tr>
+        <td>user_phone</td>
+        <td>Customer's phone number.</td>
+      </tr>
+      <tr>
+        <td>user_comment</td>
+        <td>Optional order comments.</td>
+      </tr>
+      <tr>
+        <td>items</td>
+        <td>Order items. An array with order items.</td>
+      </tr>
+      <tr>
+        <td>attachments</td>
+        <td>Order attachments. This optional value must be an array of data URIs representing order attachments.
+      </tr>
+      <tr>
+        <td>user_address1</td>
+        <td>Billing address — line 1. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>user_address2</td>
+        <td>Billing address — line 2. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>user_city</td>
+        <td>Billing address — city. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>user_state</td>
+        <td>Billing address — state, county, or province. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>user_country</td>
+        <td>Billing address — country. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>user_postcode</td>
+        <td>Billing address — postcode/ZIP. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>shipping_address1</td>
+        <td>Shipping address — line 1. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>shipping_address2</td>
+        <td>Shipping address — line 2. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>shipping_city</td>
+        <td>Shipping address — city. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>shipping_state</td>
+        <td>Shipping address — state, county, or province. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>shipping_country</td>
+        <td>Shipping address — country. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
+      </tr>
+      <tr>
+        <td>shipping_postcode</td>
+        <td>Shipping address — postcode/ZIP. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
+      </tr>
+    </table>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+
+  </article></body>
+</html>

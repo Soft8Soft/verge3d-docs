@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D WordPress plugin - Soft8Soft</title>
+    <title>Verge3D WordPress plugin — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to setup and use the Verge3D WordPress plugin for the purposes of publishing and e-commerce."/>
     <base href="../../../" />
@@ -17,8 +17,8 @@
 
     <p>Verge3D for WordPress plugin offers the following features:</p>
     <ul>
-      <li>Application hosting and publishing (direct, via iframes, or WordPress shortcodes).</li>
-      <li>Integration with WooCommerce system which supports embedding Verge3D applications in product pages. Simple, Grouped, Variable, or External/Affiliate products supported.</li>
+      <li>WebGL application hosting and publishing (direct, via iframes, or WordPress shortcodes).</li>
+      <li>Integration with WooCommerce system. You can embed Verge3D applications into product pages and make powerful 3D configurators with Puzzles or JavaScript.</li>
       <li>Persistent file storage.</li>
       <li>E-commerce system for placing customer orders, submitted with the <a href="manual/en/puzzles/ECommerce.html#place_order" target="_parent">place order</a>, <a href="manual/en/puzzles/ECommerce.html#place_order_adv" target="_parent">place order+</a>, or <a href="manual/en/puzzles/Advanced.html#send_data" target="_parent">send data</a> puzzles.</li>
       <li>Quotes and invoices generator.</li>
@@ -93,6 +93,30 @@ post_max_size = 128M</code>
     <p>where <em>YOUR_APP_ID</em> is an ID of your application displayed in the table on the <strong>Verge3D Application</strong> screen.</p>
 
 
+    [anchor:application_settings]
+
+    <h2>Application settings</h2>
+
+    <p>
+      On the *Manage Verge3D Application* screen you can find the following settings:
+    </p>
+
+    <img src="files/wordpress/app-settings.jpg" alt="3D app settings">
+
+    <dl>
+      <dt>Title</dt>
+      <dd>Application name. This value is used in WordPress admin interface only, e.g. to attach a Verge3D app to WooCommerce product page. In order to specify app title shown in the browser (or Google/Bing search) you need to edit the app HTML. Check out the <a href="manual/en/introduction/Personalizing-Verge3D-Apps.html#title_description">following section</a> to find out how to do this.</dd>
+      <dt>iframe width</dt>
+      <dd>Width of the app canvas embedded in WordPress pages/posts/product pages (in pixels). Please note that the actual size can be affected by WordPress theme, layout, custom CSS code, etc.</dd>
+      <dt>iframe height</dt>
+      <dd>Height of the app canvas embedded in WordPress pages/posts/product pages (in pixels). Please note that the actual size can be affected by WordPress theme, layout, custom CSS code, etc.</dd>
+      <dt>Allow fullscreen mode</dt>
+      <dd>Allow/deny fullscreen mode. If unchecked, the app fullscreen button will be removed making it impossible to enter fullscreeen mode.</dd>
+      <dt>App Image</dt>
+      <dd>Application image. This image replaces the default 3D view button which is shown in the image gallery on the WooCommerce product page. See <a href="manual/en/introduction/Wordpress-Plugin.html#woocommerce">below</a> for more info.</dd>
+    </dl>
+
+
     [anchor:woocommerce]
 
     <h2>Integrating with WooCommerce</h2>
@@ -101,7 +125,71 @@ post_max_size = 128M</code>
 
     <p>Please refer to <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial article</a> for the info on how to use this feature. You may also check out the following <a href="https://www.youtube.com/watch?v=dJdUKwSxA8c" target="_blank">video</a>.</p>
 
-    [demo:drink_shop]
+
+    <h3>Supported product types</h3>
+
+    <p>
+      The plugin supports the following product types:
+    </p>
+
+    <ul>
+      <li>Simple</li>
+      <li>Grouped</li>
+      <li>External/Affiliate</li>
+      <li>Variable</li>
+    </ul>
+
+    <p>Check out the [demoLink:drink_shop] demo from the asset store which shows how these product types can be integrated with Verge3D.</p>
+
+    <h3>3D only vs 2D gallery + 3D</h3>
+
+    <p>
+      You can choose between two methods of embedding your 3D app into WooCommerce product page. The first method is to replace the product image entirely:
+    </p>
+
+    <figure>
+      <img src="files/wordpress/woo-replace-product-image.jpg" alt="WebGL app replacing WooCommerce product image">
+      <figcaption><a href="https://sandbox.soft8soft.com/product/spinner/" target="_blank">Spinner</a> product page in Verge3D Sandbox.</figcaption>
+    </figure>
+
+    <p>
+      This method is especially suitable when your 3D visualization fully describes the look and feel of the product so no additional 2D images are required.
+    </p>
+
+    <p>
+      The second method is to add a 3D view button as an item to the gallery of 2D images:
+    </p>
+
+    <figure>
+      <img src="files/wordpress/woo-add-gallery-item.jpg" alt="WebGL app as item in WooCommerce product gallery images">
+      <figcaption><a href="https://sandbox.soft8soft.com/product/4k-curved-tv/" target="_blank">Smart TV</a> product page in Verge3D Sandbox.</figcaption>
+    </figure>
+
+    <p>
+      To select which method to use, you can simply switch the *Show as gallery item* setting on the *Product data* panel (see below).
+    </p>
+
+
+    <h3>Product settings</h3>
+
+    <p>For each product supported there is a set of plugin-specific settings located on the *Verge3D* tab of the *Product data*:</p>
+
+    <img src="files/wordpress/woo-product-settings.jpg" alt="Verge3D settings for WooCommerce product">
+
+    <dl>
+      <dt>Application</dt>
+      <dd>Verge3D application which will be displayed on the product page.</dd>
+      <dt>Show as gallery item</dt>
+      <dd>Run application upon clicking on the 3D View button in the gallery, or entirely replace the product image by 3D visualization.</dd>
+      <dt>Switch to 3D on update</dt>
+      <dd>When running a 3D app as gallery item, enable this setting to automatically slide to the 3D view upon product updates. This feature is useful mostly for configurable *Grouped* or *Variable* products. If disabled, WooCommerce would switch to the first 2D image when the user chooses something from the proposed configurations.</dd>
+    </dl>
+
+    <h3>Using Puzzles</h3>
+
+    <p>With <a href="manual/en/puzzles/ECommerce.html#woo_connect">connect to WooCommerce</a> and <a href="manual/en/puzzles/ECommerce.html#woo_product_info">product info</a> puzzles you can implement quite advanced applications (such as 3D configurators) by retrieving the data on the products or selected configurations from WooCommerce product page.</p>
+
+    [demo:spinner]
 
 
     [anchor:uploading_files]
@@ -133,7 +221,7 @@ post_max_size = 128M</code>
     <p>Use the <strong>send data</strong> and <strong>loaded data</strong> puzzles to upload your files. Parse the JSON fields of the API response by using the <strong>in dict ... get key ...</strong> puzzle.</p>
     <p>The example below uploads the user-selected file specified in the "opened file" puzzle to the Soft8Soft sandbox and then saves the web address to that file in the <strong>link</strong> variable:</p>
 
-    <img src="files/wordpress/send_load_puzzles.png">
+    <img src="files/wordpress/send_load_puzzles.png" alt="Send/load puzzles">
 
     <p>To retrieve/download your files use the <strong>load data</strong> and <strong>loaded data</strong> puzzles.</p>
 
@@ -150,7 +238,7 @@ post_max_size = 128M</code>
 
     <p>Then specify the link to that page/post as the "send to" parameter of the *place order*/<strong>place order +</strong> puzzles. Each time this puzzle is executed, your app will redirect users to your order form:</p>
 
-    <img src="files/wordpress/order-form.jpg" style="max-width: 867px;">
+    <img src="files/wordpress/order-form.jpg" alt="WordPress order form" style="max-width: 867px;">
 
     [demo:ring]
 
@@ -195,7 +283,7 @@ post_max_size = 128M</code>
 
     <p>Use the <strong>Orders</strong> admin menu to access <strong>E-Commerce Orders</strong> screen:</p>
 
-    <img src="files/wordpress/orders.png">
+    <img src="files/wordpress/orders.png" alt="WordPress orders list">
 
     <p>The orders in this list are created automatically upon receiveing requests from Verge3D applications. You can use this screen for reviewing and managing customer orders.</p>
 
@@ -208,7 +296,7 @@ post_max_size = 128M</code>
       Use the <strong>Products</strong> admin menu to access <strong>E-Commerce Products</strong> screen:
     </p>
 
-    <img src="files/wordpress/products.jpg">
+    <img src="files/wordpress/products.jpg" alt="WordPress products list">
 
     <p>Each product has the following fields:</p>
 
@@ -224,7 +312,7 @@ post_max_size = 128M</code>
     </dl>
 
 
-    [anchor:geting_product_info]
+    [anchor:getting_product_info]
 
     <h2>Getting info about products</h2>
 
@@ -252,7 +340,7 @@ post_max_size = 128M</code>
       Use the <strong>load data</strong> and <strong>loaded data</strong> puzzles to get info about your products:
     </p>
 
-    <img src="files/wordpress/get_product_info_puzzles.jpg">
+    <img src="files/wordpress/get_product_info_puzzles.jpg" alt="Getting product info with puzzles">
 
 
     [anchor:plug_in_settings]
@@ -261,7 +349,7 @@ post_max_size = 128M</code>
 
     <p>Use <strong>Settings</strong> admin menu to modify the plugin global settings:</p>
 
-    <img src="files/wordpress/settings.jpg">
+    <img src="files/wordpress/settings.jpg" alt="Verge3D for WordPress settings">
 
     <h3>General tab</h3>
 
@@ -330,205 +418,14 @@ post_max_size = 128M</code>
       <dt>Enable REST APIs</dt>
       <dd>Options are used to enable/disable the order management, persistent file storage, or product APIs provided by the plugin.</dd>
       <dt>Cross-domain requests</dt>
-      <dd>Options is used to enable/disable cross-domain (originated from different hosts) requests to the REST APIs provided by the plugin.</dd>
+      <dd>Option is used to enable/disable cross-domain (originated from different hosts) requests to the REST APIs provided by the plugin.</dd>
       <dt>Custom products</dt>
       <dd>Allow receiving orders with custom product prices and/or SKUs.</dd>
     </dl>
 
+    <h2>Got Questions?</h2>
 
-    [anchor:customizing_ecommerce_forms]
-
-    <h2>Customizing e-commerce forms</h2>
-
-    <p>To modify e-commerce forms copy the form templates located in the <em>templates</em> directory of the Verge3D plugin to your WordPress theme directory under the <em>verge3d</em> subdirectory.</p>
-
-    <p>For example, if you need to modify order email template:</p>
-
-    <code class="language-html">WORDPRESS/wp-content/plugins/verge3d/templates/order_email_body.php -> THEME/verge3d</code>
-
-    <p>Where WORDPRESS is the root directory of your WordPress installation and THEME is the directory of your current theme.</p>
-
-    <p>Here is the list of templates you can customize:</p>
-
-    <table>
-      <tr>
-        <th>Template File</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>order_email_body.php</td>
-        <td>Order email body template. This template used both for order notifications sent to you and to your customers.</td>
-      </tr>
-      <tr>
-        <td>order_pdf.php</td>
-        <td>Order email PDF attachment template. This template is used to generate HTML files which will be converted to PDF and attached to order emails.</td>
-      </tr>
-      <tr>
-        <td>order_form.php</td>
-        <td>Order form template. This form is displayed to you customers on the pages where <strong>[verge3d_order]</strong> shortcode is present.</td>
-      </tr>
-      <tr>
-        <td>order_success.php</td>
-        <td>Message displayed when the order was accepted.</td>
-      </tr>
-      <tr>
-        <td>order_failed.php</td>
-        <td>Message displayed when the order was rejected.</td>
-      </tr>
-    </table>
-
-    <h3>Security Measures</h3>
-
-    <p>When using custom forms for your e-commerce applications be sure to properly escape output data sent by your customers. Use the following <a href="https://developer.wordpress.org/plugins/security/securing-output/" target="_blank">guide</a> for more info.</p>
-
-    [anchor:ecommerce_protocol_specification]
-
-    <h2>E-commerce protocol specification</h2>
-
-    <p>The <strong>place order</strong> and <strong>place order +</strong> puzzles use the following protocol to handle orders. Orders are sent from the browser to server using HTTP POST requests with the following parameters:</p>
-
-    <table>
-      <tr>
-        <th>POST parameters</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>v3d_items</td>
-        <td>Order items. A JSON-encoded array with order items.</td>
-      </tr>
-      <tr>
-        <td>v3d_attachments[]</td>
-        <td>Order attachments. This optional value must be an array of data URIs representing order attachments.
-      </tr>
-    </table>
-
-    <p>
-      The order item has one of the following formats, depending on the puzzle you use. For <strong>place order</strong>:
-    </p>
-
-    <table>
-      <tr>
-        <th>Fields</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>title</td>
-        <td>Order item title.</td>
-      </tr>
-      <tr>
-        <td>price</td>
-        <td>Order item price.</td>
-      </tr>
-      <tr>
-        <td>quantity</td>
-        <td>Order item quantity: number of units, weight, length, etc.</td>
-      </tr>
-    </table>
-
-    <p>
-      For <strong>place order +</strong>:
-    </p>
-
-    <table>
-      <tr>
-        <th>Fields</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>sku</td>
-        <td>Order item SKU (stock keeping unit). This SKU is used as an ID to retrieve information about the product from the server.</td>
-      </tr>
-      <tr>
-        <td>quantity</td>
-        <td>Order item quantity: number of units, weight, length, etc.</td>
-      </tr>
-    </table>
-
-    <p>The more advanced JSON-based protocol uses the following set of parameters:</p>
-
-    <table>
-      <tr>
-        <th>JSON fields</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>user_name</td>
-        <td>Customer's full name (also used as billing name).</td>
-      </tr>
-      <tr>
-        <td>user_email</td>
-        <td>Customer's e-mail address.</td>
-      </tr>
-      <tr>
-        <td>user_phone</td>
-        <td>Customer's phone number.</td>
-      </tr>
-      <tr>
-        <td>user_comment</td>
-        <td>Optional order comments.</td>
-      </tr>
-      <tr>
-        <td>items</td>
-        <td>Order items. An array with order items.</td>
-      </tr>
-      <tr>
-        <td>attachments</td>
-        <td>Order attachments. This optional value must be an array of data URIs representing order attachments.
-      </tr>
-      <tr>
-        <td>user_address1</td>
-        <td>Billing address — line 1. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>user_address2</td>
-        <td>Billing address — line 2. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>user_city</td>
-        <td>Billing address — city. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>user_state</td>
-        <td>Billing address — state, county, or province. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>user_country</td>
-        <td>Billing address — country. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>user_postcode</td>
-        <td>Billing address — postcode/ZIP. In order to use this field, activate the *Billing address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>shipping_address1</td>
-        <td>Shipping address — line 1. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>shipping_address2</td>
-        <td>Shipping address — line 2. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>shipping_city</td>
-        <td>Shipping address — city. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>shipping_state</td>
-        <td>Shipping address — state, county, or province. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>shipping_country</td>
-        <td>Shipping address — country. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
-      </tr>
-      <tr>
-        <td>shipping_postcode</td>
-        <td>Shipping address — postcode/ZIP. In order to use this field, activate the *Shipping address* option on the *General* tab.</td>
-      </tr>
-    </table>
-
-
-  <h2>Got Questions?</h2>
-
-  <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
 
 
   </article></body>

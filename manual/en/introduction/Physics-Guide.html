@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D Physics Guide - Soft8Soft</title>
+    <title>Verge3D Physics Guide — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to use Verge3D physics engine to simulate dynamics and collisions on your scene."/>
     <base href="../../../" />
@@ -31,17 +31,11 @@
 
     <p>Before you can use physics, you must add the physics module to your application. You can do this at the app creation stage using the corresponding option in the App Manager.</p>
 
-    <img src="files/physics-guide/app-manager-physics.jpg" style="max-width: 574px">
+    <img src="files/physics-guide/app-manager-physics.jpg" alt="Enabling physics in app" style="max-width: 522px">
 
     <p>
-      Alternatively, you can add the physics module to an existing app. To do this, copy the files *ammo.wasm.js* and *ammo.wasm.wasm* from the *build* folder of Verge3D installation folder to your app folder, and add the line
+      Alternatively, you can add the physics module to an existing app. To do this, copy the files *ammo.wasm.js* and *ammo.wasm.wasm* from the *build* folder of Verge3D installation folder to your app folder.
     </p>
-
-    <code>
-    &lt;script src="ammo.wasm.js"&gt;&lt;/script&gt;
-    </code>
-
-    <p>to your application <strong>.html</strong> file just above the *v3d.js* script statement.</p>
 
 
     [anchor:using_puzzles]
@@ -60,10 +54,10 @@
         Be sure to apply scale in your modeling suite as the physics engine just ignores the scale of objects.
       </li>
       <li>
-        For best results, the origin of your object should coincide with the center of mass. To make it so in Blender 2.8, use the operator <strong>Object > Set Origin > Origin to Center of Mass (Volume)</strong>.
+        For best results, the origin of your object should coincide with the center of mass. To make it so in Blender 2.8+, use the operator <strong>Object → Set Origin → Origin to Center of Mass (Volume)</strong>.
       </li>
       <li>
-        Never position or animate <em>dynamic</em> body directly. Instead, apply force/impulse/velocity to it using the <a href="manual/en/puzzles/Physics.html#apply_vector">apply vector</a> puzzle or snap it to another object with the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle.
+        Never position or animate <em>dynamic</em> body directly. Instead, apply force/impulse/velocity to it using the <a href="manual/en/puzzles/Physics.html#apply_body_param">apply body param</a> puzzle or snap it to another object with the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle.
       </li>
       <li>
         As performance optimization, Verge3D disables <em>dynamic</em> bodies after a period of inactivity. You can activate these bodies again by applying some vector, colliding them with other bodies or using the *activate* feature of the <a href="manual/en/puzzles/Physics.html#set_body_state">set body state</a> puzzle. If you need your body to be active all the time, apply *disable deactivation* state to it using the same puzzle.
@@ -89,29 +83,29 @@
 
     <p>Create a capsule-shaped object which represents your character. Tune its height and width to look more realistic. Make sure you set the center of your object correctly.</p>
 
-    <img src="files/physics-guide/capsule-shape.jpg" style="max-width: 639px">
+    <img src="files/physics-guide/capsule-shape.jpg" alt="Capsule used to simulate character physics" style="max-width: 639px">
 
     <p>In puzzles, assign *dynamic* *capsule*-shaped body to the character and disable its rotational degrees of freedom. This way, you allow your character to move but not rotate. Also, apply *disable deactivation* to your capsule.</p>
 
-    <img src="files/physics-guide/create-character-puzzles.jpg" style="max-width: 725px">
+    <img src="files/physics-guide/create-character-puzzles.jpg" alt="Assign character physics using visual programming blocks" style="max-width: 725px">
 
     <p>Since character needs a floor (+walls) or ground to walk on, create such bodies using the corresponding *create physics body* puzzles.</p>
 
     <p>The next step is configuring the camera. The camera won't have any physics assigned since we only need it to be our "eyes." Set the *First-Person* controls to it but don't assign any collision material (we'll be using full-featured collision detection provided by the physics engine, not basic floor/walls simulation). Also, uncheck the *Allow Panning* and set *Movement Speed* value to zero:</p>
 
-    <img src="files/physics-guide/firstperson-camera-settings.jpg" style="max-width: 320px">
+    <img src="files/physics-guide/firstperson-camera-settings.jpg" alt="Tweaking character in the modelling suite" style="max-width: 320px">
 
     <p>Now we need to attach your camera to the character's "head." There is no need to create a model for the head, add an empty object called "Head" to the scene, and parent it to the upper part of the capsule model. This way the "head" moves with the character.</p>
 
     <p>By using the additional "Head" object you can attach/detach the camera to/from the character in runtime. To attach the camera use the <a href="manual/en/puzzles/Objects.html#parent">parent</a> and <a href="manual/en/puzzles/Objects.html#snap_to_object">snap to object</a> puzzles:</p>
 
-    <img src="files/physics-guide/snap-camera-puzzles.jpg" style="max-width: 560px">
+    <img src="files/physics-guide/snap-camera-puzzles.jpg" alt="Snap/parent camera visual programming blocks" style="max-width: 560px">
 
     <p class="note">To detach the camera, use the *parent* puzzle with empty *to object* field.</p>
 
     <p>Character created! Now it's time to make it move in your scene. In the most basic case, we need to move forward when the user press the up-arrow key. To do so, apply *linear velocity* vector to your character, which is calculated from the horizontal camera direction. To make your simulations robust you should always apply vectors using the <a href="manual/en/puzzles/Physics.html#on_simulation_tick">on simulation tick</a> puzzle.</p>
 
-    <img src="files/physics-guide/moving-character-puzzles.jpg" style="max-width: 981px">
+    <img src="files/physics-guide/moving-character-puzzles.jpg" alt="Moving character with visual programming blocks" style="max-width: 981px">
 
     <p>To move your character on mobile device, you'll need additional "controller" elements. You can create them using 3D objects parented to the camera or with <a href="manual/en/introduction/HTML-based-user-interfaces.html">HTML elements</a>.</p>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D for 3ds Max: Working with Camera - Soft8Soft</title>
+    <title>Verge3D for 3ds Max: Working with Camera — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Find out how to create and control 3ds Max cameras to be used with Verge3D."/>
     <base href="../../../" />
@@ -33,6 +33,8 @@
       <li>*Free*</li>
     </ul>
 
+    <img src="files/camera-max/supported-camera-types.jpg" alt="Cameras supported in Verge3D for 3ds Max" style="max-width: 500px">
+
 
     [anchor:camera_settings]
 
@@ -42,35 +44,135 @@
       Each camera in 3ds Max is assigned with the following Verge3D settings:
     </p>
 
-    <img src="files/camera-max/camera-settings.jpg" alt="Camera settings in Verge3D for 3ds Max" style="max-width: 329px">
+    <img src="files/camera-max/camera-settings.jpg" alt="Camera settings in Verge3D for 3ds Max" style="max-width: 360px">
 
-    <p>*Allow Panning* - allow camera panning.</p>
-    <p>*Rot. Speed* - camera rotation speed factor.</p>
-    <p>*Mov. Speed* - camera movevent speed factor.</p>
-    <p>*Disable Controls* - disable any controls. Specify if you're going to move your camera with animations, Puzzles or JavaScript.</p>
+    <dl>
+      <dt>Viewport Fit</dt>
+      <dd>
+        How the viewport will react to changing its dimensions (or device orientation).
+        <dl>
+          <dt>Vertical</dt>
+          <dd>Fit vertical field of view. This mode is good for <em>tall</em> scenes. By fixing vertical field of view you will be ensured that your object will fit into the camera in both landscape (desktops/laptops) and portrait (phones) modes</dd>
+          <dt>Horizontal</dt>
+          <dd>Fit horizontal field of view. Contrary to *Horizontal*, this mode is good for <em>wide</em> scenes.</dd>
+        </dl>
+      </dd>
 
+      <dt>Allow Panning</dt>
+      <dd>Enable/disable camera panning.</dd>
 
-    [anchor:orbit_settings]
+      <dt>Rot. Speed</dt>
+      <dd>Camera rotation speed factor.</dd>
 
-    <h3>Orbit Camera Settings</h3>
+      <dt>Mov. Speed</dt>
+      <dd>Camera movement speed factor.</dd>
 
-    <p>*Persp Min Dist* and *Persp Max Dist* - distance limits for perspective camera.</p>
-    <p>*Ortho Min Zoom* and *Ortho Max Zoom* - zoom limits for orthographic camera.</p>
-    <p>*Min Vertical Angle* and *Max Vertical Angle* - vertical (up-down) angle limits.</p>
-    <p>*Min Horizon Angle* and *Max Horizon Angle* - horizontal (left-right) angle limits.</p>
+      <dt>Targeted Camera Limits</dt>
+      <dd>Settings for targeted (aka orbit) cameras, see <a href="manual/en/max/Camera.html#targeted_camera_settings">below</a>.</dd>
+
+      <dt>First-Person</dt>
+      <dd>Settings for first-person cameras, see <a href="manual/en/max/Camera.html#firstperson_settings">below</a>.</dd>
+
+      <dt>Disable Controls</dt>
+      <dd>Disable all camera controls — mouse, touch, keyboard. Specify if you're going to move your camera with animations, Puzzles, or JavaScript.</dd>
+    </dl>
+
+    [anchor:targeted_camera_settings]
+
+    <h3>Targeted Camera Settings</h3>
+
+    <p>
+      Use the following settings to control parameters of the *Target* and targeted *Physical* cameras.
+    </p>
+
+    <img src="files/camera-max/targeted-camera-settings.jpg" alt="Targeted camera settings in 3ds Max" style="max-width: 347px">
+
+    <dl>
+      <dt>Persp Min Dist, Persp Max Dist</dt>
+      <dd>Distance limits for perspective camera.</dd>
+
+      <dt>Ortho Min Zoom, Ortho Max Zoom</dt>
+      <dd>Zoom limits for orthographic camera.</dd>
+
+      <dt>Min Vertical Angle, Max Vertical Angle</dt>
+      <dd>Vertical (up-down) angle limits.</dd>
+
+      <dt>Min Horizon Angle, Max Horizon Angle</dt>
+      <dd>Horizontal (left-right) angle limits.</dd>
+    </dl>
+
+    <p class="note">
+      Please note that in the Puzzles editor and JavaScript API the "Targeted" camera is called "Orbit".
+    </p>
 
     [anchor:firstperson_settings]
 
     <h3>First-Person Camera Settings</h3>
 
-    <p>*Enabled* - enable first-person camera.</p>
+    <p>The following settings allow you to setup first-person camera controls without using Puzzles or JavaScript.</p>
 
-    <p>*Collision Material* - collision material which will be used for the camera.</p>
+    <img src="files/camera-max/firstperson-camera-settings.jpg" alt="First-person character settings in 3ds Max" style="max-width: 350px">
 
-    <p>*Gaze Level* - first-person camera "gaze" (or "head"/"eyes") level.</p>
+    <dl>
+      <dt>Enabled</dt>
+      <dd>Enable first-person camera controls mode.</dd>
 
-    <p>*Story Height* - story height.</p>
+      <dt>Collision Material</dt>
+      <dd>
+        <p>
+          Collision material which will be used to control the zone the camera can move within. Basically, the zone above this material is allowed, all other places including empty is forbidden. If you don't specify this value, the camera will operate in free-flight mode.
+        </p>
+        <p>
+          If you don't want the collision object to be visible to the user, just hide it in 3ds Max (use the switcher with the eye icon on it).
+        </p>
+        <img src="files/camera-max/firstperson-hide-render.jpg" alt="Hide firstperson collision object in 3ds Max" style="max-width: 315px">
+      </dd>
 
+      <dt>Gaze Level</dt>
+      <dd>First-person camera "gaze" (or "head"/"eyes") level.</dd>
+
+      <dt>Story Height</dt>
+      <dd>Maximum height of the story. Specify if you need multiple floors in your scene, such as two-level cottage or large shopping mall.</dd>
+
+      <dt>Enable PointerLock</dt>
+      <dd>Enable the pointer lock feature to capture the mouse pointer upon app start. The user should click somewhere on the screen to lock up the cursor and move in 3D space without the need to click/drag with the mouse buttons.</dd>
+    </dl>
+
+    [demo:firstperson_camera]
+
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>Fit to Camera Edge</h2>
+
+    <p>
+      <em>Fit to Camera Edge</em> is a technique to draw screen-space UI elements based on 3ds Max models. This approach to UI design is more “native” to the 3D artist than using HTML/CSS, and does not require external tools. But there is more in it: since the UI elements are genuine 3D objects, you can apply shaders, lighting, animation, morphing – you name it – making them truly interactive and seamlessly integrated into the scene.
+    </p>
+
+    <p>
+      When you parent some object to the camera, the following settings appear on the *Verge3D Adv. Rendering Params* panel:
+    </p>
+
+    <img src="files/lighting-max/fit-to-camera-edge-properties.jpg" alt="Fit to camera edge settings in 3ds Max" style="max-width: 362px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        Horizontal canvas edge to fit object to. *None* — no horizontal fit, *Left* — fit to left edge, *Right* — fit to right edge, *Stretch* — scale object horizontally to fit on the screen.
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        Vertical canvas edge to fit object to. *None* — no vertical fit, *Top* — fit to top edge, *Bottom* — fit to bottom edge, *Stretch* — scale object vertically to fit on the screen.
+      </dd>
+      <dt>Shape</dt>
+      <dd>
+        Canvas fit shape. *Box* — use object's bounding box, *Sphere* — use object's bounding sphere to fit the object on the screen, *Point* — ignore object boundings and use its center to fit the object on the screen.
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        Additional offset used to fit object on the screen. Effectively, this value extends object bounding (box or sphere) by the specified absolute value.
+      </dd>
+    </dl>
 
 
     [anchor:camera_control_with_puzzles]

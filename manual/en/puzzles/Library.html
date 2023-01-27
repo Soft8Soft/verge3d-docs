@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Library Puzzles Reference - Soft8Soft</title>
+    <title>Library Puzzles Reference — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Using Verge3D Puzzles library, a persistent storage for groups of puzzles for re-use in multiple projects."/>
     <base href="../../../" />
@@ -14,7 +14,7 @@
 
     <p>Library is a persistent storage for groups of puzzles for re-use in multiple projects.</p>
 
-    <img src="files/puzzles/puzzles-library.jpg">
+    <img src="files/puzzles/puzzles-library.jpg" alt="Visual programming library overview">
 
     <h2>Contents</h2>
 
@@ -28,8 +28,8 @@
     <p>There are two libraries in Verge3D:</p>
 
     <ul>
-      <li>*System Library* - stored in *library.xml* file inside the *puzzles* subfolder of the installation folder. This is the read-only stock library which comes with Verge3D.</li>
-      <li>*User Library* - stored in *my_library.xml* file inside the applications folder. You can use this library to add your own Puzzles.</li>
+      <li>*Stock Library* — stored in *library.xml* file inside the *puzzles* subfolder of the installation folder. This is a read-only library which is built in Verge3D. See <a href="manual/en/puzzles/Library.html#stock_library_reference">below</a> for the reference.</li>
+      <li>*User Library* — stored in *my_library.xml* file inside the applications folder. You can add your own puzzles to this library.</li>
     </ul>
 
 
@@ -41,7 +41,7 @@
     You can add a puzzle group to the <em>user library</em> by right-clicking on it and selecting the option <strong>Save N Puzzles to Library</strong>. In the modal window type the name for the group as it will appear in the library's list of entries. Refresh the list of entries by reloading the page with the Puzzles editor to update that list.
     </p>
 
-    <img src="files/puzzles/puzzles-library-save.jpg">
+    <img src="files/puzzles/puzzles-library-save.jpg" alt="Adding blocks to visual programming library">
 
 
     [anchor:using_entries]
@@ -50,7 +50,7 @@
 
     <p>A saved group of puzzle can be retrieved from the library by dragging it out to a workspace.</p>
 
-    <img src="files/puzzles/puzzles-library-retrieve.jpg">
+    <img src="files/puzzles/puzzles-library-retrieve.jpg" alt="Getting blocks from visual programming library">
 
 
     [anchor:renaming_entries]
@@ -61,7 +61,7 @@
       There is no dedicated control for renaming library entries. However, you can easily rename an entry by editing the *my_library.xml* file (in 2 places).
     </p>
 
-    <img src="files/puzzles/puzzles-library-rename.jpg" style="max-width: 895px">
+    <img src="files/puzzles/puzzles-library-rename.jpg" alt="Renaming visual programming library" style="max-width: 895px">
 
     <p>Once renamed, your library entry name will be updated after refreshing the editor.</p>
 
@@ -81,10 +81,168 @@
       Every time you save or delete entries, the previously saved file *my_library.xml* is copied to the folder called *library_backup* with a timestamp added to the file name.
     </p>
 
-    <img src="files/puzzles/puzzles-library-backup.jpg" style="max-width: 776px">
+    <img src="files/puzzles/puzzles-library-backup.jpg" alt="Visual programming library backups" style="max-width: 776px">
 
     <p>
       This allows you to restore any of the previously saved revisions of your <em>user library</em> when you need it. Simply copy a file back to the application folder and remove the time stamp from its name. Your library will be updated after refreshing the editor.
+    </p>
+
+
+    [anchor:stock_library_reference]
+
+    <h2>Stock Library Reference</h2>
+
+    <p>
+      Below is the reference of the entries of the Stock puzzles library which comes with Verge3D.
+    </p>
+
+    [anchor:hovered_cursor]
+
+    <h3>Hovered Cursor</h3>
+
+    <p>
+      Detect when the mouse cursor is located just above the target object, then change the mouse cursor to look as "pointer", thus hinting the user that this object is clickable.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-hovered-cursor.jpg" alt="Hovered Cursor visual programming library">
+
+    <p>
+      Replace <em>Cube</em> by the actual object name. If you need to perform something different in your app beyond simple cursor styling, replace the <em>set style</em> puzzles as well.
+    </p>
+
+    [demo:ring]
+
+
+    [anchor:detect_pressed_released]
+
+    <h3>Detect Pressed/Released</h3>
+
+    <p>
+      The puzzle <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> does not allow you to separate "down" and "up" movements of the mouse buttons (or pressing/releasing fingers on the touchscreen), hence it's not possible to catch the moment when the mouse is actually pressed (or released). The following set of puzzles allows this:
+    </p>
+
+    <img src="files/puzzles/puzzles-library-detect-pressed-released.jpg" alt="Detect Pressed/Released visual programming library">
+
+    <p>
+      Replace <em>Cube</em> by the actual object name and the <em>print to console</em> puzzles by the actual blocks you need in your app.
+    </p>
+
+
+    [anchor:keyboard_controls]
+
+    <h3>Keyboard Controls</h3>
+
+    <p>
+      Use this library entry to detect keyboard strikes.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-keyboard-controls.jpg" alt="Keyboard Controls visual programming library">
+
+    <p>
+      Replace <em>ArrowLeft/ArrowRight</em> by the actual keys, and the <em>print to console</em> puzzles by the actual blocks you need to be executed in your app.
+    </p>
+
+    <p>
+      Key values are just letters (e.g. "w", "a", "s", "d") you type on your keyboard. Also it can be special values like "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Enter", "Tab", "Home", "End", "Delete", "Escape", " " (for space), etc. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values" target="_blank">here</a> for a complete list of keys.
+    </p>
+
+    [demo:farmers_journey]
+
+
+    [anchor:performance_tweaks]
+
+    <h3>Performance Tweaks</h3>
+
+    <p>
+      Use this library entry to optimize quality and performance of your applications. On high-end devices with HiDPI screen this set increases pixel density for better rendering quality. For middle-end and low-end devices this set removes all post-processing effects and disables shadows which should greatly increase rendering performance on such devices.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-performance-tweaks.jpg" alt="Performance Tweaks visual programming library">
+
+    <p>
+      This library entry does not require any additional tweaks and is recommended for use in all Verge3D applications.
+    </p>
+
+    [anchor:setup_fullscreen_iframe]
+
+    <h3>Setup Fullscreen iFrame</h3>
+
+    <p>
+      Replace the default fullscreen icon by the custom element you have designed for your application.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-setup-fullscreen-iframe.jpg" alt="Setup Fullscreen iFrame visual programming library">
+
+    <p>
+      For this set of puzzles to work properly, specify a new ID for the icon container element instead of <em>fs_button</em>, a new ID for the icon element instead of <em>fs_image</em>, and the new set of enter/exit icons instead of <em>enter.png/exit.png</em>.
+    </p>
+
+    <p>
+      This set of puzzles is designed to work with iframed applications, where you have modified fullscreen container element (in most cases it would be &lt;a&gt; or &lt;div&gt; element) located on the parent page (that's why we enabled <strong>in parent doc</strong>). Also, modification of the <strong>src</strong> property means the child element should be &lt;img&gt;. However, this particular setup of HTML elements is not mandatory, you are free to modify the puzzles as you wish. For more information please refer to the <a href="manual/en/puzzles/HTML.html#init_fullscreen">init fullscreen</a> puzzle reference.
+    </p>
+
+    [demo:teapot_heater]
+
+
+    [anchor:sound_ios_workaround]
+
+    <h3>Sound iOS Workaround</h3>
+
+    <p>
+      This library entry helps overcome <a href="manual/en/introduction/Workflow.html#Audio_">restrictions</a> for playing sounds on iOS/Android devices.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-sound-ios-workaround.jpg" alt="Sound iOS Workaround visual programming library">
+
+    <p>
+      Replace <em>mySound.mp3</em> by the actual sound you have in your app.
+    </p>
+
+
+    [anchor:alert_message]
+
+    <h3>Alert Message</h3>
+
+    <p>
+      Display an alert message at the bottom of the screen.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-alert-message.jpg" alt="Alert Message visual programming library">
+
+    <p>
+      Here you can specify both the text shown in the alert message and its styling.
+    </p>
+
+    [demo:custom_image]
+
+
+    [anchor:map_range]
+
+    <h3>Map Range</h3>
+
+    <p>
+      Maps a given value from one range to another. Since Verge3D 4.2, this library entry is considered deprecated. Use the built-in <a href="manual/en/puzzles/Numbers.html#map_range">map range</a> puzzle instead.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-map-range.jpg" alt="Map Range visual programming library">
+
+
+    [anchor:vr_controls]
+
+    <h3>VR Controls</h3>
+
+    <p>
+      Move in VR mode by using device controls (touch pad or stick). This set of puzzles should work with most VR controllers available on the market provided they conform the <a href="manual/en/puzzles/System.html#get_gamepad_prop">xr-standard</a> layout.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-vr-controls.jpg" alt="VR controls visual programming library">
+
+    <p>
+      Replace <em>collision_mesh</em> by the actual collision mesh used to control the zone the camera can move within. Basically, the zone above this material is walkable, while everything outside is forbidden for movement.
+    </p>
+
+    <p>
+      Also make sure you have enable the *sitting or standing* VR positioning mode. Check out the <a href="manual/en/puzzles/AR_VR.html#enter_vr_mode">enter VR mode</a> puzzle for more info.
     </p>
 
 

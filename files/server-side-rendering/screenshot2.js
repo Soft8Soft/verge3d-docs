@@ -46,7 +46,7 @@ async function run() {
     await page.evaluate(() => {
         const app = window.v3d.apps[0];
         return new Promise(resolve => {
-            app.addEventListener('onAfterRender', () => {
+            app.addEventListener('afterRender', () => {
                 resolve();
             });
         });

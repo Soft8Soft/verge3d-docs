@@ -201,7 +201,8 @@
     <p>
       Unloads the scene (by calling [page:.unload unload]) and disposes the
       whole application, which includes cleaning up the application's
-      [page:WebGLRenderer renderer] and removing the canvas element from the DOM.<br/><br/>
+      [page:WebGLRenderer renderer] and removing the canvas element from the
+      DOM. Emits the [page:.eventDispose dispose] event.<br/><br/>
 
       The application is no longer usable after disposing. This approach is best
       suited for cases where the complete clean up is needed.
@@ -269,7 +270,8 @@
     <h3>[method:null loadScene](url, loadCb, progressCb, errorCb)</h3>
     <p>
       Load the glTF scene. The loadCb callback will receive the loaded scene as
-      a parameter after the loading is finished.<br/><br/>
+      a parameter after the loading is finished. Emits the
+      [page:.eventSceneLoad sceneLoad] event.<br/><br/>
 
       If there already is an active scene (e.g. loaded before via the
       [page:.loadScene loadScene] method), then use [page:.unload unload] first to
@@ -281,6 +283,12 @@
       Handler for canvas resize event. Do not change unless you know what you are doing.
     </p>
 
+    <h3>[method:null pause]()</h3>
+    <p>
+      Pauses the application: animation, controls, render callbacks and
+      rendering. Emits the [page:.eventPause pause] event.
+    </p>
+
     <h3>[method:null printPerformanceInfo](delta)</h3>
     <p>
       Estimate and print out rendering performance profile. delta is an optional period of estimation (default 1).
@@ -288,7 +296,15 @@
 
     <h3>[method:null render]()</h3>
     <p>
-      Handler for scene rendering. Do not change unless you know what you are doing.
+      Handler for scene rendering. Do not change unless you know what you are
+      doing. Emits the [page:.eventBeforeRender beforeRender] and
+      [page:.eventAfterRender afterRender] events.
+    </p>
+
+    <h3>[method:null resume]()</h3>
+    <p>
+      Resumes the application: animation, controls, render callbacks and
+      rendering. Emits the [page:.eventResume resume] event.
     </p>
 
     <h3>[method:null run]()</h3>
@@ -346,6 +362,72 @@
 
       Update all [page:CubeReflectionProbe] objects that are descendants of the
       given *object3d* object.
+    </p>
+
+    <h2>Events</h2>
+
+    <h3>[def:eventAfterFirstRender afterFirstRender]</h3>
+    <p>
+      An event emitted right after the first frame rendered. You can
+      subscribe to it as follows:
+      <code>
+        app.addEventListener('afterFirstRender', e => ...); // properties of e: type ('afterFirstRender'), target (instance of App)
+      </code>
+    </p>
+
+    <h3>[def:eventAfterRender afterRender]</h3>
+    <p>
+      An event emitted after each frame rendered (in the beginning of the
+      [page:.render render] method). You can subscribe to it as follows:
+      <code>
+        app.addEventListener('afterRender', e => ...); // properties of e: type ('afterRender'), target (instance of App)
+      </code>
+    </p>
+
+    <h3>[def:eventBeforeRender beforeRender]</h3>
+    <p>
+      An event emitted before each frame rendered (in the end of the
+      [page:.render render] method). You can subscribe to it as follows:
+      <code>
+        app.addEventListener('beforeRender', e => ...); // properties of e: type ('beforeRender'), target (instance of App)
+      </code>
+    </p>
+
+    <h3>[def:eventDispose dispose]</h3>
+    <p>
+      An event emitted right after the application is disposed via the
+      [page:.dispose dispose] method. You can subscribe to it as follows:
+      <code>
+        app.addEventListener('dispose', e => ...); // properties of e: type ('dispose'), target (instance of App)
+      </code>
+    </p>
+
+    <h3>[def:eventPause pause]</h3>
+    <p>
+      An event emitted when the application is paused via the
+      [page:.pause pause] method. You can subscribe to it as follows:
+      <code>
+        app.addEventListener('pause', e => ...); // properties of e: type ('pause'), target (instance of App)
+      </code>
+    </p>
+
+    <h3>[def:eventResume resume]</h3>
+    <p>
+      An event emitted when the application is resumed via the
+      [page:.resume resume] method. You can subscribe to it as follows:
+      <code>
+        app.addEventListener('resume', e => ...); // properties of e: type ('resume'), target (instance of App)
+      </code>
+    </p>
+
+    <h3>[def:eventSceneLoad sceneLoad]</h3>
+    <p>
+      An event emitted after the app's scene is done loading, parsing and all
+      its shaders are compiled. This event is emitted as a result of calling the
+      [page:.loadScene loadScene] method. You can subscribe to it as follows:
+      <code>
+        app.addEventListener('sceneLoad', e => ...); // properties of e: type ('sceneLoad'), target (instance of App)
+      </code>
     </p>
 
     [sourceHint]

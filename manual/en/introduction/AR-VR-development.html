@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>AR/VR Development - Soft8Soft</title>
+    <title>AR/VR Development — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Learn how you can enable Augmented Reality (AR) and Virtual Reality (VR) experience for your Verge3D applications."/>
     <base href="../../../" />
@@ -49,21 +49,35 @@
       The VR mode can be checked with <a href="manual/en/puzzles/AR_VR.html#check_vr_mode">check VR mode</a> and set up using <a href="manual/en/puzzles/AR_VR.html#enter_vr_mode">enter VR mode</a> puzzle.
     </p>
 
-    <img src="files/ar-vr-development/minimal-vr-puzzles.jpg">
+    <img src="files/ar-vr-development/minimal-vr-puzzles.jpg" alt="Minimal VR puzzles">
 
     <p>
       Interaction with 3D objects is performed by using the gaze-based reticle pointer automatically provided for VR devices <i>without controllers</i> (such as cardboards).
     </p>
 
-    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg">
+    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg" alt="Gaze-based VR reticle pointer">
 
     <p>For VR devices <i>with controllers</i>, interaction is performed by the virtual ray casted from the controllers.</p>
 
-    <img src="files/ar-vr-development/google-daydream-vr-controller.jpg">
+    <img src="files/ar-vr-development/google-daydream-vr-controller.jpg" alt="Controller-based VR ray">
 
     <p>You can use the standard <a href="manual/en/puzzles/Events.html#when_hovered">when hovered</a> or <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> puzzles to capture user events as well as VR-specific <a href="manual/en/puzzles/AR_VR.html#session_event">on session event</a>.</p>
 
     [demo:industrial_robot]
+
+
+    [anchor:how_to_move_in_vr_mode]
+
+    <h3>How to move in VR mode</h3>
+
+    <p>
+      Upon entering the VR mode, you will get the special stereo camera which will be attached to a VR headset. It means you can't use any controls or Puzzles to change the camera's position (or orientation). The only way to move the camera in VR is parenting it to some other object (e.g character) and moving this object instead. Check out the <a href="manual/en/puzzles/AR_VR.html#xr_camera_control_object">camera control object</a> for more info.
+    </p>
+
+    <p>
+      In general, you will need to specify the movements by Puzzles or JavaScript, e.g by using a character object and some physics which prevents the character to move beyond the scene bounds (or obstacles). However, if you use the *sitting or standing* VR positioning mode, there is a Puzzles library called <a href="manual/en/puzzles/Library.html#vr_controls">VR Controls</a> which can make the things a lot easier.
+    </p>
+
 
 
     [anchor:augmented_reality]
@@ -85,7 +99,7 @@
 
     <p>To enable augmented reality, you need an Android device which supports <a href="https://developers.google.com/ar/discover/supported-devices" target="_blank">ARCore technology</a> and latest Google Chrome browser. You also need to install Google Play Services for AR. The installation of this package is prompted automatically upon entering AR mode for the first time, if not pre-installed.</p>
 
-    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" style="max-width: 720px">
+    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" alt="Installing Google Play Services for AR" style="max-width: 720px">
 
     <h4>iOS/iPadOS</h4>
 
@@ -118,7 +132,7 @@
       The AR mode can be set up for any Verge3D app using the <a href="manual/en/puzzles/AR_VR.html#enter_ar_mode">enter AR mode</a> puzzle.
     </p>
 
-    <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" style="max-width: 819px">
+    <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" alt="Minmal AR puzzles" style="max-width: 819px">
 
     <p>
       Upon entering AR mode you will be able to position your 3D content in the "real" coordinate system, which is aligned with your mobile device. In addition to that, you can detect horizontal surfaces (tables, shelves, floor etc) by using the <a href="manual/en/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR</a> puzzle.
@@ -130,7 +144,7 @@
       Also, to see the real environment through your 3D canvas, you should enable the *transparent background* option in the <a href="manual/en/puzzles/Initialization.html#configure_application">configure application</a> puzzle.
     </p>
 
-    <img src="files/ar-vr-development/transparent-background-puzzle.jpg">
+    <img src="files/ar-vr-development/transparent-background-puzzle.jpg" alt="Enabling background transparency in puzzles">
 
     [demo:augmented_reality]
 
@@ -182,25 +196,34 @@
       When the user clicks on such link on Apple device, the system will detect USDZ asset referenced by the link and open an AR Quick Look mode so that you can position the model in the real world:
     </p>
 
-    <img src="files/ar-vr-development/ar-quick-look.jpg" style="max-width: 310px">
+    <img src="files/ar-vr-development/ar-quick-look.jpg" alt="Apple AR Quick Look" style="max-width: 310px">
 
     <p>
       With Puzzles, the same link can be created on demand:
     </p>
 
-    <img src="files/ar-vr-development/usdz-puzzles-static.jpg">
+    <img src="files/ar-vr-development/usdz-puzzles-static.jpg" alt="Creating USDZ link using puzzles">
 
     <p>
       To generate and load USDZ assets in runtime use the following code:
     </p>
 
-    <img src="files/ar-vr-development/usdz-puzzles-dynamic.jpg">
+    <img src="files/ar-vr-development/usdz-puzzles-dynamic.jpg" alt="Creating USDZ asset in runtime using puzzles">
 
     <p>
       Check out the differences — we used *export to USDZ* puzzle here and assigned additional *download* attribute to the link.
     </p>
 
     [demo:augmented_reality]
+
+
+    [anchor:how_to_move_in_ar_mode]
+
+    <h3>How to move in AR mode</h3>
+
+    <p>
+      Upon entering the AR mode, you will get the special camera which will be attached to the phone (or the AR headset). It means you can't use any controls or Puzzles to change the camera's position (or orientation). The only way to move the camera in AR is parenting it to some other object and moving this object instead. Check out the <a href="manual/en/puzzles/AR_VR.html#xr_camera_control_object">camera control object</a> for more info.
+    </p>
 
 
     [anchor:chrome_debugging]

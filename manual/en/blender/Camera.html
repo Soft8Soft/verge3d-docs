@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D for Blender: Working with Camera - Soft8Soft</title>
+    <title>Verge3D for Blender: Working with Camera — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="Find out how to create and control Blender cameras to be used with Verge3D."/>
     <base href="../../../" />
@@ -23,9 +23,9 @@
 
     <h2>Setting Up in Blender</h2>
 
-    <p>Simply add the camera to the scene and assign it as <em> active</em> in the *Scene Properties*:</p>
+    <p>Simply add the camera to the scene and assign it as <em>active</em> in the *Scene Properties*:</p>
 
-    <img src="files/camera-blender/active-camera.jpg" alt="Setting active camera in Verge3D for Blender" style="max-width: 309px">
+    <img src="files/camera-blender/active-camera.jpg" alt="Setting active camera in Blender" style="max-width: 309px">
 
     <p>This camera will be used to render your scene by default, though you can add more cameras and switch between them in runtime using the <a href="manual/en/puzzles/Camera.html#set_active_camera">set active camera</a> puzzle.</p>
 
@@ -33,7 +33,7 @@
 
     <ul>
       <li>*Perspective*</li>
-      <li>*Orthgraphic*</li>
+      <li>*Orthographic*</li>
     </ul>
 
     [anchor:camera_settings]
@@ -42,61 +42,174 @@
 
     <p>Verge3D supports the following camera settings:</p>
 
-    <img src="files/camera-blender/camera-settings.jpg" alt="Camera settings in Verge3D for Blender" style="max-width: 627px">
+    <img src="files/camera-blender/camera-settings.jpg" alt="Camera settings in Blender" style="max-width: 627px">
 
-    <p>*Type* - camera type, either *Perspective* or *Orthographic*.</p>
+    <dl>
+      <dt>Type</dt>
+      <dd>Camera type, either *Perspective* or *Orthographic*.</dd>
 
-    <p>*Clip Start* and *Clip End* - camera visibility range.</p>
+      <dt>Clip Start / Clip End</dt>
+      <dd>Camera visibility range (aka clipping distance). To eliminate <a href="manual/en/introduction/Hardware-Related-Issues.html#z_fighting">z-fighting artifacts</a> set *Clip Start* value as high as possible and *Clip End* value as low as possible.</dd>
 
-    <p>*Sensor Fit* - how you viewport will react to changing its dimensions (or device orientation).</p>
+      <dt>Sensor Fit</dt>
+      <dd>
+        How the viewport will react to changing its dimensions (or device orientation). This setting has somewhat different meaning in Verge3D.
+        <dl>
+          <dt>Auto</dt>
+          <dd>Use *Vertical* viewport fit for landscape and *Horizontal* fit for portrait orientation of the viewport. This mode is good for scenes with equal horizontal and vertical dimensions, as it prevents objects from being cut by the camera.</dd>
+          <dt>Horizontal</dt>
+          <dd>Fit horizontal field of view. This mode is good for <em>wide</em> scenes. By fixing horizontal field of view you will be ensured that your object will fit into the camera in both landscape (desktops/laptops) and portrait (phones) modes.</dd>
+          <dt>Vertical</dt>
+          <dd>Fit vertical field of view. Contrary to *Horizontal*, this mode is good for <em>tall</em> scenes.</dd>
+        </dl>
+      </dd>
 
-    <p>*Controls* - specify what type of controls will be assigned to the camera in Verge3D:</p>
+      <dt>Controls</dt>
+      <dd>
+        Specify what type of controls will be assigned to the camera in Verge3D:
 
-    <ul>
-      <li>*Orbit* - targeted 3D view.</li>
-      <li>*Flying* - free-flight view.</li>
-      <li>*First-Person* - first-person view with familiar character controls.</li>
-      <li>*Disable* - disable any controls. Specify if you're going to move your camera with animations, Puzzles or JavaScript.</li>
-    </ul>
+        <ul>
+          <li>*Orbit* — targeted (aka pivoted, orbited) camera view. See <a href="manual/en/blender/Camera.html#orbit_camera_settings">below</a>.</li>
+          <li>*Flying* — free-flight view.</li>
+          <li>*First-Person* — first-person view with familiar character controls (WASD).</li>
+          <li>*Disable* — disable any controls. Specify if you're going to move your camera with animations, Puzzles, or JavaScript.</li>
+        </ul>
+      </dd>
 
-    <p>*Allow Panning* - enable/disable camera panning.</p>
+      <dt>Allow Panning</dt>
+      <dd>Enable/disable camera panning.</dd>
 
-    <p>*Rotation Speed* - camera rotation speed factor.</p>
+      <dt>Rotation Speed</dt>
+      <dd>Camera rotation speed factor.</dd>
 
-    <p>*Movement Speed* - camera movement speed factor.</p>
+      <dt>Movement Speed</dt>
+      <dd>Camera movement speed factor.</dd>
+    </dl>
 
 
     [anchor:orbit_camera_settings]
 
     <h3>Orbit Camera Settings</h3>
 
-    <p>*Target Object/Point* - specify pivot point or pivot object which will be used for Orbit camera.</p>
+    <p>
+      Use <strong>Target Object/Point</strong> subpanel to adjust the settings for the orbit camera.
+    </p>
 
-    <p>
-      *Min Dist* and *Max Dist* - distance limits for perspective camera.
-    </p>
-    <p>
-      *Min Zoom* and *Max Zoom* - zoom limits for orthographic camera.
-    </p>
-    <p>
-      *Vertical Rotation Limits*: *Min Angle* and *Max Angle* - vertical angle limits.
-    </p>
-    <p>
-      *Horizontal Rotation Limits*: *Min Angle* and *Max Angle* - horizontal angle limits.
-    </p>
+    <img src="files/camera-blender/orbit-camera-settings.jpg" alt="Orbit camera settings in Blender" style="max-width: 325px">
+
+    <dl>
+      <dt>Manual</dt>
+      <dd>You can manually set the XYZ coordinates of the pivot point (aka target) using these numerical fields. For your convenience you can use the *From Cursor* button to copy the current coordinates of Blender's 3D cursor.</dd>
+
+      <dt>From Object</dt>
+      <dd>Camera pivot object. If assigned, Verge3D uses coordinates of that object as camera pivot point. Please note, that this assignment happens just upon export, thus any movements of the pivot object (e.g. because of animation) in Verge3D won't affect the camera.</dd>
+
+      <dt>Update View</dt>
+      <dd>If you happen to move the camera, use this button to restore the camera's pivot point.</dd>
+
+      <dt>Min Dist, Max Dist</dt>
+      <dd>
+        <p>
+          Distance limits for the perspective camera. In Verge3D realm, "zooming" for the perspective orbit camera means "moving forward/backwards", thus distance limits assigned to such a camera indirectly affect the min/max limits of zooming.
+        </p>
+        <p class="note">
+          If you need to perform zooming by changing the camera field-of-view (FOV), while keeping the camera in place, use the <a href="manual/en/puzzles/Camera.html#set_camera_param">set camera param</a> puzzle.
+        </p>
+      </dd>
+
+      <dt>Min Zoom, Max Zoom</dt>
+      <dd>Zoom limits for the orthographic camera. In Verge3D realm, "zooming" for the orthographic orbit camera means "making camera volume larger/smaller". The camera itself don't move.</dd>
+
+      <dt>Vertical Rotation Limits: Min Angle, Max Angle</dt>
+      <dd>These values limit the vertical (up-down) camera rotation.</dd>
+
+      <dt>Horizontal Rotation Limits: Min Angle, Max Angle</dt>
+      <dd>These values limit the horizontal (left-right) camera rotation.</dd>
+    </dl>
 
 
     [anchor:firstperson_camera_settings]
 
     <h3>First-Person Camera Settings</h3>
 
-    <p>*Collision Material* - collision material which will be used for the camera.</p>
+    <p>The following settings allow you to setup first-person camera controls without using Puzzles or JavaScript.</p>
 
-    <p>*Gaze Level* - first-person camera "gaze" (or "head"/"eyes") level.</p>
+    <img src="files/camera-blender/firstperson-camera-settings.jpg" alt="Firstperson camera settings in Blender" style="max-width: 323px">
 
-    <p>*Story Height* - story height.</p>
+    <dl>
+      <dt>Collision Material</dt>
+      <dd>
+        <p>
+          Collision material which will be used to control the zone the camera can move within. Basically, the zone above this material is walkable, while everything outside is forbidden for movement. If you don't specify this value, the camera will operate in free-flight mode — *Flying*.
+        </p>
+        <p>
+          If you don't want the collision object to be visible to the user, just hide it in Blender (use the render switcher with camera icon on it).
+        </p>
+        <img src="files/camera-blender/firstperson-hide-render.jpg" alt="Hide firstperson collision object in Blender" style="max-width: 325px">
+      </dd>
 
-    <p>*Enable PointerLock* - enable PointerLock to capture the mouse pointer.</p>
+      <dt>Gaze Level</dt>
+      <dd>First-person camera "gaze" (or "head"/"eyes") level.</dd>
+
+      <dt>Story Height</dt>
+      <dd>Maximum height of the story. Specify if you need multiple floors in your scene, such as two-level cottage or large shopping mall.</dd>
+
+      <dt>Enable PointerLock</dt>
+      <dd>Enable the pointer lock feature to capture the mouse pointer upon app start. The user should click somewhere on the screen to lock up the cursor and move in 3D space without the need to click/drag with the mouse buttons.</dd>
+    </dl>
+
+    <p>
+      Check out this basic example. The user moves on the following map where white field (*AllowedZone*) is allowed and red means the area is forbidden. You can design some walls above the red area if you wish, or stairs to the second floor, considering the next floor would be higher than 3 meters. Distance from the floor to the character eyes is 1.75 meters.
+    </p>
+
+    <img src="files/camera-blender/firstperson-camera-setup.jpg" alt="Setting up firstperson camera in Blender">
+
+    <p>
+      In this example we also use the pointer-lock feature to make navigation easier for the user.
+    </p>
+
+    <p>
+      See also a more advanced real estate experience which is called [demoLink:firstperson_camera].
+    </p>
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>Fit to Camera Edge</h2>
+
+    <p>
+      <em>Fit to Camera Edge</em> is a technique to draw screen-space UI elements based on Blender models. This approach to UI design is more “native” to the 3D artist than using HTML/CSS, and does not require external tools. But there is more in it: since the UI elements are genuine 3D objects, you can apply shaders, lighting, animation, morphing – you name it – making them truly interactive and seamlessly integrated into the scene.
+    </p>
+
+    <p>
+      When you parent some object to the camera, the following settings appear on the *Object Properties* panel:
+    </p>
+
+    <img src="files/camera-blender/fit-to-camera-edge-properties.jpg" alt="Fit to Camera Edge properties" style="max-width: 325px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        Horizontal canvas edge to fit object to. *None* — no horizontal fit, *Left* — fit to left edge, *Right* — fit to right edge, *Stretch* — scale object horizontally to fit on the screen.
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        Vertical canvas edge to fit object to. *None* — no vertical fit, *Top* — fit to top edge, *Bottom* — fit to bottom edge, *Stretch* — scale object vertically to fit on the screen.
+      </dd>
+      <dt>Shape</dt>
+      <dd>
+        Canvas fit shape. *Box* — use object's bounding box, *Sphere* — use object's bounding, *Point* — ignore object boundings and use its center to fit the object on the screen.
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        Additional offset used to fit object on the screen. Effectively, this value extends object bounding (box or sphere) by the specified absolute value.
+      </dd>
+    </dl>
+
+    <div class="note">
+      <p>To fix possible issues with camera fit, clear the object's Parent Inverse matrix:</p>
+      <img src="files/lighting-blender/clear-parent-inverse.jpg" alt="Clear parent inverse matrix in Blender" style="max-width: 266px">
+    </div>
+
 
 
     [anchor:camera_control_with_puzzles]
