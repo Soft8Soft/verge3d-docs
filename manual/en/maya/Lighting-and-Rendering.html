@@ -371,9 +371,17 @@
       <dt>IBL Environment Mode</dt>
       <dd>
         <dl>
-          <dt>PMREM (slow)</dt><dd>high quality (default value).</dd>
-          <dt>Light Probe + Cubemap (medium)</dt><dd>reduced quality of image-based specular reflections, better performance.</dd>
-          <dt>Light Probe (fast)</dt><dd>disabled image-based specular reflections, highest performance.</dd>
+          <dt>PMREM (slow)</dt>
+          <dd>Use prefiltered, mipmapped radiance environment maps (PMREMs). This property is selected by default because it offers the highest quality and decent performance at the same time.</dd>
+
+          <dt>Light Probe + Cubemap (deprecated)</dt>
+          <dd>This mode was deprecated in Verge3D 4.3. Specifying it will make your scene fallback to PMREM lighting.</dd>
+
+          <dt>Light Probe (fast)</dt>
+          <dd>Disable image-based specular reflections altogether, still the diffuse component will be applied. This mode is fast but provides decent quality for non-metallic surfaces only (e.g. rendered with <em>Lambert</em> shader).</dd>
+
+          <dt>None (fastest)</dt>
+          <dd>Disable image-based lighting for both specular and diffuse reflections. This is the fastest mode among all. It is perfect if you use shadeless (emissive) surfaces or rely solely on light sources to shade your scene.</dd>
         </dl>
       </dd>
     </dl>

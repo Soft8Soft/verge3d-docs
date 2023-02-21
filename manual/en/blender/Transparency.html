@@ -16,10 +16,53 @@
       Here we show how to enable transparency for Eevee/Cycles and glTF-compliant materials in Blender.
     </p>
 
-    [demo:transparency]
-
-
     [contents]
+
+    <!-- COMPAT: < 4.3 -->
+    <a href="#" id="transparency_eevee"></a>
+
+    [anchor:setting_up_in_blender]
+
+    <h2>Setting Up in Blender</h2>
+
+    <p>
+      Transparency for Eevee materials can be enabled by using a combination of the *Transparent BSDF* and the *Mix Shader* nodes. The factor in the *Mix Shader* node can be used to define the alpha value — you can directly specify a value or create a dependency from some other nodes such as *Fresnel* for more realistic look.
+    </p>
+
+    <img src="files/transparency-blender/eevee-ztransparency.jpg" alt="Blender Blend mode setting">
+
+    <p>Alternatively, you can use *Alpha* input of the Principled BSDF node.</p>
+
+    <img src="files/transparency-blender/eevee-ztransparency-principled.jpg" alt="Principled BSDF shader with transparency">
+
+    <p>Use the *Blend Mode* dropdown to choose between transparency modes:</p>
+
+    <dl>
+      <dt>Opaque</dt>
+      <dd>Render material with no transparency.</dd>
+      <dt>Alpha Clip</dt>
+      <dd>Masked transparency (see <a href="manual/en/max/Transparency.html#blended_vs_masked">below</a>).</dd>
+      <dt>Alpha Hashed</dt>
+      <dd>Hashed transparency, aka alpha to coverage. This method takes an intermediate position between masked and blended transparency. It uses MSAA rendering to improve the quality of alpha clipping.</dd>
+      <dt>Alpha Blend</dt>
+      <dd>Blended transparency (see <a href="manual/en/max/Transparency.html#blended_vs_masked">below</a>).</dd>
+    </dl>
+
+
+    <p>To tweak your the material's transparency there are other options available on the *Settings* panel:</p>
+
+    <img src="files/transparency-blender/material-settings.jpg" alt="Blender transparency settings" style="max-width: 334px">
+
+    <dl>
+      <dt>Shadow Mode</dt>
+      <dd>Transparency mode for the shadow casters. For now only *Opaque* and *None* modes are supported in Verge3D.</dd>
+      <dt>Clip Threshold</dt>
+      <dd>Threshold for alpha clipped (masked) materials.</dd>
+      <dt>Show Backface</dt>
+      <dd>Enable to render backside geometry of your objects.</dd>
+    </dl>
+
+    [demo:transparency]
 
 
     [anchor:blended_vs_masked]
@@ -39,15 +82,23 @@
 
     [anchor:alpha_add]
 
-    <h2>Additive Composing (aka No Depth Writes)</h2>
+    <h2>Additive Compositing (aka Additive Blending)</h2>
 
     <p>
-      Verge3D also offers a special mode for disabling writing to the depth buffer while rendering. This results in polygons being excluded from pixel depth comparison. Such polygons are composited in additive manner, which sometimes can help get rid of blending artifacts.
+      Verge3D also offers a special method for rendering transparent surfaces called additive compositing. By blending in additive manner and excluding polygons from pixel depth comparison you can get rid of transparency artifacts.
     </p>
 
-    <img src="files/transparency-common/no-depth-writes.jpg" alt="Rendering with no depth write">
+    <img src="files/transparency-common/no-depth-writes.jpg" alt="Alpha blend vs additive compositing">
 
-    <p>To enable this mode, disable the *Depth Write* option located on the *Verge3D Settings* panel.</p>
+    <p>
+      To enable this mode, use the following material setup. Replace *Glossy BSDF* with the actual nodes you require for your material.
+    </p>
+
+    <img src="files/transparency-blender/additive-blending-nodes.jpg" alt="Additive blending material setup in Blender">
+
+    <p>
+      Also disable the *Depth Write* option located on the *Verge3D Settings* panel:</p>
+    </p>
 
     <img src="files/transparency-blender/depth-write.jpg" alt="Depth write setting in Blender" style="max-width: 294px;">
 
@@ -73,28 +124,32 @@
     <img src="files/transparency-common/rendering-order-example.jpg" alt="Rendering order example">
 
 
-    [anchor:transparency_eevee]
+    [anchor:oit_rendering]
 
-    <h2>Transparency for Eevee Materials</h2>
+    <h2>Order-Independent Transparency (OIT)</h2>
 
     <p>
-      Transparency for Eevee materials can be enabled by using a combination of the *Transparent BSDF* and the *Mix Shader* nodes. The factor in the *Mix Shader* node can be used to define the alpha value - you can directly specify a value or create a dependency from some other nodes such as *Fresnel* for more realistic look.
+      Verge3D allows the use of an approximate order-independent transparency technique, which do not require rendering geometry in sorted order, so it solves most transparency issues without any of the above considerations.
     </p>
 
-    <img src="files/transparency-blender/eevee-ztransparency.jpg" alt="Blender Blend mode setting">
+    <img src="files/transparency-blender/oit-example.jpg" alt="Order-Independent Transparency example">
 
-    <p>Use the *Blend Mode* dropdown to choose between transparency modes.</p>
+    <p>OIT can be enabled though the <a href="manual/en/blender/Lighting-and-Rendering.html#global_rendering_properties_verge3d">Verge3D Settings panel</a>.</p>
 
-    <p>Alternatively, you can use *Alpha* input of the Principled BSDF node.</p>
+    <img src="files/transparency-blender/oit.jpg" alt="Order-Independent Transparency setting in Blender" style="max-width: 449px;">
 
-    <img src="files/transparency-blender/eevee-ztransparency-principled.jpg" alt="Principled BSDF shader with transparency">
-
-    <p>To tweak your the material's transparency there are other options available on the *Settings* panel:</p>
+    <p>Known limitations:</p>
 
     <ul>
-      <li>*Shadow Mode* - transparency mode for the shadow casters. For now only *Opaque* and *None* modes are supported in Verge3D.</li>
-      <li>*Clip Threshold* - threshold for alpha clipped (masked) materials.</li>
-      <li>*Show Backface* - enable to render backside geometry of your objects.</li>
+      <li>
+        OIT is only compatible with WebGL 2, otherwise it has no effect.
+      </li>
+      <li>
+        OIT is ignored by <a href="manual/en/blender/Lighting-and-Rendering.html#light_probes">Reflection Cubemap Light Probes</a> and <a href="manual/en/blender/Lighting-and-Rendering.html#reflection_plane_light_probes">Reflection Plane Light Probes</a>.
+      </li>
+      <li>
+        May not work well with high opacity objects.
+      </li>
     </ul>
 
 
@@ -108,7 +163,9 @@
 
     <img src="files/transparency-blender/gltf-PBR-ztransparency.jpg" alt="Transparent glTF material">
 
-    <p>Use the <strong>Blend Mode</strong> dropdown to choose between transparency modes.</p>
+    <p>
+      Use the <strong>Blend Mode</strong> dropdown to choose between the supported transparency modes: *Opaque*, *Alpha Clip*, or *Alpha Blend*.
+    </p>
 
     <h2>Got Questions?</h2>
 
