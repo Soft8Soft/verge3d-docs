@@ -12,132 +12,244 @@
 
     <h1>插件 | Plugins</h1>
 
-    <p><a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html">Verge3D拼图编辑器</a>提供了加载您自己自定义拼图的能力，从而使您可以用您一直想要的功能来扩展编辑器的功能。</p>
+    <p>
+        <a href="manual/zh/introduction/Puzzles-Visual-Logic-Editor.html">Verge3D拼图编辑器</a>提供
+        了加载您自己自定义拼图的能力，
+        从而使您可以用您一直想要的功能
+        来扩展编辑器的功能。
+    </p>
 
 
     <h2>内容</h2>
 
-    [contents] [anchor:installing]
+    [contents]
+    
+    
+    [anchor:installing]
 
     <h2>安装插件</h2>
 
-    <p>插件是包含一堆与插件相关的文件的目录。插件应该放在Verge3D的*puzzles/plugins*文件夹中，以便被拼图编辑器识别。仅此而已！重新加载编辑器页面后，所有已安装的插件就会出现在编辑器工具箱的底部，紧随所有标准拼图类目之后。</p>
-      
-    <img src="files/puzzles/puzzles-plugins-ui-location.jpg" class="centered" style="max-width: 570px"> <span class="img-caption">工具箱中的插件类目</span><p id="example_plugin" class="note"><u>提供给插件开发者：</u><br/> 这里有一个实用的参考插件实例，包含了一些典型的拼图模块：<a href="files/puzzles/ExamplePlugin.zip">ExamplePlugin.zip</a>。您可以将其解压到 *puzzles/plugins* 文件夹中，然后在工具箱中查看 "Example Plugin " 的拼图类目。</p>
+    <p>
+        插件是包含一堆与插件相关的文件的目录。
+        插件应该放在Verge3D的 *puzzles/plugins* 文件夹中，
+        以便被拼图编辑器识别。一切就绪~
+        重新加载编辑器页面后，所有已安装的插件就会出现
+        在编辑器工具箱的底部，紧随所有标准拼图类目之后。
+    </p>
+
+    <figure style="max-width: 570px">
+        <img src="files/puzzles/puzzles-plugins-ui-location.jpg" alt="插件类目">
+        <figcaption>工具箱中的插件类目。</figcaption>
+    </figure>
+
+    <p id="example_plugin" class="note">
+        <u>提供给插件开发者：</u><br/>
+        这里有一个实用的参考插件实例，包含了一些典型的
+        拼图模块：<a href="files/puzzles/ExamplePlugin.zip">ExamplePlugin.zip</a>。
+        您可以将其解压到 *puzzles/plugins* 文件夹中，
+        然后在工具箱中查看 "Example Plugin " 的拼图类目。
+    </p>
+
 
     [anchor:plugin_files_overview]
 
-    <h2>插件文件概述</h2>一个典型的插件是一个包含*init.plug*文件的目录，其中包含了插件的通用设置，还有一堆 <b>*.block</b> 文件，每个文件都定义一个拼图模块。如果您使用的文本编辑器支持语法高亮，那么请在开启这两种文件格式时使用HTML模式。[anchor:init_plug_file_format]
+    <h2>插件文件概述</h2>
+    
+    一个典型的插件是一个包含*init.plug*文件的目录，其中包含了插件的
+    通用设置，还有一堆 <b>*.block</b> 文件，每个文件都定义一个拼图
+    模块。如果您使用的文本编辑器支持语法高亮，
+    那么请在开启这两种文件格式时使用HTML模式。
+    
+    [anchor:init_plug_file_format]
 
     <h3>init.plug文件格式</h3>
 
-    <p>*init.plug*是一个强制性的插件文件，它用于指定常规的插件设置。在该文件中，您可以定义工具箱的条目是什么样子的。您也可以在那里为拼图添加一些初步的javascript代码。下面这个简单的示例列出了您将在*init.plug*文件中看到的内容：</p>
+    <p>
+        *init.plug*是一个强制性的插件文件，它用于
+        指定常规的插件设置。在该文件中，您可以定义
+        工具箱的条目是什么样子的。您也可以在那里为
+        拼图添加一些初步的javascript代码。下面这个简单的
+        示例列出了您将在*init.plug*文件中看到的内容：
+    </p>
 
     <code>
-&lt;category name="My Awesome Plugin" color="green"&gt;
-    &lt;block type="myPuzzle"&gt;&lt;/block&gt;
-    &lt;block type="doSomethingCool"&gt;&lt;/block&gt;
-    &lt;!-- &lt;block type="testPuzzle"&gt;&lt;/block&gt; --&gt;
-    &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
-&lt;/category&gt;
-    </code>
+        &lt;category name="My Awesome Plugin" color="green"&gt;
+            &lt;label text="My Awesome Plugin v1.0"&gt;&lt;/label&gt;
+            &lt;block type="myPuzzle"&gt;&lt;/block&gt;
+            &lt;block type="doSomethingCool"&gt;&lt;/block&gt;
+        &lt;/category&gt;
+    
+        &lt;script&gt;
+        function code() {
+            return `console.log('Powered by My Awesome Plugin!');`;
+        }
+        &lt;/script&gt;
+        </code>
+
 
     [anchor:init_plug_category]
 
     <h4>Category(类目)</h4>
 
-    <p>*category*部分是一个XML树，它定义了插件及其拼图模块在拼图编辑器工具箱中的显示方式。虽然它是可选的，但如果*init.plug*文件中没有*category*，那么此插件不会被加载到拼图编辑器中。 <br/><br/> 您可以通过*category*设置以下几个选项：</p>
+    <p>
+        *category*部分是一个XML树，它定义了插件及其
+        拼图模块在拼图编辑器工具箱中的显示方式。虽然
+        它是可选的，但如果 *init.plug* 文件中没有 *category* ，
+        那么此插件不会被加载到拼图编辑器中。 
+        <br/><br/> 
+        您可以通过*category*设置以下几个选项：
+    </p>
+
 
     [anchor:init_plug_toolbox_entry_name]
 
     <h5>工具箱中的条目名称</h5>
 
-    <p class="indented">通过*name*属性指定。 
-
-    <code>
-&lt;category name=&quot;My Awesome Plugin&quot;&gt;&lt;/category&gt;
-    </code>
-
+    <p class="indented">
+        通过*name*属性指定。 
+        <code>
+            &lt;category name="My Awesome Plugin"&gt;&lt;/category&gt;
+        </code>
     </p>
+
 
     [anchor:init_plug_toolbox_entry_color]
 
     <h5>工具箱中的条目颜色</h5>
 
-    <p class="indented">通过*color*属性指定。
-
-    <code>
+    <p class="indented">
+        通过*color*属性指定。
+            <code>
 &lt;category name=&quot;My Awesome Plugin&quot; color=&quot;green&quot;&gt;&lt;/category&gt;
-    </code>
-
-    可以用以下格式来定义颜色：</p>
+            </code>
+            可以用以下格式来定义颜色：
+    </p>
 
     <ul id="color_formats">
-        <li>十六进制三联体，如： <b>#f61</b> 或 <b>#f0562f</b></li>
-        <li>在0°-360°范围内的色相值，例如： <b>140</b> （在HSV颜色模型的范围内，S和V分别固定为45%和65%）.</li>
-        <li>颜色关键词，如： <b>aqua</b>, <b>black</b>, <b>blue</b>, <b>fuchsia</b>, <b>gray</b>, <b>green</b>, <b>lime</b>, <b>maroon</b>, <b>navy</b>, <b>olive</b>, <b>purple</b>, <b>red</b>, <b>silver</b>, <b>teal</b>, <b>white</b> 和 <b>yellow</b></li>
+        <li>
+            十六进制三联体，如： <b>#f61</b> 或 <b>#f0562f</b>
+        </li>
+        <li>
+            在0°-360°范围内的色相值，例如： <b>140</b> （在HSV颜色
+            模型的范围内，S和V分别固定为45%和65%）。
+        </li>
+        <li>
+            颜色关键词，如： <b>aqua</b>, <b>black</b>, <b>blue</b>, 
+            <b>fuchsia</b>, <b>gray</b>, <b>green</b>, <b>lime</b>, 
+            <b>maroon</b>, <b>navy</b>, <b>olive</b>, <b>purple</b>, 
+            <b>red</b>, <b>silver</b>, <b>teal</b>, <b>white</b> 和 
+            <b>yellow</b>
+        </li>
     </ul>
+
 
     [anchor:init_plug_available_puzzles]
 
     <h5>可用的拼图</h5>
 
     <div class="indented">
-    
-    <p>要使一个拼图模块在插件的工具箱类目中可用，应该通过*block*元素和其*type*属性来指定。*type*属性可以参考以下拼图。</p>
+    <p>
+        要使一个拼图模块在插件的工具箱类目中可用，
+        应该通过 *block* 元素和其 *type* 属性来指定。
+        *type*属性可以参考以下拼图：
+    </p>
 
     <ul>
-    <li id="available_puzzles_plugin">由插件自己定义的拼图——在这种情况下， *type* 应该根据您的插件目录中相应的.block文件的名称来设置（例如，*myPuzzle* 表示block文件*my_awesome_plugin/myPuzzle.block*) 
-
-    <code>
+        <li id="available_puzzles_plugin">
+            由插件自己定义的拼图——在这种情况下， 
+            *type* 应该根据您的插件目录中相应的 .block 
+            文件的名称来设置（例如，*myPuzzle* 表示block文
+            件 *my_awesome_plugin/myPuzzle.block* ) 
+            <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
     &lt;block type="myPuzzle"&gt;&lt;/block&gt;
 &lt;/category&gt;
-    </code>
-
-    </li>
-    
-    <li id="available_puzzles_stock">库存拼图模块 - *type*应该等于库存拼图的类型（例如：*math_number*）。这样就可以直接在您的插件的工具箱类目中添加库存拼图。 
-
-    <code>
+            </code>
+        </li>
+        <li id="available_puzzles_stock">
+            库存拼图模块 - *type*应该等于
+            库存拼图的类型（例如：*math_number*）。
+            这样就可以直接在您的插件的工具箱类目中添加
+            库存拼图。 
+            <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
     &lt;block type="math_number"&gt;&lt;/block&gt;
 &lt;/category&gt;
-    </code>
-
-    </li>
-    <li>由其他插件定义的拼图——*type*应该是*PLUGIN_DIRECTORY_NAME/PUZZLE_TYPE*的形式。例如，标准的 <a href="manual/zh/puzzles/ECommerce.html">电子商务</a> 插件的拼图可以这样引用： 
-
-    <code>
-&lt;category name="My Awesome Plugin" color="green"&gt;
-    &lt;block type="E-Commerce/placeOrder"&gt;&lt;/block&gt;
-&lt;/category&gt;
-    </code>
-
-</li>
+            </code>
+        </li>
+        <li>
+            由其他插件定义的拼图—— *type* 应该
+            是 *PLUGIN_DIRECTORY_NAME/PUZZLE_TYPE* 的
+            形式。例如，标准的 <a href="manual/zh/puzzles/ECommerce.html">电子
+            商务</a> 插件的拼图可以这样引用： 
+            <code>
+    &lt;category name="My Awesome Plugin" color="green"&gt;
+        &lt;block type="E-Commerce/placeOrder"&gt;&lt;/block&gt;
+    &lt;/category&gt;
+            </code>
+        </li>
     </ul>
 
-    <p id="puzzle-xml-tree">为查找出某个拼图模块的类型，您可以使用拼图上下文菜单中的 "Print Puzzle XML Tree(打印拼图XML树)" 选项：</p>
-      
-    <img src="files/puzzles/puzzles-plugins-print-puzzle-xml-tree.png" class="width-clear border-gray"><p>该菜单选项可将拼图的XML树打印到浏览器控制台。您可以在其中找到拼图类型以及整个XML结构，可用于在设置 <a href="manual/zh/puzzles/Plugins.html#init_plug_default_input_field_values">默认的输入和字段值</a> 时参考。</p>
-      
-    <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree.png" class="width-clear border-gray"><p>"Print Puzzle XML Tree(打印拼图XML树)" 菜单选项提供了一个简单的方法，可以一次性将一整组拼图模块添加到您的插件中。这样便于您创建某种由相连的拼图模块组成的 "代码片段(snippets)" 并将其放入插件中。这使得它有点类似于 <a href="manual/zh/puzzles/Library.html">拼图库</a> 。<p>下面的示例解释了如何执行这一操作：</p>
-            <ul>
-                <li>在拼图编辑器中创建一些拼图模块：<br/> <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-1.png" class="width-clear border-gray"></li>
-                <li>用鼠标右键点击最上面或最外部的模块，选择 "Print Puzzle XML Tree(打印拼图XML树)" ：<br/> <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-2.png" class="width-clear border-gray"></li>
-                <li>进入浏览器控制台，复制打印出来的内容（下面是在谷歌Chrome浏览器中的截图）：<br/> <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-3.png" class="width-clear border-gray"></li>
-                <li>把它粘贴到*init.plug*文件中的 <b>"category"</b> 元素内，并保存该文件：<br/> <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-4.png" class="width-clear border-gray"></li>
-                <li>然后重新加载拼图编辑器，您所复制的模块就会出现在插件的类目中。</li>
-            </ul>
+    <p id="puzzle-xml-tree">
+        为查找出某个拼图模块的类型，您可以使用拼图上下文
+        菜单中的 "Print Puzzle XML Tree(打印拼图XML树)" 选项：
+    </p>
+    <img src="files/puzzles/puzzles-plugins-print-puzzle-xml-tree.png" class="width-clear border-gray">
+    
+    <p>
+        该菜单选项可将拼图的XML树打印到
+        浏览器控制台。您可以在其中找到拼图类型
+        以及整个XML结构，可用于在设置 <a href="manual/zh/puzzles/Plugins.html#init_plug_default_input_field_values">默认的
+        输入和字段值</a> 时参考。
+    </p>
+    <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree.png" class="width-clear border-gray">
+    
+    <p>
+        "Print Puzzle XML Tree(打印拼图XML树)" 菜单选项
+        提供了一个简单的方法，可以一次性将一整组拼图模块添
+        加到您的插件中。这样便于您创建某种由相连的拼图模块
+        组成的 "代码片段(snippets)" 并将其放入插件中。这使
+        得它有点类似于 <a href="manual/zh/puzzles/Library.html">拼图库</a> 。
+        
+        <p>
+            下面的示例解释了如何执行这一操作：
+        </p>
+        <ul>
+            <li>
+                在拼图编辑器中创建一些拼图模块：<br/>
+                <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-1.png" class="width-clear border-gray">
+            </li>
+            <li>
+                用鼠标右键点击最上面或最外部的模块，
+                选择 "Print Puzzle XML Tree(打印拼图XML树)" ：<br/>
+                <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-2.png" class="width-clear border-gray">
+            </li>
+            <li>
+                进入浏览器控制台，复制打印出来的
+                内容（下面是在谷歌Chrome浏览器中的截图）：<br/>
+                <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-3.png" class="width-clear border-gray">
+            </li>
+            <li>
+                把它粘贴到*init.plug*文件中的 <b>"category"</b> 元素内，
+                并保存该文件：<br/>
+                <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree-step-4.png" class="width-clear border-gray">
+            </li>
+            <li>
+                然后重新加载拼图编辑器，您所复制的模块
+                就会出现在插件的类目中。
+            </li>
+        </ul>
         </p>
     </div>
+
 
     [anchor:init_plug_puzzles_order]
 
     <h5>拼图顺序</h5>
 
-    <p class="indented">拼图模块按照您在*init.plug*文件中定义的顺序在工具箱中排列。 
-
+    <p class="indented">
+        拼图模块按照您在*init.plug*文件中
+        定义的顺序在工具箱中排列。 
     <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;&lt;/block&gt;
@@ -146,15 +258,20 @@
         &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
 &lt;/category&gt;
     </code>
+     <img src="files/puzzles/puzzles-plugins-block-order.jpg" style="max-width: 523px"></br>
+     注意，被注释掉的拼图模块 "testPuzzle" 并没有显示在
+     工具箱中。
+    </p>
 
- <img src="files/puzzles/puzzles-plugins-block-order.jpg" style="max-width: 523px"></br> 注意，被注释掉的拼图模块 "testPuzzle" 并没有显示在工具箱中。</p>
 
     [anchor:init_plug_text_labels]
 
     <h5>文本标签</h5>
 
     <div class="indented">
-        <p>您可以通过*label*元素将文本标签添加到工具箱类目中：</p>
+        <p>
+            您可以通过*label*元素将文本标签添加到工具箱类目中：
+        </p>
 
         <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
@@ -167,24 +284,66 @@
 &lt;/category&gt;
         </code>
 
- <img src="files/puzzles/puzzles-plugins-label-elements.jpg" style="max-width: 523px"></br><p class="note">*label*元素不适合显示多行文本，即不会换行。</p>
+ <img src="files/puzzles/puzzles-plugins-label-elements.jpg" style="max-width: 523px"></br>
+ 
+ <p class="note">
+    *label*元素不适合显示多行文本，
+    即不会换行。
+</p>
 
-        <p>*label*元素也可以在一定程度上定义样式。它们支持*web-class*属性，可用于为*label*元素分配自定义的CSS类。该类的CSS规则可以在*init.plug*的*script*部分定义。下方示例描述了实现方式：</p>
-<code>
-&lt;category name=&quot;Example Plugin&quot; color=&quot;#a52a2a&quot;&gt;&lt;label text=&quot;Example Plugin v1.0 by Soft8Soft&quot; web-class=&quot;example-plugin__label&quot;&gt;&lt;/label&gt;&lt;/category&gt;&lt;script&gt; const styleElem = document.createElement(&apos;style&apos;); styleElem.innerHTML = ` .example-plugin__label .blocklyFlyoutLabelText { fill: #a52a2a; font-style: italic; font-weight: bold; text-decoration: underline; } `; document.head.appendChild(styleElem); &lt;/script&gt;
-</code>
-<p>这是应用自定义CSS规则后的样子：</p>
-      
-    <img src="files/puzzles/puzzles-plugins-label-elements-styled.png" class="width-clear"><p class="note">在为*web-class*属性规划CSS类名时，建议考虑限定CSS范围。例如使用拼图插件名作为专有前缀：在上面的例子中使用了 "example-plugin__label" 类的 "example-plugin" 部分作为前缀。这样，意外破坏页面中已经使用的CSS类的可能性就很小了。</p>
+        <p>
+            *label*元素也可以在一定程度上定义样式。
+            它们支持 *web-class* 属性，可用于为 *label* 元素
+            分配自定义的CSS类。该类的CSS规则可以
+            在 *init.plug* 的 *script* 部分定义。
+            下方示例描述了实现方式：
+        </p>
+
+        <code>
+            &lt;category name="Example Plugin" color="#a52a2a"&gt;
+                &lt;label text="Example Plugin v1.0 by Soft8Soft" web-class="example-plugin__label"&gt;&lt;/label&gt;
+            &lt;/category&gt;
+        
+            &lt;script&gt;
+            const styleElem = document.createElement('style');
+            styleElem.innerHTML = `
+                .example-plugin__label .blocklyFlyoutLabelText {
+                    fill: #a52a2a;
+                    font-style: italic;
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            `;
+            document.head.appendChild(styleElem);
+            &lt;/script&gt;
+                </code>
+
+<p>
+    这是应用自定义CSS规则后的样子：
+</p>
+<img src="files/puzzles/puzzles-plugins-label-elements-styled.png" class="width-clear">
+
+<p class="note">
+    在为*web-class*属性规划CSS类名时，
+    建议考虑限定CSS范围。例如使用拼图插
+    件名作为专有前缀：在上面的例子中使用
+    了 "example-plugin__label" 类的 "example-plugin" 部
+    分作为前缀。这样，意外破坏页面中已经
+    使用的CSS类的可能性就很小了。
+</p>
     </div>
+
 
     [anchor:init_plug_separator_elements]
 
     <h5>分隔符</h5>
 
-    <p class="indented">分隔符可以用来改变拼图模块之间的距离。您可以通过*sep*元素在工具箱类目中添加分隔符。*gap*属性指定了间隙的宽度，单位为像素。不使用*sep*时，模块之间的默认距离等于24像素。 
-
-    <code>
+    <p class="indented">
+        分隔符可以用来改变拼图模块之间的距离。
+        您可以通过*sep*元素在工具箱类目中添加分隔符。
+        *gap*属性指定了间隙的宽度，单位为像素。
+        不使用*sep*时，模块之间的默认距离等于24像素。 
+        <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;&lt;/block&gt;
         &lt;sep gap="0"&gt;&lt;/sep&gt;
@@ -193,15 +352,28 @@
         &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
 &lt;/category&gt;
     </code>
+    <img src="files/puzzles/puzzles-plugins-sep-elements.jpg" style="max-width: 523px"></br>
+</p>
 
- <img src="files/puzzles/puzzles-plugins-sep-elements.jpg" style="max-width: 523px"></br></p>
 
-    [anchor:init_plug_available_puzzles_init]
+[anchor:init_plug_available_puzzles_init]
 
     <h5>在 "init" 初始化标签中可用的拼图模块</h5>
 
-    <p class="indented">默认情况下，拼图模块只在*main*和用户创建的选项卡中可用，在*init(初始化)*选项卡中不可用。这是因为*init*选项卡所产生的代码是在Verge3D应用被加载与完全初始化之前执行的。这意味着那些预期用于3D场景、3D对象、材质的拼图并不适合在*init*中使用，如果使用会导致应用崩溃。但是，对于不作用于3D场景的拼图应该不会有这样的问题。例如，可以在*init*中使用预加载资源拼图或设置用户界面的拼图。<br/><br/>如果需要让拼图模块出现在*init*标签的工具箱中，您需要在拼图的*block*元素中设置*allow-init*属性为*true*（这也适用于*label*和*sep*元素）。 
-
+    <p class="indented">默认情况下，拼图模块
+        只在*main*和用户创建的选项卡中可用，
+        在*init(初始化)*选项卡中不可用。这是
+        因为*init*选项卡所产生的代码是在Verge3D应用
+        被加载与完全初始化之前执行的。这意味着那些
+        预期用于3D场景、3D对象、材质的拼图并不适合
+        在*init*中使用，如果使用会导致应用崩溃。
+        但是，对于不作用于3D场景的拼图应该不会有这样的问题。
+        例如，可以在*init*中使用预加载资源拼图
+        或设置用户界面的拼图。<br/><br/>
+        
+        如果需要让拼图模块出现在*init*标签的工具箱中，
+        您需要在拼图的*block*元素中设置*allow-init*属性
+        为*true*（这也适用于*label*和*sep*元素）。 
     <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;label text="My Awesome Plugin v1.0" allow-init="true"&gt;&lt;/label&gt;
@@ -212,15 +384,28 @@
         &lt;block type="anotherPuzzle"&gt;&lt;/block&gt;
 &lt;/category&gt;
     </code>
+ <img src="files/puzzles/puzzles-plugins-allow-init.jpg" style="max-width: 523px"></br>
+ 注意，没有*allow-init*的*block*和*label*元素是
+ 不会显示在工具箱中的。
+</p>
 
- <img src="files/puzzles/puzzles-plugins-allow-init.jpg" style="max-width: 523px"></br> 注意，没有*allow-init*的*block*和*label*元素是不会显示在工具箱中的。</p>
 
-    [anchor:init_plug_default_input_field_values]
+[anchor:init_plug_default_input_field_values]
 
     <h5>默认的输入和字段值</h5>
 
-    <p class="indented">如果一个拼图模块有模块输入和/或字段输入，那么您可以指定它们的占位模块和/或默认值。模块输入即连接其他拼图模块的插槽，字段输入即不以拼图模块为形态的UI元素，如选择器、复选框、文本字段等.这个功能有两个目的：为用户提供提示，告诉他们可以插入哪些类型的模块到输入插槽中，同时也可快速调用拼图模块。<br/><br/>比方说，您的拼图模块有一个名为 "myNumber" 的输入。这里您可以添加一个*math_number*类型的占位符模块插入该槽。
-
+    <p class="indented">
+        如果一个拼图模块有模块输入和/或字段输入，
+        那么您可以指定它们的占位模块和/或默认值。
+        模块输入即连接其他拼图模块的插槽，字段输入
+        即不以拼图模块为形态的UI元素，如选择器、复
+        选框、文本字段等.这个功能有两个目的：为用户
+        提供提示，告诉他们可以插入哪些类型的模块到
+        输入插槽中，同时也可快速调用拼图模块。<br/><br/>
+        
+        比方说，您的拼图模块有一个名为 "myNumber" 的
+        输入。这里您可以添加一个*math_number*类型的
+        占位符模块插入该槽。
     <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
     &lt;block type="myPuzzle"&gt;
@@ -229,10 +414,21 @@
             &lt;/value&gt;
         &lt;/block&gt;
 &lt;/category&gt;
-    </code>        
+    </code>
+     其外观如下：<br/>
+ <img src="files/puzzles/puzzles-plugins-default-value-input.jpg" style="max-width: 523px"><br/><br/>
 
- 其外观如下：<br/> <img src="files/puzzles/puzzles-plugins-default-value-input.jpg" style="max-width: 523px"><br/><br/> 插入输入插槽的占位符模块也可以是一个*shadow(影子)*模块。*shadow*模块与普通模块基本相同，但它们可被您插入到相应输入插槽中的模块自动替换，当您从插槽中移除该模块时，它们又会自动出现。这使得*shadow*模块比普通的占位符模块更容易使用。<br/><br/>*shadow*模块的定义方式与普通占位符模块几乎相同，唯一的区别是*block*元素被类似的*shadow*元素所取代。
-
+ 插入输入插槽的占位符模块也可以
+ 是一个*shadow(影子)*模块。*shadow*模
+ 块与普通模块基本相同，但它们可被您插入
+ 到相应输入插槽中的模块自动替换，当您从
+ 插槽中移除该模块时，它们又会自动出现。
+ 这使得*shadow*模块比普通的占位符模块
+ 更容易使用。<br/><br/>
+ 
+ *shadow*模块的 定义方式与普通占位符
+ 模块几乎相同，唯一 的区别是*block*元素
+ 被类似的*shadow*元素 所取代。
     <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
     &lt;block type="myPuzzle"&gt;
@@ -242,9 +438,13 @@
     &lt;/block&gt;
 &lt;/category&gt;
     </code>
+ 它看起来会是这样的：<br/>
+ <img src="files/puzzles/puzzles-plugins-default-value-input-shadow.jpg" style="max-width: 523px"><br/><br/>
  
-它看起来会是这样的：<br/> <img src="files/puzzles/puzzles-plugins-default-value-input-shadow.jpg" style="max-width: 523px"><br/><br/> 拼图模块可以有语句输入，这些输入通常包裹着一系列的子拼图模块。比方说，您的拼图模块有一个名为 "myStatement" 的语句输入，那么您可以在这个输入中添加几个占位符模块，如下所示：
-
+ 拼图模块可以有语句输入，这些输入通常
+ 包裹着一系列的子拼图模块。比方说，您
+ 的拼图模块有一个名为 "myStatement" 的
+ 语句输入，那么您可以在这个输入中添加几个占位符模块，如下所示：
     <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;
@@ -258,9 +458,15 @@
         &lt;/block&gt;
 &lt;/category&gt;
     </code>
-
- 这里使用的*statement*元素通过*name*属性引用 "myStatement" 输入，并在输入中添加了一些占位符模块。另外，这里还使用了*next*元素，用于链接一系列的占位符模块。这个设置的结果如下所示：<br/> <img src="files/puzzles/puzzles-plugins-default-value-statement.jpg" style="max-width: 735px"><br/><br/> 如果您的拼图模块有一个名为 "myCheckbox" 的复选框字段，那么您可以像这样定义它的默认状态（*true* - 启用，*false* - 禁用）：
-
+    这里使用的*statement*元素通过*name*属性
+    引用 "myStatement" 输入，并在输入中添加
+    了一些占位符模块。另外，这里还使用了*next*元素，
+    用于链接一系列的占位符模块。这个设置的结果如下所示：<br/>
+    <img src="files/puzzles/puzzles-plugins-default-value-statement.jpg" style="max-width: 735px"><br/><br/>
+    
+    如果您的拼图模块有一个名为 "myCheckbox" 的复选框字段，
+    那么您可以像这样定义它的默认状态（*true* - 启用，
+    *false* - 禁用）：
     <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;
@@ -268,10 +474,17 @@
         &lt;/block&gt;
 &lt;/category&gt;
     </code>
+ 结果如下：<br/>
+ <img src="files/puzzles/puzzles-plugins-default-dummy-input.jpg" style="max-width: 523px"><br/><br/>
+ 
+ <span id="default_input_values_compound"></span>
+ 通过使用占位符模块和默认字段值，您可
+ 以定义 复杂的复合拼图， 类似于可以
+ 添加 到 <a href="manual/zh/puzzles/Library.html#using_entries"> 拼图库</a>中的内容：
+ <img src="files/puzzles/puzzles-plugins-compound-puzzle.jpg" style="max-width: 600px"><br/>
 
- 结果如下：<br/> <img src="files/puzzles/puzzles-plugins-default-dummy-input.jpg" style="max-width: 523px"><br/><br/> <span id="default_input_values_compound"></span> 通过使用占位符模块和默认字段值，您可以定义复杂的复合拼图，类似于可以添加到 <a href="manual/zh/puzzles/Library.html#using_entries">拼图库</a>中的内容： <img src="files/puzzles/puzzles-plugins-compound-puzzle.jpg" style="max-width: 600px"><br/>上图中复杂拼图设置的*init.plug*的代码示例如下： 
-
-
+ 上图中复杂拼图设置的*init.plug*的代码
+ 示例如下： 
     <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;
@@ -311,17 +524,27 @@
     </code>
 
 <div class="indented">
-            <p class="note">查看 <a href="manual/zh/puzzles/Plugins.html#puzzle-xml-tree"> "Print Puzzle XML Tree(打印拼图XML树)" </a> 上下文菜单选项。它有助于您找出感兴趣的拼图模块的XML结构（输入和字段的配置）。</p>
+            <p class="note">
+                查看 <a href="manual/zh/puzzles/Plugins.html#puzzle-xml-tree"> "Print Puzzle XML Tree(打印拼图XML树)" </a>
+                上下文菜单选项。它有助于您找出感兴趣的
+                拼图模块的XML结构（输入和字段的配置）。
+            </p>
         </div>
     </p>
+
 
     [anchor:init_plug_toolbox_subcategories]
 
     <h5>工具箱内的子类目</h5>
 
-    <p class="indented">在编辑器的工具箱中，一个类目可以有子类目，而子类目也可以有子类目，以此类推...如果您想把插件拼图组织成一个树状结构，可以使用此功能。<br/><br/>通过嵌套*category*元素来实现： 
-
-    <code>
+    <p class="indented">
+        在编辑器的工具箱中，一个
+        类目可以有子类目，而子类目
+        也可以有子类目，以此类推...
+        如果您想把插件拼图组织成一个树状结构，
+        可以使用此功能。<br/><br/>通过
+        嵌套*category*元素来实现： 
+        <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
         &lt;block type="myPuzzle"&gt;&lt;/block&gt;
         &lt;category name="1" color="red"&gt;
@@ -334,16 +557,29 @@
         &lt;/category&gt;
 &lt;/category&gt;
     </code>
+ <img src="files/puzzles/puzzles-plugins-subcategories.jpg" style="max-width: 523px"><br/>
+ 任何*category*都可以同时包含 *category* 和 *block* 元素
+ （但这不是强制性的）。这样在一个父级类目中可
+ 同时包含拼图模块和子类目。
+</p>
 
- <img src="files/puzzles/puzzles-plugins-subcategories.jpg" style="max-width: 523px"><br/> 任何*category*都可以同时包含*category*和*block*元素（但这不是强制性的）。这样在一个父级类目中可同时包含拼图模块和子类目。</p>
 
     [anchor:init_plug_script]
 
     <h4>脚本</h4>
 
-    <p><b>&lt;script&gt;</b> 元素是*init.plug*的一个可选的部分。它可以用来为拼图模块添加一些初始化代码。有时候，在您的拼图被使用之前，您可能需要进行繁重的计算和缓存一些数据——这就是 <b>&lt;script&gt;</b> 的作用。</p>
+    <p>
+        <b>&lt;script&gt;</b> 元素是 *init.plug* 的一个可选的部分。
+        它可以用来为拼图模块添加一些初始化代码。
+        有时候，在您的拼图被使用之前，您可能需要
+        进行繁重的计算和缓存一些数据——这
+        就是 <b>&lt;script&gt;</b> 的作用。
+    </p>
 
-    <p>如果您在 <b>&lt;script&gt;</b> 中定义了一个*code()*函数，它将被用来生成代码，并在所有拼图之前执行一次。这个*code()*函数会返回一个包含javascript代码的字符串。 
+    <p>
+        如果您在 <b>&lt;script&gt;</b> 中定义了一个 *code()* 函数，
+        它将被用来生成代码，并在所有拼图之前执行一次。这个 *code()* 函数
+        会返回一个包含javascript代码的字符串。 
 
     <code>
 &lt;script&gt;
@@ -353,19 +589,33 @@ function code() {
 }
 &lt;/script&gt;
     </code>
-
 </p>
 
-    <p class="note">由*code()*函数返回的初始化代码只有在该插件的拼图在应用中被实际使用时，才会被添加到生成的逻辑文件中（被添加到工作区且未被禁用）。</p>
+    <p class="note">
+        由 *code()* 函数返回的初始化代码
+        只有在该插件的拼图在应用中被实际使用时，
+        才会被添加到生成的逻辑文件中（被添加到工作区且未被禁用）。
+    </p>
+
 
     [anchor:block_file_format]
 
     <h3>.block文件格式</h3>
 
-    <p>以 <b>.block</b> 为扩展名的插件文件是用来定义单个拼图模块的，特别是定义一个拼图模块的外观以及它在添加到工作区时应该产生的代码。一个插件可以没有 <b>.block</b> 文件。如果您想创建一个只有 <a href="manual/zh/puzzles/Plugins.html#available_puzzles_stock">库存</a> 拼图模块的工具箱类目（可以包含 <a href="manual/zh/puzzles/Plugins.html#default_input_values_compound">更复杂的模块设置</a>），可使用此方法。<br/><br/>一个 <b>.block</b> 文件的名称被用来指示哪些拼图模块应该被 <a href="manual/zh/puzzles/Plugins.html#available_puzzles_plugin">包含在插件的工具箱类目</a> 中。</p>
+    <p>
+        以 <b>.block</b> 为扩展名的插件文件是用来定义
+        单个拼图模块的，特别是定义一个拼图模块的外观以
+        及它在添加到工作区时应该产生的代码。一个插件可以
+        没有 <b>.block</b> 文件。如果您想创建一个只有 <a href="manual/zh/puzzles/Plugins.html#available_puzzles_stock">库存</a> 拼图
+        模块的工具箱类目（可以包含 <a href="manual/zh/puzzles/Plugins.html#default_input_values_compound">更复杂的模块设置</a>），
+        可使用此方法。<br/><br/>
+        
+        一个 <b>.block</b> 文件的名称被用来指示哪些拼图模块
+        应该被 <a href="manual/zh/puzzles/Plugins.html#available_puzzles_plugin">包含在插件的工具箱类目</a> 中。
+    </p>
 
-    <p>下面是一个 <b>.block</b> 文件的最小化实例。 
-
+    <p>
+        下面是一个 <b>.block</b> 文件的最小化实例。 
     <code>
 &lt;template color="green"&gt;
         &lt;dummy&gt;
@@ -379,14 +629,32 @@ function code() {
     }
 &lt;/script&gt;
     </code>
+这里我们有一个 <b>&lt;template&gt;</b> 元素，
+定义了拼图模块的外观。还有一个 <b>&lt;script&gt;</b> 元素，
+里面有一个 *code()* 函数。这个 *code()* 函数返回
+一个字符串，其中包含将生成的代码，
+以代替这个拼图。<br/><br/>
 
- 这里我们有一个 <b>&lt;template&gt;</b> 元素，定义了拼图模块的外观。还有一个 <b>&lt;script&gt;</b> 元素，里面有一个 *code()* 函数。这个 *code()* 函数返回一个字符串，其中包含将生成的代码，以代替这个拼图。<br/><br/>因此，根据上面的实例，我们期望得到的简单拼图模块是绿色的，并且有一个 "myPuzzle" 文本标签。<br/> <img src="files/puzzles/puzzles-plugins-block-minimal-appearance.jpg" style="max-width: 523px"><br/><br/> 如果将其添加到工作区，它将会在浏览器控制台中打印出以下信息：<br/> <img src="files/puzzles/puzzles-plugins-block-minimal-console.jpg" style="max-width: 523px"><br/></p>
+因此，根据上面的实例，我们期望得到的
+简单拼图模块是绿色的，并且有一个 "myPuzzle" 文本标签。<br/>
+ <img src="files/puzzles/puzzles-plugins-block-minimal-appearance.jpg" style="max-width: 523px"><br/><br/>
+ 
+ 如果将其添加到工作区，它将会在浏览器
+ 控制台中打印出以下信息：<br/>
+<img src="files/puzzles/puzzles-plugins-block-minimal-console.jpg" style="max-width: 523px"><br/>
+</p>
+
 
     [anchor:block_file_template]
 
     <h4>Block模板</h4>
 
-    <p>拼图模块的外观可以通过两种方式定义：通过 <b>&lt;template&gt;</b> XML元素和通过 *template()* 函数。前者更简单易用。例如，一个典型拼图的 <b>&lt;template&gt;</b> 可以是这样的：</p>
+    <p>
+        拼图模块的外观可以通过两种方式定义：
+        通过 <b>&lt;template&gt;</b> XML元素和通过 *template()* 函数。
+        前者更简单易用。例如，一个典型
+        拼图的 <b>&lt;template&gt;</b> 可以是这样的：
+    </p>
     
     <code>
 &lt;template
@@ -413,7 +681,17 @@ function code() {
 &lt;/script&gt;
         </code>
     
-<p>另一种方法是使用 *template()* 函数。这是一个您可以在 <b>&lt;script&gt;</b> 元素内定义的函数。它也可以用来配置拼图的外观，但这次是通过 <a href="https://developers.google.com/blockly/reference/overview">Blockly JavaScript API</a> 而非XML元素与属性配置的。它会接收 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a> 实例型的*block*参数。<br/><br/>可以通过使用 *template()* 函数来重写上面实例中的模块，如下所示：</p>
+<p>
+    另一种方法是使用 *template()* 函数。
+    这是一个您可以在 <b>&lt;script&gt;</b> 元素内定义的函数。
+    它也可以用来配置拼图的外观，
+    但这次是通过 <a href="https://developers.google.com/blockly/reference/overview">Blockly JavaScript API</a> 而
+    非XML元素与属性配置的。
+    它会接收 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a> 实例型的*block*参数。<br/><br/>
+    
+    可以通过使用 *template()* 函数来重写上面实例中的模块，
+    如下所示：
+</p>
 
     <code>
 &lt;script&gt;
@@ -438,11 +716,27 @@ function code(block) {
 &lt;/script&gt;
     </code>
 
-<p>这种方法更加灵活，但需要对相应的API有所了解。如果您需要做一些无法通过 <b>&lt;template&gt;</b> 元素实现的设置，可使用这种方法。此外，您可以同时使用 <b>&lt;template&gt;</b> 和 *template()* 。</p>
+<p>
+    这种方法更加灵活，但需要对相应的API有所了解。
+    如果您需要做一些无法通过 <b>&lt;template&gt;</b> 元素
+    实现的设置，可使用这种方法。
+    此外，您可以同时
+    使用 <b>&lt;template&gt;</b> 和 *template()* 。
+</p>
 
-    <p class="note">本节提供了 <b>&lt;template&gt;</b> （*XML*）和 *template()*(*JS*)两种变体的示例。</p>
+    <p class="note">
+        本节提供了 <b>&lt;template&gt;</b> （*XML*）
+        和 *template()*(*JS*)两种变体的示例。
+    </p>
 
-    <p class="note">请注意，本节只是简要介绍了如何创建一个自定义拼图模块。关于进行常规定制的详细介绍，请查看谷歌Blockly关于 <a href="https://developers.google.com/blockly/guides/create-custom-blocks/overview">自定义模块</a> 和 <a href="https://developers.google.com/blockly/guides/create-custom-blocks/fields/overview">字段</a> 的文档。</p>
+    <p class="note">
+        请注意，本节只是简要介绍了如何创建一个
+        自定义拼图模块。
+        关于进行常规定制的详细介绍，
+        请查看谷歌Blockly关于 <a href="https://developers.google.com/blockly/guides/create-custom-blocks/overview">自定义模块</a> 
+        和 <a href="https://developers.google.com/blockly/guides/create-custom-blocks/fields/overview">字段</a> 的文档。
+    </p>
+
 
     [anchor:block_file_template_block_color]
 
@@ -450,20 +744,21 @@ function code(block) {
 
     <div class="indented">
 
-        <p>您可以设置拼图模块的颜色，使其外观更加独特。</p>
-      
-    <img src="files/puzzles/puzzles-plugins-template-color.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+        <p>您可以设置拼图模块的颜色，使其外观更加独特。</p>      
+    <img src="files/puzzles/puzzles-plugins-template-color.png" class="width-clear border-gray">
+    
+    <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>可以通过 *color* 属性来设置。 
-    <code>
+            <div>
+                可以通过 *color* 属性来设置。
+                <code>
 &lt;template color=&quot;green&quot;&gt;&lt;/template&gt;
     </code>
-
 </div>
 
             <label>JS</label>
-            <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setColour">block.setColor</a> 来设置。 
-        
+            <div>
+                可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setColour">block.setColor</a> 来设置。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -471,32 +766,42 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
 
-        <p>颜色必须是这里描述的格式之一： <a href="manual/zh/puzzles/Plugins.html#color_formats">颜色格式</a>。</p>
+        <p>
+            颜色必须是这里描述的格式之一： 
+            <a href="manual/zh/puzzles/Plugins.html#color_formats">颜色格式</a>。
+        </p>
     </div>
+
 
     [anchor:block_file_template_block_tooltip]
 
     <h5>Block的工具提示</h5>
 
     <div class="indented">
-        <p>您可以添加一个工具提示，当把鼠标悬停在一个模块上面时就会出现。工具提示用于向用户提供简单的描述，如拼图的用途，作用方式的，有哪些使用提示等等。</p>
+        <p>
+            您可以添加一个工具提示，当把鼠标
+            悬停在一个模块上面时就会出现。工具
+            提示用于向用户提供简单的描述，如拼图
+            的用途，作用方式的，有哪些使用提示等等。
+        </p>
       
-    <img src="files/puzzles/puzzles-plugins-template-tooltip.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    <img src="files/puzzles/puzzles-plugins-template-tooltip.png" class="width-clear border-gray">
+    
+    <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>可以通过 *tooltip* 属性来设置。 
-
+            <div>
+                可以通过 *tooltip* 属性来设置。 
     <code>
 &lt;template tooltip="This is my first puzzle!"&gt;&lt;/template&gt;
     </code>
-
 </div>
 
             <label>JS</label>
-            <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setTooltip">block.setTooltip</a> 来设置。 
+            <div>
+                可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setTooltip">block.setTooltip</a> 来设置。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -504,10 +809,10 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
     </div>
+
 
     [anchor:block_file_template_block_help_url]
 
@@ -515,20 +820,27 @@ function template(block) {
 
     <div class="indented">
 
-        <p>如果 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_tooltip">工具提示</a> 不足以记录拼图描述，您也可以为其添加一个链接，指向一个有更详尽文档说明的网页。此链接将被用于拼图上下文菜单中的*帮助*条目（在拼图上点击右键）：</p>
+        <p>
+            如果 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_tooltip">工具提示</a> 不足
+            以记录拼图描述，您也可以为其添加一个链接，
+            指向一个有更详尽文档说明的网页。此链接
+            将被用于拼图上下文菜单中的*帮助*条目（在拼图上点击右键）：
+        </p>
       
-    <img src="files/puzzles/puzzles-plugins-template-helpurl.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    <img src="files/puzzles/puzzles-plugins-template-helpurl.png" class="width-clear border-gray">
+    
+    <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>可以通过 *help* 属性设置。 
+            <div>
+                可以通过 *help* 属性设置：
     <code>
 &lt;template help="https://www.soft8soft.com/"&gt;&lt;/template&gt;
     </code>
-
 </div>
 
             <label>JS</label>
-            <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setHelpUrl">block.setHelpUrl</a> 来设置。 
-
+            <div>
+                可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setHelpUrl">block.setHelpUrl</a> 来设置。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -536,29 +848,61 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
     </div>
+
 
     [anchor:block_file_template_block_adding_inputs]
 
     <h5>添加输入插槽</h5>
 
     <div class="indented">
-        <p>拼图模块可以包含输入插槽来插入其他模块。它们也可以使用非模块的UI元素，如复选框或文本字段。有3种不同类型的输入：*value input*，*statement inputs*和*dummy inputs*。<ul>
-                <li id="adding_inputs_value">*value input* - 可用于插入具有返回值（输出连接）模块的输入插槽，例如，带有一些数学模块的输入——数学模块会计算并返回数值，可由父模块（包含输入插槽的模块）访问。</li>
-                <li id="adding_inputs_statement">*statement input* - 可用于插入一组代表一系列连续动作的模块的输入，例如 <a href="manual/zh/puzzles/Logic.html#if_else">if-else</a> 拼图就有这种类型的输入，用于在 "if" 或 "else" 条件下将拼图模块分组。</li>
-                <li id="adding_inputs_dummy">*dummy inputs* - 此类输入插槽只适用于添加非模块式的用户界面元素，如复选框、文本字段、图片等。更多信息见 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">添加字段</a> 。</li>
+        <p>
+            拼图模块可以包含输入插槽来插入其他模块。
+            它们也可以使用非模块的UI元素，
+            如复选框或文本字段。
+            有3种不同类型的输入： *value input* ， *statement inputs* 和 *dummy inputs* 。
+            
+            <ul>
+                <li id="adding_inputs_value">
+                    *value input* - 可用于插入具有
+                    返回值（输出连接）模块的输入插槽，
+                    例如，带有一些数学模块的输入——数学
+                    模块会计算并返回数值，可由父模块
+                    （包含输入插槽的模块）访问。
+                </li>
+                <li id="adding_inputs_statement">
+                    *statement input* - 可用于插入
+                    一组代表一系列连续动作的模块的输入，
+                    例如 <a href="manual/zh/puzzles/Logic.html#if_else">if-else</a> 拼图
+                    就有这种类型的输入，
+                    用于在 "if" 或 "else" 条件下将拼图模块分组。
+                </li>
+                <li id="adding_inputs_dummy">
+                    *dummy inputs* - 此类输入插槽
+                    只适用于添加非模块式的用户界面元素，
+                    如复选框、文本字段、图片等。
+                    更多信息见 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">添加字段</a> 。
+                </li>
             </ul>
         </p>
 
-        <p>您可以在下图中看到这些类型的输入的区别。</p>
+        <p>
+            您可以在下图中看到这些类型的
+            输入的区别。
+        </p>
       
-    <img src="files/puzzles/puzzles-plugins-template-input-types.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    <img src="files/puzzles/puzzles-plugins-template-input-types.png" class="width-clear border-gray">
+    
+    <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>使用 <b>&lt;value&gt;</b> ， <b>&lt;statement&gt;</b> 和 <b>&lt;dummy&gt;</b> 等元素来添加输入。*value* 和 *statement* 输入必须有一个名称（使用它们的 *name* 属性）。*dummy* 输入通常不需要名字，它们只是 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">字段</a> 的容器。 
-
+            <div>
+                使用 <b>&lt;value&gt;</b> ， <b>&lt;statement&gt;</b> 和 <b>&lt;dummy&gt;</b> 等元素
+                来添加输入。*value* 和 *statement* 输入
+                必须有一个名称（使用它们的 *name* 属性）。
+                *dummy* 输入通常不需要名字，
+                它们只是 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">字段</a> 的容器。 
     <code>
 &lt;template&gt;
     &lt;value name="myInput"&gt;&lt;/value&gt;
@@ -570,11 +914,17 @@ function template(block) {
     &lt;/dummy&gt;
 &lt;/template&gt;
     </code>
-
 </div>
 
             <label>JS</label>
-            <div>使用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendValueInput">block.appendValueInput</a> , <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendStatementInput">block.appendStatementInput</a> 和 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendDummyInput">block.appendDummyInput</a> 方法来添加输入。*value* 和 *statement* 输入必须（通过*name*属性）被命名。*dummy* 输入通常不需要名字，它们只是 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">字段</a> 的容器。 
+            <div>
+                使用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendValueInput">block.appendValueInput</a> ,
+                 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendStatementInput">block.appendStatementInput</a> 
+                 和 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#appendDummyInput">block.appendDummyInput</a> 
+                 方法来添加输入。 *value* 和 *statement* 输入
+                必须（通过*name*属性）被命名。
+                *dummy* 输入通常不需要名字，
+                它们只是 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">字段</a> 的容器。 
         <code>
     &lt;script&gt;
     function template(block) {
@@ -587,30 +937,40 @@ function template(block) {
     }
     &lt;/script&gt;
         </code>
-
 </div>
         </v3d-tabs>
     </div>
+
 
     [anchor:block_file_template_arrangement_inputs]
 
     <h5>输入的排列</h5>
 
     <div class="indented">
-        <p>模块状输入可以垂直（默认）或水平排列。</p>
+        <p>
+            模块状输入可以垂直（默认）或
+            水平排列。
+        </p>
       
-    <img src="files/puzzles/puzzles-plugins-inputs-inline.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    <img src="files/puzzles/puzzles-plugins-inputs-inline.png" class="width-clear border-gray">
+    
+    <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>可以通过 *inline* 设置为 *true* 或 *false* 的属性。为 *false* 时使用垂直排列，为 *true* 时使用水平排列的变体。 
+            <div>
+                可以通过 *inline* 设置为 *true* 或 *false* 的属性。
+                为 *false* 时使用垂直排列，
+                为 *true* 时使用水平排列的变体。 
     <code>
 &lt;template inline=&quot;true&quot;&gt;&lt;/template&gt;
     </code>
-
 </div>
 
     <label>JS</label>
-    <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setInputsInline">block.setInputsInline</a> 方法设置。该方法可接收一个为 *true* 或 *false* 的参数。为 *false* 时使用垂直排列，为 *true* 时使用水平排列的变体。 
-
+    <div>
+        可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setInputsInline">block.setInputsInline</a> 
+        方法设置。该方法可接收
+        一个为 *true* 或 *false* 的参数。为 *false* 时使用垂直排列，
+        为 *true* 时使用水平排列的变体。 
         <code>
     &lt;script&gt;
     function template(block) {
@@ -618,35 +978,61 @@ function template(block) {
     }
     &lt;/script&gt;
         </code>
-
 </div>
         </v3d-tabs>
     </div>
+
 
     [anchor:block_file_template_adding_fields]
 
     <h5>添加字段</h5>
 
     <div class="indented">
-        <p>您可以在拼图中添加诸如文本标签、复选框、下拉列表、文本输入等UI元素。这些UI元素被称为 "fields(字段)" 。它们可被添加到任何类型的输入中，但如果您不想为拼图模块额外创建输入插槽，可一致使用 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy input</a> 输入。</p>
+        <p>
+            您可以在拼图中添加诸如文本标签、复选框、下拉列表、文本输入等UI元素。
+            这些UI元素被称为 "fields(字段)" 。
+            它们可被添加到任何类型的输入中，
+            如果您不想为拼图模块额外创建输入插槽，
+            可一致使用 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy input</a> 输入。
+        </p>
 
-        <p>所有字段都有几个共同点：<ul>
-                <li>可以指定一个可选的 *name* 参数，这通常用于在 <a href="manual/zh/puzzles/Plugins.html#block_file_code">code()</a> 函数中引用该字段，以获得该字段的值。</li>
-                <li>能够提供一个可选的默认值。如前所述，在*init.plug*的 <a href="manual/zh/puzzles/Plugins.html#init_plug_default_input_field_values">类目</a> 中指定的默认值始终比在拼图模板中定义的默认值具有更高的优先级。</li>
+        <p>
+            所有字段都有几个共同点：
+            <ul>
+                <li>
+                    可以指定一个可选的 *name* 参数，
+                    这通常用于在 <a href="manual/zh/puzzles/Plugins.html#block_file_code">code()</a> 函数中
+                    引用该字段，
+                    以获得该字段的值。
+                </li>
+                <li>
+                    能够提供一个可选的默认值。
+                    如前所述，在*init.plug*的 <a href="manual/zh/puzzles/Plugins.html#init_plug_default_input_field_values">类目</a> 中
+                    指定的默认值
+                    始终比在拼图模板中定义的默认值
+                    具有更高的优先级。
+                </li>
             </ul>
         </p>
 
-        <p>让我们来看看如何在拼图中添加各种字段。</p>
+        <p>
+            让我们来看看如何在拼图中添加各种字段。
+        </p>
     </div>
 
     <ul>
         <li>
             <p>label - 一个不可编辑的文本字段</p>
-      
-    <img src="files/puzzles/puzzles-plugins-field-text-label.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    
+            <img src="files/puzzles/puzzles-plugins-field-text-label.png" class="width-clear border-gray">
+    
+            <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
-                <div>可以通过 <b>&lt;label&gt;</b> 元素嵌套在 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> 、 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
-
+                <div>
+                    可以通过 <b>&lt;label&gt;</b> 元素嵌套在 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> 、 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
     <code>
 &lt;template&gt;
     &lt;dummy&gt;
@@ -654,11 +1040,16 @@ function template(block) {
     &lt;/dummy&gt;
 &lt;/template&gt;
     </code>
+</div>
 
                 <label>JS</label>
-                <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldLabel">Blockly.FieldLabel</a> 添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> ， <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
-
-    <code>
+                <div>
+                    可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法
+                    和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldLabel">Blockly.FieldLabel</a> 
+                    添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> ， 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
+                    <code>
 &lt;script&gt;
 function template(block) {
     block.appendDummyInput()
@@ -666,18 +1057,22 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
             </v3d-tabs>
         </li>
 
         <li>
             <p>text - 一个可编辑的文本字段</p>
-      
-    <img src="files/puzzles/puzzles-plugins-field-text.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    
+            <img src="files/puzzles/puzzles-plugins-field-text.png" class="width-clear border-gray">
+    
+            <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
-                <div>可以通过 <b>&lt;text&gt;</b> 元素嵌套在 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> ， <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
-
+                <div>
+                    可以通过 <b>&lt;text&gt;</b> 元素嵌套在 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> ， 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
     <code>
 &lt;template&gt;
     &lt;dummy&gt;
@@ -685,11 +1080,16 @@ function template(block) {
     &lt;/dummy&gt;
 &lt;/template&gt;
     </code>
+                </div>
 
                 <label>JS</label>
-                <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldTextInput">Blockly.FieldTextInput</a> 添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> ， <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
-
-    <code>
+                <div>
+                    可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 
+                    方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldTextInput">Blockly.FieldTextInput</a> 
+                    添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> ， 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
+                    <code>
 &lt;script&gt;
 function template(block) {
     block.appendDummyInput()
@@ -697,7 +1097,6 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
             </v3d-tabs>
         </li>
@@ -705,10 +1104,15 @@ function template(block) {
         <li>
             <p>multiline - 一个可编辑的多行文本字段</p>
       
-    <img src="files/puzzles/puzzles-plugins-field-text-multiline.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    <img src="files/puzzles/puzzles-plugins-field-text-multiline.png" class="width-clear border-gray">
+    
+    <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
-                <div>可以通过 <b>&lt;multiline&gt;</b> 元素嵌套在 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
-
+                <div>
+                    可以通过 <b>&lt;multiline&gt;</b> 元素嵌套在 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
     <code>
 &lt;template&gt;
     &lt;dummy&gt;
@@ -716,10 +1120,15 @@ function template(block) {
     &lt;/dummy&gt;
 &lt;/template&gt;
     </code>
+</div>
 
                 <label>JS</label>
-                <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldMultilineInput">Blockly.FieldMultilineInput</a> 添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
-
+                <div>
+                    可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 
+                    方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldMultilineInput">Blockly.FieldMultilineInput</a> 
+                    添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
     <code>
         &lt;script&gt;
         function template(block) {
@@ -728,18 +1137,22 @@ function template(block) {
         }
         &lt;/script&gt;
     </code>
-
 </div>
             </v3d-tabs>
         </li>
 
         <li>
             <p>number - 一个可编辑的数值字段</p>
-      
-    <img src="files/puzzles/puzzles-plugins-field-number.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+            
+            <img src="files/puzzles/puzzles-plugins-field-number.png" class="width-clear border-gray">
+            
+            <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
-                <div>可以通过 <b>&lt;number&gt;</b> 元素嵌套在 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
-
+                <div>
+                    可以通过 <b>&lt;number&gt;</b> 元素嵌套在 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
     <code>
         &lt;template&gt;
             &lt;dummy&gt;
@@ -747,12 +1160,15 @@ function template(block) {
             &lt;/dummy&gt;
         &lt;/template&gt;
     </code>
-
 </div>
 
                 <label>JS</label>
-                <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldNumber">Blockly.FieldNumber</a> 添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
-
+                <div>
+                    可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 
+                    方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldNumber">Blockly.FieldNumber</a> 
+                    添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -761,7 +1177,6 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
             </v3d-tabs>
         </li>
@@ -769,10 +1184,15 @@ function template(block) {
         <li>
             <p>angle - 一个可编辑的字段，用于表示角度的数值（单位：度）。</p>
       
-    <img src="files/puzzles/puzzles-plugins-field-number-angle.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
-                <label>XML</label>
-                <div>可以通过 <b>&lt;angle&gt;</b> 元素嵌套在 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
+    <img src="files/puzzles/puzzles-plugins-field-number-angle.png" class="width-clear border-gray">
 
+    <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    可以通过 <b>&lt;angle&gt;</b> 元素嵌套在 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。 
     <code>
 &lt;template&gt;
     &lt;dummy&gt;
@@ -780,11 +1200,16 @@ function template(block) {
     &lt;/dummy&gt;
 &lt;/template&gt;
     </code>
+</div>
 
                 <label>JS</label>
-                <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldAngle">Blockly.FieldAngle</a> 添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
-
-    <code>
+                <div>
+                    可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 
+                    方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldAngle">Blockly.FieldAngle</a> 
+                    添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
+                    <code>
 &lt;script&gt;
 function template(block) {
     block.appendDummyInput()
@@ -792,7 +1217,6 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
             </v3d-tabs>
         </li>
@@ -800,23 +1224,35 @@ function template(block) {
         <li id="block_file_template_adding_fields_checkbox">
             <p>checkbox - 一个典型的复选框字段</p>
       
-    <img src="files/puzzles/puzzles-plugins-field-checkbox.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
-                <label>XML</label>
-                <div>可以通过 <b>&lt;checkbox&gt;</b>  元素嵌套在 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>, <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。默认的复选框状态应该被设置为 *true* 或 *false* 。 
+    <img src="files/puzzles/puzzles-plugins-field-checkbox.png" class="width-clear border-gray">
 
-    <code>
+    <v3d-tabs style="width: 1000px;">
+                <label>XML</label>
+                <div>
+                    可以通过 <b>&lt;checkbox&gt;</b>  元素嵌套在 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>, 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入中添加。
+                    默认的复选框状态
+                    应该被设置为 *true* 或 *false* 。 
+                    <code>
 &lt;template&gt;
     &lt;dummy&gt;
         &lt;checkbox name="myCheckbox"&gt;true&lt;/checkbox&gt;
     &lt;/dummy&gt;
 &lt;/template&gt;
     </code>
-
 </div>
 
-                <label>JS</label>
-                <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldCheckbox">Blockly.FieldCheckbox</a> 添加到一个 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。默认的复选框状态作为参数传递给 *Blockly.FieldCheckbox* ，可以是 *true* 或 *false* 。 
-
+<label>JS</label>
+                <div>
+                    可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 
+                    方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldCheckbox">Blockly.FieldCheckbox</a> 
+                    添加到一个 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。
+                    默认的复选框状态作为参数
+                    传递给 *Blockly.FieldCheckbox* ，可以是 *true* 或 *false* 。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -825,21 +1261,38 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
             </v3d-tabs>
         </li>
 
         <li id="block_file_template_adding_fields_dropdown">
             <p>dropdown - 一个可供选择的值的列表</p>
-      
-    <img src="files/puzzles/puzzles-plugins-field-dropdown.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    
+            <img src="files/puzzles/puzzles-plugins-field-dropdown.png" class="width-clear border-gray">
+            
+            <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
                 <div>
-                    <p>可以通过 <b>&lt;dropdown&gt;</b>  元素嵌套在  <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>, <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a>  输入中添加。</p>
-                    <p>为了创建选项列表，在 <b>&lt;dropdown&gt;</b> 内添加 <b>&lt;option&gt;</b> 元素。所有 <b>&lt;option&gt;</b> 元素的 *name* 属性必须设置为一个唯一的标识符（更适合在代码中使用的东西，例如COLOR_GREEN）。在开始和结束的 <b>&lt;option&gt;</b> 标签之间包含的文本被用作该选项的下拉部件中显示的标签。</p>
-                    <p>要设置默认选择，可以将选项的 *default* 属性设置为 *true* 。</p>
-
+                    <p>
+                        可以通过 <b>&lt;dropdown&gt;</b>  元素嵌套在  
+                        <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>, 
+                        <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                        或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a>  输入中添加。
+                    </p>
+                    <p>
+                        为了创建选项列表，在 <b>&lt;dropdown&gt;</b> 内
+                        添加 <b>&lt;option&gt;</b> 元素。
+                        所有 <b>&lt;option&gt;</b> 元素的 *name* 属性
+                        必须设置为一个唯一的标识符
+                        （更适合在代码中使用的东西，
+                        例如COLOR_GREEN）。
+                        在开始和结束的 <b>&lt;option&gt;</b> 标签之间
+                        包含的文本被用作该选项的
+                        下拉部件中显示的标签。</p>
+                    <p>
+                        要设置默认选择，
+                        可以将选项的 *default* 属性设置为 *true* 。
+                    </p>
     <code>
 &lt;template&gt;
     &lt;dummy&gt;
@@ -851,15 +1304,32 @@ function template(block) {
     &lt;/dummy&gt;
 &lt;/template&gt;
     </code>
-
 </div>
 
                 <label>JS</label>
                 <div>
-                    <p>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldDropdown">Blockly.FieldDropdown</a> 添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> 、 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。</p>
-                    <p>*Blockly.FieldDropdown* 的第一个参数可以是一个可用选项的数组。每个选项依次也是一个包含两个元素的数组：一个用于在用户界面中显示文本（表示选项内容的友好提示文本）和一个唯一标识符（更适合在代码中使用的东西，例如COLOR_GREEN）。</p>
-                    <p>可以通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setValue">setValue</a> 方法来设置默认选择的选项。要指定哪个是默认的，只需将选项的唯一标识符作为参数传入 *setValue* 。</p>
-
+                    <p>
+                        可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 
+                        方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldDropdown">Blockly.FieldDropdown</a> 
+                        添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> 、 
+                        <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                        或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。
+                    </p>
+                    <p>
+                        *Blockly.FieldDropdown* 的第一个参数
+                        可以是一个可用选项的数组。每个选项依次
+                        也是一个包含两个元素的数组：一个用于在
+                        用户界面中显示文本（表示选项内容的友好提示文本）
+                        和一个唯一标识符
+                        （更适合在代码中使用的东西，例如COLOR_GREEN）。
+                    </p>
+                    <p>
+                        可以通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.Field#setValue">setValue</a> 方法
+                        来设置默认选择的选项。
+                        要指定哪个是默认的，
+                        只需将选项的唯一标识符
+                        作为参数传入 *setValue* 。
+                    </p>
     <code>
 &lt;script&gt;
 function template(block) {
@@ -878,7 +1348,6 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
             </v3d-tabs>
         </li>
@@ -886,10 +1355,15 @@ function template(block) {
         <li>
             <p>color picker - 一个颜色选择器部件</p>
       
-    <img src="files/puzzles/puzzles-plugins-field-color.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    <img src="files/puzzles/puzzles-plugins-field-color.png" class="width-clear border-gray">
+    
+    <v3d-tabs style="width: 1000px;">
                 <label>XML</label>
-                <div>可以通过 <b>&lt;color&gt;</b> 元素嵌套在  <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>, <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a>  输入中添加。 
-
+                <div>
+                    可以通过 <b>&lt;color&gt;</b> 元素嵌套在  
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a>, 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a>  输入中添加。 
     <code>
 &lt;template&gt;
     &lt;dummy&gt;
@@ -897,12 +1371,15 @@ function template(block) {
     &lt;/dummy&gt;
 &lt;/template&gt;
     </code>
-
 </div>
 
                 <label>JS</label>
-                <div>可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldColour">Blockly.FieldColor</a> 添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
-                    
+                <div>
+                    可以通过 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#appendField">appendField</a> 方法
+                    和 <a href="https://developers.google.com/blockly/reference/js/Blockly.FieldColour">Blockly.FieldColor</a> 
+                    添加到 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_dummy">dummy</a> , 
+                    <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value</a> 
+                    或 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement</a> 输入。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -911,22 +1388,35 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
             </v3d-tabs>
         </li>
     </ul>
+
 
     [anchor:block_file_template_field_alignment]
 
     <h5>字段排列</h5>
 
     <div class="indented">
-        <p>拼图模块中的字段元素总是属于一个特定的输入插槽。无论是单个字段还是每个输入的多个字段，它们总是按照一定的布局进行渲染。有一件事是可以改变的，那就是字段在输入框中的位置，特别是它们被排列在哪一边。您可以让它们向左（默认）、向右和向中间对齐。</p>
+        <p>
+
+            拼图模块中的字段元素总是属于一个特定的输入插槽。
+            无论是单个字段还是每个输入的多个字段，它们总是
+            按照一定的布局进行渲染。有一件事是可以改变的，
+            那就是字段在输入框中的位置，特别是它们被排列在
+            哪一边。您可以让它们向左（默认）、
+            向右和向中间对齐。
+        </p>
       
-    <img src="files/puzzles/puzzles-plugins-field-alignment.png" class="width-clear border-gray"><v3d-tabs style="width: 1000px;">
+    <img src="files/puzzles/puzzles-plugins-field-alignment.png" class="width-clear border-gray">
+    
+    <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>要改变某个输入的字段对齐方式，请使用相应的 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_adding_inputs">输入元素</a> 上的 *align* 属性。这个属性的有效值是：*Left* 、 *center* 和 *right* 。 
+            <div>
+                要改变某个输入的字段对齐方式，
+                请使用相应的 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_adding_inputs">输入元素</a> 上的 *align* 属性。
+                这个属性的有效值是： *Left* 、 *center* 和 *right* 。 
     <code>
 &lt;template&gt;
     &lt;dummy align="left"&gt;&lt;/dummy&gt;
@@ -934,12 +1424,14 @@ function template(block) {
     &lt;statement align="right" name="myStatementInput"&gt;&lt;/statement&gt;
 &lt;/template&gt;
     </code>
-
 </div>
 
             <label>JS</label>
-            <div>要改变某个输入的字段对齐方式，请使用 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setAlign">setAlign</a> 方法。它的第一个参数应该是 *Blockly.ALIGN_LEFT* ， *Blockly.ALIGN_CENTER* 或 *Blockly.ALIGN_RIGHT* 。 
-
+            <div>
+                要改变某个输入的字段对齐方式，请使用 
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setAlign">setAlign</a> 方法。
+                它的第一个参数应该是 *Blockly.ALIGN_LEFT* ， 
+                *Blockly.ALIGN_CENTER* 或 *Blockly.ALIGN_RIGHT* 。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -954,59 +1446,90 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
     </div>
+
 
     [anchor:block_file_template_block_connections]
 
     <h5>模块的连接</h5>
 
     <div class="indented">
-        <p>拼图模块可以有输入、语句和输出连接。输入连接是为每个创建的输入插槽自动添加的，它的作用是插入子模块。请在这里查看关于创建输入的介绍：<a href="manual/zh/puzzles/Plugins.html#block_file_template_block_adding_inputs">添加输入</a>.*Statement* （previous和next）和 *output* 连接用于将模块连接到父模块或同级模块。</p>
-        <p>*previous* 和 *next* 分别在拼图模块的顶部和底部添加连接，因此拼图模块可以从下面/上面连接到其他有匹配连接的模块。</p>
-        <p>*output* 在拼图模块的左侧添加了一个连接——这使得该模块可以被插入到父模块的输入插槽中。输出连接通常用于返回数值的拼图模块，例如，一些数学计算的结果。</p>
-        <p>默认情况下，一个拼图模块没有任何连接。您可以在一个拼图模块上添加任何类型的单个连接。您也可以在一个拼图模块中添加2个 *statement* 或 *output* 连接，但只允许以下组合：*previous* + *next* 或 *next* + *output*。</p>
+        <p>
+            拼图模块可以有输入、语句和输出连接。
+            输入连接是为每个创建的输入插槽自动添加的，
+            它的作用是插入子模块。
+            请在这里查看关于创建输入的介绍：
+            <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_adding_inputs">添加输入</a>。
+            Statement（previous和next）和 output 连接
+            用于将模块连接到父模块或同级模块。
+        </p>
+        <p>
+            *previous* 和 *next* 分别在拼图模块的顶部和底部
+            添加连接，因此拼图模块可以从
+            下面/上面连接到其他有匹配连接的模块。
+        </p>
+        <p>
+            *output* 在拼图模块的左侧添加了一个连接——这使得
+            该模块可以被插入到父模块的输入插槽中。
+            输出连接通常用于返回数值的拼图模块，
+            例如，一些数学计算的结果。
+        </p>
+        <p>
+            默认情况下，一个拼图模块没有任何连接。
+            您可以在一个拼图模块上添加任何类型的单个连接。
+            您也可以在一个拼图模块中添加2个 *statement* 或 *output* 连接，
+            但只允许以下组合：*previous* + *next* 
+            或 *next* + *output*。
+        </p>
       
-    <img src="files/puzzles/puzzles-plugins-output-connections.png" class="width-clear border-gray"><p>如下演示如何将所有这些连接添加到一个模块中：</p>
+    <img src="files/puzzles/puzzles-plugins-output-connections.png" class="width-clear border-gray">
+    
+    <p>
+        如下演示如何将所有这些连接添加到一个模块中：
+    </p>
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>可以通过设置 *prev* 属性为 *true* 来启用 *previous* statement连接。 
-    <code>
+            <div>
+                可以通过设置 *prev* 属性为 *true* 
+                来启用 *previous* statement连接。 
+                <code>
 &lt;template prev=&quot;true&quot;&gt;&lt;/template&gt;
-    </code>
-
+                </code>
 </div>
 
             <label>JS</label>
-            <div>通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setPreviousStatement">block.setPreviousStatement</a> ，以 *true* 作为第一个参数，可以启用 *previous* statement连接。 
-
-    <code>
+            <div>
+                通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setPreviousStatement">block.setPreviousStatement</a> ，
+                以 *true* 作为第一个参数，
+                可以启用 *previous* statement连接。 
+                <code>
 &lt;script&gt;
 function template(block) {
     block.setPreviousStatement(true);
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>可以通过将 *next* 属性设置为 *true* 来启用 *next* statement连接。 
-
-    <code>
+            <div>
+                可以通过将 *next* 属性
+                设置为 *true* 来启用 *next* statement连接。
+                <code>
 &lt;template next=&quot;true&quot;&gt;&lt;/template&gt;
-    </code>
-
+                </code>
 </div>
 
             <label>JS</label>
-            <div>可以通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setNextStatement">block.setNextStatement</a> ，以 *true* 作为第一个参数，来启用 *next* statement连接。 
-
+            <div>
+                可以通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setNextStatement">block.setNextStatement</a> ，
+                以 *true* 作为第一个参数，
+                来启用 *next* statement连接。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -1014,22 +1537,24 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>可以通过设置 *output* 属性为空字符串来启用 *output* 连接。 
+            <div>
+                可以通过设置 *output* 属性为空字符串
+                来启用 *output* 连接。 
     <code>
-&lt;template output=&quot;&quot;&gt;&lt;/template&gt;
+        &lt;template output=""&gt;&lt;/template&gt;
     </code>
-
 </div>
 
             <label>JS</label>
-            <div>可以通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setOutput">block.setOutput</a> 启用 *output* 连接，并将 *true* 作为第一个参数。 
-
+            <div>
+                可以通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setOutput">block.setOutput</a> 
+                启用 *output* 连接，
+                并将 *true* 作为第一个参数。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -1037,24 +1562,41 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
     </div>
+
 
     [anchor:block_file_template_input_output_type_checking]
 
     <h5>输入/输出类型检查</h5>
 
     <div class="indented">
-        <p>默认情况下，所有具有合适输入/输出的拼图模块都可以相互连接。但这并不意味着所有的拼图模块都应该是兼容的。比方说，我们有一个拼图模块返回一个坐标数组，而另一个拼图模块有一个期望得到动画名称的输入。如果我们试图将第一个模块插入第二个模块中，那么事情可能不会按预期执行。从这些拼图中产生的代码可能是无效的，甚至可能导致页面崩溃。</p>
-        <p>好在有一种方法可以解决此类情况。每一个输入和输出都可以被分配一个类型，只有那些具有匹配类型的模块可以相互连接。</p>
-        <p class="note">关于输出和其他连接的常用信息，请参见 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_connections">模块的连接</a> 。</p>
+        <p>
+            默认情况下，所有具有合适输入/输出的拼图模块都可以相互连接。
+            但这并不意味着所有的拼图模块都应该是兼容的。
+            比方说，我们有一个拼图模块返回一个坐标数组，
+            而另一个拼图模块有一个期望得到动画名称的输入。
+            如果我们试图将第一个模块插入第二个模块中，
+            那么事情可能不会按预期执行。
+            从这些拼图中产生的代码可能是无效的，甚至可能导致页面崩溃。
+        </p>
+        <p>
+            好在有一种方法可以解决此类情况。
+            每一个输入和输出都可以被分配一个类型，
+            只有那些具有匹配类型的模块可以相互连接。
+        </p>
+        <p class="note">
+            关于输出和其他连接的常用信息，请参见 
+            <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_connections">模块的连接</a> 。
+        </p>
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>输出类型可以通过 <b>&lt;template&gt;</b> 的 *output* 属性来指定。一个特定的输入可以接受的类型是由输入的 *type* 属性定义的。 
-
+            <div>
+                输出类型可以通过 <b>&lt;template&gt;</b> 的 *output* 属性来指定。
+                一个特定的输入可以接受的类型
+                是由输入的 *type* 属性定义的。 
     <code>
 &lt;!-- the block's output type is 'String' --&gt;
 &lt;template output="String"&gt;
@@ -1062,12 +1604,17 @@ function template(block) {
     &lt;value name="myInput" type="Number"&gt;&lt;/value&gt;
 &lt;/template&gt;
     </code>
-
 </div>
 
             <label>JS</label>
-            <div>输出类型可以通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setOutput">block.setOutput</a> 方法来分配给一个模块，同时将 *true* 作为其第一个参数，将所需类型作为其第二个参数。通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setCheck">setCheck</a> 方法来设置一个特定输入所能接受的类型。 
-                
+            <div>
+                输出类型可以通过调用 
+                <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#setOutput">block.setOutput</a> 方法
+                来分配给一个模块，
+                同时将 *true* 作为其第一个参数，
+                将所需类型作为其第二个参数。
+                通过调用 <a href="https://developers.google.com/blockly/reference/js/Blockly.Input#setCheck">setCheck</a> 方法
+                来设置一个特定输入所能接受的类型。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -1080,17 +1627,26 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
 
-        <p>在上面的例子中，该模块有一个只能接受 "number" 类型或未指定类型的模块的输入（如果没有通过 *setOutput* 设置类型）。该模块也有 "String" 输出类型，这意味着它只能插入具有 "String" 或未指定类型的输入（如果没有通过 *setCheck* 设置类型）。</p>
-        <p>输入和输出也可以有一个以上的类型。</p>
+        <p>
+            在上面的例子中，该模块有一个只能接受 "number" 类型
+            或未指定类型的模块的输入（如果没有通过 *setOutput* 设置类型）。
+            该模块也有 "String" 输出类型，
+            这意味着它只能插入具有 "String" 或
+            未指定类型的输入（如果没有通过 *setCheck* 设置类型）。
+        </p>
+        <p>
+            输入和输出也可以有一个以上的类型。
+        </p>
 
         <v3d-tabs style="width: 1000px;">
             <label>XML</label>
-            <div>为了拥有多个输入/输出类型，请在相应的 *type* 和 *output* 属性中填写多个类型值，并以空格分隔： 
-
+            <div>
+                为了拥有多个输入/输出类型，
+                请在相应的 *type* 和 *output* 属性中
+                填写多个类型值，并以空格分隔： 
     <code>
 &lt;!-- this block's output type is 'String' or 'Animation' --&gt;
 &lt;template output="String Animation"&gt;
@@ -1098,12 +1654,12 @@ function template(block) {
     &lt;value name="myInput" type="Number Object3D"&gt;&lt;/value&gt;
 &lt;/template&gt;
     </code>
-
 </div>
 
             <label>JS</label>
-            <div>为了拥有多个输入/输出类型，在 *setCheck* 和/或 *setOutput* 中提供类型阵列。 
-
+            <div>
+                为了拥有多个输入/输出类型，
+                在 *setCheck* 和/或 *setOutput* 中提供类型阵列。 
     <code>
 &lt;script&gt;
 function template(block) {
@@ -1116,51 +1672,88 @@ function template(block) {
 }
 &lt;/script&gt;
     </code>
-
 </div>
         </v3d-tabs>
 
-        <p>标准的Verge3D拼图使用了几种特定的输入/输出类型，您也可以在您的拼图中借用这些类型。</p>
+        <p>
+            标准的Verge3D拼图使用了几种特定的输入/输出类型，
+            您也可以在您的拼图中借用这些类型。
+        </p>
         <ul>
-            <li>对于Javascript类型和内置对象，有以下几种：*Number*, *String*, *Boolean*, *Dictionary* (针对js对象), *Array*, *Promise*</li>
-            <li>对于场景实体：*Object3D*, *Material*, *Animation*.</li>
-            <li>其他类型：*Canvas*, *Sound*, *Video*</li>
+            <li>
+                对于Javascript类型和内置对象，
+                有以下几种：*Number*, *String*, *Boolean*, *Dictionary* (针对js对象), 
+                *Array*, *Promise*, *Procedure* (对于在拼图中定义的过程)
+            </li>
+            <li>
+                对于场景实体：*Object3D*, *Material*, *Animation* 。
+            </li>
+            <li>
+                其他类型：*Canvas*, *Sound*, *Video*
+            </li>
         </ul>
-        <p>您无需局限于上述类型，我们鼓励您创造自己的输入/输出类型，以更好地适应您的拼图。</p>
+        <p>
+            您无需局限于上述类型，
+            我们鼓励您创造自己的输入/输出类型，
+            以更好地适应您的拼图。
+        </p>
     </div>
+
 
     [anchor:block_file_code]
 
     <h4>Code Function</h4>
 
-    <p>*Code()* 函数是用来提供Javascript代码的，如果拼图被添加到工作区，它就会被生成。一般来说，这是您定义拼图逻辑的地方，也是您实现大部分拼图功能的地方。</p>
+    <p>
+        *Code()* 函数是用来提供Javascript代码的，
+        如果拼图被添加到工作区，它就会被生成。
+        一般来说，这是您定义拼图逻辑的地方，
+        也是您实现大部分拼图功能的地方。
+    </p>
 
-    <p>该函数预期返回一个包含js代码的字符串。它的工作方式类似于 <a href="manual/zh/puzzles/Plugins.html#init_plug_script">init.plug的代码函数</a> 的工作方式，只是在这种情况下，代码被添加和使用的次数与被添加到工作区的拼图模块的数量相同。这个 *code()* 函数接收一个 *block* 参数——它与在 <a href="manual/zh/puzzles/Plugins.html#block_file_template">template()</a> 中使用的 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a> 是同一个实例，。</p>
+    <p>
+        该函数预期返回一个包含js代码的字符串。
+        它的工作方式类似于 <a href="manual/zh/puzzles/Plugins.html#init_plug_script">init.plug的代码函数</a> 的工作方式，
+        只是在这种情况下，代码被添加和使用的次数
+        与被添加到工作区的拼图模块的数量相同。
+        这个 *code()* 函数接收一个 *block* 参数——
+        它与在 <a href="manual/zh/puzzles/Plugins.html#block_file_template">template()</a> 中
+        使用的 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg">Blockly.BlockSvg</a> 是同一个实例，。
+    </p>
 
-    <p>一起来看看您能用 *code()* 函数做些什么。</p>
+    <p>
+        一起来看看您能用 *code()* 函数做些什么。
+    </p>
+
 
     [anchor:block_file_code_basic_code_generation]
 
     <h5>基本的代码生成</h5>
 
-    <p class="indented">*code()* 能做的非常简单的事情就是返回一个带有几行 javascript 代码的字符串，这些代码将被添加到生成的 visual_logic.js 文件中。<br/>例如，下面的代码打开了标准的浏览器警报对话框。
+    <p class="indented">
+        *code()* 能做的非常简单的事情
+        就是返回一个带有几行 javascript 代码的字符串，
+        这些代码将被添加到生成的 visual_logic.js 文件中。<br/> 
 
+        例如，下面的代码打开了标准的浏览器警报对话框。
     <code>
 function code(block) {
     return `alert('Test');`;
 }
     </code>
 
-而在这里，我们只是返回一个为1的值：
+而在这里，我们仅返回一个为1的值：
     <code>
 function code(block) {
     return `1`;
 }
     </code>
-    
- - 这个例子并没有什么意义，除非此模块有输出连接。在这种情况下，返回值可以从一个父模块中访问，该父模块的输入端之一插入了这个模块。<br/><br/>这里是一个更高级的例子：
+ - 这个例子并没有什么意义，除非此模块有输出连接。
+ 在这种情况下，返回值可以从一个父模块中访问，
+ 该父模块的输入端之一插入了这个模块。<br/><br/>
 
-    <code>
+ 这里是一个更高级的例子：
+ <code>
 function code(block) {
     const fun = function() {
         app.scene.traverse(function(obj) {
@@ -1172,14 +1765,25 @@ function code(block) {
     return `(${fun})();`;
 }
     </code>
+    - 这里所有的对象都得到了一个新的材质，其颜色是随机生成的。
+</p>
 
- - 这里所有的对象都得到了一个新的材质，其颜色是随机生成的。</p>
 
-    [anchor:block_file_code_mitigating_code_bloat]
+[anchor:block_file_code_mitigating_code_bloat]
 
-    <h5>缓解代码臃肿问题</h5>
+<h5>缓解代码臃肿问题</h5>
 
-    <p class="indented">默认情况下，每次在工作区使用拼图时，拼图的代码都会被复制到生成的visual_logic.js文件中。如果您只有几行代码，这并不是什么问题。但是，如果代码很笨重、很复杂，并且分成几个你可能只想声明一次的函数，那么默认的方法就会变得效率低下，并导致产生的visual_logic.js文件变得臃肿。<br/><br/>为了解决这个问题，您可以利用 *code()* 函数中的一个特殊方法——*Plug.provision()* 。我们通过下方的示例来演示如何使用：
+<p class="indented">
+    默认情况下，每次在工作区使用拼图时，
+    拼图的代码都会被复制到生成的visual_logic.js文件中。
+    如果您只有几行代码，这并不是什么问题。
+    但是，如果代码很笨重、很复杂，并且分成几个你可能只想声明一次的函数，
+    那么默认的方法就会变得效率低下，
+    并导致产生的visual_logic.js文件变得臃肿。<br/><br/>
+
+    为了解决这个问题，
+    您可以利用 *code()* 函数中的一个特殊方法——*Plug.provision()* 。
+    我们通过下方的示例来演示如何使用：
 
     <code>
 function code(block) {
@@ -1190,17 +1794,51 @@ function code(block) {
     return `${fun}(1, 2, 3);`;
 }
     </code>
-        
 
- 在这里，我们通过 *Plug.provide()* 定义了一个函数 "myFunction" ，这意味着无论拼图在工作区被使用多少次， "myFunction" 都只会被复制到visual_logic.js中一次。另外，从 *code()* 返回的值只有 <b>${fun}(1, 2, 3);</b> ，这基本上是一个函数调用 <b>"myFunction(1, 2, 3);"</b>  ，它将被插入visual_logic.js中，用于工作区的每个拼图。而这正是我们的拼图所希望的，因为 "myFunction" 只需要声明一次，之后就可以多次调用。<br/><br/>在 *Plug.provide()* 中的第一个参数应该是一个唯一的函数标识符。返回的变量*fun*是所提供的函数的名称（它通常与第一个参数传递的值几乎相同，但也可以不同，因为拼图编辑器需要确保这个名称是有效的，并且与工作区使用的其他函数/变量没有冲突）。应该使用该名称（而不是原始的 "myFunction" ）来调用提供的函数 - 这就是它在 return 语句下的部分中的完成方式。<br/><br/></p>
+ 在这里，我们通过 *Plug.provide()* 定义了一个函数 "myFunction" ，
+ 这意味着无论拼图在工作区被使用多少次， 
+ "myFunction" 都只会被复制到visual_logic.js中一次。
+ 另外，从 *code()* 返回的值只有 <b>${fun}(1, 2, 3);</b> ，这基本上是一个函数调用 <b>"myFunction(1, 2, 3);"</b>  ，
+ 它将被插入visual_logic.js中，
+ 用于工作区的每个拼图。
+ 而这正是我们的拼图所希望的，
+ 因为 "myFunction" 只需要声明一次，
+ 之后就可以多次调用。<br/><br/>
+ 
+ 在 *Plug.provide()* 中的第一个参数
+ 应该是一个唯一的函数标识符。
+ 返回的变量*fun*是所提供的函数的名称（它通常与第一个参数传递的值几乎相同，
+ 但也可以不同，因为拼图编辑器需要确保
+ 这个名称是有效的，并且与工作区使用的其他函数/变量没有冲突）。
+ 应该使用该名称（而不是原始的 "myFunction" ）
+ 来调用提供的函数 - 这就是它在 return 语句下的
+ 部分中的完成方式。<br/><br/>
+</p>
+
 
     [anchor:block_file_code_inputs_fields]
 
     <h5>访问输入和字段</h5>
 
-    <p class="indented">如果一个拼图模块有 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">fields</a> 或 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_adding_inputs">input slots</a> 在 <a href="manual/zh/puzzles/Plugins.html#block_file_template">template()</a> 函数中定义，那么您很可能希望它们影响 *code()* 函数内生成的内容。例如， <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields_checkbox">复选框</a> 可以启用或禁用您的拼图的某个功能。<br/><br/>用于访问 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value inputs</a> 、 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement inputs</a> 和 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">fields</a> 的API方法有：<a href="https://developers.google.com/blockly/reference/js/Blockly.Generator#valueToCode">Blockly.JavaScript.valueToCode</a> , <a href="https://developers.google.com/blockly/reference/js/Blockly.Generator#statementToCode">Blockly.JavaScript.statementToCode</a> 和 <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#getFieldValue">block.getFieldValue</a> 。<br/><br/>让我们做一个既有输入又有字段的拼图模块。下面是.block文件的全部内容：
-
-    <code>
+    <p class="indented">
+        如果一个拼图模块有 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">fields</a> 
+        或 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_adding_inputs">input slots</a> 
+        在 <a href="manual/zh/puzzles/Plugins.html#block_file_template">template()</a> 函数中定义，
+        那么您很可能希望它们
+        影响 *code()* 函数内生成的内容。
+        例如， <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields_checkbox">复选框</a> 
+        可以启用或禁用您的拼图的某个功能。<br/><br/>
+        
+        用于访问 <a href="manual/zh/puzzles/Plugins.html#adding_inputs_value">value inputs</a> 、 
+        <a href="manual/zh/puzzles/Plugins.html#adding_inputs_statement">statement inputs</a> 
+        和 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields">fields</a> 的API方法有：
+        <a href="https://developers.google.com/blockly/reference/js/Blockly.Generator#valueToCode">Blockly.JavaScript.valueToCode</a> , 
+        <a href="https://developers.google.com/blockly/reference/js/Blockly.Generator#statementToCode">Blockly.JavaScript.statementToCode</a> 和 
+        <a href="https://developers.google.com/blockly/reference/js/Blockly.BlockSvg#getFieldValue">block.getFieldValue</a> 。<br/><br/>
+        
+        让我们做一个既有输入又有字段的拼图模块。
+        下面是.block文件的全部内容：
+        <code>
 &lt;template color="green"&gt;
     &lt;dummy&gt;
         &lt;label&gt;myPuzzle&lt;/label&gt;
@@ -1237,14 +1875,17 @@ function code(block) {
 }
 &lt;/script&gt;
     </code>
-
- 在这个例子中，该模块定义了一个名为 "myValue" 的数值输入，一个语句输入 "myStatement 和一个复选框字段 "myCheckbox" 。我们通过上面描述的API获得它们的值，但在将它们传入 "myFunction" 之前，它们经历了一些值得注意的变化。
+ 在这个例子中，该模块定义了一个名为 "myValue" 的数值输入，
+ 一个语句输入 "myStatement 和一个复选框字段 "myCheckbox" 。
+ 我们通过上面描述的API获得它们的值，
+ 但在将它们传入 "myFunction" 之前，它们经历了一些值得注意的变化。
 
     <code>
 var myInput = Blockly.JavaScript.valueToCode(block, 'myValue', Blockly.JavaScript.ORDER_NONE) || `''`;
     </code>
-
- - 输入插槽可能会没有插入模块，所以我们通过在末尾添加*|| `&apos;&apos;*部分，来确保在这种情况下可以得到一个空字符串。
+ - 输入插槽可能会没有插入模块，
+ 所以我们通过在末尾添加*|| `&apos;&apos;*部分，
+ 来确保在这种情况下可以得到一个空字符串。
 
     <code>
 function wrapFn(contents) {
@@ -1255,21 +1896,23 @@ function wrapFn(contents) {
 
 var myStatement = wrapFn(Blockly.JavaScript.statementToCode(block, 'myStatement'));
     </code>
- 
- - Statement输入插槽通常包含一组Statement。把它们包在一个函数中是很方便的（见 *wrapFn* 的作用），以便把该函数对象作为参数传递，然后把它当作一个回调使用。
+ - Statement输入插槽通常包含一组Statement。
+ 把它们包在一个函数中是很方便的（见 *wrapFn* 的作用），
+ 以便把该函数对象作为参数传递，然后把它当作
+ 一个回调使用。
 
     <code>
 var myCheckbox = block.getFieldValue('myCheckbox') === 'TRUE';
     </code>
+- 在这里，复选框的值只用于与 "TRUE" 进行比较，
+产生一个布尔值的结果。<br/><br/>
 
-- 在这里，复选框的值只用于与 "TRUE" 进行比较，产生一个布尔值的结果。<br/><br/>最后，所有的值都可以传递给"myFunction" ，如下所示：
-
+最后，所有的值都可以传递给"myFunction" ，如下所示：
     <code>
 return `${fun}(${myInput}, ${myStatement}, ${myCheckbox});`;
     </code>
 
  现在您能够随心所欲地使用它们了。 
-
     <code>
 const fun = Plug.provide('myFunction', function(input, statements, checkbox) {
     console.log('input value:', input);
@@ -1277,22 +1920,27 @@ const fun = Plug.provide('myFunction', function(input, statements, checkbox) {
     console.log('checkbox state:', checkbox);
 });
     </code>
+</p>
 
-    [anchor:%TOC_DECLEVEL_HACK]
-
-    <h1></h1>
-
-    [anchor:%TOC_DECLEVEL_HACK]
-
-    <h1></h1>
+    [anchor:%TOC_DECLEVEL_HACK]<h1></h1>
+    [anchor:%TOC_DECLEVEL_HACK]<h1></h1>
 
     [anchor:plugin_errors]
 
     <h2>插件和图模块的错误</h2>
 
-    <p>在开发或使用插件时，您可能会遇到不同类型的错误，与某个拼图模块或与整个插件有关。本节将介绍典型的插件和拼图模块错误，以及如何处理这些问题。</p>
+    <p>
+        开发或使用插件时，您可能会遇到不同类型的错误，
+        与某个拼图模块或与整个插件有关。
+        本节将介绍典型的插件和拼图模块错误，以及如何处理这些问题。
+    </p>
 
-    <p>如果在加载插件或初始化拼图模块的过程中出现错误，那么拼图编辑器会在浏览器控制台中打印出相应的错误信息。通常情况下，这些错误会像下面这样：</p>
+    <p>
+        如果在加载插件或初始化拼图模块的过程中出现错误，
+        那么拼图编辑器会在浏览器控制台中打印出相应的错误信息。
+        通常情况下，
+        这些错误会像下面这样：
+    </p>
 
     <p class="code red">
         PluginError(PLUGIN_NAME) ...<br/>
@@ -1300,104 +1948,198 @@ const fun = Plug.provide('myFunction', function(input, statements, checkbox) {
         Puzzle "PLUGIN_NAME/BLOCK_NAME" is not defined properly. Replaced with a dummy block.
     </p>
 
-    <p>- 它们指的是一个特定的插件和一个特定模块导致的错误。</p>
+    <p>
+        - 它们指的是一个特定的插件和
+        一个特定模块导致的错误。
+    </p>
 
-    <p>在插件出错的情况下，整个插件的类目很可能都不会在工具箱中显示。如果是拼图模块错误，受影响的拼图模块将被标记为无效，并有一个明显的外观标示：</p>
+    <p>
+        在插件出错的情况下，
+        整个插件的类目很可能都不会在工具箱中显示。
+        如果是拼图模块错误，受影响的拼图模块将被标记为无效，并有一个明显的外观标示：
+    </p>
+
+    <figure style="max-width: 852px">
+        <img src="files/puzzles/puzzles-plugins-dummy-block.jpg" id="dummy_block_appearance" alt="无效拼图块">
+        <figcaption>在工具箱和工作区中的无效拼图</figcaption>
+      </figure>
+  
+      <p>
+        以下是最常见的插件和拼图模块错误的列表：
+      </p>
+      <br/>
       
-    <img src="files/puzzles/puzzles-plugins-dummy-block.jpg" id="dummy_block_appearance" class="centered" style="max-width: 852px"> <span class="img-caption">在工具箱和工作区中的无效拼图</span><p>以下是最常见的插件和拼图模块错误的列表：</p><br/> [anchor:plugin_errors_block_error_parsing_0]
+      [anchor:plugin_errors_block_error_parsing_0]
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error parsing .block file - "This page contains the following errors:error on line ..."</h5>
-    <p class="indented">这意味着在相应的.block文件中存在着XML错误，使其无法被解析。例如，缺少结尾的&lt;script&gt;标签会导致这样的错误。 
-
+    <p class="indented">
+        这意味着在相应的.block文件中存在着XML错误，
+        使其无法被解析。
+        例如，缺少结尾的&lt;script&gt;标签会导致这样的错误。 
     <code>
 &lt;script&gt;
 function template(block) {}
 function code(block) {}
     </code>
+</p>
+<br/>
 
-</p><br/> [anchor:plugin_errors_block_error_parsing_1]
+[anchor:plugin_errors_block_error_parsing_1]
 
-    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error parsing .block file - "ReferenceError (SyntaxError, TypeError, etc...)..."</h5>
-
-    <p class="indented">这代表着相应的.block文件的&lt;script&gt;元素中的代码包含错误信息中指定的JavaScript错误。</p><br/> 
+<h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error parsing .block file - "ReferenceError (SyntaxError, TypeError, etc...) ..."</h5>
+    <p class="indented">
+        这代表着相应的.block文件的&lt;script&gt;元素中的
+        代码包含错误信息中指定的
+        JavaScript错误。
+    </p>
+    <br/> 
     
     [anchor:plugin_errors_block_error_validation_0]
 
-    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - " TypeError: Child block does not have output or previous statement."</h5>
-    
-    <p class="indented">这个错误所指的模块有一个子模块插入其中。但是，这个子模块没有 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_connections">输出或前一个连接</a> ，因此不能以这种方式使用。这种情况可能发生在插件的工具箱 <a href="manual/zh/puzzles/Plugins.html#init_plug_category">类目</a> 中的拼图块，因为它们是在init.plug中配置的，也可能发生在工作区实际使用的块上。</p><br/> 
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "TypeError: Child block does not have output or previous statement."</h5>
+    <p class="indented">
+        这个错误所指的模块有一个子模块插入其中。
+        但是，这个子模块没有 <a href="manual/zh/puzzles/Plugins.html#block_file_template_block_connections">输出或前一个连接</a> ，
+        因此不能以这种方式使用。这种情况可能发生在
+        插件的工具箱 <a href="manual/zh/puzzles/Plugins.html#init_plug_category">类目</a> 中的拼图块，
+        因为它们是在init.plug中配置的，
+        也可能发生在工作区实际使用的块上。
+    </p>
+    <br/> 
     
     [anchor:plugin_errors_block_error_validation_1]
 
-    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "Error: Connection checks failed. Input "PARENT_INPUT_NAME" connection on "PLUGIN_NAME/BLOCK_NAME" block (id="BLOCK_ID") expected TYPE_PARENT, found TYPE_CHILD"</h5>
-    
-    <p class="indented">这个错误所指的模块有一个子模块插入其中，但是父模块的输入插槽和子模块的输出连接的 <a href="manual/zh/puzzles/Plugins.html#block_file_template_input_output_type_checking">类型</a> 不兼容。这种情况可能发生在插件的工具箱 <a href="manual/zh/puzzles/Plugins.html#init_plug_category">类目</a> 中的拼图块，因为它们是在init.plug中配置的，也可能发生在工作区实际使用的块上。</p><br/> [anchor:plugin_errors_block_error_validation_2]
+    <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "Error: Connection checks failed. Output/Previous/Next Connection of "PLUGIN_NAME/BLOCK_NAME" block (id="BLOCK_ID") expected TYPE_CHILD, found TYPE_PARENT"</h5>
+    <p class="indented">
+        这个错误所指的模块连接到一个父模块，
+        但是父模块的输入插槽和子模块的输出连接的 
+        <a href="manual/zh/puzzles/Plugins.html#block_file_template_input_output_type_checking">类型</a> 不兼容。
+        这种情况可能发生在插件的工具箱 
+        <a href="manual/zh/puzzles/Plugins.html#init_plug_category">类目</a> 中的拼图块，
+        因为它们是在init.plug中配置的，
+        也可能发生在工作区
+        实际使用的块上。
+    </p>
+    <br/>
+        
+        [anchor:plugin_errors_block_error_validation_2]
 
     <h5>BlockError(PLUGIN_NAME/null): validation error - "TypeError: Unknown block type: PLUGIN_NAME/null"</h5>
-    
-    <p class="indented">这个错误意味着该插件的init.plug文件引用了一个没有指定 <a href="manual/zh/puzzles/Plugins.html#init_plug_available_puzzles">类型属性</a> 的模块，这是不允许的。例如，这样做是行不通的： 
-
-    <code>
+    <p class="indented">
+        这个错误意味着该插件的init.plug文件引用了一个
+        没有指定 <a href="manual/zh/puzzles/Plugins.html#init_plug_available_puzzles">类型属性</a> 的模块，
+        这是不允许的。例如，这样做是行不通的： 
+        <code>
 &lt;category name="My Awesome Plugin" color="green"&gt;
     &lt;block&gt;&lt;/block&gt;
 &lt;/category&gt;
     </code>
-
-</p><br/>
+</p>
+<br/>
 
 [anchor:plugin_errors_block_error_validation_3]
 
 <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): validation error - "TypeError: Unknown block type: PLUGIN_NAME/BLOCK_NAME"</h5>
-
-<p class="indented">这个错误信息通常出现在一个 <a href="manual/zh/puzzles/Plugins.html#plugin_errors_block_error_parsing_0"> "错误解析的 .block 文件"</a> 的错误之后，它表明由于最初的错误，提到的拼图模块没有被正确加载和初始化。</p><br/>
+<p class="indented">
+    这个错误信息通常出现在一个 
+    <a href="manual/zh/puzzles/Plugins.html#plugin_errors_block_error_parsing_0"> "错误解析的 .block 文件"</a> 的错误之后，
+    它表明由于最初的错误，
+    提到的拼图模块没有被正确加载和初始化。
+</p>
+<br/>
 
 [anchor:plugin_errors_block_error_template]
 
 <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling template() function ...</h5>
-
-<p class="indented">相应的.block文件要么有一个定义不正确的 <a href="manual/zh/puzzles/Plugins.html#block_file_template">"template"</a> 元素，要么在其 <a href="manual/zh/puzzles/Plugins.html#block_file_template">template()</a> 函数中包含JavaScript错误。<ul>
-            <li><b>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling template() function - "TypeError: Found invalid FieldDropdown options."</b><br/>这个特殊的错误意味着拼图中的一个下拉字段有一个未命名的选项。参见 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields_dropdown">dropdown field</a> 以了解更多信息。</li>
+<p class="indented">
+    相应的.block文件要么有一个定义不正确的 
+    <a href="manual/zh/puzzles/Plugins.html#block_file_template">"template"</a> 元素，
+    要么在其 <a href="manual/zh/puzzles/Plugins.html#block_file_template">template()</a> 函数中
+    包含JavaScript错误。
+    <ul>
+            <li>
+                <b>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling template() function - "TypeError: Found invalid FieldDropdown options."</b><br/>
+                这个特殊的错误意味着拼图中的
+                一个下拉字段有一个未命名的选项。
+                参见 <a href="manual/zh/puzzles/Plugins.html#block_file_template_adding_fields_dropdown">dropdown field</a> 
+                以了解更多信息。
+            </li>
         </ul>
-    </p><br/> 
+    </p>
+    <br/> 
     
     [anchor:plugin_errors_block_error_code]
 
     <h5>BlockError(PLUGIN_NAME/BLOCK_NAME): error calling code() function ...</h5>
-
-    <p class="indented">相应的.block文件在其 <a href="manual/zh/puzzles/Plugins.html#block_file_code">code()</a> 函数内含有JavaScript错误。</p><br/> 
+    <p class="indented">
+        相应的.block文件
+        在其 <a href="manual/zh/puzzles/Plugins.html#block_file_code">code()</a> 函数内
+        含有JavaScript错误。
+    </p>
+        <br/> 
     
     [anchor:plugin_errors_plugin_error_parsing_0]
 
-    <h5>PluginError(PLUGIN_NAME): error parsing init.plug file - &quot;This page contains the following errors:error on line ...&quot;</h5>
-
-    <p class="indented">这意味着在插件的init.plug文件中存在着XML错误，使其无法被解析。例如，缺少结尾的&lt;category&gt;标签会导致这样的错误。 
-
+    <h5>PluginError(PLUGIN_NAME): error parsing init.plug file - "This page contains the following errors:error on line ..."</h5>
+    <p class="indented">
+        这意味着在插件的init.plug文件中存在着XML错误，
+        使其无法被解析。
+        例如，缺少结尾的&lt;category&gt;标签会导致这样的错误。 
         <code>
 &lt;category name="MyAwesomePlugin" color="green"&gt;
     &lt;block type="myPuzzle"&gt;&lt;/block&gt;
         </code>
+</p>
+<br/>
 
-</p><br/> [anchor:plugin_errors_plugin_error_parsing_1]
+[anchor:plugin_errors_plugin_error_parsing_1]
 
-    <h5>PluginError(PLUGIN_NAME): error parsing init.plug file - &quot;ReferenceError (SyntaxError, TypeError, etc...)...&quot;</h5>
+<h5>PluginError(PLUGIN_NAME): error parsing init.plug file - "ReferenceError (SyntaxError, TypeError, etc...) ..."</h5>
+<p class="indented">
+    这意味着如果相应的init.plug文件的&lt;script&gt;元素中
+    的代码包含错误信息中
+    指定的JavaScript错误。
+</p>
+<br/>
 
-    <p class="indented">这意味着如果相应的init.plug文件的&lt;script&gt;元素中的代码包含错误信息中指定的JavaScript错误。</p><br/> [anchor:plugin_errors_plugin_error_code]
+[anchor:plugin_errors_plugin_error_code]
 
-    <h5>PluginError(PLUGIN_NAME): error calling code() function ...</h5>
-    
-    <p class="indented">该插件的init.plug文件在其 <a href="manual/zh/puzzles/Plugins.html#init_plug_script">code()</a> 函数内含有JavaScript错误。</p><br/> [anchor:plugin_errors_dummy]
+<h5>PluginError(PLUGIN_NAME): error calling code() function ...</h5>
+<p class="indented">
+    该插件的init.plug文件
+    在其 <a href="manual/zh/puzzles/Plugins.html#init_plug_script">code()</a> 函数内
+    含有JavaScript错误。
+</p>
+    <br/>
 
-    <h5>Puzzle "PLUGIN_NAME/BLOCK_NAME" is not defined properly.Replaced with a dummy block.</h5>
-    <p class="indented">这条错误信息通常出现在一个BlockError和/或PluginError错误信息之后，它表明由于原始错误，提到的拼图模块没有被正确加载和初始化。为了仍然能够加载拼图并在一定程度上保持其可操作性，这样的拼图模块（无论是在插件的工具箱类目中还是在工作区中）都会被特殊的dummy模块所取代。Dummy模块的例子见 <a href="manual/zh/puzzles/Plugins.html#dummy_block_appearance">这张图片</a> 。</p><br/> [anchor:sharing_your_plugin]
+    [anchor:plugin_errors_dummy]
+
+    <h5>Puzzle "PLUGIN_NAME/BLOCK_NAME" is not defined properly. Replaced with a dummy block.</h5>
+    <p class="indented">
+        这条错误信息通常出现在一个BlockError和/或
+        PluginError错误信息之后，
+        它表明由于原始错误，
+        提到的拼图模块没有被正确加载和初始化。
+        为了仍然能够加载拼图并在一定程度上保持其可操作性
+        这样的拼图模块（无论是在插件的工具箱类目中还是在工作区中）都会被特殊的dummy模块所取代。
+        Dummy模块的例子见 <a href="manual/zh/puzzles/Plugins.html#dummy_block_appearance">这张图片</a> 。
+    </p>
+    <br/>
+
+
+    [anchor:sharing_your_plugin]
 
     <h2>分享您的插件</h2>
 
-    <p>一旦插件开发完成并经过测试，请随时通过以下方式分享。</p>
+    <p>
+        当您的插件开发完成时，请随时通过以下方式分享：
+    </p>
 
     <ul>
         <li>在 <a href="https://www.soft8soft.com/forum/plugins/" target="_blank">Verge3D论坛上发布链接</a>。</li>
         <li>写一篇 <a href="https://www.soft8soft.com/wiki/index.php/Main_Page" target="_blank">文章</a> 或在 <a href="manual/zh/introduction/Useful-links.html#third_party_plugins">常用链接</a> 章节中被提及。</li>
         <li>在社交媒体上分享是使用 <strong>#verge3d</strong> 标签。</li>
+        <li>在Reddit分享。这里有温和的Verge3D版块，您永远都不会被禁止: <a href="https://www.reddit.com/r/RealVerge3D/" target="_blank">r/RealVerge3D</a>, <a href="https://www.reddit.com/r/3dcommerce/" target="_blank">r/3dcommerce</a>, 及 <a href="https://www.reddit.com/r/3dconfigurators/" target="_blank">3dconfigurators</a>。</li>
         <li>在 <a href="https://gumroad.com/" target="_blank">Gumroad</a> 或类似的资源网站上发布。</li>
     </ul>
 

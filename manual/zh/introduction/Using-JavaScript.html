@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>在Verge3D应用中使用JavaScript - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,113 +8,157 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>在Verge3D应用中使用JavaScript</h1>
 
-    <p>借助拼图的优良特性，您可以无需写任何代码即实现常规WebGL应用中的大多数功能。但在某些特殊情况下，您依然需要使用JavaScript——比如，整合第三方编程库，或实现一些仅用拼图无法实现的重要特性。
+    <p>
+      借助拼图的优良特性，您可以无需写任何代码即实现常规WebGL应用中的大多数功能。但在某些特殊情况下，您依然需要使用JavaScript——比如，整合第三方编程库，或实现一些仅用拼图无法实现的重要特性。
     </p>
 
-    <p>您可以使用任何文本编辑器来编辑HTML/CSS代码。但使用支持显示行号及语法高亮的工具会提高工作效率，比如Notepad++或VS Code等。</p>
+    <p>
+      您可以使用任何文本编辑器来编辑HTML/CSS代码。但使用支持显示行号及语法高亮的工具会提高工作效率，比如VS Code或Atom等。
+    </p>
 
-    [contents] [anchor:Method_1_Basic]
+    [contents]
+
+
+
+    [anchor:Method_1_Basic]
 
     <h2>方法#1（基础）</h2>
 
-    <p>在拼图中合并javascript代码的最简单的方法是使用 <a href="manual/zh/puzzles/Advanced.html#exec_script">exec
-        script(执行脚本)</a>拼图。它有一个内置的功能齐全的文本编辑器，能够进行语法高亮显示、语法检查、代码折叠和许多其他特性。</p>
+    <p>
+      在拼图中合并javascript代码的最简单的方法是
+      使用 <a href="manual/zh/puzzles/Advanced.html#exec_script">exec script(执行脚本)</a>拼图。
+      它有一个内置的功能齐全的文本编辑器，
+      能够进行语法高亮显示、语法检查、代码折叠和许多其他特性。
+      </p>
 
-    <p>这个拼图所做的就是立即执行一个javascript代码片段。使用“exec script”的优点是：
+    <p>
+      这个拼图所做的就是立即执行一个javascript代码片段。
+      使用“exec script”的优点是：
     <ul>
       <li>这是一种只需处理拼图的方法（不需要编辑项目的.js文件）</li>
       <li>这样的代码片段可以保存到拼图库中，并且可以轻松地在其他项目中复用</li>
     </ul>
     </p>
 
-    <p>为了访问 <a href="manual/zh/puzzles/Variables.html">变量</a> 和 <a href="manual/zh/puzzles/Procedures.html">规程</a>
-      拼图，您可以使用“exec script”拼图内置的 <b>VARS</b> 和 <b>PROC</b> 。请参阅 <a
-        href="manual/zh/puzzles/Advanced.html#exec_script">"exec script" (执行脚本) 拼图的文档页面</a>。</p>
+    <p>
+      为了访问 <a href="manual/zh/puzzles/Variables.html">变量</a> 
+      和 <a href="manual/zh/puzzles/Procedures.html">过程</a> 拼图，
+      您可以使用“exec script”拼图内置的 <b>VARS</b> 和 <b>PROC</b> 。
+      请参阅 <a href="manual/zh/puzzles/Advanced.html#exec_script">"exec script" (执行脚本) 拼图的文档页面</a>。
+      </p>
 
-    <p>如下图示例，使用 "exec script"拼图实现了在场景中单击对象时改变材质的功能：</p><img
-      src="files/using-javascript/basics-exec-script-example.jpg" class="centered">
+    <p>
+      如下图示例，
+      使用 "exec script(执行脚本)" 拼图实现了在场景中单击对象时改变材质的功能：
+    </p>
+    
+    <img src="files/using-javascript/basics-exec-script-example.jpg">
+
+
 
     [anchor:Method_2_Standard]
 
     <h2>方法#2（标准）</h2>
 
-    <p>如果您想拥有比"exec script" (执行脚本) 拼图所能提供的更多的控制权，可以采用此方法。假设您使用了默认的 <b>标准</b> 应用模板（<b>标准浅色</b> 或 <b>标准深色</b>）
-      ：</p><img src="files/using-javascript/standard-app-template.jpg" class="centered" style="max-width: 522px">
-    <p>如果您使用了应用管理器的默认设置，并在其中创建了一个名为 <strong>my_awesome_app</strong>的新应用。打开 <i>verge3d/applications</i> 目录，找到
-      <i>my_awesome_app</i> 文件夹，使用您最喜欢的文本编辑器打开JavaScript文件 <i>my_awesome_app.js</i> 。
+    <p>
+      如果您想拥有比"exec script(执行脚本)" 
+      拼图所能提供的更多的控制权，
+      可以采用此方法。
+      假设您使用了默认的 <b>标准</b> 应用模板（<b>标准浅色</b> 或 <b>标准深色</b>）：
     </p>
 
-    <p>搜索"runCode" —— 文件中其位置应该如下所示：</p>
-    
-<code>
+    <img src="files/using-javascript/standard-app-template.jpg" style="max-width: 522px">
 
+    <p>
+      如果您使用了应用管理器的默认设置，
+      并在其中创建了一个名为 <strong>my_awesome_app</strong>的新应用。
+      打开 <i>verge3d/applications</i> 目录，
+      找到 <i>my_awesome_app</i> 文件夹，
+      使用您最喜欢的文本编辑器打开JavaScript文件 <i>my_awesome_app.js</i> 。
+    </p>
+
+    <p>
+      搜索"runCode" —— 文件中其位置应该如下所示：
+    </p>
+    
+    <code>
 function runCode(app) {
         // add your code here, e.g. console.log('Hello, World!');
 
 }
-          
-</code>
+    </code>
 
-
-    <p>您可以在其声明内部（在花括号之间）添加代码，就像这样：</p>
+    <p>
+      您可以在其声明内部（在花括号之间）添加代码，就像这样：
+    </p>
     
 <code>
-
 function runCode(app) {
         // add your code here, e.g. console.log('Hello, World!');
         console.log('Just added some JavaScript!');
 }
-          
 </code>
 
-    <p>现在保存 <strong>.js</strong> 文件并运行应用，不会看出任何反应，但打开浏览器控制台后您便会注意到上面那段代码已经起作用了。浏览器控制台通常可以用F12键（Linux和Windows上的Chrome与火狐
-      ）打开。在Mac电脑中，Chrome使用 View > Developer > JavaScript控制台菜单（快捷键：Option-Cmd-J）开启，Safari需使用 Developer > Show Error
-      Console菜单（快捷键：Option-Cmd-C）开启浏览器控制台。</p><img src="files/using-javascript/basics-console-log.jpg" class="centered"
-     >
-    <p>通过代码您可以对场景做一些改变，比如移动默认的Verge3D立方体（在3ds Max和Maya中名为“Box001”，在Blender中名为“cube”）...</p>
+    <p>
+      现在保存 <strong>.js</strong> 文件并运行应用，不会看出任何反应，但打开浏览器控制台后您便会注意到上面那段代码已经起作用了。浏览器控制台通常可以用F12键（Linux和Windows上的Chrome与火狐）打开。在Mac电脑中，Chrome使用 View > Developer > JavaScript控制台菜单（快捷键：Option-Cmd-J）开启，Safari需使用 Developer > Show Error Console菜单（快捷键：Option-Cmd-C）开启浏览器控制台。
+    </p>
+
+    <img src="files/using-javascript/basics-console-log.jpg">
+
+    <p>
+    通过代码您可以对场景做一些改变，比如移动默认的Verge3D立方体（在3ds Max和Maya中名为“Box001”，在Blender中名为“cube”）...
+    </p>
     
 <code>
-
 function runCode(app) {
         var obj = app.scene.getObjectByName('Cube');
         obj.position.x = 2;
-}
-          
+}  
 </code>
 
-    <p>... 或者凭空创造一种新材质：</p>
+    <p>
+    ... 或者凭空创造一种新材质：
+    </p>
     
-<code>
-
+    <code>
 function runCode(app) {
         var obj = app.scene.getObjectByName('Cube');
         obj.material = new v3d.MeshPhongMaterial({ color: '#00BB00', emissive: '#550000' });
 }
-          
-</code>
+    </code>
+
+    <img src="files/using-javascript/basics-change-material.jpg">
+
+    <p>
+      请查看 <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">Verge3D代码示例</a> ，获得更多灵感。点击 <strong>View source</strong> 按钮,，可以打开示例的原始代码。
+    </p>
+    
+    <img src="files/using-javascript/basics-code-examples.jpg">
 
 
-    <img src="files/using-javascript/basics-change-material.jpg" class="centered">
-    <p>请查看 <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">Verge3D代码示例</a> ，获得更多灵感。点击
-      <strong>View source</strong> 按钮,，可以打开示例的原始代码。
-    </p><img src="files/using-javascript/basics-code-examples.jpg" class="centered">
 
     [anchor:Method_3_Compact]
 
     <h2>方法#3（紧凑型）</h2>
 
-    <p>这种方法适合有经验的程序员，他们希望从一个最小的工作代码片段开始工作。流程与选择 <b>标准</b> 模板类似，但这次我们选择 <b>基于代码的</b> 模板来创建新应用：</p><img
-      src="files/using-javascript/compact-app-template.jpg" class="centered" style="max-width: 522px">
-    <p>这将预设一个更简单的项目基础结构，应用中不会附带拼图编辑器，对应的 <strong>.js</strong> 文件里也只包含短短几行代码：</p>
-    
-<code>
+    <p>
+      这种方法适合有经验的程序开发人员，
+      希望从一个最小的工作代码片段开始工作。
+      流程与选择 <b>标准</b> 模板类似，
+      但这次我们选择 <b>基于代码的</b> 模板来创建新应用：
+    </p>
 
+    <img src="files/using-javascript/compact-app-template.jpg" style="max-width: 522px">
+
+    <p>
+      这将预设一个更简单的项目基础结构，应用中不会附带拼图编辑器，对应的 <strong>.js</strong> 文件里也只包含短短几行代码：
+    </p>
+    
+    <code>
 'use strict';
 
 window.addEventListener('load', function() {
@@ -136,31 +179,46 @@ function runCode() {
 }
 
 });
-    
-</code>
+    </code>
 
-    <p>此类应用非常简单，但它们仍然能够加载 <strong>.gltf</strong> 格式的文件，带有网页预加载器，并在应用中提供了标准摄影机控件。</p>
+    <p>
+      此类应用非常简单，但它们仍然能够加载 <strong>.gltf</strong> 格式的文件，带有网页预加载器，并在应用中提供了标准摄影机控件。
+    </p>
 
-    <p>您可以通过在“runcode”函数中添加代码来继续编程，如同方法#2
-      。当然，您也可以完全修改这个应用模板——例如，您可以丢弃App类，在场景中加载其他文件格式，或以某种特定的方式设置控件。</p>
+    <p>
+      您可以通过在“runcode”函数中添加代码来继续编程，如同方法#2。当然，您也可以完全修改这个应用模板——例如，您可以丢弃App类，在场景中加载其他文件格式，或以某种特定的方式设置控件。
+    </p>
+
+
 
     [anchor:Method_4_Hardcore]
 
     <h2>方法#4（硬核）</h2>
 
-    <p>这种方法适合熟悉Three.js库的程序员，您可以在Verge3D中使用与之基本相同的API。</p>
+    <p>
+      这种方法适合熟悉Three.js库的程序员，您可以在Verge3D中使用与之基本相同的API。
+    </p>
 
-    </p>从 <i>verge3d/build</i> 文件夹复制 <strong>v3d.js</strong> 文件，将其链接到 <strong>.html</strong> 文件，然后 <a
-      href="manual/zh/programmers_guide/Programming-basics.html">开始编程</a>吧！不然，您以为 <a
-      href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">代码示例</a> 最早是怎么写出来的？</p>
+    </p>
+    从 <i>verge3d/build</i> 文件夹复制 <strong>v3d.js</strong> 文件，将其链接到 <strong>.html</strong> 文件，然后 <a href="manual/zh/programmers_guide/Programming-basics.html">开始编程</a>吧！这就是 <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">代码示例</a> 的创作起源。
+    </p>
+
+
 
     [anchor:Get_Inspired_by_Puzzles]
 
     <h2>从拼图中获得灵感</h2>
 
-    <p>这不是一种方法，而是一种提示。事实上，当您每次单击Puzzles编辑器中的*Save*按钮时，它都将生成一个自包含的、人类可读的JavaScript模块，并以*visual_logic.js*命名保存在您的应用文件夹中。
-    </p><img src="files/using-javascript/get-inspired-by-puzzles.jpg" class="centered">
-    <p>这样，您就有了一个对应特定JavaScript API工作方法的可运行示例，即并可重新使用自己感兴趣的拼图所生成的代码片段。</p>
+    <p>
+      这不是一种方法，而是一种提示。事实上，当您每次单击Puzzles编辑器中的*Save*按钮时，它都将生成一个自包含的、人类可读的JavaScript模块，并以*visual_logic.js*命名保存在您的应用文件夹中。
+    </p>
+
+    
+    <img src="files/using-javascript/get-inspired-by-puzzles.jpg">
+
+    <p>
+      这样，您就有了一个对应特定JavaScript API工作方法的可运行示例，即并可重新使用自己感兴趣的拼图所生成的代码片段。
+    </p>
 
 
 
@@ -169,7 +227,5 @@ function runCode() {
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article>
-</body>
-
+  </article></body>
 </html>

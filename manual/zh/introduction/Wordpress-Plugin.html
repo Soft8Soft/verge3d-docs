@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>Verge3D WordPress插件 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,45 +8,49 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
     <h1>WordPress插件</h1>
 
-    <p>Verge3D附带了一个用于WordPress的插件，WordPress是目前使用的最流行的内容管理系统(CMS)（全球安装量超过6000多万）。</p>
+    <p>
+      Verge3D附带了一个用于WordPress的插件，WordPress是目前使用的最流行的内容管理系统(CMS)（全球安装量超过6000多万）。
+    </p>
+
     <p>Verge3D for WordPress插件提供以下功能：</p>
     <ul>
-      <li>应用托管和发布（嵌入）。</li>
-      <li>与WooCommerce系统集成。</li>
+      <li>应用托管和发布（直接通过 iframe 或 WordPress 简码嵌入）。</li>
+      <li>与WooCommerce系统集成，支持在产品页面中嵌入 Verge3D 应用。支持简单、分组、可变或外部/附属等多种产品类型。</li>
       <li>持久文件存储。</li>
-      <li>用于处理客户订单的通用电子商务系统，使用 <a href="manual/zh/puzzles/ECommerce.html#place_order" target="_parent">place order</a>
-        拼图提交数据。</li>
-      <li>可完全自定义的电子商务系统，用于处理以JSON格式提交的订单 <a href="manual/zh/puzzles/Advanced.html#send_data" target="_parent">send
-          data</a> 拼图。</li>
+      <li>用于处理客户订单的通用电子商务系统，使用 <a href="manual/zh/puzzles/ECommerce.html#place_order" target="_parent">place order</a>，<a href="manual/zh/puzzles/ECommerce.html#place_order_adv" target="_parent">place order+</a> 或 <a href="manual/en/puzzles/Advanced.html#send_data" target="_parent">send data</a> 拼图提交数据。</li>
+      <li>报价单和收据生成器。</li>
+      <li>PayPal或银行卡支付。</li>
+      <li>支持可下载的产品。</li>
     </ul>
+
     <p>这些特性可以相互独立地工作。例如，您可能只需要嵌入，或者您可以处理从其他地方托管的Verge3D应用（如Verge3D Network等）接收的命令。</p>
 
     <h2>内容</h2>
 
-    [contents] [anchor:Sandbox]
+    [contents]
+
+    
+    [anchor:sandbox]
 
     <h2>插件沙箱</h2>
 
-    <p>要尝试插件的功能，请查看 <a href="https://sandbox.soft8soft.com" target="_blank">Verge3D for
-        WordPress沙盒</a>。它提供了一个安全的环境，您可以用来测试您的Verge3D应用。</p>
+    <p>要尝试插件的功能，请查看 <a href="https://sandbox.soft8soft.com" target="_blank">Verge3D for WordPress沙盒</a>。它提供了一个安全的环境，您可以用来测试您的Verge3D应用。</p>
 
-    [anchor:Installation]
 
-    <h2 id="installation">安装</h2>
+    [anchor:installation]
 
-    <p>在安装插件之前，请确保您至少安装了WordPress4.7或更新版本。要在服务器上上传应用，您需要有一个现代浏览器，如Google Chrome、Firefox、Edge或Safari11.1+。</p>
+    <h2>安装</h2>
+
+    <p>在安装插件之前，请确保您至少安装了 WordPress 5.0 或更新版本。要在服务器上上传应用，您需要有一个现代浏览器，如Google Chrome、Firefox、Edge或Safari。</p>
 
     <p>安装方式很简单：</p>
 
     <ul>
       <li>在您的WordPress管理仪表板的插件设置页面上点击 <strong>Add New</strong> 。</li>
-      <li>在WordPress.org的官方 <a href="https://wordpress.org/plugins/verge3d/" target="_blank">存储库</a> 中找到Verge3D插件并安装。
-      </li>
+      <li>在WordPress.org的官方 <a href="https://wordpress.org/plugins/verge3d/" target="_blank">存储库</a> 中找到Verge3D插件并安装。</li>
       <li>激活插件。<strong>Verge3D</strong> 菜单将显示在管理面板中。</li>
     </ul>
 
@@ -61,59 +64,65 @@
 
     <p class="note">
       请注意，您的WordPress服务器配置可能有严格的上传限制。如果您在上传应用时遇到问题，您需要调整php.ini文件中的以下设置：
-
-      <code class=" prettyprint">
-        upload_max_filesize = 128M
-        post_max_size = 128M
-      </code>
-
+      <code>upload_max_filesize = 128M
+post_max_size = 128M</code>
       查看官方 <a href="http://php.net/manual/en/ini.core.php" target="_blank">PHP文档</a> 有关php.ini配置的更多信息。
     </p>
 
-    [anchor:Uploading_Applications]
+
+    [anchor:uploading_applications]
 
     <h2>上传应用</h2>
 
-    <p>使用 <strong>Applications</strong> 管理菜单查看 <strong>Verge3D应用</strong> 界面：</p><img src="files/wordpress/app.png">
-    <p>要上传您的应用，请单击应用的标题下的 <strong>Edit</strong> ，并在 <strong>Update Verge3D Application</strong> 表单中单击 <strong>Choose
-        Files</strong> ：</p><img src="files/wordpress/update_app.png" style="max-width: 819px;">
+    <p>使用 <strong>Applications</strong> 管理菜单查看 <strong>Verge3D应用</strong> 界面：</p>
+    
+    <img src="files/wordpress/app.png" alt="Verge3D for WordPress应用程序">
+
+    <p>
+      要上传新应用，请点击 <strong>Add New</strong> 按钮，输入应用名称，然后点击 <strong>Next</strong> 。 您会看到 *Manage Verge3D Application* 对话框。 点击 <strong>Choose Files</strong>，选择一个应用程序文件夹，然后点击 *Upload* ：
+      </p>
+    
+      <img src="files/wordpress/upload-app.jpg" alt="上传Verge3D应用到WordPress">
+
     <p>在此表单中，您还可以配置应用的iframe（画布）大小，并设置是否允许使用全屏模式。</p>
+
     <p>要在WordPress页面/文章中嵌入Verge3D应用，请使用以下短代码：</p>
 
     <code>[verge3d id="YOUR_APP_ID"]</code>
 
     <p>其中 <em>your_app_id</em> 是 <strong>Verge3D Applications</strong> 页面中显示的应用ID。</p>
 
-    [anchor:WooCommerce]
+
+    [anchor:woocommerce]
 
     <h2>与WooCommerce整合</h2>
 
-    <p>WooCommerce是一套流行的电子商务系统，它驱动了互联网中28%以上的在线商店。从版本2.16开始，Verge3D通过WordPress插件和 <a
-        href="manual/zh/puzzles/ECommerce.html">e-commerce拼图</a>提供了与WooCommerce的无缝集成。</p>
+    <p>WooCommerce 是一种流行的电子商务系统，它驱动了互联网中28%以上的在线商店。Verge3D通过此WordPress插件和 <a href="manual/zh/puzzles/ECommerce.html">e-commerce拼图</a> 提供了与 WooCommerce 的无缝集成。</p>
 
-    <p>请参阅 <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">此教程文章</a>
-      中介绍的电商功能特性。您还可以查看此教学 <a href="https://www.youtube.com/watch?v=dJdUKwSxA8c" target="_blank">视频</a>。</p>
+    <p>有关信息，请参阅<a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">这篇教程文章</a> 关于如何使用此功能，或参考以下视频： <a href="https://www.youtube.com/watch?v=dJdUKwSxA8c" target="_blank">YouTube</a> / <a href="https://www.bilibili.com/video/BV1EE411C7HY/?share_source=copy_web" target="_blank">bilibili</a>。</p>
 
-    [anchor:Uploading_Files]
+    [demo:drink_shop]
+
+
+    [anchor:uploading_files]
 
     <h2>上传文件</h2>
 
     <p>此特性允许用户持久存储在Verge3D应用中创建的内容，例如屏幕截图、上传的纹理和保存的配置等。</p>
 
-    <p>要向服务器上传文件，请使用下面的REST API方法：</p><code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/upload_file/
-</code>
+    <p>要向服务器上传文件，请使用下面的REST API方法：</p>
+    
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/upload_file/</code>
 
     <p>其中HOSTNAME是WordPress服务器的主机名，例如 <em>sandbox.soft8soft.com</em></p>
 
     <p>成功后，此方法返回以下JSON文件，其中包含上传文件的信息：</p>
-
     <code>
       {
           "id": THE_ID_OF_THE_UPLOADED_FILE,
           "link": LINK_TO_THE_UPLOADED_FILE,
           "size": FILE_SIZE
-      }
-    </code>
+      }</code>
 
     <p>使用请求中提供的链接或使用ID与 <em>get_file</em> REST API方法来检索文件：</p>
     
@@ -121,224 +130,215 @@
 
     <h3>使用拼图</h3>
 
-    <p>使用 <strong>send data</strong> 和 <strong>loaded data</strong> 拼图来上传文件。使用 <strong>in dict ... get key ...</strong>
-      拼图解析API响应的JSON字段。</p>
-    <p>在下面的示例中，将用户在“opened file”拼图中指定的文件上载到Soft8Soft沙箱中，然后把web地址保存到 <strong>link</strong> 变量里：</p><img
-      src="files/wordpress/send_load_puzzles.png">
+    <p>使用 <strong>send data</strong> 和 <strong>loaded data</strong> 拼图来上传文件。使用 <strong>in dict ... get key ...</strong> 拼图解析API响应的JSON字段。</p>
+    <p>在下面的示例中，将用户在“opened file”拼图中指定的文件上载到Soft8Soft沙箱中，然后把web地址保存到 <strong>link</strong> 变量里：</p>
+    
+    <img src="files/wordpress/send_load_puzzles.png">
+
     <p>若要检索/下载文件，请使用 <strong>load data</strong> 和 <strong>loaded data</strong> 拼图。</p>
 
-    [Anchor:Receiving_Basic_Orders]
+    [demo:custom_image]
+
+
+    [anchor:receiving_orders_with_order_form]
 
     <h2>接收基础订单</h2>
 
-    <p>要处理Verge3D应用中由 <strong>place order</strong> 拼图生成的订单,在您的WordPress页面/文章中使用以下短代码添加一个订单表单：</p>
+    <p>要处理Verge3D应用中的常规订单（通过<a href="manual/zh/puzzles/ECommerce.html#place_order" target="_parent">place order</a> 或 <a href=" manual/zh/puzzles/ECommerce.html#place_order_adv" target="_parent">place order+</a> 拼图）,在您的WordPress页面/文章中使用以下短代码添加一个订单表单：</p>
 
     <code>[verge3d_order]</code>
 
-    <p>然后将指向该页面/应用的链接指定为“place order”拼图的“send to”参数。每次执行此拼图时，您的应用都会将用户重定向到您的订单表单：</p><img
-      src="files/wordpress/order_form.png" style="max-width: 500px;">
+    <p>然后将指向该页面/应用的链接指定为“place order”拼图的“send to”参数。每次执行此拼图时，您的应用都会将用户重定向到您的订单表单：</p>
+    
+    <img src="files/wordpress/order-form.jpg" style="max-width: 867px;">
 
-    [anchor:Managing_Orders]
+    [demo:ring]
+
+    
+    [anchor:receiving_orders_rest_api]
+
+    <h2>通过 REST API 在后台接收订单</h2>
+
+    <p>在某些情况下，您可能希望为下订单创建自定义体验，而不是将用户重定向到订单页面。</p>
+
+    <p>假设您要创建一个基本的表格定制器。 您的数据可能如下所示：</p>
+
+    <code>
+    {
+        "user_name": "John Smith",
+        "user_email": "john.smith@example.com",
+        "user_phone": "+123456789"
+        "items": [
+            {
+                "sku": "table_top_white",
+                "quantity": 1
+            },
+            {
+                "sku": "table_leg_brown",
+                "quantity": 4
+            },
+        ]
+    }</code>
+
+    <p>您可以使用字典拼图组合此结构，然后使用 "send data" 拼图将其发送到服务器。</p>
+
+    <p>为此，请为您的 "send data" 拼图指定一个正确的 URL ，类似这样：</p>
+
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v2/place_order/</code>
+
+    <p>其中 HOSTNAME 是您的 WordPress 服务器的域名名，例如 <em>sandbox.soft8soft.com</em></p>
+
+
+    [anchor:managing_orders]
 
     <h2>管理订单</h2>
 
-    <p>使用 <strong>E-Commerec</strong> 管理菜单来访问 <strong>E-Commerce Orders</strong> 页面：</p><img
-      src="files/wordpress/orders.png">
-    <p>此列表中的订单会在接收到来自Verge3D应用的请求时自动创建。您可以使用此屏幕查看和管理客户订单。</p>
+    <p>使用 <strong>Orders</strong> 管理菜单来访问 <strong>E-Commerce Orders</strong> 页面：</p>
+    
+    <img src="files/wordpress/orders.png">
 
-    [anchor:Advanced_E_Commerce_Applications]
+    <p>此列表中的订单会在接收到来自Verge3D应用的请求时自动创建。您可以在此页查看和管理客户订单。</p>
 
-    <h2>高级电子商务应用</h2>
+    
+    [anchor:managing_products]
 
-    <p>在某些情况下，您可能希望扩展电子商务系统的功能。例如，如果您开发了3D配置器，或者需要从客户端获得更多信息以正确处理订单，则需要向请求添加更多数据，并在服务器上处理这些数据。对于这种情况，您需要使用“send
-      data”拼图将数据编码为JSON格式，然后为您的电子商务系统创建自定义模板表单。</p>
+    <h2>管理产品</h2>
 
-    <p>假设您想创建一个基本的表单定制器。以下是数据的外观：</p>
+    <p>
+      使用 <strong>Products</strong> 管理菜单来访问 <strong>E-Commerce Products</strong> 页面：
+    </p>
 
+    <img src="files/wordpress/products.jpg">
+
+    <p>每个产品都包含如下字段：</p> 
+
+    <dl>
+      <dt>Title</dt>
+      <dd>人类可读的产品标题，例如“Verge3D for Blender”或“Spinner”。 此字段是必填字段。</dd>
+      <dt>SKU</dt>
+      <dd>产品库存单位。 该值不仅用于商家管理订单，而且主要用于在<strong>place order +</strong>或<strong>send data</strong>拼图中引用产品项目。 通常，此值用作产品 ID。</dd>
+      <dt>Price</dt>
+      <dd>产品价格。可以设置为零。</dd>
+      <dt>Download link</dt>
+      <dd>可选的可下载产品链接。</dd>
+    </dl>
+
+
+    [anchor:geting_product_info]
+
+    <h2>获取产品信息</h2>
+
+    <p>用户可使用此功能接收存储在服务器上的产品的相关信息。</p>
+
+    <p>使用时请执行以下 REST API 方法：</p>
+
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/get_product_info/SKU</code>
+
+    <p>其中 HOSTNAME 是您的 WordPress 服务器的主机名，例如 <em>sandbox.soft8soft.com</em>，SKU 是产品的存货种类。</p>
+
+    <p>若执行成功，此方法将会返回包含以下产品信息的文件：</p>
     <code>
-      {
-          "width": 120,
-          "length": 150,
-          "height": 100,
-          "color": "Redwood",
-          "title": "Custom Table",
-          "price" 100,
-          "user_name", "John Smith",
-          "user_email", "john.smith@example.com",
-          "user_phone", "+123456789"
-      }
-    </code>
+    {
+        "status": "ok",
+        "title": "Product Title",
+        "sku": "SKU",
+        "price": "Product price"
+        "currency": "Currency symbol, such as $"
+    }</code>
 
-    <p>您可以使用<b>字典拼图</b>来组合这个结构，然后使用“send
-      Data”拼图将其发送到服务器。之后，您需要为订单管理管理页面创建自定义模板，以及将发送给客户和销售人员的电子邮件。为此，请将以下模板源文件复制到 <em>verge3d</em> 子目录：</p>
+    <h3>使用拼图</h3>
 
-    <code class="language-html">
-        WORDPRESS/wp-content/plugins/verge3d/templates/order_admin_form.php -> THEME/verge3d
-        WORDPRESS/wp-content/plugins/verge3d/templates/order_email_body.php -> THEME/verge3d
-    </code>
+    <p>
+      使用 <strong>load data(加载数据)</strong> 和 <strong>loaded data(已加载的数据)</strong> 拼图来获取有关您的产品的信息：
+    </p>
+
+    <img src="files/wordpress/get_product_info_puzzles.jpg">
 
 
-    <p>其中WORDPRESS是WordPress安装的根目录,而THEME是当前主题的目录。根据为您的订单指定的结构编辑这些文件。</p>
-
-    <p>最后一部分是为您的“send data”拼图分配一个适当的URL。类似这样：</p>
-
-    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/place_order/
-</code>
-
-
-    <p>其中HOSTNAME是WordPress服务器的主机名，例如 <em>sandbox.soft8soft.com</em></p>
-
-    [anchor:Plug_in_Settings]
+    [anchor:plug_in_settings]
 
     <h2>插件设置</h2>
 
-    <p>使用 <strong>Settings</strong> 管理菜单修改插件全局设置：</p><img src="files/wordpress/settings.png">
-    <p><strong>Order notification e-mail</strong> 选项用于指定负责管理订单的人员的电子邮件地址。当客户下新订单时，您将在此电子邮件上收到有关此订单的通知。</p>
-    <p><strong>Order e-mail &quot;From&quot;</strong> 选项用于指定负责与客户通信的人员/组织的名称/电子邮件。这可以是销售经理的电子邮件，比如
-      <em>sales@yourcompany.com</em> 或只是一个无回复地址,如 <em>noreply@yourcompany.com</em>.
+    <p>使用 <strong>Settings</strong> 管理菜单修改插件全局设置：</p>
+    
+    <img src="files/wordpress/settings.jpg">
+
+    <h3>General tab</h3>
+
+    <dl>
+      <dt>Currency</dt>
+      <dd>用于存储和显示价格的货币类型。</dd>
+      <dt>Price decimals</dt>
+      <dd>显示价格的小数位数。</dd>
+      <dt>Merchant info</dt>
+      <dd>商家信息：公司/品牌，地址，联系人，标志等。</dd>
+      <dt>Order form fields</dt>
+      <dd>订单中应包括的字段。</dd>
+      <dt>Order success text</dt>
+      <dd>订单执行成功后显示的文本。</dd>
+      <dt>Order failed text</dt>
+      <dd>订单失败时显示的文本。</dd>
+    </dl>
+    
+    <h3>Mail标签</h3>
+
+    <dl>
+      <dt>Order notification e-mail</dt>
+      <dd>在此选项中指定负责管理订单的人员的电子邮件地址。当客户下新订单时，您将在此电子邮件中收到有关此订单的通知。</dd>
+      <dt>Order e-mails "From"</dt>
+      <dd>在此选项中指定负责与客户通信的个人/组织的名称/电子邮件。这可以是一个销售经理的电子邮件，或一些常见的如 <em>sales@yourcompany.com</em> 与 <em>noreply@yourcompany.com</em> 等专用邮箱地址。</dd>
+      <dt>New order notifications</dt>
+      <dd>在此选项中配置新订单通知邮件的收件人，及此类邮件的主题、内容和附件。</dd>
+      <dt>Updated order notifications</dt>
+      <dd>在此选项中配置订单更新通知邮件的收件人，及此类电子邮件的主题、内容和附件。</dd>
+      <dt>Sales quotes</dt>
+      <dd>在这些选项中配置要发送给客户的报价邮件的主题和内容。</dd>
+      <dt>Invoices</dt>
+      <dd>在些选项中配置要发送给客户的账单邮件的主题和内容。</dd>
+    </dl>
+
+    <h3>Documents标签</h3>
+
+    <p>要正确使用此功能，您需要在服务器上安装Chrome/Chromium浏览器。它将在被称为 <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" target="_blank">headless mode</a> 中执行将HTML订单转换为PDF格式的操作。如果您在某个自定义目录中安装了Chrome/Chromium可执行文件,请指定路径；如果时安装在系统默认路径,可将路径字段留空。</p>
+    <p>请注意，要安装Chrome到系统默认路径，您需要对服务器具有管理员访问权限。如果没有，请下载 <a href="https://www.chromium.org/getting-involved/download-chromium" target="_blank">最新的Chromium版本</a>，将其解包到服务器上的某个用户可访问的目录中，然后在path字段中指定到Chromium可执行文件的路径（例如<em>/home/ubuntu/chrome-linux/chrome）</em>。</p>
+
+    <dl>
+      <dt>PDF Generator</dt>
+      <dd>安装Chrome/Chromium浏览器的路径，用于以执行PDF转换。如果是以系统范围(system-wide)权限安装的，请留空。</dd>
+      <dt>Quotes</dt>
+      <dd>报价文档中显示的其他内容，及报价被确认为有效时的时间。</dd>
+      <dt>Invoices</dt>
+      <dd>收据文档中显示的其他内容。</dd>
+    </dl>
+
+    <h3>Payment标签</h3>
+
+    <dl>
+      <dt>Paid status</dt>
+      <dd>订单状态设置为成功付款。例如，如果您正在销售实体商品，您可能希望将订单状态设置为*Processing(正在处理)*，这意味着您正在处理订单以便发货。如果您正在销售数字商品，您可能希望将状态设置为*Completed(已完成)*。这种情况下，下载链接将通过电子邮件发送给客户。</dd>
+      <dt>PayPal</dt>
+      <dd>PayPal付款方式激活检查器和app客户端ID。请在 <a href="https://developer.paypal.com/developer/applications/" target="_blank">此处</a> 了解起使用说明。</dd>
+    </dl>
+
+    <h3>Security标签</h3>
+
+    <p>
+      为了使您的服务器更安全，请始终禁用您不使用的功能。
     </p>
-    <p><strong>Order e-mail PDF attachments</strong> 选项用于在您的订单电子邮件中启用PDF附件。此附件包含了可打印的订单内容。</p>
-    <p>要正确使用此功能，您需要在服务器上安装Chrome/Chromium浏览器。它将在被称为 <a
-        href="https://developers.google.com/web/updates/2017/04/headless-chrome" target="_blank">headless mode</a>
-      中执行将HTML订单转换为PDF格式的操作。如果您在某个自定义目录中安装了Chrome/Chromium可执行文件,请指定路径；如果时安装在系统默认路径,可将路径字段留空。</p>
-    <p>请注意，要安装Chrome到系统默认路径，您需要对服务器具有管理员访问权限。如果没有，请下载 <a
-        href="https://www.chromium.org/getting-involved/download-chromium"
-        target="_blank">最新的Chromium版本</a>，将其解包到服务器上的某个用户可访问的目录中，然后在path字段中指定到Chromium可执行文件的路径（例如
-      <em>/home/ubuntu/chrome-linux/chrome）</em>.
-    </p>
 
-    <p><strong>Enable REST APIs</strong> 选项用于启用或禁用插件提供的订单管理和持久文件存储API。</p>
-    <p><strong>跨域请求(Cross-domain requests)</strong> 选项用于启用或禁用对插件提供的REST API的跨域请求（源自不同主机）。</p>
-
-    [anchor:Customizing_E_Commerce_Forms]
-
-    <h2>定制电子商务表单</h2>
-
-    <p>若要修改电子商务表单，请复制位于Verge3D插件目录的 <em>template</em> 到WordPress主题目录下 <em>verge3d</em> 子目录。</p>
-
-    <p>例如，如果需要修改订单电子邮件模板：</p><code class="language-html">WORDPRESS/wp-content/plugins/verge3d/templates/order_email_body.php -&gt; THEME/verge3d
-</code>
-
-    <p>其中WORDPRESS是WordPress安装的根目录,而THEME是当前主题的目录。</p>
-
-    <p>下面是可以自定义的模板列表：</p>
-
-    <table>
-      <tr>
-        <th>模板文件</th>
-        <th>说明</th>
-      </tr>
-      <tr>
-        <td>order_admin_form.php</td>
-        <td>WordPress管理仪表板上的订单管理表单。</td>
-        </tr>
-      <tr>
-        <td>order_email_body.php</td>
-        <td>订单电子邮件正文模板。此模板用于发送给您和客户的订单通知。</td>
-        </tr>
-      <tr>
-        <td>order_email_pdf.php</td>
-        <td>订购电子邮件PDF附件模板。此模板用于生成即将被转化为订单邮件中PDF格式附件的HTML文件。</td>
-        </tr>
-      <tr>
-        <td>order_form.php</td>
-        <td>订单表单模板。此表单将在 <strong>
-
-            [verge3d_order]
-
-          </strong> 短代码所在页面中显示给客户：</td>
-        </tr>
-      <tr>
-        <td>order_success.php</td>
-        <td>接受订单时显示的消息。</td>
-      </tr>
-      <tr>
-        <td>order_failed.php</td>
-        <td>拒绝订单时显示的消息。</td>
-        </tr>
-    </table>
-
-    <h3>安全措施</h3>
-
-    <p>在为电子商务应用使用自定义表单时，请确保正确地转义客户发送的输出数据。参见此 <a
-        href="https://developer.wordpress.org/plugins/security/securing-output/" target="_blank">指南</a> 了解更多信息。</p>
-
-    [anchor:E_Commerce_Protocol_Specification]
-
-    <h2>电子商务协议规范</h2>
-
-    <p class="note">本节针对具有高级服务器端编程经验的用户。</p>
-
-    <p>“place order”拼图使用基础协议处理订单。使用带有如下参数的HTTP POST请求，将订单从浏览器发送到服务器：</p>
-
-    <table>
-      <tr>
-        <th>POST参数</th>
-        <th>说明</th>
-      </tr>
-      <tr>
-        <td>v3d_title</td>
-        <td>订单标题。此字段用于描述订单。此处数值对客户没有用处，仅对负责处理订单的人员有意义。</td>
-      </tr>
-      <tr>
-        <td>v3d_content</td>
-        <td>订单内容。此文本字段包括完整的订单信息，并且对客户和销售经理都可见。</td>
-      </tr>
-      <tr>
-        <td>v3d_price</td>
-        <td>订单总价。它可以是一个数字或字符串，例如99、99.99、“$99.99”。</td>
-      </tr>
-      <tr>
-        <td>v3d_screenshot</td>
-        <td>订单截图。此可选值必须是表示图像的数据URI。此值由 <strong>HTMLCanvasElement.toDataURL()</strong> 方法生成。</td>
-      </tr>
-    </table><br>
-    <p>更高级的基于JSON的协议使用以下一组默认参数：</p>
-
-    <table>
-      <tr>
-        <th>JSON字段</th>
-        <th>说明</th>
-      </tr>
-      <tr>
-        <td>title</td>
-        <td>订单标题。此字段用于描述订单。此处数值对客户没有用处，仅对负责处理订单的人员有意义。</td>
-      </tr>
-      <tr>
-        <td>price</td>
-        <td>订单总价。它可以是一个数字或字符串，例如99、99.99、“$99.99”。</td>
-      </tr>
-      <tr>
-        <td>user_name</td>
-        <td>客户的全名。</td>
-      </tr>
-      <tr>
-        <td>user_email</td>
-        <td>客户的电子邮件地址。</td>
-      </tr>
-      <tr>
-        <td>user_phone</td>
-        <td>客户的电话号码。</td>
-      </tr>
-      <tr>
-        <td>user_comment</td>
-        <td>订购备注。</td>
-      </tr>
-      <tr>
-        <td>screenshot</td>
-        <td>订单截图。此可选值必须是表示图像的数据URI。此值由 <strong>HTMLCanvasElement.toDataURL()</strong> 方法生成。</td>
-      </tr>
-    </table><br>
-    <p>由于此协议是可扩展的，您可以添加任何您想要的参数，如附加配置选项、产品属性、送货地址、帐单信息、税项、折扣等。</p>
-
-    [anchor:Got_Questions]
+    <dl>
+      <dt>Enable REST APIs</dt>
+      <dd>这些选项用于启用/禁用插件提供的订单管理、持久文件存储或产品API。</dd>
+      <dt>Cross-domain requests</dt>
+      <dd>此处选项用于启用/禁用插件提供的 REST API 的跨域请求（来自不同主机）。</dd>
+      <dt>Custom products</dt>
+      <dd>允许接收带有自定义产品价格和/或 SKU 的订单。</dd>
+    </dl>
 
     <h2>遇到问题？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article>
-</body>
-
+  </article></body>
 </html>

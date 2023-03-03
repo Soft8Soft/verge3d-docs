@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>电子商务插件参考 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,21 +8,53 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body>  <article>
 
     <h1>电子商务插件 | E-Commerce Plugin</h1>
 
-    <p>此类目拼图通过Verge3D <a href="manual/zh/puzzles/Plugins.html">插件</a> 功能创建，生成了可用于实现WooCommerce
-      3D产品视图和配置器的拼图，也可用于创建独立的订单或咨询表单。</p>
+    <p>
+      此类目拼图通过Verge3D <a href="manual/zh/puzzles/Plugins.html">插件</a> 功能创建，生成了可用于实现WooCommerce 3D产品视图和配置器的拼图，也可用于创建独立的订单或咨询表单。
+    </p>
       
     <img src="files/puzzles/puzzles-ecommerce.jpg">
+
+
     <h2>内容</h2>
 
-    [contents] [anchor:puzzles_reference]
+    [contents]
+    
+    
+    [anchor:puzzles_reference]
 
     <h2>拼图参考</h2>
+
+
+    [anchor:paypal_create_order]
+
+    <h3>paypal create order(创建Paypal订单)</h3>
+
+    <p>
+      下PayPal订单。此拼图是最简单的电子商务解决方案，因为它无需任何服务器端配置。要使用他，您需要由已通过验证的PayPal企业账号。
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-paypal-create-order.jpg">
+
+    <dl>
+      <dt>client ID</dt>
+      <dd>PayPal企业账号客户ID，请在 <a href="https://developer.paypal.com/developer/applications/" target="_blank">此页</a> 获取。其提供了用于测试目的沙盒凭证，如果要用于真实销售，您需要执行 <a href="https://developer.paypal.com/api/rest/production/" target="_blank">额外的步骤</a> 来接收实时凭证。</dd>
+      <dt>title</dt>
+      <dd>产品标题。</dd>
+      <dt>item price</dt>
+      <dd>产品单价。</dd>
+      <dt>currency</dt>
+      <dd>货币。</dd>
+      <dt>quantity</dt>
+      <dd>产品数量。</dd>
+      <dt>on success do</dt>
+      <dd>此插槽中的拼图将在交易成功后执行。</dd>
+      <dt>on error do</dt>
+      <dd>此插槽中的拼图将在遇到错误时执行（例如资金不足等情况）。</dd>
+    </dl>
 
     [anchor:woo_connect]
 
@@ -32,7 +63,11 @@
     <p>连接到WooCommerce系统，开始接收产品信息。</p>
       
     <img src="files/puzzles/puzzles-ecommerce-connect-to-woocommerce.jpg">
-    <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">英文版</a> ，<a href="https://verge3d.funjoy.tech/blog/3/post/woocommerce3d-58" target="_blank">中文版</a>。</p>
+
+    [demo:drink_shop]
+
+    <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">英文版</a> ，<a href="https://mp.weixin.qq.com/s/jbQHzTmPr1V4aH6aAfM8Hw" target="_blank">中文版</a>。</p>
+
 
     [anchor:woo_product_info]
 
@@ -40,8 +75,7 @@
 
     <p>返回一个 <a href="manual/zh/puzzles/Dictionaries.html">dictionary(字典)</a> ，其中包含由 *connect to WooCommerce* 拼图检索的产品信息。这个字典（JavaScript对象）中包含以下字段。</p>
 
-    <p>
-    <ul>
+    <p><ul>
       <li>*price* - 客户选择的产品选项的价格，例如：12。</li>
       <li>*quantity* - 客户选择的产品项目的数量，例如：2。</li>
       <li>*sku* - 客户选择的产品选项的库存单位。</li>
@@ -52,10 +86,10 @@
       <li>*type* - 在WooCommerce管理面板中指定的以下产品类型之一： "variable", "simple", "group" 或 "external" 。</li>
       <li>*children* - 只对 "group" 产品有效。包括每个子产品的信息。</li>
       <li>*status* - 服务器响应： "ok" 或 "error" 。</li>
-    </ul>
-    </p>
+    </ul></p>
       
     <img src="files/puzzles/puzzles-ecommerce-product-info.jpg">
+
 
     [anchor:woo_product_attribute]
 
@@ -64,26 +98,95 @@
     <p>返回客户选择的产品选项属性值，例如： "Yellow" 。</p>
       
     <img src="files/puzzles/puzzles-ecommerce-product-attribute.jpg">
-    <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">英文版</a> ，<a href="https://verge3d.funjoy.tech/blog/3/post/woocommerce3d-58" target="_blank">中文版</a>。</p>
+
+    <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">英文版</a> ，<a href="https://mp.weixin.qq.com/s/jbQHzTmPr1V4aH6aAfM8Hw" target="_blank">中文版</a>。</p>
+
 
     [anchor:place_order]
 
     <h3>place order(下单)</h3>
 
-    <p>用 "title" 、 "content" 和 "price" 字段以及一个可选的屏幕截图组成一个隐藏的订单表单，并根据Wordpress插件部分阐述的规范将此表提交到指定的URL。默认情况下，订购表单会被提交到 <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">演示订购页面</a>。</p>
+    <p>
+      编写订单并将其提交到指定的 URL。默认情况下，订购表单会被提交到 <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">sandbox ordering page</a>。
+    </p>
 
-    <p>Verge3D带有一个免费的Wordpress插件，用于处理由这个拼图提交的请求。收到此类请求后，此Wordpress插件会生产带有扩展表单的页面，并补充有联系人和评论字段、嵌入的屏幕截图和验证码。填好的表单最后由客户提交，并在Wordpress管理界面创建一个新的订单。客户和销售经理都会收到关于该订单的电子邮件通知。</p>
+    <img src="files/puzzles/puzzles-ecommerce-place-order.jpg">
 
-    <p>请参考本手册的 <a href="manual/zh/introduction/Wordpress-Plugin.html">Wordpress插件</a> 章节，了解设置方法。</p>
+    [demo:ring]
 
-    <p>请确保在 <a href="manual/zh/puzzles/Initialization.html#configure_application" target="_parent">configure application(配置应用程序)</a> 拼图中启用屏幕截图，否则屏幕截图可能会显示为纯黑色。</p>
-      
-    <img src="files/puzzles/puzzles-misc-place-order.jpg">
+    <p>
+      Verge3D带有一个免费的Wordpress插件，用于处理由这个拼图提交的请求。收到此类请求后，此Wordpress插件会生产带有扩展表单的页面，并补充联系人、评论、屏幕截图等字段。填好的表单最后由客户提交，并在Wordpress管理界面创建一个新的订单。
+    </p>
+
+    <dl>
+      <dt>send to</dt>
+      <dd>WordPress 插件提供的订单表单的 URL。请参考本手册的 <a href="manual/zh/introduction/Wordpress-Plugin.html">Wordpress插件</a> 章节，了解设置方法。</dd>
+      <dt>content</dt>
+      <dd>订单内容（以人类可读的形式呈现）。</dd>
+      <dt>item price</dt>
+      <dd>产品项目价格。</dd>
+      <dt>quantity</dt>
+      <dd>产品的数量。</dd>
+      <dt>make screenshot</dt>
+      <dd>生成应用屏幕截图并将其附加到订单中。请确保在 <a href="manual/zh/puzzles/Initialization.html#configure_application" target="_parent">configure application(配置应用程序)</a> 拼图中启用屏幕截图，否则屏幕截图可能会显示为纯黑色。</dd>
+    </dl>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order-example.jpg">
+
+    <p class="note">
+      由您（或销售经理）来验证订单内容和价格的正确性。尽快可能性很小，但黑客可能会通过篡改拼图提交的数据的方式来以较低的价格购买产品。为防止此类事件，您需要使用 <a href="manual/zh/puzzles/ECommerce.html#place_order_adv">place order +</a> 拼图依赖服务器上分配的产品信息来验证订单。
+    </p>
+
+
+    [anchor:place_order_adv]
+
+    <h3>place order +</h3>
+
+    <p>
+      编写订单并将其提交到指定的 URL。此拼图工作方式类似于 <a href="manual/zh/puzzles/ECommerce.html#place_order">place order</a> ，但有更多特性，安全性也更高，并且允许自定义。
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order-adv.jpg">
+
+    [demo:recliner]
+
+    <dl>
+      <dt>send to</dt>
+      <dd>WordPress 插件提供的订单表单的 URL。有关设置信息，请参阅 <a href="manual/zh/introduction/Wordpress-Plugin.html#receiving_orders_with_order_form">此处指南</a> 。</dd>
+      <dt>item(s)</dt>
+      <dd>订单项目或订单项目列表。参阅 <a href="manual/zh/puzzles/ECommerce.html#order_item">下文</a> 了解详情。</dd>
+      <dt>attachment(s)</dt>
+      <dd>订单附件或订单附件列表。附件是一个 <a href="manual/zh/puzzles/HTML.html#data_uri">Data URI link</a> ，用来表示屏幕截图、图片、声音，视频，PDF，文本或glTF模型。</dd>
+    </dl>
+
+    <p>
+      示例用法：
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order-adv-example.jpg">
+
+
+    [anchor:order_item]
+
+    <h3>order item (sku, qty)</h3>
+
+    <p>
+      用在 <a href="manual/zh/puzzles/ECommerce.html#place_order_adv">place order +</a> 拼图中的订单项目。
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-order-item.jpg">
+
+    <dl>
+      <dt>sku</dt>
+      <dd>由 WordPress 插件注册的产品SKU（库存单位）请参阅 <a href="manual/zh/introduction/Wordpress-Plugin.html#managing_products">此处指南</a> 了解如何设置产品。</dd>
+      <dt>quantity</dt>
+      <dd>产品数量</dd>
+    </dl>
+
+
     <h2>在使用拼图时遇到困难？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
-
+  </article></body>
 </html>

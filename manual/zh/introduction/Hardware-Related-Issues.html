@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
-
-<head>
+  <head>
     <title>硬件相关问题 - Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="学习如何处理与硬件有关的问题和限制。" />
@@ -9,66 +8,81 @@
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
     <style>
-        table,
-        td,
-        th {
-            border: 1px solid #2194CE;
-            border-collapse: collapse;
-            padding: 10px;
-            text-align: left;
-            min-width: 180px;
-            font-size: 16px;
+        table, td, th {
+          border: 1px solid #2194CE;
+          border-collapse: collapse;
+          padding: 10px;
+          text-align: left;
+          min-width: 180px;
+          font-size: 16px;
         }
-
         table {
-            margin-bottom: 20px;
+          margin-bottom: 20px;
         }
-
         th {
-            text-align: center;
-            text-decoration: none;
-            color: #0b7188;
-            font-size: 17px;
-            font-family: 'Oswald', sans-serif;
-            font-weight: normal;
+          text-align: center;
+          text-decoration: none;
+          color: #0b7188;
+          font-size: 17px;
+          font-family: 'Oswald', sans-serif;
+          font-weight: normal;
         }
-
         td ul {
-            margin: 10px 0px;
-            padding-left: 20px;
+          margin: 10px 0px;
+          padding-left: 20px;
         }
-
         td {
-            vertical-align: top;
+          vertical-align: top;
         }
-
         td.centered {
-            text-align: center;
+          text-align: center;
         }
-    </style>
-</head>
+      </style>
+  </head>
+  <body><article>
 
-<body>
-    <article>
+    <h1>硬件相关问题</h1>
 
-        <h1>硬件相关问题</h1>
+    <p>
+        本章节描述了在开发web应用过程中可能会遇到的典型的硬件问题，
+        以及项目实施相关的限制。
+    </p>
 
-        <p>本章节描述了在开发web应用过程中可能会遇到的典型的硬件问题，以及项目实施相关的限制。</p>
+    [contents]
 
-        [contents] [anchor:too_many_attributes]
 
-        <h2>Too Many Attributes</h2>
+    [anchor:too_many_attributes]
 
-        <p>在您的场景运行过程中，偶尔可能会遇到一些对象没有被渲染的问题，浏览器控制台会显示如下错误：</p>
-        
-        <img
-            src="files/hardware-related-issues/too-many-attributes.jpg" class="centered" style="max-width: 846px"> <span
-            class="img-caption">浏览器控制台中出现“Too Many Attributes（属性太多）”错误</span>
-        <p>这个错误意味着一些对象(那些未被渲染的对象)超过了单个着色器可使用的顶点属性的最大数量限制。</p>
+    <h2>Too Many Attributes</h2>
 
-        <p>一个对象使用多少属性取决于不同的因素：是否存在形态键(Blender)/变形目标(3ds Max)/混合形状(Maya)及其数量，是否用到蒙皮，是否用到特定的材质节点，等等……</p>
+    <p>
+        在您的场景运行过程中，
+        偶尔可能会遇到一些对象没有被渲染的问题，
+        浏览器控制台会显示如下错误：
+    </p>
 
-        <p>下表解释了如何计算对象所使用属性的数量:</p>
+    <figure style="max-width: 846px">
+        <img src="files/hardware-related-issues/too-many-attributes.jpg" alt="Browser console">
+        <figcaption>"浏览器控制台中出现“Too Many Attributes（属性太多）”错误</figcaption>
+    </figure>
+
+    <p>
+        这个错误意味着一些对象(很显然，
+        是那些未被渲染的对象)，
+        超过了单个着色器可使用的顶点属性的最大数量限制。
+    </p>
+
+    <p>
+        一个对象使用多少属性取决于不同的因素：
+        是否存在形态键(Blender)/变形目标(3ds Max)/混合形状(Maya)及其数量，
+        是否用到蒙皮，
+        是否用到特定的材质节点，等等……
+    /p>
+
+    <p>
+        下表解释了如何计算对象所使用属性
+        的数量:
+    </p>
 
         <table>
             <thead>
@@ -79,39 +93,54 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="centered">3</td>
+                    <td>3</td>
                     <td>必要属性： <b>位置</b>， <b>法线</b>， <b>uv</b>。</td>
                 </tr>
                 <tr>
-                    <td class="centered">+2x</td>
-                    <td>每用到1个形状键(Blender)/变形目标(3ds Max) /混合形状目标(Maya)，则增加两个属性。此类属性值上限为 <b>+12</b>。</td>
+                    <td>+2x</td>
+                    <td>
+                        每用到1个形状键(Blender)/变形目标(3ds Max)/混合形状目标(Maya)，
+                        则增加两个属性。
+                        此类属性值上限为 <b>+12</b>。
+                    </td>
                 </tr>
                 <tr>
-                    <td class="centered">+2</td>
+                    <td>+2</td>
                     <td>如果用到蒙皮则增加两个属性。</td>
                 </tr>
                 <tr>
-                    <td class="centered">+1x</td>
-                    <td>对象材质中每使用1个不同的<a
-                            href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>顶点颜色时，为以下节点增加一个属性:
+                    <td>+1x</td>
+                    <td>
+                        对象材质中每使用1个不同的 
+                        <a href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a> 顶点颜色时，
+                        为以下节点增加一个属性:
                         <ul>
                             <li>Blender: <b>属性</b>， <b>顶点颜色</b></li>
                         </ul>
                     </td>
                 </tr>
                 <tr>
-                    <td class="centered">+1x</td>
-                    <td>当对象材质中使用了不同<a href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>的<b>uv</b>贴图时，每增加一个以下节点（第一个除外，已包含在必要属性中，见第一行），则增加一个属性：
+                    <td>+1x</td>
+                    <td>
+                        当对象材质中使用了不同<a href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a>的<b>uv</b>贴图时，
+                        每增加一个以下节点（第一个除外，
+                        已包含在必要属性中，见第一行），
+                        则增加一个属性：
                         <ul>
                             <li>Blender: <b>UV贴图(UV Map)</b></li>
-                            <li>3ds Max: <b>Bitmap(位图)</b>（仅当“映射类型”设置为“纹理”时），<b>Gradient Ramp(梯度渐变)</b>，<b>Noise(噪波)</b>（仅当“映射”设置为“显式贴图通道”时）</li>
+                            <li>
+                                3ds Max: <b>Bitmap(位图)</b>（仅当“映射类型”设置为“纹理”时），
+                                <b>Gradient Ramp(梯度渐变)</b>，<b>Noise(噪波)</b>（仅当“映射”设置为“显式贴图通道”时）
+                            </li>
                             <li>Maya: <b>place2dTexture</b></li>
                         </ul>
                     </td>
                 </tr>
                 <tr>
-                    <td class="centered">+1</td>
-                    <td>如果对象材质有任意以下节点，每个增加1个属性：<ul>
+                    <td>+1</td>
+                    <td>
+                        如果对象材质有任意以下节点，每个增加1个属性：
+                        <ul>
                             <li>Blender: <b>Normal Map（法线贴图）</b>, <b>Tangent（切线）</b>， (仅计"UV Map"模式)</li>
                             <li>3ds Max: <b>法线凹凸</b></li>
                             <li><b>aiNormalMap</b>, <b>bump2d</b> (仅在"Bump Interp"输入 > 0时计算), <b>samplerInfo</b></li>
@@ -119,8 +148,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="centered">+1</td>
-                    <td>如果对象材质有任意以下节点，每个增加1个属性：<ul>
+                    <td>+1</td>
+                    <td>
+                        如果对象材质有任意以下节点，每个增加1个属性：
+                        <ul>
                             <li>3ds Max: <b>顶点颜色(Vertex Color)</b></li>
                         </ul>
                     </td>
@@ -128,9 +159,19 @@
             </tbody>
         </table>
 
-        <p id="attribute-table0" style="font-size: 14px;">*如果多个节点使用相同的顶点颜色或uv贴图，则在计算属性极限时，将所有这些节点都计为一个节点。</p>
+        <p id="attribute-table0" style="font-size: 14px;">
+            *如果多个节点使用相同的顶点颜色或uv贴图，
+            则在计算属性极限时，将所有这些节点都计为一个节点。
+        </p>
 
-        <p>通常情况下，限制顶点属性在<b>16</b>个以下即可（尽管某些老旧/低端的设备仅能支持8个顶点属性）。大部分情况下，您只需关注使用了多个形态键的对象。除此之外，特定对象/材质的顶点属性一般都不会突破极限。</p>
+        <p>
+            通常情况下，限制顶点属性在<b>16</b>个以下即可
+            （尽管某些老旧/低端的设备仅能支持8个顶点属性）。
+            大部分情况下，
+            您只需关注使用了多个形态键的对象。
+            除此之外，特定对象/材质的顶点属性一般都不会突破极限。
+        </p>
+
 
         [anchor:aa_issues]
 
@@ -140,25 +181,34 @@
         
         <img src="files/hardware-related-issues/aa_msaa.jpg">
 
-        <p>当 *Anti-Aliasing(抗锯齿)* 输出设置为 MSAA 或 Auto 时，这种情况就会发生(在任意)容硬件上，这里默认设置为 MSAA 4x）。MSAA（多样本抗锯齿）技术可产生不错的图像质量，并且对性能的影响较小。但对于对象颜色突然变化的程序纹理效果不佳。</p>
+        <p>
+            当 *Anti-Aliasing(抗锯齿)* 输出设置为 MSAA 或 Auto 时，这种情况就会发生(在任意)容硬件上，这里默认设置为 MSAA 4x）。MSAA（多样本抗锯齿）技术可产生不错的图像质量，并且对性能的影响较小。但对于对象颜色突然变化的程序纹理效果不佳。
+        </p>
 
         <p>将 *Anti-Aliasing(抗锯齿)* 技术切换为 FXAA 可解决该问题：</p>
         
         <img src="files/hardware-related-issues/aa_fxaa.jpg">
 
         <p>FXAA 使用后期处理渲染来减少锯齿，并在这类由程序贴图生成的“边缘”上表现很好。</p>
+        
 
         [anchor:z_fighting]
 
         <h2>当两个物体过于靠近时出现相交伪影</h2>
 
-        <p>有时您可能会遇到类似下面的情况：</p>
+        <p>
+            有时您可能会遇到类似下面的情况：
+        </p>
         
         <img src="files/hardware-related-issues/z-fighting.jpg" alt="z缓冲冲突伪影">
 
-        <p>这种现象称之为 *z-fighting(z缓冲冲突)* (见<a href="https://en.wikipedia.org/wiki/Z-fighting" target="_blank">维基百科名词解释</a>)。当不同的多边形到摄影机的距离相等或非常相近时，就会发生这种情况。</p>
+        <p>
+            这种现象称之为 *z-fighting(z缓冲冲突)* (见<a href="https://en.wikipedia.org/wiki/Z-fighting" target="_blank">维基百科名词解释</a>)。当不同的多边形到摄影机的距离相等或非常相近时，就会发生这种情况。
+        </p>
 
-        <p>要解决此问题，你可以采用以下方案之一：</p>
+        <p>
+            要解决此问题，你可以采用以下方案之一：
+        </p>
 
         <ul>
             <li>最直接且简单的解决办法是：将对象彼此位置放远一点。</li>
@@ -167,7 +217,5 @@
         </ul>
 
 
-    </article>
-</body>
-
+    </article></body>
 </html>

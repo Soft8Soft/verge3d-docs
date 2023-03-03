@@ -12,7 +12,9 @@
 
     <h1>阴影/Blender</h1>
 
-    <p>这里描述了在 Verge3D 中为 Blender 设置漂亮实时阴影的设置和最佳实践。</p>
+    <p>
+        这里描述了在 Verge3D 中为 Blender 设置漂亮实时阴影的设置和最佳实践。
+    </p>
     
     <iframe class="video-480p" src="https://player.bilibili.com/player.html?aid=591013212&bvid=BV1tq4y1d7zL&cid=424930607&page=1&high_quality=1&danmaku=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -20,38 +22,77 @@
 
     [contents]
 
-    <p class="note">本节是为Blender 2.81（或更高版本）编写的。旧版Blender的阴影设置略有不同。</p>
-
     [anchor:prepare_viewport]
 
     <h2>准备Blender视口</h2>
-    <p class="note">建议按照本节所述设置Blender的视口，让配置阴影更加容易。</p>
 
-    <p>Verge3D的目标是类似于Blender的Eevee渲染器。按照以下说明启用：</p>
+    <p class="note">
+        建议按照本节所述设置Blender的视口，
+        让配置阴影更加容易。
+    </p>
+
+    <p>
+        Verge3D的目标是类似于Blender的Eevee渲染器。
+        按照以下说明启用：
+    </p>
 
     <ul>
-        <li>确保<b>渲染属性</b> -> <b>渲染引擎</b> 选项被设置为 "Eevee"。Eevee在Blender 2.8+版本中是默认启用的，但如果打开了特定的.blend文件，可能会被指定为其他渲染引擎。在这种情况下，建议将其切换回Eevee。</li>
-    </ul><img src="files/shadows-blender/render-engine.jpg" class="centered" style="max-width: 467px;"><ul>
-        <li>将<b>视口着色方式</b>选项设置为 <b>渲染</b>。</li>
-    </ul><img src="files/shadows-blender/viewport-shading.jpg" class="centered" style="max-width: 369px;"><p>另请注意，Verge3D并不像Blender那样支持<b>柔和阴影(Soft Shadows)</b>。Blender的<b>柔和阴影</b>选项可以实现渐变的阴影渲染，但Verge3D依赖于实时渲染技术。鉴于上述情况，禁用<b>柔和阴影</b>选项可能更好。另外，为了在Verge3D中实现柔和阴影，可以尝试不同的 <a href="manual/zh/blender/Shadows.html#shadow_filtering">阴影过滤方法</a> ，并调整 <a href="manual/zh/blender/Shadows.html#blur-radius">阴影模糊半径</a> 的设置。</p><img src="files/shadows-blender/soft-shadows-not-supported.jpg" class="centered" style="max-width: 381px;">
+        <li>
+            确保<b>渲染属性</b> -> <b>渲染引擎</b> 选项被设置为 "Eevee"。
+            Eevee在Blender 2.8+版本中是默认启用的，
+            但如果打开了特定的.blend文件，
+            可能会被指定为其他渲染引擎。在这种情况下，建议将其切换回Eevee。
+        </li>
+    </ul>  
+    <img src="files/shadows-blender/render-engine.jpg" style="max-width: 467px;">
+    <ul>
+        <li>
+            将<b>视口着色方式</b>选项设置为 <b>渲染</b>。
+        </li>
+    </ul>
+    <img src="files/shadows-blender/viewport-shading.jpg" style="max-width: 369px;">
+    
+    <p>
+        另请注意，
+        Verge3D并不像Blender那样支持<b>柔和阴影(Soft Shadows)</b>。
+        Blender的<b>柔和阴影</b>选项可以实现渐变的阴影渲染，
+        但Verge3D依赖于实时渲染技术。
+        鉴于上述情况，
+        禁用<b>柔和阴影</b>选项可能更好。
+        另外，为了在Verge3D中实现柔和阴影，
+        可以尝试不同的 <a href="manual/zh/blender/Shadows.html#shadow_filtering">阴影过滤方法</a> ，
+        并调整 <a href="manual/zh/blender/Shadows.html#blur-radius">阴影模糊半径</a> 的设置。
+    </p>
+    <img src="files/shadows-blender/soft-shadows-not-supported.jpg" style="max-width: 381px;">
 
     [anchor:shadow_filtering]
 
     <h2>阴影过滤类型</h2>
 
-    <p>使用不同的阴影图过滤算法，会在Verge3D场景生成明显差异的阴影。请在<b>渲染属性</b>选项卡中的<b>阴影贴图过滤(<b>Shadow Map Filtering</b>)</b>属性中指定算法。</p><img src="files/shadows-blender/shadow-filtering-settings.jpg" class="centered" style="max-width: 425px">
+    <p>使用不同的阴影图过滤算法，会在Verge3D场景生成明显差异的阴影。请在<b>渲染属性</b>选项卡中的<b>阴影贴图过滤(<b>Shadow Map Filtering</b>)</b>属性中指定算法。</p>
+    
+    <img src="files/shadows-blender/shadow-filtering-settings.jpg" style="max-width: 425px">
+
+    [demo:tea_ceremony]
+
 
     [anchor:shadow_filtering_basic]
 
     <h3>Basic - 基本</h3>
 
-    <p>禁用过滤，按原样渲染阴影贴图。这是渲染阴影的最快的方法。</p><img src="files/shadows-blender/shadow-filtering-basic.jpg">
+    <p>禁用过滤，按原样渲染阴影贴图。这是渲染阴影的最快的方法。</p>
+    
+    <img src="files/shadows-blender/shadow-filtering-basic.jpg">
+
 
     [anchor:shadow_filtering_bilinear]
 
     <h3>Bilinear - 双线性</h3>
 
-    <p>使用双线性滤波平滑相邻阴影贴图像素。</p><img src="files/shadows-blender/shadow-filtering-bilinear.jpg">
+    <p>使用双线性滤波平滑相邻阴影贴图像素。</p>
+    
+    <img src="files/shadows-blender/shadow-filtering-bilinear.jpg">
+
 
     [anchor:shadow_filtering_pcf]
 
@@ -61,34 +102,70 @@
     
     <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
 
+
     [anchor:shadow_filtering_pcf_bilinear]
 
     <h3>PCF (Bilinear) - 双线性PCF</h3>
 
-    <p>与PCF类似，但对每个阴影贴图查询使用双线性插值。在牺牲更多计算能力的情况下提供平滑的阴影。</p><img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg">
+    <p>与PCF类似，但对每个阴影贴图查询使用双线性插值。在牺牲更多计算能力的情况下提供平滑的阴影。</p>
+    
+    <img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg">
+
 
     [anchor:shadow_filtering_pcf_poisson_disk]
 
     <h3>PCF (Poisson Disk) - 泊松碟采样PCF</h3>
 
-    <p>使用伪随机 <em>泊松碟</em> 采样来消除PCF阴影的像素化。这被作为默认设置，因为它最符合您在3D编辑器视口中看到的效果。其性能与<b>双线性PCF</b>算法相当或更好。</p><img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
+    <p>使用伪随机 <em>泊松碟</em> 采样来消除PCF阴影的像素化。这被作为默认设置，因为它最符合您在3D编辑器视口中看到的效果。其性能与<b>双线性PCF</b>算法相当或更好。</p>
+    
+    <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
+
 
     [anchor:shadow_filtering_esm]
 
     <h3>ESM</h3>
 
-    <p>Exponential Shadow Maps，代表指数阴影贴图。阴影是最平滑的，但有可能出现漏光。在灯光上使用 <a href="manual/zh/blender/Shadows.html#esm-bias">ESM偏移</a> 设置来消除漏光伪影。其性能与<b>双线性PCF</b>算法相当。ESM阴影的设置可能特别棘手，因此请参见 <a href="manual/zh/blender/Shadows.html#troubleshooting">故障排除</a> 章节中的ESM相关问题。</p><img src="files/shadows-blender/shadow-filtering-esm.jpg">
+    <p>
+        Exponential Shadow Maps，代表指数阴影贴图。
+        阴影是最平滑的，
+        但有可能出现漏光。
+        在灯光上使用 <a href="manual/zh/blender/Shadows.html#esm-bias">ESM偏移</a> 设置来消除漏光伪影。
+        其性能与<b>双线性PCF</b>算法相当。
+        ESM阴影的设置可能特别棘手，
+        因此请参见 <a href="manual/zh/blender/Shadows.html#troubleshooting">故障排除</a> 章节中的ESM相关问题。
+    </p>
+    
+    <img src="files/shadows-blender/shadow-filtering-esm.jpg">
+
 
     [anchor:shadow_filtering_choose]
 
     <h3>选择哪种过滤类型？</h3>
-    <p>建议首先尝试默认的 <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">泊松碟PCF</a> 阴影，因为它们具有良好的质量和性能。如果您需要质量较低但速度更快的阴影，请尝试 <a href="manual/zh/blender/Shadows.html#shadow_filtering_basic">基础</a> 或 <a href="manual/zh/blender/Shadows.html#shadow_filtering_bilinear">双线性</a>。如果您需要更好的质量、更柔和的阴影，可以尝试 <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> ，但缺点是它们对于特定场景的设置（伪影方面）可能很棘手。</p>
+    <p>
+        建议首先尝试默认的 <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">泊松碟PCF</a> 阴影，
+        因为它们具有良好的质量和性能。
+        如果您需要质量较低但速度更快的阴影，
+        请尝试 <a href="manual/zh/blender/Shadows.html#shadow_filtering_basic">基础</a> 
+        或 
+        <a href="manual/zh/blender/Shadows.html#shadow_filtering_bilinear">双线性</a>。
+        如果您需要更好的质量、更柔和的阴影，
+        可以尝试 <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> ，
+        但缺点是它们对于特定场景的
+        设置（伪影方面）可能很棘手。
+    </p>
+
 
     [anchor:global_settings]
 
     <h2>全局设置</h2>
-
-    <p>阴影的渲染是通过Blender的<b>阴影</b>和*Verge3D Settings*面板来调整的，这些面板位于渲染属性选项卡中。</p><img src="files/shadows-blender/shadow-settings-global-blender.jpg" class="centered" style="max-width: 603px"><dl>
+    
+    <p>
+        阴影的渲染是通过Blender的<b>阴影</b>和*Verge3D Settings*面板来调整的，这些面板位于渲染属性选项卡中。
+    </p>
+    
+    <img src="files/shadows-blender/shadow-settings-global-blender.jpg" style="max-width: 603px">
+    
+    <dl>
         <dt id="cube-size">方块大小(Cube Size)</dt>
         <dd>阴影贴图的大小，用于 <em>点光源</em> 、 <em>聚光灯</em> 和 <em>面光</em> 投射的阴影。较高的数值可以提供更好的质量，但会降低性能。</dd>
         <dt id="cascade-size">级联尺寸(Cascade Size)</dt>
@@ -102,35 +179,85 @@
         <dt>阴影贴图面(Shadow Map Side)</dt>
         <dd>表示在阴影通道中对多边形的哪一面进行渲染。调整以消除自阴影伪影，或当被渲染的是普通模型时（如树叶或纸张）请调整此值。</dd>
         <dt id="esm-distance-scale">ESM距离比例(ESM Distance Scale)</dt>
-        <dd>ESM阴影的缩放系数。由于ESM过滤算法使用的是绝对距离值，如果您正在处理的场景比默认的立方体大得多，那么就减少这个比例值，如果您的场景小得多，就增加这个比例。默认为1。只对 <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> 阴影作用。</dd>
+        <dd>
+            ESM阴影的缩放系数。由于ESM过滤算法使用的是绝对距离值，
+            如果您正在处理的场景比默认的立方体大得多，
+            那么就减少这个比例值，
+            如果您的场景小得多，
+            就增加这个比例。默认为1。
+            只对 <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> 阴影作用。
+        </dd>
     </dl>
 
     [anchor:per_light_settings]
 
     <h2>每个灯光的设置</h2>
 
-    <p>可以使用<b>阴影</b>和*Verge3D Settings*面板为每个单独的灯光启用、禁用或调整阴影。</p><img src="files/shadows-blender/shadow-settings-perlight-blender.jpg" class="centered" style="max-width: 305px"><dl>
+    <p>
+        可以使用<b>阴影</b>和*Verge3D Settings*面板为每个单独的灯光启用、禁用或调整阴影。
+    </p>
+    
+    <img src="files/shadows-blender/shadow-settings-perlight-blender.jpg" style="max-width: 305px">
+    
+    <dl>
         <dt>剪切开始(Clip Start)</dt>
         <dd>接近剪切距离，较高的值可能会略微改善阴影质量。</dd>
         <dt id="bias">偏移(Bias)</dt>
         <dd>应重点调整的参数，以消除<b>自阴影伪影</b>及<b>阴影悬浮</b>效果。注：<b>Peter Panning - 阴影悬浮</b>，这个词的名字来源于童话人物彼得潘（他的影子与身体分离并且可以飞翔），此伪影使对象看起来像是悬浮在地表。</dd>
         <dt id="blur-radius">模糊半径(Blur Radius)</dt>
-        <dd>指定值为1以使阴影更平滑（增加阴影的模糊度）。这个参数只对 <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf">PCF</a>、 <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf_bilinear">双线性PCF</a>、 <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">泊松碟采样PCF</a> 和 <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> 阴影起作用。</dd>
+        <dd>
+            指定值为1以使阴影更平滑（增加阴影的模糊度）。
+            这个参数只对 
+            <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf">PCF</a>、 
+            <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf_bilinear">双线性PCF</a>、 
+            <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">泊松碟采样PCF</a> 
+            和 
+            <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> 阴影起作用。
+        </dd>
         <dt id="esm-bias">ESM偏移(ESM Bias)</dt>
-        <dd>偏离一定数值以减少ESM的 <em>漏光</em> 伪影。只对 <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> 阴影作用。</dd>
+        <dd>
+            偏离一定数值以减少ESM的 <em>漏光</em> 伪影。
+            只对 <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> 
+            阴影作用。
+        </dd>
     </dl>
+
 
     [anchor:per_object_material_settings]
 
     <h2>每个对象/材质的设置</h2>
 
-    <p>可以通过<b>设置</b>面板为每个单独的材质启用或禁用阴影。</p><img src="files/shadows-blender/shadow-settings-permaterial.jpg" class="centered" style="max-width: 433px"><dl>
+    <p>
+        可以通过<b>设置</b>面板为每个单独的材质
+        启用或禁用阴影。
+    </p>
+    
+    <img src="files/shadows-blender/shadow-settings-permaterial.jpg" style="max-width: 433px">
+    
+    <dl>
         <dt id="shadow-mode">阴影模式</dt>
-        <dd>材质的阴影投射模式。目前只支持<b><b>无</b>(None)</b>和<b>不透明(Opaque)</b>。</dd>
-    </dl><br/><p>可以通过*Verge3D Settings*面板为每个对象单独启用或禁用阴影接收。</p><img src="files/shadows-blender/shadow-settings-perobject.jpg" class="centered" style="max-width: 432px;"><dl>
-        <dt id="receive-shadows">接收阴影(Rceive Shadows)</dt>
-        <dd>在给定的对象上渲染阴影或不渲染阴影。</dd>
+        <dd>
+            材质的阴影投射模式。目前只支持 *无(None)* 
+            和 *不透明(Opaque)* 。
+        </dd>
     </dl>
+    
+    <br/>
+    
+    <p>
+        可以通过 *Verge3D Settings* 
+        面板为每个对象单独启用或禁用阴影接收。
+    </p>
+    
+    <img src="files/shadows-blender/shadow-settings-perobject.jpg" style="max-width: 432px;">
+    
+    <dl>
+        <dt id="receive-shadows">接收阴影(Rceive Shadows)</dt>
+        <dd>
+            在给定的对象上渲染阴影或不渲染阴影。
+        </dd>
+    </dl>
+    
 
     [anchor:configuring_sun_shadows]
 
@@ -139,10 +266,13 @@
     <p>由于Verge3D还不支持级联阴影贴图，您必须按照以下步骤来配置日光的阴影。</p>
 
     <ol>
-      <li>将级联的数量设置为1。</li>
-      <li>使用<b>视图</b> -> <b>摄影机</b> -> <b>活动摄影机</b> 菜单或按下<b>数字小键盘的0键</b>转到活动摄影机视图。</li>
-      <li id="max-distance">调整<b>最大距离</b>参数。</li>
-    </ol><img src="files/shadows-blender/shadow-settings-cascades.jpg" class="centered" style="max-width: 322px">
+      <li>将级联的 *数量* 设置为1。</li>
+      <li>使用 *视图* -> *摄影机* -> *活动摄影机* 菜单或按下 *数字小键盘的0键* 转到活动摄影机视图。</li>
+      <li id="max-distance">调整 *最大距离* 参数。</li>
+    </ol>
+    
+    <img src="files/shadows-blender/shadow-settings-cascades.jpg" style="max-width: 322px">
+
 
     [anchor:troubleshooting]
 
@@ -150,50 +280,143 @@
 
     <h3>Verge3D中的阴影和Blender视口中的阴影看起来不同</h3>
     <ul>
-        <li>Verge3D不使用与3D软件相同的阴影渲染技术，主要是出于性能的考虑。这可能包括光线分层，各种后期处理效果和非实时渲染方法。这是为什么会有差异，以及为何阴影看起来和视口中的不完全一样。</li>
-        <li>Verge3D的目标是类似于Eevee渲染引擎的实时效果。为了使在Eevee中配置阴影更容易，请遵循这里描述的介绍：<a href="manual/zh/blender/Shadows.html#prepare_viewport">Blender视口准备工作</a></li>
-        <li>如果使用<b>日光</b>做光源，请参阅 <a href="manual/zh/blender/Shadows.html#configuring_sun_shadows">配置日光阴影</a>。</li>
+        <li>
+            Verge3D不使用与3D软件相同的阴影渲染技术，
+            主要是出于性能的考虑。这可能包括光线分层，
+            各种后期处理效果和非实时渲染方法。
+            这是为什么会有差异，
+            以及为何阴影看起来和视口中的不完全一样。
+        </li>
+        <li>
+            Verge3D的目标是类似于Eevee渲染引擎的实时效果。
+            为了使在Eevee中配置阴影更容易，
+            请遵循这里描述的介绍：<a href="manual/zh/blender/Shadows.html#prepare_viewport">Blender视口准备工作</a>
+        </li>
+        <li>
+            如果使用<b>日光</b>做光源，
+            请参阅 <a href="manual/zh/blender/Shadows.html#configuring_sun_shadows">配置日光阴影</a>。
+        </li>
     </ul>
 
     <h3>阴影看起来太像素化了</h3>
     <ul>
-        <li>为*点光源*、*聚光灯*、*区域光*使用较高的 <a href="manual/zh/blender/Shadows.html#cube-size">方块尺寸(Cube Size</a> 数值。为日光使用更高的 <a href="manual/zh/blender/Shadows.html#cascade-size">级联尺寸(Cascade Size)</a> 数值。</li>
-        <li>如果使用日光，请尽量降低 <a href="manual/zh/blender/Shadows.html#max-distance">最大距离数值</a> 以适合您的场景，</li>
-        <li>尽量用柔和的半影来掩盖低分辨率。像 <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a> 和 <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> 这样的阴影过滤技术，适当调整 <a href="manual/zh/blender/Shadows.html#blur-radius">模糊半径</a> ，可以使像素化不那么突出。</li>
+        <li>
+            为*点光源*、
+            *聚光灯*、
+            *面光*使用较高的 <a href="manual/zh/blender/Shadows.html#cube-size">方块尺寸(Cube Size</a> 数值。
+            为日光使用更高的 <a href="manual/zh/blender/Shadows.html#cascade-size">级联尺寸(Cascade Size)</a> 数值。
+        </li>
+        <li>
+            如果使用日光，
+            请尽量降低 <a href="manual/zh/blender/Shadows.html#max-distance">最大距离数值</a> 
+            以适合您的场景，
+        </li>
+        <li>
+            尽量用柔和的半影来掩盖低分辨率。
+            像 
+            <a href="manual/zh/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a> 
+            和 
+            <a href="manual/zh/blender/Shadows.html#shadow_filtering_esm">ESM</a> 
+            这样的阴影过滤技术，
+            适当调整 <a href="manual/zh/blender/Shadows.html#blur-radius">模糊半径</a> ，
+            可以使像素化不那么突出。
+        </li>
     </ul>
 
     <h3>在Blender视口中可见阴影，但在Verge3D中没有。</h3>
     <ul>
-        <li>阴影在默认情况下是启用的，但可以手动禁用。请确保 <a href="manual/zh/blender/Shadows.html#enable-shadows">启用阴影(Enable Shadows)</a> 选项处在激活状态。另外，确保需 <a href="manual/zh/blender/Shadows.html#receive-shadows">接收阴影(Rceive Shadows)</a> 的对象的接收选项没有被禁用。</li>
-        <li><a href="manual/zh/blender/Shadows.html#bias">偏离</a> 距离很大时，以及 <a href="manual/zh/blender/Shadows.html#blur-radius">模糊半径(Blur Radius)</a> 在某些情况下可能可能会部分或完全删除阴影。如果是这样的话，试着降低这些数值。</li>
+        <li>
+            阴影在默认情况下是启用的，但可以手动禁用。
+            请确保 <a href="manual/zh/blender/Shadows.html#enable-shadows">启用阴影(Enable Shadows)</a> 选项处在激活状态。
+            另外，确保需 <a href="manual/zh/blender/Shadows.html#receive-shadows">接收阴影(Rceive Shadows)</a> 
+            的对象的接收选项没有被禁用。
+        </li>
+        <li>
+            <a href="manual/zh/blender/Shadows.html#bias">偏离</a> 距离很大时，
+            以及 <a href="manual/zh/blender/Shadows.html#blur-radius">模糊半径(Blur Radius)</a> 
+            在某些情况下可能可能会部分或完全删除阴影。
+            如果是这样的话，试着降低这些数值。
+        </li>
     </ul>
 
-    <h3>阴影有伪影</h3><img src="files/shadows-blender/self-shadow-artefacts.jpg" class="centered" style="max-width: 485px"><ul>
-        <li>这种伪影被称为“<b>阴影失真(shadow acne)”</b>或“<b>自影伪影(self-shadow artefacts)</b>”。可通过增加 <a href="manual/zh/blender/Shadows.html#bias">偏移</a> 值来消除。</li>
+    <h3>阴影有伪影</h3>
+    <img src="files/shadows-blender/self-shadow-artefacts.jpg" style="max-width: 485px">
+    <ul>
+        <li>
+            这种伪影被称为 “<b>阴影失真(shadow acne)”
+            </b> 或 “<b>自影伪影(self-shadow artefacts)</b>”。
+            可通过增加 <a href="manual/zh/blender/Shadows.html#bias">偏移</a> 值来消除。
+        </li>
     </ul>
 
     <h3>阴影没有半影区或半影区很小</h3>
     <ul>
-        <li>在 <a href="manual/zh/blender/Shadows.html#shadow_filtering_basic">基本</a> 和 <a href="manual/zh/blender/Shadows.html#shadow_filtering_bilinear">双线性</a> 类型中没有半影控制。请选择其他的 <a href="manual/zh/blender/Shadows.html#shadow_filtering">阴影过滤类型</a> 。</li>
-        <li>增加 <a href="manual/zh/blender/Shadows.html#blur-radius">模糊半径</a>。</li>
+        <li>
+            在 <a href="manual/zh/blender/Shadows.html#shadow_filtering_basic">基本</a> 和 
+            <a href="manual/zh/blender/Shadows.html#shadow_filtering_bilinear">双线性</a> 
+            类型中没有半影控制。
+            请选择其他的 
+            <a href="manual/zh/blender/Shadows.html#shadow_filtering">阴影过滤类型</a> 。
+        </li>
+        <li>
+            增加 <a href="manual/zh/blender/Shadows.html#blur-radius">模糊半径</a>。
+        </li>
     </ul>
 
-    <h3>ESM阴影看起来变淡了</h3><img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" class="centered" style="max-width: 500px"><ul>
-        <li>增加 <a href="manual/zh/blender/Shadows.html#esm-bias">ESM偏移</a> 值。</li>
-        <li>增加 <a href="manual/zh/blender/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。</li>
+    <h3>ESM阴影看起来变淡了</h3>
+    <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" style="max-width: 500px">
+    <ul>
+        <li>
+            增加 <a href="manual/zh/blender/Shadows.html#esm-bias">ESM偏移</a> 
+            值。
+        </li>
+        <li>
+            增加 <a href="manual/zh/blender/Shadows.html#esm-distance-scale">ESM距离比例</a> 
+            值。
+        </li>
     </ul>
 
-    <h3>ESM的阴影看起来太尖锐或没有半影</h3><img src="files/shadows-blender/esm-sharp-shadows.jpg" class="centered" style="max-width: 500px"><ul>
-        <li>增加 <a href="manual/zh/blender/Shadows.html#blur-radius">模糊半径</a>。</li>
-        <li>减少 <a href="manual/zh/blender/Shadows.html#esm-bias">ESM偏移</a> 值。</li>
-        <li>减少 <a href="manual/zh/blender/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。</li>
-        <li>这种伪影会出现在接收对象的边缘。<img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" class="centered" style="max-width: 500px">这是ESM的缺点之一。解决方案时是尽量避免这种情况。</li>
-        <li>如果一个接受阴影的物体本身不投射阴影（例如，在 <a href="manual/zh/blender/Shadows.html#shadow-mode">阴影模式</a>中被禁用），那么无论模糊半径有多大，阴影都 <a href="manual/zh/blender/Shadows.html#blur-radius">没有半影</a> 。解决方案是在接收对象上启用阴影投射，或者使用一个额外的阴影投射对象作为底层来修复半影区。</li>
+    <h3>ESM的阴影看起来太尖锐或没有半影</h3>    
+    <img src="files/shadows-blender/esm-sharp-shadows.jpg" style="max-width: 500px">
+    <ul>
+        <li>
+            增加 <a href="manual/zh/blender/Shadows.html#blur-radius">模糊半径</a>。
+        </li>
+        <li>
+            减少 <a href="manual/zh/blender/Shadows.html#esm-bias">ESM偏移</a> 
+            值。
+        </li>
+        <li>
+            减少 <a href="manual/zh/blender/Shadows.html#esm-distance-scale">ESM距离比例</a> 
+            值。
+        </li>
+        <li>
+            这种伪影会出现在接收对象的边缘。            
+            <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" style="max-width: 500px">            
+            这是ESM的缺点之一。解决方案时是尽量避免这种情况。
+        </li>
+        <li>
+            如果一个接受阴影的物体本身不投射阴影（例如，
+            在 <a href="manual/zh/blender/Shadows.html#shadow-mode">阴影模式</a>中被禁用），
+            那么无论模糊半径有多大，
+            阴影都 <a href="manual/zh/blender/Shadows.html#blur-radius">没有半影</a> 。
+            解决方案是在接收对象上启用阴影投射，
+            或者使用一个额外的阴影投射对象作为
+            底层来修复半影区。
+        </li>
     </ul>
 
-    <h3>ESM阴影有伪影</h3><img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" class="centered" style="max-width: 500px"><ul>
-        <li>减少 <a href="manual/zh/blender/Shadows.html#esm-bias">ESM偏移</a> 值。</li>
-        <li>减少 <a href="manual/zh/blender/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。</li>
+    <h3>ESM阴影有伪影</h3>
+    <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" style="max-width: 500px">
+    <ul>
+        <li>
+            减少 <a href="manual/zh/blender/Shadows.html#esm-bias">ESM偏移</a> 
+            值。
+        </li>
+        <li>
+            减少 <a href="manual/zh/blender/Shadows.html#esm-distance-scale">ESM距离比例</a> 
+            值。
+        </li>
     </ul>
 
 

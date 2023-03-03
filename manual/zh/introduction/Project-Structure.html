@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>项目结构 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,9 +8,7 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>项目结构</h1>
 
@@ -19,70 +16,97 @@
       为了给艺术家和设计师更好的用户体验，Verge3D为WebGL应用创建了一套完整案例库及相关文件。建议您不要编辑这些已经初始化的项目文件，因为其中一些文件可能会在某些用户操作（如导出、保存拼图等）时自动重新生成，而其他文件可能会在更新到新的Verge3D版本时被覆盖。
     </p>
 
-    [contents] [anchor:Simplest_Case]
+    [contents]
+    
+    
+    [anchor:Simplest_Case]
 
     <h2>初阶案例</h2>
 
-    <p>使用应用管理器初始化的默认项目（使用默认配置参数），包含以下内容。</p><img src="files/project-structure/project-structure-simple.jpg">
+    <p>
+      使用应用管理器初始化的默认项目（使用默认配置参数），包含以下内容。
+    </p>
+    
+    <img src="files/project-structure/project-structure-simple.jpg" alt="文件管理器中的常规Verge3D项目文件清单">
+
     <h3>HTML、CSS和JavaScript文件</h3>
 
-    <p>新建的应用主体，由与应用同名（“my_awesome_app”）的 <strong>.html</strong>, <strong>.css</strong> 和
+    <p>
+      新建的应用主体，由与应用同名（“my_awesome_app”）的 <strong>.html</strong>, <strong>.css</strong> 和
       <strong>.js</strong> 文件，及Verge3D运行时 <strong>v3d.js</strong>组成。还有一个名为 <strong>media</strong>
-      的文件夹，其中包含全屏按钮及一组用于在不同设备上调用的图标图片。</p>
+      的文件夹，其中包含全屏按钮及一组用于在不同设备上调用的图标图片。
+    </p>
 
-    <p>尽管我们不推荐，但您依然可以编辑核心的 <strong>.html</strong>, <strong>.css</strong> 和 <strong>.js</strong>
-      文件。推荐通过新建自己的CSS和JavaScript文件，并链接到主 <strong>.html</strong>文件中。在执行 <a
-        href="manual/zh/introduction/Updating.html">清洁更新</a>后，请一定仔细检查您之前做的修改。</p>
+    <p>
+      尽管我们不推荐，但您依然可以编辑核心的 <strong>.html</strong>, <strong>.css</strong> 和 <strong>.js</strong> 文件。推荐通过新建自己的CSS和JavaScript文件，并链接到主 <strong>.html</strong>文件中。在执行 <a href="manual/zh/introduction/Updating.html">清洁更新</a>后，请一定仔细检查您之前做的修改。
+    </p>
 
-    <p>请注意，如果您试图通过直接打开 <strong>.html</strong> 文件的方式启动Verge3D应用，很可能由于浏览器 <a
-        href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">安全策略</a>
-      限制而无法允许，该策略禁止JavaScript跨域访问。请始终使用应用管理器来运行您的应用。</p>
+    <p>
+      请注意，如果您试图通过直接打开 <strong>.html</strong> 文件的方式启动Verge3D应用，很可能由于浏览器 <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">安全策略</a> 限制而无法允许，该策略禁止JavaScript跨域访问。请始终使用应用管理器来运行您的应用。
+    </p>
 
     <h3>glTF文件</h3>
 
-    <p>当Verge3D应用运行时，会优先加载 <strong>.gltf</strong> 格式3D场景，该文件包含了用于进一步加载场景的二进制文件 <strong>.bin</strong> 和外部纹理的路径。这个
-      <strong>.gltf</strong> 和 <strong>.bin</strong> 文件是由您从选用的DCC软件软件(Blender、3ds Max或Maya)中导出的。</p>
+    <p>
+      当Verge3D应用运行时，会优先加载 <strong>.gltf</strong> 格式3D场景，该文件包含了用于进一步加载场景的二进制文件 <strong>.bin</strong> 和外部纹理的路径。这个
+      <strong>.gltf</strong> 和 <strong>.bin</strong> 文件是由您从选用的DCC软件软件(Blender、3ds Max或Maya)中导出的。
+    </p>
 
     <h3>工作场景文件</h3>
 
-    <p>取决于你在使用什么3D编辑软件，默认立方体有 <strong>.blend</strong>, <strong>.max</strong> 和 <strong>.mb</strong>
-      格式。这是您的场景工作重点，请随意修改此文件。您可以重命名或用其他文件覆盖它，但导出glTF文件时，请使用原始名称。</p>
+    <p>
+      取决于你在使用什么3D编辑软件，默认立方体有 <strong>.blend</strong>, <strong>.max</strong> 和 <strong>.mb</strong>
+      格式。这是您的场景工作重点，请随意修改此文件。您可以重命名或用其他文件覆盖它，但导出glTF文件时，请使用原始名称。
+    </p>
 
-    <p>你以可以添加更多的场景文件到应用文件夹，用做库文件，或用于创作多场景应用。如果你的应用加载了多个glTF文件，别忘了从相应的的 <strong>.blend</strong>, <strong>.max</strong> 或
-      <strong>.mb</strong> 文件执行导出操作。</p>
+    <p>
+      你以可以添加更多的场景文件到应用文件夹，用做库文件，或用于创作多场景应用。如果你的应用加载了多个glTF文件，别忘了从相应的的 <strong>.blend</strong>, <strong>.max</strong> 或
+      <strong>.mb</strong> 文件执行导出操作。
+    </p>
 
     <h3>资产</h3>
 
-    <p>应用中调用的贴图和声音通常作为外部文件加载。请确保在所选的3D编辑器中使用 <i>相对的</i> 文件路径，并将图像存储在应用文件夹 <i>内部</i> ，否则可能会在发布时导致问题。</p>
+    <p>
+      应用中调用的贴图和声音通常作为外部文件加载。请确保在所选的3D编辑器中使用 <i>相对的</i> 文件路径，并将图像存储在应用文件夹 <i>内部</i> ，否则可能会在发布时导致问题。
+    </p>
 
     <h3>拼图</h3>
 
-    <p>当你在拼图编辑器中点击 <strong>保存</strong> 时，拼图将保存在 <strong>visual_logic.xml</strong>中。它还将拼图生成JavaScript代码并保存在
+    <p>
+      当你在拼图编辑器中点击 <strong>保存</strong> 时，拼图将保存在 <strong>visual_logic.xml</strong>中。它还将拼图生成JavaScript代码并保存在
       <strong>visual_logic.js</strong>中。每次单击 <strong>保存</strong> 按钮时，文件 <strong>visual_logic.xml</strong>
       都会重新生成，并将上一版重命名添加时间戳后移动到 <strong>v3d_app_data/puzzles_backup</strong> 文件夹中备份。因此，你可以通过将文件 <strong>.xml</strong>
-      复制到应用根目录并重命名的方式来从备份中恢复拼图。</p>
+      复制到应用根目录并重命名的方式来从备份中恢复拼图。
+    </p>
 
     [anchor:Advanced_Case]
 
     <h2>高阶案例</h2>
 
-    <p>一些Verge3D应用（例如Soft8Soft官方案例中的工业机器人Demo），包含了大量的其他文件。这些文件主要分为两类：</p>
+    <p>
+      一些Verge3D应用（例如Soft8Soft官方案例中的工业机器人Demo），包含了大量的其他文件。这些文件主要分为两类：
+    </p>
 
     <h3>已压缩的glTF文件</h3>
 
-    <p>如果您为应用启用了 <a href="manual/zh/introduction/Asset-compression.html">资产压缩</a>
-      （推荐），导出器将首先执行常规导出glTF，然后创建glTF文件的压缩版本。您的应用会自动调用压缩文件，而非glTF文件。您也无需删除glTF，因为在之后的导出操作中，它们还会自动生成。</p>
+    <p>
+      如果您为应用启用了 <a href="manual/zh/introduction/Asset-compression.html">资产压缩</a>
+      （推荐），导出器将首先执行常规导出glTF，然后创建glTF文件的压缩版本。您的应用会自动调用压缩文件，而非glTF文件。您也无需删除glTF，因为在之后的导出操作中，它们还会自动生成。
+    </p>
 
     <h3>第三方软件导出</h3>
 
-    <p>如您通过第三方软件（比如Webflow或Google Web Designer）集成设计HTML布局，可通过 <strong>iframe</strong>
-      方式嵌入Verge3D应用。该HTML文件也可以保存在该应用的文件夹中，无需通过应用管理器修改。另外，较复杂的HTML设计，可能还包含了其他CSS、JavaScript、字体及图像文件，这些也应该存储在应用文件夹中，并保留其原本的层级结构。
-    </p><img src="files/project-structure/project-structure.jpg">
+    <p>
+      如您通过第三方软件（比如Webflow或Google Web Designer）集成设计HTML布局，可通过 <strong>iframe</strong> 方式嵌入Verge3D应用。该HTML文件也可以保存在该应用的文件夹中，无需通过应用管理器修改。另外，较复杂的HTML设计，可能还包含了其他CSS、JavaScript、字体及图像文件，这些也应该存储在应用文件夹中，并保留其原本的层级结构。
+    </p>
+    
+    <img src="files/project-structure/project-structure.jpg" alt="文件管理器中的高级Verge3D项目文件列表">
+
+
+
     <h2>遇到问题？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
-
+  </article></body>
 </html>

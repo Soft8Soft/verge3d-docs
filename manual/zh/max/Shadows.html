@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
     <title>用于3ds Max的Verge3D：阴影 - Soft8Soft</title>
     <meta charset="utf-8">
@@ -9,37 +8,43 @@
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-    <article>
+<body><article>
 
     <h1>阴影 / 3ds Max</h1>
 
-    <p>这里介绍了在Verge3D中为3ds Max设置漂亮的实时阴影的设置方法和最佳实践。</p>
+    <p>
+        这里介绍了在Verge3D中为3ds Max设置漂亮的实时阴影的设置方法和最佳实践。
+    </p>
     
-    <iframe class="video-480p"
-        src="https://player.bilibili.com/player.html?aid=48633285&bvid=BV18b411u7yq&cid=85166275&page=1&high_quality=1&danmaku=0" frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-    </iframe>
+    <iframe class="video-480p" src="https://player.bilibili.com/player.html?aid=48633285&bvid=BV18b411u7yq&cid=85166275&page=1&high_quality=1&danmaku=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
     <h2>内容</h2>
 
     [contents]
     
+
     [anchor:prepare_viewport]
-
     <h2>准备Max视口设置</h2>
-    
-    <p class="note">建议按照本节所述设置Max的视口，让配置阴影更加容易。</p>
+    <p class="note">
+        建议按照本节所述设置
+        3ds Max 的视口，让配置阴影更加容易。
+    </p>
 
-    <p>启用以下视窗选项。</p>
-
+    <p>
+        启用以下视窗选项。
+    </p>
     <ul>
-        <li><b>照明和阴影</b> -> <b>用场景灯光照亮</b>。</li>
-        <li><b>照明和阴影</b> -> <b>阴影</b></li>
+        <li>
+            <b>照明和阴影</b> -> <b>用场景灯光照亮</b>。
+        </li>
+        <li>
+            <b>照明和阴影</b> -> <b>阴影</b>
+        </li>
     </ul>
     
-    <img src="files/shadows-max/lighting-and-shadows-menu.jpg" class="centered" style="max-width: 652px;">
+    <img src="files/shadows-max/lighting-and-shadows-menu.jpg" style="max-width: 652px;">
+
 
     [anchor:shadow_filtering]
 
@@ -47,7 +52,8 @@
 
     <p>使用不同的阴影图过滤算法，会在Verge3D场景生成明显差异的阴影。位于<b>Verge3D导出设置</b>面板上的<b>阴影过<b>滤</b>(Shadow filtering)</b>属性是用来指定该算法的。</p>
 
-    <!--<img src="files/shadows-blender/shadow-filtering-settings.jpg" class="centered" style="max-width: 425px">-->
+    <!--<img src="files/shadows-blender/shadow-filtering-settings.jpg" style="max-width: 425px">-->
+
 
     [anchor:shadow_filtering_basic]
 
@@ -57,6 +63,7 @@
     
     <img src="files/shadows-blender/shadow-filtering-basic.jpg">
 
+
     [anchor:shadow_filtering_bilinear]
 
     <h3>Bilinear - 双线性</h3>
@@ -64,6 +71,7 @@
     <p>使用双线性滤波平滑相邻阴影贴图像素。</p>
     
     <img src="files/shadows-blender/shadow-filtering-bilinear.jpg">
+
 
     [anchor:shadow_filtering_pcf]
 
@@ -73,6 +81,7 @@
     
     <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
 
+
     [anchor:shadow_filtering_pcf_bilinear]
 
     <h3>PCF (Bilinear) - 双线性PCF</h3>
@@ -80,6 +89,7 @@
     <p>与PCF类似，但对每个阴影贴图查询使用双线性插值。在牺牲更多计算能力的情况下提供平滑的阴影。</p>
     
     <img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg">
+
 
     [anchor:shadow_filtering_pcf_poisson_disk]
 
@@ -89,74 +99,142 @@
     
     <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
 
+
     [anchor:shadow_filtering_esm]
 
     <h3>ESM</h3>
 
-    <p>Exponential Shadow Maps，代表指数阴影贴图。阴影是最平滑的，但有可能出现漏光。在灯光上使用 <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 设置来消除漏光伪影。其性能与<b>双线性PCF</b>算法相当。ESM阴影的设置可能特别棘手，因此请参见 <a href="manual/zh/max/Shadows.html#troubleshooting">故障排除</a> 章节中的ESM相关问题。</p>
+    <p>Exponential Shadow Maps，代表指数阴影贴图。
+        阴影是最平滑的，但有可能出现漏光。在灯光上使用 
+        <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 
+        设置来消除漏光伪影。
+        其性能与<b>双线性PCF</b>算法相当。
+        ESM阴影的设置可能特别棘手，因此请参见 
+        <a href="manual/zh/max/Shadows.html#troubleshooting">故障排除</a> 
+        章节中的ESM相关问题。
+    </p>
     
     <img src="files/shadows-blender/shadow-filtering-esm.jpg">
+
 
     [anchor:shadow_filtering_choose]
 
     <h3>选择哪种过滤类型？</h3>
+    <p>
+        建议首先尝试默认的 
+        <a href="manual/zh/max/Shadows.html#shadow_filtering_pcf_poisson_disk">泊松碟PCF</a> 
+        阴影，因为它们具有良好的质量和性能。如果您需要质量较低但速度更快的阴影，请尝试 
+        <a href="manual/zh/max/Shadows.html#shadow_filtering_basic">基础</a> 
+        或 
+        <a href="manual/zh/max/Shadows.html#shadow_filtering_bilinear">双线性</a>
+        。如果您需要更好的质量、更柔和的阴影，
+        可以尝试 
+        <a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a> 
+        ，但缺点是它们对于特定场景的设置（伪影方面）可能很棘手。
+    </p>
 
-    <p>建议首先尝试默认的 <a href="manual/zh/max/Shadows.html#shadow_filtering_pcf_poisson_disk">泊松碟PCF</a> 阴影，因为它们具有良好的质量和性能。如果您需要质量较低但速度更快的阴影，请尝试 <a href="manual/zh/max/Shadows.html#shadow_filtering_basic">基础</a> 或 <a href="manual/zh/max/Shadows.html#shadow_filtering_bilinear">双线性</a>。如果您需要更好的质量、更柔和的阴影，可以尝试 <a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a> ，但缺点是它们对于特定场景的设置（伪影方面）可能很棘手。</p>
 
     [anchor:global_settings]
 
     <h2>全局设置</h2>
 
-    <p>阴影的全局设置位于*Verge3D Export Settings*菜单中。</p>
+    <p>
+        阴影的全局设置位于*Verge3D Export Settings*菜单中。
+    </p>
     
-    <img src="files/shadows-max/shadow-settings-global-max.jpg" class="centered with-caption" style="max-width: 251px"></img>
+    <img src="files/shadows-max/shadow-settings-global-max.jpg" class="with-caption" style="max-width: 251px"></img>
 
     <dl>
         <dt>阴影过滤</dt>
-        <dd>阴影贴图过滤算法。见 <a href="manual/zh/max/Shadows.html#shadow_filtering">上文</a>。</dd>
+        <dd>
+            阴影贴图过滤算法。见 
+            <a href="manual/zh/max/Shadows.html#shadow_filtering">上文</a>。
+        </dd>
         <dt id="esm-distance-scale">ESM距离比例(ESM Distance Scale)</dt>
-        <dd>ESM阴影的缩放系数。由于ESM过滤算法使用的是绝对距离值，如果您正在处理的场景比默认的立方体大得多，那么就减少这个比例值，如果您的场景小得多，就增加这个比例。默认为0.3。只对 <a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a> 阴影作用。</dd>
+        <dd>
+            ESM阴影的缩放系数。
+            由于ESM过滤算法使用的是绝对距离值，
+            如果您正在处理的场景比默认的立方体大得多，
+            那么就减少这个比例值，如果您的场景小得多，
+            就增加这个比例。默认为0.3。
+            只对 <a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a> 阴影作用。
+        </dd>
     </dl>
+
 
     [anchor:per_light_settings]
 
     <h2>每个灯光的设置</h2>
 
-    <p>可以使用3ds Max的原生面板为每个单独的灯光启用或禁用阴影。支持的阴影设置以绿色突出显示。</p>
+    <p>
+        可以使用3ds Max的原生面板为每个单独的灯光启用或禁用阴影。支持的阴影设置以绿色突出显示。
+    </p>
     
-    <img src="files/shadows-max/shadow-settings-perlight-max.jpg" class="centered with-caption" style="max-width: 349px"> <br />
+    <img src="files/shadows-max/shadow-settings-perlight-max.jpg" class="with-caption" style="max-width: 349px">
+    
+    <br />
 
     <dl>
         <dt id="target-distance">目标距离</dt>
-        <dd>可以影响阴影停止渲染的距离。只适用于聚光灯和平行光。只有在处理<a href="manual/zh/max/Shadows.html#troubleshooting">故障排除</a>部分中的阴影剪切问题时才需调整它。</dd>
+        <dd>
+            可以影响阴影停止渲染的距离。
+            只适用于聚光灯和平行光。只有在处理
+            <a href="manual/zh/max/Shadows.html#troubleshooting">故障排除</a>
+            部分中的阴影剪切问题时才需调整它。
+        </dd>
         <dt>开启</dt>
-        <dd>启用/禁用阴影。</dd>
+        <dd>
+            启用/禁用阴影。
+        </dd>
         <dt id="shadow-map-type">阴影贴图</dt>
-        <dd>必须在下拉菜单中选择阴影，才能在Verge3D中出现。</dd>
+        <dd>
+            必须在下拉菜单中选择阴影，才能在Verge3D中出现。
+        </dd>
         <dt id="falloff-field">衰减区/区域</dt>
-        <dd>定义阴影量（越少越好）。只适用于聚光灯和平行光。</dd>
+        <dd>
+            定义阴影量（越少越好）。
+            只适用于聚光灯和平行光。
+        </dd>
         <dt id="bias">偏移(Bias)</dt>
-        <dd>可以调节以消除自阴影伪影及 "peter-panning" 效果。<b>注：</b>Peter Panning这个词的名字来源于童话人物彼得潘（他的影子与身体分离并且可以飞翔），此伪影使对象看起来像是悬浮在地表。</dd>
+        <dd>
+            可以调节以消除自阴影伪影及 "peter-panning" 效果。
+            <b>注：</b>Peter Panning这个词的名字来源于童话人物彼得潘（他的影子与身体分离并且可以飞翔），此伪影使对象看起来像是悬浮在地表。
+        </dd>
         <dt id="size">尺寸</dt>
-        <dd>控制阴影纹理的大小（在速度和质量之间进行平衡）。</dd>
+        <dd>
+            控制阴影纹理的大小
+            （在速度和质量之间进行平衡）。
+        </dd>
         <dt id="sample-range">采样范围</dt>
-        <dd>控制阴影的模糊度比例。</dd>
+        <dd>
+            控制阴影的模糊度比例。
+        </dd>
         <dt id="shadow-bias">阴影偏移(Shadow Bias)</dt>
-        <dd>类似于<a href="manual/zh/max/Shadows.html#bias">偏移</a>的额外偏移设置。用于消除自阴影伪影及 "peter-panning" 效果。</dd>
+        <dd>
+            类似于
+            <a href="manual/zh/max/Shadows.html#bias">偏移</a>
+            的额外偏移设置。用于消除自阴影伪影及 "peter-panning" 效果。
+        </dd>
         <dt id="esm-bias">ESM偏移(ESM Bias)</dt>
-        <dd>偏离一定数值以减少ESM的 <em>漏光</em> 伪影。只对 <a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a> 阴影作用。
+        <dd>
+            偏离一定数值以减少ESM的 <em>漏光</em> 伪影。只对 
+            <a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a> 
+            阴影作用。
         </dd>
     </dl>
+
 
     [anchor:per_object_settings]
 
     <h2>每个对象的设置</h2>
 
-    <p>您也可以在每个对象的基础上启用和禁用接收和投射阴影。</p>
+    <p>
+        您也可以在每个对象的基础上启用和禁用接收和投射阴影。
+    </p>
     
-    <img src="files/shadows-max/object-properties.jpg" class="centered" style="max-width: 542px">
+    <img src="files/shadows-max/object-properties.jpg" style="max-width: 542px">
     
-    <img src="files/shadows-max/shadows-per-object-settings.jpg" class="centered" style="max-width: 400px">
+    <img src="files/shadows-max/shadows-per-object-settings.jpg" style="max-width: 400px">
 
         <dl>
             <dt>接收阴影(Rceive Shadows)</dt>
@@ -164,103 +242,171 @@
             <dt id="cast-shadows">投影</dt>
             <dd>启用/禁用此对象的阴影投射。</dd>
             <dd></dd>
-        </dl><br />
+        </dl>
+        
+        <br />
 
-    <p>您可以查看以下视频了解如何在3ds Max中设置阴影。
-    <ul>
-        <li>YouTube: <a href="https://www.youtube.com/watch?v=ItsmBFa3lU0" target="_blank">Verge3D for 3ds Max Basics - Part 3 - Light and Shadows</a></li> 
-        <li>Bilibili: <a href="https://www.bilibili.com/video/BV144411R7GS?p=3" target="_blank">Verge3D for 3ds Max基础 - 03.光源与阴影</a></li> 
-    </ul>
+    <p>
+        您可以查看以下视频了解如何在3ds Max中设置阴影。<ul><li>YouTube: <a href="https://www.youtube.com/watch?v=ItsmBFa3lU0" target="_blank">Verge3D for 3ds Max Basics - Part 3 - Light and Shadows</a></li><li>Bilibili: <a href="https://www.bilibili.com/video/BV144411R7GS?p=3" target="_blank">Verge3D for 3ds Max基础 - 03.光源与阴影</a></li></ul>
     </p>
 
-    <p>另请看Autodesk的官方<a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2018/ENU/3DSMax-Lighting-Shading/files/GUID-4BF878CD-5BD6-4F1A-A20B-8A6BD7D3703B-htm.html" target="_blank">文档</a>，了解更多信息和最佳实践方法。</p>
+    <p>
+        另请看Autodesk的官方<a href="<a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2023/ENU/3DSMax-Lighting-Shading/files/GUID-4BF878CD-5BD6-4F1A-A20B-8A6BD7D3703B-htm.html" target="_blank">文档</a>，了解更多信息和最佳实践方法。
+    </p>
+
 
     [anchor:troubleshooting]
 
     <h2>故障排除</h2>
 
         <h3>Verge3D中的阴影和Max视口中的阴影看起来不同</h3>
-
         <ul>
-            <li>Verge3D不使用与3D软件相同的阴影渲染技术，主要是出于性能的考虑。这可能包括光线分层，各种后期处理效果和非实时渲染方法。这是为什么会有差异，以及为何阴影看起来和视口中的不完全一样。</li>
-            <li>Verge3D的目标是类似于Max视口。为了使配置阴影更容易，请遵循这里的说明。<a href="manual/zh/max/Shadows.html#prepare_viewport">Max视口准备工作</a></li>
+            <li>
+                Verge3D不使用与3D软件相同的阴影渲染技术，主要是出于性能的考虑。
+                这可能包括光线分层，
+                各种后期处理效果和非实时渲染方法。
+                这是为什么会有差异，
+                以及为何阴影看起来和视口中的不完全一样。
+            </li>
+            <li>
+                Verge3D的目标是类似于Max视口。
+                为了使配置阴影更容易，请遵循这里的说明：
+                <a href="manual/zh/max/Shadows.html#prepare_viewport">Max视口准备工作</a>
+            </li>
         </ul>
 
         <h3>阴影看起来太像素化了</h3>
-
         <ul>
-            <li>使用较高的<a href="manual/zh/max/Shadows.html#size">尺寸</a>值。</li>
-            <li>如果使用定向光源，只要适合您的场景，尽量减少<a href="manual/zh/max/Shadows.html#falloff-field">衰减区/区域</a>参数。</li>
-            <li>尽量用柔和的半影来掩盖低分辨率。使用<a href="manual/zh/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF（泊松）</a>和<a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a>这样的阴影过滤技术以及适当调整的<a href="manual/zh/max/Shadows.html#sample-range">采样范围</a>可以使像素化不那么突出。</li>
+            <li>
+                使用较高的<a href="manual/zh/max/Shadows.html#size">尺寸</a>值。
+            </li>
+            <li>
+                如果使用定向光源，只要适合您的场景，尽量减少
+                <a href="manual/zh/max/Shadows.html#falloff-field">衰减区/区域</a>
+                参数。
+            </li>
+            <li>
+                尽量用柔和的半影来掩盖低分辨率。
+                使用
+                <a href="manual/zh/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF（泊松）</a>
+                和
+                <a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a>
+                这样的阴影过滤技术以及适当调整的
+                <a href="manual/zh/max/Shadows.html#sample-range">采样范围</a>
+                可以使像素化不那么突出。
+            </li>
         </ul>
 
         <h3>阴影在Max视口中是可见的，但在Verge3D中却看不到。</h3>
-
         <ul>
-            <li>要在Verge3D中启用阴影，<a href="manual/zh/max/Shadows.html#shadow-map-type">阴影贴图类型</a>下拉菜单必须设置为<b>阴影贴图</b>。</li>
-            <li><a href="manual/zh/max/Shadows.html#bias">偏移</a>数值非常大时，<a href="manual/zh/max/Shadows.html#shadow-bias">阴影偏移</a>和<a href="manual/zh/max/Shadows.html#sample-range">采样范围</a>有时会部分或完全删除阴影。如果是这样的话，试着降低这些数值。</li>
+            <li>
+                要在Verge3D中启用阴影，
+                <a href="manual/zh/max/Shadows.html#shadow-map-type">阴影贴图类型</a>
+                下拉菜单必须设置为<b>阴影贴图</b>。
+            </li>
+            <li>
+                <a href="manual/zh/max/Shadows.html#bias">偏移</a>
+                数值非常大时，
+                <a href="manual/zh/max/Shadows.html#shadow-bias">阴影偏移</a>
+                和 <a href="manual/zh/max/Shadows.html#sample-range">采样范围</a>
+                有时会部分或完全删除阴影。如果是这样的话，试着降低这些数值。
+            </li>
         </ul>
 
         <h3>阴影有伪影</h3>
-        
-        <img src="files/shadows-blender/self-shadow-artefacts.jpg" class="centered" style="max-width: 485px">
-
+        <img src="files/shadows-blender/self-shadow-artefacts.jpg" style="max-width: 485px">
         <ul>
-            <li>这种伪影被称为"<b>阴影失真(shadow acne)"</b>或"<b>自影伪影(self-shadow artefacts)</b>"。增加<a href="manual/zh/max/Shadows.html#bias">偏移</a>和/或<a href="manual/zh/max/Shadows.html#shadow-bias">阴影偏移</a>值来消除它们。</li>
+            <li>
+                这种伪影被称为"<b>阴影失真(shadow acne)"</b>或"<b>自影伪影(self-shadow artefacts)</b>"。增加
+                <a href="manual/zh/max/Shadows.html#bias">偏移</a> 和/或
+                <a href="manual/zh/max/Shadows.html#shadow-bias">阴影偏移</a>
+                值来消除它们。
+            </li>
         </ul>
 
         <h3>阴影没有半影区或半影区很小</h3>
-
         <ul>
-            <li>在 <a href="manual/zh/max/Shadows.html#shadow_filtering_basic">基本</a> 和 <a href="manual/zh/max/Shadows.html#shadow_filtering_bilinear">双线性</a> 类型中没有半影控制。请选择其他的 <a href="manual/zh/max/Shadows.html#shadow_filtering">阴影过滤类型</a> 。</li>
-            <li>增加<a href="manual/zh/max/Shadows.html#sample-range">采样范围</a>。</li>
+            <li>
+                在 
+                <a href="manual/zh/max/Shadows.html#shadow_filtering_basic">基本</a> 
+                和 <a href="manual/zh/max/Shadows.html#shadow_filtering_bilinear">双线性</a> 
+                类型中没有半影控制。请选择其他的 
+                <a href="manual/zh/max/Shadows.html#shadow_filtering">阴影过滤类型</a> 。
+            </li>
+            <li>
+                增加<a href="manual/zh/max/Shadows.html#sample-range">采样范围</a>。
+            </li>
         </ul>
 
         <h3>来自聚光灯和平行光的阴影被剪掉了</h3>
-        
-        <img src="files/shadows-max/shadow-artefacts-far-clipping.jpg" class="centered" style="max-width: 500px">
-
+        <img src="files/shadows-max/shadow-artefacts-far-clipping.jpg" style="max-width: 500px">
         <ul>
-            <li>增加<a href="manual/zh/max/Shadows.html#target-distance">目标距离</a>值。</li>
+            <li>
+                增加
+                <a href="manual/zh/max/Shadows.html#target-distance">目标距离</a> 值。
+            </li>
         </ul>
 
         <h3>ESM阴影看起来变淡了</h3>
-        
-        <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" class="centered" style="max-width: 500px">
-
+        <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" style="max-width: 500px">
         <ul>
-            <li>增加 <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 值。</li>
-            <li>增加 <a href="manual/zh/max/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。</li>
+            <li>
+                增加 
+                <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 值。
+            </li>
+            <li>
+                增加 
+                <a href="manual/zh/max/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。
+            </li>
         </ul>
 
-        <h3>ESM的阴影看起来太尖锐或没有半影</h3>
-        
-        <img src="files/shadows-blender/esm-sharp-shadows.jpg" class="centered" style="max-width: 500px">
-
+        <h3>ESM的阴影看起来太尖锐或没有半影</h3>        
+        <img src="files/shadows-blender/esm-sharp-shadows.jpg" style="max-width: 500px">
         <ul>
-            <li>增加<a href="manual/zh/max/Shadows.html#sample-range">采样范围</a>。</li>
-            <li>减少 <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 值。</li>
-            <li>减少 <a href="manual/zh/max/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。</li>
-            <li>这种伪影会出现在接收对象的边缘。<img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" class="centered" style="max-width: 500px">这是ESM的缺点之一。解决方案时是尽量避免这种情况。</li>
-            <li>如果一个接受阴影的物体本身不投射阴影（例如，在 <a href="manual/zh/max/Shadows.html#cast-shadows">投射阴影</a>中被禁用），那么无论模糊半径有多大，阴影都 <a href="manual/zh/max/Shadows.html#sample-range">没有半影</a> 。解决方案是在接收对象上启用阴影投射，或者使用一个额外的阴影投射对象作为底层来修复半影区。
+            <li>
+                增加 <a href="manual/zh/max/Shadows.html#sample-range">采样范围</a>。
+            </li>
+            <li>
+                减少 
+                <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 值。
+            </li>
+            <li>
+                减少 
+                <a href="manual/zh/max/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。
+            </li>
+            <li>
+                这种伪影会出现在接收对象的边缘。
+                <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" style="max-width: 500px">
+                这是ESM的缺点之一。解决方案时是尽量避免这种情况。
+            </li>
+            <li>
+                如果一个接受阴影的物体本身不投射阴影（例如，在 
+                <a href="manual/zh/max/Shadows.html#cast-shadows">投射阴影</a>
+                中被禁用），那么无论模糊半径有多大，
+                阴影都 
+                <a href="manual/zh/max/Shadows.html#sample-range">没有半影</a> 
+                。解决方案是在接收对象上启用阴影投射，
+                或者使用一个额外的阴影投射对象作为底层来修复半影区。
             </li>
         </ul>
 
         <h3>ESM阴影有伪影</h3>
-        
-        <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" class="centered" style="max-width: 500px">
-
+        <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" style="max-width: 500px">
         <ul>
-            <li>减少 <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 值。</li>
-            <li>减少 <a href="manual/zh/max/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。</li>
-        </ul>
+            <li>
+                减少 
+                <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 值。
+            </li>
+            <li>
+                减少 
+                <a href="manual/zh/max/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。
+            </li>
+            </ul>
 
 
         <h2>遇到问题？</h2>
 
         <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-    </article>
-</body>
-
+    </article></body>
 </html>

@@ -1,64 +1,67 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <meta charset="utf-8">
   <base href="../../../" />
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
-
+<body><article>
     <h1>矩阵变换</h1>
 
-    <p>Verge3D使用 *matrics* 来编码3D变换：移动（位置）、旋转和缩放。[page:Object3D]的每个实例都有一个[page:Object3d.matrix
-      matrix]，它用于存储对象的位置、旋转和缩放。本页描述如何更新对象的转换。</p>
+    <p>
+      Verge3D使用 *matrics* 来编码3D变换：移动（位置）、旋转和缩放。[page:Object3D]的每个实例都有一个[page:Object3d.matrix matrix]，它用于存储对象的位置、旋转和缩放。本页描述如何更新对象的转换。
+    </p>
 
-    <h2>方便属性与矩阵自动更新(matrixAutoUpdate)</h2>有两种方法可以更新对象的转换：<ol>
+    <h2>方便属性与*矩阵自动更新(matrixAutoUpdate)*</h2>
+    
+    <p>
+      有两种方法可以更新对象的转换：
+    </p>
+    <ol>
       <li>
-        修改对象的*位置(position)*，*四元数(quaternion)*和*缩放(scale)*属性，并让Verge3D根据这些属性重新计算对象的矩阵：
-<code>
-object.position.copy(start_position); object.quaternion.copy(quaternion);
-</code>
-
-        默认情况下，*matrixAutoUpdate*
-        属性被设置为true，矩阵将被自动重新计算。如果对象是静态的，或者希望手动控制何时发生重新计算，则可以通过设置属性false来获得更好的性能：
-<code>
-object.matrixAutoUpdate = false;
-</code>
-
+        修改对象的*位置(position)*，*四元数(quaternion)*和*缩放(scale)*属性，
+        并让Verge3D根据这些属性重新计算对象的矩阵：
+        <code>
+          object.position.copy(start_position);
+          object.quaternion.copy(quaternion);
+        </code>
+        默认情况下，*matrixAutoUpdate* 属性被设置为true，矩阵将被自动重新计算。
+        如果对象是静态的，或者希望手动控制何时发生重新计算，则可以通过设置属性false来获得更好的性能：
+        <code>
+          object.matrixAutoUpdate = false;
+        </code>
         并在改变任何属性后，手动更新矩阵： 
-<code>
-object.updateMatrix();
-</code>
+        <code>
+          object.updateMatrix();
+        </code>
 </li>
-      <li>直接修改对象的矩阵。[page:Matrix4]
-        类有各种修改矩阵的方法：
-<code>
-object.matrix.setRotationFromQuaternion(quaternion); object.matrix.setPosition(start_position); object.matrixAutoUpdate = false;
-</code>
-
-        注意，在这种情况下，*matrixAutoUpdate* <em>必须</em> 被设置为 *false* ，而且你应该确保 <em>不</em> 调用 *updateMatrix* 。调用 *updateMatrix*
-        将删除对矩阵所做的手动更改，从*position*, *scale*等方面重新计算矩阵，以此类推。</li>
+      <li>
+        直接修改对象的矩阵。[page:Matrix4] 类有各种修改矩阵的方法：
+        <code>
+object.matrix.setRotationFromQuaternion(quaternion);
+object.matrix.setPosition(start_position);
+object.matrixAutoUpdate = false;
+        </code>
+        注意，在这种情况下，*matrixAutoUpdate* <em>必须</em> 被设置为 *false* ，而且你应该确保 <em>不</em> 调用 *updateMatrix* 。调用 *updateMatrix* 将删除对矩阵所做的手动更改，从*position*, *scale*等方面重新计算矩阵，以此类推。
+      </li>
     </ol>
 
     <h2>对象和世界矩阵</h2>
-    <p>一个对象的[page:object3d.matrix matrix]存储了该对象 <em>相对于</em> 该对象[page:object3d.parent 父节点]的变换；要获取对象在 <em>世界</em>
-      坐标中的变换，则必须访问该对象的 [page:Object3d.MatrixWorld]。</p>
-    <p>当父对象或子对象的转换更改时，您可以通过调用 [page:Object3D.updateMatrixWorld updateMatrixWorld]() 请求更新子对象的 [page:Object3D.matrixWorld
-      matrixWorld] 。</p>
-
-    <h2>旋转与四元数</h2>
-    <p>Verge3D提供了两种表示3D旋转的方法：[page:Euler Euler angles](欧拉角) 和 [page:Quaternion
-      Quaternions](四元数)，以及在两者之间转换的方法。欧拉角受到一个叫做“万向锁”的问题的影响，在这种情况下，某些构型可能会失去一个自由度（阻止对象绕一个轴旋转）。因此，对象旋转是
-      <em>始终</em> 存储在对象的 [page:Object3D.quaternion quaternion] 中。</p>
-    <p>该库的早期版本中包含一个 *useQuaternion* 属性，当设置为false时，将导致对象的 [page:object3d.matrix matrix]
-      从欧拉角度计算出来。这种方法已经启用——作为替代，您应该使用 [page:Object3D.setRotationFromEuler setRotationFromEuler] 方法，该方法将更新四元数。
+    <p>
+      一个对象的[page:object3d.matrix matrix]存储了该对象 <em>相对于</em> 该对象[page:object3d.parent 父节点]的变换；要获取对象在 <em>世界</em> 坐标中的变换，则必须访问该对象的 [page:Object3d.MatrixWorld]。
+    </p>
+    <p>
+      当父对象或子对象的转换更改时，您可以通过调用 [page:Object3D.updateMatrixWorld updateMatrixWorld]() 请求更新子对象的 [page:Object3D.matrixWorld matrixWorld] 。
     </p>
 
-  </article>
-</body>
+    <h2>旋转与四元数</h2>
+    <p>
+      Verge3D提供了两种表示3D旋转的方法：[page:Euler Euler angles](欧拉角) 和 [page:Quaternion Quaternions](四元数)，以及在两者之间转换的方法。欧拉角受到一个叫做“万向锁”的问题的影响，在这种情况下，某些构型可能会失去一个自由度（阻止对象绕一个轴旋转）。因此，对象旋转是 <em>始终</em> 存储在对象的 [page:Object3D.quaternion quaternion] 中。
+    </p>
+    <p>
+      该库的早期版本中包含一个 *useQuaternion* 属性，当设置为false时，将导致对象的 [page:object3d.matrix matrix] 从欧拉角度计算出来。这种方法已经启用——作为替代，您应该使用 [page:Object3D.setRotationFromEuler setRotationFromEuler] 方法，该方法将更新四元数。
+    </p>
 
+  </article></body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>查找Verge3D性能瓶颈 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -12,13 +11,14 @@
   <meta property="og:image" content="https://cdn.soft8soft.com/images/optimizing-webgl-performance.jpg">
   <meta property="article:tag" content="性能">
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>查找Verge3D性能瓶颈</h1>
 
-    [contents] [anchor:intro]
+    [contents]
+    
+    
+    [anchor:intro]
 
     <h2>简介</h2>
 
@@ -31,8 +31,8 @@
       <li>使用电池供电的设备。GPU长时间高负荷会迅速耗尽移动设备的电池电量。</li>
     </ul>
 
-    <p>为了有效优化，即尽量不降低应用质量，您应该了解基本的 <a href='manual/zh/introduction/Optimizing-WebGL-performance.html'>资产优化技术</a>
-      并且能够在应用中找出导致加载和渲染缓慢的原因。这些被称为 <em>性能瓶颈</em>。</p>
+    <p>为了有效优化，即尽量不降低应用质量，您应该了解基本的 <a href='manual/zh/introduction/Optimizing-WebGL-performance.html'>资产优化技术</a> 并且能够在应用中找出导致加载和渲染缓慢的原因。这些被称为 <em>性能瓶颈</em>。</p>
+
 
     [anchor:fps]
 
@@ -48,7 +48,7 @@
       <li>&gt; 60 ：为VR头戴式设备做开发的目标帧率。</li>
     </ul>
 
-    <p>从3.2版本开始，Verge3D自带内置的FPS计数器。您可以通过以下方式启用它：</p>
+    <p>Verge3D自带内置的FPS计数器。您可以通过以下方式启用它：</p>
 
     <ul>
       <li>在键盘上快速按下 *F*, *F*, *F* （连按3次F键）。</li>
@@ -57,9 +57,10 @@
 
     <p>一旦激活，您就可以在应用的画布左上角的小面板上看到当前的FPS值（帧率范围和历史）：</p>
     
-    <img src="files/performance-bottlenecks/fps-counter.jpg" alt="Verge3D FPS计数器窗口" class="centered" style="max-width: 879px;">
+    <img src="files/performance-bottlenecks/fps-counter.jpg" alt="Verge3D FPS计数器窗口" style="max-width: 879px;">
 
     <p>为获得合理的值，您应该在您拥有的最慢/最旧的设备上测量FPS。此外，大多数浏览器不允许帧速率大于60赫兹（目的是改善帧同步率，节省电池寿命，降低风扇噪音等）。</p>
+
 
     [anchor:performance_profile]
 
@@ -77,14 +78,15 @@
 
     <code>--- Verge3D Performance Profile (1s) ---</code>
 
-    <p>以下是收集到的性能信息：</p><img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D性能概况" class="centered">
+    <p>以下是收集到的性能信息：</p>
+    
+    <img src="files/performance-bottlenecks/performance-profile.jpg" alt="Verge3D性能概况">
 
     <p>下面是您可以从生成的性能概况报告中查询的内容：</p>
 
     <dl>
       <dt>场景加载时间(Scene Loading Time)</dt>
-      <dd>加载应用<em>主</em>场景。参见 <a href="manual/zh/introduction/Performance-Bottlenecks.html#scene_loading_time">下文</a>
-        了解如何加快加载。</dd>
+      <dd>加载应用<em>主</em>场景。参见 <a href="manual/zh/introduction/Performance-Bottlenecks.html#scene_loading_time">下文</a> 了解如何加快加载。</dd>
 
       <dt>资产压缩(Asset Compression)</dt>
       <dd>显示是否启用了资产压缩。</dd>
@@ -132,20 +134,22 @@
       <dd>渲染场景所用的总时间（以毫秒为单位）。</dd>
 
       <dt>纹理和渲染缓存(Textures & Render Buffers)</dt>
-      <dd>纹理和渲染缓存统计（分辨率）。纹理列印在列表的顶部（前缀为*texture*)，而渲染缓存列印在列表的底部（前缀为*WebGlRenderTarget*)。</dd>
+      <dd>纹理和渲染缓存统计（分辨率）。纹理列印在列表的顶部（前缀为*texture*)，而渲染缓存列印在列表的底部（前缀为*WebGlRenderTarget*)。纹理格式信息： *RGBA* 用于未压缩纹理，使用 <strong>RGBA_[METHOD]</strong> 进行纹理压缩。</dd>
     </dl>
 
     <p>
       要快速定位性能问题，您首先应注意被标记为红色的行。例如，在下图中的阴影贴图似乎太大（4K），这可能会导致渲染速度变慢。
     </p>
 
-    <img src="files/performance-bottlenecks/performance-profile-red.png" class="centered" style="max-width: 622px;">
+    <img src="files/performance-bottlenecks/performance-profile-red.png" style="max-width: 622px;">
+
 
     [anchor:performance_bottlenecks]
 
     <h2>常见的渲染性能瓶颈</h2>
 
     <p>以下是限制帧率的最常见瓶颈。</p>
+
 
     [anchor:complex_materials]
 
@@ -159,14 +163,10 @@
       
     <img src="files/performance-bottlenecks/performance-profile-materials.jpg" alt="轮廓材质和着色器">
 
-    <p>在许多情况下，材质性能的问题是由于着色节点迟钝而发生的。请参阅 
-      <a href="manual/zh/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, 
-      <a href="manual/zh/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> 或 
-      <a href="manual/zh/maya/Materials.html#performance_considerations">Maya</a> 
-      的材质性能小节。
-    </p>
+    <p>在许多情况下，材质性能的问题是由于着色节点迟钝而发生的。请参阅 <a href="manual/zh/blender/Shader-Nodes-Reference.html#performance_considerations">Blender</a>, <a href="manual/zh/max/Materials-Maps-Reference.html#performance_considerations">3ds Max</a> 或 <a href="manual/zh/maya/Materials.html#performance_considerations">Maya</a> 的材质性能小节。</p>
 
     <p>属性设置像素比 &lt; 1，也可以解决着色器性能受限的问题 <a href="manual/zh/puzzles/System.html#set_screen_scale">set screen scale（设置屏幕比例）</a> 拼图。但这会严重降低应用的质量表现，仅作为最后的备用解决方案。</p>
+
 
     [anchor:postprocessing]
 
@@ -186,6 +186,7 @@
       <li>景深（请参见此 <a href="manual/zh/puzzles/Postprocessing.html#dof">拼图</a>）。</li>
     </ul>
 
+
     [anchor:shadows]
 
     <h3>阴影</h3>
@@ -195,24 +196,17 @@
     <ol>
       <li>如果您的场景中有多个灯光，为亮度最低的那一个禁用阴影。</li>
       <li>在大多数情况下, <em>点光源</em> 的阴影比 <em>聚光灯</em> 阴影或 <em>太阳光/平行光</em> 阴影需要更多的计算。</li>
-      <li>减小阴影贴图大小（请参见 
-        <a href="manual/zh/blender/Shadows.html#global_settings">Blender</a>, 
-        <a href="manual/zh/max/Shadows.html#per_light_settings">3ds Max</a>, 
-        <a href="manual/zh/maya/Shadows.html#per_light_settings">Maya</a>）。
-      </li>
-
-      <li>切换到性能要求较低的阴影过滤算法（请参见 
-        <a href="manual/zh/blender/Shadows.html#shadow_filtering">Blender</a>,
-        <a href="manual/zh/max/Shadows.html#shadow_filtering">3ds Max</a>, 
-        <a href="manual/zh/maya/Shadows.html#shadow_filtering">Maya</a>）。
-      </li>
+      <li>减小阴影贴图大小（请参见 <a href="manual/zh/blender/Shadows.html#global_settings">Blender</a>,  <a href="manual/zh/max/Shadows.html#per_light_settings">3ds Max</a>,  <a href="manual/zh/maya/Shadows.html#per_light_settings">Maya</a>）。</li>
+      <li>切换到性能要求较低的阴影过滤算法（请参见 <a href="manual/zh/blender/Shadows.html#shadow_filtering">Blender</a>, <a href="manual/zh/max/Shadows.html#shadow_filtering">3ds Max</a>,  <a href="manual/zh/maya/Shadows.html#shadow_filtering">Maya</a>）。</li>
     </ol>
 
+    
     [anchor:too_much_geometry]
 
     <h3>几何形状太多</h3>
 
     <p>过于复杂的几何形状也会影响您的渲染性能。我们建议每个模型使用不超过十万个三角面，或者每个整个场景不超过一百万个三角面。</p>
+
 
     [anchor:slow_ibl]
 
@@ -221,30 +215,30 @@
     <p>在Verge3D中，您可以在以下几方面对环境照明进行性能调整：</p>
 
     <ol>
-      <li>减小阴影贴图大小（请参见 <a href="manual/zh/blender/Lighting-and-Rendering.html">Blender</a>, <a
-          href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a
-          href="manual/zh/maya/Lighting-and-Rendering.html#environment_lighting">Maya</a>）。我们建议在大多数情况下使用256像素的立方体贴图。
-      </li>
-      <li>切换到性能更高效的环境模式（请参见 <a href="manual/zh/blender/Lighting-and-Rendering.html">Blender</a>, <a
-          href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a
-          href="manual/zh/maya/Lighting-and-Rendering.html#global_rendering_settings">Maya</a>）。</li>
+      <li>减小阴影贴图大小（请参见 <a href="manual/zh/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/zh/maya/Lighting-and-Rendering.html#environment_lighting">Maya</a>）。我们建议在大多数情况下使用256像素的立方体贴图。</li>
+      <li>切换到性能更高效的环境模式（请参见 <a href="manual/zh/blender/Lighting-and-Rendering.html">Blender</a>, <a href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">3ds Max</a>, <a href="manual/zh/maya/Lighting-and-Rendering.html#global_rendering_settings">Maya</a>）。</li>
     </ol>
+
 
     [anchor:too_many_lights]
 
     <h3>灯光太多</h3>
 
-    <p>过度的光线计算增加了着色器的复杂性。尽量减少它们的数量或切换到 <a
-        href="manual/zh/introduction/Optimizing-WebGL-performance.html#HDR_Lighting">IBL-only</a> 照明。</p>
+    <p>过度的光线计算增加了着色器的复杂性。尽量减少它们的数量或切换到 <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#HDR_Lighting">IBL-only</a> 照明。</p>
+
 
     [anchor:too_many_render_calls]
 
     <h3>渲染调用太多</h3>
 
-    <p>成百上千的渲染调用极大地加重了CPU消耗。因此，您应该将该值保持在尽可能低的水平。在大多数情况下，我们建议您将渲染调用的数量保持在100以下。</p>
+    <p>
+      成百上千的渲染调用极大地加重了CPU消耗。因此，您应该将该值保持在尽可能低的水平。在大多数情况下，我们建议您将渲染调用的数量保持在100以下。
+    </p>
 
-    <p>如果您用相同的材质渲染许多静态物体，可以通过使用 <a href="manual/zh/puzzles/Scenes.html#batch_geometry">batch geometry(几何图形批处理)</a>
-      拼图来显著提高效果。</p>
+    <p>
+      如果您用相同的材质渲染许多静态物体，可以通过使用 <a href="manual/zh/puzzles/Scenes.html#batch_geometry">batch geometry(几何图形批处理)</a> 拼图来显著提高效果。
+    </p>
+
 
     [anchor:scene_loading_time]
 
@@ -254,25 +248,22 @@
 
     <p>以下是最常见的导致应用加载速度减慢的瓶颈。</p>
 
+
     [anchor:large_binary_textures]
 
     <h3>较大的二进制数据或纹理</h3>
 
-    <p>因为应用资产是通过网络传输的，所以您应该尽量降低其大小。在浏览器 <a
-        href="manual/zh/introduction/FAQ.html#browser_console">控制台</a>中访问网络检查工具，有助于了解怎样进行资产优化。点击 *Network* 选项卡并刷新页面。</p>
-    <img src="files/performance-bottlenecks/network-browser-profile.jpg" alt="分析Verge3D应用中的网络活动" class="centered"
-      style="max-width: 943px;">
-    <p class="note">有关如何使用此功能,请查看浏览器文档：<a href="https://developers.google.com/web/tools/chrome-devtools/network"
-        target="_blank">Chrome</a>, <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor"
-        target="_blank">Firefox</a>, <a href="https://developer.apple.com/safari/tools/" target="_blank">Safari</a>。</p>
+    <p>因为应用资产是通过网络传输的，所以您应该尽量降低其大小。在浏览器 <a href="manual/zh/introduction/FAQ.html#browser_console">控制台</a>中访问网络检查工具，有助于了解怎样进行资产优化。点击 *Network* 选项卡并刷新页面。</p>
+    
+    <img src="files/performance-bottlenecks/network-browser-profile.jpg" alt="分析Verge3D应用中的网络活动" class="centered" style="max-width: 943px;">
+    
+    <p class="note">有关如何使用此功能,请查看浏览器文档：<a href="https://developers.google.com/web/tools/chrome-devtools/network" target="_blank">Chrome</a>, <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor" target="_blank">Firefox</a>, <a href="https://developer.apple.com/safari/tools/" target="_blank">Safari</a>。</p>
 
     <p>按大小对资源进行排序，找到加载最慢的资源。多数情况下，这些资产可分为两类：</p>
 
     <ol>
-      <li>*Verge3D二进制数据(Binary)*：以 *.bin 或 *.bin.xz 为扩展名——包含了场景中的几何图形、变形和动画。启用资产压缩可以显著减小此文件尺寸，建议在应用中始终 <a
-          href="manual/zh/introduction/Asset-compression.html">启用</a> 此选项。</li>
-      <li>*纹理(Textures)*：以 *.jpg、*.png 或 *.hdr 为扩展名——请参阅 <a
-          href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">这里</a> 有关如何优化纹理的更多信息。</li>
+      <li>*Verge3D二进制数据(Binary)*：以 *.bin 或 *.bin.xz 为扩展名——包含了场景中的几何图形、变形和动画。启用资产压缩可以显著减小此文件尺寸，建议在应用中始终 <a href="manual/zh/introduction/Asset-compression.html">启用</a> 此选项。</li>
+      <li>*纹理(Textures)*：以 *.jpg、*.png 或 *.hdr 为扩展名——请参阅 <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">这里</a> 有关如何优化纹理的更多信息。</li>
     </ol>
 
     <p>还有两种简单粗暴却高效优化纹理方法：</p>
@@ -282,13 +273,12 @@
       <li>将所有PNG纹理转换为JPEG（即使是法线贴图）。</li>
     </ol>
 
+
     [anchor:shader_compilation]
 
     <h3>太多或太复杂的材质</h3>
 
-    <p>除少数例外，场景上的每个素材都需要编译一对叫做着色器的特殊程序： <em>顶点着色器</em> 和
-      <em>片段着色器（又名像素着色器）</em>.着色器是在GPU上执行的一个特殊程序，用来计算各种渲染实体，如顶点位置、纹理、光照、反射、折射等。
-    </p>
+    <p>除少数例外，场景上的每个素材都需要编译一对叫做着色器的特殊程序： <em>顶点着色器</em> 和 <em>片段着色器（又名像素着色器）</em> ，着色器是在GPU上执行的一个特殊程序，用来计算各种渲染实体，如顶点位置、纹理、光照、反射、折射等。</p>
 
     <p>着色器编译是一项计算量很大的任务，每次加载应用时都要执行。如果您的场景有很多材质，着色器编译时间会显著增加。</p>
 
@@ -297,6 +287,7 @@
     <p>因此，为了快速加载，使用尽可能少的唯一着色器是很重要的。实现这一点的一个可能方法是启用glTF兼容性标志，这a）大大简化了着色器，以便更快地编译和工作；b）标准化了着色器，以实现更有效的缓存。</p>
 
     <p>使用与glTF兼容的着色器的明显缺点是，对于实现所需的图形效果而言，它们可能过于简单化。因此，在实时计算的图像效果中，您需要在质量和性能之间取得平衡。</p>
+
 
     [anchor:gpu_memory_usage]
 
@@ -308,21 +299,23 @@
 
     <h3>大尺寸纹理</h3>
 
-    <p>例如，一个大小为4096x4096的纹理将占用了接近90 Mb的显存。请在 <a
-        href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>中
-      <strong>Textures & Render Buffers</strong> 中查看应用中用到的所有纹理的尺寸数据。
-    </p><img src="files/performance-bottlenecks/performance-profile-textures.jpg" alt="在Verge3D中分析纹理">
-    <p>另请参阅 <a href="manual/zh/introduction/FAQ.html#texture_memory_usage">这里</a> 有关如何计算纹理内存使用的更多信息。</p>
+    <p>例如，一个大小为4096x4096的纹理将占用了接近90 Mb的显存。请在 <a href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>中 <strong>Textures & Render Buffers</strong> 中查看应用中用到的所有纹理的尺寸数据。</p>
+    
+    <img src="files/performance-bottlenecks/performance-profile-textures.jpg" alt="在Verge3D中分析纹理">
 
-    [anchor:many_postprocessing_passes]
+    <p>请参阅 <a href="manual/zh/introduction/FAQ.html#texture_memory_usage">这里</a> 有关如何计算纹理内存使用的更多信息。</p>
+
+    <p>请参阅 <a href="manual/zh/introduction/Texture-Compression.html">纹理压缩</a> 章节， 了解如何减少纹理所消耗的内存。</p>
+
+
+    [anchor:many_postprocessing_passes]1
 
     <h3>后期处理过程太多</h3>
 
-    <p>大多数后期处理效果需要额外的渲染缓存，这会消耗GPU内存。在 <a
-        href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> 中
-      <strong>Textures & Render Buffers</strong> 列表底部查看所有的渲染缓存。
-    </p><img src="files/performance-bottlenecks/performance-profile-render-buffers.jpg" alt="在Verge3D中分析渲染缓存"
-      class="centered" style="max-width: 816px;">
+    <p>大多数后期处理效果需要额外的渲染缓存，这会消耗GPU内存。在 <a href="manual/zh/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a> 中 <strong>Textures & Render Buffers</strong> 列表底部查看所有的渲染缓存。</p>
+    
+    <img src="files/performance-bottlenecks/performance-profile-render-buffers.jpg" alt="在Verge3D中分析渲染缓存" style="max-width: 816px;">
+
 
     [anchor:large_geometry_buffers]
 
@@ -330,18 +323,20 @@
 
     <p>具有大量三角面的网格需要很大的几何缓存，因此需要消耗大量的显存来存储它们。</p>
 
+    
+
     [anchor:see_also]
 
     <h2>另请参阅</h2>
 
-    <p>查看 <a href='manual/zh/introduction/Optimizing-WebGL-performance.html'>优化技巧</a> 部分，了解更多资产优化方法。</p>
+    <p>
+      查看 <a href='manual/zh/introduction/Optimizing-WebGL-performance.html'>优化技巧</a> 部分，了解更多资产优化方法。
+    </p>
 
 
     <h2>遇到问题？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
-
+  </article></body>
 </html>

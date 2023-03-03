@@ -12,9 +12,17 @@
 
     <h1>glTF材质（符合glTF 2.0标准的PBR材质）/Blender</h1>
 
-    <p>如果您内容需要与glTF 2.0标准兼容<a href="manual/zh/introduction/FAQ.html#gltf_materials">出于某种原因</a>，您可以使用简单的材质设置基于*原则的BSDF*着色器节点。</p>
+    <p>
+      如果您内容需要与glTF 2.0标准兼容<a href="manual/zh/introduction/FAQ.html#gltf_materials">出于某种原因</a>，您可以使用简单的材质设置基于*原则的BSDF*着色器节点。
+    </p>
 
-    [contents] [anchor:texture_packing]
+    [demo:gltf_compat]
+    
+
+    [contents]
+    
+    
+    [anchor:texture_packing]
 
     <h2>纹理打包</h2>
 
@@ -26,26 +34,71 @@
       <li>金属性（金属度）因子被打包在B通道中。</li>
     </ul>
 
+
     [anchor:setting_up]
 
     <h2>启用VR设置</h2>
 
-    <p>将*Princlipled BSDF*着色器节点添加到素材中，并启用位于<b>Verge3D设置</b>*面板上的<b>GLTF 2.0兼容</b>复选框。</p><img src="files/physical-material-blender/phmat_00.png" class="centered" style="max-width: 661px;"><p>您可以将纹理节点连接到*Princlipled BSDF*节点，如下所述。请注意，所有的纹理都是可选的，其中任何一个都可以安全地省略。</p><img src="files/physical-material-blender/gltf-material-example.jpg" class="centered" style="max-width: 820px;"><ul>
-      <li>将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到*Principled BSDF* 节点的<b>基础色(Base Color)</b>输入。纹理的<b>颜色空间</b>必须设置为*sRGB*。</li>
-      <li>将<b>图像纹<b>理</b>(Image Textue)</b>和<b>分离RGB R(Separated RGB)</b>节点连接到*Principled BSDF*节点的<b>金属度(Metallic)</b>和<b>粗糙度(Roughness)</b>输入。为了优化PBR着色器的加载和渲染，您应该将遮蔽、粗糙度和金属度纹理分别打包到单个纹理的R、G和B通道中。要启用遮蔽渲染，应该将遮蔽纹理的R通道连接为黑色漫射着色器的混合因子。此纹理的<b>颜色空间</b>设置必须设置为*non-color*。</li>
-      <li>将一个<b>法线贴图(Normal Map)</b>纹理连接到*Principled BSDF*节点的<b>法向(Normal)</b>输入，并将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到该<b>法线贴图(Normal Map)</b>节点。纹理的<b>色彩空间</b>必须设置为*sRGB*。您也可以通过使用<b>强度</b>选项来调整法线贴图的强度。</li>
-      <li>将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到*Principled BSDF*节点的<b>自发光(Emission)</b>输入。纹理的<b>颜色空间</b>必须设置为*sRGB*。</li>
+    <p>
+      将*Princlipled BSDF*着色器节点添加到素材中，并启用位于<b>Verge3D设置</b>*面板上的<b>GLTF 2.0兼容</b>复选框。
+    </p>
+    
+    <img src="files/physical-material-blender/phmat_00.png" style="max-width: 661px;">
+    
+    <p>
+      您可以将纹理节点连接到*Princlipled BSDF*节点，如下所述。请注意，所有的纹理都是可选的，其中任何一个都可以安全地省略。
+    </p>
+    
+    <img src="files/physical-material-blender/gltf-material-example.jpg" style="max-width: 820px;">
+    
+    <ul>
+      <li>
+        将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到*Principled BSDF* 节点的<b>基础色(Base Color)</b>输入。纹理的<b>颜色空间</b>必须设置为*sRGB*。
+      </li>
+      <li>
+        将<b>图像纹<b>理</b>(Image Textue)</b>和<b>分离RGB R(Separated RGB)</b>节点连接到*Principled BSDF*节点的<b>金属度(Metallic)</b>和<b>粗糙度(Roughness)</b>输入。为了优化PBR着色器的加载和渲染，您应该将遮蔽、粗糙度和金属度纹理分别打包到单个纹理的R、G和B通道中。要启用遮蔽渲染，应该将遮蔽纹理的R通道连接为黑色漫射着色器的混合因子。此纹理的<b>颜色空间</b>设置必须设置为*non-color*。
+      </li>
+      <li>
+        将一个<b>法线贴图(Normal Map)</b>纹理连接到*Principled BSDF*节点的<b>法向(Normal)</b>输入，并将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到该<b>法线贴图(Normal Map)</b>节点。纹理的<b>色彩空间</b>必须设置为*sRGB*。您也可以通过使用<b>强度</b>选项来调整法线贴图的强度。
+      </li>
+      <li>
+        将一个<b>图像纹<b>理</b>(Image Textue)</b>节点连接到*Principled BSDF*节点的<b>自发光(Emission)</b>输入。纹理的<b>颜色空间</b>必须设置为*sRGB*。
+      </li>
     </ul>
 
-    <p>如果您需要调整您的<b>基础色(Base Color)</b>纹理，例如使其变深或与其他颜色混合，请使用<b>正片叠底/相乘(Multipy)</b>节点，如下图所示：</p><img src="files/physical-material-blender/gltf-material-color-factor.jpg" class="centered" style="max-width: 844px;"><p>您也可以使用*alpha*输入来调整您的材质透明度。</p>
+    <p>如果您需要调整您的<b>基础色(Base Color)</b>纹理，例如使其变深或与其他颜色混合，请使用<b>正片叠底/相乘(Multipy)</b>节点，如下图所示：</p>
+    
+    <img src="files/physical-material-blender/gltf-material-color-factor.jpg" style="max-width: 844px;">
+    
+    <p>您也可以使用*alpha*输入来调整您的材质透明度。</p>
 
-    <p>要在Blender视口中看到*Principled BSDF*着色器的预览，您可以将*3D View*的显示方式设置为*Rendering*，或者直接在Verge3D中用同一面板上的*Sneak Peak*按钮预览您的场景。</p>
+    <p>
+      要在Blender视口中看到*Principled BSDF*着色器的预览，您可以将*3D View*的显示方式设置为*Rendering*，或者直接在Verge3D中用同一面板上的*Sneak Peak*按钮预览您的场景。
+    </p>
+
 
     [anchor:exporting_substance]
 
     <h2>从Substance Painter导出纹理</h2>
 
-    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p><img src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;"><p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p><img src="files/physical-material-blender/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;"><p>为了方便从Substance Painter导出纹理，并确保Verge3D引擎能够最佳利用资源，我们建议您使用 <a href="files/physical-material-blender/Verge3D_for_Blender.spexp" target="_blank">Verge3D导出预设</a> 。将此预设文件放到通常位于 My Documents\Allegorithmic\Substance Painter\shelf\目录下的 *export-presets* 文件夹中（如果不存在就新建一个）。</p><img src="files/physical-material-blender/phmat_08.png"><p>当从Substance Painter导出纹理时，选择*Verge3d for Blender*的导出对话窗口，这样所有生成的纹理都与Verge3D所采用的glTF 2.0标准兼容。</p>
+    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p>
+    
+    <img src="files/physical-material-blender/substance_screenshot.jpg" style="max-width: 819px;">
+    
+    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p>
+    
+    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" style="max-width: 819px;">
+    
+    <p>
+      为了方便从Substance Painter导出纹理，并确保Verge3D引擎能够最佳利用资源，我们建议您使用 <a href="files/physical-material-blender/Verge3D_for_Blender.spexp" target="_blank">Verge3D导出预设</a> 。将此预设文件放到通常位于 My Documents\Allegorithmic\Substance Painter\shelf\目录下的 *export-presets* 文件夹中（如果不存在就新建一个）。
+    </p>
+    
+    <img src="files/physical-material-blender/phmat_08.png">
+    
+    <p>
+      当从Substance Painter导出纹理时，选择*Verge3d for Blender*的导出对话窗口，这样所有生成的纹理都与Verge3D所采用的glTF 2.0标准兼容。
+    </p>
+
 
     [anchor:export_to_gltf_in_runtime]
 

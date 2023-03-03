@@ -1,157 +1,137 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <meta charset="utf-8">
   <base href="../../../" />
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
     <h1>如何使用代码更新事物</h1>
     <div>
       <p>默认情况下，所有对象都会自动更新它们的矩阵（如果它们已添加到场景中）</p>
-
       <code>
-        var object = new v3d.Object3D();
-        scene.add(object);
+const object = new v3d.Object3D();
+scene.add(object);
       </code>
-
       或者它们是已添加到场景中的另一个对象的子节点：
-
       <code>
-        var object1 = new v3d.Object3D();
-        var object2 = new v3d.Object3D(); 
-        object1.add(object2); 
-        scene.add(object1); 
-        //object1 and object2 will automatically update their matrices
-      </code>
+const object1 = new v3d.Object3D();
+const object2 = new v3d.Object3D();
 
+object1.add(object2);
+scene.add(object1); //object1 and object2 will automatically update their matrices
+      </code>
     </div>
 
     <p>但如果您知道对象将是静态的，可以禁用更新，并在需要时手动更新变换矩阵。</p>
 
     <code>
-      object.matrixAutoUpdate = false;
-      object.updateMatrix();
+object.matrixAutoUpdate = false;
+object.updateMatrix();
     </code>
 
-    <h2>几何图形(Geometry)</h2>
+    <h2>BufferGeometry</h2>
     <div>
-      <h3>[page:BufferGeometry]</h3>
-      <div>
-        <p>BufferGeometries将（顶点位置、面的索引、法线、颜色、UV和任何自定义属性）信息存储在缓冲区([page:BufferAttribute
-          buffers])中——也就是[link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays
-          类型化的数组]。这使得它们通常比标准的几何体更快，缺点是更难用。</p>
-        <p>关于更新BufferGeometries，最重要的事情是您不能调整缓冲区的大小（这种操作开销很大，相当于创建了个新的几何体）。但您可以更新缓存区的内容。</p>
-        <p>这意味着如果您知道BufferGeometry的一个属性会增长，比如顶点的数量， 您必须预先分配足够大的buffer来容纳可能创建的任何新顶点。当然，这也意味着BufferGeometry将有一个最大大小
-          —— 无法创建一个可以高效地无限扩展的BufferGeometry。</p>
-        <p>我们以在渲染时扩展的line来示例。我们将分配可容纳500个顶点的空间但起初仅绘制2个，使用 在500个顶点的缓冲区中，但首先只使用 [page:BufferGeometry.drawRange] 。
+        <p>
+          BufferGeometries 将（顶点位置、面的索引、法线、颜色、UV和任何自定义属性）信息存储在 
+          [page:BufferAttribute buffers] 
+          中——也就是 
+          [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays 类型化的数组] 。
+          这使得它们通常比标准的几何体更快，缺点是更难用。
+        </p>
+        <p>
+          关于更新 BufferGeometries ，
+          最重要的事情是您不能调整缓冲区的大小（这种操作开销很大，相当于创建了个新的几何体）。
+          但您可以更新缓存区的内容。
+        </p>
+        <p>
+          这意味着如果您知道 BufferGeometry 的一个属性会增长，比如顶点的数量， 
+          您必须预先分配足够大的 buffer 来容纳可能创建的任何新顶点。
+          当然，这也意味着 BufferGeometry 将有一个最大大小
+          —— 无法创建一个可以高效地无限扩展的BufferGeometry。
+        </p>
+        <p>
+          我们以在渲染时扩展的line来示例。我们将分配可容纳500个顶点的空间但起初仅绘制2个，
+          使用 在500个顶点的缓冲区中，但首先只使用 [page:BufferGeometry.drawRange] 。
+        </p>
+        <code>
+const MAX_POINTS = 500;
 
+// geometry
+const geometry = new v3d.BufferGeometry();
+
+// attributes
+const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
+geometry.setAttribute('position', new v3d.BufferAttribute(positions, 3));
+
+// draw range
+const drawCount = 2; // draw the first 2 points, only
+geometry.setDrawRange(0, drawCount);
+
+// material
+const material = new v3d.LineBasicMaterial({ color: 0xff0000 });
+
+// line
+const line = new v3d.Line(geometry,  material);
+scene.add(line);
+        </code>
+        <p>
+          然后我们随机增加顶点到line中，以这样的一种方式：
+        </p>
+        <code>
+const positions = line.geometry.attributes.position.array;
+
+let x, y, z, index;
+x = y = z = index = 0;
+
+for (let i = 0, l = MAX_POINTS; i < l; i++) {
+
+    positions[index ++] = x;
+    positions[index ++] = y;
+    positions[index ++] = z;
+
+    x += (Math.random() - 0.5) * 30;
+    y += (Math.random() - 0.5) * 30;
+    z += (Math.random() - 0.5) * 30;
+
+}
+        </code>
+        <p>
+          如果要更改第一次渲染后渲染的 <em>点数</em> ，执行以下操作：
+        </p>
+        <code>
+line.geometry.setDrawRange(0, newValue);
+        </code>
+        <p>
+          如果要在第一次渲染后更改position数值，
+          则需要像这样设置needsUpdate标志：
+        </p>
+        <code>
+line.geometry.attributes.position.needsUpdate = true; // required after the first render
+        </code>
+
+        <p>
+          如果您在初始渲染后改变了位置数据值，
+          您可能需要调用 '.computeBoundingSphere()' ，以便重新计算几何体的边界球。
+        </p>
+        <code>
+line.geometry.computeBoundingBox();
+line.geometry.computeBoundingSphere();
+        </code>
+
+        <p>
+          [link:https://jsfiddle.net/xvnctbL0/2/ 此fiddle案例] 展示了一个可参考的动态线条。
         </p>
 
-        <code>
-          var MAX_POINTS = 500;
-          
-          // geometry
-          var geometry = new v3d.BufferGeometry();
-          
-          // attributes
-          var positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
-          geometry.addAttribute('position', new v3d.BufferAttribute(positions, 3));
-          
-          // draw range
-          var drawCount = 2; // draw the first 2 points, only
-          geometry.setDrawRange(0, drawCount);
-          
-          // material
-          var material = new v3d.LineBasicMaterial({ color: 0xff0000, linewidth: 2 });
-          
-          // line
-          var line = new v3d.Line(geometry,  material);
-          scene.add(line);
-        </code>
-          
-
-        <p>然后我们随机增加顶点到line中，以这样的一种方式：</p>
-
-        <code>
-          var positions = line.geometry.attributes.position.array;
-          
-          var x, y, z, index;
-          x = y = z = index = 0;
-          
-          for (var i = 0, l = MAX_POINTS; i < l; i++) {
-          
-              positions[index ++] = x;
-              positions[index ++] = y;
-              positions[index ++] = z;
-          
-              x += (Math.random() - 0.5) * 30;
-              y += (Math.random() - 0.5) * 30;
-              z += (Math.random() - 0.5) * 30;
-          
-          }
-        </code>
-          
-
-        <p>如果要更改第一次渲染后渲染的 <em>点数</em> ，执行以下操作：</p>
-
-        <code>
-          line.geometry.setDrawRange(0, newValue);
-        </code>
-
-        <p>如果要在第一次渲染后更改position数值，则需要像这样设置needsUpdate标志：</p>
-
-        <code>
-          line.geometry.attributes.position.needsUpdate = true; // required after the first render
-        </code>
-
-        <p>如果您在初始渲染后改变了位置数据值，您可能需要调用 `.computeBoundingSphere()` ，以便重新计算几何体的边界球。</p>
-
-        <code>
-          line.geometry.computeBoundingSphere();
-        </code>
-
-        <p>[link:http://jsfiddle.net/w67tzfhx/ 这个fiddle] 展示了一个您可以参考的运动的line。</p>
-
-        <h3>示例：</h3>[example:webgl_custom_attributes WebGL / custom / attributes]<br />
-        [example:webgl_buffergeometry_custom_attributes_particles WebGL / buffergeometry / custom / attributes /
-        particles]
-      </div>
-
-      <h3>[page:Geometry]</h3>
-      <div>
-        <p>以下标志控制各种几何属性的更新。只为您需要更新的属性设置标志，更新的成本很高。一旦缓冲区发生变化，这些标志会自动重置为 false 。如果您想不断地更新缓冲区，您需要不断地把它们设置为真。注意，这只适用于
-          [page:Geometry] ，而不适用于 [page:BufferGeometry] 。</p>
-
-        <code>
-          var geometry = new v3d.Geometry();
-          geometry.verticesNeedUpdate = true;
-          geometry.elementsNeedUpdate = true;
-          geometry.morphTargetsNeedUpdate = true;
-          geometry.uvsNeedUpdate = true;
-          geometry.normalsNeedUpdate = true;
-          geometry.colorsNeedUpdate = true;
-          geometry.tangentsNeedUpdate = true;
-        </code>
-
-        <p>在早于 [link:https://github.com/mrdoob/three.js/releases/tag/r66 r66] 的版本中，网格还需要启用 <em>动态</em> 标志（以保持内部类型化数组）。
+        <h3>示例：</h3>
+        
+        <p>
+          [example:webgl_custom_attributes WebGL / custom / attributes]<br />
+          [example:webgl_buffergeometry_custom_attributes_particles WebGL / buffergeometry / custom / attributes / particles]
         </p>
 
-        <code>
-          //removed after r66 geometry.dynamic = true;
-        </code>
-
-        <h3>示例：</h3>[example:webgl_geometry_dynamic WebGL / geometry / dynamic]<br />
       </div>
-
-    </div>
-
-
-
 
     <h2>材质 | Materials</h2>
     <div>
@@ -159,17 +139,14 @@
 
       <p>GL状态相关参数也可以随时改变（depthTest, blending, polygonOffset 等）。</p>
 
-      <p>平坦/光滑的阴影被烘焙成了法线。您需要重置法线缓冲区（见上文）。</p>
-
       <p>在运行时无法轻松更改以下属性（一旦material被渲染了一次）：</p>
       <ul>
         <li>uniforms的数量和类型</li>
-        <li>灯光的数量和类型</li>
-        <li>以下对象存在与否:<ul>
+        <li>以下对象存在与否:
+          <ul>
             <li>texture</li>
             <li>fog</li>
             <li>vertex colors</li>
-            <li>skinning</li>
             <li>morphing</li>
             <li>shadow map</li>
             <li>alpha test</li>
@@ -178,7 +155,6 @@
       </ul>
 
       <p>这些变化需要建立新的shader程序。您需要设置</p>
-
       <code>material.needsUpdate = true</code>
 
       <p>请记住，这可能是相当慢的，而且会引起帧率的紊乱（特别是在Windows上，因为在DirectX中着色器的编译比OpenGL慢）。</p>
@@ -192,20 +168,28 @@
 
       <p>如果数量很大（例如，每个面可能有所不同），请考虑不同的解决方案，例如使用属性/纹理来驱动不同的每个面部外观。</p>
 
-      <h3>示例：</h3>[example:webgl_materials_cars WebGL / materials / cars]<br /> [example:webgl_postprocessing_dof WebGL
-      / webgl_postprocessing / dof]
+      <h3>示例：</h3>
+      <p>
+        [example:webgl_materials_car WebGL / materials / car]<br />
+        [example:webgl_postprocessing_dof WebGL / webgl_postprocessing / dof]
+      </p>
     </div>
 
 
     <h2>纹理</h2>
     <div>
       <p>图像、画布、视频和数据纹理如果被改变，需要设置以下标记(flag)：</p>
-
-      <code>texture.needsUpdate = true;</code>
-
+      <code>
+        texture.needsUpdate = true;
+      </code>
       <p>渲染目标自动更新。</p>
 
-      <h3>示例：</h3>[example:webgl_materials_video WebGL / materials / video]<br /> [example:webgl_rtt WebGL / rtt]
+      <h3>示例：</h3>
+      <p>
+        [example:webgl_materials_video WebGL / materials / video]<br />
+        [example:webgl_rtt WebGL / rtt]
+      </p>
+
     </div>
 
 
@@ -213,20 +197,26 @@
     <div>
       <p>摄影机的位置和目标将会自动更新。如果您需要改变：</p>
       <ul>
-        <li>fov</li>
-        <li>aspect</li>
-        <li>near</li>
-        <li>far</li>
+        <li>
+          fov
+        </li>
+        <li>
+          aspect
+        </li>
+        <li>
+          near
+        </li>
+        <li>
+          far
+        </li>
       </ul>
-      <p>那么您需要重新计算投影矩阵：</p>
-
+      <p>
+        那么您需要重新计算投影矩阵：
+      </p>
       <code>
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+camera.aspect = window.innerWidth / window.innerHeight;
+camera.updateProjectionMatrix();
       </code>
-
     </div>
-  </article>
-</body>
-
+  </article></body>
 </html>
