@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>场景类拼图参考 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,94 +8,143 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
     <h1>场景 | Scenes</h1>
 
-    <p>此类拼图用于操作场景和渲染。</p>
+    <p>
+      此类拼图用于操作场景和渲染。
+    </p>
     
     <img src="files/puzzles/puzzles-scenes.jpg">
+
+
     <h2>内容</h2>
 
-    [contents] [anchor:puzzles_reference]
+    [contents]
+    
+    
+    [anchor:puzzles_reference]
 
     <h2>拼图参考</h2>
+
 
     [anchor:load_scene]
 
     <h3>load scene + percentage(加载场景 + 百分比)</h3>
 
-    <p>当此拼图被触发时，当前场景将被卸载，并从指定的 <em>.gltf</em> 文件中加载一个新的场景。</p>
+    <p>
+      当此拼图被触发时，当前场景将被卸载，并从指定的 <em>.gltf</em> 文件中加载一个新的场景。
+    </p>
     
     <img src="files/puzzles/puzzles-scenes-load-scene.jpg">
 
-    <p>在加载完成后，触发 "when loaded do" 插槽中的拼图。此外，还有一个可选的 "on progress do(在过程中执行...)" 插槽。放在这个插槽里的拼图会在加载过程中被持续触发，并且可以利用 "percentage(百分比)" 拼图。场景被加载时会被分配一个名称，可用于通过各种与对象相关的拼图来访问和操作场景。默认情况下，指定的场名称等于指定的场景URL（例如："path/to/scene.gltf" ）。如果启用 "alias(别名)" 选项，就可以手动设置名称。</p>
+    [demo:load_unload]
 
-    <p>另一个可选的 "on error do" 插槽在加载错误（比如丢失glTF文件）的情况下会触发。</p>
+    <p>
+      在加载完成后，触发 "when loaded do" 插槽中的拼图。此外，还有一个可选的 "on progress do(在过程中执行...)" 插槽。放在这个插槽里的拼图会在加载过程中被持续触发，并且可以利用 "percentage(百分比)" 拼图。场景被加载时会被分配一个名称，可用于通过各种与对象相关的拼图来访问和操作场景。默认情况下，指定的场名称等于指定的场景URL（例如："path/to/scene.gltf" ）。如果启用 "alias(别名)" 选项，就可以手动设置名称。
+    </p>
+
+    <p>
+      另一个可选的 "on error do" 插槽在加载错误（比如丢失glTF文件）的情况下会触发。
+    </p>
     
-    <img
-      src="files/puzzles/puzzles-scenes-load-scene-example.jpg">
+    <img src="files/puzzles/puzzles-scenes-load-scene-example.jpg">
+
 
     [anchor:append_scene]
 
     <h3>append scene + percentage(附加场景 + 百分比)</h3>
 
-    <p>当此拼图被触发时，一个新的场景会从指定的 <em>.gltf</em> 文件中加载并附加到当前场景中。</p>
+    <p>
+      当此拼图被触发时，一个新的场景会从指定的 <em>.gltf</em> 文件中加载并附加到当前场景中。
+    </p>
     
     <img src="files/puzzles/puzzles-scenes-append-scene.jpg">
 
-    <p>在加载完成后，触发 "when loaded do" 插槽中的拼图。此外，还可以启用 "on progress do" 插槽。放在这个插槽里的拼图会在加载过程中被持续触发，并且可以利用 "percentage(百分比)" 拼图。默认情况下，"append scene(附加场景)" 拼图不会从新场景中加载摄影机和灯光。这一行为可以在拼图的选项中改变。</p>
+    [demo:load_unload]
 
-    <p>场景被加附加时会被分配一个名称，可用于通过各种与对象相关的拼图来访问和操作场景。默认情况下，指定的场名称等于指定的场景URL（例如："path/to/scene.gltf" ）。如果启用 "alias(别名)" 选项，就可以手动设置名称。</p>
+    <p>
+      在加载完成后，触发 "when loaded do" 插槽中的拼图。此外，还可以启用 "on progress do" 插槽。放在这个插槽里的拼图会在加载过程中被持续触发，并且可以利用 "percentage(百分比)" 拼图。默认情况下，"append scene(附加场景)" 拼图不会从新场景中加载摄影机和灯光。这一行为可以在拼图的选项中改变。
+    </p>
 
-    <p>另一个可选的 "on error do" 插槽在加载错误（比如丢失glTF文件）的情况下会触发。</p>
+    <p>
+      场景被加附加时会被分配一个名称，可用于通过各种与对象相关的拼图来访问和操作场景。默认情况下，指定的场名称等于指定的场景URL（例如："path/to/scene.gltf" ）。如果启用 "alias(别名)" 选项，就可以手动设置名称。
+    </p>
+
+    <p>
+      另一个可选的 "on error do" 插槽在加载错误（比如丢失glTF文件）的情况下会触发。
+    </p>
     
     <img src="files/puzzles/puzzles-scenes-append-scene-example.jpg">
+
 
     [anchor:unload_scene]
 
     <h3>unload scene(卸载场景)</h3>
 
-    <p>从应用中卸载指定的场景或其部分。使用空的文本值来卸载所有场景。</p>
+    <p>
+      从应用中卸载指定的场景或其部分。
+      使用空的文本值来卸载所有场景。
+    </p>
     
     <img src="files/puzzles/puzzles-scenes-unload-scene.jpg">
+
 
     [anchor:is_scene_loaded]
 
     <h3>已加载场景</h3>
+
     <p>
       检查指定场景是否已被加载。当文本值为空时，用于检查主场景是否已加载。
     </p>
+
     <img src="files/puzzles/puzzles-scenes-is-scene-loaded.jpg">
+
 
     [anchor:enable_rendering]
 
     <h3>enable rendering(启用渲染)</h3>
 
-    <p>恢复之前禁用的渲染。</p>
+    <p>
+      恢复之前禁用的渲染。
+    </p>
     
     <img src="files/puzzles/puzzles-scenes-enable-rendering.jpg">
+
+
 
     [anchor:disable_rendering]
 
     <h3>disable rendering(禁用渲染)</h3>
 
-    <p>禁用渲染。停止更新图形渲染，但继续捕获用户事件以及推进动画时间线。</p>
+    <p>
+      禁用渲染。停止更新图形渲染，但继续捕获用户事件以及推进动画时间线。
+    </p>
     
     <img src="files/puzzles/puzzles-scenes-disable-rendering.jpg">
 
-    <p>可以使用禁用渲染来降低性能消耗，以在移动设备或笔记本电脑上节省电量消耗，或降低台式机上风扇噪音。您也可以启用 *anti-alias* 选项，以显著提高渲染质量并补偿性能的损失。这个选项针对的是渲染停止后的下一帧。</p>
+    <p>
+      可以使用禁用渲染来降低性能消耗，以在移动设备
+      或笔记本电脑上节省电量消耗，或降低台式机上风
+      扇噪音。您也可以启用 *anti-alias* 选项，以
+      显著提高渲染质量并补偿性能的损失。这个选项针
+      对的是渲染停止后的下一帧。
+    </p>
 
     <img src="files/puzzles/puzzles-scenes-enable-disable-rendering-example.jpg">
+
 
     [anchor:create_environment]
 
     <h3>create environment(创建环境)</h3>
 
-    <p>创建一个新的基于图像的照明，并为场景指定背景。此拼图还创建了一个新的材质，其名称是作为第一个参数指定的，并将其添加到场景中。您可以用这个材质来替换环境的纹理或颜色。</p>
+    <p>
+      创建一个新的基于图像的照明，并为场景指定背景。此拼图还创建了一个新的材质，其名称是作为第一个参数指定的，并将其添加到场景中。您可以用这个材质来替换环境的纹理或颜色。
+    </p>
 
-    <p>第二个参数可以是：</p>
+    <p>
+      第二个参数可以是：
+    </p>
 
     <ul>
       <li>*color* - 环境照明将基于默认的256×128的HDR图像，背景将基于默认的灰色值。</li>
@@ -105,51 +153,90 @@
     
     <img src="files/puzzles/puzzles-scenes-create-environment-example.jpg">
 
+
     [anchor:batch_geometry]
 
     <h3>batch geometry(合并几何)</h3>
 
-    <p>合并指定的一组网格的几何图形，以提高渲染性能。在执行时，拼图会收集具有类似属性的网格，比如使用中的材质、阴影设置、渲染顺序等，然后创建一个新的合并对象并追加到场景中。不能合并在一起的对象则保持原样。</p>
+    <p>
+      合并指定的一组网格的几何图形，以提高渲染性能。在执行时，拼图会收集具有类似属性的网格，比如使用中的材质、阴影设置、渲染顺序等，然后创建一个新的合并对象并追加到场景中。不能合并在一起的对象则保持原样。
+    </p>
     
-    <img
-      src="files/puzzles/puzzles-scenes-batch-geometry.jpg">
-    <p>要观察批处理是否运行成功，请打开 <a href="manual/zh/introduction/FAQ.html#browser_console">浏览器控制台</a>：</p>
+    <img src="files/puzzles/puzzles-scenes-batch-geometry.jpg">
+
+    <p>
+      要观察批处理是否运行成功，请打开 <a href="manual/zh/introduction/FAQ.html#browser_console">浏览器控制台</a>：
+    </p>
     
-    <img
-      src="files/puzzles/puzzles-scenes-batch-geometry-console.jpg">
+    <img src="files/puzzles/puzzles-scenes-batch-geometry-console.jpg">
 
-    <p>在每行 "Adding batch object(添加批处理对象)..." 中，都可以看到所创建的批处理对象的名称。这个名称由构成批处理的材质名称、代表被合并网格数量的 'x' 因子和 "_batch" 后缀合并组成。</p>
+    <p>
+      在每行 "Adding batch object(添加批处理对象)..." 中，都可以看到所创建的批处理对象的名称。这个名称由构成批处理的材质名称、代表被合并网格数量的 'x' 因子和 "_batch" 后缀合并组成。</p>
 
-    <p>例如：</p>
+    <p>
+      例如：
+    </p>
     
     <code class="language-html">
       Adding batch object: big_table_wood_x6_batch
     </code>
 
-    <p>这一行表示：6个带有 "big_table_wood" 材质的网格被合并到一个新的批处理对象 "big_table_wood_x6_batch" 。</p>
+    <p>
+      这一行表示：6个带有 "big_table_wood" 材质的网格被合并到一个新的批处理对象 "big_table_wood_x6_batch" 。
+    </p>
 
-    <p class="note">由于批处理的部分会被 "固定" 在一起，请确保不要批处理打算移动、做动画的对象，获奖将它们单独批处理。</p>
+    <p class="note">
+      由于批处理的部分会被 "固定" 在一起，请确保不要批处理打算移动、做动画的对象，获奖将它们单独批处理。
+    </p>
+
 
     [anchor:export_to_gltf]
 
     <h3>export to gltf(导出到gltf)</h3>
 
-    <p>将您的场景、模型或一组模型导出为glTF 2.0格式。指定 *only visible* 选项，只导出可见对象，而 *binary* 选项则用于导出为GLB（glTF二进制）格式。</p>
+    <p>
+      将您的场景、模型或一组模型导出为glTF 2.0格式。指定 *only visible* 选项，只导出可见对象，而 *binary* 选项则用于导出为GLB（glTF二进制）格式。
+    </p>
 
-    <p>为了获得最佳效果，以及创建标准的可以被第三方glTF查看器（例如微软Windows 10的默认glTF查看器）打开的glTF文件（没有Soft8Soft/Verge3D的扩展名），我们建议您使用glTF兼容的材质。请分别查看如何在 <a
-        href="manual/zh/blender/GLTF-Materials.html">Blender</a>， <a href="manual/zh/max/GLTF-Materials.html">3ds
-        Max</a>， 或 <a href="manual/zh/maya/GLTF-Materials.html">Maya</a>中创建glTF兼容性材质。</p>
+    <p>
+      为了获得最佳效果，以及创建标准的可以被第三方glTF查看器（例如微软Windows 10的默认glTF查看器）打开的glTF文件（没有Soft8Soft/Verge3D的扩展名），我们建议您使用glTF兼容的材质。请分别查看如何在 <a href="manual/zh/blender/GLTF-Materials.html">Blender</a>， <a href="manual/zh/max/GLTF-Materials.html">3ds Max</a>， 或 <a href="manual/zh/maya/GLTF-Materials.html">Maya</a>中创建glTF兼容性材质。
+      </p>
     
-    <img
-      src="files/puzzles/puzzles-scenes-export-to-gltf.jpg">
+    <img src="files/puzzles/puzzles-scenes-export-to-gltf.jpg">
+
+
+    [anchor:export_to_usdz]
+
+    <h3>export to usdz(导出至usdz)</h3>
+
+    <p>
+      将场景或模型导出为通用场景描述（USDZ）格式。
+    </p>
+
+    <img src="files/puzzles/puzzles-scenes-export-to-usdz.jpg">
+
+    <p>
+      通过此拼图，您可在Apple设备以AR模式预览场景。为此，请在应用页面上创建 <strong>&lt;a&gt;</strong> HTML 元素，并将导出的 USDZ 资产的链接指定为其 *href* 参数。
+    </p>
+
+    [demo:augmented_reality]
+
+    <p>
+      为取得最佳效果，应为模型使用与 glTF 兼容的材质。了解如何在 <a href="manual/zh/blender/GLTF-Materials.html">Blender</a>, <a href="manual/zh/max/GLTF-Materials.html">3ds Max</a> 及 <a href="manual/zh/maya/GLTF-Materials.html">Maya</a> 中创建此类材质。
+    </p>
+
 
     [anchor:raycast]
 
     <h3>raycast(射线)</h3>
 
-    <p>从源点（或对象）向给定的方向投射一条射线，并返回所有交点（如果有的话）的列表。拼图的第三个参数用于减少相交的对象。在此处使用 <strong>none</strong> 或指定场景名称，以相交位于加载场景中的所有对象。</p>
+    <p>
+      从源点（或对象）向给定的方向投射一条射线，并返回所有交点（如果有的话）的列表。拼图的第三个参数用于减少相交的对象。在此处使用 <strong>none</strong> 或指定场景名称，以相交位于加载场景中的所有对象。
+    </p>
 
-    <p>返回的列表包含一串具有下列信息的字典：</p>
+    <p>
+      返回的列表包含一串具有下列信息的字典：
+    </p>
 
     <ul>
       <li>*object* - 被相交对象的名称</li>
@@ -163,19 +250,29 @@
     
     <img src="files/puzzles/puzzles-scenes-raycast.jpg">
 
+
     [anchor:add_fog]
 
     <h3>add fog(添加雾)</h3>
 
-    <p>在场景中添加雾效。将 <b>RGB</b> 或 <b>density(密度)</b> 设置为0，即可禁止添加雾效。</p>
+    <p>
+      在场景中添加距离雾效。此效果通常在大型室外环境中用于增强远距离对象的视觉效果，或隐藏(LOD)对象，或用于遮掩场景中视觉瑕疵（例如地形网格的边界等）。
+    </p>
     
     <img src="files/puzzles/puzzles-scenes-add-fog.jpg">
+
+    <p>
+      *Exponential(指数型)* 雾使用 *density(密度)* 控制。将 *density(密度)* 设置为0，即可禁用已添加的雾效。
+    </p>
+
+    <p>
+      *Linear(线性)* 雾通过 *near* 和 *far* 属性控制。将 *near* 设置为零，或将 *far* 设置为负数即可禁用已添加的雾效。
+    </p>
     
+
     <h2>在使用拼图时遇到困难？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
-
+  </article></body>
 </html>

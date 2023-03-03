@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>用于3ds Max的Verge3D：glTF材质（符合glTF 2.0标准的PBR材质）- Soft8Soft</title>
   <meta charset="utf-8">
@@ -8,102 +7,145 @@
   <base href="../../../" />
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 10px;
+    }
+  </style>
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>glTF材质（符合glTF 2.0标准的PBR材质）/ 3ds Max</h1>
 
-    <p>如果您内容<a href="manual/zh/introduction/FAQ.html#gltf_materials">出于某种原因</a>需要与glTF 2.0标准兼容，您可以根据下文描述来使用物理材质来达到目标。</p>
+    <p>
+      如果您内容<a href="manual/zh/introduction/FAQ.html#gltf_materials">出于某种原因</a>需要与glTF 2.0标准兼容，您可以根据下文描述来使用物理材质来达到目标。
+    </p>
     
     <img src="files/physical-material/phmat_00.png">
     
-    <h2>内容</h2>
+    [demo:gltf_compat]
+
+
+    <h2>内容</h2>    
 
     [contents]
     
-    [anchor:setting_up]
 
-    <h2>启用VR设置</h2>
+    [anchor:introduction]
 
-    <p>如下添加一个 <b>物理材质</b> 着色器节点：在 <b>材质/贴图浏览器</b> 中，从左侧的 <b>通用</b> 材质列表中选择 <b>物理材质</b> 。</p>
+    <h2>简介</h2>
+
+    <p>推荐如下PBR材质使用方式：</p>
+
+    <table style="width:450px">
+      <tr>
+        <th>3ds Max版本</th>
+        <th>材质</th>
+      </tr>
+      <tr>
+        <td>2023</td>
+        <td><a href="manual/zh/max/GLTF-Materials.html#gltf_material">glTF材质</a></td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td><a href="manual/zh/max/GLTF-Materials.html#using_usd_preview_material">Usd Preview Surface</a></td>
+      </tr>
+      <tr>
+        <td>2021 - 2020</td>
+        <td><a href="manual/zh/max/GLTF-Materials.html#physical_material">物理材质</a></td>
+      </tr>
+    </table>
     
-    <img src="files/physical-material/phmat_02.png">
-    
-    <p>您可以将纹理节点连接到 <b>物理材质</b> 节点，如下所述。请注意，所有的纹理都是可选的，其中任何一个都可以安全地省略。</p>
-    
-    <img src="files/physical-material/phmat_01.png">
 
-    <ul>
-      <li>将 <b>Ambient Occlusion</b> 纹理连接到 <b>基础权重贴图</b> 输入。为了使3ds Max视口和Verge3D场景之间有更好的一致性，您也可以将 <b>Ambient Occlusion</b> 纹理连接到 <b>反射颜色贴图</b> 输入，但这不是必须的。</li>
-      <li>将 <b>Base Color</b> 纹理连接到 <b>基础颜色贴图</b> 输入。</li>
-      <li>将 <b>Roughness</b> 纹理连接到 <b>粗糙度贴图</b> 输入。</li>
-      <li>将 <b>Metallic</b> 纹理连接到 <b>金属度贴图</b> 输入。</li>
-      <li>将 <b>Normal</b> 纹理连接到 <b>法线凹凸</b> 节点，然后将其连接到 <b>物理材质</b> 的 <b>凹凸贴图</b>输入。您还应该将 <b>物理材质</b> 的 <b>特殊贴图</b> 面板中的 <b>凹凸贴图</b> 值设置为1.0。</li>
-      <li>将一个 <b>Emission</b> 纹理连接到 <b>发射颜色贴图</b>。您也应该在 <b>物理材质</b> 属性的 <b>基本参数</b> 面板中把发射的值设置为1.0。</li>
-      <li><b>透明度贴图</b> 将从 <b>Base Color</b> 纹理的Alpha通道获取。</li>
-    </ul>
-    
-    <img src="files/physical-material/phmat_03.png">
+    [anchor:gltf_material]
 
-    [anchor:color_space]
+    <h2>glTF材质</h2>
 
-    <h2>色彩空间和Gamma校正</h2>
-
-    <p>为了进行正确的渲染，需要注意为图像选择正确的色彩空间。除了 <b>Base Color</b> 和 <b>Emission</b> 纹理外，所有图像都必须以线性色彩空间渲染。要做到这一点，当您在 <b>打开图像</b> 对话框中打开图像时，选择 <b>覆盖 Gamma</b> 并将其 <b>数值</b> 设置为1.0（如下图所示）。</p>
-    
-    <img src="files/physical-material/phmat_04.png">
-
-    <p>与此相反， <b>Base Color</b> 和 <b>Emission</b> 纹理必须在sRGB色彩空间中打开（Gamma数值2.2）。为此只需在 <b>打开图像</b> 对话框的Gamma偏好中使用推荐的 <b>Automatic(自动)</b> 选项即可。</p>
-    
-    <img src="files/physical-material/phmat_05.png">
-
-    [anchor:transparency_texture]
-
-    <h2>透明度纹理</h2>
-
-    <p>如果 <b>Base Color</b> 纹理中的 <b>Alpha</b> 通道存在，引擎将自动使用它作为透明度贴图。要使透明度在3ds Max视口中可见，请将 <b>Base Color</b> 的 <b>Alpha</b> 通道连接到 <b>透明度颜色贴图</b> 输入。</p>
-    
-    <img src="files/physical-material/phmat_06.png">
-    
-    <p>您还需在纹理的 <b>首选项</b> 的 <b>位图参数</b> 面板中，将 <b>单通道输出</b> 设置为 <b>Alpha</b> ，将 <b>RGB 通道输出</b> 设置为 <b>Alpha作为灰度</b>。</p>
-    
-    <img src="files/physical-material/phmat_07.png">
-
-    [anchor:exporting_substance]
-
-    <h2>从Substance Painter导出纹理</h2>
-
-    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p>
-    
-    <img src="files/physical-material/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
-    
-    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p>
-    
-    <img src="files/physical-material/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
-    
-    <p>为了方便从Substance Painter导出纹理，并确保Verge3D引擎能够最佳利用资源，我们建议您使用 <a href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D导出预设</a> 。将此预设文件放到通常位于 My Documents\Allegorithmic\Substance Painter\shelf\ 目录下的 *export-presets* 文件夹中（如果不存在就新建一个）。</p>
-    
-    <img src="files/physical-material/phmat_09.png">
-    
-    <p>当从Substance Painter导出纹理时，选择*Verge3d for 3ds Max*的导出对话窗口，这样所有生成的纹理都与Verge3D所采用的glTF 2.0标准兼容。</p>
-
-    [anchor:export_to_gltf_in_runtime]
-
-    <h2>在运行时中导出到glTF</h2>
-
-    <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
-
-    [anchor:using_usd_preview_material]
-    <h2>使用 Usd Preview Surface 材质</h2>
     <p>
-      您可以将这些材质同时用于 glTF 和 USD 格式。注意：它们只能在 3ds Max 2022 及更高版本中使用。
+      *glTF材质* 与 glTF 2.0 完全兼容。
+    </p>
+
+    <p class="note">
+      此材质只能用于 3ds Max 2023 及更高版本。
     </p>
 
     <p>
-      指定 <b>Usd Preview Surface</b> 材质节点，然后即可以连接纹理节点。请注意，这里所有纹理都是可选的，并且可以安全地省略其中任何一个。Verge3D 支持以下设置：</p>
+      添加一个 <b>glTF材质</b> 着色器节点，如下所示：转到 <b>材质/贴图浏览器</b> 并从 <b>通用</b> 中选择 <b>glTF材质</b> 材料清单。
+    </p>
+
+    <img src="files/gltf-materials-max/gltf_mat_in_map_browser.jpg" style="max-width: 540px;">
+
+    <p>
+      然后即可连接纹理节点，注意以下纹理都是可选的，并且可以随意省略其中任何一个。 例如：
+    </p>
+
+    <img src="files/gltf-materials-max/gltf_mat_example_00.jpg" style="max-width: 713px;">
+
+    <ol>
+      <li>将 *glTF材质* 分配给模型。</li>
+      <li>
+      连接一个 <b>基础颜色</b> 纹理到 to the <b>基础颜色贴图</b> 的输入。
+      </li>
+      <li>
+      将 <b>透明度</b> 纹理连接到 <b>Alpha贴图</b> 的输入，否则 alpha 通道将从 <b>基础颜色贴图</b> 中获取。
+    </li>
+      <li>
+      连接一个 <b>金属度</b> 纹理到 <b>金属度贴图</b> 的输入。
+      </li>
+      <li>
+      连接一个 <b>粗糙度</b> 纹理到 <b>粗糙度贴图</b> 的输入。
+      </li>
+      <li>
+      连接一个 <b>法线</b> 纹理到 <b>法线贴图</b> 的输入。
+      </li>
+      <li>
+      连接一个 <b>阻光</b> 纹理到 <b>阻光(AO)贴图</b> 的输入。
+      </li>
+    </ol>
+
+    <p>
+      Verge3D 支持所有输入。 因此，您也可以通过勾选对应的复选项来使用扩展：
+    </p>
     
+    <img src="files/gltf-materials-max/gltf_mat_extension_settings.jpg" style="max-width: 1000px;">
+
+    <ol>
+      <li>
+        *无照明材质* - 使阴影独立于光照，持续着色的表面。持续着色的表面。
+      </li>
+      <li>
+        *透明图层* - 在任何其他可能不规则或粗糙的层顶部添加一个反射层。
+      </li>
+      <li>
+        *光泽颜色* - 添加一个光泽层（一个独立的粗糙层）。
+      </li>
+      <li>
+        *高光反射* - 为介质中配置镜面反射。
+      </li>
+      <li>
+        *透射* - 添加高级透明度渲染，考虑光反射。 材质的 *Alpha模式* 须设置为 *混合*。
+      </li>
+      <li>
+        *体积* - 用来描述光通过物体表面的传输情况。
+      </li>
+      <li>
+        *IOR* - 折射率
+      </li>
+    </ol>
+
+
+    [anchor:using_usd_preview_material]
+
+    <h2>使用 Usd Preview Surface 材质</h2>
+
+    <p>
+      您可以将这些材质同时用于 glTF 和 USD 格式。注意：它们仅可在3ds Max 2022及更高版本 ("USD for 3ds Max 2022"插件，您需要从Autodesk桌面应用程序中下载)使用。
+    </p>
+
+    <p>指定 <b>Usd Preview Surface</b> 材质节点，然后即可以连接纹理节点。请注意，这里所有纹理都是可选的，并且可以安全地省略其中任何一个。Verge3D中支持以下设置：</p>
+
     <ul>
       <li>Diffuse Color - 漫反射颜色</li>
       <li>Metallic - 金属度</li>
@@ -115,37 +157,139 @@
       <li>Opacity Threshold - 不透明度阈值</li>
     </ul>
 
-    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" class="centered" style="max-width: 750px;">
-    
-    <h3>创建 USD 材质</h3>
-    
-    <p>按照以下步骤配置具有3个贴图的标准PBR着色器：Base Color、ORM（遮挡、粗糙度、金属度）和法线贴图：</p>
-    
-    <ol>
-      <li>指定 *Usd Preview Surface* 给模型。</li>
+    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" style="max-width: 750px;">
 
+    <h3>创建USD材质</h3>
+
+    <p>
+      按照以下步骤配置具有3个贴图的标准PBR着色器：Base Color、ORM（遮挡、粗糙度、金属度）和法线贴图：
+    </p>
+
+    <ol>
+      <li>为模型指定 *Usd Preview Surface* 材质。</li>
       <li>
-      将 <b>Diffuse Color</b> 纹理连接到 <b>Diffuse Color Map</b> 输入。
+      连接一个 <b>漫反射颜色</b> 纹理到 <b>Diffuse Color Map</b> 输入节点。
       </li>
       <li>
-      连接一个 <b>Metallic</b> 纹理到 <b>Metallic Map</b> 输入。
+      连接一个 <b>金属度</b> 纹理到 the <b>Metallic Map</b> 输入节点。
       </li>
       <li>
-      连接一个 <b>Roughness</b> 纹理到 <b>Roughness Map</b> 输入。
+      连接一个 <b>粗糙度</b> 纹理到 the <b>Roughness Map</b> 输入节点。
       </li>
       <li>
-      连接一个 <b>Occlusion</b> 纹理到 <b>Occlusion Map</b> 输入。
+      连接一个  <b>遮挡</b> 纹理到 the <b>Occlusion Map</b> 输入节点。
+      </li>
       <li>
-      连接一个 <b>Normal</b> 纹理到 <b>Normal Map</b> 输入。
+      连接一个  <b>法线</b> 纹理到 the <b>Normal Map</b> 输入节点。
       </li>
     </ol>
+
+
+    [anchor:physical_material]
+
+    <h2>物理材质</h2>
+
+    <p>
+      如下添加一个 <b>物理材质</b> 着色器节点： 在 <b>材质/贴图浏览器</b> 中，从左侧的 <b>通用</b> 材质列表中选择 <b>物理材质</b> 。
+    </p>
+    
+    <img src="files/physical-material/phmat_02.png">
+
+    <p>
+      您可以将纹理节点连接到 <b>物理材质</b> 节点，如下所述。请注意，所有的纹理都是可选的，其中任何一个都可以安全地省略。
+    </p>
+
+    <img src="files/physical-material/phmat_02.png">
+
+    <ul>
+      <li>
+        将 <b>Ambient Occlusion</b> 纹理连接到 <b>基础权重贴图</b> 输入。为了使3ds Max视口和Verge3D场景之间有更好的一致性，您也可以将 <b>Ambient Occlusion</b> 纹理连接到 <b>反射颜色贴图</b> 输入，但这不是必须的。
+      </li>
+      <li>
+        将 <b>Base Color</b> 纹理连接到 <b>基础颜色贴图</b> 输入。
+      </li>
+      <li>
+        将 <b>Roughness</b> 纹理连接到 <b>粗糙度贴图</b> 输入。
+      </li>
+      <li>
+        将 <b>Metallic</b> 纹理连接到 <b>金属度贴图</b> 输入。
+      </li>
+      <li>
+        将 <b>Normal</b> 纹理连接到 <b>法线凹凸</b> 节点，然后将其连接到 <b>物理材质</b> 的 <b>凹凸贴图</b>输入。您还应该将 <b>物理材质</b> 的 <b>特殊贴图</b> 面板中的 <b>凹凸贴图</b> 值设置为1.0。
+      </li>
+      <li>
+        将一个 <b>Emission</b> 纹理连接到 <b>发射颜色贴图</b>。您也应该在 <b>物理材质</b> 属性的 <b>基本参数</b> 面板中把发射的值设置为1.0。
+      </li>
+      <li>
+        <b>透明度贴图</b> 将从 <b>Base Color</b> 纹理的Alpha通道获取。
+      </li>
+    </ul>
+    
+    <img src="files/physical-material/phmat_03.png">
+
+    <h3>透明度纹理</h3>
+
+    <p>
+      如果 <b>Base Color</b> 纹理中的 <b>Alpha</b> 通道存在，引擎将自动使用它作为透明度贴图。要使透明度在3ds Max视口中可见，请将 <b>Base Color</b> 的 <b>Alpha</b> 通道连接到 <b>透明度颜色贴图</b> 输入。
+    </p>
+
+    <img src="files/physical-material/phmat_06.png">
+
+    <p>
+      您还需在纹理的 <b>首选项</b> 的 <b>位图参数</b> 面板中，将 <b>单通道输出</b> 设置为 <b>Alpha</b> ，将 <b>RGB 通道输出</b> 设置为 <b>Alpha作为灰度</b>。
+    </p>
+    
+    <img src="files/physical-material/phmat_07.png">
+
+
+    [anchor:color_space]
+
+    <h2>色彩空间和Gamma校正</h2>
+
+    <p>
+      为了进行正确的渲染，需要注意为图像选择正确的色彩空间。除了 <b>Base Color</b> 和 <b>Emission</b> 纹理外，所有图像都必须以线性色彩空间渲染。要做到这一点，当您在 <b>打开图像</b> 对话框中打开图像时，选择 <b>覆盖 Gamma</b> 并将其 <b>数值</b> 设置为1.0（如下图所示）。
+    </p>
+    
+    <img src="files/physical-material/phmat_04.png">
+
+    <p>
+      与此相反， <b>Base Color</b> 和 <b>Emission</b> 纹理必须在sRGB色彩空间中打开（Gamma数值2.2）。为此只需在 <b>打开图像</b> 对话框的Gamma偏好中使用推荐的 <b>Automatic(自动)</b> 选项即可。
+    </p>
+    
+    <img src="files/physical-material/phmat_05.png">
+
+
+    [anchor:exporting_substance]
+
+    <h2>从Substance Painter导出纹理</h2>
+
+    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p>
+    
+    <img src="files/physical-material/substance_screenshot.jpg" style="max-width: 819px;">
+    
+    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p>
+    
+    <img src="files/physical-material/pbr_texture_set_preview.jpg" style="max-width: 819px;">
+    
+    <p>
+      为了方便从Substance Painter导出纹理，并确保Verge3D引擎能够最佳利用资源，我们建议您使用 <a href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D导出预设</a> 。将此预设文件放到通常位于 My Documents\Allegorithmic\Substance Painter\shelf\ 目录下的 *export-presets* 文件夹中（如果不存在就新建一个）。
+    </p>
+    
+    <img src="files/physical-material/phmat_09.png">
+    
+    <p>当从Substance Painter导出纹理时，选择*Verge3d for 3ds Max*的导出对话窗口，这样所有生成的纹理都与Verge3D所采用的glTF 2.0标准兼容。</p>
+
+
+    [anchor:export_to_gltf_in_runtime]
+
+    <h2>在运行时中导出到glTF</h2>
+
+    <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
 
     <h2>遇到问题？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
-
+  </article></body>
 </html>

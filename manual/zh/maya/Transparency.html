@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>用于Maya的Verge3D：透明度 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,43 +8,65 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>透明度 / Maya</h1>
 
-    <p>在这里，我们展示了如何在Maya中为标准表面，Lambert 及 glTF兼容性PBR材质启用透明特性。</p>
+    <p>
+      在这里，我们展示了如何在Maya中为标准表面，Lambert 及 glTF兼容性PBR材质启用透明特性。
+    </p>
 
-    [contents] [anchor:blended_vs_masked]
+    [demo:transparency]
+
+
+    [contents]
+    
+    
+    [anchor:blended_vs_masked]
 
     <h2>混合与蒙版</h2>
 
     <p>
-      作为一个实时渲染3D引擎，Verge3D提供了两种主要的方法来处理透明物体：alpha混合和alpha剪切（通常需要一个图像蒙版）。<b>混合法(blending)</b>可以将一个半透明的前景色与背景色结合起来，使用前景色的alpha作为混合系数。相对而言，<b>剪切法(clipping)</b>只是简单地丢弃所有alpha值小于某个预定义阈值的像素（在Verge3D
-      for Maya中总是等于0.5）。</p><img src="files/transparency-common/blending-vs-clipping.jpg">
-    <p>混合可以实现平滑过渡，通常看起来更漂亮，但计算成本比剪切高。当多边形以错误的顺序被渲染时，它也可能产生Z向排序的伪影。剪切法更适合用于可视化大量小物体的场景（如草和树叶）。但它会产生没有任何过渡的硬边缘，可能会出现锯齿。
+      作为一个实时渲染3D引擎，Verge3D提供了两种主要的方法来处理透明物体：alpha混合和alpha剪切（通常需要一个图像蒙版）。<b>混合法(blending)</b>可以将一个半透明的前景色与背景色结合起来，使用前景色的alpha作为混合系数。相对而言，<b>剪切法(clipping)</b>只是简单地丢弃所有alpha值小于某个预定义阈值的像素（在Verge3D for Maya中总是等于0.5）。
     </p>
 
-    <p>使用材质设置中的 *Alpha Mode* 下拉菜单，在混合和遮蔽之间进行选择。</p><img src="files/transparency-maya/alpha-mode.jpg" class="centered"
-      style="max-width: 427px">
+    <img src="files/transparency-common/blending-vs-clipping.jpg">
+
+    <p>
+      混合可以实现平滑过渡，通常看起来更漂亮，但计算成本比剪切高。当多边形以错误的顺序被渲染时，它也可能产生Z向排序的伪影。剪切法更适合用于可视化大量小物体的场景（如草和树叶）。但它会产生没有任何过渡的硬边缘，可能会出现锯齿。
+    </p>
+
+    <p>
+      使用材质设置中的 *Alpha Mode* 下拉菜单，在混合和遮蔽之间进行选择。
+    </p>
+
+    <img src="files/transparency-maya/alpha-mode.jpg" style="max-width: 427px">
 
     [anchor:alpha_add]
 
     <h2>加法合成（又称无深度写入）。</h2>
 
-    <p>Verge3D还提供了一种特殊的模式，用于在渲染时禁止向深度缓冲区写入数据。这会导致多边形被排除在像素深度比较之外。这样多边形将以加法方式合成，有时会有助于消除混合的伪影。</p><img
-      src="files/transparency-common/no-depth-writes.jpg">
-    <p>在 *Alpha Mode* 下拉菜单中选择 *Blend* ，并取消勾选材质设置中的 *Depth Write* 选项以启用该模式。此外，如果您希望透明对象的渲染在所有其他对象之上，请增大 <a
-        href="manual/zh/maya/Lighting-and-Rendering.html#per_object_rendering_settings">对象设置</a> 中的 *Rendering Order* 值。
+    <p>
+      Verge3D还提供了一种特殊的模式，用于在渲染时禁止向深度缓冲区写入数据。这会导致多边形被排除在像素深度比较之外。这样多边形将以加法方式合成，有时会有助于消除混合的伪影。
     </p>
+      
+      <img src="files/transparency-common/no-depth-writes.jpg">
+
+    <p>
+      在 *Alpha Mode* 下拉菜单中选择 *Blend* ，并取消勾选材质设置中的 *Depth Write* 选项以启用该模式。此外，如果您希望透明对象的渲染在所有其他对象之上，请增大 <a href="manual/zh/maya/Lighting-and-Rendering.html#per_object_rendering_settings">对象设置</a> 中的 *Rendering Order* 值。
+    </p>
+
 
     [anchor:standard_surface_materials]
 
     <h2>标准表面材质的透明度</h2>
 
-    <p>标准表面(或aiStandardSurface)材质的透明度可以通过如下材质设置和调整：</p><img
-      src="files/transparency-maya/standard-surface-transparency.jpg" class="centered" style="max-width: 422px">
+    <p>
+      标准表面(或aiStandardSurface)材质的透明度可以通过如下材质设置和调整：
+    </p>
+    
+    <img src="files/transparency-maya/standard-surface-transparency.jpg" style="max-width: 422px">
+
     <p>参数：</p>
 
     <dl>
@@ -65,21 +86,28 @@
 
     <p class="note">在Maya，默认情况下<b>薄壁</b>参数时关闭的，这会使得在网页应用中的渲染与您的预期不同，最典型的透明度渲染会失效。当您处理透明的标准表面材质时，一定要开启这个设置。</p>
 
+    
     [anchor:gltf_materials]
 
     <h2>glTF兼容的的PBR材质的透明度</h2>
 
-    <p>为了使这些材质具有透明度，应该将透明度贴图作为基础颜色纹理的4（alpha）分量进行烘焙，并将该纹理的 *Alpha* 输出连接到标准表面材质的 *Opacity* 输入。</p><img
-      src="files/transparency-maya/gltf-compat-transparency.jpg">
-    <p>当没有基础颜色纹理可用时，直接未连接的 *Opacity* 参数。</a>
+    <p>
+      为了使这些材质具有透明度，应该将透明度贴图作为基础颜色纹理的4（alpha）分量进行烘焙，并将该纹理的 *Alpha* 输出连接到标准表面材质的 *Opacity* 输入。
+    </p>
+      
+    <img src="files/transparency-maya/gltf-compat-transparency.jpg">
 
-    <p>使用 *Alpha Mode* 下拉菜单来选择透明模式。</p>
+    <p>
+      当没有基础颜色纹理可用时，直接未连接的 *Opacity* 参数。
+    </p>
+
+    <p>
+      使用 *Alpha Mode* 下拉菜单来选择透明模式。
+    </p>
 
     <h2>遇到问题？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
-
+  </article></body>
 </html>

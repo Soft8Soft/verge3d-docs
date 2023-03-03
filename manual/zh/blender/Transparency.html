@@ -12,35 +12,81 @@
 
     <h1>透明度/Blender</h1>
 
-    <p>在这里，我们展示了如何在Blender为Eevee/Cycles和GLTF兼容的材质启用透明特性。</p>
+    <p>
+      在这里，我们展示了如何在Blender为Eevee/Cycles和GLTF兼容的材质启用透明特性。
+    </p>
 
-    [contents] [anchor:blended_vs_masked]
+    [demo:transparency]
+
+
+    [contents]    
+    
+    
+    [anchor:blended_vs_masked]
 
     <h2>混合与蒙版</h2>
 
-    <p>作为一个实时渲染3D引擎，Verge3D提供了两种主要的方法来处理透明物体：alpha混合和alpha剪切（通常需要一个图像蒙版）。<b>混合法(blending)</b>可以将一个半透明的前景色与背景色结合起来，使用前景色的alpha作为混合系数。相对而言，<b>剪切法(clipping)</b>只是简单地丢弃所有alpha值小于某个预定义阈值的像素（默认为0，但可以在材质设置中改变）。</p><img src="files/transparency-common/blending-vs-clipping.jpg"><p>混合可以实现平滑过渡，通常看起来更漂亮，但计算成本比剪切高。当多边形以错误的顺序被渲染时，它也可能产生Z向排序的伪影。剪切法更适合用于可视化大量小物体的场景（如草和树叶）。但它会产生没有任何过渡的硬边缘，可能会出现锯齿。</p>
+    <p>
+      作为一个实时渲染3D引擎，Verge3D提供了两种主要的方法来处理透明物体：alpha混合和alpha剪切（通常需要一个图像蒙版）。<b>混合法(blending)</b>可以将一个半透明的前景色与背景色结合起来，使用前景色的alpha作为混合系数。相对而言，<b>剪切法(clipping)</b>只是简单地丢弃所有alpha值小于某个预定义阈值的像素（默认为0，但可以在材质设置中改变）。
+    </p>
+      
+      <img src="files/transparency-common/blending-vs-clipping.jpg">
+      
+      <p>
+        混合可以实现平滑过渡，通常看起来更漂亮，但计算成本比剪切高。当多边形以错误的顺序被渲染时，它也可能产生Z向排序的伪影。剪切法更适合用于可视化大量小物体的场景（如草和树叶）。但它会产生没有任何过渡的硬边缘，可能会出现锯齿。
+      </p>
 
     [anchor:alpha_add]
 
     <h2>加法合成（又称无深度写入）。</h2>
 
-    <p>Verge3D还提供了一种特殊的模式，用于在渲染时禁止向深度缓冲区写入数据。这会导致多边形被排除在像素深度比较之外。这样多边形将以加法方式合成，有时会有助于消除混合的伪影。</p><img src="files/transparency-common/no-depth-writes.jpg"><p>要启用这种模式，请禁用位于*Verge3D Settings*面板上的*Depth Write*选项。</p><img src="files/transparency-blender/depth-write.jpg" class="centered" style="max-width: 294px;">
+    <p>
+      Verge3D还提供了一种特殊的模式，用于在渲染时禁止向深度缓冲区写入数据。这会导致多边形被排除在像素深度比较之外。这样多边形将以加法方式合成，有时会有助于消除混合的伪影。
+    </p>
+      
+      <img src="files/transparency-common/no-depth-writes.jpg">
+      
+      <p>要启用这种模式，请禁用位于*Verge3D Settings*面板上的*Depth Write*选项。</p>
+      
+      <img src="files/transparency-blender/depth-write.jpg" style="max-width: 294px;">
 
     [anchor:rendering_order]
 
     <h2>渲染顺序(又称为Z-index)</h2>
 
-    <p>Verge3D不排序对象内部的多边形，而是在对象 <i>之间</i> 进行排序。这在大多数情况下生成正确的混合，但有时可能需要强行设置对象渲染顺序。</p>
+    <p>
+      Verge3D不排序对象内部的多边形，而是在对象 <i>之间</i> 进行排序。这在大多数情况下生成正确的混合，但有时可能需要强行设置对象渲染顺序。
+    </p>
 
-    <p>可以在Verge3D设置面板中用数值排序来修改对象渲染顺序。索引值越小，该对象就越早被渲染。</p><img src="files/transparency-blender/rendering-order.jpg" class="centered" style="max-width: 306px"><p>因此，如果你的场景中后景有一个透明的、连续的对象，并希望前景中的其他透明物体能够正确地渲染，请将后景物体的渲染顺序设置为负值。</p><img src="files/transparency-common/rendering-order-example.jpg">
+    <p>
+      可以在Verge3D设置面板中用数值排序来修改对象渲染顺序。索引值越小，该对象就越早被渲染。
+    </p>
+    
+    <img src="files/transparency-blender/rendering-order.jpg" alt="渲染顺序设置" style="max-width: 326px">
+    
+    <p>
+      因此，如果你的场景中后景有一个透明的、连续的对象，并希望前景中的其他透明物体能够正确地渲染，请将后景物体的渲染顺序设置为负值。
+    </p>
+      
+      <img src="files/transparency-common/rendering-order-example.jpg">
 
     [anchor:transparency_eevee]
 
     <h2>Eevee材质的透明度</h2>
 
-    <p>可以通过*Transparent BSDF*和*Mix Shader*节点组合来启用Eevee材质的透明度。*Mix Shader*节点中的因子可以用来定义alpha值——你可以直接指定数值，或者创建其他节点（如*Fresnel*）作为依赖，以创作更真实的外观。</p><img src="files/transparency-blender/eevee-ztransparency.jpg"><p>使用<b>混合模式</b>下拉菜单来选择透明度模式。</p>
+    <p>
+      可以通过*Transparent BSDF*和*Mix Shader*节点组合来启用Eevee材质的透明度。*Mix Shader*节点中的因子可以用来定义alpha值——你可以直接指定数值，或者创建其他节点（如*Fresnel*）作为依赖，以创作更真实的外观。
+    </p>
+    
+    <img src="files/transparency-blender/eevee-ztransparency.jpg">
 
-    <p>或者，你也可以使用原理性BSDF节点的*Alpha*输入。</p><img src="files/transparency-blender/eevee-ztransparency-principled.jpg"><p>要调整材质的透明度，在*Settings*面板上还有其他的选项。</p>
+    <p>使用<b>混合模式</b>下拉菜单来选择透明度模式。</p>
+
+    <p>或者，你也可以使用原理性BSDF节点的*Alpha*输入。</p>
+    
+    <img src="files/transparency-blender/eevee-ztransparency-principled.jpg">
+    
+    <p>要调整材质的透明度，在*Settings*面板上还有其他的选项。</p>
 
     <ul>
       <li>*Shadow Mode* - 阴影投射器的透明度模式。目前Verge3D只支持*Opaque*和*None*模式。</li>
@@ -52,7 +98,13 @@
 
     <h2>符合glTF标准的材质的透明度</h2>
 
-    <p>为了使这些材质具有透明度，请在基色纹理的alpha通道中添加alpha蒙版信息。你也可以用原理性BSDF节点的 <strong>Alpha</strong> 输入来调整alpha通道。</p><img src="files/transparency-blender/gltf-PBR-ztransparency.jpg"><p>使用 <strong>混合模式</strong> 下拉菜单来选择透明模式。</p>
+    <p>
+      为了使这些材质具有透明度，请在基色纹理的alpha通道中添加alpha蒙版信息。你也可以用原理性BSDF节点的 <strong>Alpha</strong> 输入来调整alpha通道。</p><img src="files/transparency-blender/gltf-PBR-ztransparency.jpg"><p>使用 <strong>混合模式</strong> 下拉菜单来选择透明模式。
+    </p>
+
+    <img src="files/transparency-blender/gltf-PBR-ztransparency.jpg">
+
+    <p>使用 <strong>Blend Mode(混合模式)</strong> 下拉菜单来选择选择不同的透明模式</p>
 
     <h2>遇到问题？</h2>
 

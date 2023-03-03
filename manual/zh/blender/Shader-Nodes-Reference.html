@@ -13,422 +13,1140 @@
 
     <h1>着色器节点参考/Blender</h1>
 
-    <p>在某种程度上，Verge3D支持Blender材质编辑器提供的几乎所有节点。但对于大多数基于 Web 的实时图形任务，只使用其中的一组就足够了。下面我们只列出了Verge3D官方演示中所使用到的节点。</p>
+    <p>
+      在某种程度上，Verge3D支持Blender材质编辑器提供的几乎所有节点。但对于大多数基于 Web 的实时图形任务，只使用其中的一组就足够了。下面我们只列出了Verge3D官方演示中所使用到的节点。
+    </p>
 
-    <p>Verge3D 支持的输入和输出标有绿色复选标记，而不支持的则标有红色复选标记。</p>
+    <p>
+      Verge3D 支持的输入和输出标有绿色复选标记，而不支持的则标有红色复选标记。
+    </p>
 
 
     <h2>内容</h2>
 
-    [contents] [anchor:Shader_Nodes]
+    [contents]
+
+
+    [anchor:Shader_Nodes]
 
     <h2>着色器节点</h2>
 
-    <p>这些节点是对物体表面进行着色计算的所有材质的核心。其中，以下节点在 Verge3D 工作流中使用最多：</p><img src="files/shader-nodes-reference-blender/shader-nodes.jpg" class="centered">
+    <p>
+      这些节点是对物体表面进行着色计算的所有材质的核心。其中，以下节点在 Verge3D 工作流中使用最多：
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/shader-nodes.jpg">
+
+
 
     [anchor:Principled_BSDF]
 
     <h3>原理化BSDF(Principled BSDF)</h3>
 
-    <p>这个通用节点实现了基于物理的渲染模型（又名 PBR）。适合为Verge3D创建大多数材质。</p><img src="files/shader-nodes-reference-blender/shader-principled-bsdf.jpg" class="centered"><p>通过调整*Principled BSDF*节点中的几个选项，您可以快速设置各种好看的材质。为获得最佳效果，您看以使用提供反射和基于图像照明的 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">环境纹理</a> ，或者仅使用为已经设置好环境的默认立方体模板。</p><img src="files/shader-nodes-reference-blender/shader-principled-bsdf-example.jpg" class="centered"></p>请参阅Blender手册中关于*Principled BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/principled.html" target="_blank">链接</a>。</p>
+    <p>
+      这个通用节点实现了基于物理的渲染模型（又名 PBR）。适合为Verge3D创建大多数材质。
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/shader-principled-bsdf.jpg">
+    
+    <p>
+      通过调整*Principled BSDF*节点中的几个选项，您可以快速设置各种好看的材质。为获得最佳效果，您看以使用提供反射和基于图像照明的 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">环境纹理</a> ，或者仅使用为已经设置好环境的默认立方体模板。
+    </p>
+      
+    <img src="files/shader-nodes-reference-blender/shader-principled-bsdf-example.jpg">
+    
+    <p>
+    请参阅Blender手册中关于*Principled BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/principled.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Diffuse_BSDF]
 
     <h3>漫反射BSDF(Diffuse BSDF)</h3>
 
-    <p>该节点实现了 PBR 的漫反射组件。它用于为材质添加烘焙的环境遮蔽，或有时与*光泽BSDF*节点结合，以获得比*原理化BSDF*节点更大的灵活性。</p><img src="files/shader-nodes-reference-blender/shader-diffuse-bsdf.jpg" class="centered"><p>在下面的示例中，*扩散BSDF*用于向Chrome材质添加已烘培的环境光遮蔽：</p><img src="files/shader-nodes-reference-blender/chrome-material-example.jpg" class="centered"></p>请参阅《Blender手册》中关于*扩散BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/diffuse.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点实现了 PBR 的漫反射组件。它用于为材质添加烘焙的环境遮蔽，或有时与*光泽BSDF*节点结合，以获得比*原理化BSDF*节点更大的灵活性。
+    </p>
+      
+    <img src="files/shader-nodes-reference-blender/shader-diffuse-bsdf.jpg">
+    
+    <p>
+      在下面的示例中，*扩散BSDF*用于向Chrome材质添加已烘培的环境光遮蔽：
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/chrome-material-example.jpg">
+  
+    <p>
+    请参阅《Blender手册》中关于*扩散BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/diffuse.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Glossy_BSDF]
 
     <h3>光泽BSDF(Glossy BSDF)</h3>
 
-    <p>该节点实现了PBR的镜面组件。用于纯金属度曲面，或有时与*漫反射BSDF*节点组合以获得更大的灵活性。</p><img src="files/shader-nodes-reference-blender/shader-glossy-bsdf.jpg" class="centered"></p>请参阅《Blender手册》中关于*Glossy BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/glossy.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点实现了PBR的镜面组件。用于纯金属度曲面，或有时与*漫反射BSDF*节点组合以获得更大的灵活性。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-glossy-bsdf.jpg">
+  
+    <p>
+    请参阅《Blender手册》中关于*Glossy BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/glossy.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Emission]
 
     <h3>发射(Emission)</h3>
 
-    <p>此节点用于表现未被照亮的（无阴影）的对象。当与Verge3D中的<b>bloom</b>后期效果结合在一起时，它也被用来表现辉光效果。</p><img src="files/shader-nodes-reference-blender/shader-emission.jpg" class="centered"><p>在下面的简化示例中，*Emission*用做无阴影的UI图标的材质：</p><img src="files/shader-nodes-reference-blender/shader-emission-example.jpg" class="centered"></p>请参阅《Blender手册》中关于*emission*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/emission.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点用于表现未被照亮的（无阴影）的对象。当与Verge3D中的<b>bloom</b>后期效果结合在一起时，它也被用来表现辉光效果。
+    </p>
+      
+    <img src="files/shader-nodes-reference-blender/shader-emission.jpg">
+    
+    <p>
+      在下面的简化示例中，*Emission*用做无阴影的UI图标的材质：
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-emission-example.jpg">
+    
+    <p>
+    请参阅《Blender手册》中关于*emission*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/emission.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Transparent_BSDF]
 
     <h3>透明BSDF(Transparent BSDF)</h3>
 
-    <p>该节点通过与其他*着色器*节点（如*Glossy BSDF*）混合实现透明材质。</p><img src="files/shader-nodes-reference-blender/shader-transparent-bsdf.jpg" class="centered"><p class="note">此节点被部分支持。如果您遵循这些限制，输出将与Blender视口内效果更接近。 </br> - *颜色*的输入应该是严格的白色（R = 1, G = 1, B= 1） </br> - 该节点应该用在节点树的最末端，也就是通过*Mix Shader*或*Add Shader*节点在*Material Output*之前使用（见下面的例子），或者直接插入*Material Output*的*Surface*接口中</p>
+    <p>
+      该节点通过与其他*着色器*节点（如*Glossy BSDF*）混合实现透明材质。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-transparent-bsdf.jpg">
+    
+    <p class="note">
+      此节点被部分支持。如果您遵循这些限制，
+      输出将与Blender视口内效果更接近。 
+    </br>
+     - *颜色*的输入应该是严格的白色（R = 1, G = 1, B= 1） 
+    </br>
+     - 该节点应该用在节点树的最末端，
+     也就是通过*Mix Shader*或*Add Shader*节点在
+     *Material Output*之前使用（见下面的例子），
+     或者直接插入*Material Output*的*Surface*接口中
+    </p>
 
-    <p>在下面的简化示例中，*Transparent BSDF*被用来作为前风挡玻璃的材质。</p><img src="files/shader-nodes-reference-blender/shader-transparent-bsdf-example.jpg" class="centered"></p>请参阅《Blender手册》中关于 *Transparent BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/transparent.html" target="_blank">链接</a>。</p>
+    <p>
+      在下面的简化示例中，*Transparent BSDF*被用来作为前风挡玻璃的材质。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-transparent-bsdf-example.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于 *Transparent BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/transparent.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Refraction_BSDF]
 
     <h3>折射BSDF(Refraction BSDF)</h3>
 
-    <p>此节点通过使用环境贴图来实现折射材质。</p><img src="files/shader-nodes-reference-blender/shader-refraction-bsdf.jpg" class="centered"><p>下面是一个简单的示例。</p><img src="files/shader-nodes-reference-blender/shader-refraction-bsdf-example.jpg" class="centered"></p>请参阅《Blender手册》中关于*Refraction BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/refraction.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点通过使用环境贴图来实现折射材质。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-refraction-bsdf.jpg">
+    
+    <p>
+      下面是一个简单的示例。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-refraction-bsdf-example.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于*Refraction BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/refraction.html" target="_blank">链接</a>。
+    </p>
+
 
     [anchor:Glass_BSDF]
 
     <h3>玻璃BSDF(Glass BSDF)</h3>
 
-    <p>此节点实现了PBR的镜面和折射组件。</p><img src="files/shader-nodes-reference-blender/shader-glass-bsdf.jpg" class="centered"><p>请参阅《Blender手册》中关于*Glass BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/glass.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点实现了PBR的镜面和折射组件。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-glass-bsdf.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Glass BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/glass.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Translucent_BSDF]
 
     <h3>半透明BSDF(Translucent BSDF)</h3>
 
-    <p>此节点实现了半透明的效果。</p><img src="files/shader-nodes-reference-blender/shader-translucent-bsdf.jpg" class="centered"><p>请参阅《Blender手册》中关于 *Translucent BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/en/dev/render/shader_nodes/shader/translucent.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点实现了半透明的效果。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-translucent-bsdf.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于 *Translucent BSDF*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/dev/render/shader_nodes/shader/translucent.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Add_Shader]
 
     <h3>相加着色器(Add Shader)</h3>
 
-    <p>该节点将两个着色器相加。</p><img src="files/shader-nodes-reference-blender/shader-add-shader.jpg" class="centered"></p>请参阅《Blender手册》中关于*Add Shader* 节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/add.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点将两个着色器相加。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-add-shader.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于*Add Shader* 节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/add.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Mix_Shader]
 
     <h3>混合着色器(Mix Shader)</h3>
 
-    <p>该节点将两个着色器混合在一起。</p><img src="files/shader-nodes-reference-blender/shader-mix-shader.jpg" class="centered"></p>请参阅《Blender手册》中关于*Mix Shader*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/mix.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点将两个着色器混合在一起。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/shader-mix-shader.jpg">
+  
+    <p>
+    请参阅《Blender手册》中关于*Mix Shader*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/mix.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Output_Nodes]
 
     <h2>输出节点(Output Nodes)</h2>
 
-    <p>这些节点是一个着色器的终点。对于*对象*材质，只有以下节点可用（对于*世界*材质也有一个特殊的输出节点）。</p><img src="files/shader-nodes-reference-blender/output-nodes.jpg" class="centered">
+    <p>
+      这些节点是一个着色器的终点。对于*对象*材质，只有以下节点可用（对于*世界*材质也有一个特殊的输出节点）。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/output-nodes.jpg">
+
+
 
     [anchor:Material_Output]
 
     <h3>材质输出(Material Output)</h3>
 
-    <p>此节点提供表面点的着色结果。</p><img src="files/shader-nodes-reference-blender/output-material-output.jpg" class="centered"></p>请参阅《Blender手册》中关于*Material Output*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/output/material.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点提供表面点的着色结果。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/output-material-output.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于*Material Output*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/output/material.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Input_Nodes]
 
     <h2>输入节点(Input Nodes)</h2>
 
-    <p>这些节点为着色器提供各种输入信息。其中，以下节点在 Verge3D 工作流中使用最多：</p><img src="files/shader-nodes-reference-blender/input-nodes.jpg" class="centered">
+    <p>
+      这些节点为着色器提供各种输入信息。其中，以下节点在 Verge3D 工作流中使用最多：
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-nodes.jpg">
+
+
 
     [anchor:Geometry]
 
     <h3>几何数据(Geometry)</h3>
 
-    <p>该节点（在世界空间）为着色点提供几何信息。目前，Verge3D只支持*位置*、*法向*、*切向*、*引入*和*背面*的接口。</p><img src="files/shader-nodes-reference-blender/input-geometry.jpg" class="centered"></p>请参阅《Blender手册》中关于*Geometry*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/geometry.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点（在世界空间）为着色点提供几何信息。目前，Verge3D只支持*位置*、*法向*、*切向*、*引入*和*背面*的接口。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-geometry.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于*Geometry*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/geometry.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Attribute]
 
     <h3>属性(Attribute)</h3>
 
-    <p>此节点检索网格属性。目前Verge3D只支持顶点色。</p><img src="files/shader-nodes-reference-blender/input-attribute.jpg" class="centered"></p>请参阅《Blender手册》中关于*Attribute*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/attribute.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点检索网格属性。目前Verge3D只支持顶点色。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-attribute.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于*Attribute*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/attribute.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Texture_Coordinate]
 
     <h3>纹理坐标(Texture Coordinate)</h3>
 
-    <p>此节点为纹理提供了从UV映射的或程序分配的坐标。Verge3D会从网格上可用的UV层列表中选取第一个UV层。</p><img src="files/shader-nodes-reference-blender/input-texture-coordinate.jpg" class="centered"></p>请参阅《Blender手册》中关于*Texture Coordinate*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/texture_coordinate.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点为纹理提供了从UV映射的或程序分配的坐标。Verge3D会从网格上可用的UV层列表中选取第一个UV层。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-texture-coordinate.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于*Texture Coordinate*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/texture_coordinate.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:UV_Map]
 
     <h3>UV贴图(UV Map)</h3>
 
-    <p>此节点从网格中获取指定的UV层。与*纹理坐标*节点不同的是，此节点适用于网格上任何可用的UV层。</p><img src="files/shader-nodes-reference-blender/input-uv-map.jpg" class="centered"></p>请参阅《Blender手册》中关于*UV Map*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/uv_map.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点从网格中获取指定的UV层。与*纹理坐标*节点不同的是，此节点适用于网格上任何可用的UV层。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-uv-map.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于*UV Map*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/uv_map.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Fresnel]
 
     <h3>菲涅耳</h3>
 
-    <p>此节点计算光的反射与折射的比例。</p><img src="files/shader-nodes-reference-blender/input-fresnel.jpg" class="centered"></p>请参阅《Blender手册》中关于*Fresnel*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/fresnel.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点计算光的反射与折射的比例。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-fresnel.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Fresnel*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/fresnel.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Layer_Weight]
 
     <h3>层权重(Layer Weight)</h3>
 
-    <p>此节点提供一个取决于观察物体表面方向的混合系数。</p><img src="files/shader-nodes-reference-blender/input-layer-weight.jpg" class="centered"></p>请参阅《Blender手册》中关于*Texture Coordinate*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/layer_weight.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点提供一个取决于观察物体表面方向的混合系数。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-layer-weight.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Texture Coordinate*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/layer_weight.html" target="_blank">链接</a>。
+    </p>
 
+    
+    
     [anchor:RGB]
 
     <h3>RGB</h3>
 
-    <p>此节点为着色器提供一个颜色值。</p><img src="files/shader-nodes-reference-blender/input-rgb.jpg" class="centered"></p>请参阅《Blender手册》中关于*RGB*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/rgb.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点为着色器提供一个颜色值。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-rgb.jpg">
+  
+    <p>
+      请参阅《Blender手册》中关于*RGB*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/rgb.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Value]
 
     <h3>数值(Value)</h3>
 
-    <p>该节点为着色器提供一个数值。</p><img src="files/shader-nodes-reference-blender/input-value.jpg" class="centered"></p>请参阅《Blender手册》中关于*Value*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/value.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点为着色器提供一个数值。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/input-value.jpg">    
+    
+    <p>
+      请参阅《Blender手册》中关于*Value*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/value.html" target="_blank">链接</a>
+    </p>
+
+
 
     [anchor:Camera_Data]
 
     <h3>摄影机数据(Camera Data)</h3>
 
-    <p>此节点提供了对象相对于摄影机的位置信息。</p><img src="files/shader-nodes-reference-blender/input-camera-data.jpg" class="centered"><p>请参阅《Blender手册》中关于*Camera Data*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/camera_data.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点提供了对象相对于摄影机的位置信息。
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/input-camera-data.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Camera Data*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/camera_data.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Tangent]
 
     <h3>切线(Tangent)</h3>
 
-    <p>此节点提供了切线方向。如果*Direction Type*设置为 "UV Map"，那么切线将从网格的活动UV层计算，而不是从节点本身指定的UV层（不支持此参数）。</p><img src="files/shader-nodes-reference-blender/input-tangent.jpg" class="centered"><p>请参阅《Blender手册》中关于*Tangent*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/tangent.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点提供了切线方向。
+      如果*Direction Type*设置为 
+      "UV Map"，那么切线将从网格的活动UV层计算，
+      而不是从节点本身指定的UV层（不支持此参数）。
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/input-tangent.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Tangent*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/tangent.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Vertex_Color]
 
     <h3>顶点颜色(Vertex Color)</h3>
 
-    <p>此节点提供顶点颜色值。</p><img src="files/shader-nodes-reference-blender/input-vertex-color.jpg" class="centered"><p>请参阅《Blender手册》中关于*Vertex Color*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/vertex_color.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点提供顶点颜色值。
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/input-vertex-color.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Vertex Color*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/vertex_color.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Texture_Nodes]
 
     <h2>纹理节点(Texture Nodes)</h2>
 
-    <p>此节点向着色器提供位图。其中，以下节点在 Verge3D 工作流中使用最多：</p><img src="files/shader-nodes-reference-blender/texture-nodes.jpg" class="centered">
+    <p>
+      此节点向着色器提供位图。其中，以下节点在 Verge3D 工作流中使用最多：
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/texture-nodes.jpg">
+
+
 
     [anchor:Checker_Texture]
 
     <h3>棋盘格纹理(Checker Texture)</h3>
 
-    <p>此节点提供了一个带有棋盘格图案的位图。</p><img src="files/shader-nodes-reference-blender/texture-checker-texture.jpg" class="centered"><p>请参阅《Blender手册》中有关*Checker Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/checker.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点提供了一个带有棋盘格图案的位图。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/texture-checker-texture.jpg">
+    
+    <p>
+      请参阅《Blender手册》中有关*Checker Texture*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/checker.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Image_Texture]
 
     <h3>图像纹理(Image Texture)</h3>
 
-    <p>此节点提供了一个图像文件，作为着色器中的纹理。</p><img src="files/shader-nodes-reference-blender/texture-image-texture.jpg" class="centered"><p class="note">注意：有些选项是部分支持的</br> - 插值模式：*线性*, *最接近<b>*</br> </b> - 图像源：*Single Image*, *Generated*</br> - color space: *线性*，*sRGB*。</br></p>
+    <p>
+      此节点提供了一个图像文件，作为着色器中的纹理。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/texture-image-texture.jpg">
+    
+    <p class="note">
+      注意：有些选项是部分支持的</br>
+      - 插值模式：*线性*, *最接近*</br>
+      - 图像源：*Single Image*, *Generated*</br>
+      - color space: *线性*，*sRGB*。</br>
+    </p>
 
-    </p>请参阅《Blender手册》中关于*Image Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/image.html" target="_blank">链接</a>。</p>
+    <p>
+    请参阅《Blender手册》中关于*Image Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/image.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Gradient_Texture]
 
     <h3>渐变纹理(Gradient Texture)</h3>
 
-    <p>此节点提供一个平滑变化的颜色和强度的范围。</p><img src="files/shader-nodes-reference-blender/texture-gradient-texture.jpg" class="centered"></p>请参阅《Blender手册》中关于*Gradient Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/gradient.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点提供一个平滑变化的颜色和强度的范围。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/texture-gradient-texture.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Gradient Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/gradient.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Voronoi_Texture]
 
     <h3>泰森多边形纹理(Voronoi Texture)</h3>
 
-    <p>此节点提供具有泰森多边形图案的位图。</p><img src="files/shader-nodes-reference-blender/texture-voronoi-texture.jpg" class="centered"><p class="note">注意：只支持*3D*维度，这也意味着不支持*W*的输入。</br></p>
+    <p>
+      此节点提供具有泰森多边形图案的位图。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/texture-voronoi-texture.jpg">
+    
+    <p class="note">
+      注意：只支持*3D*维度，这也意味着不支持*W*的输入。</br>
+    </p>
 
-    </p>请参阅《Blender手册》中关于*Voronoi Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/voronoi.html" target="_blank">链接</a>。</p>
+    <p>
+    请参阅《Blender手册》中关于*Voronoi Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/voronoi.html" target="_blank">链接</a>。
+  </p>
+
+
 
     [anchor:Noise_Texture]
 
     <h3>噪波纹理(Noise Texture)</h3>
 
-    <p>此节点提供了一个带有噪波图案的位图。</p><img src="files/shader-nodes-reference-blender/texture-noise-texture.jpg" class="centered"><p class="note">注意：只支持*3D*维度，这也意味着不支持*W*的输入。</br></p>
+    <p>
+      此节点提供了一个带有噪波图案的位图。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/texture-noise-texture.jpg">
+    
+    <p class="note">
+      注意：只支持*3D*维度，这也意味着不支持*W*的输入。</br>
+    </p>
 
-    </p>请参阅《Blender手册》中关于*Noise Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/noise.html" target="_blank">链接</a>。</p>
+    <p>
+      请参阅《Blender手册》中关于*Noise Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/noise.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Wave_Texture]
 
     <h3>波浪纹理(Wave Texture)</h3>
 
-    <p>此节点提供了一个带有波浪图案的位图。</p><img src="files/shader-nodes-reference-blender/texture-wave-texture.jpg" class="centered"><p>请参阅《Blender手册》中关于*Wave Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/wave.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点提供了一个带有波浪图案的位图。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/texture-wave-texture.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Wave Texture*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/wave.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Color_Nodes]
 
     <h2>颜色节点(Color Nodes)</h2>
 
-    <p>这些节点提供了对颜色的各种操作。其中，以下节点在 Verge3D 工作流中使用最多：</p><img src="files/shader-nodes-reference-blender/color-nodes.jpg" class="centered">
+    <p>
+      这些节点提供了对颜色的各种操作。其中，以下节点在 Verge3D 工作流中使用最多：
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/color-nodes.jpg">
+
+
 
     [anchor:Bright_Contrast]
 
     <h3>亮度/对比度(Bright/Contrast)</h3>
 
-    <p>该节点用于改变颜色输入的亮度和对比度。</p><img src="files/shader-nodes-reference-blender/color-bright-contrast.jpg" class="centered"><p>请参阅《Blender手册》中关于“Bright/Contrast*”节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/bright_contrast.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点用于改变颜色输入的亮度和对比度。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/color-bright-contrast.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于“Bright/Contrast*”节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/bright_contrast.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Hue_Saturation_Value]
 
     <h3>色调饱和度值(Hue Saturation Value)</h3>
 
-    <p>该节点用于变换HSV空间中的颜色输入。</p><img src="files/shader-nodes-reference-blender/color-hue-saturation-value.jpg" class="centered"><p>请参阅《Blender手册》中关于*Hue Saturation Value*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/hue_saturation.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点用于变换HSV空间中的颜色输入。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/color-hue-saturation-value.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Hue Saturation Value*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/hue_saturation.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Mix]
 
     <h3>混合(Mix)</h3>
 
-    <p>此节点使用各种混合模式将两个颜色输入混合在一起。</p><img src="files/shader-nodes-reference-blender/color-mix.jpg" class="centered"></p>请参阅《Blender手册》中关于*Mix*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/mix.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点使用各种混合模式将两个颜色输入混合在一起。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/color-mix.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Mix*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/mix.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:RGB_Curves]
 
     <h3>RGB曲线(RGB Curves)</h3>
 
-    <p>此节点用于颜色校正和水平调整。</p><img src="files/shader-nodes-reference-blender/color-rgb-curves.jpg" class="centered"></p>请参阅《Blender手册》中关于*RGB Curves*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/rgb_curves.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点用于颜色校正和水平调整。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/color-rgb-curves.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*RGB Curves*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/rgb_curves.html" target="_blank">链接</a>。
+    </p>
 
+
+    
     [anchor:Invert]
 
     <h3>反转(Invert)</h3>
 
-    <p>此节点将颜色输入反转，产生一个负数。</p><img src="files/shader-nodes-reference-blender/color-invert.jpg" class="centered"></p>请参阅《Blender手册》中有关*Invert*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/invert.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点将颜色输入反转，产生一个负数。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/color-invert.jpg">
+    
+    <p>
+      请参阅《Blender手册》中有关*Invert*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/invert.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Gamma]
 
     <h3>伽马(Gamma)</h3>
 
-    <p>该节点对颜色输入进行伽玛校正。</p><img src="files/shader-nodes-reference-blender/color-gamma.jpg" class="centered"></p>请参阅《Blender手册》中关于*GAMMA*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/gamma.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点对颜色输入进行伽玛校正。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/color-gamma.jpg">
+        
+    <p>
+      请参阅《Blender手册》中关于*GAMMA*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/gamma.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Vector_Nodes]
 
     <h2>矢量节点(Vector Nodes)</h2>
 
-    <p>这些节点提供对矢量的各种操作。其中，以下节点在 Verge3D 工作流中使用最多：</p><img src="files/shader-nodes-reference-blender/vector-nodes.jpg" class="centered">
+    <p>
+      这些节点提供对矢量的各种操作。其中，以下节点在 Verge3D 工作流中使用最多：
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/vector-nodes.jpg">
+
+
 
     [anchor:Bump]
 
     <h3>凹凸(Bump)</h3>
 
-    <p>此节点用于生成一个凹凸贴图。</p><img src="files/shader-nodes-reference-blender/vector-bump.jpg" class="centered"><p>参见《Blender手册》中关于*Bump*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/bump.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点用于生成一个凹凸贴图。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/vector-bump.jpg">
+    
+    <p>
+      参见《Blender手册》中关于*Bump*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/bump.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Mapping]
 
     <h3>映射(Mapping)</h3>
 
-    <p>该节点用于转换位图，包括移动、旋转和缩放。</p><img src="files/shader-nodes-reference-blender/vector-mapping.jpg" class="centered"></p>请参阅《Blender手册》中关于*Mapping*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/mapping.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点用于转换位图，包括移动、旋转和缩放。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/vector-mapping.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Mapping*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/mapping.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Normal]
 
     <h3>法向(Normal)</h3>
 
-    <p>此节点用于定义法线矢量和生成点积。</p><img src="files/shader-nodes-reference-blender/vector-normal.jpg" class="centered"><p>请参阅《Blender手册》中关于*Normal*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/normal.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点用于定义法线矢量和生成点积。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/vector-normal.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Normal*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/normal.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Normal_Map]
 
     <h3>法线贴图(Normal Map)</h3>
 
-    <p>此节点提供来自用作法线贴图的位图的法向向量。</p><img src="files/shader-nodes-reference-blender/vector-normal-map.jpg" class="centered"><p class="note">注意：只支持*切向空间*。</br></p>
+    <p>
+      此节点提供来自用作法线贴图的位图的法向向量。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/vector-normal-map.jpg">
+    
+    <p class="note">
+      注意：只支持*切向空间*。</br>
+    </p>
 
-    </p>参见Blender手册中关于*Normal Map*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/normal_map.html" target="_blank">链接</a>。</p>
+    <p>
+    参见Blender手册中关于*Normal Map*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/normal_map.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Vector_Curves]
 
     <h3>矢量曲线(Vector Curves)</h3>
 
-    <p>此节点用于将输入的向量映射到曲线上。</p><img src="files/shader-nodes-reference-blender/vector-curves.jpg" class="centered"></p>参见Blender手册中的*Vector Curves*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/curves.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点用于将输入的向量映射到曲线上。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/vector-curves.jpg">
+    
+    <p>
+      参见Blender手册中的*Vector Curves*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/curves.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Vector_Rotate]
 
     <h3>矢量旋转(Vector Rotate)</h3>
 
-    <p>此节点用于将输入的矢量围绕一个支点进行旋转。</p><img src="files/shader-nodes-reference-blender/vector-rotate.jpg" class="centered"></p>请参阅Blender手册中的*Vector Rotate*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/vector_rotate.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点用于将输入的矢量围绕一个支点进行旋转。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/vector-rotate.jpg">
+    
+    <p>
+      请参阅Blender手册中的*Vector Rotate*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/vector_rotate.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Vector_Transform]
 
     <h3>矢量转换(Vector Transform)</h3>
 
-    <p>该节点用于在世界、摄影机或物体坐标空间之间转换输入矢量。</p><img src="files/shader-nodes-reference-blender/vector-transform.jpg" class="centered"></p>请参阅《Blender手册》中关于*Vector Transform*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/transform.html" target="_blank">链接。</a></p>
+    <p>
+      该节点用于在世界、摄影机或物体坐标空间之间转换输入矢量。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/vector-transform.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Vector Transform*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/vector/transform.html" target="_blank">链接。</a>
+    </p>
 
+
+    
     [anchor:Converter_Nodes]
 
     <h2>转换器节点(Converter Nodes)</h2>
 
-    <p>这些节点提供了在各种类型的数据之间进行转换的方法。其中，以下节点在 Verge3D 工作流中使用最多：</p><img src="files/shader-nodes-reference-blender/converter-nodes.jpg" class="centered">
+    <p>
+      这些节点提供了在各种类型的数据之间进行转换的方法。其中，以下节点在 Verge3D 工作流中使用最多：
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/converter-nodes.jpg">
+
+
 
     [anchor:Clamp]
 
     <h3>钳制(Clamp)</h3>
 
-    <p>该节点将输入值约束在指定范围内。</p><img src="files/shader-nodes-reference-blender/converter-clamp.jpg" class="centered"><p class="note">注意：只支持*Min Max*钳制类型。</br></p>
+    <p>
+      该节点将输入值约束在指定范围内。<
+        /p>
+    
+    <img src="files/shader-nodes-reference-blender/converter-clamp.jpg">
+    
+    <p class="note">
+      注意：只支持*Min Max*钳制类型。</br>
+    </p>
 
-    <p>参见Blender手册中关于*Clamp*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/clamp.html" target="_blank">链接</a>。</p>
+    <p>
+      参见Blender手册中关于*Clamp*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/clamp.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Color_Ramp]
 
     <h3>颜色渐变(Color Ramp)</h3>
 
-    <p>此节点将数值转换为颜色后用作渐变。</p><img src="files/shader-nodes-reference-blender/converter-color-ramp.jpg" class="centered"><p class="note">注意：有些选项是部分支持的</br> - 颜色模式：只支持*RGB*</br> - 插值: *线性*，*常值*。</br></p>
+    <p>
+      此节点将数值转换为颜色后用作渐变。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/converter-color-ramp.jpg">
+    
+    <p class="note">
+      注意：有些选项是部分支持的</br>
+      - 颜色模式：只支持*RGB*</br>
+      - 插值: *线性*，*常值*。</br>
+    </p>    
 
-    </p>请看Blender手册中关于*Color Ramp*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/color_ramp.html" target="_blank">链接</a>。</p>
+    <p>
+      请看Blender手册中关`于*Color Ramp*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/color_ramp.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Map_Range]
 
     <h3>映射范围(Map Range)</h3>
 
-    <p>该节点用于将一个值从一个范围转换到另一个范围。</p><img src="files/shader-nodes-reference-blender/converter-map-range.jpg" class="centered"><p class="note">注意：只支持*线性*插值。</br></p>
+    <p>
+      该节点用于将一个值从一个范围转换到另一个范围。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/converter-map-range.jpg">
+    
+    <p class="note">
+      注意：只支持*线性*插值。</br>
+    </p>
 
-    <p>参见Blender手册中关于*Map Range*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/map_range.html" target="_blank">链接</a>。</p>
+    <p>
+      参见Blender手册中关于*Map Range*节点的更多信息： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/map_range.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Shader_to_RGB]
 
     <h3>着色器到RGB(Shader to RGB)</h3>
 
-    <p>该节点将着色计算结果替换为纯色。通常用于非写实的渲染。</p><img src="files/shader-nodes-reference-blender/converter-shader-to-rgb.jpg" class="centered"></p>参见Blender手册中关于*Shader to RGB*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/shader_to_rgb.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点将着色计算结果替换为纯色。通常用于非写实的渲染。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/converter-shader-to-rgb.jpg">
+    
+    <p>
+      参见Blender手册中关于*Shader to RGB*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/shader_to_rgb.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:RGB_to_BW]
 
     <h3>RGB转黑白(RGB to BW)</h3>
 
-    <p>该节点通过使用亮度将彩色图像转换为黑白图像。</p><img src="files/shader-nodes-reference-blender/converter-rgb-to-bw.jpg" class="centered"></p>参见《Blender手册》中关于*RGB to BW*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/rgb_to_bw.html" target="_blank">链接</a>。</p>
+    <p>
+      该节点通过使用亮度将彩色图像转换为黑白图像。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/converter-rgb-to-bw.jpg">
+    
+    <p>
+      参见《Blender手册》中关于*RGB to BW*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/rgb_to_bw.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Math_Node]
 
     <h3>数学(Math)</h3>
 
-    <p>此节点对数字值进行数学运算。</p>
+    <p>
+      此节点对数字值进行数学运算。
+    </p>
 
     <ul>
-        <li>加、减、乘、除、乘加、幂、对数、平方根、反平方根、绝对值</li>
-        <li>最小，最大，小于，大于，符号，比较，平滑最小，平滑最大</li>
-        <li>圆整、下限、上限、截断、分数、模数、包络、吸附、乒乓</li>
-        <li>正弦、余弦、正切、反正弦、反余弦、反正切、二元反正切、双曲正弦、双曲余弦、双曲正切</li>
-        <li>转换为弧度, 转换为度</li>
-    </ul><img src="files/shader-nodes-reference-blender/converter-math.jpg" class="centered"></p>参见Blender手册中关于*Math*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/math.html" target="_blank">链接</a>。</p>
+        <li>
+          加、减、乘、除、乘加、幂、对数、
+          平方根、反平方根、绝对值
+        </li>
+        <li>
+          最小，最大，小于，大于，符号，比较，
+          平滑最小，平滑最大
+        </li>
+        <li>
+          圆整、下限、上限、截断、分数、模数、包络、吸附、
+          乒乓
+        </li>
+        <li>
+          正弦、余弦、正切、反正弦、反余弦、反正切、
+          二元反正切、双曲正弦、双曲余弦、
+          双曲正切
+        </li>
+        <li>
+          转换为弧度, 转换为度
+        </li>
+    </ul>
+    
+    <img src="files/shader-nodes-reference-blender/converter-math.jpg">
+    
+    <p>
+      参见Blender手册中关于*Math*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/math.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Vector_Math]
 
     <h3>矢量运算(Vector Math)</h3>
 
-    <p>此节点执行对矢量的操作。</p>
+    <p>
+      此节点执行对矢量的操作。
+    </p>
 
     <ul>
-        <li>加法、减法、乘法、除法</li>
-        <li>交叉积，投影，反射，点积</li>
-        <li>距离、长度、比例、归一化</li>
-        <li>绝对值、最小值、最大值、下限、上限、分数、模数、包络、捕捉</li>
-        <li>正弦、余弦、正切</li>
-    </ul><img src="files/shader-nodes-reference-blender/converter-vector-math.jpg" class="centered"></p>参见Blender手册中关于*Vector Math*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/vector_math.html" target="_blank">链接</a>。</p>
+        <li>
+          加法、减法、乘法、除法
+        </li>
+        <li>
+          交叉积，投影，反射，点积
+        </li>
+        <li>
+          距离、长度、比例、归一化
+        </li>
+        <li>
+          绝对值、最小值、最大值、下限、上限、分数、模数、包络、
+          捕捉
+        </li>
+        <li>
+          正弦、余弦、正切
+        </li>
+    </ul>
+
+    <img src="files/shader-nodes-reference-blender/converter-vector-math.jpg">
+    
+    <p>
+      参见Blender手册中关于*Vector Math*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/vector_math.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Combine_Separate_Nodes]
 
     <h3>组合/分离节点(Combine/Separate Nodes)</h3>
 
-    <p>这些节点由一个颜色或矢量组成，或将其分割到单独的通道。</p><img src="files/shader-nodes-reference-blender/converter-combine-separate-nodes.jpg" class="centered"></p>请参阅《Blender手册》中关于*Combine*和*Separate*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/combine_separate.html" target="_blank">链接</a>。</p>
+    <p>
+      这些节点由一个颜色或矢量组成，或将其分割到单独的通道。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/converter-combine-separate-nodes.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*Combine*和*Separate*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/converter/combine_separate.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:World_Specific_Nodes]
 
     <h2>世界专属节点(World-Specific Nodes)</h2>
 
-    <p>这些节点要么只适用于*世界*材质（*Background*, *World Output*），要么通常用于*世界*材质（*Environment Texture*, *Light Path*, *Sky Texture*）。</p><img src="files/shader-nodes-reference-blender/world-specific-nodes.jpg" class="centered">
+    <p>
+      这些节点要么只适用于 *世界* 材质
+      （*Background*, *World Output*），
+      要么通常用于*世界*材质（*Environment Texture*, *Light Path*, *Sky Texture*）。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/world-specific-nodes.jpg">
+
+
 
     [anchor:Background]
 
     <h3>背景(Background)</h3>
 
-    <p>此节点用于设置背景颜色，以及基于图像的照明和反射。它很少单独使用，因为它只生成一种纯色。您可以将其与 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">环境纹理</a> 结合起来使用以得到最佳效果。</p><img src="files/shader-nodes-reference-blender/world-background.jpg" class="centered"></p>请看Blender手册中关于*Background*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/background.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点用于设置背景颜色，以及基于图像的照明和反射。它很少单独使用，因为它只生成一种纯色。您可以将其与 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">环境纹理</a> 结合起来使用以得到最佳效果。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/world-background.jpg">
+    
+    <p>
+      请看Blender手册中关于*Background*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/shader/background.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:World_Output]
 
     <h3>世界输出(World Output)</h3>
 
-    <p>此节点是*世界*材质的终点。它表示环境的着色结果。</p><img src="files/shader-nodes-reference-blender/world-output.jpg" class="centered"></p>请参阅《Blender手册》中关于*World Output*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/output/world.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点是*世界*材质的终点。它表示环境的着色结果。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/world-output.jpg">
+    
+    <p>
+      请参阅《Blender手册》中关于*World Output*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/output/world.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Environment_Texture]
 
     <h3>环境纹理(Environment Texture)</h3>
 
-    <p>此节点提供了一个图像文件，作为着色器中的环境纹理。这些图像必须是等距长方投影，而且通常应该是HDR格式，尽管也可以使用JPEG或PNG格式。</p>
+    <p>
+      此节点提供了一个图像文件，作为着色器中的环境纹理。这些图像必须是等距长方投影，而且通常应该是HDR格式，尽管也可以使用JPEG或PNG格式。
+    </p>
 
-    <p class="note">默认的立方体模板包括一个HDR图像，可用于您自己的项目。</p><img src="files/shader-nodes-reference-blender/world-environment.jpg" class="centered"><p class="note">注意：有些选项仅部分支持</br> - 插值模式：*线性*, *最接近*<b></br> </b> - 图像源：*Single Image*, *Generated*</br> - color space: *线性*，*sRGB*。</br></p>
+    <p class="note">
+      默认的立方体模板包括一个HDR图像，可用于您自己的项目。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/world-environment.jpg">
+    
+    <p class="note">
+      注意：有些选项仅部分支持</br> 
+      - 插值模式：*线性*, *最接近*<b></br> </b> 
+      - 图像源：*Single Image*, *Generated*</br>
+      - color space: *线性*，*sRGB*。</br>
+    </p>
 
-    <p>在下面的例子中，一张JPEG图像被同时用来提供基于图像的照明、反射和背景。</p><img src="files/shader-nodes-reference-blender/world-environment-example.jpg" class="centered"></p>请看Blender手册中关于*Environment Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/environment.html" target="_blank">链接</a>。</p>
+    <p>
+      在下面的例子中，一张JPEG图像被同时用来提供基于图像的照明、反射和背景。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/world-environment-example.jpg">
+  
+    <p>
+    请看Blender手册中关于*Environment Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/environment.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Light_Path]
 
     <h3>光程(Light Path)</h3>
 
-    <p>此节点向着色器提供各种布尔类型的信息。Verge3D支持*Is Camera Ray*输出，目的是控制 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">环境纹理</a> 在背景中是否可见。</p><img src="files/shader-nodes-reference-blender/world-light-path.jpg" class="centered"><p>下面是一个典型的设置，用于为场景提供环境光照和反射，但在背景中只渲染白色纯色。</p><img src="files/shader-nodes-reference-blender/world-specific-nodes-example.jpg" class="centered"></p>参见Blender手册中关于*Light Path*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/light_path.html" target="_blank">链接</a>。</p>
+    <p>
+      此节点向着色器提供各种布尔类型的信息。Verge3D支持*Is Camera Ray*输出，目的是控制 
+      <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">环境纹理</a> 在背景中是否可见。
+    </p>
+    
+    <img src="files/shader-nodes-reference-blender/world-light-path.jpg">
+    
+
+    <p>
+      下面是一个典型的设置，用于为场景提供环境光照和反射，但在背景中只渲染白色纯色。
+    </p>
+      
+    <img src="files/shader-nodes-reference-blender/world-specific-nodes-example.jpg">
+  
+    <p>
+      参见Blender手册中关于*Light Path*节点的更多信息：  <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/light_path.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:Sky_Texture]
 
     <h3>天空纹理(Sky Texture)</h3>
 
-    <p>此节点提供了一个程序性生成的天空纹理。</p><img src="files/shader-nodes-reference-blender/world-sky-texture.jpg" class="centered"><p class="note">注意：此节点只适用于Cycles，不适用Eevee渲染器。</p>
+    <p>
+      此节点提供了一个程序性生成的天空纹理。
+    </p>
 
-    <p>更多关于*Sky Texture*节点的信息，请参见Blender手册： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/sky.html" target="_blank">链接</a>。</p>
+    <img src="files/shader-nodes-reference-blender/world-sky-texture.jpg">    
+    
+    <p class="note">
+      注意：此节点只适用于Cycles，不适用Eevee渲染器。
+    </p>
+
+    <p>
+      更多关于*Sky Texture*节点的信息，请参见Blender手册： 
+      <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/sky.html" target="_blank">链接</a>。
+    </p>
+
+
 
     [anchor:performance_considerations]
 

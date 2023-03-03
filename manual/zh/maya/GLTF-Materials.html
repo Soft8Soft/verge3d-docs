@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>用于Maya的Verge3D：glTF材质（符合glTF 2.0标准的PBR材质）- Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,21 +8,28 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>glTF材质（glTF 2.0兼容性PBR材质） / Maya</h1>
 
-    <p>Verge3D for Maya支持基于aiStandardSurface的<a href="manual/zh/introduction/FAQ.html#gltf_materials">glTF
-        2.0兼容性PBR材质</a> ，aiStandardSurface是Maya 2020+版本中的标准表面着色器。</p>
+    <p>Verge3D for Maya支持基于aiStandardSurface的<a href="manual/zh/introduction/FAQ.html#gltf_materials">glTF 2.0兼容性PBR材质</a> ，aiStandardSurface是Maya 2020+版本中的标准表面着色器。</p>
 
-    [contents] [anchor:setup]
+    [demo:gltf_compat]
+
+
+    [contents]
+    
+
+    [anchor:setup]
 
     <h2>设置glTF材质</h2>
 
-    <p>将 *aiStandardSurface* 着色器节点指定到材质中，并启用位于 <b>Verge3D</b> 面板上的<b>GLTF 2.0兼容</b>复选框。</p><img
-      src="files/gltf-materials-maya/ai-standard-surface-overview.jpg" class="centered">
+    <p>
+      将 *aiStandardSurface* 着色器节点指定到材质中，并启用位于 <b>Verge3D</b> 面板上的<b>GLTF 2.0兼容</b>复选框。
+    </p>
+    
+    <img src="files/gltf-materials-maya/ai-standard-surface-overview.jpg">
+
     <p>以下aiStandardSurface的设置在Verge3D受到支持：</p>
 
     <h3>Base面板</h3>
@@ -70,23 +76,30 @@
       <li>将*file*连接到*bump2d*节点，*bump2d*节点连接到*aiStandardSurface*节点的*Normal Camera*输入。
     </ol>
 
-    <p>下图是材质在Hypershade编辑器中的示例。</p><img src="files/materials-maya/pbr-example.jpg" class="centered">
+    <p>下图是材质在Hypershade编辑器中的示例。</p>
+    
+    <img src="files/materials-maya/pbr-example.jpg">
+
 
     [anchor:exporting_substance]
 
     <h2>从Substance Painter导出纹理</h2>
 
-    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p><img
-      src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
-    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p><img src="files/physical-material-blender/pbr_texture_set_preview.jpg"
-      class="centered" style="max-width: 819px;">
+    <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p>
+    
+    <img src="files/physical-material-blender/substance_screenshot.jpg" style="max-width: 819px;">
+
+    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p>
+    
+    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" style="max-width: 819px;">
+
 
     [anchor:export_to_gltf_in_runtime]
 
     <h2>在运行时中导出到glTF</h2>
+    
+    <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
-    <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a
-        href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
     [anchor:using_usd_preview_material]
 
@@ -96,8 +109,7 @@
       您可以将这些材质同时用于 glTF 和 USD 格式。注意：它们只能在 Maya 2022 及更高版本中使用。  
     </p>
 
-    <p>
-      将 usdPreviewSurface 着色器节点分配给材质，Verge3D 支持以下设置：
+    <p>将 usdPreviewSurface 着色器节点分配给材质，Verge3D 支持以下设置：</p>
       
     <ul>
       <li>Color or (Diffuse Color input in Hypershade) <br /> 颜色或(Hypershade里的Diffuse Color输入)</li>
@@ -131,13 +143,14 @@
       <li>将 ORM 纹理的 R 通道连接到 *usdPreviewSurface* 节点的 *Occlusion* 输入，以模拟环境光遮蔽效果。</li>
       <li>将 ORM 纹理的 G 通道连接到 *usdPreviewSurface* 节点的 *Roughness* 输入。</li>
       <li>将 ORM 纹理的 B 通道连接到 *usdPreviewSurface* 节点的 *Metallic* 输入。</li>
-      <li>创建具有法线贴图纹理的 *文件* 节点。确保文件节点的 *色彩空间* 设置设置为  *Raw* 。</li>
-      <li>将 *文件* 节点连接到 *usdPreviewSurface* 节点的 *Normal* 输入。
+      <li>创建具有法线贴图纹理的 *文件* 节点。确保文件节点的 *色彩空间* 设置设置为  *Raw* 。
+      </li>
+      <li>将 *文件* 节点连接到 *usdPreviewSurface* 节点的 *Normal* 输入。</li>
     </ol>
 
     <p>以下是材质在Hypershade编辑器中的外观：</p>
 
-    <img src="files/materials-maya/pbr-usd-surface-example.jpg" class="centered" style="max-width: 819px;">
+    <img src="files/materials-maya/pbr-usd-surface-example.jpg" style="max-width: 819px;">
 
 
 
@@ -145,7 +158,5 @@
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
-
+  </article></body>
 </html>

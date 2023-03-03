@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>用于Blender、3ds Max和Maya艺术家的Verge3D工作流程 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,33 +8,46 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>工作流程</h1>
 
-    <p>下面记录了Soft8Soft团队和Verge3D用户内部使用的典型工作流程，示例包括 <a
-        href="https://cdn.soft8soft.com/demo/applications/scooter/index.html" target="_blank">电动车配置器</a> 演示， <a
-        href="https://cdn.soft8soft.com/demo/applications/teapot_heater_max/index.html" target="_blank">茶壶加热器</a> 演示， <a
-        href="https://cdn.soft8soft.com/demo/applications/industrial_robot/index.html" target="_blank">工业机器人</a> 演示， <a
-        href="https://cdn.soft8soft.com/demo/applications/jewelry_configurator/index.html" target="_blank">珠宝配置器</a> 等。
+    <p>
+      下面记录了Soft8Soft团队和Verge3D用户内部使用的典型工作流程，(示例包括 <a href="https://cdn.soft8soft.com/demo/blender/scooter/index.html" target="_blank">Scooter Configurator（电动车配置器）</a>, <a href="https://cdn.soft8soft.com/demo/max/teapot_heater/index.html" target="_blank">Teapot Heater（茶壶加热器——蒸汽朋克游戏）</a>， <a href="https://cdn.soft8soft.com/demo/maya/industrial_robot/index.html" target="_blank">Industrial Robot（工业机器人）</a>， <a href="https://cdn.soft8soft.com/demo/blender/jewelry_configurator/index.html" target="_blank">Jewelry Configurator（珠宝配置器）</a> 等)。
     </p>
+
+    <figure style="max-width: 819px;">
+      <img src="files/workflow/teapot-heater.jpg" alt="蒸汽朋克风格WebGL可视化应用：茶壶加热器">
+      <figcaption>Teapot Heater 案例。</figcaption>
+    </figure>
 
     [contents]
 
-    <p>要创建Web3D互动内容，使用Blender、3ds Max或Maya都可以达到同样的目的。</p><img src="files/workflow/teapot-heater.jpg" class="centered"
-      style="max-width: 819px;">
+    <p>
+      要创建交互式 3D 网络内容，您可以使用基于 Blender、3ds Max 或 Maya 版本的Verge3D，都可以达到相同的目的。下方图表示意了创建典型 Verge3D 应用程序的主要流程。几乎所有工作都可以由一个具备基本 3D 通才技能的人完成。
+    </p>
+    
+    <img src="files/workflow/verge3d_workflow.svg" alt="Verge3D工作流程图">
+
 
     [anchor:Modeling_and_Baking]
 
     <h2>建模与烘焙</h2>
 
-    <p>在我们的团队中，我们实践了以下建模流程。首先，创建高面模型。下一步，通过简单地移除表面细分修改器或重新拓扑（retopology）获得低面到中等面模型。建议单个模型不超过10万三角面片。</p><img
-      src="files/workflow/teapot-modeling.jpg" class="centered" style="max-width: 819px;">
-    <p>然后对低面模型进行展UV操作。最终模型网格是三角形的——这并不是Verge3D的要求，但更适用于烘焙贴图。此外，三角面模型更适合加载到第三方编辑器，比如Substance Painter。</p>
+    <p>
+      在我们的团队中，我们实践了以下建模流程。首先，创建高面模型。下一步，通过简单地移除表面细分修改器或重新拓扑（retopology）获得低面到中等面模型。建议单个模型不超过10万三角面片。
+    </p>
+    
+    <img src="files/workflow/teapot-modeling.jpg" alt="低面建模工作流" style="max-width: 819px;">
 
-    <p>根据需要，可以使用叠加的高模和低模来进行烘焙法线和AO贴图。</p>
+    <p>
+      然后对低面模型进行展UV操作。最终模型网格是三角形的——这并不是Verge3D的要求，但更适用于烘焙贴图。此外，三角面模型更适合加载到第三方编辑器，比如Substance Painter。
+    </p>
+
+    <p>
+      根据需要，可以使用叠加的高模和低模来进行烘焙法线和AO贴图。
+    </p>
+
 
     [anchor:Choosing_Material_System]
 
@@ -46,31 +58,15 @@
     <ul>
       <li><a href="manual/zh/blender/Material-System.html">Blender</a> ：使用Eevee作为参考渲染器对节点进行着色。</li>
       <li><a href="manual/zh/max/Material-System.html">3ds Max</a> ：物理（以ART或Arnold作为参考渲染器）或标准（以Scanline作为参考渲染器）。</li>
-      <li><a href="manual/zh/maya/Materials.html">Maya</a> ：Standard Surface(v. 2020)或aiStandardSurface
-        (v.2019及更早)，以Viewport 2.0作为参考渲染器。</li>
+      <li><a href="manual/zh/maya/Materials.html">Maya</a> ：Standard Surface(v. 2020)或aiStandardSurface(v.2019及更早)，以Viewport 2.0作为参考渲染器。</li>
     </ul>
 
-    <p>如果您的内容由于 <a href="manual/zh/introduction/FAQ.html#gltf_materials">某种原因</a>需要与glTF 2.0标准兼容 ，您应该使用Verge3D
-      PBR着色器（请参阅 <a href="manual/zh/blender/GLTF-Materials.html">Blender</a>， <a
-        href="manual/zh/max/GLTF-Materials.html">3ds Max</a>和 <a
-        href="manual/zh/maya/GLTF-Materials.html">Maya</a>的相关设置）。</p>
+    <p>如果您的内容由于 <a href="manual/zh/introduction/FAQ.html#gltf_materials">某种原因</a>需要与glTF 2.0标准兼容 ，您应该使用Verge3D PBR着色器（请参阅 <a href="manual/zh/blender/GLTF-Materials.html">Blender</a>， <a href="manual/zh/max/GLTF-Materials.html">3ds Max</a>和 <a href="manual/zh/maya/GLTF-Materials.html">Maya</a>的相关设置）。</p>
 
-    <p>您可以参考以下视频中的解释，了解如何使用基于物理的材质：
-      <ul>
-        <li>
-          Youtube: 
-          <a href="https://youtu.be/symQy5gEHdY" target="_blank">Blender</a>, 
-          <a href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">3ds Max</a>, 
-          <a href="https://www.youtube.com/watch?v=9BzE98XIOnI">Maya</a>.
-        </li>
-       <li>
-         Bilibili: 
-         <a href="https://www.bilibili.com/video/BV1ob411e7KC?p=3">Blender</a>, 
-         <a href="https://www.bilibili.com/video/BV144411R7GS?p=2">3ds Max</a>, 
-         <a href="https://www.bilibili.com/video/BV1WT4y1u7pT?p=3">Maya</a>.
-        </li>
-      </ul>
+    <p>
+      您可以参考以下视频中的解释，了解如何使用基于物理的材质：<ul><li>Youtube: <a href="https://youtu.be/symQy5gEHdY" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=9BzE98XIOnI">Maya</a>.</li><li>Bilibili: <a href="https://www.bilibili.com/video/BV1ob411e7KC?p=3">Blender</a>, <a href="https://www.bilibili.com/video/BV144411R7GS?p=2">3ds Max</a>, <a href="https://www.bilibili.com/video/BV1WT4y1u7pT?p=3">Maya</a>
     </p>
+
 
     [anchor:Image_Formats_and_Resolution]
 
@@ -84,167 +80,204 @@
 
     <h3>法线贴图</h3>
 
-    <p>即使Alpha通道被浪费，法线贴图也应保存为PNG，因为以JPEG格式加载的法线贴图通常会产生可见的着色伪影。然而，PNG格式的图像在文件大小方面可能过大，因此只有在必需时才使用法线贴图。</p>
+    <p>
+      即使Alpha通道被浪费，法线贴图也应保存为PNG，因为以JPEG格式加载的法线贴图通常会产生可见的着色伪影。然而，PNG格式的图像在文件大小方面可能过大，因此只有在必需时才使用法线贴图。
+    </p>
 
     <h3>分辨率</h3>
 
-    <p>除非你真的需要它们，否则不要使用太多细节的纹理。大图像会对性能产生负面影响，耗尽手持设备上的显存（一直到崩溃）并显着延长负载。大多数纹理的分辨率应为1024像素或更低。</p>
+    <p>
+      除非你真的需要它们，否则不要使用太多细节的纹理。大图像会对性能产生负面影响，耗尽手持设备上的显存（一直到崩溃）并显着延长负载。大多数纹理的分辨率应为1024像素或更低。
+    </p>
 
     <h3>留意NPOT问题</h3>
 
-    <p>纹理的分辨率应遵循 <i>二次幂</i> 规则（256,512,1024 px很好，但1000
-      px很差）。不管怎样，引擎都会在加载时重新调整所有非二次幂（NPOT）图像，因此请仔细检查纹理，以便在文件大小和加载时间方面实现最高效率。</p>
+    <p>
+      纹理的分辨率应遵循 <i>二次幂</i> 规则（256,512,1024 px很好，但1000 px很差）。不管怎样，引擎都会在加载时重新调整所有非二次幂（NPOT）图像，因此请仔细检查纹理，以便在文件大小和加载时间方面实现最高效率。
+    </p>
 
     <h3>长宽比</h3>
 
-    <p>纹理可以是正方形或矩形，比如1024x512像素。</p>
+    <p>
+      纹理可以是正方形或矩形，比如1024x512像素。
+    </p>
 
     <h3>复用</h3>
 
-    <p>始终尝试复用材质中的图像文件，以及着色器中的纹理贴图/节点，而非复制。</p>
+    <p>
+      始终尝试复用材质中的图像文件，以及着色器中的纹理贴图/节点，而非复制。
+    </p>
 
-    <p class="note">请不要将大图作为图标重复使用 &ndash; 即使要用到更多图片，也应该预先缩放。</p>
+    <p class="note">
+      请不要将大图作为图标重复使用 &ndash; 即使要用到更多图片，也应该预先缩放。
+    </p>
 
     <h3>在RGBA中打包B/W信息</h3>
 
-    <p>如果您有多个黑白图像（AO，光照贴图，透明蒙版，颜色蒙版等），请考虑将它们 <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">打包</a> 在单个纹理的RGBA通道中。</p>
+    <p>
+      如果您有多个黑白图像（AO，光照贴图，透明蒙版，颜色蒙版等），请考虑将它们 <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">打包</a> 在单个纹理的RGBA通道中。
+    </p>
 
     <h3>按需加载</h3>
 
-    <p>如果您正在开发定制器或类似的应用，您可以考虑在启动时仅加载一组有限的纹理。可使用 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture（替换纹理）</a> 拼图，在需求的基础上加载其他纹理并将其应用于模型。另一种方法是用 <a href="manual/zh/puzzles/Scenes.html#append_scene">append scene(追加场景)</a> 拼图来动态地加载场景部分。</p>
+    <p>
+      如果您正在开发定制器或类似的应用，您可以考虑在启动时仅加载一组有限的纹理。可使用 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture（替换纹理）</a> 拼图，在需求的基础上加载其他纹理并将其应用于模型。另一种方法是用 <a href="manual/zh/puzzles/Scenes.html#append_scene">append scene(追加场景)</a> 拼图来动态地加载场景部分。
+    </p>
+
 
     [anchor:Environment_Map]
 
     <h2>环境贴图（基于图像的照明）</h2>
 
-    <p>环境贴图是为实时场景提供背景和材质反射的关键组件。我们建议艺术家们使用HDR或JPEG格式的等距圆柱投影图像（equirectangular images）。出于性能考虑，环境贴图的大小最好不超过2048x1024像素。
-    </p><img src="files/workflow/hdr-environment.jpg" class="centered" style="max-width: 772px;">
-    <p>除此之外，HDR贴图也可以用来模拟复杂的照明条件。例如，光源太多无法用传统灯光来表现，或有需要很多扩展光源。</p>
+    <p>
+      环境贴图是为实时场景提供背景和材质反射的关键组件。我们建议艺术家们使用HDR或JPEG格式的等距圆柱投影图像（equirectangular images）。出于性能考虑，环境贴图的大小最好不超过2048x1024像素。
+    </p>
 
-    <p>Blender版、Max版和Maya版的官方案例Cube中都包含了名为 <i>Environment.hdr</i> 的HDR纹理，您可将其用于其他应用。</p>
+    <img src="files/workflow/hdr-environment.jpg" class="centered" style="max-width: 772px;">
 
-    <p>您可以观看以下视频了解如何为基于物理材质的工作流程设置HDR环境：
-      <ul>
-        <li>
-          Youtube: 
-          <a href="https://youtu.be/symQy5gEHdY" target="_blank">Blender</a>, <a
-        href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">3ds Max</a>, <a
-        href="https://www.youtube.com/watch?v=9BzE98XIOnI">Maya</a>.
-        </li>
-        <li>
-          Bilibili: 
-          <a href="https://www.bilibili.com/video/BV1ob411e7KC?p=3">Blender</a>,
-          <a href="https://www.bilibili.com/video/BV144411R7GS?p=2">3ds Max</a>,
-          <a href="https://www.bilibili.com/video/BV1WT4y1u7pT?p=3">Maya</a>.
-        </li>
-      </ul>
-      </p>
+    <p>
+      除此之外，HDR贴图也可以用来模拟复杂的照明条件。例如，光源太多无法用传统灯光来表现，或有需要很多扩展光源。
+    </p>
+
+    <p>
+      Blender版、Max版和Maya版的官方案例Cube中都包含了名为 <i>Environment.hdr</i> 的HDR纹理，您可将其用于其他应用。
+    </p>
+
+    <p>
+      您可以观看以下视频了解如何为基于物理材质的工作流程设置HDR环境：<ul><li>Youtube: <a href="https://youtu.be/symQy5gEHdY" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=s_QjxCr8I6k" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=9BzE98XIOnI">Maya</a>. </li><li>Bilibili: <a href="https://www.bilibili.com/video/BV1ob411e7KC?p=3">Blender</a>, <a href="https://www.bilibili.com/video/BV144411R7GS?p=2">3ds Max</a>, <a href="https://www.bilibili.com/video/BV1WT4y1u7pT?p=3">Maya</a>.</li></ul>
+    </p>
+
 
     [anchor:HDR_Rendering]
 
     <h2>HDR渲染</h2>
 
-    <p>在3ds Max和Maya的Verge3D导出设置窗口或Blender的渲染选项卡中设置中，选中“Verge3D
-      Settings”面板上相应的复选框，即可启用HDR（高动态范围成像）渲染管线。在此模式下，引擎使用半精度浮点纹理以实现更高精度和强度范围，这对正确渲染 <a
-        href="manual/zh/puzzles/Postprocessing.html#bloom">辉光后期特效（Bloom post-process effect）</a>尤为重要。</p><img
-      src="files/workflow/scooter-bloom.jpg" class="centered" style="max-width: 919px;">
+    <p>
+      在3ds Max和Maya的Verge3D导出设置窗口或Blender的渲染选项卡中设置中，选中“Verge3D Settings”面板上相应的复选框，即可启用HDR（高动态范围成像）渲染管线。在此模式下，引擎使用半精度浮点纹理以实现更高精度和强度范围，这对正确渲染 <a href="manual/zh/puzzles/Postprocessing.html#bloom">辉光后期特效（Bloom post-process effect）</a> 尤为重要。
+    </p>
+    
+    <figure style="max-width: 919px;">
+      <img src="files/workflow/scooter-bloom.jpg" alt="Scooter，一个使用了HDR渲染功能的3D可视化案例">
+      <figcaption>3D可视化案例Scooter使用了HDR渲染功能</figcaption>
+    </figure>
+
 
     [anchor:Animation_]
 
     <h2>动画</h2>
 
-    <p>可以如常为相关模型部件创建动画片段，使用蒙皮，整个对象，变形目标和材质动画来产生各种效果,（请参阅 <a href="manual/zh/blender/Animation.html">Blender</a>， <a
-        href="">3ds Max</a>，和 <a href="manual/zh/maya/Animation.html">Maya</a> 动画指南）。</p><img
-      src="files/workflow/animation.png" class="centered" style="max-width: 819px;">
-    <p>建议您使用更易读易懂的名称来命名动画对象，一边在 <a href="manual/zh/puzzles/Animation.html">拼图编辑器（Puzzles editor）</a>的动画对象中更容易找到它们。</p>
-    <img src="files/workflow/advanced_animation_puzzle.jpg" class="centered" style="max-width: 819px;">
-    <p>请观看以下视频，了解如何创建动画：
-      <ul>
-        <li>
-          YouTube:
-          <a href="https://youtu.be/VkjEfSmI2xM" target="_blank">Blender</a>,
-          <a href="https://www.youtube.com/watch?v=0dskMLdNpJ4" target="_blank">3ds Max</a>,
-          <a href="https://www.youtube.com/watch?v=_kwsXR2Qoxo">Maya</a>  .
-        </li>
-        <li>
-          Bilibili:
-          <a href="https://www.bilibili.com/video/BV1WT4y1u7pT?p=7">Blender</a>,
-          <a href="https://www.bilibili.com/video/BV144411R7GS?p=4">3ds Max</a>,
-          <a href="https://www.bilibili.com/video/BV1eA411i79T?p=7">Maya</a>.
-        </li>
-      </ul> 
-      </p>
+    <p>
+      可以如常为相关模型部件创建动画片段，使用蒙皮，整个对象，变形目标和材质动画来产生各种效果,（请参阅 <a href="manual/zh/blender/Animation.html">Blender</a>， <a href="">3ds Max</a>，和 <a href="manual/zh/maya/Animation.html">Maya</a> 动画指南）。
+    </p>
+        
+    <img src="files/workflow/animation.jpg" alt="为交互式渲染创建动画">
+
+    <p>
+      建议您使用更易读易懂的名称来命名动画对象，一边在 <a href="manual/zh/puzzles/Animation.html">拼图编辑器（Puzzles editor）</a>的动画对象中更容易找到它们。
+    </p>
+
+    <img src="files/workflow/advanced_animation_puzzle.jpg" alt="动画拼图" style="max-width: 819px;">
+
+    <p>
+      请观看以下视频，了解如何创建动画：<ul><li>YouTube: <a href="https://youtu.be/VkjEfSmI2xM" target="_blank">Blender</a>, <a href="https://www.youtube.com/watch?v=0dskMLdNpJ4" target="_blank">3ds Max</a>, <a href="https://www.youtube.com/watch?v=_kwsXR2Qoxo">Maya</a>.</li> <li> Bilibili: <a href="https://www.bilibili.com/video/BV1WT4y1u7pT?p=7">Blender</a>, <a href="https://www.bilibili.com/video/BV144411R7GS?p=4">3ds Max</a>, <a href="https://www.bilibili.com/video/BV1eA411i79T?p=7">Maya</a>.</li></ul>
+    </p>
+
 
     [anchor:Layout_and_UI]
 
     <h2>布局和用户界面</h2>
 
-    <p>在我们的无代码工作流中，基于HTML的界面是使用外部web设计软件构建的。任何能够导出HTML / CSS / JS文件的可视化编辑器都可以用来创建界面。例如， <a
-        href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a> 是我们用来创建Scooter， Farmer's
-      Journey及Industrial Robot案例的工具。当然，您可以使用代码或使用其他一些工具手动构建HTML界面。</p><img src="files/workflow/webflow-project.jpg"
-      class="centered" style="max-width: 819px;">
-    <p>用于嵌入Verge3D应用的单独网页，包含了菜单，按钮，信息框等界面元素。有关更多详细信息和示例，请参阅有关 <a
-        href="manual/zh/introduction/HTML-based-user-interfaces.html">创建基于HTML的图形化界面</a> 的详细指南。</p>
+    <p>
+      在我们的无代码工作流中，基于HTML的界面是使用外部web设计软件构建的。任何能够导出HTML / CSS / JS文件的可视化编辑器都可以用来创建界面。例如， <a href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a> 是我们用来创建Scooter， Farmer's Journey及Industrial Robot案例的工具。当然，您可以使用代码或使用其他一些工具手动构建HTML界面。
+    </p>
+      
+    <figure>
+      <img src="files/workflow/e-learning-demo.jpg" alt="E-learning demo with 3D UI"></a>
+      <figcaption>E-learning, a Verge3D demo which uses UI modelled as 3D.</figcaption>
+    </figure>
+
+    <p>
+      Another approach is using some external web design software to create HTML in code-less manner. Any WYSIWYG editor capable of exporting HTML/CSS/JS files will work. One example is <a href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a> which we used to create most Verge3D demos such as Scooter, Farmer's Journey or Industrial Robot. You can, of course, build the HTML interface manually with code or using some other tools instead.
+    </p>
+    
+    <img src="files/workflow/webflow-project.jpg" alt="Using Webflow editor for creating 3D web applications" style="max-width: 819px;">
+
+    <p>
+      用于嵌入Verge3D应用的单独网页，包含了菜单，按钮，信息框等界面元素。有关更多详细信息和示例，请参阅有关 <a href="manual/zh/introduction/HTML-based-user-interfaces.html">创建基于HTML的图形化界面</a> 的详细指南。
+    </p>
+
 
     [anchor:Post_processing]
 
     <h2>后期处理</h2>
-    环境光遮蔽（GTAO）可以在 
+
+    <p>    
+    环境光遮蔽（GTAO）可以在
     <a href="manual/zh/blender/Lighting-and-Rendering.html#ambient_occlusion">Blender</a> /
     <a href="manual/zh/max/Lighting-and-Rendering.html#ambient_occlusion">Max</a> /
     <a href="manual/zh/maya/Lighting-and-Rendering.html#ambient_occlusion">Maya</a> 内启用和导出。
+    </p>
 
-    <p>此外，使用 <a
-        href="manual/zh/puzzles/Postprocessing.html">后期处理拼图</a>可以启用以下效果：bloom（辉光，启用HDR时效果最佳），亮度/对比度，灰度，景深，屏幕空间反射和屏幕空间折射。这些效果的参数可以在运行时更改，也可以通过内部缓存设置以实现高性能的动画。还有一个拼图，可以从场景中删除所有后期效果。
+    <p>
+      此外，使用 <a href="manual/zh/puzzles/Postprocessing.html">后期处理拼图</a>可以启用以下效果：bloom（辉光，启用HDR时效果最佳），亮度/对比度，灰度，景深，屏幕空间反射和屏幕空间折射。这些效果的参数可以在运行时更改，也可以通过内部缓存设置以实现高性能的动画。还有一个拼图，可以从场景中删除所有后期效果。
     </p>
     
-    <img src="files/workflow/post-process-effects.png" class="centered" style="max-width: 755px;">
+    <img src="files/workflow/post-process-effects.png" alt="Assigning post-processing effects in Verge3D" style="max-width: 755px;">
     
+
     [anchor:Audio_]
 
     <h2>音频</h2>
 
-    <p>可以使用 <a href="manual/zh/puzzles/Sound.html">声音拼图</a> 添加由用户触发的背景音乐或事件声音等。音频文件建议使用 <strong>mp3</strong>
-      格式，因为它在所有Web浏览器中都受支持。</p><img src="files/workflow/sounds.jpg" class="centered" style="max-width: 1000px;">
-    <p>播放声音有一个特殊的限制：声音播放只能通过与网页的直接交互来启动。例如，以下设置可以在任何地方工作，包括在苹果的设备上：</p><img src="files/workflow/audio-example1.jpg"
-      class="centered" style="max-width: 389px;">
-    <p>但是，如果在某些事件上播放的声音不是由直接用户操作引起的，它将不起作用：</p><img src="files/workflow/audio-example2.jpg" class="centered"
-      style="max-width: 505px;">
-    <p>要解决此问题，您可以使用可以 <strong>on event / touchstart(事件/触摸启动时)</strong> 拼图，在用户第一次点击屏幕时即播放和实时暂停场景中使用的所有声音：</p><img
-      src="files/workflow/audio-example3.jpg" class="centered" style="max-width: 847px;">
-    <p>以上设置，您可在拼图库中找到，名为 *Sound iOS Workaround* 。</p>
+    <p>
+      可以使用 <a href="manual/zh/puzzles/Sound.html">声音拼图</a> 添加由用户触发的背景音乐或事件声音等。音频文件建议使用 <strong>mp3</strong> 格式，因为它在所有Web浏览器中都受支持。
+    </p>
+      
+    <img src="files/workflow/sounds.jpg" alt="Using sounds in interactive web apps">
+
+    <p>
+      播放声音有一个特殊的限制：声音播放只能通过与网页的直接交互来启动。例如，以下设置可以在任何地方工作，包括在苹果的设备上：
+    </p>
+      
+    <img src="files/workflow/audio-example1.jpg" class="centered" style="max-width: 389px;">
+
+    <p>
+      但是，如果在某些事件上播放的声音不是由直接用户操作引起的，它将不起作用：
+    </p>
+
+    <img src="files/workflow/audio-example2.jpg" class="centered" style="max-width: 505px;">
+
+    <p>
+      要解决此问题，您可以使用可以 <strong>on event / touchstart(事件/触摸启动时)</strong> 拼图，在用户第一次点击屏幕时即播放和实时暂停场景中使用的所有声音：
+    </p>
+    
+    <img src="files/workflow/audio-example3.jpg" alt="Audio puzzles with workaround" style="max-width: 847px;">
+    
+    <p>
+      以上设置，您可在拼图库中找到，名为 *Sound iOS Workaround* 。
+    </p>
+
 
     [anchor:Asset_Compression]
 
     <h2>资产压缩</h2>
 
-    <p>当您完成应用创作时，可以按照本手册<a href="manual/zh/introduction/Asset-compression.html">资产压缩</a>章节来优化场景文件的加载。</p>
-
-    <p>观看以下视频了解如何为你的应用启用资产压缩：<br>
-      <ul>
-        <li>
-      *YouTube*: <br>
-      <a href="https://youtu.be/yYOyUwRveAU" target="_blank">Verge3D for Blender Basics - Part 11 - Application
-        Optimizations</a><br>
-      <a href="https://www.youtube.com/watch?v=2WHsmOohNy8" target="_blank">Verge3D for 3ds Max Basics - Part 9 -
-        Optimizing for Faster Loading</a><br>
-      <a href="https://youtu.be/NfynjpynifI" target="_blank">Verge3D for Maya Basics - Part 11 - Application
-        Optimizations</a><br>
-      </li>
-      <li>
-      *Bilibili*: <br>
-      <a href="https://www.bilibili.com/video/BV1WT4y1u7pT?p=11">Verge3D for Blender入门教程 - 11.应用优化</a><br>
-      <a href="https://www.bilibili.com/video/BV144411R7GS?p=9">Verge3D for 3ds Max基础教程 - 09.快速加载优化</a><br>
-      <a href="https://www.bilibili.com/video/BV1eA411i79T?p=11">Verge3D for Maya入门教程 - 11.应用优化</a><br>
-    </li>
-    </ul>
+    <p>
+      当您完成应用创作时，可以按照本手册<a href="manual/zh/introduction/Asset-compression.html">资产压缩</a>章节来优化场景文件的加载。
     </p>
+
+    <p>
+      观看以下视频了解如何为你的应用启用资产压缩：<br> <ul>   <li> *YouTube*: <br> <a href="https://youtu.be/yYOyUwRveAU" target="_blank">Verge3D for Blender Basics - Part 11 - Application   Optimizations</a><br> <a href="https://www.youtube.com/watch?v=2WHsmOohNy8" target="_blank">Verge3D for 3ds Max Basics - Part 9 -   Optimizing for Faster Loading</a><br> <a href="https://youtu.be/NfynjpynifI" target="_blank">Verge3D for Maya Basics - Part 11 - Application   Optimizations</a><br> </li> <li> *Bilibili*: <br> <a href="https://www.bilibili.com/video/BV1WT4y1u7pT?p=11">Verge3D for Blender入门教程 - 11.应用优化</a><br> <a href="https://www.bilibili.com/video/BV144411R7GS?p=9">Verge3D for 3ds Max基础教程 - 09.快速加载优化</a><br> <a href="https://www.bilibili.com/video/BV1eA411i79T?p=11">Verge3D for Maya入门教程 - 11.应用优化</a><br> </li> </ul> 
+    </p>
+
 
     [anchor:Publishing]
 
     <h2>发布</h2>
 
-    <p>您可以使用<a href="manual/zh/introduction/App-Manager.html#Publish">应用管理器</a>的发布章节中提到的任一方法发布项目。</p>
+    <p>
+      您可以使用<a href="manual/zh/introduction/App-Manager.html#Publish">应用管理器</a>的发布章节中提到的任一方法发布项目。
+    </p>
 
 
     <h2>遇到问题？</h2>
@@ -252,7 +285,5 @@
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article>
-</body>
-
+  </article></body>
 </html>

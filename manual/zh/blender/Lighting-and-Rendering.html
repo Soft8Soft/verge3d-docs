@@ -12,33 +12,53 @@
 
     <h1>照明与渲染/Blender</h1>
 
-    <p>本页包含可与Verge3D for Blender一起使用的照明、渲染和背景属性的信息。</p>
+    <p>
+      本页包含可与Verge3D for Blender一起使用的照明、渲染和背景属性的信息。
+    </p>
 
-    [contents] [anchor:renderers]
+    [contents]
+    
+    
+    [anchor:renderers]
 
     <h2>渲染器</h2>
 
-    <p>Verge3D被设计为尽可能地趋近Blender的EEVEE渲染器。它支持基于物理的着色、灯光、阴影和基于图像的照明(IBL)。</p>
+    <p>
+      Verge3D被设计为尽可能地趋近Blender的Eevee渲染器。它支持基于物理的着色、灯光、阴影和基于图像的照明(IBL)。
+    </p>
+
 
     [anchor:environment_lighting]
 
     <h2>环境照明</h2>
 
-    <p>环境照明是Verge3D图形流水线的一个非常重要的组成部分。您可以只用环境贴图来照亮整个场景，而不使用任何灯光对象。请参阅 <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">电动车定制器演示</a> 作为示例：</p>
+    <p>
+      环境照明是Verge3D图形流水线的一个非常重要的组成部分。您可以只用环境贴图来照亮整个场景，而不使用任何灯光对象。请参阅 <a href="https://www.soft8soft.com/gallery/scooter-3d-product-customizer/" target="_blank">电动车定制器演示</a> 作为示例：
+    </p>
     
     <iframe class="video-480p" src="https://player.bilibili.com/player.html?aid=925684140&bvid=BV1WT4y1u7pT&cid=192624099&page=3&high_quality=1&danmaku=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     
-    <p>默认的立方体模板为基于图像的照明提供了一个HDR纹理。您可以用自己的文件替换这个纹理，或者从头开始设置环境照明。这里是基本的 <em>世界节点</em> 设置，它在环境照明和背景上都使用了相同的纹理。</p><img src="files/lighting-blender/world-nodes.jpg" class="centered" style="max-width: 852px"><p class="note">当使用HDR纹理时，确保将<b>色彩空间</b>设置为<b>线性</b>。</p>
-
-
+    <p>
+      默认的立方体模板为基于图像的照明提供了一个HDR纹理。您可以用自己的文件替换这个纹理，或者从头开始设置环境照明。这里是基本的 <em>世界节点</em> 设置，它在环境照明和背景上都使用了相同的纹理。
+    </p>
+    
+    <img src="files/lighting-blender/world-nodes.jpg" style="max-width: 852px">
+    
+    <p class="note">
+      当使用HDR纹理时，确保将<b>色彩空间</b>设置为<b>线性</b>。
+    </p>
 
     [anchor:lights]
 
     <h2>灯光(Lights)</h2>
 
-    <p>在某些情况下，仅仅使用基于图像的照明不足以照亮场景。如果您想模拟一些额外的光源，需要动态阴影，或者您需要移动您的灯光（如汽车灯光），可以使用直接光源。</p>
+    <p>
+      在某些情况下，仅仅使用基于图像的照明不足以照亮场景。如果您想模拟一些额外的光源，需要动态阴影，或者您需要移动您的灯光（如汽车灯光），可以使用直接光源。
+    </p>
 
-    <p>Verge3D支持以下灯光类型：</p>
+    <p>
+      Verge3D支持以下灯光类型：
+    </p>
 
     <ul>
       <li>*Point Lights* — <b>点光源</b>，Verge3D支持<b>颜色(Color)</b>和<b>功率(Power)</b>属性。</li>
@@ -47,87 +67,186 @@
       <li>*Area Lights* — <b>面光</b>，Verge3D支持的属性包括<b>颜色(Color)</b>，<b>功率(Power)</b>，“<b>方形(Square-Shaped)</b>”中的<b>尺寸(Size)</b>，以及“<b>长方形 (<b>Rectangular</b>-shaped)”</b>中的<b>X/Y尺寸(<b>Size X</b>/<b>Size Y</b>)</b>。不支持<b>碟形(Disk)</b>和<b>椭圆形(Ellipse)</b>形状属性。</li>
     </ul>
 
-    <p>此外，您还可以为点光源、太阳光和聚光灯指定阴影属性。请参阅 <a href="manual/zh/blender/Shadows.html">对应章节</a> 的更多信息。</p>
+    <p>
+      此外，您还可以为点光源、太阳光和聚光灯指定阴影属性。请参阅 <a href="manual/zh/blender/Shadows.html">对应章节</a> 的更多信息。
+    </p>
+
 
     [anchor:light_probes]
 
     <h2>立方盒反射光照探头</h2>
 
-    <p>*立方盒反射(Reflection Cubemap)* 光照探头是一种用于通过生成局部立方盒反射来增加局部间接照明的对象。这种类型的光照探头对象在场景中增加了镜面间接照明。</p>
+    <p>
+      *立方盒反射(Reflection Cubemap)* 
+      光照探头是一种用于通过生成局部立方盒反射来增加局部间接照明的对象。
+      这种类型的光照探头对象在场景中增加了镜面间接照明。
+    </p>
 
     <iframe class="video-480p" src="//player.bilibili.com/player.html?aid=591013212&bvid=BV1tq4y1d7zL&cid=424930607&page=1&high_quality=1&danmaku=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    <p>支持以下属性：</p><img src="files/lighting-blender/light-probe-reflection-cubemap.png" class="centered" style="max-width: 453px"><dl>
+    [demo:light_probe]
+
+    <p>
+      支持以下属性：
+    </p>
+    
+    <img src="files/lighting-blender/light-probe-reflection-cubemap.png" style="max-width: 453px">
+
+      <dl>
       <dt>探头</dt>
-      <dd>常规探头设置：<dl>
-          <dt>类型</dt>
-          <dd>影响体积的类型：*球形*或*长方体*。只有位于此体积内的对象才会受到光照探头照明的影响。</dd>
-
-          <dt>半径/尺寸</dt>
-          <dd>控制影响体积的大小。您也可以改变对象的比例，使影响体积的形状不均匀。</dd>
-
-          <dt>强度</dt>
-          <dd>间接照明的强度。任何不等于1.0的数值在物理学上都是不正确的。</dd>
-
-          <dt>裁剪起点</dt>
-          <dd>裁剪起始距离。位于比此值更近的对象将不会被渲染到立方盒反射中。</dd>
-
-          <dt>裁剪终点</dt>
-          <dd>裁剪结束距离。位于比此值更远的对象将不会被渲染到立方盒反射中。</dd>
-
-      <dt>自定义影响</dt>
       <dd>
-        启用自定义影响设置。这一组设置允许定义一个将受到此光照探头影响的对象集合。
-        （如果指定） *影响集合* ， 将不会使用 *类型* 和 *半径/距离* 等常规探头设置。
+        常规探头设置：
 
         <dl>
-          <dt>影响集合</dt>
+          <dt>类型</dt>
           <dd>
-            将光照探头将会影响的对象限制为此集合内的对象。如果指定此项，则它将代替 *类型* 和 *半径/距离* 等中的常规设置。
+            影响体积的类型：*球形*或*长方体*。
+            只有位于此体积内的对象才会受到光照探头照明的影响。
           </dd>
 
-          <dt>反选影响集合</dt>
+          <dt>半径/尺寸</dt>
           <dd>
-            如果指定了 *影响集合* ，通过此选项可反选将受到光照探头影响的对象。
+            控制影响体积的大小。
+            您也可以改变对象的比例，
+            使影响体积的形状不均匀。
           </dd>
-        </dl>
-      </dd>
+
+          <dt>强度</dt>
+          <dd>
+            间接照明的强度。
+            任何不等于1.0的数值在物理学上都是不正确的。
+          </dd>
+
+          <dt>裁剪起点</dt>
+          <dd>
+            裁剪起始距离。
+            位于比此值更近的对象将不会被渲染到立方盒反射中。
+          </dd>
+
+          <dt>裁剪终点</dt>
+          <dd>
+            裁剪结束距离。
+            位于比此值更远的对象将不会被渲染到立方盒反射中。
+          </dd>
         </dl>
       </dd>
 
       <dt>可见性</dt>
-      <dd>对象可见性设置：<dl>
+      <dd>
+        对象可见性设置：
+        
+        <dl>
           <dt>可见性集合</dt>
-          <dd>将应该出现在立方盒反射上的对象限制在这个集合中。如果未指定，则使用所有场景对象。</dd>
+          <dd>
+            将应该出现在立方盒反射上的对象限制在这个集合中。
+            如果未指定，则使用所有场景对象。
+          </dd>
 
           <dt>反转可见性集合</dt>
-          <dd>如果指定了 *可见性集合* ，则反转对此探头可见对象的选择。</dd>
+          <dd>
+            如果指定了 *可见性集合* ，
+            则反转对此探头可见对象的选择。
+          </dd>
         </dl>
       </dd>
 
       <dt>自定义视差</dt>
-      <dd>启用视差校正的自定义设置。这一组设置定义了一个视差体积，用来投射探头捕捉到的照明。如果 *自定义视差* 未启用，视差效果将根据影响体积的 *类型* 和 *半径/尺寸* 计算。<dl>
+      <dd>
+        启用视差校正的自定义设置。
+        这一组设置定义了一个视差体积，
+        用来投射探头捕捉到的照明。
+        如果 *自定义视差* 未启用，
+        视差效果将根据影响体积的 *类型* 和 *半径/尺寸* 计算。
+
+        <dl>
           <dt>类型</dt>
-          <dd>视差体积的类型：*球形* 或 *长方体*。</dd>
+          <dd>
+            视差体积的类型：*球形* 或 *长方体*。
+          </dd>
 
           <dt>半径/尺寸</dt>
-          <dd>视察体积的大小。</dd>
+          <dd>
+            视察体积的大小。
+          </dd>
+        </dl>
+      </dd>
+
+      <dt>自定义影响</dt>
+      <dd>
+        启用自定义影响设置。
+        这一组设置允许定义一个将受到此光照探头影响的对象集合。
+        （如果指定） *影响集合* ， 
+        将不会使用 *类型* 和 *半径/距离* 等常规探头设置。
+
+        <dl>
+          <dt>影响集合</dt>
+          <dd>
+            将光照探头将会影响的对象限制为此集合内的对象。
+            如果指定此项，
+            则它将代替 *类型* 和 *半径/距离* 等中的常规设置。
+          </dd>
+
+          <dt>反选影响集合</dt>
+          <dd>
+            如果指定了 *影响集合* ，
+            通过此选项可反选将受到光照探头影响的对象。
+          </dd>
         </dl>
       </dd>
     </dl>
 
-    <p>为了在Blender的视窗看到使用 *立方盒反射* 对象的结果，您需要首先通过*烘焙立方盒反射* 或 *烘焙间接光照明* 按钮烘焙它们的立方体贴图，这两个按钮都位于 *间接照明* 面板中，该面板位于 *渲染属性* 选项卡中。<br/><br/>另外， <a href="manual/zh/blender/Lighting-and-Rendering.html#cubemap_size">Cubemap Size</a> 属性还可以控制 *立方盒反射* 对象所使用的立方体贴图纹理的大小。<br/><br/><a href="manual/zh/blender/Lighting-and-Rendering.html#ibl_environment_mode">IBL环境模式</a> 的设置也会影响到由 *立方盒反射* 对象生成的立方体贴图。</p>
+    <p>
+      为了在Blender的视窗看到使用 *立方盒反射* 对象的结果，
+      您需要首先通过*烘焙立方盒反射* 或 *烘焙间接光照明* 按钮烘焙它们的立方体贴图，
+      这两个按钮都位于 *间接照明* 面板中，
+      该面板位于 *渲染属性* 选项卡中。<br/><br/>
+      
+      另外， <a href="manual/zh/blender/Lighting-and-Rendering.html#cubemap_size">Cubemap Size</a> 
+      属性还可以控制 *立方盒反射* 
+      对象所使用的立方体贴图纹理的大小。<br/><br/>
+      
+      <a href="manual/zh/blender/Lighting-and-Rendering.html#ibl_environment_mode">IBL环境模式</a> 
+      的设置也会影响到由 *立方盒反射* 对象生成的立方体贴图。
+    </p>
 
-    <p>由于实现细节的差异性，在Blender和Verge3D中，*立方盒反射* 光照探头的表现是不同的。<ul>
-        <li>Blender支持每个对象有多个光照探头，而Verge3D只支持一个。这就是为什么Verge3D中的对象使用单一的立方体贴图，要么来自 *立方盒反射* 对象，要么来自世界环境。*衰减* 选项不受支持。</li>
+    <p>
+      由于实现细节的差异性，
+      在Blender和Verge3D中，*立方盒反射* 光照探头的表现是不同的。
+      <ul>
+        <li>
+          Blender支持每个对象有多个光照探头，而Verge3D只支持一个。
+          这就是为什么Verge3D中的对象使用单一的立方体贴图，
+          要么来自 *立方盒反射* 对象，要么来自世界环境。
+          *衰减* 选项不受支持。
+        </li>
 
-        <li>Blender默认不对网格使用背面剔除(Backface Culling)，而Verge3D使用。因此，在Blender中，如果 *裁剪起点(Clipping Start)* / *裁剪终点(Clipping End)* 设置调整不当，放置在探头影响范围内的物体会在立方盒反射上显示为黑点，这是由于背面也被渲染了。默认情况下，Verge3D中不会出现这种情况。</li>
+        <li>
+          Blender默认不对网格使用背面剔除(Backface Culling)，而Verge3D使用。
+          因此，在Blender中，
+          如果 *裁剪起点(Clipping Start)* / *裁剪终点(Clipping End)* 设置调整不当，
+          放置在探头影响范围内的物体会在立方盒反射上显示为黑点，
+          这是由于背面也被渲染了。
+          默认情况下，Verge3D中不会出现这种情况。
+        </li>
 
-        <li>在将对象渲染（烘焙）到光照探头的立方体贴图中时，Blender只考虑对象材质的漫反射成分，而Verge3D对它们的渲染与在主场景中的渲染方式没有区别。这就是为什么全金属物体在Blender中被渲染成黑色，但在Verge3D中它们仍然反射了世界环境。</li>
+        <li>
+          在将对象渲染（烘焙）到光照探头的立方体贴图中时，
+          Blender只考虑对象材质的漫反射成分，
+          而Verge3D对它们的渲染与在主场景中的渲染方式没有区别。
+          这就是为什么全金属物体在Blender
+          中被渲染成黑色，
+          但在Verge3D中它们仍然反射了世界环境。
+        </li>
 
-        <li>为了让 *可见性集合* 属性在Blender中发挥作用，要求指定的集合也被链接到场景中。在Verge3D中不需要，只需将一个对象分配给一个集合即可。</li>
+        <li>
+          为了让 *可见性集合* 属性在Blender中发挥作用，
+          要求指定的集合也被链接到场景中。
+          在Verge3D中不需要，
+          只需将一个对象分配给一个集合即可。
+        </li>
       </ul>
     </p>
+
 
     [anchor:reflection_plane_light_probes]
 
@@ -137,13 +256,15 @@
       反射平面光照探头用于将实时反射（间接照明）应用于平面对象，例如镜子、地板和墙壁等。
     </p>
 
-    <img src="files/lighting-blender/light-probe-reflection-plane-example.jpg" class="centered" style="max-width: 776px">
+    <img src="files/lighting-blender/light-probe-reflection-plane-example.jpg" style="max-width: 776px">
+
+    [demo:light_probe]
 
     <p>
       支持以下属性：
     </p>
 
-    <img src="files/lighting-blender/light-probe-reflection-plane.jpg" class="centered" style="max-width: 368px">
+    <img src="files/lighting-blender/light-probe-reflection-plane.jpg" style="max-width: 368px">
 
     <dl>
       <dt>距离</dt>
@@ -173,16 +294,26 @@
 
     <h2>背景(Background)</h2>
 
-    <p>在默认情况下，Blender和Verge3D中背景和环境照明会保持一致的渲染。如果需要将它们分开渲染，请使用基于 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Light_Path">光路</a> 节点的*Is Camera Ray*输出的高级世界节点设置。例如，要将背景颜色设置为纯灰色，并继续使用HDR贴图进行环境照明。</p><img src="files/lighting-blender/world-nodes-advanced.jpg" class="centered" style="max-width: 886px">
+    <p>
+      在默认情况下，Blender和Verge3D中背景和环境照明会保持一致的渲染。如果需要将它们分开渲染，请使用基于 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Light_Path">光路</a> 节点的*Is Camera Ray*输出的高级世界节点设置。例如，要将背景颜色设置为纯灰色，并继续使用HDR贴图进行环境照明。
+    </p>
+    
+    <img src="files/lighting-blender/world-nodes-advanced.jpg" style="max-width: 886px">
+
 
     [anchor:global_rendering_properties]
 
     <h2>全局渲染属性</h2>
 
-    <p>可在Blender的<b>渲染属性</b>面板上设置全局渲染属性。</p><img src="files/lighting-blender/rendering-properties-indirect.jpg" class="centered" style="max-width: 315px"><dl>
-
+    <p>可在Blender的<b>渲染属性</b>面板上设置全局渲染属性。</p>
+    
+    <img src="files/lighting-blender/rendering-properties-indirect.jpg" style="max-width: 315px">
+    
+    <dl>
       <dt id="cubemap_size">立方体反射尺寸(Cubemap Size)</dt>
-      <dd>用于环境照明的纹理尺寸：<dl>
+      <dd>
+        用于环境照明的纹理尺寸：
+        <dl>
           <dt>64, 128</dt>
           <dd>请勿使用，*256*是Verge3D中可支持的最小值。</dd>
 
@@ -201,7 +332,9 @@
       </dd>
 
       <dt>视图转换(View Transform)</dt>
-      <dd>应用于Verge3D效果图的额外颜色校正：<dl>
+      <dd>应用于Verge3D效果图的额外颜色校正：
+        
+        <dl>
           <dt>标准</dt>
           <dd>没有应用其他颜色校正。如果您不需要颜色校正，就改用这种方法，因为它比*Filmic*的工作速度略快。</dd>
 
@@ -210,18 +343,21 @@
 
           <dt>Filmic Log, Raw, False Color</dt>
           <dd>不被支持，Verge3D将改用*Standard*。</dd>
-        </dl></dd>
-
-        <dl>
-          <img src="files/lighting-blender/rendering-properties-global.jpg" class="centered" style="max-width: 318px">
         </dl>
-
+      
+      </dd>
+    </dl>
+    
+    <img src="files/lighting-blender/rendering-properties-global.jpg" style="max-width: 318px">
+    
+    <dl>
       <dt><b>Enable Shadows and Shadow Map Side</b></dt>
       <dd><b>启用阴影和阴影贴图面</b>。阴影属性，请在 <a href="manual/zh/blender/Shadows.html">此处</a> 了解详情。</dd>
 
-
       <dt><b>Anti-Aliasing</b></dt>
-      <dd>抗锯齿，选择场景使用何种反锯齿算法：<dl>
+      <dd>
+        抗锯齿，选择场景使用何种反锯齿算法：
+        <dl>
           <dt><b>Auto</b></dt>
           <dd><b>自动</b>，使用系统默认方法。</dd>
 
@@ -243,10 +379,8 @@
       </dd>
 
       <dt><b>Use HDR Rendering</b></dt>
-      <dd>启用HDR渲染，即高动态范围渲染。</dd>
-
       <dd>
-        <p>启用高动态范围渲染</p>
+        <p><b>启用HDR渲染</b>，即高动态范围渲染。</p>
         <p>如果激活，Verge3D将使用16位浮动纹理作为渲染缓冲区。此功能可以显著改善Bloom后期处理的渲染以及基于节点的渐变纹理的平滑度。这样做的缺点是增加了GPU内存消耗，降低了性能。</p>
 
         <p class="note">此功能与通常用于生成基于图像的照明的HDR纹理无关，因此激活它不会改善此类纹理的渲染。</p>
@@ -276,7 +410,9 @@
     <h2>环境光遮蔽</h2>
 
     <p>
-      环境光遮蔽是一种渲染技术，通过根据点暴露于光源的程度从间接（环境光）照明添加柔和阴影来提高场景真实感。
+      环境光遮蔽是一种渲染技术，
+      通过根据点暴露于光源的程度从间接（环境光）
+      照明添加柔和阴影来提高场景真实感。
     </p>
 
     <p>
@@ -286,10 +422,11 @@
     </p>
 
     <p>
-      Verge3D支持如下AO设置，可在 *渲染属性* 面板中的 *环境光遮蔽* 部分找到：
+      Verge3D支持如下AO设置，
+      可在 *渲染属性* 面板中的 *环境光遮蔽* 部分找到：
     </p>
 
-    <img src="files/lighting-blender/ambient-occlusion-properties.png" class="centered" style="max-width: 405px">
+    <img src="files/lighting-blender/ambient-occlusion-properties.png" style="max-width: 405px">
 
     <dl>
       <dt>环境光遮蔽</dt>
@@ -298,7 +435,10 @@
       </dd>
       <dt>Distance</dt>
       <dd>
-        计算环境光遮蔽的半径（使用系统单位）。值更高时会加深暗部和扩大暗部区域，效果更明显，但性能也会更低。值越低遮蔽越不明显。
+        计算环境光遮蔽的半径（使用系统单位）。
+        值更高时会加深暗部和扩大暗部区域，
+        效果更明显，但性能也会更低。
+        值越低遮蔽越不明显。
       </dd>
       <dt>系数</dt>
       <dd>
@@ -306,29 +446,42 @@
       </dd>
       <dt>追踪精度</dt>
       <dd>
-        更高精度意味着更精确的遮蔽，同时增加性能消耗。较低的精度意味着更好的性能，但效果不太明显。
+        更高精度意味着更精确的遮蔽，
+        同时增加性能消耗。
+        较低的精度意味着更好的性能，但效果不太明显。
       </dd>
       <dt>弯曲法向</dt>
       <dd>
-        使用修改后的（或“弯曲的”）法线来采样环境以取代原始环境。修改后的发现表示遮蔽最少的方向，使环境照明更加逼真。
+        使用修改后的（或“弯曲的”）法线来采样环境以取代原始环境。
+        修改后的发现表示遮蔽最少的方向，
+        使环境照明更加逼真。
       </dd>
     </dl>
+
 
     [anchor:outline_rendering]
 
     <h2>轮廓渲染</h2>
 
-    <p>轮廓渲染（又名剪影边缘渲染）是一种常见的非真实感渲染(NPR)技术，可以显著增强场景视觉感知。这种效果可用于各种应用，如电子学习、游戏、建筑可视化和技术绘图。</p>
+    <p>
+      轮廓渲染（又名剪影边缘渲染）是一种常见的非真实感渲染(NPR)技术，可以显著增强场景视觉感知。这种效果可用于各种应用，如电子学习、游戏、建筑可视化和技术绘图。
+    </p>
 
-    <img src="files/lighting-blender/outline-example.jpg" class="centered" style="max-width: 819px">
+    <img src="files/lighting-blender/outline-example.jpg" style="max-width: 819px">
 
-    <p>要在Verge3D应用中使用物体的轮廓（和可选的辉光），首先在Blender的<b>渲染属性</b>面板上启用该效果：</p>
+    <p>
+      要在Verge3D应用中使用物体的轮廓（和可选的辉光），首先在Blender的<b>渲染属性</b>面板上启用该效果：
+    </p>
 
-    <img src="files/lighting-blender/outline-settings.jpg" class="centered" style="max-width: 332px">
+    <img src="files/lighting-blender/outline-settings.jpg" style="max-width: 332px">
 
-    <p>然后将 <a href="manual/zh/puzzles/Objects.html#outline">outline(轮廓)</a> 拼图应用于对象物体。</p>
+    <p>
+      然后将 <a href="manual/zh/puzzles/Objects.html#outline">outline(轮廓)</a> 拼图应用于对象物体。
+    </p>
 
-    <p class="note">轮廓渲染在AR/VR进程中不起作用。可使用其他方法来突出对象物体，如动画或改变材质的颜色。</p>
+    <p class="note">
+      轮廓渲染在AR/VR进程中不起作用。可使用其他方法来突出对象物体，如动画或改变材质的颜色。
+    </p>
     
     <p>可以使用以下属性来调整轮廓：</p>
 
@@ -350,37 +503,252 @@
 
     <p class="note">尽管有可能渲染发光的物体，但在大多数情况下可以用轮廓渲染来提高场景的视觉清晰度。如果您需要从灯或其他明亮的物体上发光，可以考虑使用 <a href="manual/zh/puzzles/Postprocessing.html#bloom">辉光后期处理</a> 来代替。</p>
 
+
     [anchor:per_object_rendering_properties]
 
     <h2>每个对象的渲染属性</h2>
 
-    <p>Verge3D为您的几何对象支持以下额外的渲染属性：</p><img src="files/lighting-blender/rendering-properties.jpg" class="centered" style="max-width: 313px"><p>*Rendering Order* — <b>渲染顺序</b>，修改特定对象的渲染顺序。索引越小，对象就越早被渲染。在大多数情况下，当使用混合透明度时，您需要调整这个值，以消除透明度的伪影。</p>
+    <p>
+      Verge3D为您的几何对象支持以下额外的渲染属性：
+    </p>
+    
+    <img src="files/lighting-blender/rendering-properties.jpg" style="max-width: 383px">
+    
+    <dl>
+      <dt>Rendering Order</dt>
+      <dd>
+        <b>渲染顺序</b>，修改特定对象的渲染顺序。索引越小，对象就越早被渲染。在大多数情况下，当使用混合透明度时，您需要调整这个值，以消除透明度的伪影。
+      </dd>
 
-    <p>*Frustum Culling* — <b>锥台剔除</b>，启用/禁用对象的锥台剔除优化。如果您有一些可以移动到屏幕空间之外的蒙皮对象，请取消勾选这个选项，以防止它被剔除。</p>
+    <dt>Frustum Culling</dt>
+      <dd>
+        <b>锥台剔除</b>，启用/禁用对象的锥台剔除优化。如果您有一些可以移动到屏幕空间之外的蒙皮对象，请取消勾选这个选项，以防止它被剔除。
+      </dd>
 
-    <p>*Receive Shadows* — <b>接收阴影</b>，渲染或不渲染给定对象的阴影。参见 <a href="manual/zh/blender/Shadows.html">这里</a> 的更多信息。</p>
+    <dt>Receive Shadows</dt>
+      <dd>
+        <b>接收阴影</b>，渲染或不渲染给定对象的阴影。参见 <a href="manual/zh/blender/Shadows.html">这里</a> 的更多信息。
+      </dd>
+
+    <dt>HiDPI Compositing</dt>
+      <dd>
+        *HiDPI合成*， 使用HiDPI通道渲染对象，参见 See <a href="manual/zh/blender/Lighting-and-Rendering.html#hidpi_rendering">below</a> for more info.
+      </dd>
+
+      <dt>Fix Ortho Zoom</dt>
+      <dd>
+        *固定正交摄影机变焦*， 反转正交摄影机的缩放，将其作为该对象的比例因子。当为正交摄影机的父级对象启动此属性时，用户缩放摄影机不会导致缩放/移动。
+
+        <div class="note">
+          <p>如果您的对象依然出现了缩放，请清除它的父级反校正（逆矩阵）：</p>
+          <img src="files/lighting-blender/clear-parent-inverse.jpg" alt="在Blender中清除父级反校正，快捷键 alt + p" style="max-width: 266px">
+        </div>
+      </dd>
+
+      <dt>Fit to Camera Edge</dt>
+      <dd>
+        请在 <a href="manual/en/blender/Lighting-and-Rendering.html#fit_to_camera_edge">这里</a> 查看详情。
+      </dd>
+
+      <dt>Visibility Breakpoints</dt>
+      <dd>
+        启用对象的可见性断点控制。参见 <a href="manual/en/blender/Lighting-and-Rendering.html#visibility_breakpoints">此处</a> 。
+      </dd>
+    </dl>
+
+
+    [anchor:hidpi_rendering]
+
+    <h2>在 HiDPI（视网膜）屏幕上渲染</h2>
+
+    <p>
+      时至今日，大多数移动端设备和桌面设备的屏幕都使用了高像素密度技术（即“Retina”显示器），显着提高了画面渲染质量。但这带来的缺点是，渲染过多像素会增加设备的性能消耗。
+    </p>
+
+    <p>
+      以下两种方法，可以提高内容渲染质量，但又不会使得场景变得过慢：
+    </p>
+
+    <ul>
+      <li>使用更好的分辨率，例如将屏幕缩放比例因子设置为1.5左右。参见 <a href="manual/zh/puzzles/System.html#set_screen_scale">此处</a> 详细介绍。</li>
+      <li>仅对重要的内容启用HiDPI渲染，例如文本、屏幕空间UI元素等。</li>
+    </ul>
+
+    <p>
+      第二种方法，可以通过启用位于 *对象属性* 面板中的 *HiDPI Compositing* 选项轻松启用：
+    </p>
+
+    <img src="files/lighting-blender/hidpi-compositing.jpg" style="max-width: 408px">
+
+    [demo:ring]
+
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>贴合摄影机边缘</h2>
+
+    <p>
+      <em>Fit to Camera Edge</em> 是一种基于 Blender 模型绘制屏幕空间UI元素的技术。 与使用HTML/CSS相比，这种UI设计方法对于3D艺术家来说更“原生”，并且不需要外部工具，也带来了更多的可能：因为这类UI元素是真正的3D对象，您可以应用着色器、光照、动画、变形等3D技术让它们无缝集成到场景中，并产生交互变化等。
+    </p>
+
+    <p>
+      当您将摄影机设置为某些对象的父对象时，其 *对象属性* 面板中就会出现如下设置：
+    </p>
+
+    <img src="files/lighting-blender/fit-to-camera-edge-properties.jpg" style="max-width: 407px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        对象要贴合的画布水平边界。 *None* — 水平方向不贴合， *Left* — 贴合左侧边界， *Right* — 贴合右侧边界， *Stretch* — 水平缩放对象以贴合屏幕。
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        对象要贴合的画布垂直边界。 *None* — 垂直方向不贴合， *Top* — 贴合顶部边界， *Bottom* — 贴合底部边界， *Stretch* — 垂直缩放以贴合屏幕。
+      </dd>
+      <dt>Fit Shape</dt>
+      <dd>
+        贴合画布的形状。 *Box* — 使用对象的边界框， *Sphere* — 使用对象的边界球体以贴合屏幕上的对象。
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        在屏幕上贴合对象时的偏移量，实际使用中，要贴合的象的边界（框或球体）会按此值的绝对值来扩展尺寸。
+      </dd>
+    </dl>
+
+    <div class="note">
+      <p>要修复贴合摄影机过程中可能出现的问题，请清除对象的父级反校正（逆矩阵）：</p>
+      <img src="files/lighting-blender/clear-parent-inverse.jpg" alt="在Blender中清除父级反校正，快捷键 alt + p" style="max-width: 266px">
+    </div>
+
+    [anchor:visibility_breakpoints]
+
+    <h2>可见性断点</h2>
+
+    <p>
+      <em>Visibility Breakpoints</em> 允许您根据3D视口宽度/高度或方向设置显示/隐藏指定的对象内容。典型用法之一，使您的场景适应不同的屏幕尺寸和方向。 例如，在横向屏幕和纵向屏幕中，您可以指定两种不同的模型布局。
+    </p>
+    
+    <p>
+      如果此属性指定给了当前摄影机，则尝试切换到场景中的备用摄影机（必须也具有可接受的可见性断点），如果未找到备用摄影机，则不执行任何操作。
+    </p>
+
+    <p class="note">
+      推荐使用Blender的 <a href="https://docs.blender.org/manual/zh-hans/latest/scene_layout/object/editing/duplicate_linked.html" target="_blank">关联复制</a> 功能在两个对象间共用几何体。一个对象将以纵向模式呈现，而另一个对象则以横向模式显示。通过这种方式，您可以节省大量GPU内存并减少应用的加载时间。
+    </p>
+
+    <p>
+      您可以在 *对象属性s* 面板上配置断点：
+    </p>
+
+    <img src="files/lighting-blender/visibility-breakpoints.jpg" style="max-width: 410px">
+
+    <dl>
+      <dt>Min Width</dt>
+      <dd>
+        让对象保持可见的最小画布宽度。Minimum canvas width the object stays visible.
+      </dd>
+      <dt>Max Width</dt>
+      <dd>
+        让对象保持可见的最大画布宽度。
+      </dd>
+      <dt>Min Height</dt>
+      <dd>
+        让对象保持可见的最小画布高度。
+      </dd>
+      <dt>Max Height</dt>
+      <dd>
+        让对象保持可见的最大画布高度。
+      </dd>
+      <dt>Orientation</dt>
+      <dd>
+        保持对象可见的屏幕方向。
+      </dd>
+    </dl>
+    
+    
+    [anchor:line_rendering]
+
+    <h2>线条渲染</h2>
+
+    <p>
+      使用此功能，您可以为Blender对象启用线条渲染风格。线条渲染的典型用例是绘制曲线对象，这些对象本身没有任何几何形状。此外您也可为常规的网格和曲面启用线条渲染风格。
+    </p>
+
+    <img src="files/lighting-blender/line-rendering-example.jpg">
+
+    <p>
+      您可在 *对象数据属性* 的 *Verge3D Setting* 面板中激活线条渲染：
+    </p>
+
+    <img src="files/lighting-blender/line-rendering-properties.jpg" style="max-width: 360px">
+
+    <p>
+      您还可以在此处指定自发光颜色即线条渲染的宽度。
+    </p>
+
 
     [anchor:clipping_planes]
 
     <h2>剪切平面</h2>
 
-    <p>剪切平面（又称剖面图、横截面图、网格截面）是一种用于显示复杂对象（如建筑物、汽车、电器、小玩意、机器等）内部结构的技术。</p><img src="files/lighting-blender/clipping-plane-example.jpg" class="centered"><p>若要添加新的剪切平面，请使用Blender的“添加对象”菜单中的“Clipping Planes(剪切平面)”菜单项：</p><img src="files/lighting-blender/clipping-plane-new.jpg" class="centered"><p>场景中的对象将在剪切平面对象的 *-Z* 方向被剪切。</p>
+    <p>
+      剪切平面（又称剖面图、横截面图、网格截面）是一种用于显示复杂对象（如建筑物、汽车、电器、小玩意、机器等）内部结构的技术。
+    </p>
+    
+    <img src="files/lighting-blender/clipping-plane-example.jpg">
+    
+    <p>
+      若要添加新的剪切平面，请使用Blender的“添加对象”菜单中的“Clipping Planes(剪切平面)”菜单项：
+    </p>
+    
+    <img src="files/lighting-blender/clipping-plane-new.jpg">
+    
+    <p>
+      场景中的对象将在剪切平面对象的 *-Z* 方向被剪切。
+    </p>
 
-    <p>剪切平面具有以下属性：</p><img src="files/lighting-blender/clipping-plane-properties.jpg" class="centered" style="max-width: 382px"><dl>
+    [demo:clipping_planes]
+
+    <p>
+      剪切平面具有以下属性：
+    </p>
+    
+    <img src="files/lighting-blender/clipping-plane-properties.jpg" style="max-width: 385px">
+    
+    <dl>
       <dt>Affected Objects</dt>
-      <dd>受影响的对象，被平面剪切的对象的集合。如果为空，所有场景对象都将被剪切。</dd>
+      <dd>
+        *受影响的对象*，被平面剪切的对象的集合。如果为空，所有场景对象都将被剪切。
+      </dd>
       <dt>Negated</dt>
-      <dd>负方向，即对调被剪切和未剪切的两边。</dd>
+      <dd>
+        *负方向*，即对调被剪切和未剪切的两边。
+      </dd>
       <dt>Clip Shadows</dt>
-      <dd>剪切从被剪切对象投出的阴影。</dd>
+      <dd>
+        *剪切*从被剪切对象投出的*阴影*。
+      </dd>
       <dt>Union Planes</dt>
-      <dd>对从所有裁剪平面构造并集，影响对象，而不是使用它们的交集影响对象。</dd>
+      <dd>
+        对从所有裁剪平面构造并集，影响对象，而不是使用它们的交集影响对象。
+      </dd>
       <dt>Filled Cross-Section</dt>
-      <dd>填充剪裁平面和受影响对象之间的横截面。</dd>
+      <dd>
+        填充剪裁平面和受影响对象之间的横截面。
+      </dd>
       <dt>Cross-Section Color</dt>
-      <dd>横断面漫反射颜色和不透明度。</dd>
-      <dt>Cross-Section Plane Size</dt>
-      <dd>横截面尺寸。如果使用较大的场景大小，请增加该值。</dd>
+      <dd>
+        横断面漫反射颜色和不透明度。
+      </dd>
+      <dt>Render Side</dt>
+      <dd>
+       横断面渲染侧。选择<strong>双面</strong>可渲染带有切口和孔的复杂几何体。
+      </dd>
+      <dt>Cross-Section Size</dt>
+      <dd>
+        横截面尺寸。如果使用较大的场景大小，请增加该值。
+      </dd>
     </dl>
 
 

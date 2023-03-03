@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>AR/VR类拼图参考 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,24 +8,25 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>增强现实/虚拟现实 | AR/VR</h1>
 
     <p>此类拼图可用于实现基于网页的增强现实（AR）和虚拟现实（VR）体验。这是一种正在开发中的浏览器技术，称为WebXR（eXtended Reality on the Web）。</p>
       
-    <img
-      src="files/puzzles/puzzles-ar-vr.jpg">
+    <img src="files/puzzles/puzzles-ar-vr.jpg">
 
     <p>
       关于支持的AR和VR设备，以及开展最佳实践的详细介绍，请参见手册中的 <a href="manual/zh/introduction/AR-VR-development.html">对应章节</a> 。
     </p>
 
+
     <h2>内容</h2>
 
-    [contents] [anchor:puzzles_reference]
+    [contents]
+    
+    
+    [anchor:puzzles_reference]
 
     <h2>拼图参考</h2>
 
@@ -34,109 +34,196 @@
 
     <h3>check VR mode(检查AR模式)</h3>
 
-    <p>检查虚拟现实系统。如果成功的话，*if available do* 中的拼图会被触发。如果浏览器不支持VR或者没有找到VR硬件，那么 *if unavailable do* 插槽中的拼图将被触发。</p>
+    <p>
+      检查虚拟现实系统。如果成功的话，*if available do* 中的拼图会被触发。如果浏览器不支持VR或者没有找到VR硬件，那么 *if unavailable do* 插槽中的拼图将被触发。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-ar-vr-check-vr-mode.jpg">
+    <img src="files/puzzles/puzzles-ar-vr-check-vr-mode.jpg">
+
+    <p>
+      请查看以下 <a href="manual/zh/introduction/AR-VR-development.html#virtual_reality">章节</a> 了解使用Verge3D创建VR应用的详细信息。
+    </p>
+
 
     [anchor:enter_vr_mode]
 
     <h3>enter VR mode(进入AR模式)</h3>
 
-    <p>进入虚拟现实模式。在进入或退出VR模式时，放置在 *on enter do* 和 *on exit do* 槽中的拼图会被触发。在无法建立VR会话时将触发放在 *if unavailable do* 插槽的拼图。</p>
+    <p>
+      进入虚拟现实模式。在进入或退出VR模式时，放置在 *on enter do* 和 *on exit do* 槽中的拼图会被触发。在无法建立VR会话时将触发放在 *if unavailable do* 插槽的拼图。
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-enter-vr-mode.jpg">
 
     <p>VR定位模式：</p>
 
     <dl>
-      <dt>sitting or standing(坐着或站着)</dt>
-      <dd>放置在离地面一定高度的不可移动的摄影机。</dd>
-      <dt>room(房间模式)</dt>
-      <dd>位于某些范围内（如房间）的移动摄影机（例如HTC Vive、Oculus Quest）。</dd>
-      <dt>looking around(环顾四周)</dt>
-      <dd>位于零坐标处的不移动的摄影机。</dd>
-      <dt>walking(步行模式)</dt>
-      <dd>无边界的移动摄影机。</dd>
-      <dt>viewer locked(视角锁定)</dt>
-      <dd>位于零坐标处的不移动的摄影机。所有内容都以视图为父节点。</dd>
+      <dt>
+        sitting or standing(坐着或站着)
+      </dt>
+      <dd>
+        放置在离地面一定高度的不可移动的摄影机。
+      </dd>
+      <dt>
+        room(房间模式)
+      </dt>
+      <dd>
+        位于某些范围内（如房间）的移动摄影机（例如HTC Vive、Oculus Quest）。
+      </dd>
+      <dt>
+        looking around(环顾四周)
+      </dt>
+      <dd>
+        位于零坐标处的不移动的摄影机。
+      </dd>
+      <dt>
+        walking(步行模式)
+      </dt>
+      <dd>无边界的移动摄影机。
+      </dd>
+      <dt>
+        viewer locked(视角锁定)
+      </dt>
+      <dd>
+        位于零坐标处的不移动的摄影机。所有内容都以视图为父节点。
+      </dd>
     </dl>
 
-    <p>数字参数 *hover to click after* 表示在VR视窗中十字线上悬停于对象多久后接收鼠标点击事件，以秒为单位计时。默认值Infinity意味着不执行从悬停到点击的转换。</p>
-      
-    <img
-      src="files/puzzles/puzzles-ar-vr-enter-vr-mode.jpg">
     <p>
       为在VR模式下正确地控制摄影机，请确保在进入VR模式时，将其与一些空对象、虚拟对象或真实对象相对齐，请在您选择的3D编辑器中进行定位。这一点很必要，因为VR会话对您的摄影机有完全的控制权，而您只能移动摄影机所依附的空对象或虚拟对象。
     </p>
       
     <img src="files/puzzles/puzzles-ar-vr-enter-vr-mode-example.jpg">
 
+
+
     [anchor:end_vr_session]
 
     <h3>end VR session(结束VR会话)</h3>
 
-    <p>结束一个虚拟现实会话。</p>
+    <p>
+      结束一个虚拟现实会话。
+    </p>
       
     <img src="files/puzzles/puzzles-ar-vr-end-vr-session.jpg">
+
+
 
     [anchor:check_ar_mode]
 
     <h3>check AR mode(检查AR模式)</h3>
 
-    <p>检查增强现实系统。如果成功的话，*if available do* 中的拼图会被触发。如果浏览器不支持AR或者没有找到AR硬件，那么 *if unavailable do* 插槽中的拼图将被触发。</p>
+    <p>
+      检查增强现实系统。如果成功的话，*if available do* 中的拼图会被触发。如果浏览器不支持AR或者没有找到AR硬件，那么 *if unavailable do* 插槽中的拼图将被触发。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-ar-vr-check-ar-mode.jpg">
+    <img src="files/puzzles/puzzles-ar-vr-check-ar-mode.jpg">
+
+    <p>
+      请查看如下 <a href="manual/zh/introduction/AR-VR-development.html#augmented_reality">章节</a> 了解基于Verge3D创建增强现实应用的详细信息。
+    </p>
+
 
     [anchor:enter_ar_mode]
 
     <h3>enter AR mode(进入AR模式)</h3>
 
-    <p>进入增强现实模式。在进入或退出AR模式时，放置在 *on enter do* 和 *on exit do* 槽中的拼图会被触发。在无法建立AR会话时将触发放在 *if unavailable do* 插槽的拼图。</p>
+    <p>
+      进入增强现实模式。在进入或退出AR模式时，放置在 *on enter do* 和 *on exit do* 槽中的拼图会被触发。在无法建立AR会话时将触发放在 *if unavailable do* 插槽的拼图。
+    </p>
 
-    <p>属性 *allow HTML* 用于在AR模式中显示HTML内容。如果选定， <em>canvas container</em> 元素的内容将被渲染在3D内容之上。此选项是实验性的。</p>
+    <p>
+      属性 *allow HTML* 用于在AR模式中显示HTML内容。如果选定， <em>canvas container</em> 元素的内容将被渲染在3D内容之上。此选项是实验性的。
+    </p>
 
     <p>AR定位模式：</p>
 
     <dl>
-      <dt>sitting or standing(坐着或站着)</dt>
-      <dd>放置在离地面一定高度的不可移动的摄影机。</dd>
-      <dt>room(房间模式)</dt>
-      <dd>移动摄影机位于某个范围内，如房间。</dd>
-      <dt>looking around(环顾四周)</dt>
-      <dd>位于零坐标处的不移动的摄影机。</dd>
-      <dt>walking(步行模式)</dt>
-      <dd>无边界的移动摄影机。</dd>
-      <dt>viewer locked(视角锁定)</dt>
-      <dd>位于零坐标处的不移动的摄影机。所有内容都以视图为父节点。</dd>
-    </dl><img src="files/puzzles/puzzles-ar-vr-enter-ar-mode.jpg">
+      <dt>
+        sitting or standing(坐着或站着)
+      </dt>
+      <dd>
+        放置在离地面一定高度的不可移动的摄影机。
+      </dd>
+      <dt>
+        room(房间模式)
+      </dt>
+      <dd>
+        移动摄影机位于某个范围内，如房间。
+      </dd>
+      <dt>
+        looking around(环顾四周)
+      </dt>
+      <dd>
+        位于零坐标处的不移动的摄影机。
+      </dd>
+      <dt>
+        walking(步行模式)
+      </dt>
+      <dd>
+        无边界的移动摄影机。
+      </dd>
+      <dt>
+        viewer locked(视角锁定)
+      </dt>
+      <dd>
+        位于零坐标处的不移动的摄影机。所有内容都以视图为父节点。
+      </dd>
+    </dl>
+    
+    <img src="files/puzzles/puzzles-ar-vr-enter-ar-mode.jpg">
+
 
     [anchor:ar_hit_test]
 
-    <h3>detect horizontal surface AR(检测AR水平面)</h3>
+    <h3>detect surface AR(检测AR平面)</h3>
 
-    <p>在AR模式下，通过向前投射一条射线来检测水平面。当相交时，该光线会在 *on intersection do* 槽中触发拼图。如果没有发生相交或者设备处于预热状态，拼图就会触发 *if missed do* 槽。</p>
+    <p>
+      在AR模式下，通过向前投射一条射线来检测平面。当相交时，该光线会在 *on intersection do* 槽中触发拼图。如果没有发生相交或者设备处于预热状态，拼图就会触发 *if missed do* 槽。
+    </p>
 
-    <p>参数 *smooth* 是用来平滑化AR标记的运动。指定值为0表示禁用平滑，接近1的值表示最大的平滑。</p>
+    <p>
+      参数 *smooth* 是用来平滑化AR标记的运动。指定值为0表示禁用平滑，接近1的值表示最大的平滑。
+    </p>
       
     <img src="files/puzzles/puzzles-ar-vr-ar-hit-test.jpg">
+
+
 
     [anchor:ar_hit_point]
 
     <h3>AR hit point(AR碰撞点)</h3>
 
-    <p>由 <a href="manual/zh/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR(检测AR水平面)</a>
-      拼图检测到的表面点坐标。可以是*X*，*Y*，*Z*值，或*XYZ*矢量。</p>
-      
+    <p>
+      由 <a href="manual/zh/puzzles/AR_VR.html#ar_hit_test">detect surface AR(检测AR平面)</a> 拼图检测到的表面点坐标。可以是*X*，*Y*，*Z*值，或*XYZ*矢量。
+    </p>
+
     <img src="files/puzzles/puzzles-ar-vr-ar-hit-point.jpg">
+
+
+
+    [anchor:ar_hit_normal]
+
+    <h3>AR hit normal(AR碰撞法线)</h3>
+
+    <p>
+      由 <a href="manual/zh/puzzles/AR_VR.html#ar_hit_test">detect surface AR(检测AR水平面)</a> 拼图检测到的表面法线向量。可以是 *X*, *Y*, *Z* 值，或 *XYZ* 向量。
+    </p>
+
+    <img src="files/puzzles/puzzles-ar-vr-ar-hit-normal.jpg">
+
+
 
     [anchor:session_event]
 
     <h3>on session event(在会话事件...)</h3>
 
-    <p>捕获一个由VR设备（例如：头戴式显示器或控制器按钮）产生的VR会话事件，并触发在 *do* 槽中指定的拼图。</p>
+    <p>
+      捕获一个由VR设备（例如：头戴式显示器或控制器按钮）产生的VR会话事件，并触发在 *do* 槽中指定的拼图。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-ar-vr-on-session-event.jpg">
+    <img src="files/puzzles/puzzles-ar-vr-on-session-event.jpg">
+
     <p>事件：</p>
 
     <ul>
@@ -150,34 +237,37 @@
       <li>*disconnected* - 当VR控制器断开连接时被触发。</li>
     </ul>
 
+
     [anchor:traverse_controllers]
 
     <h3>traverse controllers(遍历控制器)</h3>
 
-    <p>循环遍历所有连接的VR控制器，执行 *do* 槽中指定的拼图。</p>
+    <p>
+      循环遍历所有连接的VR控制器，执行 *do* 槽中指定的拼图。
+    </p>
       
-    <img src="files/puzzles/puzzles-ar-vr-traverse-controllers.jpg"
-      class="centered" style="max-width: 825px">
+    <img src="files/puzzles/puzzles-ar-vr-traverse-controllers.jpg" style="max-width: 825px">
+
 
     [anchor:get_controller_prop]
 
     <h3>get controller property</h3>
 
-    <p>获取控制器的属性。</p>
+    <p>
+      获取控制器的属性。
+    </p>
       
-    <img src="files/puzzles/puzzles-ar-vr-get-controller-prop.jpg" class="centered"
-      style="max-width: 819px">
+    <img src="files/puzzles/puzzles-ar-vr-get-controller-prop.jpg" style="max-width: 819px">
+
     <p>属性：</p>
 
     <ul>
       <li>*object* - 一个代表控制器的空对象。
       <li>*ray/reticle* - 控制器的射线或十字线对象。
       <li>*handedness* - 控制器的惯用手："left"（左控制器），"right"（右控制器），"none"（未指定，可能是头戴式控制器）。
-      <li>*Target ray mode* - 目标射线模式："gaze" （用于注视类设备，即Cardboard类设备），"tracked-pointer" （用于普通的手持控制器），
-        "screen" （该事件与画布输入有关，目前尚未实现）。
+      <li>*Target ray mode* - 目标射线模式："gaze" （用于注视类设备，即Cardboard类设备），"tracked-pointer" （用于普通的手持控制器）， "screen" （该事件与画布输入有关，目前尚未实现）。
       <li>*profiles* - 控制器配置文件名称的列表。
-      <li>*gamepad index* - 控制器的游戏手柄索引，可以传递给 <a href="manual/zh/puzzles/System.html#get_gamepad_prop">get gamepad
-          property(获取游戏手柄属性)</a> 拼图，以便从您的控制器获取更多信息，比如按钮/轴的状态。</li>
+      <li>*gamepad index* - 控制器的游戏手柄索引，可以传递给 <a href="manual/zh/puzzles/System.html#get_gamepad_prop">get gamepad property(获取游戏手柄属性)</a> 拼图，以便从您的控制器获取更多信息，比如按钮/轴的状态。</li>
     </ul>
 
 
@@ -186,7 +276,5 @@
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article>
-</body>
-
+  </article></body>
 </html>

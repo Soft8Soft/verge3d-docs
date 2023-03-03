@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>材质类拼图参考 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,119 +8,157 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>材质 | Materials</h1>
 
-    <p>此类拼图用于操作场景中材质和纹理。</p>
+    <p>
+      此类拼图用于操作场景中材质和纹理。
+    </p>
       
     <img src="files/puzzles/puzzles-materials.jpg">
+
     <h2>内容</h2>
 
-    [contents] [anchor:puzzles_reference]
+    [contents]
+    
+    
+    [anchor:puzzles_reference]
 
     <h2>拼图参考</h2>
+
 
     [anchor:assign_material]
 
     <h3>assign material(指定材质)</h3>
 
-    <p>为对象指定材质，完全取代原来的材质。也适用于对象列表，组（或者组的列表）以及 <a href="manual/zh/puzzles/Selectors.html#all_objects">all
-        objects(所有对象)</a> 拼图。</p>
+    <p>
+      为对象指定材质，完全取代原来的材质。也适用于对象列表，组（或者组的列表）以及 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a> 拼图。
+    </p>
       
     <img src="files/puzzles/puzzles-materials-assign-material.jpg">
-    <p>在某些情况下，即当法线贴图材质分配给没有法线贴图的对象时，此拼图可能会导致材质完全变黑。如果发生这种情况，请在导出设置中 <em>禁用</em> 网格属性优化。</p>
+
+    <p>
+      在某些情况下，即当法线贴图材质分配给没有法线贴图的对象时，此拼图可能会导致材质完全变黑。如果发生这种情况，请在导出设置中 <em>禁用</em> 网格属性优化。
+    </p>
 
     <v3d-tabs>
       <label>Blender</label>
-      <div><img src="files/puzzles/mesh-attributes-not-optimize-blender.jpg" class="centered" style="max-width: 331px;">
+      <div>
+        <img src="files/puzzles/mesh-attributes-not-optimize-blender.jpg" style="max-width: 331px;">
       </div>
       <label>3ds Max</label>
-      <div><img src="files/puzzles/mesh-attributes-not-optimize-max.jpg" class="centered" style="max-width: 252px;">
+      <div>
+        <img src="files/puzzles/mesh-attributes-not-optimize-max.jpg" style="max-width: 252px;">
       </div>
       <label>Maya</label>
-      <div><img src="files/puzzles/mesh-attributes-not-optimize-maya.jpg" class="centered" style="max-width: 416px;">
+      <div>
+        <img src="files/puzzles/mesh-attributes-not-optimize-maya.jpg" style="max-width: 416px;">
       </div>
     </v3d-tabs>
+
 
     [anchor:replace_texture]
 
     <h3>replace texture(替换纹理)</h3>
 
-    <p>将指定材质中的纹理替换为从图片URI、 <a href="manual/zh/puzzles/Sound.html#load_video">视频资产</a>或 <a
-        href="manual/zh/puzzles/HTML.html#create_canvas_elem">画布</a>中加载的纹理。</p>
-      
+    <p>将指定材质中的纹理替换为从图片URI、 <a href="manual/zh/puzzles/Sound.html#load_video">视频资产</a>或 <a zhref="manual/zh/puzzles/HTML.html#create_canvas_elem">画布</a>中加载的纹理。</p>
+
+    <img src="files/puzzles/puzzles-materials-replace-texture.png">
+
     <p>
-      Puzzle options:
+      拼图选项：
       <ul>
         <li>
-          启用 "once ready do(一旦准备好)" 插槽 - 显示/隐藏拼图的插槽，这些插槽将在纹理完成加载后立即执行
+          启用 "once ready do(一旦准备好)" 插槽 - 显示/隐藏拼图的插槽，
+          这些插槽将在纹理完成加载后立即执行
         </li>
         <li>
           灵活的纹理输入 - 允许在 "texture(纹理)" 输入中使用 
-          <a href="manual/zh/puzzles/Text.html#text">text puzzles(文字拼图)</a>
+          <a href="manual/zh/puzzles/Text.html#text">text puzzles(文字拼图)</a> 
+          以替换默认下拉菜单
         </li>
-        <li>
+      </ul>
+      </p>
+
+      [demo:custom_image]
+
+      <p class="note">
           使用 canvas/video alpha 为加载的画布和视频纹理启用/禁用透明度（如果存在）。注意：如果目标是使对象透明，请不要忘记也将材质类型设置为 *Blend(混合)*（请参见：
           <a href="manual/zh/blender/Transparency.html#transparency_eevee">Blender</a>/
           <a href="manual/zh/max/Transparency.html#blended_vs_masked">Max</a>/
-          <a href="manual/zh/maya/Transparency.html#blended_vs_masked">Maya</a> 
-          中的透明度）。
-        </li>
-      </ul>
+          <a href="manual/zh/maya/Transparency.html#blended_vs_masked">Maya</a> 中的透明度）。
     </p>
-    <img src="files/puzzles/puzzles-materials-replace-texture.png">
 
     [anchor:get_texture_param]
 
     <h3>get texture param(获取纹理参数)</h3>
 
-    <p>在指定材质的纹理中检索以下参数：宽度、高度、长宽或尺寸。</p>
+    <p>
+      在指定材质的纹理中检索以下参数：宽度、高度、长宽或尺寸。
+    </p>
       
     <img src="files/puzzles/puzzles-materials-get-texture-param.jpg">
+
+
 
     [anchor:materials_set_color]
 
     <h3>set color(设置颜色)</h3>
 
-    <p>在指定材质中设置颜色RGB值。</p>
+    <p>
+      在指定材质中设置颜色RGB值。
+    </p>
       
     <img src="files/puzzles/puzzles-materials-set-color.jpg">
+
     <v3d-tabs>
       <label>Blender</label>
       <div>
-        <p>您可以在基于节点的材质中添加*RGB*节点，它们的名称将显示在下拉菜单中。此外，BSDF Principled、BSDF Diffuse和BSDF Glossy节点的 *Base Color*（或*Color*）输入也可以访问。</p>
+        <p>
+          您可以在基于节点的材质中添加*RGB*节点，它们的名称将显示在下拉菜单中。此外，BSDF Principled、BSDF Diffuse和BSDF Glossy节点的 *Base Color*（或*Color*）输入也可以访问。
+        </p>
       
-    <img src="files/puzzles/puzzles-materials-set-color-example-blender.jpg"
-          class="centered" style="max-width: 643px;">
-        <p>如果是 <em>符合glTF标准的PBR材质</em>， <strong>BaseColor(基础色)</strong> 和 <strong>Emissive(自发光)</strong> 的输入只能通过此拼图访问。
+    <img src="files/puzzles/puzzles-materials-set-color-example-blender.jpg" style="max-width: 643px;">
+
+        <p>
+          如果是 <em>符合glTF标准的PBR材质</em>， <strong>BaseColor(基础色)</strong> 和 <strong>Emissive(自发光)</strong> 的输入只能通过此拼图访问。
         </p>
       </div>
       <label>3ds Max</label>
       <div>
-        <p>您可以在（标准或物理）材质中添加 <strong>控制器</strong> ，它们的名称将显示在下拉菜单中。此外，标准或物理材质节点的 *漫反射* （或*基础颜色*）颜色输入也可以访问。</p>
+        <p>
+          您可以在（标准或物理）材质中添加 <strong>控制器</strong> ，它们的名称将显示在下拉菜单中。此外，标准或物理材质节点的 *漫反射* （或*基础颜色*）颜色输入也可以访问。
+        </p>
       
-    <img
-          src="files/puzzles/puzzles-materials-set-color-example-max.jpg" class="centered" style="max-width: 759px;">
-        <p>如果是 <em>符合glTF标准的PBR</em> 材质， <strong>基础颜色</strong> 和 <strong>发射</strong> 输入只能通过这个拼图来访问。</p>
+    <img src="files/puzzles/puzzles-materials-set-color-example-max.jpg" style="max-width: 759px;">
+
+    <p>
+      如果是 <em>符合glTF标准的PBR</em> 材质， <strong>基础颜色</strong> 和 <strong>发射</strong> 输入只能通过这个拼图来访问。
+    </p>
       </div>
       <label>Maya</label>
       <div>
-        <p>您可以在材质中添加 <strong>颜色常数</strong> 节点，它们的名字将显示在下拉菜单中。</p>
+        <p>
+          您可以在材质中添加 <strong>颜色常数</strong> 节点，它们的名字将显示在下拉菜单中。
+        </p>
       
-    <img
-          src="files/puzzles/puzzles-materials-set-color-example-maya.jpg" class="centered" style="max-width: 936px;">
-        <p>如果是 <em>符合glTF标准的PBR</em> 材质， <strong>颜色</strong> 和 <strong>发光</strong> 的输入只能通过这个拼图获得。</p>
+    <img src="files/puzzles/puzzles-materials-set-color-example-maya.jpg" style="max-width: 936px;">
+
+    <p>
+      如果是 <em>符合glTF标准的PBR</em> 材质， <strong>颜色</strong> 和 <strong>发光</strong> 的输入只能通过这个拼图获得。
+    </p>
       </div>
     </v3d-tabs>
 
-    <p>此拼图也可以用来修改环境着色器。在下拉菜单中，环境着色器的名称以 "Verge3D_Environment" 开头。</p>
+    <p>
+      此拼图也可以用来修改环境着色器。在下拉菜单中，环境着色器的名称以 "Verge3D_Environment" 开头。
+    </p>
 
-    <p>关于Verge3D用户可用材质的更多信息，请参考本手册的材质系统概述章节：<a href="manual/zh/blender/Material-System.html"
-        target="_blank">Blender</a>, <a href="manual/zh/max/Material-System.html" target="_blank">3ds Max</a>, <a
-        href="manual/zh/maya/Materials.html" target="_blank">Maya</a>.</p>
+    <p>
+      关于Verge3D用户可用材质的更多信息，请参考本手册的材质系统概述章节：<a href="manual/zh/blender/Material-System.html" target="_blank">Blender</a>, <a href="manual/zh/max/Material-System.html" target="_blank">3ds Max</a>, <a href="manual/zh/maya/Materials.html" target="_blank">Maya</a>。
+      </p>
+
 
     [anchor:materials_get_color]
 
@@ -142,6 +179,8 @@
       
     <img src="files/puzzles/puzzles-materials-get-color.jpg">
 
+
+
     [anchor:materials_set_value]
 
     <h3>set value(设置数值)</h3>
@@ -149,63 +188,84 @@
     <p>为指定材质的参数设置值。</p>
       
     <img src="files/puzzles/puzzles-materials-set-value.jpg">
+
     <v3d-tabs>
       <label>Blender</label>
       <div>
-        <p>您可以在基于节点的材质中添加 <strong>value</strong> 节点，它们的名称将显示在下拉菜单中。</p>
+        <p>
+          您可以在基于节点的材质中添加 <strong>value</strong> 节点，它们的名称将显示在下拉菜单中。
+        </p>
       
-    <img
-          src="files/puzzles/puzzles-materials-set-value-example-blender.jpg" class="centered"
-          style="max-width: 687px;">
-        <p>如果是 <em>符合glTF标准的PBR</em> 材质，可以通过此拼图获得以下输入：*metalness*, *roughness*, *bumpScale*, *emissiveIntesity*, 和
-          *envMapIntensity*.</p>
+    <img src="files/puzzles/puzzles-materials-set-value-example-blender.jpg" style="max-width: 687px;">
+
+    <p>
+      如果是 <em>符合glTF标准的PBR</em> 材质，可以通过此拼图获得以下输入：*metalness*, *roughness*, *bumpScale*, *emissiveIntesity*, 和 *envMapIntensity* 。
+    </p>
       </div>
       <label>3ds Max</label>
       <div>
-        <p>您可以在您的材质中添加 *控制器* （标准或物理），它们的名字将显示在下拉菜单中。</p>
+        <p>
+          您可以在材质中添加 *控制器* （标准或物理），它们的名字将显示在下拉菜单中。
+        </p>
       
-    <img
-          src="files/puzzles/puzzles-materials-set-value-example-max.jpg" class="centered" style="max-width: 739px;">
-        <p>如果是 <em>符合glTF标准的PBR</em> 材质，可以通过此拼图获得以下输入：*金属度*，粗糙度*，凹凸比例*，*光照强度*和*环境贴图强度*。</p>
+    <img src="files/puzzles/puzzles-materials-set-value-example-max.jpg" style="max-width: 739px;">
+
+    <p>
+      如果是 <em>符合glTF标准的PBR</em> 材质，可以通过此拼图获得以下输入：*金属度*，粗糙度*，凹凸比例*，*光照强度*和*环境贴图强度*。
+    </p>
       </div>
       <label>Maya</label>
       <div>
-        <p>您可以在您的材质中添加 *浮动常数* 节点，它们的名字将显示在下拉菜单中。</p>
+        <p>
+          您可以在您的材质中添加 *浮动常数* 节点，它们的名字将显示在下拉菜单中。
+        </p>
       
-    <img
-          src="files/puzzles/puzzles-materials-set-value-example-maya.jpg" class="centered" style="max-width: 769px;">
-        <p>如果是 <em>符合glTF标准的PBR</em> 材质，可以通过此拼图获得以下输入：*金属度*，*透明度*，*凹凸比例*，*被动强度*和*envMapIntensity*。</p>
+    <img src="files/puzzles/puzzles-materials-set-value-example-maya.jpg" style="max-width: 769px;">
+
+        <p>
+          如果是 <em>符合glTF标准的PBR</em> 材质，可以通过此拼图获得以下输入：*金属度*，*透明度*，*凹凸比例*，*被动强度*和*envMapIntensity*。
+        </p>
       </div>
     </v3d-tabs>
 
-    <p>此拼图也可以用来修改环境着色器。在下拉菜单中，环境着色器的名称以 "Verge3D_Environment" 开头。</p>
+    <p>
+      此拼图也可以用来修改环境着色器。在下拉菜单中，环境着色器的名称以 "Verge3D_Environment" 开头。
+    </p>
 
-    <p>关于Verge3D用户可用材质的更多信息，请参考本手册的材质系统概述章节：<a href="manual/zh/blender/Material-System.html"
-        target="_blank">Blender</a>, <a href="manual/zh/max/Material-System.html" target="_blank">3ds Max</a>, <a
-        href="manual/zh/maya/Materials.html" target="_blank">Maya</a>.</p>
+    <p>
+      关于Verge3D用户可用材质的更多信息，请参考本手册的材质系统概述章节：<a href="manual/zh/blender/Material-System.html" target="_blank">Blender</a>, <a href="manual/zh/max/Material-System.html" target="_blank">3ds Max</a>, <a href="manual/zh/maya/Materials.html" target="_blank">Maya</a>。
+      </p>
 
     [anchor:materials_get_value]
 
     <h3>get value(获取数值)</h3>
 
-    <p>获取指定材质参数的值。选中 *flexible color input* 参数，可输入自定义的材质参数字符串。</p>
+    <p>
+      获取指定材质参数的值。选中 *flexible color input* 参数，可输入自定义的材质参数字符串。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-materials-get-value.jpg" style="max-width: 727px">
+    <img src="files/puzzles/puzzles-materials-get-value.jpg" style="max-width: 727px">
+
 
     [anchor:get_material]
 
     <h3>get material(获取材质)</h3>
 
-    <p>检索对象的材质名称。如果同一对象有多个材质，则返回第一个材质。</p>
+    <p>
+      检索对象的材质名称。如果同一对象有多个材质，则返回第一个材质。
+    </p>
       
     <img src="files/puzzles/puzzles-object-get-material.jpg">
-
+    
+    
+    
     [anchor:texture_from_text]
 
     <h3>texture from text(从文本创建纹理)</h3>
 
-    <p>使用指定的文本创建一个图像，并以 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a> 的格式返回。</p>
+    <p>
+      使用指定的文本创建一个图像，并以 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a> 的格式返回。
+    </p>
       
     <img src="files/puzzles/puzzles-materials-texture-from-text-advanced.jpg">
     
@@ -213,20 +273,30 @@
 
     <dl>
       <dt>text(文字)</dt>
-      <dd>输入文本。</dd>
-      <dt>width, height(宽度，高度)</dt>
-      <dd>生成的图像的尺寸（单位：像素）。建议使用2的n此幂（256、512、1024等）。</dd>
+      <dd>
+        输入文本。
+      </dd>
+      <dt>
+        width, height(宽度，高度)
+      </dt>
+      <dd>
+        生成的图像的尺寸（单位：像素）。建议使用2的n此幂（256、512、1024等）。
+      </dd>
       <dt>font family</dt>
-      <dd><a href="https://www.w3schools.com/cssref/pr_font_font-family.asp" target="_blank">font-family</a>
-        是用来渲染文本的CSS属性。您可以使用系统字体，比如 "Arial" ，或者使用 <a href="manual/zh/puzzles/Initialization.html#load_font">load
-          font(加载字体)</a> 拼图加载的自定义字体。</dd>
+      <dd>
+        <a href="https://www.w3schools.com/cssref/pr_font_font-family.asp" target="_blank">font-family</a> 是用来渲染文本的CSS属性。您可以使用系统字体，比如 "Arial" ，或者使用 <a href="manual/zh/puzzles/Initialization.html#load_font">load font(加载字体)</a> 拼图加载的自定义字体。
+      </dd>
       <dt>size(尺寸)</dt>
-      <dd>在生成的图片上绘制的文字的大小（单位：像素）。</dd>
+      <dd>
+        在生成的图片上绘制的文字的大小（单位：像素）。
+      </dd>
       <dt>Horizontal align(水平对齐)</dt>
-      <dd>文本在生成的图像上如何水平对齐：*居中*、*左对齐*、*右对齐* 。</dd>
+      <dd>
+        文本在生成的图像上如何水平对齐：*居中*、*左对齐*、*右对齐* 。
+      </dd>
       <dt>vertical align(垂直对齐)</dt>
       <dd>
-        how the text is vertically aligned on the generated image: *middle*, *top*, *bottom*.
+        文本在生成的图像上如何垂直对齐：*居中*、*左对齐*、*右对齐* 。
       </dd>
       <dt>line height(行高)</dt>
       <dd>
@@ -236,32 +306,95 @@
       <dd>
         如果启用了两端对齐文本，则在必要时在单词之间插入空格。
       </dd>
-      <dt>box x, y, width, height(文本框坐标与宽高)</dt>
+    </dl>
+
+      <h4>Box parameters (文本框参数，点击"齿轮"图标后激活):</h4>
+
+      <p>
+        激活后，文本框中的文本将可以使用以下参数调节其位置与大小：
+      </p>
+  
+      <dl>
+        <dt>box x</dt>
+        <dd>
+          文本框离左边距离（以像素为单位）。
+        </dd>
+        <dt>box y</dt>
+        <dd>
+          文本框离顶边距离（以像素为单位）。
+        </dd>
+        </dd>
+        <dt>width</dt>
+        <dd>
+          文本框宽度（以像素为单位）。
+        </dd>
+        <dt>height</dt>
+        <dd>
+          文本框高度（以像素为单位）。
+        </dd>
+      </dl>
+
+    <h4>Color parameters (颜色参数，点击"齿轮"图标后激活):</h4>
+
+    <dl>
+      <dt>text color</dt>
       <dd>
-        指定将在图像上打印文本的框（以像素为单位的字段）。为此，单击齿轮图标并选中复选框 "box params(文本框参数)" 。
+        文本颜色。
+      </dd>
+      <dt>background color</dt>
+      <dd>
+        文本背景色。
       </dd>
     </dl>
 
-    <p>在下面的示例中，使用 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a>
-      拼图将从文本中生成的图像用在了模型上。</p>
+    <p>
+      在下面的示例中，使用 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a> 拼图将从文本中生成的图像用在了模型上。
+    </p>
       
-    <img src="files/puzzles/puzzles-materials-texture-from-text-example.jpg"
-      style="max-width: 770px">
+    <img src="files/puzzles/puzzles-materials-texture-from-text-example.jpg">
+
+
+    [anchor:color_picker]
+
+    <h3>color picker(拾色器)</h3>
+
+    <p>
+      将选定的颜色作为 CSS 值返回。
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-color-picker.jpg">
+
+
+    [anchor:compose_color]
+
+    <h3>compose color</h3>
+
+    <p>
+      以线性 RGB（或启用 alpha 输入的 RGBA）参数组合颜色，并将其作为 CSS 值返回。
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-compose-color.jpg">
+
 
     [anchor:generate_normal_map]
 
     <h3>generate normal map(生成法线贴图)</h3>
 
-    <p>将图像转换为法线图，并以 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a> 格式返回。</p>
+    <p>
+      将图像转换为法线图，并以 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a> 格式返回。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-materials-generate-normalmap.jpg">
-    <p>参数：</p>
+    <img src="files/puzzles/puzzles-materials-generate-normalmap.jpg">
+
+    <p>
+      参数：
+    </p>
 
     <dl>
       <dt>(source image)(图片源)</dt>
-      <dd>图像URL，通常是黑白的高度图。也可以提供 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a> 格式的图像，例如 <a
-          href="manual/zh/puzzles/Materials.html#texture_from_text">texture from text(从文本创建纹理)</a> 拼图的输出。</dd>
+      <dd>
+        图像URL，通常是黑白的高度图。也可以提供 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a> 格式的图像，例如 <a href="manual/zh/puzzles/Materials.html#texture_from_text">texture from text(从文本创建纹理)</a> 拼图的输出。
+        </dd>
       <dt>strength(强度)</dt>
       <dd>影响高度的线性因素。推荐值：0.01 到 5。</dd>
       <dt>level(级别)</dt>
@@ -271,32 +404,39 @@
       <dt>filter(过滤器)</dt>
       <dd>用于边缘检测的Sobel或Scharr算法的选择器。</dd>
       <dt>Invert R(反转R)</dt>
-      <dd>在法线贴图的R通道中反转方向。目前，Blender、3ds Max和Maya必须禁用这个功能，但将来可能需要对其他支持的工具启用。</dd>
+      <dd>
+        在法线贴图的R通道中反转方向。目前，Blender、3ds Max和Maya必须禁用这个功能，但将来可能需要对其他支持的工具启用。
+      </dd>
       <dt>Invert G(反转G)</dt>
-      <dd>在法线贴图的G通道中反转方向。为与3ds Max的法线贴图空间兼容，必须启用这个功能。但对于Blender/Maya来说，必须禁用。</dd>
+      <dd>
+        在法线贴图的G通道中反转方向。为与3ds Max的法线贴图空间兼容，必须启用这个功能。但对于Blender/Maya来说，必须禁用。
+      </dd>
       <dt>invert height(反转高度)</dt>
       <dd>反转高度设定，使较暗的像素对应于较低的高度。</dd>
     </dl>
 
-    <p>在下面的示例中，从加载的图像中生成的法线贴图通过 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a>
-      拼图将被用在了模型上：</p>
+    <p>
+      在下面的示例中，从加载的图像中生成的法线贴图通过 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a> 拼图将被用在了模型上：
+    </p>
       
     <img src="files/puzzles/puzzles-materials-generate-normalmap-example.jpg" style="max-width: 819px">
+
 
     [anchor:enable_disable_wireframe]
 
     <h3>enable/disable wireframe(启用/禁用线框渲染)</h3>
 
-    <p>为指定材质启用或禁用线框渲染。可以作为一种非写实渲染技术来用于调试应用，或优化性能。</p>
+    <p>
+      为指定材质启用或禁用线框渲染。可以作为一种非写实渲染技术来用于调试应用，或优化性能。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-materials-enable-disable-wireframe.jpg">
+    <img src="files/puzzles/puzzles-materials-enable-disable-wireframe.jpg">
+
+
     <h2>在使用拼图时遇到困难？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
 
-  </article>
-</body>
-
+  </article></body>
 </html>

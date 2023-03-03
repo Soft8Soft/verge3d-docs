@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>AR/VR开发 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,119 +8,225 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>AR/VR开发</h1>
 
-    <p>Verge3D可在基于 WebXR （网页扩展现实，一种正在开发中的浏览器技术）基础上，运行基于网页的增强现实（AR）和虚拟现实（VR）体验。此外，您也可以使用此技术的早期版本 WebVR（需在应用管理器中启用Legacy
-      VR 兼容选项，请参见下文）。</p>
+    <p>
+      Verge3D可以创建基于WebXR（Web上的扩展现实）技术的基于Web的增强现实（AR）和虚拟现实（VR）体验。此外，您还可以使用USDZ格式和Apple AR Quick Look技术在iPhone和iPad上以AR模式预览您的模型。
+    </p>
 
-      <iframe 
-        class="video-480p"
-        src="https://player.bilibili.com/player.html?aid=62841314&bvid=BV1Ut411N7aa&cid=109173039&page=1&high_quality=1&danmaku=0" 
-        scrolling="no" border="0" frameborder="no" 
-        framespacing="0" allowfullscreen="true"
-        sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"> 
-      </iframe>
+    <iframe class="video-480p" src="https://player.bilibili.com/player.html?aid=62841314&bvid=BV1Ut411N7aa&cid=109173039&page=1&high_quality=1&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts"></iframe>
 
     <h2>内容</h2>
 
-    [contents] [anchor:virtual_reality]
+    [contents]
+    
+    
+    [anchor:virtual_reality]
 
-    <h2>虚拟现实</h2>
+    <h2>虚拟现实（VR）</h2>
+
 
     [anchor:Setting_up_VR]
 
     <h3>启用VR设置</h3>
 
-    <p>我们建议您在应用管理器中创建应用时启用 Legacy VR 选项，以支持更广泛的浏览器（例如Mozilla Firefox）和设备。</p>
-
-    <img src="files/ar-vr-development/legacy-vr-app-creation-settings.jpg" class="centered" style="max-width: 522px">
-
-    <p>在Android和iOS的任何移动浏览器中，Cardboard设备均可开箱即用。</p>
-
-    <p>Google Daydream可在Android手机上的Chrome稳定版浏览器中使用，HTC Vive和Oculus设备应可运行于Chrome和Firefox浏览器。</p>
-
-    <p class="note">WebXR需要启用安全上下文。Verge3D应用必须基于HTTPS/SSL或本地URL运行。</p>
-
     <p>
-      通过使用 USDZ 资产，您可以在默认的 Safari 浏览器中运行简化的增强现实体验。有关详细信息，请参阅 <a href="manual/zh/puzzles/Scenes.html#export_to_usdz">此处</a> 。
+      HTC和Oculus设备应该可以直接使用WebXR。对于连接到台式电脑的设备，如HTC Vive，请使用Google Chrome浏览器。对于独立设备，请使用头戴式显示器附带的浏览器，例如在Oculus Quest 1/2上使用Oculus浏览器运行您的VR应用程序。
     </p>
+
+    <p class="note">
+      WebXR需要启用安全上下文。Verge3D应用必须基于HTTPS/SSL或本地URL运行。
+    </p>
+
 
     [anchor:Creating_VR_Apps]
 
     <h3>创建VR应用</h3>
 
-    <p>VR模式可以通过 <a href="manual/zh/puzzles/AR_VR.html#enter_vr_mode">enter VR mode(进入VR模式)</a> 拼图在任何Verge3D应用中启用。</p>
+    <p>
+      VR模式可以通过 <a href="manual/zh/puzzles/AR_VR.html#check_vr_mode">check VR mode(检查VR模式)</a> 拼图检查，并通过 <a href="manual/zh/puzzles/AR_VR.html#enter_vr_mode">enter VR mode(进入VR模式)</a> 拼图进行设置。
+    </p>
 
-    <img src="files/ar-vr-development/minimal-vr-puzzles.jpg" class="centered" style="max-width: 686px">
+    <img src="files/ar-vr-development/minimal-vr-puzzles.jpg">
 
-    <p>对于 <i>没有控制器</i> 的VR设备（例如Cardboard），可以使用基于凝视的交互控制方式操作（十字光线指示器）。</p>
-    
-    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg" class="centered">
+    <p>
+      与3D对象的交互是通过使用面向注视的准星指针完成的，这个指针会自动为 <i>没有控制器</i> （如Cardboard类设备）的VR设备提供。
+    </p>
 
-    <p>对于 <i>带有控制器</i>, 的设备，交互是通过从控制器投射的虚拟射线来执行的。</p>
-    
-    <img src="files/ar-vr-development/google-daydream-vr-controller.jpg" class="centered">
+    <p>在Android和iOS的任何移动浏览器中，Cardboard设备均可开箱即用。</p>
 
-    <p>您可以使用标准的 <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered(当悬停时)</a> 或 <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked(当点击时)</a> 拼图来捕捉用户事件，以及VR特定的 <a href="manual/zh/puzzles/AR_VR.html#session_event">活动会话</a> 。</p>
+    <p>Google Daydream可在Android手机上的Chrome稳定版浏览器中使用，HTC Vive和Oculus设备应可运行于Chrome和Firefox浏览器。</p>
+
+    <img src="files/ar-vr-development/gaze-based-reticle-pointer.jpg">
+
+    <p>您可以使用标准的 <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered(当悬停时)</a> 或 <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked(当点击时)</a> 拼图来捕捉用户事件，以及VR特定的 <a href="manual/zh/puzzles/AR_VR.html#session_event">on session event( 活动会话 )</a>。</p>
+
+    [demo:industrial_robot]
+
 
     [anchor:augmented_reality]
 
-    <h2>增强现实</h2>
+    <h2>增强现实(AR)</h2>
+
 
     [anchor:Setting_up_AR]
 
-    <h3>启用VR设置</h3>
+    <h2>启用AR设置</h2>
 
     <p>您现在可以在Anroid或iOS/iPadOS系统的移动设备上运行基于verge3D的增强现实应用了。</p>
 
-    <p class="note">WebXR需要启用安全上下文。Verge3D应用必须基于HTTPS/SSL或本地URL运行。</p>
+    <p class="note">
+      WebXR需要启用安全上下文。Verge3D应用必须基于HTTPS/SSL或本地URL运行。
+    </p>
 
     <h4>Android</h4>
 
-    <p>要在你的应用中启用增强现实功能，你需要一个能够运行 <a href="https://developers.google.com/ar/discover/supported-devices" target="_blank">ARCore technology</a> 的Android设备，并安装了最新的Google Chrome浏览器。您同时也必须安装好Google Play Services for AR（面向AR的Google Play服务）。当您第一次进入AR模式时，如果未预装该服务，应用将自动提示安装此软件包。中国大陆区域用户如果无法开启该功能，请 <a href="https://verge3d.funjoy.tech/r/arcore" target="_blank">点击这里</a> 了解手动安装方案。</p>
+    <p>要在你的应用中启用增强现实功能，你需要一个能够运行 <a href="https://developers.google.com/ar/discover/supported-devices" target="_blank">ARCore技术</a> 的Android设备，并安装了最新的Google Chrome浏览器。您同时也必须安装好Google Play Services for AR（面向AR的Google Play服务）。当您第一次进入AR模式时，如果未预装该服务，应用将自动提示安装此软件包。中国大陆区域用户如果无法开启该功能，请 <a href="https://verge3d.funjoy.tech/r/arcore" target="_blank">点击这里</a> 了解手动安装方案。</p>
       
-    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" class="centered" style="max-width: 720px">
+    <img src="files/ar-vr-development/google-play-services-for-ar.jpg" style="max-width: 720px">
 
     <h4>iOS/iPadOS</h4>
 
-    <p>Mozilla的 WebXR Viewer 是基于火狐浏览器的程序，它支持在苹果（iPhone 6s之后的）设备上使用AR功能。您可以从应用商店 <a href="https://apps.apple.com/us/app/webxr-viewer/id1295998056" target="_blank">下载安装</a> 该应用。</p>
+    <p>
+      对 iPhone/iPad 设备，您有两个选择：
+    </p>
 
-    [anchor:Creating_AR_Apps]
+    <ol>
+      <li>安装 *WebXR Viewer* 浏览器</li>
+      <li>使用传统的 Safari 浏览器预览 *USDZ* 格式的资产</li>
+    </ol>
 
-    <h3>创建AR应用</h3>
+    <p>
+      Mozilla的 WebXR Viewer 是基于火狐浏览器的程序，它支持在苹果（iPhone 6s之后的）设备上使用AR功能。您可以从应用商店 <a href="https://apps.apple.com/us/app/webxr-viewer/id1295998056" target="_blank">下载安装</a> 该应用。这种解决方案的优点是，您可以使用相同的WebXR技术（以及Puzzles逻辑），用于在Android设备上运行AR。缺点是显而易见的，即您（以及您的用户）需要手动安装WebXR Viewer浏览器。
+    </p>
 
-    <p>AR模式可以通过 <a href="manual/zh/puzzles/AR_VR.html#enter_ar_mode">enter AR mode(进入AR模式)</a> 拼图在任何Verge3D应用中启用。</p>
+    <p>
+      使用USDZ资产，您可以使用 <a href="https://developer.apple.com/augmented-reality/quick-look/" target="_blank">Apple AR Quick Look</a> 技术在默认的Safari浏览器中运行简化的增强现实体验。这种方法要求您使用iOS集成的完全不同的渲染引擎，因此您不能为在AR模式下运行的应用制作复杂的材质或使用拼图逻辑。
+    </p>
 
-    <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" class="centered" style="max-width: 645px">
 
-    <p>进入AR模式后，您将能够在与移动设备对齐的“真实”坐标系中定位3D内容。除此之外，您还可以使用 <a href="manual/zh/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR(检测AR水平表面)</a> 拼图来检测水平表面（桌子、书架、地板等）。</p>
+    <!-- COMPAT: < 4.0 -->
+    <a href="#" id="Creating_AR_Apps"></a>
+
+    [anchor:creating_ar_apps_webxr]
+
+    <h3>创建基于 WebXR 技术的AR应用(Android, WebXR Viewer)</h3>
+
+    <p>
+      AR模式可以通过 <a href="manual/zh/puzzles/AR_VR.html#enter_ar_mode">enter AR mode(进入AR模式)</a> 拼图在任何Verge3D应用中启用。
+    </p>
+
+    <img src="files/ar-vr-development/minimal-ar-puzzles.jpg" style="max-width: 819px">
+
+    <p>
+      进入AR模式后，您将能够在与移动设备对齐的“真实”坐标系中定位3D内容。除此之外，您还可以使用 <a href="manual/zh/puzzles/AR_VR.html#ar_hit_test">detect horizontal surface AR(检测AR水平表面)</a> 拼图来检测水平表面（桌子、书架、地板等）。
+    </p>
     
     <!-- enabling transparency for AR is a hack for WebXR Viewer -->
-    <p>此外，要通过3D画布查看真实环境，您应该在 <a href="manual/zh/puzzles/Initialization.html#configure_application">configure application(配置应用)</a> 拼图中启用 *transparent background(透明背景)* 选项。</p>
+
+    <p>
+      此外，要通过3D画布查看真实环境，您应该在 <a href="manual/zh/puzzles/Initialization.html#configure_application">configure application(配置应用)</a> 拼图中启用 *transparent background(透明背景)* 选项。
+    </p>
     
     <img src="files/ar-vr-development/transparent-background-puzzle.jpg">
+
+    [demo:augmented_reality]
+
+    
+    [anchor:creating_ar_apps_usdz]
+
+    <h3>创建基于USDZ的AR应用</h3>
+
+    <p>
+      要进入AR Quick Look模式，您需要先创建USDZ资产。为此，您可以在运行时（实时）导出场景（或单个模型），或使用您喜欢的建模套件提前制作。
+    </p>
+
+    <h4>在运行时中准备USDZ资产</h4>
+
+    <p>
+      这种方法基于使用 <a href="manual/en/puzzles/Scenes.html#export_to_usdz">export to USDZ(导出为USDZ)</a> 拼图生成USDZ文件（请参见下面的拼图片段）。
+    </p>
+
+    <h4>在建模软件中准备USDZ资产</h4>
+
+    <p>
+      目前，USDZ导出仅 <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2022/ENU/3dsMax-USD/files/GUID-04F1DF51-0079-4DF8-8457-5AD12B6C0673-html.html" target="_blank">在3ds Max中原生支持</a> 。对于Blender，您可以尝试非官方的 <a href="https://github.com/robmcrosby/BlenderUSDZ" target="_blank">BlenderUSDZ</a> 插件。
+    </p>
+
+    <p class="note">
+      USDZ 与 USD 不同，它是一个容器，将 USD 模型与媒体数据（如 PNG、JPEG、MP3 等）结合在一起。因此，能够导出到 USD 的建模套件不一定支持 USDZ。
+    </p>
+
+    <p>
+      如果您使用的是macOS/iOS/iPadOS系统，Apple官网提供了大量的 <a href="https://developer.apple.com/augmented-reality/tools/" target="_blank">工具</a> ，可以将您保存在OBJ/FBX/glTF/USD等格式中的模型转换为USDZ格式。
+    </p>
+
+    <h4>加载USDZ</h4>
+
+    <p>
+      要预览由建模工具或其他工具导出的USDZ资产，您需要创建一个带有图像的HTML链接：
+    </p>
+
+    <code>
+    &lt;a id=&quot;enter_AR_button&quot; rel=&quot;ar&quot; href=&quot;model.usdz&quot;&gt;
+      &lt;img src=&quot;media/enter_AR_button.png&quot;&gt;
+    &lt;/a&gt;
+    </code>
+
+    <p>
+      链接应该引用一个USDZ模型资源，例如 <em>model.usdz</em> 。图片应该引用显示某个带有图标或文本的按钮的图片，例如“进入AR”。在上面的示例中，该图片位于应用程序目录中的 <em>media/enter_AR_button.png</em> 位置。
+    </p>
+
+    <p>
+      当用户在Apple设备上点击此类链接时，系统将检测到链接引用的USDZ资源并打开AR Quick Look模式，以便您可以在现实世界中定位模型。
+    </p>
+
+    <img src="files/ar-vr-development/ar-quick-look.jpg" style="max-width: 310px">
+
+    <p>
+      使用 Puzzles，可以根据需要创建相同的链接：
+    </p>
+
+    <img src="files/ar-vr-development/usdz-puzzles-static.jpg">
+
+    <p>
+      要在运行时中生成并加载USDZ资产，请使用如下代码：
+    </p>
+
+    <img src="files/ar-vr-development/usdz-puzzles-dynamic.jpg">
+
+    <p>
+      注意区别 —— 我们在这里使用了 *export to USDZ(导出到 USDZ”拼图)* ，并将附加的下载属性分配给链接。
+    </p>
+
+    [demo:augmented_reality]
+
 
     [anchor:chrome_debugging]
 
     <h2>在Chrome中调试</h2>
 
-    <p>为了在开发过程中加快迭代速度，您可以使用 <a href="manual/zh/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port forwarding(端口转发)</a> 功能在移动浏览器中运行AR或VR应用，以避免每次都重新上传内容到远程Web服务器。</p>
+    <p>
+      为了在开发过程中加快迭代速度，您可以使用 <a href="manual/zh/introduction/Testing-Mobile-Browsers.html#Port_Forwarding">port forwarding(端口转发)</a> 功能在移动浏览器中运行AR或VR应用，以避免每次都重新上传内容到远程Web服务器。
+    </p>
+
 
     [anchor:whats_next]
 
     <h2>向前一步</h2>
 
-    <p>请查看 <a href="manual/zh/puzzles/AR_VR.html">以下</a> 章节，了解如何使用拼图为应用编写脚本。另外，如果你想要模拟对象与虚拟环境的真实碰撞，请查看 <a href="manual/zh/introduction/Physics-Guide.html">物理系统指南</a> 章节。</p>
+    <p>
+      请查看 <a href="manual/zh/puzzles/AR_VR.html">以下</a> 章节，了解如何使用拼图为应用编写脚本。另外，如果你想要模拟对象与虚拟环境的真实碰撞，请查看 <a href="manual/zh/introduction/Physics-Guide.html">物理系统指南</a> 章节。
+    </p>
+    
+    [demo:snowballs_vr]
 
 
     <h3>遇到问题？</h3>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
+  </article></body>
 </html>

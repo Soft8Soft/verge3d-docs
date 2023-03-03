@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <title>高级拼图参考 - Soft8Soft</title>
   <meta charset="utf-8">
@@ -9,164 +8,242 @@
   <script src="page.js"></script>
   <link type="text/css" rel="stylesheet" href="page.css" />
 </head>
-
-<body>
-  <article>
+<body><article>
 
     <h1>高级 | Advanced</h1>
 
     <p>使用这些拼图可以在应用中实现高级功能，如网络、与JavaScript代码的交互、数据转换、状态保存/恢复等。</p>
       
     <img src="files/puzzles/puzzles-advanced.jpg">
+
     
     <h2>内容</h2>
 
-    [contents] [anchor:puzzles_reference]
+    [contents]
+    
+    
+    [anchor:puzzles_reference]
 
     <h2>拼图参考</h2>
+
+
+    [anchor:comment]
+
+    <h3>comment(注释)</h3>
+
+    <p>
+      这个拼图除了放置一个注释行，可用于解释拼图的含义，并不产生其他作用。此拼图同时会在 <em>visual_logic.js</em> 生成一行JavaScript注释。
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-comment.jpg">
+
 
     [anchor:exec_script]
 
     <h3>exec script(可执行脚本)</h3>
 
-    <p>此拼图执行指定的javascript代码。它使用 <a href='https://ace.c9.io/'>Ace编辑器</a> 来显示和编辑内容。请查看相关的键盘快捷键简介：<a
-        href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>默认键盘快捷键</a>。</p>
-
+    <p>
+      此拼图执行指定的javascript代码。
+      使用 <a href='https://ace.c9.io/'>Ace编辑器</a> 显示和编辑其中的代码内容。
+      请查看相关的键盘快捷键简介：
+      <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>默认键盘快捷键</a>。
+      可调整大小，以更改编辑器的宽度和高度。
+    </p>
+    
     <p>您可以使用以下内置变量。</p>
     <ul>
       <li><b>app</b> - 应用实例，详见 <a href="api/zh/extras/App.html">App</a> 。</li>
       <li><b>v3d</b> - 包含所有引擎模块的v3d命名空间。</li>
+      <li><b>puzzles</b> - 包含拼图中定义的过程、物理拼图中的API等的“Puzzles Logic”对象。</li>
       <li><b>VARS</b> - 可以通过该对象访问变量拼图。</li>
       <li><b>PROC</b> - 可以通过这个对象访问过程拼图。</li>
     </ul>
     
-    <img src="files/puzzles/puzzles-advanced-exec-script.jpg">
+    <img src="files/puzzles/puzzles-advanced-exec-script.png">
+
     <p><b>关于 "Init" 和其他标签，使用内置插件的具体细节</b></p>
     <ul>
-      <li>如果 <b>app</b> 内置变量在 <b>Init</b> 标签中被使用，那么它就不能用于这个拼图，因为在那个阶段，应用还没有被正确初始化。</li>
-      <li>在 <b>Init</b> 标签中声明的变量和程序不能通过 <b>VARS</b> 和 <b>PROC</b> 从其他标签访问，反之亦然。</li>
-    </ul><!-- COMPAT: < 3.5 --> <a href="#" id="call_JS_function"></a> [anchor:call_external_function]
+      <li>
+        如果在 <b>Init</b> 标签中使用了 <b>app</b> 内置变量，
+        则它不能用于此拼图，
+        因为在那个阶段应用尚未被正确初始化。
+      </li>
+      <li>
+        在 <b>Init</b> 标签中声明的变量和函数不能通过
+        <b>VARS</b> 和 <b>PROC</b> 从其他标签访问，
+        反之亦然。
+      </li>
+    </ul>
+
+
+    <!-- COMPAT: < 3.5 -->
+    <a href="#" id="call_JS_function"></a>
+    [anchor:call_external_function]
 
     <h3>call external function(调用外部函数)</h3>
 
-    <p>执行一个在应用的JavaScript代码中指定的函数。可以选择传递参数，作为函数参数使用。</p>
+    <p>
+      执行一个在应用的JavaScript代码中指定的函数。可以选择传递参数，作为函数参数使用。
+    </p>
       
     <img src="files/puzzles/puzzles-advanced-call-js-function.jpg">
-    <p>为了在JavaScript代码中添加一个函数，用任何文本编辑器打开应用 <strong>.js</strong> 文件（例如， <i>my_awesome_app.js</i> 位于
-      <i>verge3d/applications/my_awesome_app</i>）。搜索 "prepareExternalInterface" 并在该声明中添加您的函数（在大括号之间），这样它看起来像这样。
+
+    <p>
+      为了在JavaScript代码中添加一个函数，用任何文本编辑器打开应用 <strong>.js</strong> 文件（例如， <i>my_awesome_app.js</i> 位于 <i>verge3d/applications/my_awesome_app</i>）。搜索 "prepareExternalInterface" 并在该声明中添加您的函数（在大括号之间），这样它看起来像这样。
     </p>
     
-    
-<code>
-
+    <code>
       function prepareExternalInterface(app) {
               app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
                   alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
               }
       }
-    
-</code>
+          </code>
 
 
     [anchor:load_data]
 
     <h3>load data(载入数据)</h3>
 
-    <p>试图从一个指定的位置加载数据。不管尝试是否成功，"once ready do" 槽中的拼图都会被解释。检索到的数据可以通过 <a
-        href="manual/zh/puzzles/Advanced.html#loaded_data">加载数据</a> 拼图进行访问。</p>
-      
-    <img
-      src="files/puzzles/puzzles-advanced-load-data.jpg">
+    <p>
+      试图从一个指定的位置加载数据。不管尝试是否成功，"once ready do" 槽中的拼图都会被解释。检索到的数据可以通过 <a href="manual/zh/puzzles/Advanced.html#loaded_data">加载数据</a> 拼图进行访问。
+      </p>
 
+    <p>如果请求不应被缓存，请单击齿轮图标并激活 "disable caching" 选项以禁用缓存。拼图中的缓存逻辑：当一个url第一次用于缓存——它将被缓存，并且所有后续使用缓存的url都将使用保存的缓存，如果url与禁用缓存一起使用——它既不会创建缓存也不会使用已保存的缓存。</p>
+
+      <img src="files/puzzles/puzzles-advanced-load-data.jpg">
+    
+    <p>浏览器尝试保留资产的本地副本以进行优化。 *为避免浏览器缓存*，每次发出请求时可以使用一个附加参数来更改 URL。 要添加此参数，请使用 <a href="manual/zh/puzzles/HTML.html#set_url_param">set URL param(设置URL参数)</a> 和 <a href="manual/zh/puzzles/Time.html#elapsed_total">elapsed total(总耗时)</a> 拼图：</p>
+
+    <img src="files/puzzles/puzzles-advanced-load-data-tip-browser-cache.jpg">
+
+
+    
     [anchor:send_data]
 
     <h3>send data(发送数据)</h3>
 
-    <p>试图使用异步的 <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a>
-      请求将指定的数据发送到一个远程位置。不管尝试是否成功，"once ready do" 槽中的拼图都会被解释。如果有任何响应数据，可以通过 <a
-        href="manual/zh/puzzles/Advanced.html#loaded_data">loaded data</a> 拼图访问。</p>
+    <p>
+      试图使用异步的 <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> 请求将指定的数据发送到一个远程位置。不管尝试是否成功，"once ready do" 槽中的拼图都会被解释。如果有任何响应数据，可以通过 <a href="manual/zh/puzzles/Advanced.html#loaded_data">loaded data</a> 拼图访问。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-advanced-send-data.jpg">
+    <img src="files/puzzles/puzzles-advanced-send-data.jpg">
+
+    <p>浏览器尝试保留资产的本地副本以进行优化。 *为避免浏览器缓存*，每次发出请求时可以使用一个附加参数来更改 URL。 要添加此参数，请使用 <a href="manual/zh/puzzles/HTML.html#set_url_param">set URL param(设置URL参数)</a> 和 <a href="manual/zh/puzzles/Time.html#elapsed_total">elapsed total(总耗时)</a> 拼图：</p>
+
+    <img src="files/puzzles/puzzles-advanced-send-data-tip-browser-cache.jpg">
+
+
 
     [anchor:loaded_data]
 
     <h3>loaded data(已加载的数据)</h3>
 
-    <p>返回由 <a href="manual/zh/puzzles/Advanced.html#load_data">加载数据</a> 或 <a
-        href="manual/zh/puzzles/Advanced.html#send_data">发送数据</a> 拼图获取的数据。</p>
+    <p>
+      返回由 <a href="manual/zh/puzzles/Advanced.html#load_data">加载数据</a> 或 <a href="manual/zh/puzzles/Advanced.html#send_data">发送数据</a> 拼图获取的数据。
+      </p>
       
-    <img
-      src="files/puzzles/puzzles-advanced-loaded-data.jpg">
+    <img src="files/puzzles/puzzles-advanced-loaded-data.jpg">
+
+
 
     [anchor:read_JSON]
 
     <h3>read JSON(读取JSON)</h3>
 
-    <p>将文本（或 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a>）解释为 <a
-        href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> 数据，并以字典形式返回。
+    <p>
+      将文本（或 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a>）解释为 <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> 数据，并以字典形式返回。
     </p>
       
     <img src="files/puzzles/puzzles-advanced-read-JSON.jpg">
 
+
+
     [anchor:read_CSV]
 
-    <h3>read CSV(读取JSON)</h3>
+    <h3>read CSV(读取CSV)</h3>
 
-    <p>将文本（或 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a>）解释为 <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">逗号分隔的值</a>。返回一个表格行的列表，每行表示为一个值的列表。分隔符可以通过下拉选择，以对应CSV文件的导出设置。"From row" 值表示从顶部开始跳过多少行。</p>
+    <p>
+      将文本（或 <a href="manual/zh/puzzles/HTML.html#data_uri">数据URI</a>）解释为 <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">逗号分隔的值</a>。返回一个表格行的列表，每行表示为一个值的列表。分隔符可以通过下拉选择，以对应CSV文件的导出设置。"From row" 值表示从顶部开始跳过多少行。
+    </p>
 
     <img src="files/puzzles/puzzles-advanced-read-CSV.jpg">
 
-    <p>表的行和值是通过它们的数字索引从0开始访问的。</p>
+    <p>
+      表的行和值是通过它们的数字索引从0开始访问的。
+    </p>
     
     <img src="files/puzzles/puzzles-advanced-csv-example.jpg">
+
+
 
     [anchor:save_state]
 
     <h3>save state(保存状态)</h3>
 
-    <p>保存指定对象的状态和/或由其名称指定的变量值。对象被克隆并存储在内存中。变量的值被检索并存储在内存中，每个指定的变量名称都是如此。</p>
+    <p>
+      保存指定对象的状态和/或由其名称指定的变量值。对象被克隆并存储在内存中。变量的值被检索并存储在内存中，每个指定的变量名称都是如此。
+    </p>
     
     <img src="files/puzzles/puzzles-advanced-save-state.jpg">
 
-    <p>如果此拼图被多次调用，那么这些状态将被依次保存，这样就可以通过 <a href="manual/zh/puzzles/Advanced.html#undo_state">undo state(撤销状态)</a> 拼图返回到之前的任一状态。</p>
+    <p>
+      如果此拼图被多次调用，那么这些状态将被依次保存，这样就可以通过 <a href="manual/zh/puzzles/Advanced.html#undo_state">undo state(撤销状态)</a> 拼图返回到之前的任一状态。
+    </p>
+
+
 
     [anchor:undo_state]
 
     <h3>undo state(撤销状态)</h3>
 
-    <p>恢复用 <a href="manual/zh/puzzles/Advanced.html#save_state">save state(保存状态)</a> 拼图保存的对象和/或变量的状态。</p>
+    <p>
+      恢复用 <a href="manual/zh/puzzles/Advanced.html#save_state">save state(保存状态)</a> 拼图保存的对象和/或变量的状态。
+    </p>
     
     <img src="files/puzzles/puzzles-advanced-undo-state.jpg">
     
-    <p>如果这个拼图被多次调用，状态会从保存的序列中恢复（如果有的话），这使得我们可以从堆栈中返回到任何先前保存的状态。有时您需要解决诸如撤消历史记录中没有保存状的情况，例如在UI中进行更改等。为此，请使用状态计数器变量：</p>
+    <p>
+      如果这个拼图被多次调用，状态会从保存的序列中恢复（如果有的话），这使得我们可以从堆栈中返回到任何先前保存的状态。有时您需要解决诸如撤消历史记录中没有保存状的情况，例如在UI中进行更改等。为此，请使用状态计数器变量：
+    </p>
 
       <img src="files/puzzles/puzzles-advanced-save-state-and-undo-state-example.jpg">
 
-    [anchor:all_variable_names]
+
+
+      [anchor:all_variable_names]
 
     <h3>all variable names(所有变量名称)</h3>
 
-    <p>返回一个包含拼图中使用的所有变量名称的列表。</p>
+    <p>
+      返回一个包含拼图中使用的所有变量名称的列表。
+    </p>
       
     <img src="files/puzzles/puzzles-advanced-all-variable-names.jpg">
+
+
 
     [anchor:variable_value_by_name]
 
     <h3>variable value by name(对应名称的变量的值)</h3>
 
-    <p>返回指定名称的变量的值。此拼图的工作方式与标准的变量值拼图类似，但不需要从预定义的下拉菜单中选择一个变量。</p>
+    <p>
+      返回指定名称的变量的值。此拼图的工作方式与标准的变量值拼图类似，但不需要从预定义的下拉菜单中选择一个变量。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
+    <img src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
+
 
     [anchor:javascript_object]
 
     <h3>JavaScript object(JavaScript对象)</h3>
 
-    <p>返回一个给定的JavaScript对象。</p>
+    <p>
+      返回一个给定的JavaScript对象。
+    </p>
       
     <img src="files/puzzles/puzzles-advanced-javascript-object.jpg">
+
     <p>使用此拼图可获得以下JavaScript对象。</p>
 
     <dl>
@@ -178,36 +255,33 @@
       <dd>JavaScript中的*this*值。</dd>
     </dl>
 
-    <p>*arguments*选项可以用来获取额外的拼图选项。例如，当使用 <a href="manual/zh/puzzles/Events.html#when_clicked">when click(当点击...时)</a>
-      拼图时，您可以使用在*do*插槽后面被执行的回调的第一个参数来获得触发拼图逻辑的内部JavaScript事件。在下面的例子中，我们使用这一事件来获取鼠标指针的X和Y坐标。</p>
+    <p>*arguments*选项可以用来获取额外的拼图选项。例如，当使用 <a href="manual/zh/puzzles/Events.html#when_clicked">when click(当点击...时)</a> 拼图时，您可以使用在*do*插槽后面被执行的回调的第一个参数来获得触发拼图逻辑的内部JavaScript事件。在下面的例子中，我们使用这一事件来获取鼠标指针的X和Y坐标。</p>
       
-    <img
-      src="files/puzzles/puzzles-advanced-javascript-object-example.jpg">
+    <img src="files/puzzles/puzzles-advanced-javascript-object-example.jpg">
+
     <p>以下拼图支持高级选项。</p>
 
     <ul>
-      <li><a href="manual/zh/puzzles/Events.html#when_clicked">when click(当点击...时)</a>， <a
-          href="manual/zh/puzzles/Events.html#when_hovered">when hovered(当悬停于...时)</a>， <a
-          href="manual/zh/puzzles/Events.html#when_dragged">when dragged(当拖动...时)</a> —— <a
-          href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">鼠标</a> 或 <a
-          href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">触摸</a> 事件触发 <em>do</em> 插槽中的拼图。</li>
-      <li><a href="manual/zh/puzzles/Time.html#after">after(在...之后)</a>， <a
-          href="manual/zh/puzzles/Time.html#set_timer">set timer(设置定时器)</a> —— 由拼图的 <a
-          href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval(设置时间间隔)</a> 调用返回的定时器ID。</li>
+      <li><a href="manual/zh/puzzles/Events.html#when_clicked">when click(当点击...时)</a>， <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered(当悬停于...时)</a>， <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged(当拖动...时)</a> —— <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">鼠标</a> 或 <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">触摸</a> 事件触发 <em>do</em> 插槽中的拼图。</li>
+      <li><a href="manual/zh/puzzles/Time.html#after">after(在...之后)</a>， <a href="manual/zh/puzzles/Time.html#set_timer">set timer(设置定时器)</a> —— 由拼图的 <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval(设置时间间隔)</a> 调用返回的定时器ID。</li>
       <li><a href="manual/zh/puzzles/Time.html#every_frame">every frame</a> - 间隔时间delta和总耗时。</li>
       <li><a href="manual/zh/puzzles/HTML.html#event">Event</a> - 事件对象。</li>
       <li><a href="manual/zh/puzzles/AR_VR.html#session_event">on session event</a> - WebXR事件对象。</li>
     </ul>
 
+
     [anchor:wait_promise]
 
     <h3>wait promise(等待promise)</h3>
 
-    <p>等待promise被解析或被拒绝，并在 <a href="manual/zh/puzzles/Advanced.html#promise_value">promise value</a> 拼图中返回其值（或拒绝原因）。</p>
+    <p>
+      等待promise被解析或被拒绝，并在 <a href="manual/zh/puzzles/Advanced.html#promise_value">promise value</a> 拼图中返回其值（或拒绝原因）。
+    </p>
+
     <img src="files/puzzles/puzzles-advanced-wait-promise.jpg">
-    <p>这个拼图可被用于获取 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">导出到gltf</a> 和 <a
-        href="manual/zh/puzzles/Materials.html#generate_normal_map">generate normal map(生成法线贴图)</a>
-      的值。作为一个异步拼图，这些拼图不会立即返回解析值。相反，它们会返回 <em>promise</em> 值，这些值在它们被用作输入的拼图中被解析。但在少数情况下，这种解析并没有发生。在这些情况下，您应该使用 *wait promise* 来解析promise值。</p>
+
+    <p>这个拼图可被用于获取 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">导出到gltf</a> 和 <a href="manual/zh/puzzles/Materials.html#generate_normal_map">generate normal map(生成法线贴图)</a> 的值。作为一个异步拼图，这些拼图不会立即返回解析值。相反，它们会返回 <em>promise</em> 值，这些值在它们被用作输入的拼图中被解析。但在少数情况下，这种解析并没有发生。在这些情况下，您应该使用 *wait promise* 来解析promise值。</p>
+
 
     [anchor:promise_value]
 
@@ -215,20 +289,90 @@
 
     <p>已解析的promise值（在已实现promise的情况下）或错误字符串（在已拒绝promise的情况下）。</p>
 
+
+    [anchor:get_procedure]
+
+    <h3>get procedure(获取过程)</h3>
+
+    <p>
+      此拼图可用于获取拼图中定义的 <a href="manual/zh/puzzles/Procedures.html">过程</a> 。
+      返回的值可以分配给一个变量或作为参数传递给另一个过程，
+      然后通过
+       <a href="manual/zh/puzzles/Advanced.html#call_procedure">call procedure(调用过程)</a> 
+       拼图稍后执行。
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-get-procedure.png" style="max-width: 818px">
+
+
+    [anchor:call_procedure]
+
+    <h3>call procedure(调用过程)</h3>
+
+    <p>
+      执行通过<a href="manual/zh/puzzles/Advanced.html#get_procedure">get procedure</a> 
+      拼图获得的拼图的过程。
+      可选地传递要用作过程参数的参数。 
+      “call procedure(调用过程)” 拼图有 2 种变体 - 
+      有或没有返回值。
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-call-procedure.png" style="max-width: 820px">
+
+
     [anchor:connector]
 
     <h3>connector(连接器)</h3>
 
-    <p>这个拼图可建立拼图之间的连接，以便于移动、删除和在其他拼图中使用拼图组。典型应用是将 <a href="manual/zh/puzzles/Sound.html#load_sound">load sound(加载声音)</a>
-      或 <a href="manual/zh/puzzles/Sound.html#load_video">load video(加载视频)</a> 的拼图连接成一个组，用以组织应用中预加载媒体资源。</p>
+    <p>
+      这个拼图可建立拼图之间的连接，
+      以便于移动、删除和在其他拼图中使用拼图组。
+      典型应用是将 <a href="manual/zh/puzzles/Sound.html#load_sound">load sound(加载声音)</a>
+      或 <a href="manual/zh/puzzles/Sound.html#load_video">load video(加载视频)</a> 
+      的拼图连接成一个组，
+      用以组织应用中预加载媒体资源。
+    </p>
       
-    <img
-      src="files/puzzles/puzzles-advanced-connector.jpg">
+    <img src="files/puzzles/puzzles-advanced-connector.jpg">
+
+
+    [anchor:add_event_listener]
+
+    <h3>add event listener(添加事件监听器)</h3>
+
+    <p>
+      为指定的事件类型添加一个监听器，即在引发指定的事件类型时执行通过<a href="manual/zh/puzzles/Advanced.html#get_procedure">get procedure</a> 
+      拼图获得的拼图的过程。
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-add-event-listener.jpg">
+
+
+    [anchor:remove_event_listener]
+
+    <h3>remove event listener(移除事件监听器)</h3>
+
+    <p>
+      从指定的事件类型中删除侦听器，即从事件类型侦听器中删除给定的过程。
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-remove-event-listener.jpg">
+
+
+    [anchor:dispatch_event]
+
+    <h3>dispatch event(调度事件)</h3>
+
+    <p>
+      触发指定类型的事件。 可选地传递参数(parameters)以用作过程参数(arguments)，即每个过程的参数(arguments)相同。
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-dispatch-event.jpg">
+
+
     <h2>在使用拼图时遇到困难？</h2>
 
     <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
-  </article>
-</body>
-
+  </article></body>
 </html>
