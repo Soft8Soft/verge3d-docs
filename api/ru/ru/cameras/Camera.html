@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Абстрактный базовый класс для камер. Этот класс всегда должен быть унаследован при создании новой камеры.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]()</h3>
+    <p>
+      Создает новый [name]. Обратите внимание, что этот класс не предназначен для прямого вызова; вероятно, вместо него вам понадобится [page:PerspectiveCamera] или [page:OrthographicCamera].
+    </p>
+
+
+    <h2>Совйства</h2>
+    <p>Общие свойства смотрите в базовом классе [page:Object3D].</p>
+
+    <h3>[property:Layers layers]</h3>
+    <p>
+      [page:Layers layers], членом которого является камера. Это наследуемое свойство от [page:Object3D].<br><br>
+
+      Объекты должны иметь хотя бы один общий слой с камерой, чтобы быть видимыми при визуализации точки зрения камеры.
+    </p>
+
+    <h3>[property:Matrix4 matrixWorldInverse]</h3>
+    <p>
+      Это обратная величина по отношению к matrixWorld. MatrixWorld содержит матрицу, которая имеет мировое преобразование камеры.
+    </p>
+
+    <h3>[property:Matrix4 projectionMatrix]</h3>
+    <p>Это матрица, которая содержит проекцию.</p>
+
+    <h3>[property:Matrix4 projectionMatrixInverse]</h3>
+    <p>Обратная проекция матрицы projectionMatrix.</p>
+
+
+    <h2>Методы</h2>
+    <p>Общие методы смотрите в базовом классе [page:Object3D].</p>
+
+    <h3>[method:Camera clone]()</h3>
+    <p>
+      Возвращает новую камеру с теми же свойствами, что и эта.
+    </p>
+
+    <h3>[method:Camera copy]([param:Camera source], [param:Boolean recursive])</h3>
+    <p>
+      Копирует свойства из исходной камеры в эту.
+    </p>
+
+    <h3>[method:Vector3 getWorldDirection]([param:Vector3 target])</h3>
+    <p>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3. <br><br>
+
+    Возвращает [page:Vector3], представляющий направление в мировом пространстве, в котором смотрит камера. (Примечание: камера смотрит вниз по своей локальной, отрицательной оси z).<br><br>
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

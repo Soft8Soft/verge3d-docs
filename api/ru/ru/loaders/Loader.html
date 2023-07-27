@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">Базовый класс для реализации загрузчиков.</p>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:LoadingManager manager])</h3>
+    <p>
+      [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].
+    </p>
+    <p>
+     Создает новый [name].
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:String crossOrigin]</h3>
+    <p>
+    Строка crossOrigin для осуществления CORS для загрузки url из другого домена, который разрешает CORS.
+    По умолчанию *anonymous*.
+    </p>
+
+    <h3>[property:Boolean withCredentials]</h3>
+    <p>
+      Использует ли XMLHttpRequest учетные данные. См. [page:.setWithCredentials].
+      По умолчанию *false*.
+    </p>
+
+    <h3>[property:LoadingManager manager]</h3>
+    <p>
+      [page:LoadingManager Менеджер Загрузки] используемый загрузчиком. По умолчанию [page:DefaultLoadingManager].
+    </p>
+
+    <h3>[property:String path]</h3>
+    <p>
+      Базовый путь, с которого будет загружен ассет.
+      По умолчанию это пустая строка.
+    </p>
+
+    <h3>[property:String resourcePath]</h3>
+    <p>
+      Базовый путь, с которого будут загружаться дополнительные ресурсы, например, текстуры.
+      По умолчанию это пустая строка.
+    </p>
+
+    <h3>[property:Object requestHeader]</h3>
+    <p>
+      [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header Заголовок запроса] используемый в запросе HTTP. См. [page:.setRequestHeader]. По умолчанию это пустой объект.
+    </p>
+
+    <h2>Методы</h2>
+
+    <h3>[method:void load]()</h3>
+    <p>
+      Этот метод должен быть реализован всеми конкретными загрузчиками. Он содержит логику загрузки ассета из бэкенда.
+    </p>
+
+    <h3>[method:Promise loadAsync]([param:String url], [param:Function onProgress])</h3>
+    <p>
+    [page:String url] — Строка, содержащая путь/URL загружаемого файла.<br>
+    [page:Function onProgress] — (опционально) Функция, которая будет вызываться во время загрузки. Аргументом будет экземпляр XMLHttpRequest, который содержит байты .[page:Integer total] и .[page:Integer loaded].<br>
+    </p>
+    <p>
+    Этот метод эквивалентен [page:.load], но возвращает значение [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise Promise].
+    </p>
+    <p>
+    [page:Function onLoad] обрабатывается [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve Promise.resolve] и [page:Function onError] обрабатывается [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject Promise.reject].
+    </p>
+
+    <h3>[method:void parse]()</h3>
+    <p>
+      Этот метод должен быть реализован всеми конкретными загрузчиками. Он содержит логику парсинга ассета на объекты Verge3D.
+    </p>
+
+    <h3>[method:Loader setCrossOrigin]([param:String crossOrigin])</h3>
+    <p>
+      [page:String crossOrigin] — Строка crossOrigin для осуществления CORS для загрузки url из другого домена, который разрешает CORS.
+    </p>
+
+    <h3>[method:Loader setWithCredentials]([param:Boolean value])</h3>
+    <p>
+      Использует ли XMLHttpRequest учетные данные, такие как куки, заголовки авторизации или
+      сертификаты клиента TLS. См. [link:https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials XMLHttpRequest.withCredentials].<br>
+      Обратите внимание, что это не влияет, если вы загружаете файлы локально или из того же домена.
+    </p>
+
+    <h3>[method:Loader setPath]([param:String path])</h3>
+    <p>
+      [page:String path] — Устанавливает базовый путь для ассета.
+    </p>
+
+    <h3>[method:Loader setResourcePath]([param:String resourcePath])</h3>
+    <p>
+      [page:String resourcePath] — Устанавливает базовый путь для зависимых ресурсов, таких как текстуры.
+    </p>
+
+    <h3>[method:Loader setRequestHeader]([param:Object requestHeader])</h3>
+    <p>
+      [page:Object requestHeader] — key: Имя заголовка, значение которого должно быть установлено. value: Значение, которое нужно установить в качестве тела заголовка.<br><br>
+
+      См. [link:https://developer.mozilla.org/en-US/docs/Glossary/Request_header request header] используемый в HTTP-запросе.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

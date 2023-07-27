@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Представляет выровненную по оси ограничительную рамку (AABB) в двумерном пространстве.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Vector2 min], [param:Vector2 max])</h3>
+    <p>
+    [page:Vector2 min] — (необязательно) [page:Vector2], представляющий нижнюю (x, y) границу куба. По умолчанию (+ бесконечность, + бесконечность).<br>
+
+    [page:Vector2 max] — (необязательно) [page:Vector2], представляющий верхнюю (x, y) границу куба. По умолчанию (- Бесконечность, - Бесконечность)..<br><br>
+
+    Создает [name], ограниченное min и max.
+    </p>
+
+
+    <h2>Свойства</h2>
+
+
+
+    <h3>[property:Vector2 min]</h3>
+    <p>
+      [page:Vector2] представляет собой нижнюю (x, y) границу куба.<br>
+      По умолчанию (+ бесконечность, + бесконечность). 
+    </p>
+
+    <h3>[property:Vector2 max]</h3>
+    <p>
+      [page:Vector2] представляет собой нижнюю верхнюю (x, y) границу куба.<br>
+      По умолчанию (- Бесконечность, - Бесконечность).
+    </p>
+
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:Vector2 clampPoint]([param:Vector2 point], [param:Vector2 target])</h3>
+    <p>
+    [page:Vector2 point] — зафиксировать [page:Vector2]. <br>
+    [page:Vector2 target] — результат будет скопирован в этот Vector2.<br><br>
+
+    [link:https://en.wikipedia.org/wiki/Clamping_(graphics) Clamps] точка [page:Vector2 point] в границах этого поля.<br>
+    </p>
+
+    <h3>[method:Box2 clone]()</h3>
+    <p>Возвращает новый [page:Box2] с теми же [page:.min min] и [page:.max max], что и данный.</p>
+
+    <h3>[method:Boolean containsBox]([param:Box2 box])</h3>
+    <p>
+    [page:Box2 box] - [page:Box2 Box2] для проверки на включение.<br><br>
+
+    Возвращает true, если это поле включает в себя все поле [page:Box2 box]. Если это и [page:Box2 box] идентичны, <br>
+    эта функция также возвращает true. 
+    </p>
+
+    <h3>[method:Boolean containsPoint]([param:Vector2 point])</h3>
+    <p>
+    [page:Vector2 point] - [page:Vector2] для проверки на включение.<br><br>
+
+    Возвращает true, если указанная точка [page:Vector2 point] лежит внутри или на границах данного поля.
+    </p>
+
+    <h3>[method:Box2 copy]([param:Box2 box])</h3>
+    <p>
+      Копирует значения [page:.min min] и [page:.max max] из [page:Box2 box] в этот box.
+    </p>
+
+    <h3>[method:Float distanceToPoint]([param:Vector2 point])</h3>
+    <p>
+    [page:Vector2 point] - [page:Vector2] для измерения расстояния.<br><br>
+
+    Возвращает расстояние от любого края этого поля до указанной точки. Если точка [page:Vector2 point] лежит внутри этой области, расстояние будет равно 0.
+    </p>
+
+    <h3>[method:Boolean equals]([param:Box2 box])</h3>
+    <p>
+    [page:Box2 box] — Box для сравнения с этим.<br><br>
+
+    Возвращает true, если у этого поля и [page:Box2 box] одинаковые нижняя и верхняя границы.
+    </p>
+
+    <h3>[method:Box2 expandByPoint]([param:Vector2 point])</h3>
+    <p>
+    [page:Vector2 point] - [page:Vector2], которые должны быть включены в поле.<br><br>
+
+    Расширяет границы этой области, включая [page:Vector2 point].
+    </p>
+
+    <h3>[method:Box2 expandByScalar]([param:Float scalar])</h3>
+    <p>
+    [page:Float scalar] — Расстояние, на которое нужно увеличить box.<br><br>
+
+    Расширяет каждое измерение поля на [page:Float scalar]. При отрицательном значении размеры ячейки сужаются.
+    </p>
+
+    <h3>[method:Box2 expandByVector]([param:Vector2 vector])</h3>
+    <p>
+    [page:Vector2 vector] - [page:Vector2] для расширения поля.<br><br>
+
+    Равностороннее расширение этого поля на [page:Vector2 vector]. Ширина этого поля будет увеличена на x-компонент [page:Vector2 vector] в обоих направлениях. Высота этого поля будет увеличена на y-компонент [page:Vector2 vector] в обоих направлениях.
+    </p>
+
+    <h3>[method:Vector2 getCenter]([param:Vector2 target])</h3>
+    <p>
+    [page:Vector2 target] — результат будет скопирован в этот Vector2.<br><br>
+
+    Возвращает центральную точку поля в виде [page:Vector2].
+    </p>
+
+    <h3>[method:Vector2 getParameter]([param:Vector2 point], [param:Vector2 target]) </h3>
+    <p>
+    [page:Vector2 point] - [page:Vector2].<br/>
+    [page:Vector2 target] — результат будет скопирован в этот Vector2.<br><br>
+
+    Возвращает точку как пропорцию ширины и высоты данного поля.
+    </p>
+
+    <h3>[method:Vector2 getSize]([param:Vector2 target])</h3>
+    <p>
+    [page:Vector2 target] — результат будет скопирован в этот Vector2.<br><br>
+
+    Возвращает ширину и высоту этого поля.
+    </p>
+
+    <h3>[method:Box2 intersect]([param:Box2 box])</h3>
+    <p>
+    [page:Box2 box] — Box, с которым будет пересечения.<br><br>
+
+    Возвращает пересечение этого и [page:Box2 box], устанавливая верхнюю границу этого бокса на меньшую из верхних границ двух боксов, а нижнюю границу этого бокса на большую из нижних границ двух боксов.
+    </p>
+
+    <h3>[method:Boolean intersectsBox]([param:Box2 box])</h3>
+    <p>
+    [page:Box2 box] — Box для проверки пересечения.<br><br>
+
+    Определяет, пересекает ли данный бокс [page:Box2 box].
+    </p>
+
+    <h3>[method:Boolean isEmpty]()</h3>
+    <p>
+      Возвращает true, если эта область включает нулевые точки в своих границах.<br>
+      Обратите внимание, что квадрат с равными нижней и верхней границами все еще включает одну точку, общую для обеих границ.
+    </p>
+
+    <h3>[method:Box2 makeEmpty]()</h3>
+    <p>Делает этот box пустым.</p>
+
+
+    <h3>[method:Box2 set]([param:Vector2 min], [param:Vector2 max])</h3>
+    <p>
+      [page:Vector2 min] — (требуется) [page:Vector2], представляющий нижнюю (x, y) границу бокса. <br>
+      [page:Vector2 max]  - (требуется) [page:Vector2], представляющий верхнюю (x, y) границу бокса. <br><br>
+
+      Устанавливает нижнюю и верхнюю (x, y) границы данного бокса.<br>
+      Обратите внимание, что этот метод только копирует значения из заданных объектов.
+    </p>
+
+    <h3>[method:Box2 setFromCenterAndSize]([param:Vector2 center], [param:Vector2 size])</h3>
+    <p>
+    [page:Vector2 center] — Желаемое положение центра бокса ([page:Vector2]). <br>
+    [page:Vector2 size] — Желаемые размеры x и y бокса ([page:Vector2]).<br><br>
+
+    Центрирует этот бокс по [page:Vector2 center] и устанавливает ширину и высоту этого бокса равными значениям, указанным в [page:Vector2 size].
+    </p>
+
+    <h3>[method:Box2 setFromPoints]([param:Array points])</h3>
+    <p>
+    [page:Array points] — Массив [page:Vector2 Vector2s], который будет содержать итоговый бокс.<br><br>
+
+    Устанавливает верхнюю и нижнюю границы этого бокса, чтобы включить все точки из [page:Array points].
+    </p>
+
+    <h3>[method:Box2 translate]([param:Vector2 offset])</h3>
+    <p>
+    [page:Vector2 offset] — Направление и расстояние смещения.<br><br>
+
+    Добавляет [page:Vector2 offset] к верхней и нижней границам этого бокса, эффективно перемещая этот бокс на [page:Vector2 offset] единиц в 2D пространстве.
+    </p>
+
+    <h3>[method:Box2 union]([param:Box2 box])</h3>
+    <p>
+    [page:Box2 box] — Бокс, который будет объединен с этим боксом.<br><br>
+
+    Объединяет этот бокс с [page:Box2 box], устанавливая верхнюю границу этого бокса на большую из верхних границ двух боксов, а нижнюю границу этого бокса на меньшую из нижних границ двух боксов.
+    </p>
+
+
+
+    [sourceHint]
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">3D-объект стрелки для визуализации направлений.</p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    const dir = new v3d.Vector3(1, 2, 0);
+
+    //normalize the direction vector (convert to vector of length 1)
+    dir.normalize();
+
+    const origin = new v3d.Vector3(0, 0, 0);
+    const length = 1;
+    const hex = 0xffff00;
+
+    const arrowHelper = new v3d.ArrowHelper(dir, origin, length, hex);
+    scene.add(arrowHelper);
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_shadowmesh WebGL / shadowmesh]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Vector3 dir], [param:Vector3 origin], [param:Number length], [param:Number hex], [param:Number headLength], [param:Number headWidth])</h3>
+    <p>
+    [page:Vector3 dir] -- направление от начала координат. Должен быть единичным вектором. <br>
+    [page:Vector3 origin] -- точка, в которой начинается стрелка.<br>
+    [page:Number length] -- длина стрелки. По умолчанию *1*.<br>
+    [page:Number hex] -- шестнадцатеричное значение для определения цвета. По умолчанию 0xffff00.<br>
+    [page:Number headLength] -- длина наконечника стрелки. По умолчанию 0,2 * длина.<br>
+    [page:Number headWidth] -- ширина наконечника стрелки. По умолчанию 0,2 * headLength.<br>
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Object3D].</p>
+
+    <h3>[property:Line line]</h3>
+    <p>Содержит линейную часть стрелки.</p>
+
+    <h3>[property:Mesh cone]</h3>
+    <p>Содержит конусную часть стрелки.</p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Object3D].</p>
+
+    <h3>[method:null setColor]([param:Color color])</h3>
+    <p>
+    color -- Желаемый цвет.<br><br>
+
+    Устанавливает цвет стрелки.
+    </p>
+
+    <h3>[method:null setLength]([param:Number length], [param:Number headLength], [param:Number headWidth])</h3>
+    <p>
+    length -- Желаемая длина.<br>
+    headLength -- Длина наконечника стрелки.<br>
+    headWidth -- Ширина наконечника стрелки.<br><br>
+
+    Устанавливает длину стрелки.
+    </p>
+
+    <h3>[method:null setDirection]([param:Vector3 dir])</h3>
+    <p>
+    dir -- Желаемое направление. Должно быть единичным вектором.<br><br>
+
+    Устанавливает направление стрелки.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

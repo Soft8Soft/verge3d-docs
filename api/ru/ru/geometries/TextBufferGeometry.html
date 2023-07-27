@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:BufferGeometry] &rarr; [page:ExtrudeBufferGeometry] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Класс для генерации текста в виде единой геометрии. Он создается путем предоставления строки текста и хэша из
+      параметров, состоящих из загруженного [page:Font] и настроек для родительской геометрии [page:ExtrudeBufferGeometry].
+      Дополнительные сведения см. на страницах [page:Font], [page:FontLoader] и [page:Creating_Text].
+    </p>
+
+    <iframe id="scene" src="scenes/geometry-browser.html#TextBufferGeometry"></iframe>
+
+    <script>
+
+    // iOS iframe auto-resize workaround
+
+    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
+
+      const scene = document.getElementById('scene');
+
+      scene.style.width = getComputedStyle(scene).width;
+      scene.style.height = getComputedStyle(scene).height;
+      scene.setAttribute('scrolling', 'no');
+
+    }
+
+    </script>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    const loader = new v3d.FontLoader();
+
+    loader.load('fonts/helvetiker_regular.typeface.json', function(font) {
+
+      const geometry = new v3d.TextBufferGeometry('Hello Verge3D!', {
+        font: font,
+        size: 80,
+        height: 5,
+        curveSegments: 12,
+        bevelEnabled: true,
+        bevelThickness: 10,
+        bevelSize: 8,
+        bevelOffset: 0,
+        bevelSegments: 5
+      });
+    });
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+    [example:webgl_geometry_text geometry / text]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:String text], [param:Object parameters])</h3>
+    <p>
+    text — Текст, который должен быть показан. <br>
+    parameters — Объект, который может содержать следующие параметры.
+    <ul>
+      <li>font — экземпляр v3d.Font.</li>
+      <li>size — Float. Размер текста. По умолчанию 100.</li>
+      <li>height — Float. Толщина для экструзии текста. По умолчанию 50.</li>
+      <li>curveSegments — Integer. Количество точек на кривых. По умолчанию - 12.</li>
+      <li>bevelEnabled — Boolean. Включить фаску. По умолчанию False.</li>
+      <li>bevelThickness — Float. Глубина фаски текста. По умолчанию 10.</li>
+      <li>bevelSize — Float. На каком расстоянии от контура текста находится фаска. По умолчанию 8.</li>
+      <li>bevelOffset — Float. На каком расстоянии от контура текста начинается фаска. По умолчанию 0.</li>
+      <li>bevelSegments — Integer. Количество сегментов фаски. По умолчанию 3.</li>
+    </ul>
+    </p>
+
+    <h2>Доступные Шрифты</h2>
+
+    <p>
+    Текстовая геометрия использует шрифты, сгеренированные <a href='http://gero3.github.io/facetype.js/' target="_top">typeface.json</a> .
+    Некоторые существующие шрифты находятся в <b>/examples/fonts</b> и должны быть включены в страницу.
+    </p>
+    <table>
+      <tr>
+        <th>Font</th>
+        <th>Weight</th>
+        <th>Style</th>
+        <th>File Path</th>
+      </tr>
+      <tr>
+        <td>helvetiker</td>
+        <td>normal</td>
+        <td>normal</td>
+        <td>/examples/fonts/helvetiker_regular.typeface.json</td>
+      </tr>
+      <tr>
+        <td>helvetiker</td>
+        <td>bold</td>
+        <td>normal</td>
+        <td>/examples/fonts/helvetiker_bold.typeface.json</td>
+      </tr>
+      <tr>
+        <td>optimer</td>
+        <td>normal</td>
+        <td>normal</td>
+        <td>/examples/fonts/optimer_regular.typeface.json</td>
+      </tr>
+      <tr>
+        <td>optimer</td>
+        <td>bold</td>
+        <td>normal</td>
+        <td>/examples/fonts/optimer_bold.typeface.json</td>
+      </tr>
+      <tr>
+        <td>gentilis</td>
+        <td>normal</td>
+        <td>normal</td>
+        <td>/examples/fonts/gentilis_regular.typeface.json</td>
+      </tr>
+      <tr>
+        <td>gentilis</td>
+        <td>bold</td>
+        <td>normal</td>
+        <td>/examples/fonts/gentilis_bold.typeface.json</td>
+      </tr>
+      <tr>
+        <td>droid sans</td>
+        <td>normal</td>
+        <td>normal</td>
+        <td>/examples/fonts/droid/droid_sans_regular.typeface.json</td>
+      </tr>
+      <tr>
+        <td>droid sans</td>
+        <td>bold</td>
+        <td>normal</td>
+        <td>/examples/fonts/droid/droid_sans_bold.typeface.json</td>
+      </tr>
+      <tr>
+        <td>droid serif</td>
+        <td>normal</td>
+        <td>normal</td>
+        <td>/examples/fonts/droid/droid_serif_regular.typeface.json</td>
+      </tr>
+      <tr>
+        <td>droid serif</td>
+        <td>bold</td>
+        <td>normal</td>
+        <td>/examples/fonts/droid/droid_serif_bold.typeface.json</td>
+      </tr>
+    </table>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:ExtrudeBufferGeometry].</p>
+
+    <h3>[property:Object parameters]</h3>
+    <p>
+      Объект со свойством для каждого из параметров конструктора. Любая модификация после построения не изменяет геометрию.
+    </p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:ExtrudeBufferGeometry].</p>
+
+    [sourceHint]
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      A directed acyclic graph (DAG). In Verge3D this structure is used to define the hierarchy of node-based [page:MeshNodeMaterial materials].
+    </p>
+
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:Integer V])</h3>
+    <p>
+      Create a new graph of the size `V`.
+    </p>
+
+
+    <h2>Properties</h2>
+
+    <h3>[property:Integer V]</h3>
+
+    <p>Graph size.</p>
+
+    <h3>[property:Array adjList]</h3>
+
+    <p>Graph adjacency list.</p>
+
+    <h3>[property:Array nodeInfo]</h3>
+
+    <p>Data attached to graph nodes.</p>
+
+    <h3>[property:Object edges]</h3>
+
+    <p>Graph edges.</p>
+
+
+    <h2>Methods</h2>
+
+    <h3>[method:undefined addNode]([param:Object nodeInfo])</h3>
+    <p>
+      Add a new node to the graph and attach [page:.nodeInfo] data to it.
+    </p>
+
+    <h3>[method:undefined removeAll]()</h3>
+    <p>
+      Remove all nodes and edges from the graph.
+    </p>
+
+    <h3>[method:undefined addEdge]([param:Edge edge])</h3>
+    <p>
+      Add an edge to the graph.
+    </p>
+
+    <h3>[method:Edge addNewEdge]([param:Integer v], [param:Integer w])</h3>
+    <p>
+      Add a new edge to the graph which connects nodes `v` and `w`.
+    </p>
+
+    <h3>[method:undefined removeEdge]([param:Integer v], [param:Integer w])</h3>
+    <p>
+      Remove an edge from the graph which connects nodes `v` and `w`.
+    </p>
+
+    <h3>[method:Edge edge]([param:Integer v], [param:Integer w])</h3>
+    <p>
+      Return an edge which connects nodes `v` and `w`. Return `null` if no such edge is found.
+    </p>
+
+    <h3>[method:Integer adj]([param:Integer v])</h3>
+    <p>
+      Return node adjacent to node `v`.
+    </p>
+
+    <h3>[method:Object node]([param:Integer v])</h3>
+    <p>
+      Return node info data for node `v`.
+    </p>
+
+    <h3>[method:Integer nodeINdex]([param:Object nodeInfo])</h3>
+    <p>
+      Return the index of the node which has the passed [page:.nodeInfo] data.
+    </p>
+
+    <h3>[method:DiGraph reverse]()</h3>
+    <p>
+      Return a new graph which has all edges reversed. The source graph remains intact.
+    </p>
+
+    <h3>[method:DiGraph len]()</h3>
+    <p>
+      Return graph length.
+    </p>
+
+    <h3>[method:Array findInEdges]([param:Integer v])</h3>
+    <p>
+      Return input edges for node `v`.
+    </p>
+
+    <h3>[method:Array findOutEdges]([param:Integer v])</h3>
+    <p>
+      Return output edges for node `v`.
+    </p>
+
+    <h3>[method:undefined disconnect]([param:Integer v], [param:Boolean removeNode])</h3>
+    <p>
+      Disconnect node `v` from the graph. If `removeNode=false` (default) leave the disconnected node inside the graph. If `removeNode=true` remove the node (with its data) as well.
+    </p>
+
+    <h3>[method:undefined insert]([param:DiGraph G], [param:Array edgesInG], [param:Array edgesOutG], [param:Function copyNodeCb], [param:Function copyEdgeCb])</h3>
+    <p>
+      Insert a `G` subgraph into the graph. The `edgesInG` and `edgesOutG` arrays represent input and output edges which will be used to connect the subgraph. Optional callbacks `copyNodeCb` and `copyEdgeCb` are executed per node/edge inserted to the graph.
+    </p>
+
+    <h3>[method:undefined vis]([param:Function labelCallback])</h3>
+    <p>
+      Convert the graph to the DOT (Graphviz) format and print to the browser console. Optional `labelCallback` is used to assign labels for the printed graph nodes. It accepts node index and node info as parameters.
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>

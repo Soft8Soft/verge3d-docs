@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Loader] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Загрузчик для загрузки [page:Image] в качестве [link:https://developer.mozilla.org/de/docs/Web/API/ImageBitmap ImageBitmap].
+      ImageBitmap обеспечивает асинхронный и ресурсоэффективный способ подготовки текстур для рендеринга в WebGL.<br/>
+      В отличие от [page:FileLoader], [name] не прекращает несколько одновременных запросов к одному и тому же URL.
+    </p>
+
+    <p>
+      Обратите внимание, что [page:Texture.flipY] и [page:Texture.premultiplyAlpha] с [link:https://developer.mozilla.org/de/docs/Web/API/ImageBitmap ImageBitmap] игнорируются.
+      [link:https://developer.mozilla.org/de/docs/Web/API/ImageBitmap ImageBitmap] нуждается в этих настройках при создании растрового изображения
+      в отличие от обычных изображений, которым они нужны при загрузке на GPU. Вам нужно установить эквивалентные параметры через [page:ImageBitmapLoader.setOptions]
+      вместо этого. Подробности см. в [ссылка:https://www.khronos.org/registry/webgl/specs/latest/1.0/#6.10 WebGL specification].
+    </p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    // instantiate a loader
+    const loader = new v3d.ImageBitmapLoader();
+
+    // set options if needed
+    loader.setOptions({ imageOrientation: 'flipY' });
+
+    // load a image resource
+    loader.load(
+      // resource URL
+      'textures/skyboxsun25degtest.png',
+
+      // onLoad callback
+      function(imageBitmap) {
+        const texture = new v3d.CanvasTexture(imageBitmap);
+        const material = new v3d.MeshBasicMaterial({ map: texture });
+      },
+
+      // onProgress callback currently not supported
+      undefined,
+
+      // onError callback
+      function(err) {
+        console.log('An error happened');
+      }
+    );
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_loader_imagebitmap WebGL / loader / ImageBitmap]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:LoadingManager manager])</h3>
+    <p>
+    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].<br><br>
+
+    Создает новый [name].
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Loader].</p>
+
+    <h3>[property:String options]</h3>
+    <p>Необязательный объект, задающий параметры для используемого внутри фабричного метода [link:https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/createImageBitmap createImageBitmap]. По умолчанию *undefined*.</p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Loader].</p>
+
+    <h3>[method:null load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
+    <p>
+    [page:String url] — путь или URL-адрес к файлу. Это также может быть
+      [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br>
+    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженный [page:Image image].<br>
+    [page:Function onProgress] — Эта функция обратного вызова в настоящее время не поддерживается.<br>
+    [page:Function onError] — Вызывается при ошибках загрузки.<br>
+    </p>
+    <p>
+      Начните загрузку из url и верните объект [page:ImageBitmap image], который будет содержать данные.
+    </p>
+
+    <h3>[method:ImageBitmapLoader setOptions]([param:Object options])</h3>
+    <p>
+      Устанавливает объект опций для [link:https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/createImageBitmap createImageBitmap].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

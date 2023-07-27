@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr; [page:Camera] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Камера, использующая [link:https://en.wikipedia.org/wiki/Perspective_(graphical) perspective projection].<br><br>
+
+      Этот режим проецирования разработан для имитации того, как видит человеческий глаз. Это самый распространенный режим проецирования, используемый для рендеринга 3D-сцены.
+    </p>
+
+    <h2>Примеры Кода</h2>
+
+    <code>
+    const camera = new v3d.PerspectiveCamera(45, width / height, 1, 1000);
+    scene.add(camera);
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_animation_skinning_blending animation / skinning / blending]<br>
+      [example:webgl_animation_skinning_morph animation / skinning / morph]<br>
+      [example:webgl_effects_stereo effects / stereo]<br>
+      [example:webgl_interactive_cubes interactive / cubes]<br>
+      [example:webgl_loader_collada_skinning loader / collada / skinning]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Number fov], [param:Number aspect], [param:Number near], [param:Number far])</h3>
+    <p>
+    fov — Вертикальное поле зрения фрустума камеры.<br>
+    aspect — Соотношение сторон фрустума камеры.<br>
+    near — Ближайшая плоскость фруструма камеры.<br>
+    far — Дальняя плоскость фруструма камеры.<br><br>
+
+     Вместе они определяют [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum] камеры.
+    </p>
+
+
+    <h2>Свойства</h2>
+    <p>
+      Общие свойства смотрите в базовом классе [page:Camera].<br>
+      Обратите внимание, что после внесения изменений в большинство из этих свойств вам придется вызвать
+[page:PerspectiveCamera.updateProjectionMatrix .updateProjectionMatrix], чтобы изменения вступили в силу.
+    </p>
+
+    <h3>[property:Float aspect]</h3>
+    <p>Соотношение сторон фрустума камеры, обычно ширина холста / высота холста. По умолчанию *1* (квадратный холст).</p>
+
+    <h3>[property:Float far]</h3>
+    <p>
+      Дальняя плоскость фруструма камеры. По умолчанию *2000*.<br><br>
+
+      Должно быть больше, чем текущее значение плоскости [page:.near near].
+    </p>
+
+    <h3>[property:Float filmGauge]</h3>
+    <p>Размер фотопленки, используемый для большей оси. По умолчанию 35 (миллиметров). Этот параметр не влияет на матрицу проекции, если .filmOffset не установлен в ненулевое значение.</p>
+
+    <h3>[property:Float filmOffset]</h3>
+    <p>Горизонтальное смещение от центра в тех же единицах, что и .filmGauge. По умолчанию *0*..</p>
+
+    <h3>[property:Float focus]</h3>
+    <p>Расстояние до объекта, используемое для стереоскопии и эффектов глубины резкости. Этот параметр не влияет на матрицу проекции, если не используется [page:StereoCamera]. По умолчанию *10*.
+    </p>
+
+    <h3>[property:Float fov]</h3>
+    <p>Вертикальное поле зрения фрустума камеры, снизу вверх, в градусах. По умолчанию *50*.</p>
+
+
+    <h3>[property:Float near]</h3>
+    <p>
+      Фрустум камеры вблизи плоскости. По умолчанию *0,1*.<br><br>
+
+      Допустимый диапазон больше 0 и меньше текущего значения плоскости [page:.far far]. Обратите внимание, что в отличие от [page:OrthographicCamera], *0* является <em>не</em> допустимым значением для ближней плоскости PerspectiveCamera.
+    </p>
+
+    <h3>[property:Object view]</h3>
+    <p>
+      Спецификация окна фрустума или null. Устанавливается с помощью метода [page:PerspectiveCamera.setViewOffset .setViewOffset] и очищается с помощью [page:PerspectiveCamera.clearViewOffset .clearViewOffset].
+    </p>
+
+    <h3>[property:number zoom]</h3>
+    <p>Получает или устанавливает коэффициент масштабирования камеры. По умолчанию *1*.</p>
+
+
+    <h2>Методы</h2>
+    <p>Общие методы смотрите в базовом классе [page:Camera].</p>
+
+    <h3>[method:null clearViewOffset]()</h3>
+    <p>Удаляет любое смещение, установленное методом [page:PerspectiveCamera.setViewOffset .setViewOffset].</p>
+
+    <h3>[method:Float getEffectiveFOV]()</h3>
+    <p>Возвращает текущий вертикальный угол поля зрения в градусах с учетом .zoom.</p>
+
+    <h3>[method:Float getFilmHeight]()</h3>
+    <p>
+      Возвращает высоту изображения на пленке. Если .aspect меньше или равно единице (портретный формат), результат равен .filmGauge.
+    </p>
+
+    <h3>[method:Float getFilmWidth]()</h3>
+    <p>
+      Возвращает ширину изображения на пленке. Если значение .aspect больше или равно единице (альбомный формат), результат равен .filmGauge.
+    </p>
+
+    <h3>[method:Float getFocalLength]()</h3>
+    <p>Возвращает фокусное расстояние текущего .fov по отношению к .filmGauge.</p>
+
+    <h3>[method:null setFocalLength]([param:Float focalLength])</h3>
+    <p>
+      Устанавливает FOV по фокусному расстоянию относительно текущего [page:PerspectiveCamera.filmGauge .filmGauge].
+      <br><br>
+
+      По умолчанию фокусное расстояние задается для 35-мм (полнокадровой) камеры.
+    </p>
+
+    <h3>[method:null setViewOffset]([param:Float fullWidth], [param:Float fullHeight], [param:Float x], [param:Float y], [param:Float width], [param:Float height])</h3>
+    <p>
+    fullWidth — полная ширина многоракурсной установки<br>
+    fullHeight — полная высота многоракурсной установки<br>
+    x — горизонтальное смещение подкамеры<br>
+    y — вертикальное смещение подкамеры<br>
+    width — ширина подкамеры<br>
+    height — высота подкамеры
+    </p>
+
+    <p>
+      Устанавливает смещение в более крупном фрагменте. Это полезно для многооконных или мультимониторных/ мультимашинных настроек.
+    </p>
+
+    <p>
+      Например, если у вас 3x2 монитора и каждый монитор имеет разрешение 1920x1080, а мониторы расположены в сетке следующим образом:<br>
+
+    <pre>
++---+---+---+
+| A | B | C |
++---+---+---+
+| D | E | F |
++---+---+---+
+    </pre>
+
+    тогда для каждого монитора вы будете называть его следующим образом:<br>
+
+    <code>const w = 1920;
+const h = 1080;
+const fullWidth = w * 3;
+const fullHeight = h * 2;
+
+// A
+camera.setViewOffset(fullWidth, fullHeight, w * 0, h * 0, w, h);
+// B
+camera.setViewOffset(fullWidth, fullHeight, w * 1, h * 0, w, h);
+// C
+camera.setViewOffset(fullWidth, fullHeight, w * 2, h * 0, w, h);
+// D
+camera.setViewOffset(fullWidth, fullHeight, w * 0, h * 1, w, h);
+// E
+camera.setViewOffset(fullWidth, fullHeight, w * 1, h * 1, w, h);
+// F
+camera.setViewOffset(fullWidth, fullHeight, w * 2, h * 1, w, h);
+</code>
+
+Обратите внимание, что мониторы не обязательно должны быть одинакового размера или располагаться в виде сетки.
+    </p>
+
+    <h3>[method:null updateProjectionMatrix]()</h3>
+    <p>
+      Обновляет матрицу проекции камеры. Должно вызываться после любого изменения параметров.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

@@ -182,7 +182,7 @@
     <h3>File</h3>
 
     <p>
-      Read texture from file. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-309A77DA-F5ED-4474-8413-317D7AB241E6" target="_blank">here</a>.
+      Read texture from file. See more info <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-309A77DA-F5ED-4474-8413-317D7AB241E6" target="_blank">here</a>.
     </p>
 
     <img src="files/materials-maya/file.jpg" alt="Maya File node">
@@ -198,7 +198,7 @@
     <h3>Noise</h3>
 
     <p>
-      Create 2D noise pattern. Perlin noise type is the only supported.
+      Create 2D noise pattern. *Perlin Noise* type is the only supported.
     </p>
 
     [anchor:ramp]
@@ -262,7 +262,7 @@
     <h3>Blend Colors</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-25397F02-B0AC-4E6B-849C-462AFE93B0DB" target="_blank">here</a>.
+      Blend *Color 1* and *Color 2* using the *Blender* factor.
     </p>
 
 
@@ -270,14 +270,20 @@
     <h3>Bump 2d</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-0DC10D4E-6DD4-4E48-98A9-113B9757EF96" target="_blank">here</a>.
+      This node is used to apply bump and normal maps to low-poly geometry to increase its detalization.
+    </p>
+
+    <img src="files/materials-maya/bump-2d.webp" alt="Using Bump 2d node in Maya's materials">
+
+    <p>
+      Verge3D supports only *Bump* and *Tangent Space Normals* maps (set by *Use As* parameter). Read more about bump and normal mapping in Maya <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-0DC10D4E-6DD4-4E48-98A9-113B9757EF96" target="_blank">here</a>.
     </p>
 
     [anchor:clamp]
     <h3>Clamp</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-75A0D963-24A0-4DAB-8073-903734443E03" target="_blank">here</a>.
+      Clamp *Input* between *Min* and *Max*.
     </p>
 
 
@@ -292,14 +298,14 @@
     <h3>Condition</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-57CE3E34-3C8D-4F15-971B-219DA6176836" target="_blank">here</a>.
+      Compare *First Term* with *Second Term* and select *Color If True* or *Color If False* based on the result of comparison. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-57CE3E34-3C8D-4F15-971B-219DA6176836" target="_blank">here</a>.
     </p>
 
     [anchor:decomposeMatrix]
     <h3>Decompose Matrix</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-31A82FA7-D887-458B-88A2-C7FF90F84F17" target="_blank">here</a>.
+      Decompose input matrix to components. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-31A82FA7-D887-458B-88A2-C7FF90F84F17" target="_blank">here</a>.
     </p>
 
     [anchor:fourByFourMatrix]
@@ -313,8 +319,14 @@
     <h3>Gamma Correct</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-BA5E19E9-3D21-47BE-95D5-903C59936678" target="_blank">here</a>.
+      Perform gamma correction in input value:
     </p>
+
+    <math>
+      <mi mathvariant="italic">OutValue</mi>
+      <mo>=</mo>
+      <msup><mi mathvariant="italic">Value</mi><mrow><mn>1</mn><mo>/</mo><mi>γ</mi></mrow></msup>
+    </math>
 
     [anchor:inverseMatrix]
     <h3>Inverse Matrix</h3>
@@ -330,23 +342,29 @@
       Convert input color to grayscale value. The conversion formula is:
     </p>
 
-    <code>
-      Luminance = 0.3 * R + 0.59 * G + 0.11 * B
-    </code>
+    <math>
+      <mi mathvariant="italic">Luminance</mi>
+      <mo>=</mo>
+      <mrow><mn>0.3</mn><mo>*</mo><mi>R</mi></mrow>
+      <mo>+</mo>
+      <mrow><mn>0.59</mn><mo>*</mo><mi>G</mi></mrow>
+      <mo>+</mo>
+      <mrow><mn>0.11</mn><mo>*</mo><mi>B</mi></mrow>
+    </math>
 
 
     [anchor:multiplyDivide]
     <h3>Multiply Divide</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-DBD3F3B4-AE68-49B1-B215-34F74782BA63" target="_blank">here</a>.
+      Perform *Multiply*, *Divide*, or *Power* operation on input values.
     </p>
 
     [anchor:multDoubleLinear]
     <h3>Mult Double Linear</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-68236D3D-815B-4F3F-BF60-3D0F1FDFFF87" target="_blank">here</a>.
+      Multiply two input values. Since double-precision values are not supported in WebGL, this node works exactly like *Multiply* operation in the <a href="manual/en/maya/Materials.html#multiplyDivide">Multiply Divide</a> node.
     </p>
 
     [anchor:multMatrix]
@@ -360,28 +378,36 @@
     <h3>2d Placement</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-94070C7E-C550-42FD-AFC9-FBE82B173B1D" target="_blank">here</a>.
+      Output 2D texture coordinates (UV). Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-94070C7E-C550-42FD-AFC9-FBE82B173B1D" target="_blank">here</a>.
     </p>
 
     [anchor:reverse]
     <h3>Reverse</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-EECA80A5-FD6F-4A41-87FF-05461A2BEB2D" target="_blank">here</a>.
+      Reverse vector or color:
     </p>
+
+    <math>
+      <mi mathvariant="italic">Output</mi>
+      <mo>=</mo>
+      <mn>1</mn>
+      <mo>-</mo>
+      <mi mathvariant="italic">Input</mi>
+    </math>
 
     [anchor:samplerInfo]
     <h3>Sampler Info</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-5134339F-6F76-4193-9F94-713D0A88AAC2" target="_blank">here</a>.
+      Output info about rendered pixel. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-5134339F-6F76-4193-9F94-713D0A88AAC2" target="_blank">here</a>.
     </p>
 
     [anchor:setRange]
     <h3>Set Range</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-1C66C39C-4AAA-478B-929E-3F22D8B3B993" target="_blank">here</a>.
+      Remap input *Value*. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-1C66C39C-4AAA-478B-929E-3F22D8B3B993" target="_blank">here</a>.
     </p>
 
     [anchor:transposeMatrix]
@@ -395,21 +421,21 @@
     <h3>Unit Conversion</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-2B3D14DB-2917-426D-AD15-DEDCCF5FF496" target="_blank">here</a>.
+      Convert units of the input value. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-2B3D14DB-2917-426D-AD15-DEDCCF5FF496" target="_blank">here</a>.
     </p>
 
     [anchor:vectorProduct]
     <h3>Vector Product</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-C1DEE9BC-375C-404C-ABF7-79E9321BE5F8" target="_blank">here</a>.
+      Calculate *Dot Product*, *Cross Product*, *Vector Matrix Product*, or *Point Matrix Product* from the input vectors. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-C1DEE9BC-375C-404C-ABF7-79E9321BE5F8" target="_blank">here</a>.
     </p>
 
     [anchor:weightedAddMatrix]
     <h3>Weighted Add Matrix</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319" target="_blank">here</a>.
+      Calculate a weighted sum of the input matrices. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319" target="_blank">here</a>.
     </p>
 
 
@@ -425,84 +451,84 @@
     <h3>Channels</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Remap channels in the input color (and alpha). Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
     </p>
 
     [anchor:colorComposite]
     <h3>Color Composite</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Perform various composite operations on input colors (and alphas): *Add*, *Subtract*, *Mix*, *Multiply*, *Screen*, *Overlay*, *Difference*, *Dodge*, *Burn*. For more explanations please refer to the <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">Maya's docs</a>.
     </p>
 
     [anchor:colorCondition]
     <h3>Color Condition</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Check whether the input *Condition* is true or false, and pass corresponding Color/Alpha value as output. Read <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a> for more info.
     </p>
 
     [anchor:colorConstant]
     <h3>Color Constant</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Output specified *Color* and *Alpha* values.
     </p>
 
     [anchor:colorLogic]
     <h3>Color Logic</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Perform math operation on input colors and set the *Out Bool* value in accordance.
     </p>
 
     [anchor:colorMask]
     <h3>Color Mask</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Apply color mask to input color/alpha. Read more about this node <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
     </p>
 
     [anchor:colorMath]
     <h3>Color Math</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Perform math operation on input colors/alphas: add, subtract, multiply, divide, min, max.
     </p>
 
     [anchor:floatComposite]
     <h3>Float Composite</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Perform various composite operations on input values: *Add*, *Subtract*, *Mix*, *Multiply*, *Screen*, *Overlay*, *Difference*, *Dodge*, *Burn*. For more explanations please refer to the <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">Maya's docs</a>.
     </p>
 
     [anchor:floatCondition]
     <h3>Float Condition</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Check whether the input *Condition* is true or false, and pass corresponding value as output. Read <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a> for more info.
     </p>
 
     [anchor:floatConstant]
     <h3>Float Constant</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Output specified float value.
     </p>
 
     [anchor:floatLogic]
     <h3>Float Logic</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Perform math operation on input values and set the *Out Bool* value in accordance.
     </p>
 
     [anchor:floatMask]
     <h3>Float Mask</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Apply mask to input value. Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
     </p>
 
     [anchor:floatMath]
@@ -516,14 +542,14 @@
     <h3>Premultiply</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Premultiply RGB color channels by alpha.
     </p>
 
     [anchor:unpremultiply]
     <h3>Unpremultiply</h3>
 
     <p>
-      Read more <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">here</a>.
+      Unpremultiply (divide) RGB color channels by alpha.
     </p>
 
 
@@ -549,14 +575,14 @@
     <h3>aiAbs</h3>
 
     <p>
-      Calculate absolute value of input color/vector. See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.
+      Calculate absolute value of the input color/vector.
     </p>
 
     [anchor:aiAdd]
     <h3>aiAdd</h3>
 
     <p>
-      Calculate sum of colors/vectors. See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.
+      Calculate sum of the colors/vectors.
     </p>
 
     [anchor:aiAtan]
@@ -566,103 +592,164 @@
       Calculate 2-argument arctangent of input vectors. See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.
     </p>
 
+    [anchor:aiCheckerboard]
+    <h3>aiCheckerboard</h3>
+
+    <p>
+      Create checkerboard pattern. Verge3D supports all aiCheckerboard properties except *Filter Strength* and *Filter Offset*.
+    </p>
+
     [anchor:aiCompare]
     <h3>aiCompare</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>Compare input values. See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
 
     [anchor:aiComplement]
     <h3>aiComlement</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Complement input color. This node works similarly to the <a href="manual/en/maya/Materials.html#reverse">reverse</a> node.
+    </p>
+
+    <math>
+      <mi mathvariant="italic">Output</mi>
+      <mo>=</mo>
+      <mn>1</mn>
+      <mo>-</mo>
+      <mi mathvariant="italic">Input</mi>
+    </math>
 
     [anchor:aiCross]
     <h3>aiCross</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate cross product from input vectors.
+    </p>
 
     [anchor:aiDivide]
     <h3>aiDivide</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Divide *Input 1* by *Input 2*.
+    </p>
 
     [anchor:aiDot]
     <h3>aiDot</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate dot product from input vectors.
+    </p>
 
     [anchor:aiExp]
     <h3>aiExp</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate natural exponentiation of the *Input* color.
+    </p>
 
     [anchor:aiFacingRatio]
     <h3>aiFacingRatio</h3>
 
+    <p>
+      Calculate facing ratio of the rendered pixel, e.g a dot product between the shading normal and the camera direction. *Bias*, *Gain*, *Linear*, and *Invert* params are not supported.
+    </p>
+
     [anchor:aiFlat]
     <h3>aiFlat</h3>
 
-    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Flat" target="_blank">here</a>.</p>
+    <p>
+      Basic shader which works similarly to <a href="manual/en/maya/Materials.html#surfaceShader">Surface Shader</a>. It passes input *Color* value to *Out Color* as is.
+    </p>
 
     [anchor:aiFraction]
     <h3>aiFraction</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate input's fractional part, for example:
+    </p>
+
+    <math>
+      <mo>[</mo><mn>1.5</mn><mo>,</mo><mn>2.25</mn><mo>,</mo><mn>3.33</mn><mo>]</mo>
+      <mtext> becomes </mtext>
+      <mo>[</mo><mn>0.5</mn><mo>,</mo><mn>0.25</mn><mo>,</mo><mn>0.33</mn><mo>]</mo>
+    </math>
 
     [anchor:aiIsFinite]
     <h3>aiIsFinite</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Check if the input value is finite, i.e. is not a floating point infinity.
+    </p>
 
     [anchor:aiLength]
     <h3>aiLength</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate input vector length.
+    </p>
 
     [anchor:aiLog]
     <h3>aiLog</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate a logarithm of the *Input* value in the base of the *Base* value.
+    </p>
 
     [anchor:aiMax]
     <h3>aiMax</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate the maximum of the two input values.
+    </p>
 
     [anchor:aiMin]
     <h3>aiMin</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate the minimum of the two input values.
+    </p>
 
     [anchor:aiMixShader]
     <h3>aiMixShader</h3>
 
-    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Mix+Shader" target="_blank">here</a>.</p>
+    <p>
+      Mix the two input shaders using the *Mix Weight* value. For this node both *blend* and *add* mix modes are supported. *Add Transparency* checker is not supported.
+    </p>
 
     [anchor:aiModulo]
     <h3>aiModulo</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Compute *Input* value modulo *Divisor* value.
+    </p>
 
     [anchor:aiMultiply]
     <h3>aiMultiply</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Multiply two inputs.
+    </p>
 
     [anchor:aiNegate]
     <h3>aiNegate</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Negate input value.
+    </p>
 
     [anchor:aiNormalize]
     <h3>aiNormalize</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Normalize input vector.
+    </p>
 
     [anchor:aiNormalMap]
     <h3>aiNormalMap</h3>
 
-    <p>See more <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Normal+Map" target="_blank">here</a>.</p>
+    <p>
+      Modify input *Normal* according to normal map passed as *Input* parameter and *Tangent* vector. See more info on how to use this node <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_for_maya_utility_am_Normal_Map_html" target="_blank">here</a>.
+    </p>
 
     [anchor:aiOslShader]
     <h3>aiOslShader</h3>
@@ -674,7 +761,9 @@
     [anchor:aiPow]
     <h3>aiPow</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate *Base* value raised to the power of the *Exponent* value.
+    </p>
 
     [anchor:aiRaySwitch]
     <h3>aiRaySwitch</h3>
@@ -692,15 +781,31 @@
     [anchor:aiReciprocal]
     <h3>aiReciprocal</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate reciprocal value of the *Input* value:
+    </p>
+
+    <math>
+      <mi mathvariant="italic">Out Color</mi>
+      <mo>=</mo>
+      <mn>1</mn>
+      <mo>/</mo>
+      <mi mathvariant="italic">Input</mi>
+    </math>
 
     [anchor:aiShadowMatte]
     <h3>aiShadowMatte</h3>
 
+    <p>
+      In Verge3D this node is used to cut out 3D objects as well as to apply colored semi-transparent shadows over the scene background.
+    </p>
+
+    <img src="files/materials-maya/ai-shadow-matte-example.webp" alt="Example usage of the aiShadowMatte shader node">
+
     [anchor:aiSign]
     <h3>aiSign</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>Calculate sign of the *Input* value.</p>
 
     [anchor:aiSkyDomeLight]
     <h3>aiSkyDomeLight</h3>
@@ -712,17 +817,32 @@
     [anchor:aiSqrt]
     <h3>aiSqrt</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate square root of the input value.
+    </p>
 
     [anchor:aiSubtract]
     <h3>aiSubtract</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Subtract *Input 2* from *Input 1*.
+    </p>
 
     [anchor:aiTrigo]
     <h3>aiTrigo</h3>
 
-    <p>See more <a href="https://help.autodesk.com/view/ARNOL/ENU/?guid=arnold_user_guide_ac_shading_ac_math_shaders_html" target="_blank">here</a>.</p>
+    <p>
+      Calculate trigonometric function of the *Input* value.
+    </p>
+
+    [anchor:aiTwoSided]
+    <h3>aiTwoSided</h3>
+
+    <p>
+      Render *Front* input on the front side and *Back* on the back side of the geometry.
+    </p>
+
+    <img src="files/materials-maya/ai-two-sided.webp" alt="aiTwoSided node in Maya">
 
 
     [anchor:performance_considerations]

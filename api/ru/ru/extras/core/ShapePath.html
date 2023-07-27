@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Этот класс используется для преобразования серии фигур в массив [page:Path], например, SVG-фигуры в контур (смотрите пример ниже). Он используется внутри [page:Font] для преобразования шрифта в формате JSON в серию контуров. 
+    </p>
+
+    <h2>Примеры</h2>
+    <p>
+      [example:webgl_geometry_extrude_shapes2 geometry / extrude / shapes2]
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]()</h3>
+    <p>
+      Создает новый ShapePath. В отличие от [page:Path], никакие точки не передаются, поскольку ShapePath предназначен для генерации после создания.
+    </p>
+
+
+    <h2>Совойства</h2>
+
+    <h3>[property:Array subPaths]</h3>
+    <p>
+    Массив [page:Path]s.
+    </p>
+
+    <h3>[property:Array currentPath]</h3>
+    <p>
+      Текущий [page:Path], который генерируется.
+    </p>
+
+    <h3>[property:Color color]</h3>
+    <p>[page:Color] фигуры, по умолчанию установлен на белый цвет (0xffffffff).</p>
+
+    <h2>Методы</h2>
+
+    <h3>[method:this moveTo]([param:Float x], [param:Float y])</h3>
+    <p>
+      Создает новую [page:Path] и вызывает [page:Path.moveTo](x, y) на этой [page:Path]. Также указывает [page:ShapePath.currentPath currentPath] на эту [page:Path].
+    </p>
+
+    <h3>[method:this lineTo]([param:Float x], [param:Float y])</h3>
+    <p>Это создает линию от смещения [page:ShapePath.currentPath currentPath] до X и Y и обновляет смещение до X и Y.</p>
+
+    <h3>[method:this quadraticCurveTo]([param:Float cpX], [param:Float cpY], [param:Float x], [param:Float y])</h3>
+    <p>Это создает квадратичную кривую от смещения [page:ShapePath.currentPath currentPath] к x и y с cpX и cpY в качестве контрольных точек и обновляет смещение [page:ShapePath.currentPath currentPath] к x и y.</p>
+
+    <h3>[method:this bezierCurveTo]([param:Float cp1X], [param:Float cp1Y], [param:Float cp2X], [param:Float cp2Y], [param:Float x], [param:Float y])</h3>
+    <p>Это создает кривую безье от смещения [page:ShapePath.currentPath currentPath] по x и y с cp1X, cp1Y и cp1X, cp1Y в качестве контрольных точек и обновляет смещение [page:ShapePath.currentPath currentPath currentPath] по x и y.</p>
+
+    <h3>[method:this splineThru] ([param:Array points]) </h3>
+    <p>points - массив [page:Vector2]s</p>
+    <p>Подключает новую [page:SplineCurve] к [page:ShapePath.currentPath currentPath].</p>
+
+
+    <h3>[method:Array toShapes]([param:Boolean isCCW], [param:Boolean noHoles])</h3>
+    <p>
+    isCCW -- Изменяет способ создания твердых тел и отверстий<br/>
+    noHoles -- Генерировать или не генерировать отверстия
+    </p>
+    <p>
+      Преобразует массив [page:ShapePath.subPaths subPaths] в массив Shapes. По умолчанию сплошные фигуры определяются по часовой стрелке (CW), а отверстия - против часовой стрелки (CCW). Если параметр isCCW имеет значение true, то они будут перевернуты. Если параметр noHoles имеет значение true, то все пути будут заданы как сплошные фигуры и isCCW будет игнорироваться.
+    <br/>
+
+    </p>
+
+
+    [sourceHint]
+  </body>
+</html>

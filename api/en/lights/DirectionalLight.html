@@ -12,28 +12,18 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A light that gets emitted in a specific direction. This light will behave as though it is
-      infinitely far away and the rays produced from it are all parallel. The common use case
-      for this is to simulate daylight; the sun is far enough away that its position can be
-      considered to be infinite, and all light rays coming from it are parallel.<br /><br />
-
-      This light can cast shadows - see the [page:DirectionalLightShadow] page for details.
+      A light that gets emitted in a specific direction. This light will behave as though it is infinitely far away and the rays produced from it are all parallel. The common use case for this is to simulate daylight; the sun is far enough away that its position can be considered to be infinite, and all light rays coming from it are parallel.
+    </p>
+    <p>
+      This light can cast shadows — see the [page:DirectionalLightShadow] page for details.
     </p>
 
-    <h2>A Note about Position, Target and rotation</h2>
+    <h2>Target and Free Directional Lights</h2>
     <p>
-      A common point of confusion for directional lights is that setting the rotation has no effect.
-      This is because Verge3D's DirectionalLight is the equivalent to what is often called a 'Target
-      Direct Light' in other applications.<br /><br />
-
-      This means that its direction is calculated as pointing
-      from the light's [page:Object3D.position position] to  the [page:.target target]'s position
-      (as opposed to a 'Free Direct Light' that just has a rotation component).<br /><br />
-
-      The reason for this is to allow the light to cast shadows - the [page:.shadow shadow]
-      camera needs a position to calculate shadows from.<br /><br />
-
-      See the [page:.target target] property below for details on updating the target.
+      In Verge3D, directional lights can operate in two different modes depending on the value of the [page:.isFreeLight] flag. If `isFreeLight=true` [name] is the equivalent to what is often called a "Target Directional Light" in 3ds Max. When `isFreeLight=true` the light is equivalent to "Free Directional Light" in 3ds Max, "Sun" in Blender, or just "Directional Light" in Maya.
+    </p>
+    <p>
+      In any case, the light direction is calculated as pointing from the light's [page:Object3D.position position] to the [page:.target target]'s position. In the first mode, `target` is specified explicitly, while in the second mode, `target` is calculated by the engine from the light object [page:Object3D.quaternion rotation].
     </p>
 
     <h2>Code Example</h2>
@@ -46,20 +36,21 @@
 
     <h2>Examples</h2>
     <p>
-      [example:misc_controls_fly controls / fly]<br />
-      [example:webgl_effects_parallaxbarrier effects / parallaxbarrier]<br />
-      [example:webgl_effects_stereo effects / stereo]<br />
-      [example:webgl_geometry_extrude_splines geometry / extrude / splines]<br />
+      [example:misc_controls_fly controls / fly]<br>
+      [example:webgl_effects_parallaxbarrier effects / parallaxbarrier]<br>
+      [example:webgl_effects_stereo effects / stereo]<br>
+      [example:webgl_geometry_extrude_splines geometry / extrude / splines]<br>
       [example:webgl_materials_bumpmap materials / bumpmap]
     </p>
 
     <h2>Constructor</h2>
 
     <h3>[name]([param:Integer color], [param:Float intensity])</h3>
+    <p class="params">
+      [page:Integer color] — (optional) hexadecimal color of the light. Default is `0xffffff` (white).<br>
+      [page:Float intensity] — (optional) numeric value of the light's strength/intensity. Default is `1`.
+    </p>
     <p>
-      [page:Integer color] - (optional) hexadecimal color of the light. Default is 0xffffff (white).<br />
-      [page:Float intensity] - (optional) numeric value of the light's strength/intensity. Default is 1.<br /><br />
-
       Creates a new [name].
     </p>
 
@@ -69,14 +60,22 @@
 
     <h3>[property:Boolean castShadow]</h3>
     <p>
-      If set to *true* light will cast dynamic shadows. *Warning*: This is expensive and
-      requires tweaking to get shadows looking right. See the [page:DirectionalLightShadow] for details.
-      The default is *false*.
+      If set to `true` light will cast dynamic shadows. This might require tweaking to get shadows looking right. See the [page:DirectionalLightShadow] for details. The default is `false`.
+    </p>
+
+    <h3>[property:Boolean isDirectionalLight]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
+    </p>
+
+    <h3>[property:Boolean isFreeLight]</h3>
+    <p>
+      Flag which used to define the lights with no explicit target. For such lights the virtual `target` is calculated from the [page:Object3D.quaternion rotation] applied to the light object.
     </p>
 
     <h3>[property:Vector3 position]</h3>
     <p>
-      This is set equal to [page:Object3D.DefaultUp] (0, 1, 0), so that the light shines from the top down.
+      This is set equal to [page:Object3D.DefaultUp] `(0, 1, 0)`, so that the light shines from the top down.
     </p>
 
     <h3>[property:DirectionalLightShadow shadow]</h3>
@@ -86,28 +85,29 @@
 
     <h3>[property:Object3D target]</h3>
     <p>
-      The DirectionalLight points from its [page:.position position] to target.position. The default
-      position of the target is *(0, 0, 0)*.<br />
-
-      *Note*: For the target's position to be changed to anything other than the default,
-      it must be added to the [page:Scene scene] using
+      The DirectionalLight points from its [page:.position position] to target.position. The default position of the target is `(0, 0, 0)`.
+    </p>
+    <p>
+      For the target's position to be changed to anything other than the default, it must be added to the [page:Scene scene] using
     </p>
     <code>
     scene.add(light.target);
     </code>
     <p>
-      This is so that the target's [page:Object3D.matrixWorld matrixWorld] gets automatically
-      updated each frame.<br /><br />
-
-      It is also possible to set the target to be another object in the scene (anything with a
+      This is so that the target's [page:Object3D.matrixWorld matrixWorld] gets automatically updated each frame.
+    </p>
+    <p>
+      If `isFreeLight=false` is also possible to set the target to be another object in the scene (anything with a
       [page:Object3D.position position] property), like so:
     </p>
+
     <code>
     const targetObject = new v3d.Object3D();
     scene.add(targetObject);
 
     light.target = targetObject;
     </code>
+
     <p>
       The directionalLight will now track the target object.
     </p>
@@ -119,16 +119,26 @@
 
     <h3>[method:undefined dispose]()</h3>
     <p>
-    Override of base class's [page:Light.dispose dispose].
-    Disposes of this light's [page:DirectionalLightShadow shadow].
+      Frees the GPU-related resources allocated by this instance. Call this method whenever this instance is no longer used in your app.
     </p>
 
     <h3>[method:this copy]([param:DirectionalLight source])</h3>
     <p>
-    Copies value of all the properties from the [page:DirectionalLight source] to this
-    DirectionalLight.
+      Copies value of all the properties from the [page:DirectionalLight source] to this [name].
     </p>
 
+
+    <h2>Puzzles</h2>
+
+    <p>The following puzzles work with the directional lights:</p>
+
+    <ul>
+      <li><a href="manual/en/puzzles/Objects.html#create_object">create object</a> — select *light*, then *directional*.</li>
+      <li><a href="manual/en/puzzles/Camera.html#set_light_param">set light param</a> — to set various light parameters.</li>
+      <li><a href="manual/en/puzzles/Camera.html#get_light_param">get light param</a> — to obtain light parameters.</li>
+    </ul>
+
     [sourceHint]
+
   </body>
 </html>

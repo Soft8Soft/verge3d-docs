@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:LightShadow] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      This is used internally by [page:PointLight PointLights] for calculating shadows.
+    </p>
+
+
+    <h2>Code Example</h2>
+    <code>
+    // create a WebGLRenderer and turn on shadows in the renderer
+    const renderer = new v3d.WebGLRenderer();
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = v3d.PCFSoftShadowMap; // default v3d.PCFShadowMap
+
+    // create a PointLight and turn on shadows for the light
+    const light = new v3d.PointLight(0xffffff, 1, 100);
+    light.position.set(0, 10, 4);
+    light.castShadow = true; // default false
+    scene.add(light);
+
+    // set up shadow properties for the light
+    light.shadow.mapSize.width = 512; // default
+    light.shadow.mapSize.height = 512; // default
+    light.shadow.camera.near = 0.5; // default
+    light.shadow.camera.far = 500; // default
+
+    // create a sphere that cast shadows (but does not receive them)
+    const sphereGeometry = new v3d.SphereGeometry(5, 32, 32);
+    const sphereMaterial = new v3d.MeshStandardMaterial({ color: 0xff0000 });
+    const sphere = new v3d.Mesh(sphereGeometry, sphereMaterial);
+    sphere.castShadow = true; //default is false
+    sphere.receiveShadow = false; //default
+    scene.add(sphere);
+
+    // create a plane that receives shadows (but does not cast them)
+    const planeGeometry = new v3d.PlaneGeometry(20, 20, 32, 32);
+    const planeMaterial = new v3d.MeshStandardMaterial({ color: 0x00ff00 })
+    const plane = new v3d.Mesh(planeGeometry, planeMaterial);
+    plane.receiveShadow = true;
+    scene.add(plane);
+
+    // create a helper for the shadow camera (optional)
+    const helper = new v3d.CameraHelper(light.shadow.camera);
+    scene.add(helper);
+    </code>
+
+    <h2>Constructor</h2>
+    <h3>[name]()</h3>
+    <p>
+      Creates a new [name]. This is not intended to be called directly — it is called internally by [page:PointLight].
+    </p>
+
+    <h2>Properties</h2>
+    <p>
+      See the base [page:LightShadow LightShadow] class for common properties.
+    </p>
+
+    <h3>[property:Boolean isPointLightShadow]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
+    </p>
+
+    <h2>Methods</h2>
+
+    <p>
+      See the base [page:LightShadow LightShadow] class for common methods.
+    </p>
+
+    <h3>[method:undefined updateMatrices]([param:Light light], [param:Integer viewportIndex])</h3>
+    <p>
+      Update the matrices for the camera and shadow, used internally by the renderer.
+    </p>
+
+    <dl class="params">
+      <dt>[page:Light light]</dt>
+      <dd>The light for which the shadow is being rendered.</dd>
+      <dt>[page:Integer viewportIndex]</dt>
+      <dd>Calculates the matrix for this viewport.</dd>
+    </dl>
+
+
+    <h2>Puzzles</h2>
+
+    <p>
+      The <a href="manual/i18nback/puzzles/Objects.html#set_shadow_param">set shadow param</a> puzzle allows to enable/disable casting or receiving shadows in a visual manner.
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>

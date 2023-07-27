@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Using NodeJS and npm — Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="How to use Node.js and npm to develop Verge3D applications."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body><article>
+    <h1>Using Node.js and npm</h1>
+
+    <p>
+      Here we provide info on how to use <strong>Node.js</strong> and <strong>npm</strong> for the Verge3D application development.
+    </p>
+
+    [contents]
+
+    [anchor:install_nodejs_npm]
+
+    <h2>Installing Node.js and npm</h2>
+
+    <p>
+      If you have not done it already, you can install both as prompted <a href="https://nodejs.org/en/download/" target="_blank">here</a>.
+    </p>
+
+
+    [anchor:creating_basic_verge3d_app]
+
+    <h2>Creating Basic Verge3D App</h2>
+
+    <p>
+      Create a folder with your new project, e.g. <strong>my_app</strong>, change to it, then initialize the npm package:
+    </p>
+
+    <code>npm init</code>
+
+    <p>
+      It will ask you some questions, choose anything you wish or leave answers proposed by default.
+    </p>
+
+    <p>
+      Install verge3d package as dependency:
+    </p>
+
+    <code>npm install --save verge3d</code>
+
+    <p>
+      Create <strong>my_app.html</strong> file with the following content:
+    </p>
+
+    <code>
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;My first Verge3D app&lt;/title&gt;
+        &lt;style&gt;
+          body { margin: 0; }
+          #v3d-container { position: absolute; width: 100%; height: 100% }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div id=&quot;v3d-container&quot;&gt;&lt;/div&gt;
+        &lt;script type="module" src="my_app.js"&gt;&lt;/script&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+    </code>
+
+    <p>
+      Create <strong>my_app.js</strong> file with the following content:
+    </p>
+
+    <code>
+    import * as v3d from './node_modules/verge3d/build/v3d.module.js';
+
+    const app = new v3d.App('v3d-container');
+
+    app.loadScene('cube.glb', () =&gt; {
+        app.enableControls();
+        app.run();
+    });
+    </code>
+
+    <p>
+      Download <a href="https://cdn.soft8soft.com/demo/blender/cube/cube.glb">cube.glb</a> file and put it next to <strong>my_app.html</strong>.
+    </p>
+
+    <p>
+      Launch the development server:
+    </p>
+
+    <code>npx http-server</code>
+
+    <p>
+      Navigate to the <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> link in your browser, then launch <strong>my_app.html</strong> from the displayed list.
+    </p>
+
+
+    [anchor:using_webpack]
+
+    <h2>Using webpack</h2>
+
+    <p>
+      With *webpack* you can simplify the development of Verge3D apps by using more familiar imports in your JavaScript code:
+    </p>
+
+    <code>import * as v3d from 'verge3d';</code>
+
+    <p>
+      as well as optimize your app by packing Verge3D modules and code together into one JavaScript distribution.
+    </p>
+
+    <p>
+      Lets modify our basic app to make it webpack-friendly. First remove the <strong>my_app.js</strong> file, since you won't need it anymore.
+    </p>
+
+    <p>
+      Install webpack dependencies:
+    </p>
+
+    <code>npm install --save webpack webpack-cli</code>
+
+    <p>
+      Modify the <strong>my_app.html</strong> file by replacing everything with the following content:
+    </p>
+
+    <code>
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;My first Verge3D app&lt;/title&gt;
+        &lt;style&gt;
+          body { margin: 0; }
+          #v3d-container { position: absolute; width: 100%; height: 100% }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div id=&quot;v3d-container&quot;&gt;&lt;/div&gt;
+        &lt;script src="dist/main.js"&gt;&lt;/script&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+    </code>
+
+    <p>
+      Create a <strong>src</strong> directory with the <strong>index.js</strong> file in it:
+    </p>
+
+    <code>
+    import * as v3d from 'verge3d';
+
+    const app = new v3d.App('v3d-container');
+
+    app.loadScene('cube.glb', () =&gt; {
+        app.enableControls();
+        app.run();
+    });
+    </code>
+
+    <p>
+      Launch webpack to build your app:
+    </p>
+
+    <code>npx webpack</code>
+
+    <p>
+      Launch the development server:
+    </p>
+
+    <code>npx http-server</code>
+
+    <p>
+      Navigate to the <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> link in your browser, then launch <strong>my_app.html</strong> from the displayed list.
+    </p>
+
+
+    [anchor:activating_license]
+
+    <h2>Activating the License</h2>
+
+    <p>
+      To sign Verge3D engine modules (v3d.js and v3d.module.js) with your license key, use the <strong>keymanager</strong> command (Python 3 required):
+    </p>
+
+    <code>npx keymanager activate node_modules/verge3d/build/v3d.js XXXXXXXXXX</code>
+
+    <p>and</p>
+
+    <code>npx keymanager activate node_modules/verge3d/build/v3d.module.js XXXXXXXXXX</code>
+
+    <p>
+      Where XXXXXXXXXX is your license key. Please note that this command does not print anything. After activation, simply check for the *MADE WITH VERGE3D TRIAL* watermark in your app. When using webpack be sure to rebuild the app.
+    </p>
+
+
+    [anchor:whats_next]
+
+    <h2>What's Next</h2>
+
+    <p>
+      Learn how to integrate Verge3D engine with <a href="manual/en/programmers_guide/Integration-with-Reactjs-Vuejs.html">React and Vue.js</a>.
+    </p>
+
+  </article></body>
+</html>

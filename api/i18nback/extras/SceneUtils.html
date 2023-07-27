@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">A class containing useful utility functions for scene manipulation.</p>
+
+
+    <h2>Methods</h2>
+
+    <h3>[method:undefined assignDefaultControls]([param:Camera camera], [param:Box3 sceneBox])</h3>
+    <p class="params">
+      camera — default scene camera.<br>
+      sceneBox — bounding box which includes all objects located on the scene.
+    </p>
+    <p>
+      Assigns default control settings on the camera based on the given `sceneBox` param.
+    </p>
+
+    <h3>[method:Box3 calcSceneBox]([param:Scene scene])</h3>
+    <p class="params">
+      scene — current scene.
+    </p>
+    <p>
+      Calculates scene bounding box.
+    </p>
+
+    <h3>[method:Boolean checkActionIsUsed]([param:Object3D scene], [param:AnimationAction action])</h3>
+    <p class="params">
+      scene — The scene to check if the action is used with one of the scene objects. <br>
+      action — The action to check.
+    </p>
+    <p>
+      Checks if the given action is used with one of the scene objects, i.e. the action's target node exists on the scene.
+    </p>
+
+    <h3>[method:Camera createDefaultCamera]([param:Box3 sceneBox], [param:Float aspect])</h3>
+    <p class="params">
+      sceneBox — scene box.<br>
+      aspect — camera aspect ratio.
+    </p>
+    <p>
+      Creates default [page:PerspectiveCamera] which looks to the center of the scene bounding box.
+    </p>
+
+    <h3>[method:MeshNodeMaterial createEnvironmentMaterial]([param:String name], [param:Texture envTex], [param:Texture|Color bkgTexOrColor])</h3>
+    <p class="params">
+      name — material name.<br>
+      envTex — environment texture.</br>
+      bkgTexOrColor — background texture or color.
+    </p>
+    <p>
+      Create node-based material which can be used for environment lighting and scene background.
+    </p>
+
+    <h3>[method:Group createMeshesFromInstancedMesh]([param:InstancedMesh instancedMesh])</h3>
+    <p class="params">
+      instancedMesh — The instanced mesh.
+    </p>
+    <p>
+      Creates a new group object that contains a new mesh for each instance of the given instanced mesh.
+    </p>
+
+    <h3>[method:Group createMeshesFromMultiMaterialMesh]([param:Mesh mesh])</h3>
+    <p class="params">
+      mesh — A mesh with multiple materials.
+    </p>
+    <p>
+      Converts the given multi-material mesh into an instance of [page:Group] holding for each material a separate mesh.
+    </p>
+
+    <h3>[method:Group createMultiMaterialObject]([param:Geometry geometry], [param:Array materials])</h3>
+    <p class="params">
+      geometry — The geometry for the set of materials. <br>
+      materials — The materials for the object.
+    </p>
+    <p>
+      Creates a new Group that contains a new mesh for each material defined in materials. Beware that this is not the same as an array of materials which defines multiple materials for 1 mesh.<br>
+      This is mostly useful for objects that need both a material and a wireframe implementation.
+    </p>
+
+    <h3>[method:AnimationAction getAnimationActionByName]([param:App scope], [param:String animClipName])</h3>
+    <p class="params">
+      scope — The instance of [page:App application] class.<br>
+      animClipName — The name of the animation clip.
+    </p>
+    <p>
+      Search for animation action by its clip name.
+    </p>
+
+    <h3>[method:Material getMaterialByName]([param:App appInstance], [param:String matName])</h3>
+    <p class="params">
+      appInstance — application to search for the material.<br>
+      matName — material name.
+    </p>
+    <p>
+      Find material by the given name. If not found, returns `null`.
+    </p>
+
+    <h3>[method:Material getMaterialsByName]([param:App appInstance], [param:String matName])</h3>
+    <p class="params">
+      appInstance — application to search for the materials.<br>
+      matName — material name.
+    </p>
+    <p>
+      Find materials by the given name. If not found, returns `[]`.
+    </p>
+
+    <h3>[method:T reduceVertices]([param:Object3D object], [param:Function func], [param:T initialValue])</h3>
+    <p class="params">
+      object — The object to traverse (uses [page:Object3D.traverseVisible traverseVisible] internally). <br>
+      func — The binary function applied for the reduction. Must have the signature: `(value: T, vertex: Vector3) → T`. <br>
+      initialValue — The value to initialize the reduction with. This is required
+      as it also sets the reduction type, which is not required to be Vector3.
+    </p>
+    <p>
+      Akin to Array.prototype.reduce(), but operating on the vertices of all the
+      visible descendant objects, in world space. Additionally, it can operate as a
+      transform-reduce, returning a different type T than the Vector3 input. This
+      can be useful for e.g. fitting a viewing frustum to the scene.
+    </p>
+
+    <h3>[method:undefined sortInstancedMesh]([param:InstancedMesh mesh], [param:Function compareFn])</h3>
+    <p class="params">
+      mesh — InstancedMesh in which instances will be sorted. <br>
+      compareFn — Comparator function defining the sort order.
+    </p>
+    <p>
+      Sorts the instances within an [page:InstancedMesh], according to a user-defined
+      callback. The callback will be provided with two arguments, <i>indexA</i>
+      and <i>indexB</i>, and must return a numerical value. See
+      [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description Array.prototype.sort]
+      for more information on sorting callbacks and their return values.
+    </p>
+    <p>
+      Because of the high performance cost, Verge3D does not sort
+      [page:InstancedMesh] instances automatically. Manually sorting may be
+      helpful to improve display of alpha blended materials (back to front),
+      and to reduce overdraw in opaque materials (front to back).
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

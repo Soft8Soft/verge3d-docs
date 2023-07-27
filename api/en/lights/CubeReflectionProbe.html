@@ -29,9 +29,10 @@
     <h2>Constructor</h2>
 
     <h3>[name]([param:Integer size])</h3>
+    <p class="params">
+      size — (optional) texture size. Default is `256`.
+    </p>
     <p>
-      size - (optional) texture size. Default is 256.<br/><br/>
-
       Creates a new [name].
     </p>
 
@@ -48,24 +49,25 @@
       [page:Lights v3d.ReflectionProbeTypeSphere] and half the cube edge size
       if [page:.influenceType influenceType] equals [page:Lights v3d.ReflectionProbeTypeBox].
       The influence volume is used for testing which objects are affected by the
-      probe (simply those contained inside the volume). Default is 1.<br/><br/>
-
+      probe (simply those contained inside the volume). Default is `1`.
+    </p>
+    <p>
       It's recommended to keep this value and [page:.parallaxDistance] the same for
       more consistent results.
     </p>
 
     <h3>[property:String influenceGroup]</h3>
     <p>
-      Limits scene objects affected by the probe to this group. If not null it
+      Limits scene objects affected by the probe to this group. If not `null` it
       is used instead of [page:.influenceType] and [page:.influenceDistance] to
-      determine which objects should be affected. Default is null, which means
+      determine which objects should be affected. Default is `null`, which means
       that the [page:.influenceType] and [page:.influenceDistance] settings are
       used as usual.
     </p>
 
     <h3>[property:Boolean influenceGroupInv]</h3>
     <p>
-      If [page:.influenceGroup] is not null this option (if true) makes it so
+      If [page:.influenceGroup] is not `null` this option (if true) makes it so
       only objects that don't belong to [page:.influenceGroup] are affected by
       the probe. Default is false.
     </p>
@@ -76,8 +78,9 @@
       (used for the [page:Scene.worldEnvMapProbe] probe object), [page:Lights v3d.ReflectionProbeTypeSphere]
       or [page:Lights v3d.ReflectionProbeTypeBox]. The influence volume is used
       for testing which objects are affected by the probe (simply those contained
-      inside the volume). Default is [page:Lights v3d.ReflectionProbeTypeSphere].<br/><br/>
-
+      inside the volume). Default is [page:Lights v3d.ReflectionProbeTypeSphere].
+    </p>
+    <p>
       It's recommended to keep this value and [page:.parallaxType] the same for
       more consistent results.
     </p>
@@ -93,8 +96,9 @@
       defines a sphere radius if [page:.parallaxType parallaxType] equals
       [page:Lights v3d.ReflectionProbeTypeSphere] and half the cube edge size if
       [page:.parallaxType parallaxType] equals [page:Lights v3d.ReflectionProbeTypeBox].
-      The parallax volume is used for calculating the parallax effect. Default is 1.<br/><br/>
-
+      The parallax volume is used for calculating the parallax effect. Default is `1`.
+    </p>
+    <p>
       It's recommended to keep this value and [page:.influenceDistance] the same
       for more consistent results.
     </p>
@@ -104,8 +108,9 @@
       Defines the type of the parallax volume. Can be [page:Lights v3d.ReflectionProbeTypeInfinite]
       (used for the [page:Scene.worldEnvMapProbe] probe object), [page:Lights v3d.ReflectionProbeTypeSphere]
       or [page:Lights v3d.ReflectionProbeTypeBox]. The parallax volume is used
-      for calculating the parallax effect. Default is [page:Lights v3d.ReflectionProbeTypeSphere].<br/><br/>
-
+      for calculating the parallax effect. Default is [page:Lights v3d.ReflectionProbeTypeSphere].
+    </p>
+    <p>
       It's recommended to keep this value and [page:.influenceType] the same
       for more consistent results.
     </p>
@@ -119,13 +124,13 @@
     <h3>[property:Float probeClipStart]</h3>
     <p>
       Objects located closer than this value won't appear on the probe's
-      environment map. Default is 0.1.
+      environment map. Default is `0.1`.
     </p>
 
     <h3>[property:Float probeIntensity]</h3>
     <p>
       Controls the intensity (exposure) of the probe's environment map. Default
-      is 1.
+      is `1`.
     </p>
 
     <h3>[property:WebGLRenderTarget renderTarget]</h3>
@@ -160,51 +165,56 @@
 
     <p>See the base [page:Object3D Object3D] class for common methods.</p>
 
-    <h3>[method:null dispose]()</h3>
+    <h3>[method:undefined dispose]()</h3>
     <p>
       Remove resources related to the render targets used by this object from memory.
     </p>
 
     <h3>[method:Boolean intersectsMesh]([param:Mesh mesh])</h3>
+    <p class="params">
+      mesh — a [page:Mesh] object to test intersections with.
+    </p>
     <p>
-      mesh - a [page:Mesh] object to test intersections with.<br/><br/>
-
       Check if there's any intersection between the probe's influence volume
       (see [page:.influenceDistance] and [page:.influenceType]) and the given
       mesh object. Returns the checking result. Exact calculations depend on
       [page:.influenceType], for example for [page:Lights v3d.ReflectionProbeTypeInfinite]
-      the method always returns *true*.
+      the method always returns `true`.
     </p>
 
     <h3>[method:WebGLRenderTarget onUpdate]([param:WebGLCubeRenderTarget cubeRT])</h3>
+    <p class="params">
+      cubeRT — a cube render target containing the environment map.
+    </p>
     <p>
-      cubeRT - a cube render target containing the environment map.<br/><br/>
-
       A callback executed after the environment map is rendered in the
       [page:.update] method. Receives a [page:WebGLCubeRenderTarget] instance in
       the *cubeRT* parameter which contains the rendering results. The value
       returned from this function must be an instance of [page:WebGLRenderTarget]
       and will be used as a final [page:.renderTarget]. Returns the same *cubeRT*
-      render target by default.<br/><br/>
-
+      render target by default.
+    </p>
+    <p>
       This callback can be overridden to apply custom changes to the environment
       map each time [page:.update] is called. It is already used for all cube
       reflection probes in the scene if it has its IBL environment mode set to
       *PMREM*.
     </p>
 
-    <h3>[method:null setSize]([param:Integer size])</h3>
+    <h3>[method:undefined setSize]([param:Integer size])</h3>
+    <p class="params">
+      size — new environment map size.
+    </p>
     <p>
-      size - new environment map size.<br/><br/>
-
       Set the environment map size.
     </p>
 
-    <h3>[method:null update]([param:Scene scene], [param:WebGLRenderer renderer])</h3>
+    <h3>[method:undefined update]([param:Scene scene], [param:WebGLRenderer renderer])</h3>
     <p>
-      scene - a scene to render.<br/>
-      renderer - a [page:WebGLRenderer] instance.<br/><br/>
-
+      scene — a scene to render.<br/>
+      renderer — a [page:WebGLRenderer] instance.
+    </p>
+    <p>
       Render the given scene into the probe's environment map. The rendering
       result will be in the [page:.renderTarget] property.
     </p>

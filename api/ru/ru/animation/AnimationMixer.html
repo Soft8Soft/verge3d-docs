@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      AnimationMixer - это проигрыватель для анимации определенного объекта в сцене. Когда несколько объектов в сцене анимируются независимо друг от друга, для каждого объекта может использоваться один AnimationMixer.<br><br>
+
+      Обзор различных элементов системы анимации Verge3D смотрите в статье "Animation System" в разделе "Next Steps" руководства.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Object3D rootObject])</h3>
+    <p>
+      [page:Object3D rootObject] — объект, анимация которого будет воспроизводиться этим микшером.<br>
+    </p>
+
+
+    <h2>Свойства</h2>
+
+
+    <h3>[property:Number time]</h3>
+    <p>
+      Глобальное время микшера (в секундах; начинается с 0 при создании микшера).
+    </p>
+
+    <h3>[property:Number timeScale]</h3>
+    <p>
+      Масштабный коэффициент для глобального [page:.time mixer time].<br><br>
+
+      Примечание: Установка TimeScale микшера на 0, а затем обратно на 1 - это возможность приостановить/отменить паузу все действия, управляемые этим микшером.
+    </p>
+
+
+    <h2>Методы</h2>
+
+
+    <h3>[method:AnimationAction clipAction]([param:AnimationClip clip], [param:Object3D optionalRoot])</h3>
+    <p>
+      Возвращает [page:AnimationAction] для переданного клипа, по желанию используя корневой объект, отличный от корневого объекта микшера по умолчанию. Первым параметром может быть либо объект [page:AnimationClip], либо имя AnimationClip.<br><br>
+
+      Если действие, соответствующее параметрам клипа и корня, еще не существует, оно будет создано этим методом. Вызов этого метода несколько раз с одними и теми же параметрами клипа и корня всегда возвращает один и тот же экземпляр клипа.
+    </p>
+
+    <h3>[method:AnimationAction existingAction]([param:AnimationClip clip], [param:Object3D optionalRoot])</h3>
+    <p>
+      Возвращает существующий [page:AnimationAction] для переданного клипа, по желанию используя корневой объект, отличный от корневого объекта микшера по умолчанию.<br><br>
+
+      Первым параметром может быть либо объект [page:AnimationClip], либо имя AnimationClip.
+    </p>
+
+    <h3>[method:Object3D getRoot]()</h3>
+    <p>
+      Возвращает корневой объект этого микшера.
+    </p>
+
+    <h3>[method:AnimationMixer stopAllAction]()</h3>
+    <p>
+      Останавливает все ранее запланированные действия на этом микшере.
+    </p>
+
+    <h3>[method:AnimationMixer update]([param:Number deltaTimeInSeconds]) </h3>
+    <p>
+      Продвигает глобальное время микшера и обновляет анимацию.<br><br>
+
+      Обычно это делается в цикле рендеринга, передавая [page:Clock.getDelta clock.getDelta], масштабированную по [page:.timeScale timeScale] микшера).
+    </p>
+
+    <h3>[method:AnimationMixer setTime]([param:Number timeInSeconds]) </h3>
+    <p>
+      Устанавливает глобальный микшер на определенное время и соответствующим образом обновляет анимацию.<br><br>
+
+      Это полезно, когда нужно перейти к точному времени в анимации. Входной параметр будет масштабирован по [page:.timeScale timeScale] микшера.
+    </p>
+
+    <h3>[method:null uncacheClip]([param:AnimationClip clip])</h3>
+
+    <p>
+      Распределяет все ресурсы памяти для клипа.
+    </p>
+
+    <h3>[method:null uncacheRoot]([param:Object3D root]) </h3>
+    <p>
+      Распределяет все ресурсы памяти для корневого объекта.
+    </p>
+
+    <h3>[method:null uncacheAction]([param:AnimationClip clip], [param:Object3D optionalRoot])</h3>
+    <p>
+      Распределяет все ресурсы памяти для действия.
+    </p>
+
+
+    [sourceHint]
+  </body>
+</html>

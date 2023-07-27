@@ -277,8 +277,6 @@ function displayFilteredPanel() {
 
 window.addEventListener('DOMContentLoaded', (event) => {
     if (window.location.href.indexOf('/ru/') > -1) {
-        document.body.style.fontFamily = 'Golos, sans-serif';
-        document.body.style.fontSize = '17px';
         document.body.querySelector('nav#panel').style.padding = '0px 10px 0px 15px';
         document.body.querySelectorAll('nav#panel ul').forEach(e => { e.style.marginLeft = '5px' });
         document.body.querySelectorAll('strong, dt').forEach(e => { e.style.fontSize = '17px' });

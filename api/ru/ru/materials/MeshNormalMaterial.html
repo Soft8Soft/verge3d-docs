@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Material] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">Материал, который отображает векторы нормалей в цветах RGB.</p>
+
+    <iframe id="scene" src="scenes/material-browser.html#MeshNormalMaterial"></iframe>
+
+    <script>
+
+    // iOS iframe auto-resize workaround
+
+    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
+
+      const scene = document.getElementById('scene');
+
+      scene.style.width = getComputedStyle(scene).width;
+      scene.style.height = getComputedStyle(scene).height;
+      scene.setAttribute('scrolling', 'no');
+
+    }
+
+    </script>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Object parameters])</h3>
+    <p>
+      [page:Object parameters] — (опционально) объект с одним или несколькими свойствами, определяющими внешний вид материала.
+      Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).
+    </p>
+
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Material].</p>
+
+    <h3>[property:Texture bumpMap]</h3>
+    <p>
+      Текстура для создания карты неровностей. Черные и белые значения отображают воспринимаемую глубину относительно освещения.
+      Bump фактически не влияет на геометрию объекта, только на освещение. Если определена карта нормалей, то она
+      будет проигнорирована.
+    </p>
+
+    <h3>[property:Float bumpScale]</h3>
+    <p>Насколько сильно карта неровностей влияет на материал. Типичные диапазоны 0-1. По умолчанию - 1.</p>
+
+    <h3>[property:Texture displacementMap]</h3>
+    <p>
+      Карта смещения влияет на положение вершин меша. В отличие от других карт
+      которые влияют только на свет и тень материала, смещенные вершины могут отбрасывать тени,
+      блокировать другие объекты и действовать как настоящая геометрия. Текстура смещения представляет собой
+      изображение, на которое наносится значение каждого пикселя (белый - самый высокий),
+      и перемещает вершины меша.
+    </p>
+
+    <h3>[property:Float displacementScale]</h3>
+    <p>
+      Насколько сильно карта смещения влияет на сетку (где черный цвет - нет смещения,
+      а белый - максимальное смещение). Без установленной карты смещения это значение не применяется.
+       По умолчанию - 1.
+    </p>
+
+    <h3>[property:Float displacementBias]</h3>
+    <p>
+      Смещение значений карты смещения на вершинах сетки.
+      Без установленной карты смещения это значение не применяется. По умолчанию равно 0.
+    </p>
+
+    <h3>[property:Boolean fog]</h3>
+    <p>Влияет ли на материал туман. По умолчанию *false*.</p>
+
+    <h3>[property:Boolean morphNormals]</h3>
+    <p>
+      Определяет, использует ли материал morphNormals. Установите значение true, чтобы передавать атрибуты morphNormals
+      из [page:Geometry] в шейдер. По умолчанию *false*.
+    </p>
+
+    <h3>[property:Boolean morphTargets]</h3>
+    <p>Определяет, использует ли материал morphTargets. По умолчанию - false.</p>
+
+    <h3>[property:Texture normalMap]</h3>
+    <p>
+      Текстура для создания карты нормалей. Значения RGB влияют на нормаль поверхности для каждого фрагмента пикселя и изменяют
+      способ освещения. Карты нормалей не изменяют фактическую форму поверхности, только освещение.
+      В случае если материал имеет карту нормалей, созданную с использованием левосторонней конвенции, компонент y параметра normalScale
+      должна быть отрицательной, чтобы компенсировать разную ориентацию.
+    </p>
+
+    <h3>[property:Integer normalMapType]</h3>
+    <p>
+      Тип карты нормалей.<br><br>
+
+      Варианты [page:constant v3d.TangentSpaceNormalMap] (по умолчанию), и [page:constant v3d.ObjectSpaceNormalMap].
+    </p>
+
+    <h3>[property:Vector2 normalScale]</h3>
+    <p>
+      Насколько сильно карта нормалей влияет на материал. Типичные диапазоны - 0-1.
+      По умолчанию это [page:Vector2], установленный на (1,1).
+    </p>
+
+    <h3>[property:Boolean skinning]</h3>
+    <p>Определяет, использует ли материал скиннинг. По умолчанию - false.</p>
+
+    <h3>[property:Boolean wireframe]</h3>
+    <p>
+      Рендеринг геометрии в виде вайрфрейма. По умолчанию false (т.е. рендеринг в виде гладких теней).
+    </p>
+
+    <h3>[property:Float wireframeLinewidth]</h3>
+    <p>Управляет толщиной вайрфрейма. По умолчанию - 1.<br><br>
+
+    В связи с ограничениями [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]
+    с [page:WebGLRenderer WebGL] рендером на большинстве платформ ширина линии будет
+    всегда будет равна 1, независимо от установленного значения.
+    </p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Material].</p>
+
+
+
+    [sourceHint]
+  </body>
+</html>

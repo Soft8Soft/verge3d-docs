@@ -7,14 +7,15 @@
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body>
-        [page:Object3D] &rarr; [page:Light] &rarr;
+    [page:Object3D] &rarr; [page:Light] &rarr;
 
     <h1>[name]</h1>
 
     <p class="desc">
       A light source positioned directly above the scene, with color fading from the
-      sky color to the ground color. <br /><br />
-
+      sky color to the ground color.
+    </p>
+    <p>
       This light cannot be used to cast shadows.
     </p>
 
@@ -28,21 +29,22 @@
     <h2>Examples</h2>
 
     <p>
-      [example:webgl_animation_skinning_blending animation / skinning / blending]<br />
-      [example:webgl_lights_hemisphere lights / hemisphere]<br />
-      [example:misc_controls_pointerlock controls / pointerlock]<br />
-      [example:webgl_loader_collada_kinematics loader / collada / kinematics]<br />
+      [example:webgl_animation_skinning_blending animation / skinning / blending]<br>
+      [example:webgl_lights_hemisphere lights / hemisphere]<br>
+      [example:misc_controls_pointerlock controls / pointerlock]<br>
+      [example:webgl_loader_collada_kinematics loader / collada / kinematics]<br>
       [example:webgl_loader_stl loader / stl]
     </p>
 
     <h2>Constructor</h2>
     <h3>[name]([param:Integer skyColor], [param:Integer groundColor], [param:Float intensity])</h3>
+    <p class="params">
+      [page:Integer skyColor] — (optional) hexadecimal color of the sky. Default is `0xffffff` (white).<br>
+      [page:Integer groundColor] — (optional) hexadecimal color of the ground. Default is `0xffffff` (white).<br>
+      [page:Float intensity] — (optional) numeric value of the light's strength/intensity. Default is `1`.
+    </p>
     <p>
-    [page:Integer skyColor] - (optional) hexadecimal color of the sky. Default is 0xffffff.<br />
-    [page:Integer groundColor] - (optional) hexadecimal color of the ground. Default is 0xffffff.<br />
-    [page:Float intensity] - (optional) numeric value of the light's strength/intensity. Default is 1.<br /><br />
-
-    Creates a new [name].
+      Creates a new [name].
     </p>
 
     <h2>Properties</h2>
@@ -62,11 +64,15 @@
       Default is a new [page:Color] set to white (0xffffff).
     </p>
 
-    <h3>[property:Vector3 position]</h3>
+    <h3>[property:Boolean isHemisphereLight]</h3>
     <p>
-      This is set equal to [page:Object3D.DefaultUp] (0, 1, 0), so that the light shines from the top down.
+      Read-only flag to check if a given object is of type [name].
     </p>
 
+    <h3>[property:Vector3 position]</h3>
+    <p>
+      This is set equal to [page:Object3D.DefaultUp] `(0, 1, 0)`, so that the light shines from the top down.
+    </p>
 
 
     <h2>Methods</h2>
@@ -79,6 +85,18 @@
       [page:.groundColor groundColor] from the [page:Light source] light into this one.
     </p>
 
+
+    <h2>Puzzles</h2>
+
+    <p>The following puzzles work with the hemisphere lights:</p>
+
+    <ul>
+      <li><a href="manual/en/puzzles/Objects.html#create_object">create object</a> — select *light*, then *hemisphere*.</li>
+      <li><a href="manual/en/puzzles/Camera.html#set_light_param">set light param</a> — to set various light parameters.</li>
+      <li><a href="manual/en/puzzles/Camera.html#get_light_param">get light param</a> — to obtain light parameters.</li>
+    </ul>
+
     [sourceHint]
+
   </body>
 </html>

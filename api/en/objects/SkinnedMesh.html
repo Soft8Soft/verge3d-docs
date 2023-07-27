@@ -12,7 +12,9 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A mesh that has a [page:Skeleton] with [page:Bone bones] that can then be used to animate the vertices of the geometry.
+      A mesh that has a [page:Skeleton] with [page:Bone bones] that can then be used to animate the vertices of the geometry.<br><br>
+
+      [name] can only be used with WebGL 2. With WebGL 1 `OES_texture_float` and vertex textures support is required.
     </p>
 
     <iframe id="scene" src="scenes/bones-browser.html"></iframe>
@@ -38,7 +40,8 @@
     <code>
     const geometry = new v3d.CylinderGeometry(5, 5, 5, 5, 15, 5, 30);
 
-    // create the skin indices and skin weights
+    // create the skin indices and skin weights manually
+    // (typically a loader would read this data from a 3D model for you)
 
     const position = geometry.attributes.position;
 
@@ -48,19 +51,17 @@
     const skinWeights = [];
 
     for (let i = 0; i < position.count; i++) {
+        vertex.fromBufferAttribute(position, i);
 
-      vertex.fromBufferAttribute(position, i);
+        // compute skinIndex and skinWeight based on some configuration data
 
-      // compute skinIndex and skinWeight based on some configuration data
+        const y = (vertex.y + sizing.halfHeight);
 
-      const y = (vertex.y + sizing.halfHeight);
+        const skinIndex = Math.floor(y / sizing.segmentHeight);
+        const skinWeight = (y % sizing.segmentHeight) / sizing.segmentHeight;
 
-      const skinIndex = Math.floor(y / sizing.segmentHeight);
-      const skinWeight = (y % sizing.segmentHeight) / sizing.segmentHeight;
-
-      skinIndices.push(skinIndex, skinIndex + 1, 0, 0);
-      skinWeights.push(1 - skinWeight, skinWeight, 0, 0);
-
+        skinIndices.push(skinIndex, skinIndex + 1, 0, 0);
+        skinWeights.push(1 - skinWeight, skinWeight, 0, 0);
     }
 
     geometry.setAttribute('skinIndex', new v3d.Uint16BufferAttribute(skinIndices, 4));
@@ -88,9 +89,9 @@
 
     <h2>Constructor</h2>
     <h3>[name]([param:BufferGeometry geometry], [param:Material material])</h3>
-    <p>
-    [page:BufferGeometry geometry] - an instance of [page:BufferGeometry].<br />
-    [page:Material material] - (optional) an instance of [page:Material]. Default is a new [page:MeshBasicMaterial].
+    <p class="params">
+      [page:BufferGeometry geometry] — an instance of [page:BufferGeometry].<br>
+      [page:Material material] — (optional) an instance of [page:Material]. Default is a new [page:MeshBasicMaterial].
     </p>
 
     <h2>Properties</h2>
@@ -113,6 +114,11 @@
     The base matrix that is used for resetting the bound bone transforms.
     </p>
 
+    <h3>[property:Boolean isSkinnedMesh]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
+    </p>
+
     <h3>[property:Skeleton skeleton]</h3>
     <p>
     [page:Skeleton] representing the bone hierarchy of the skinned mesh.
@@ -126,7 +132,7 @@
     <h3>[method:undefined bind]([param:Skeleton skeleton], [param:Matrix4 bindMatrix])</h3>
     <p>
     [page:Skeleton skeleton] - [page:Skeleton] created from a [page:Bone Bones] tree.<br/>
-    [page:Matrix4 bindMatrix] - [page:Matrix4] that represents the base transform of the skeleton.<br /><br />
+    [page:Matrix4 bindMatrix] - [page:Matrix4] that represents the base transform of the skeleton.<br><br>
 
     Bind a skeleton to the skinned mesh. The bindMatrix gets saved to .bindMatrix property
     and the .bindMatrixInverse gets calculated.
@@ -147,9 +153,15 @@
     This method sets the skinned mesh in the rest pose (resets the pose).
     </p>
 
-    <h3>[method:Vector3 boneTransform]([index:Integer], [target:Vector3])</h3>
+    <h3>[method:Vector3 boneTransform]([param:Integer index], [param:Vector3 target])</h3>
     <p>
     Calculates the position of the vertex at the given index relative to the current bone transformations.
+    Target vector must be initialized with the vetrex coordinates prior to the transformation:
+    <code>
+const target = new v3d.Vector3();
+target.fromBufferAttribute(mesh.geometry.attributes.position, index);
+mesh.boneTransform(index, target);
+    </code>
     </p>
 
     [sourceHint]

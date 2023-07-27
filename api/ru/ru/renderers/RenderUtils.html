@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <base href="../../../" />
+        <script src="page.js"></script>
+        <link type="text/css" rel="stylesheet" href="page.css" />
+    </head>
+    <body>
+        <h1>[name]</h1>
+
+        <div class="desc">
+            Класс, содержащий полезные методы рендеринга.
+        </div>
+
+        <h2>Методы</h2>
+
+        <h3>[method:WebGLCubeRenderTarget renderSceneToCubemap]([param:Scene scene], [param:WebGLRenderer renderer], [param:WebGLCubeRenderTarget cubeRenderTarget], [param:Object cameraOptions])</h3>
+        <div>
+            Рендеринг заданной сцены в cubemap. Параметры:
+            <ul>
+                <li>scene - [page:Scene] для рендеринга в cubemap</li>
+                <li>renderer - [page:WebGLRenderer]</li>
+                <li>cubeRenderTarget - [page:WebGLCubeRenderTarget] render target содержащая cubemap для рендеринга</li>
+                <li>
+                    cameraOptions - объект, содержащий параметры для кубической камеры, используемой для рендеринга сцены в cubemap; параметры и их значения по умолчанию:
+    <code>
+    {
+        camPos: new Vector3(),
+        clipStart: 0.1,
+        clipEnd: 100,
+    }
+    </code>
+                    camPos - позиция кубической камеры<br/>
+                    clipStart - значение ближней планки<br/>
+                    clipEnd - значение дальней планки<br/>
+                </li>
+            </ul>
+        </div>
+
+        <h3>[method:WebGLCubeRenderTarget renderWorldNodeMatToCubemap]([param:WebGLRenderer renderer], [param:MeshNodeMaterial material], [param:Integer cubeRes], [param:Object options])</h3>
+        <div>
+            Рендеринг материала ноды мира в cubemap. Параметры:
+            <ul>
+                <li>renderer - [page:WebGLRenderer]</li>
+                <li>material - материал ноды мира, должен иметь тип [page:MeshNodeMaterial]</li>
+                <li>cubeRes - разрешение отрендеренной cubemap </li>
+                <li>
+                    options - (необязательный) объект, содержащий параметры текстуры
+                    для автоматически генерируемой cube render target; имеет тот же формат
+                    как параметр *options* для конструктора[page:WebGLCubeRenderTarget]
+                </li>
+            </ul>
+            Полученный [page:WebGLCubeRenderTarget render target] с текстурой куба
+            можно использовать в качестве фона для сцены.
+        </div>
+
+    </body>
+</html>

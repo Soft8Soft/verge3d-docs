@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr; [page:Line] &rarr; [page:LineSegments] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Объект-помощник для графического отображения ограничивающей рамки вокруг объекта с выравниванием по мировой оси. Фактическая ограничительная рамка обрабатывается в [page:Box3], это просто визуальный помощник для отладки. Его размер может быть автоматически изменен с помощью метода [page:BoxHelper.update], когда объект, на основе которого он создан, трансформируется. Обратите внимание, что для этого объект должен иметь [page:Geometry] или [page:BufferGeometry], поэтому он не будет работать с [page:Sprite Sprites].
+    </p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    const sphere = new v3d.SphereBufferGeometry();
+    const object = new v3d.Mesh(sphere, new v3d.MeshBasicMaterial(0xff0000));
+    const box = new v3d.BoxHelper(object, 0xffff00);
+    scene.add(box);
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_helpers WebGL / helpers]<br/>
+      [example:webgl_loader_nrrd WebGL / loader / nrrd]<br/>
+      [example:webgl_buffergeometry_drawrange WebGL / buffergeometry / drawrange]
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Object3D object], [param:Color color])</h3>
+    <p>
+    [page:Object3D object]  -- (опционально) 3D-объект для отображения ограничивающей рамки, выровненной по мировой оси.<br>
+    [page:Color color] --  (опционально) шестнадцатеричное значение, определяющее цвет бокса. По умолчанию 0xffff00.<br><br>
+
+    Создает новый вайрфреймовый бокс, который ограничивает заданный объект. Внутри используется [page:Box3.setFromObject]
+    для вычисления размеров. Обратите внимание, что сюда входят все дочерние объекты.
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:LineSegments].</p>
+
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:LineSegments].</p>
+
+    <h3>[method:null update]()</h3>
+    <p>
+      Обновляет геометрию помощника в соответствии с размерами
+      объекта, включая все дочерние объекты. См. [page:Box3.setFromObject].
+    </p>
+
+    <h3>[method:BoxHelper setFromObject]([param:Object3D object])</h3>
+    <p>
+      [page:Object3D object] — для создания помощника [page:Object3D].<br><br>
+
+      Обновляет вайрфреймовый бокс для заданного объекта.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

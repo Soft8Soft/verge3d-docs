@@ -24,9 +24,9 @@
     [contents]
 
 
-    [anchor:puzzles_reference]
+    [anchor:paypal_puzzles]
 
-    <h2>Puzzles Reference</h2>
+    <h2>Paypal Puzzle</h2>
 
 
     [anchor:paypal_create_order]
@@ -34,7 +34,7 @@
     <h3>paypal create order</h3>
 
     <p>
-      Place PayPal order. This puzzle is the simplest ecommerce solution possible because it does not require any server-side configuration. To use it you only need verified PayPal business account.
+      Place PayPal order. This puzzle is the simplest e-commerce solution possible because it does not require any server-side configuration. To use it you only need verified PayPal business account.
     </p>
 
     <img src="files/puzzles/puzzles-ecommerce-paypal-create-order.jpg" alt="Visual programming block to create PayPal orders">
@@ -51,10 +51,15 @@
       <dt>quantity</dt>
       <dd>Amount of product.</dd>
       <dt>on success do</dt>
-      <dd>Puzzles in this slot are executed upon successfull transaction.</dd>
+      <dd>Puzzles in this slot are executed upon successful transaction.</dd>
       <dt>on error do</dt>
       <dd>Puzzles in this slot are executed upon errors (insufficient funds or so).</dd>
     </dl>
+
+
+    [anchor:woocommerce_puzzles]
+
+    <h2>WooCommerce Puzzles</h2>
 
 
     [anchor:woo_connect]
@@ -74,33 +79,120 @@
 
     <h3>product info</h3>
 
-    <p>Returns a <a href="manual/en/puzzles/Dictionaries.html">dictionary</a> with product information retrieved by the *connect to WooCommerce* puzzle. This dictionary (a JavaScript object) contains the following fields:</p>
+    <p>
+      Returns a <a href="manual/en/puzzles/Dictionaries.html">dictionary</a> with product information retrieved by the <a href="manual/en/puzzles/ECommerce.html#woo_connect">connect to WooCommerce</a> puzzle:
+    </p>
 
-    <p><ul>
-      <li>*price* — price for the product option selected by the customer, e.g. 12.</li>
-      <li>*quantity* — quantity of the product items selected by the customer, e.g. 2.</li>
-      <li>*sku* — stock keeping unit for the product option selected by the customer.</li>
-      <li>*name* — the name of the product as it will be seen in the shop cart, e.g. "Spinner - Yellow, Large".</li>
-      <li>*attributes* — a dictionary with attribute names/values pairs for the product option selected by the customer, e.g. {color: "Yellow", size: "Large"}.</li>
-      <li>*weight* — physical product weight for the product option selected by the customer.</li>
-      <li>*length*, *width*, *height* — physical product dimensions for the product option selected by the customer.</li>
-      <li>*type* — product type as specified in WooCommerce admin panel, one of the following: "variable", "simple", "group" or "external".</li>
-      <li>*children* — only available for "group" products. Includes information on the per-subproduct basis.</li>
-      <li>*status* — server response: "ok" or "error".</li>
-    </ul></p>
 
     <img src="files/puzzles/puzzles-ecommerce-product-info.jpg" alt="Getting product info by using visual programming">
+
+    <p>
+     The dictionary contains the following fields:
+    </p>
+
+    <dl>
+      <dt>price</dt>
+      <dd>Price for the product option selected by the customer, e.g. 12.</dd>
+
+      <dt>quantity</dt>
+      <dd>Quantity of the product items selected by the customer, e.g. 2.</dd>
+
+      <dt>sku</dt>
+      <dd>Stock keeping unit for the product option selected by the customer.</dd>
+
+      <dt>name</dt>
+      <dd>The name of the product as it will be seen in the shop cart, e.g. "Spinner - Yellow, Large".</dd>
+
+      <dt>attributes</dt>
+      <dd>A dictionary with attribute names/values pairs for the product option selected by the customer, e.g. {color: "Yellow", size: "Large"}.</dd>
+
+      <dt>weight</dt>
+      <dd>Physical product weight for the product option selected by the customer.</dd>
+
+      <dt>length, width, height</dt>
+      <dd>Physical product dimensions for the product option selected by the customer.</dd>
+
+      <dt>type</dt>
+      <dd>Product type as specified in WooCommerce admin panel, one of the following: "variable", "simple", "group", "external", or "composite".</dd>
+
+      <dt>children</dt>
+      <dd>Only available for "group" products. Returns list with information on the per-subproduct basis.</dd>
+
+      <dt>components</dt>
+      <dd>Only available for "composite" products. Returns list with information on the per-component basis. For simplicity you can use the <a href="manual/en/puzzles/ECommerce.html#woo_product_component">product component</a> puzzle to obtain this info.</dd>
+
+      <dt>status</dt>
+      <dd>Server response: "ok" or "error".</dd>
+    </dl>
+
 
 
     [anchor:woo_product_attribute]
 
     <h3>product attribute</h3>
 
-    <p>Returns the value for an attribute of the product option selected by the customer, e.g. "Yellow".</p>
+    <p>
+      Returns the value for an attribute of the product option selected by the customer, e.g. "Yellow" for attribute "Color".
+    </p>
 
     <img src="files/puzzles/puzzles-ecommerce-product-attribute.jpg" alt="Visual programming block for getting product attributes">
 
-    <p>See <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial</a> for more details.</p>
+    <p>
+      Most frequently, this puzzle used to obtain the currently selected variation of a "variable" product. The name of the argument passed is matched in a case-insentitive manner, e.g. "Color", "color", or "COLOR" represent the same attribute.
+    </p>
+
+    <p>
+      See <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial</a> for more details.
+    </p>
+
+
+    [anchor:woo_product_component]
+
+    <h3>product component</h3>
+
+    <p>
+      Returns a value from a product component provided by the <a href="https://woocommerce.com/products/composite-products/" target="_blank">WooCommerce Composite Products</a> extension.
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-product-component.webp" alt="Visual programming block for getting WooCommerce composite product components">
+
+    <p>
+      For your convenience, you can specify either component name (title) (e.g. "Drawer Top") or a component ID (e.g. "1685435951") as the first parameter.
+    </p>
+
+    <p>
+      You can retrieve one of the following values from the component:
+    </p>
+
+    <dl>
+      <dt>product name</dt>
+      <dd>Name of the product selected in the component. Equal to "" (empty string) if no product selected.</dd>
+      <dt>sku</dt>
+      <dd>SKU of the product selected in the component. Equal to "" (empty string) if no product selected, or if you have no SKU assigned for the product.</dd>
+      <dt>quantity</dt>
+      <dd>Product quantity.</dd>
+      <dt>type</dt>
+      <dd>Product type: "simple", "variable", or "none" if no product was selected.</dd>
+      <dt>weight</dt>
+      <dd>Product weight. Equal to 0 (zero) if no weight was specified for the product.</dd>
+      <dt>width</dt>
+      <dd>Product width. Equal to 0 (zero) if no width was specified for the product.</dd>
+      <dt>height</dt>
+      <dd>Product height. Equal to 0 (zero) if no height was specified for the product.</dd>
+      <dt>length</dt>
+      <dd>Product length. Equal to 0 (zero) if no length was specified for the product.</dd>
+      <dt>attributes</dt>
+      <dd>Dictionary with attributes assigned on the selected product. In most cases, this value is used to obtain attributes for the currently selected variation of the "variable" products.</dd>
+      <dt>component title</dt>
+      <dd>Component name (title), e.g "Drawer Top". Not to be confused with the product name.</dd>
+      <dt>component id</dt>
+      <dd>Component ID, e.g "1685435951".</dd>
+    </dl>
+
+
+    [anchor:wordpress_order_form_puzzles]
+
+    <h2>WordPress Order Form Puzzles</h2>
 
 
     [anchor:place_order]
@@ -135,7 +227,7 @@
     <img src="files/puzzles/puzzles-ecommerce-place-order-example.jpg" alt="Example of visual scripting blocks used for placing e-commerce orders">
 
     <p class="note">
-      It's up to you (or sales manager) to verify corectness of the order content and price. Though very unlikely, a hacker may malform content submited by this puzzle and try to purchase a product for lesser price. To prevent it, you need to verify your orders by using the <a href="manual/en/puzzles/ECommerce.html#place_order_adv">place order +</a> puzzle which rely on product info assigned on the server.
+      It's up to you (or sales manager) to verify correctness of the order content and price. Though very unlikely, a hacker may malform content submitted by this puzzle and try to purchase a product for lesser price. To prevent it, you need to verify your orders by using the <a href="manual/en/puzzles/ECommerce.html#place_order_adv">place order +</a> puzzle which rely on product info assigned on the server.
     </p>
 
 

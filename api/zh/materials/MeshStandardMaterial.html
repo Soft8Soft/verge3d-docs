@@ -11,21 +11,21 @@
 
     <h1>标准网格材质([name])</h1>
 
-    <p class="desc"> 一种基于物理的标准材质，使用Metallic-Roughness工作流程。<br /><br />
+    <p class="desc"> 一种基于物理的标准材质，使用Metallic-Roughness工作流程。<br><br>
       基于物理的渲染（PBR）最近已成为许多3D应用程序的标准，例如[link:https://blogs.unity3d.com/2014/10/29/physically-based-shading-in-unity-5-a-primer/ Unity]，
       [link:https://docs.unrealengine.com/latest/INT/Engine/Rendering/Materials/PhysicallyBased/ Unreal]和
-      [link:http://area.autodesk.com/blogs/the-3ds-max-blog/what039s-new-for-rendering-in-3ds-max-2017 3D Studio Max]。<br /><br />
+      [link:http://area.autodesk.com/blogs/the-3ds-max-blog/what039s-new-for-rendering-in-3ds-max-2017 3D Studio Max]。<br><br>
       这种方法与旧方法的不同之处在于，不使用近似值来表示光与表面的相互作用，而是使用物理上正确的模型。
-      我们的想法是，不是在特定照明下调整材质以使其看起来很好，而是可以创建一种材质，能够“正确”地应对所有光照场景。<br /><br />
+      我们的想法是，不是在特定照明下调整材质以使其看起来很好，而是可以创建一种材质，能够“正确”地应对所有光照场景。<br><br>
 
-      在实践中，该材质提供了比[page:MeshLambertMaterial] 或[page:MeshPhongMaterial] 更精确和逼真的结果，代价是计算成本更高。<br /><br />
+      在实践中，该材质提供了比[page:MeshLambertMaterial] 或[page:MeshPhongMaterial] 更精确和逼真的结果，代价是计算成本更高。<br><br>
 
 
       计算着色的方式与[page:MeshPhongMaterial]相同，都使用[link:https://en.wikipedia.org/wiki/Phong_shading Phong]着色模型，
       这会计算每个像素的阴影（即在[link:https://en.wikipedia.org/wiki/Shader#Pixel_shaders fragment shader]，
-      AKA pixel shader中）， 与[page:MeshLambertMaterial]使用的Gouraud模型相比，该模型的结果更准确，但代价是牺牲一些性能。<br /><br />
+      AKA pixel shader中）， 与[page:MeshLambertMaterial]使用的Gouraud模型相比，该模型的结果更准确，但代价是牺牲一些性能。<br><br>
 
-      请注意，为获得最佳效果，您在使用此材质时应始终指定[page:.envMap environment map]。<br /><br />
+      请注意，为获得最佳效果，您在使用此材质时应始终指定[page:.envMap environment map]。<br><br>
       有关PBR概念的非技术性介绍以及如何设置PBR材质，请查看[link:https://www.marmoset.co marmoset]成员的这些文章：
       <ul>
         <li>
@@ -62,8 +62,8 @@
     <h2>构造函数(Constructor)</h2>
 
     <h3>[name]([param:Object parameters])</h3>
-    <p> [page:Object parameters] - (可选)用于定义材质外观的对象，具有一个或多个属性。
-      材质的任何属性都可以从此处传入(包括从[page:Material]继承的任何属性)。<br /><br />
+    <p> [page:Object parameters] — (可选)用于定义材质外观的对象，具有一个或多个属性。
+      材质的任何属性都可以从此处传入(包括从[page:Material]继承的任何属性)。<br><br>
       属性[page:Hexadecimal color]例外，其可以作为十六进制字符串传递，默认情况下为 *0xffffff*（白色），内部调用[page:Color.set](color)。
     </p>
 
@@ -72,7 +72,7 @@
 
     <h3>[property:Texture alphaMap]</h3>
     <p>alpha贴图是一张灰度纹理，用于控制整个表面的不透明度。（黑色：完全透明；白色：完全不透明）。
-      默认值为null。<br /><br />
+      默认值为null。<br><br>
 
       仅使用纹理的颜色，忽略alpha通道（如果存在）。
       对于RGB和RGBA纹理，[page:WebGLRenderer WebGL]渲染器在采样此纹理时将使用绿色通道，
@@ -172,7 +172,7 @@
     </p>
 
     <h3>[property:Integer normalMapType]</h3>
-    <p>法线贴图的类型。<br /><br />
+    <p>法线贴图的类型。<br><br>
       选项为[page:constant v3d.TangentSpaceNormalMap]（默认）和[page:constant v3d.ObjectSpaceNormalMap]。
     </p>
 
@@ -210,21 +210,21 @@
     <p>将几何体渲染为线框。默认值为*false*（即渲染为平面多边形）。</p>
 
     <h3>[property:String wireframeLinecap]</h3>
-    <p> 定义线两端的外观。可选值为 'butt'，'round' 和 'square'。默认为'round'。<br /><br />
+    <p> 定义线两端的外观。可选值为 'butt'，'round' 和 'square'。默认为'round'。<br><br>
       该属性对应[link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]属性，
       并且会被[page:WebGLRenderer WebGL]渲染器忽略。
     </p>
 
     <h3>[property:String wireframeLinejoin]</h3>
     <p>
-      定义线连接节点的样式。可选值为 'round', 'bevel' 和 'miter'。默认值为 'round'。<br /><br />
+      定义线连接节点的样式。可选值为 'round', 'bevel' 和 'miter'。默认值为 'round'。<br><br>
 
       该属性对应[link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]属性，
       并且会被[page:WebGLRenderer WebGL]渲染器忽略。
     </p>
 
     <h3>[property:Float wireframeLinewidth]</h3>
-    <p>控制线框宽度。默认值为1。<br /><br />
+    <p>控制线框宽度。默认值为1。<br><br>
       由于[link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]与大多数平台上[page:WebGLRenderer WebGL]渲染器的限制，无论如何设置该值，线宽始终为1。
     </p>
 

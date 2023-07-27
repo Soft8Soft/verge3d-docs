@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:MotionPathConstraint] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      A constraint which makes the constrained object move along the curve path.
+    </p>
+
+    <p>
+      Constraints are used to set up various relations between objects by
+      affecting their position, rotation and scale. Can be used with the
+      [page:Object3D.constraints Object3D.constraints] property.
+    </p>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]()</h3>
+
+
+    <h2>Properties</h2>
+
+    <p>See the base [page:Constraint] class for common properties.</p>
+
+    <h3>[property:Boolean bank]</h3>
+    <p>
+      Enables banking. Banking means the object will lean in towards the center of the curvature of the curve that it travels along, like a motorcycle going around a corner, i.e. it is a kind of roll to left-right. Default is `false`.
+    </p>
+
+    <h3>[property:Float bankScale]</h3>
+    <p>
+      Scales the banking angle. Default is `1`.
+    </p>
+
+    <h3>[property:Float bankLimit]</h3>
+    <p>
+      The maximum allowed absolute banking angle in radians. Default is `Infinity`.
+    </p>
+
+    <h3>[property:Array chordLengths]</h3>
+    <p>
+      The [page:Array array] of sums of chord lengths. Chord lengths are stored like this:
+    </p>
+    <p>`[lengthOfChord1, lengthOfChord1 + lengthOfChord2, ...]`</p>
+    <p>
+      The last element equals to approximated curve length. Note: does not work when [page:.useChordLength useChordLength] is disabled. Default is `[]`.
+    </p>
+
+    <h3>[property:Integer chordsNum]</h3>
+    <p>
+      The total chords count on the curve, used when [page:MotionPathConstraint.useChordLength useChordLength] flag is enabled. The bigger the number the more uniformly will be object movement. If `chordsNum <= 0` then it will be computated automatically. Note: always call [page:.init init] method to apply changes. Default is `0`.
+    </p>
+
+    <h3>[property:Array cvs]</h3>
+    <p>
+      The packed [page:Array array] of NURBS curve's control points. "Packed" means that the control points stored like this:
+    </p>
+    <p>`[point_1.x, point_1.y, point_1.z, point_2.x, point_2.y, point_2.z, ...]`</p>
+    <p>
+      Note: always call [page:.init init] method to apply changes. Default is `[]`.
+    </p>
+
+    <h3>[property:Integer degree]</h3>
+    <p>
+      The degree of NURBS curve, i.e. the degree of path curve. Note: always call [page:.init init] method to apply changes. Default is `3`.
+    </p>
+
+    <h3>[property:Boolean fixCameraLightRotation]</h3>
+    <p>
+      In Verge3D we use right-handed coordinate system with the Y axis pointing in the up direction, but Blender and 3ds Max uses right-handed coordinate system with Z axis pointing in the up direction (<a href="https://www.soft8soft.com/wiki/index.php/Coordinate_Systems" target="_blank">Verge3D Wiki</a>). So, to correct the rotation for cameras and lights, set `fixCameraLightRotation = true`. Default is `false`.
+    </p>
+
+    <h3>[property:Float fixedValue]</h3>
+    <p>
+      Object will stay locked to a single point along the curve regardless of animation. Default is `0.0`.
+    </p>
+
+    <h3>[property:Boolean follow]</h3>
+    <p>
+      If on, computes the object’s orientation (rotation) as it moves along the curve. Default is `true`.
+    </p>
+
+    <h3>[property:String frontAxis]</h3>
+    <p>
+      The axis of the constrained object that aligns with the front vector, in other words the axis that aligns to the curve tangent. Can be one of the `'X'`, `'-X'`, `'Y'`, `'-Y'`, `'Z'`, `'-Z'`. Default is `'Z'`.
+    </p>
+
+    <h3>[property:Float influence]</h3>
+    <p>
+      The percentage of influence the constraint has on the object. Default is `1.0` (100%).
+    </p>
+
+    <h3>[property:Boolean isMotionPathConstraint]</h3>
+    <p>
+      Used to check whether this or derived classes are Motion Path constraints. Default is `true`.
+    </p>
+
+    <h3>[property:Array knots]</h3>
+    <p>
+      The [page:Array array] of NURBS curve knots. Note: it's length always have to be
+      `number of control points + degree + 1`. Note: always call [page:.init init] method to apply changes. Default is `[]`.
+    </p>
+
+    <h3>[property:Integer objOffsetMode]</h3>
+    <p>
+      Set how the offset transformation will be applied to current constraint transformation:<br>
+      `0` — the position and rotation transformations will be applied separately (3ds Max behavior).<br>
+      `1` — the transformation will be applied as an matrix multiplication (Blender behavior).
+      Default is `0`.
+    </p>
+
+    <h3>[property:Integer objOffsetRotMode]</h3>
+    <p>
+      Set how the offset rotation will be applied to current constraint rotation:<br>
+      `0` — only constraint rotation will be applied (3ds Max, Maya behavior).<br>
+      `1` — the constraint rotation will be applied first, then offset rotation (Blender).
+      Default is `0`.
+    </p>
+
+    <h3>[property:Float offsetValue]</h3>
+    <p>
+      An additional offset to [page:.value value]. Note: does not work when [page:.useFixedLocation useFixedLocation] is enabled. Default is `0.0`.
+    </p>
+
+    <h3>[property:Array pointsTilt]</h3>
+    <p>
+      The [page:Array array] of tilt angles (bank angles, roll angles) in randians at each curve control point. This is an alternative for [page:.bank bank]. The values are stored like this:
+    </p>
+    <p>`[tiltAngleForFirstPoint, tiltAngleForSecondPoint, ...]`</p>
+    <p>
+      Note: does not work when [page:.usePointsTilt usePointsTilt] is disabled. Note: always call [page:.init init] method to apply changes. Default is `[]`.
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+      The constraint's type. Equals to `'MotionPathConstraint'`.
+    </p>
+
+    <h3>[property:String upAxis]</h3>
+    <p>
+      The axis of the constrained object that's always aligned with the [page:.worldUpVector worldUpVector] as much as possible. Can be one of the `'X'`, `'-X'`, `'Y'`, `'-Y'`, `'Z'`, `'-Z'`. Default is `'Y'`.
+    </p>
+
+    <h3>[property:Boolean useChordLength]</h3>
+    <p>
+      Enable it to make object uniformly move along the curve. Default is `false`.
+    </p>
+
+    <h3>[property:Boolean useClampValue]</h3>
+    <p>
+      When enabled the [page:.value value] will be clamped to interval `[0.0, 1.0]`. Note: does not work when [page:.useCyclic useCyclic] is enabled. Default is `false`.
+    </p>
+
+    <h3>[property:Boolean useCyclic]</h3>
+    <p>
+      Enable it to make [page:.value value] cyclic, for example if [page:.value value] = 1.6 then it will be `0.6`, if [page:.value value] = -1.6 it will be `0.4`. Default is `false`.
+    </p>
+
+    <h3>[property:Boolean useFixedLocation]</h3>
+    <p>
+      Enable it to make object stay locked to a single point along the curve regardless of animation defined by [page:.fixedValue fixedValue]. Default is `false`.
+    </p>
+
+    <h3>[property:Boolean useObjOffset]</h3>
+    <p>
+      Enable or disable object's offset. Default is `false`.
+    </p>
+
+    <h3>[property:Boolean usePointsTilt]</h3>
+    <p>
+      Similar to [page:.bank bank], but to use it the [page:.pointsTilt pointsTilt] array have to be specified. Note: does not work when [page:.bank bank] is enabled. Default is `false`.
+    </p>
+
+    <h3>[property:Boolean usePosOffset]</h3>
+    <p>
+      Enable or disable object's position offset. Note: Works only if [page:.useObjOffset useObjOffset] enabled. Default is `true`.
+    </p>
+
+    <h3>[property:Boolean useRelative]</h3>
+    <p>
+      If enabled the object will follow the path with an offset distance based on its original world space position which was saved at first call of [page:.update update] function. Note: Works only if [page:.useObjOffset useObjOffset] enabled. Default is `false`.
+    </p>
+
+    <h3>[property:Float value]</h3>
+    <p>
+      The current constraint value. Have to be in interval `[0.0, 1.0]` if [page:.useCyclic useCyclic] disabled. Default is `0.0`.
+    </p>
+
+    <h3>[property:Array weights]</h3>
+    <p>
+      The [page:Array array] of weights for each curve control point. Note: always call [page:.init init] method to apply changes. Default is `[]`.
+    </p>
+
+    <h3>[property:Vector3 worldUpVector]</h3>
+    <p>
+      A [page:Vector3] in world space that the [page:.upAxis upAxis] tries to align with as closely as possible. Default is `(0, 1, 0)`.
+    </p>
+
+    <h2>Methods</h2>
+
+    <h3>[method:this init]()</h3>
+    <p>
+      Initialize constraint path curve.
+      Note: always call this function after changing path curve parameters.
+    </p>
+
+    <p>See the base [page:Constraint] class for common methods.</p>
+
+    [sourceHint]
+
+  </body>
+</html>

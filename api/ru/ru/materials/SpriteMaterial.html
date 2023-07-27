@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Material] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">Материал для использования с [page:Sprite].</p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    const map = new v3d.TextureLoader().load('textures/sprite.png');
+    const material = new v3d.SpriteMaterial({ map: map, color: 0xffffff });
+
+    const sprite = new v3d.Sprite(material);
+    sprite.scale.set(200, 200, 1)
+    scene.add(sprite);
+    </code>
+
+    <h2>Примеры</h2>
+    <p>
+      [example:webgl_sprites webGL / sprites]<br>
+      [example:software_sandbox software / sandbox]<br>
+      [example:svg_sandbox svg / sandbox]<br>
+      [example:webgl_materials_cubemap_dynamic webgl / materials / cubemap / dynamic]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Object parameters])</h3>
+    <p>
+      [page:Object parameters] — (опционально) объект с одним или несколькими свойствами, определяющими внешний вид материала.
+      Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).<br><br>
+
+      Исключением является свойство [page:Hexadecimal color], которое может быть передано в виде шестнадцатеричной строки и по умолчанию имеет значение *0xffffff* (белый). [page:Color.set](color) вызывается внутренне.
+
+      SpriteMaterials не обрезаются при использовании [page:Material.clippingPlanes].
+    </p>
+
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Material].</p>
+
+    <h3>[property:Texture alphaMap]</h3>
+    <p>Альфа-карта - это черно-белая текстура, которая контролирует непрозрачность поверхности. (черный: полностью прозрачный; белый: полностью непрозрачный). По умолчанию - null.<br><br>
+
+      Используется только цвет текстуры, игнорируя альфа-канал, если он существует. Для текстур RGB и RGBA рендерер [page:WebGLRenderer WebGL] будет использовать зеленый канал при выборке этой текстуры из-за дополнительного бита точности, предоставляемого для зеленого цвета в DXT-сжатом и несжатом форматах RGB 565. Текстуры только с яркостью и яркость/альфа также будут работать, как и ожидалось.
+    </p>
+
+    <h3>[property:Color color]</h3>
+    <p>[page:Color] материала, по умолчанию установлен на белый (0xffffffff). Значение [page:.map] умножается на цвет.</p>
+
+    <h3>[property:Texture map]</h3>
+    <p>Карта текстуры. По умолчанию null.</p>
+
+    <h3>[property:Radians rotation]</h3>
+    <p>Вращение спрайта в радианах. По умолчанию 0.</p>
+
+    <h3>[property:Boolean sizeAttenuation]</h3>
+    <p>Зависит ли размер спрайта от глубины камеры. (Только для камеры перспективы.) По умолчанию *true*.</p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Material].</p>
+
+    [sourceHint]
+  </body>
+</html>

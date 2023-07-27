@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">Униформы являются глобальными [link:https://www.opengl.org/documentation/glsl/ GLSL] переменными. Они передаются в шейдерные программы.
+    </p>
+
+    <h2>Пример Кода</h2>
+    <p>
+      При объявлении формы [page:ShaderMaterial] она объявляется по значению или по объекту.
+    </p>
+    <code>
+    uniforms: {
+      time: { value: 1.0 },
+      resolution: new Uniform(new Vector2())
+    };
+    </code>
+
+    <h2>Типы Униформ</h2>
+
+    <p>
+      Каждая униформа должна иметь свойство *value*. Тип значения должен соответствовать типу однородной переменной в коде GLSL, как указано для примитивных типов GLSL в таблице ниже. Также поддерживаются унифицированные структуры и массивы. Массивы GLSL примитивного типа должны быть заданы либо как массив соответствующих объектов v3d, либо как плоский массив, содержащий данные всех объектов. Другими словами, GLSL-примитивы в массивах не должны быть представлены массивами. Это правило не применяется транзитивно. Массив массивов *vec2*, каждый из которых имеет длину пять векторов, должен быть массивом массивов, состоящим либо из пяти объектов [page:Vector2], либо из десяти *number*.
+    </p>
+    <table>
+      <caption><a id="uniform-types">Uniform types</a></caption>
+      <thead>
+        <tr>
+          <th>GLSL type</th>
+          <th>JavaScript type</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>int</td>
+          <td>[page:Number]</td>
+        </tr>
+        <tr>
+          <td>uint (WebGL 2)</td>
+          <td>[page:Number]</td>
+        </tr>
+        <tr>
+          <td>float</td>
+          <td>[page:Number]</td>
+        </tr>
+        <tr>
+          <td>bool</td>
+          <td>[page:Boolean]</td>
+        </tr>
+        <tr>
+          <td>bool</td>
+          <td>[page:Number]</td>
+        </tr>
+
+        <tr>
+          <td>vec2</td>
+          <td>[page:Vector2 v3d.Vector2]</td>
+        </tr>
+        <tr>
+          <td>vec2</td>
+          <td>[page:Float32Array Float32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>vec2</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+        <tr>
+          <td>vec3</td>
+          <td>[page:Vector3 v3d.Vector3]</td>
+        </tr>
+        <tr>
+          <td>vec3</td>
+          <td>[page:Color v3d.Color]</td>
+        </tr>
+        <tr>
+          <td>vec3</td>
+          <td>[page:Float32Array Float32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>vec3</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+        <tr>
+          <td>vec4</td>
+          <td>[page:Vector4 v3d.Vector4]</td>
+        </tr>
+        <tr>
+          <td>vec4</td>
+          <td>[page:Quaternion v3d.Quaternion]</td>
+        </tr>
+        <tr>
+          <td>vec4</td>
+          <td>[page:Float32Array Float32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>vec4</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+
+        <tr>
+          <td>mat2</td>
+          <td>[page:Float32Array Float32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>mat2</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+        <tr>
+          <td>mat3</td>
+          <td>[page:Matrix3 v3d.Matrix3]</td>
+        </tr>
+        <tr>
+          <td>mat3</td>
+          <td>[page:Float32Array Float32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>mat3</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+        <tr>
+          <td>mat4</td>
+          <td>[page:Matrix3 v3d.Matrix4]</td>
+        </tr>
+        <tr>
+          <td>mat4</td>
+          <td>[page:Float32Array Float32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>mat4</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+
+        <tr>
+          <td>ivec2, bvec2</td>
+          <td>[page:Float32Array Float32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>ivec2, bvec2</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+        <tr>
+          <td>ivec3, bvec3</td>
+          <td>[page:Int32Array Int32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>ivec3, bvec3</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+        <tr>
+          <td>ivec4, bvec4</td>
+          <td>[page:Int32Array Int32Array] (*)</td>
+        </tr>
+        <tr>
+          <td>ivec4, bvec4</td>
+          <td>[page:Array Array] (*)</td>
+        </tr>
+
+        <tr>
+          <td>sampler2D</td>
+          <td>[page:Texture v3d.Texture]</td>
+        </tr>
+        <tr>
+          <td>samplerCube</td>
+          <td>[page:CubeTexture v3d.CubeTexture]</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <p>
+    (*) То же самое для внутреннего(innermost) массива размерности (dimension) того же типа GLSL, содержащего компоненты всех векторов или матриц в массиве.
+    </p>
+
+    <h2>Структурированные Униформы</h2>
+
+    <p>
+      Иногда вы хотите организовать униформы как *структуры* в коде шейдера. Чтобы *Verge3D* мог обрабатывать структурированные данные униформы, необходимо использовать следующий стиль.
+    </p>
+    <code>
+    uniforms = {
+      data: {
+        value: {
+          position: new Vector3(),
+          direction: new Vector3(0, 0, 1)
+         }
+      }
+    };
+    </code>
+    Это определение может быть отображено следующим кодом GLSL: 
+    <code>
+    struct Data {
+      vec3 position;
+      vec3 direction;
+    };
+
+    uniform Data data;
+    </code>
+
+    <h2>Структурированные Униформы с Массивами</h2>
+
+    <p>
+      Также можно управлять *structs* в массивах. Синтаксис для этого случая выглядит следующим образом: 
+    </p>
+    <code>
+    const entry1 = {
+      position: new Vector3(),
+      direction: new Vector3(0, 0, 1)
+    };
+    const entry2 = {
+      position: new Vector3(1, 1, 1),
+      direction: new Vector3(0, 1, 0)
+    };
+
+    uniforms = {
+      data: {
+        value: [entry1, entry2]
+      }
+    };
+    </code>
+    Это определение может быть отображено на следующий код GLSL: 
+    <code>
+    struct Data {
+      vec3 position;
+      vec3 direction;
+    };
+
+    uniform Data data[2];
+    </code>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Object value])</h3>
+    <p>
+    value -- Объект, содержащий значение для настройки униформы. Его тип должен быть одним из типов униформы, описанных выше.
+    </p>
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Object value]</h3>
+    <p>
+    Текущее значение униформы.
+    </p>
+
+    <h2>Методы</h2>
+
+    <h3>[method:Uniform clone]()</h3>
+    <p>
+    Возвращает клон данной униформы<br>
+    Если свойство value униформы является [page:Object] с методом clone(), то используется этот метод, в противном случае значение копируется путем присваивания.
+    Значения массива разделяются между клонированными [page:Uniform]s.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

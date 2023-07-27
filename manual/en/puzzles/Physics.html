@@ -18,6 +18,8 @@
 
     <img src="files/puzzles/puzzles-physics.jpg" alt="Visual programming blocks to simulate physics">
 
+    [demo:physics]
+
     <h2>Contents</h2>
 
     [contents]
@@ -53,7 +55,7 @@
     <h3>create rigid body</h3>
 
     <p>
-    Creates a physics body from a specified object, of *dynamic*, *kinematic*, *static* or *ghost* type. Assigns the collision shape and sets the mass for the body (valid for *dynamic* bodies only). Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      Creates a physics body from a specified object, of *dynamic*, *kinematic*, *static*, or *ghost* type. Assigns the collision shape and sets the mass for the body (valid for *dynamic* bodies only). Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-physics-create-physics-body.jpg" alt="Creating rigid body with visual scripting">
@@ -62,16 +64,16 @@
 
     <ul>
       <li>
-        *dynamic* - moved by the physics engine, influenced by collisions and collide with other bodies.
+        *dynamic* — moved by the physics engine, influenced by collisions, and collide with other bodies.
       </li>
       <li>
-        *kinematic* - moved by animation or user action. Dynamic objects will be pushed away but there is no influence from dynamics objects.
+        *kinematic* — moved by animation or user action. Dynamic objects will be pushed away but there is no influence from dynamics objects.
       </li>
       <li>
-        *static* - cannot move but collide with other bodies.
+        *static* — cannot move but collide with other bodies.
       </li>
       <li>
-        *ghost* - similar to *kinematic* but does not produce any collision response. Use it to <a href="manual/en/puzzles/Physics.html#detect_collision">detect collision</a> between bodies (for example to implement proximity sensor).
+        *ghost* — similar to *kinematic* but does not produce any collision response. Use it to <a href="manual/en/puzzles/Physics.html#detect_collision">detect collision</a> between bodies (for example to implement proximity sensor).
       </li>
     </ul>
 
@@ -79,30 +81,30 @@
 
     <ul>
       <li>
-        *box* - a box-shaped bounding.
+        *box* — a box-shaped bounding.
       </li>
       <li>
-        *sphere* - a sphere-shaped bounding.
+        *sphere* — a sphere-shaped bounding.
       </li>
       <li>
-        *mesh* - a mesh shape.
+        *mesh* — a mesh shape.
       </li>
       <li>
-        *capsule* - a capsule shape stretched along up-down axis.
+        *capsule* — a capsule shape stretched along up-down axis.
       </li>
       <li>
-        *cone* - a cone shape stretched along up-down axis.
+        *cone* — a cone shape stretched along up-down axis.
       </li>
       <li>
-        *cylinder* - a cylinder shape stretched along up-down axis.
+        *cylinder* — a cylinder shape stretched along up-down axis.
       </li>
       <li>
-        *empty* - an empty shape. Usefull for creating constraint attachments and soft body anchor points.
+        *empty* — an empty shape. Usefull for creating constraint attachments and soft body anchor points.
       </li>
     </ul>
 
     <p>
-      For performance reasons, give priority to primitive physics shapes (boxes, spheres, capsules, cones and cylinders) over mesh shapes. Also, *static* meshes have much better performance than *dynamic*, *kinematic* and *ghost*.
+      For performance reasons, give priority to primitive physics shapes (boxes, spheres, capsules, cones and cylinders) over mesh shapes. Also, *static* meshes have much better performance than *dynamic*, *kinematic*, or *ghost* meshes.
     </p>
 
 
@@ -120,13 +122,13 @@
 
     <ul>
       <li>
-        *volume* - a closed pressurized 3D-dimentional volume.
+        *volume* — a closed pressurized 3D-dimentional volume.
       </li>
       <li>
-        *rope* - a line object which behaves like a rope.
+        *rope* — a line object which behaves like a rope.
       </li>
       <li>
-        *patch* - a polygonal surface like cloth or textile patch.
+        *patch* — a polygonal surface like cloth or textile patch.
       </li>
     </ul>
 
@@ -157,72 +159,86 @@
 
     <p>Parameters:</p>
 
-    <ul>
-      <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping. Input values are clamped to [0, 1] range.
-      </li>
-      <li>
-        *angular factor* - set rotational degrees of freedom for the specified body. For example by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
-      </li>
-      <li>
-        *angular velocity* - set rotation speed vector.
-      </li>
-      <li>
-        *ccd motion threshold* - motion threshold used for simulating Continuous Collision Detection (CCD) physics. Specify low value, such as <em>0.001</em>
-      </li>
-      <li>
-        *ccd swept sphere radius* - radius of the swept spere used for simulating Continuous Collision Detection (CCD) physics. This value should correspond to the size of the colliding objects. For example, to simulate a small bullet of size 0.01 m this value could be safely set to 0.5.
-      </li>
-    </ul>
-
-    <img src="files/puzzles/puzzles-physics-ccd-example.jpg" alt="Continuous collision detection with visual programming">
-
-    <ul>
-      <li>
-        *force* - push a body in a specified direction.
-      </li>
-      <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
-      </li>
-      <li>
-        *gravity* - assign gravity individually for a specified body.
-      </li>
-      <li>
-        *impulse* - acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
-      </li>
-    </ul>
-
-    <img src="files/puzzles/puzzles-physics-apply-body-param-impulse.jpg" alt="Visual logic block to apply physical values" style="max-width: 793px">
-
-    <ul>
-      <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
-      </li>
-      <li>
-        *linear factor* - set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
-      </li>
-      <li>
-        *linear velocity* - set movement speed vector.
-      </li>
-      <li>
-        *position* - set body position (works like the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle).
-      </li>
-      <li>
-        *rotation* - set body rotation (euler rotation in XYZ order, works like the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle).
-      </li>
-      <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
-      </li>
-      <li>
-        *stiffness* - stiffness of soft bodies like volumes and ropes.
-      </li>
-      <li>
-        *torque* - spin a body in a specified direction.
-      </li>
-      <li>
-        *torque impulse* - acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
-      </li>
-    </ul>
+    <dl>
+      <dt>angular damping</dt>
+      <dd>
+        Coefficient of resistance that will slow down a rotating object: 0 — no damping, 1 — maximum damping. Input values are clamped to [0, 1] range.
+      </dd>
+      <dt>angular factor</dt>
+      <dd>
+        Set rotational degrees of freedom for the specified body. For example, by setting Z component to zero you can disable whirling the body around up-down (Blender, Max) or front-back (Maya) axis.
+      </dd>
+      <dt>angular velocity</dt>
+      <dd>
+        Set rotation speed vector.
+      </dd>
+      <dt>ccd motion threshold</dt>
+      <dd>
+        Motion threshold used for simulating Continuous Collision Detection (CCD) physics. Specify low value, such as <em>0.001</em>.
+      </dd>
+      <dt>ccd swept sphere radius</dt>
+      <dd>
+        Radius of the swept sphere used for simulating Continuous Collision Detection (CCD) physics. This value should correspond to the size of the colliding objects. For example, to simulate a small bullet of size 0.01 m this value could be safely set to 0.5.
+        <img src="files/puzzles/puzzles-physics-ccd-example.jpg" alt="Continuous collision detection with visual programming">
+      </dd>
+      <dt>force</dt>
+      <dd>
+        Push a body in a specified direction by applying the specified force vector.
+      </dd>
+      <dt>friction</dt>
+      <dd>
+        Coefficient of resistance of relative motion of solid bodies sliding against each other.
+      </dd>
+      <dt>gravity</dt>
+      <dd>
+        Assign gravity individually for a specified body. This value can be specified as a vector or a number. In case of a number, the value sets up-down gravity factor (along Z axis for Blender/3ds Max or Y axis for Maya).
+      </dd>
+      <dt>impulse</dt>
+      <dd>
+        Acts like *Linear Velocity* but also takes the body mass into account (heavier objects will acquire less speed).
+        <img src="files/puzzles/puzzles-physics-apply-body-param-impulse.jpg" alt="Visual logic block to apply physical values" style="max-width: 793px">
+      </dd>
+      <dt>linear damping</dt>
+      <dd>
+        Coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
+      </dd>
+      <dt>linear factor</dt>
+      <dd>
+        Set positional degrees of freedom for the specified body. For example by setting Z component to zero you can disable up-down (Blender, Max) or front-back (Maya) movement of the body.
+      </dd>
+      <dt>linear velocity</dt>
+      <dd>
+        Set movement speed vector.
+      </dd>
+      <dt>margin</dt>
+      <dd>
+        Collision margin used to improve stability and performance of simulations. Specify margins only for *mesh* or *cone* collision shapes. For other collision shapes (*box*, *sphere*, *capsule*, *cylinder*) this value is calculated by the physics engine.
+      </dd>
+      <dt>position</dt>
+      <dd>
+        Set body position (works like the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle).
+      </dd>
+      <dt>rotation</dt>
+      <dd>
+        Set body rotation (euler rotation in XYZ order, works like the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle).
+      </dd>
+      <dt>restitution</dt>
+      <dd>
+        Coefficient of elasticity: 0 — body is not elastic like clay, 1 — body behaves like being made from rubber.
+      </dd>
+      <dt>stiffness</dt>
+      <dd>
+        Stiffness of soft bodies like volumes and ropes. Deprecated, use <a href="manual/en/puzzles/Physics.html#apply_soft_body_param">apply soft body param</a> instead.
+      </dd>
+      <dt>torque</dt>
+      <dd>
+        Spin a body in a specified direction.
+      </dd>
+      <dt>torque impulse</dt>
+      <dd>
+        Acts like *Angular Velocity* but also takes the body mass into account (heavier objects will acquire less rotation speed).
+      </dd>
+    </dl>
 
     <p class="note">
       When two bodies collide, friction and restitution parameters of both of them are taken into consideration.
@@ -234,63 +250,83 @@
     <h3>get body param</h3>
 
     <p>
-    Gets a parameter from the physics body associated with a specified object.
+      Gets a parameter from the physics body associated with a specified object.
     </p>
 
     <img src="files/puzzles/puzzles-physics-get-body-param.jpg" alt="Visual logic block to retrieve physical values">
 
     <p>Parameters:</p>
 
-    <ul>
-      <li>
-        *angular damping* - coefficient of resistance that will slow down a rotating object: 0 - no damping, 1 - maximum damping.
-      </li>
-      <li>
-        *angular factor* - rotational degrees of freedom for the specified body (XYZ).
-      </li>
-      <li>
-        *angular velocity* - rotation speed vector.
-      </li>
-      <li>
-        *ccd motion threshold* - motion threshold used for simulating Continuous Collision Detection (CCD) physics.
-      </li>
-      <li>
-        *ccd swept sphere radius* - radius of the swept spere used for simulating Continuous Collision Detection (CCD) physics.
-      </li>
-      <li>
-        *force* - force vector applied to the body.
-      </li>
-      <li>
-        *friction* - coefficient of resistance of relative motion of solid bodies sliding against each other.
-      </li>
-      <li>
-        *gravity* - gravity vector applied to a body.
-      </li>
-      <li>
-        *linear damping* - coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration).
-      </li>
-      <li>
-        *linear factor* - positional degrees of freedom for the specified body (XYZ).
-      </li>
-      <li>
-        *linear velocity* - movement speed vector.
-      </li>
-      <li>
-        *position* - body XYZ position.
-      </li>
-      <li>
-        *rotation* - body XYZ euler rotation.
-      </li>
-      <li>
-        *restitution* - coefficient of elasticity: 0 - body is not elastic like clay, 1 - body behaves like being made from rubber.
-      </li>
-      <li>
-        *stiffness* - stiffness of soft bodies like volumes and ropes.
-      </li>
-      <li>
-        *torque* - torque vector applied to the body.
-      </li>
-    </ul>
+    <dl>
+      <dt>angular damping</dt>
+      <dd>
+        Coefficient of resistance that will slow down a rotating object: 0 — no damping, 1 — maximum damping.
+      </dd>
+      <dt>angular factor</dt>
+      <dd>
+        Rotational degrees of freedom for the specified body (XYZ).
+      </dd>
+      <dt>angular velocity</dt>
+      <dd>
+        Rotation speed vector.
+      </dd>
+      <dt>ccd motion threshold</dt>
+      <dd>
+        Motion threshold used for simulating Continuous Collision Detection (CCD) physics.
+      </dd>
+      <dt>ccd swept sphere radius</dt>
+      <dd>
+        Radius of the swept sphere used for simulating Continuous Collision Detection (CCD) physics.
+      </dd>
+      <dt>force</dt>
+      <dd>
+        Force vector applied to a body.
+      </dd>
+      <dt>friction</dt>
+      <dd>
+        Coefficient of resistance of relative motion of solid bodies sliding against each other.
+      </dd>
+      <dt>gravity</dt>
+      <dd>
+        Gravity vector applied to a body as XYZ value.
+      </dd>
+      <dt>linear damping</dt>
+      <dd>
+        Coefficient of resistance that will slow down a moving object: 0 — no damping (e.g. free fall), 1 — maximum damping (e.g. object falls with no acceleration).
+      </dd>
+      <dt>linear factor</dt>
+      <dd>
+        Positional degrees of freedom for the specified body (XYZ).
+      </dd>
+      <dt>linear velocity</dt>
+      <dd>
+        Movement speed vector.
+      </dd>
+      <dt>margin</dt>
+      <dd>
+        Collision margin used to improve stability and performance of simulations.
+      </dd>
+      <dt>position</dt>
+      <dd>
+        Body XYZ position.
+      </dd>
+      <dt>rotation</dt>
+      <dd>
+        Body XYZ euler rotation.
+      </dd>
+      <dt>restitution</dt>
+      <dd>
+        Coefficient of elasticity: 0 — body is not elastic like clay, 1 — body behaves like being made from rubber.
+      </dd>
+      <dt>stiffness</dt>
+      <dd>
+        Stiffness of soft bodies like volumes and ropes. Deprecated, use <a href="manual/en/puzzles/Physics.html#get_soft_body_param">apply soft body param</a> instead.
+      </dd>
+      <dt>torque</dt>
+      <dd>
+        Torque vector applied to the body.
+      </dd>
+    </dl>
 
 
     [anchor:set_body_state]
@@ -426,6 +462,86 @@
     </p>
 
     <img src="files/puzzles/puzzles-physics-anchor-soft-body.jpg" alt="Visual logic block to anchor collision objects">
+
+
+    [anchor:apply_soft_body_param]
+
+    <h3>apply soft body param</h3>
+
+    <p>
+      Sets parameters for the soft body associated with a specified object. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-apply-soft-body-param.webp" alt="Visual programming block to apply soft body params">
+
+    <p>Parameters:</p>
+
+    <dl>
+      <dt>anchor hardness</dt>
+      <dd>Coefficient of anchor hardness: 0 — no anchor influence, 1 — maximum anchor influence.</dd>
+      <dt>angular stiffness</dt>
+      <dd>Angular stiffness: 0 — no angular stiffness, 1 — maximum angular stiffness.</dd>
+      <dt>collision flags</dt>
+      <dd>Soft body collision flags: 0 — no collision with other rigid bodies, 1 — simplified collision, 17 — improved collision. Default value is 17.</dd>
+      <dt>damping coefficient</dt>
+      <dd>Damping coefficient: 0 — no damping, 1 — maximum damping.</dd>
+      <dt>drag coefficient</dt>
+      <dd>Drag force coefficient (aka fluid resistance). Must be a positive number.</dd>
+      <dt>dynamic friction</dt>
+      <dd>Dynamic friction coefficient. 0 — no friction, 1.0 — maximum friction.</dd>
+      <dt>lift coefficient</dt>
+      <dd>Lift force coefficient. Must be a positive number.</dd>
+      <dt>linear stiffness</dt>
+      <dd>Linear stiffness: 0 — no linear stiffness, 1 — maximum linear stiffness.</dd>
+      <dt>position iterations</dt>
+      <dd>Number of positions solver iterations. Higher values give more quality. Must be a positive integer.</dd>
+      <dt>pressure coefficient</dt>
+      <dd>Pressure coefficient (e.g for balloons).</dd>
+      <dt>velocity iterations</dt>
+      <dd>Number of velocity solver iterations. Higher values give move quality. Must be a positive integer.</dd>
+      <dt>wind velocity</dt>
+      <dd>Wind velocity vector.</dd>
+    </dl>
+
+
+    [anchor:get_soft_body_param]
+
+    <h3>get soft body param</h3>
+
+    <p>
+      Gets a parameter from the soft body associated with a specified object.
+    </p>
+
+    <img src="files/puzzles/puzzles-physics-get-soft-body-param.webp" alt="Visual logic block to get soft body params">
+
+    <p>Parameters:</p>
+
+    <dl>
+      <dt>anchor hardness</dt>
+      <dd>Coefficient of anchor hardness: 0 — no anchor influence, 1 — maximum anchor influence.</dd>
+      <dt>angular stiffness</dt>
+      <dd>Angular stiffness: 0 — no angular stiffness, 1 — maximum angular stiffness.</dd>
+      <dt>collision flags</dt>
+      <dd>Soft body collision flags: 0 — no collision with other rigid bodies, 1 — simplified collision, 17 — improved collision.</dd>
+      <dt>damping coefficient</dt>
+      <dd>Damping coefficient: 0 — no damping, 1 — maximum damping.</dd>
+      <dt>drag coefficient</dt>
+      <dd>Drag force coefficient (aka fluid resistance). Must be a positive number.</dd>
+      <dt>dynamic friction</dt>
+      <dd>Dynamic friction coefficient. 0 — no friction, 1.0 — maximum friction.</dd>
+      <dt>lift coefficient</dt>
+      <dd>Lift force coefficient. Must be a positive number.</dd>
+      <dt>linear stiffness</dt>
+      <dd>Linear stiffness: 0 — no linear stiffness, 1 — maximum linear stiffness.</dd>
+      <dt>position iterations</dt>
+      <dd>Number of positions solver iterations. Higher values give more quality. Must be a positive integer.</dd>
+      <dt>pressure coefficient</dt>
+      <dd>Pressure coefficient (e.g for balloons).</dd>
+      <dt>velocity iterations</dt>
+      <dd>Number of velocity solver iterations. Higher values give move quality. Must be a positive integer.</dd>
+      <dt>wind velocity</dt>
+      <dd>Wind velocity vector.</dd>
+    </dl>
 
 
     <!-- COMPAT: something old -->

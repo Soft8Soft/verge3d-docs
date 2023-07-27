@@ -23,8 +23,8 @@
       <li>
         A direction and length across a plane. In Verge3D the length will always be the
         [link:https://en.wikipedia.org/wiki/Euclidean_distance Euclidean distance]
-        (straight-line distance) from (0, 0) to (x, y) and the direction is also
-        measured from (0, 0) towards (x, y).
+        (straight-line distance) from `(0, 0)` to `(x, y)` and the direction is also
+        measured from `(0, 0)` towards `(x, y)`.
       </li>
       <li>
         Any arbitrary ordered pair of numbers.
@@ -37,7 +37,7 @@
     </p>
 
     <p>
-      Iterating through a Vector2 instance will yield its components (x, y) in the corresponding order.
+      Iterating through a [name] instance will yield its components `(x, y)` in the corresponding order.
     </p>
 
     <h2>Code Example</h2>
@@ -45,7 +45,7 @@
     <code>
     const a = new v3d.Vector2(0, 1);
 
-    //no arguments; will be initialised to (0, 0)
+    // no arguments; will be initialised to (0, 0)
     const b = new v3d.Vector2();
 
     const d = a.distanceTo(b);
@@ -55,11 +55,12 @@
     <h2>Constructor</h2>
 
     <h3>[name]([param:Float x], [param:Float y])</h3>
+    <p class="params">
+      [page:Float x] — the x value of this vector. Default is `0`.<br>
+      [page:Float y] -  the y value of this vector. Default is `0`.
+    </p>
     <p>
-    [page:Float x] - the x value of this vector. Default is *0*.<br />
-    [page:Float y] -  the y value of this vector. Default is *0*.<br /><br />
-
-    Creates a new [name].
+      Creates a new [name].
     </p>
 
 
@@ -67,6 +68,11 @@
 
     <h3>[property:Float height]</h3>
     <p>Alias for [page:.y y].</p>
+
+    <h3>[property:Boolean isVector2]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
+    </p>
 
     <h3>[property:Float width]</h3>
     <p>Alias for [page:.x x].</p>
@@ -107,28 +113,28 @@
 
     <h3>[method:this clamp]([param:Vector2 min], [param:Vector2 max])</h3>
     <p>
-    [page:Vector2 min] - the minimum x and y values.<br />
-    [page:Vector2 max] - the maximum x and y values in the desired range<br /><br />
+    [page:Vector2 min] — the minimum x and y values.<br>
+    [page:Vector2 max] — the maximum x and y values in the desired range<br><br>
 
-    If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value. <br /><br />
+    If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value. <br><br>
     If this vector's x or y value is less than the min vector's x or y value, it is replaced by the corresponding value.
     </p>
 
     <h3>[method:this clampLength]([param:Float min], [param:Float max])</h3>
     <p>
-    [page:Float min] - the minimum value the length will be clamped to <br />
-    [page:Float max] - the maximum value the length will be clamped to<br /><br />
+    [page:Float min] — the minimum value the length will be clamped to <br>
+    [page:Float max] — the maximum value the length will be clamped to<br><br>
 
-    If this vector's length is greater than the max value, it is replaced by the max value. <br /><br />
+    If this vector's length is greater than the max value, it is replaced by the max value. <br><br>
     If this vector's length is less than the min value, it is replaced by the min value.
     </p>
 
     <h3>[method:this clampScalar]([param:Float min], [param:Float max])</h3>
     <p>
-    [page:Float min] - the minimum value the components will be clamped to <br />
-    [page:Float max] - the maximum value the components will be clamped to<br /><br />
+    [page:Float min] — the minimum value the components will be clamped to <br>
+    [page:Float max] — the maximum value the components will be clamped to<br><br>
 
-    If this vector's x or y values are greater than the max value, they are replaced by the max value. <br /><br />
+    If this vector's x or y values are greater than the max value, they are replaced by the max value. <br><br>
     If this vector's x or y values are less than the min value, they are replaced by the min value.
     </p>
 
@@ -163,8 +169,7 @@
 
     <h3>[method:this divideScalar]([param:Float s])</h3>
     <p>
-    Divides this vector by scalar [page:Float s].<br />
-    Sets vector to *(0, 0)* if [page:Float s] = 0.
+    Divides this vector by scalar [page:Float s].
     </p>
 
     <h3>[method:Float dot]([param:Vector2 v])</h3>
@@ -180,32 +185,32 @@
     </p>
 
     <h3>[method:Boolean equals]([param:Vector2 v])</h3>
-    <p>Returns *true* if the components of this vector and [page:Vector2 v] are strictly equal; *false* otherwise.</p>
+    <p>Returns `true` if the components of this vector and [page:Vector2 v] are strictly equal; `false` otherwise.</p>
 
     <h3>[method:this floor]()</h3>
     <p>The components of this vector are rounded down to the nearest integer value.</p>
 
     <h3>[method:this fromArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - the source array.<br />
-    [page:Integer offset] - (optional) offset into the array. Default is 0.<br /><br />
+    [page:Array array] — the source array.<br>
+    [page:Integer offset] — (optional) offset into the array. Default is 0.<br><br>
 
-    Sets this vector's [page:.x x] value to be array[offset] and [page:.y y] value to be array[offset + 1].
+    Sets this vector's [page:.x x] value to be `array[offset]` and [page:.y y] value to be `array[offset + 1]`.
     </p>
 
     <h3>[method:this fromBufferAttribute]([param:BufferAttribute attribute], [param:Integer index])</h3>
     <p>
-    [page:BufferAttribute attribute] - the source attribute.<br />
-    [page:Integer index] - index in the attribute.<br /><br />
+    [page:BufferAttribute attribute] — the source attribute.<br>
+    [page:Integer index] — index in the attribute.<br><br>
 
     Sets this vector's [page:.x x] and [page:.y y] values from the [page:BufferAttribute attribute].
     </p>
 
     <h3>[method:Float getComponent]([param:Integer index])</h3>
     <p>
-    [page:Integer index] - 0 or 1.<br /><br />
+    [page:Integer index] -0 or 1.<br><br>
 
-    If index equals 0 returns the [page:.x x] value. <br />
+    If index equals 0 returns the [page:.x x] value. <br>
     If index equals 1 returns the [page:.y y] value.
     </p>
 
@@ -227,8 +232,8 @@
 
     <h3>[method:this lerp]([param:Vector2 v], [param:Float alpha])</h3>
     <p>
-    [page:Vector2 v] - [page:Vector2] to interpolate towards.<br />
-    [page:Float alpha] - interpolation factor, typically in the closed interval [0, 1].<br /><br />
+    [page:Vector2 v] - [page:Vector2] to interpolate towards.<br>
+    [page:Float alpha] — interpolation factor, typically in the closed interval `[0, 1]`.<br><br>
 
     Linearly interpolates between this vector and [page:Vector2 v], where alpha is the
     percent distance along the line - alpha = 0 will be this vector, and alpha = 1 will be [page:Vector2 v].
@@ -236,9 +241,9 @@
 
     <h3>[method:this lerpVectors]([param:Vector2 v1], [param:Vector2 v2], [param:Float alpha])</h3>
     <p>
-    [page:Vector2 v1] - the starting [page:Vector2].<br />
-    [page:Vector2 v2] - [page:Vector2] to interpolate towards.<br />
-    [page:Float alpha] - interpolation factor, typically in the closed interval [0, 1].<br /><br />
+    [page:Vector2 v1] — the starting [page:Vector2].<br>
+    [page:Vector2 v2] - [page:Vector2] to interpolate towards.<br>
+    [page:Float alpha] — interpolation factor, typically in the closed interval `[0, 1]`.<br><br>
 
     Sets this vector to be the vector linearly interpolated between [page:Vector2 v1] and
     [page:Vector2 v2] where alpha is the percent distance along the line connecting the two vectors
@@ -250,7 +255,7 @@
 
     <h3>[method:this normalize]()</h3>
     <p>
-    Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] - that is, sets it equal to a vector with the same direction
+    Converts this vector to a [link:https://en.wikipedia.org/wiki/Unit_vector unit vector] — that is, sets it equal to a vector with the same direction
     as this one, but [page:.length length] 1.
     </p>
 
@@ -275,8 +280,8 @@
 
     <h3>[method:this rotateAround]([param:Vector2 center], [param:Float angle])</h3>
     <p>
-      [page:Vector2 center] - the point around which to rotate.<br />
-      [page:Float angle] - the angle to rotate, in radians.<br /><br />
+      [page:Vector2 center] — the point around which to rotate.<br>
+      [page:Float angle] — the angle to rotate, in radians.<br><br>
 
       Rotates this vector around [page:Vector2 center] by [page:Float angle] radians.
     </p>
@@ -294,10 +299,10 @@
 
     <h3>[method:this setComponent]([param:Integer index], [param:Float value])</h3>
     <p>
-    [page:Integer index] - 0 or 1.<br />
-    [page:Float value] - [page:Float]<br /><br />
+    [page:Integer index] -0 or 1.<br>
+    [page:Float value] - [page:Float]<br><br>
 
-    If index equals 0 set [page:.x x] to [page:Float value]. <br />
+    If index equals 0 set [page:.x x] to [page:Float value]. <br>
     If index equals 1 set [page:.y y] to [page:Float value]
     </p>
 
@@ -329,8 +334,8 @@
 
     <h3>[method:Array toArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - (optional) array to store this vector to. If this is not provided, a new array will be created.<br />
-    [page:Integer offset] - (optional) optional offset into the array.<br /><br />
+    [page:Array array] — (optional) array to store this vector to. If this is not provided, a new array will be created.<br>
+    [page:Integer offset] — (optional) optional offset into the array.<br><br>
 
     Returns an array [x, y], or copies x and y into the provided [page:Array array].
     </p>

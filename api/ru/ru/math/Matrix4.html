@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Класс, представляющий матрицу 4x4 [link:https://en.wikipedia.org/wiki/Matrix_(mathematics) matrix].<br><br>
+
+      Наиболее распространенное использование матрицы 4x4 в трехмерной компьютерной графике - в качестве
+      [link:https://en.wikipedia.org/wiki/Transformation_matrix Матрицы Перехода].
+      Для ознакомления с матрицами преобразования, используемыми в WebGL, ознакомьтесь с
+      [link:http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices данным уроком].<br><br>
+
+      Это позволяет [page:Vector3], представляющему точку в трехмерном пространстве, подвергаться преобразованиям, таким как перенос, поворот, сдвиг, масштаб, отражение, получение ортогональной или перспективной проекции и так далее, путем умножения на матрицу. Это известно как <em>применение</em> матрицы к вектору.<br><br>
+
+      Каждый [page:Object3D] имеет три связанные с ним Matrix4:
+      <ul>
+        <li>
+          [page:Object3D.matrix]: Здесь хранится локальное преобразование объекта. Это преобразование объекта относительно его родителя.
+        </li>
+        <li>
+          [page:Object3D.matrixWorld]: Глобальное или мировое преобразование объекта. Если у объекта нет родителя, то оно идентично локальному преобразованию, хранящемуся в [page:Object3D.matrix matrix].
+        </li>
+        <li>
+          [page:Object3D.modelViewMatrix]: Это представляет собой преобразование объекта относительно системы координат камеры.
+          Матрица ModelViewMatrix объекта - это matrixWorld объекта, предварительно умноженная на matrixWorldInverse камеры.
+        </li>
+      </ul>
+
+      [page:Camera Cameras] имеют две дополнительные матрицы Matrix4:
+      <ul>
+        <li>
+          [page:Camera.matrixWorldInverse]: Матрица вида - обратная матрице камеры [page:Object3D.matrixWorld matrixWorld].
+        </li>
+        <li>
+          [page:Camera.projectionMatrix]: Представляет информацию о том, как спроецировать сцену в пространство клипа.
+        </li>
+      </ul>
+      Примечание: [page:Object3D.normalMatrix] это не матрица4, а [page:Matrix3].
+    </p>
+
+    <h2>Замечание о порядке следования строк и столбцов</h2>
+    <p>
+      Метод [page:set]() принимает аргументы в порядке [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order row-major]
+      а внутри массива [page:.elements elements] они хранятся в главном порядке столбцов.<br><br>
+
+      Это означает, что вызов
+    <code>
+const m = new v3d.Matrix4();
+
+m.set(11, 12, 13, 14,
+       21, 22, 23, 24,
+       31, 32, 33, 34,
+       41, 42, 43, 44);
+
+    </code>
+    приведет к тому, что массив [page:.elements elements] будет содержать:
+    <code>
+m.elements = [11, 21, 31, 41,
+               12, 22, 32, 42,
+               13, 23, 33, 43,
+               14, 24, 34, 44];
+    </code>
+    и внутри все вычисления выполняются с использованием упорядочивания по столбцам. Однако, поскольку фактический порядок не имеет математического значения, а большинство людей привыкли думать о матрицах в порядке возрастания строк, в документации Verge3D матрицы показаны в порядке возрастания строк. Просто имейте в виду, что если вы читаете исходный код, вам придется взять [link:https://en.wikipedia.org/wiki/Transpose transpose] любых матриц, описанных здесь, чтобы понять смысл вычислений.
+    </p>
+
+    <h2>Извлечение положения, поворота и масштаба</h2>
+    <p>
+      Существует несколько вариантов извлечения position, rotation и scale из Matrix4.
+      <ul>
+        <li>
+          [page:Vector3.setFromMatrixPosition]: можно использовать для извлечения компонента перевода.
+        </li>
+        <li>
+          [page:Vector3.setFromMatrixScale]: можно использовать для извлечения компонента масштаба.
+        </li>
+        <li>
+          [page:Quaternion.setFromRotationMatrix], [page:Euler.setFromRotationMatrix] или [page:.extractRotation extractRotation] можно использовать для извлечения компонента вращения из чистой (немасштабированной) матрицы.
+        </li>
+        <li>
+          [page:.decompose decompose] можно использовать для одновременного извлечения положения, вращения и масштаба.
+        </li>
+      </ul>
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]()</h3>
+
+    <p>
+      Создает и инициализирует [name] в 4x4
+      [link:https://en.wikipedia.org/wiki/Identity_matrix identity matrix].
+  </p>
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Array elements]</h3>
+    <p>
+    [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major]
+     список значений матрицы.
+    </p>
+
+
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:Matrix4 clone]()</h3>
+    <p>Создает новую Matrix4 с элементами [page:.elements elements], идентичными данной.</p>
+
+    <h3>[method:this compose]([param:Vector3 position], [param:Quaternion quaternion], [param:Vector3 scale])</h3>
+    <p>
+      Устанавливает эту матрицу в преобразование, состоящее из [page:Vector3 position], [page:Quaternion quaternion] и [page:Vector3 scale].
+    </p>
+
+    <h3>[method:this copy]([param:Matrix4 m])</h3>
+    <p>Копирует [page:.elements elements] матрицы [page:Matrix4 m] в данную матрицу.</p>
+
+    <h3>[method:this copyPosition]([param:Matrix4 m])</h3>
+    <p>
+      Копирует компонент перевода предоставленной матрицы [page:Matrix4 m] в компонент перевода этой матрицы.
+    </p>
+
+    <h3>[method:null decompose]([param:Vector3 position], [param:Quaternion quaternion], [param:Vector3 scale])</h3>
+    <p>
+      Раскладывает эту матрицу на компоненты [page:Vector3 position], [page:Quaternion quaternion] и [page:Vector3 scale]. Метод не может быть использован для разложения матрицы мира объекта, если его родитель имеет неоднородный масштаб.
+    </p>
+
+    <h3>[method:Float determinant]()</h3>
+    <p>
+      Вычисляет и возвращает
+    [link:https://en.wikipedia.org/wiki/Determinant determinant] этой матрицы.<br><br>
+
+    На основе метода изложенного [link:http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm здесь].
+    </p>
+
+    <h3>[method:Boolean equals]([param:Matrix4 m])</h3>
+    <p>Возвращает true, если эта матрица и [page:Matrix4 m] равны.</p>
+
+    <h3>[method:this extractBasis]([param:Vector3 xAxis], [param:Vector3 yAxis], [param:Vector3 zAxis])</h3>
+    <p>
+      Извлекает [link:https://en.wikipedia.org/wiki/Basis_(linear_algebra) basis] этой матрицы в три предоставленных вектора осей. Если эта матрица является:
+    <code>
+a, b, c, d,
+e, f, g, h,
+i, j, k, l,
+m, n, o, p
+    </code>
+    то для [page:Vector3 xAxis], [page:Vector3 yAxis], [page:Vector3 zAxis] будут установлены значения:
+    <code>
+xAxis = (a, e, i)
+yAxis = (b, f, j)
+zAxis = (c, g, k)
+    </code>
+    </p>
+
+    <h3>[method:this extractRotation]([param:Matrix4 m])</h3>
+    <p>
+      Извлекает компонент вращения предоставленной матрицы [page:Matrix4 m] в компонент вращения этой матрицы.
+    </p>
+
+    <h3>[method:this fromArray]([param:Array array], [param:Integer offset])</h3>
+    <p>
+    [page:Array array] — массив для чтения элементов из него.<br>
+    [page:Integer offset] — (необязательно) смещение в массиве. По умолчанию равно 0.<br><br>
+
+    Устанавливает элементы этой матрицы на основе [page:Array array] в формате
+    [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major].
+    </p>
+
+    <h3>[method:this invert]()</h3>
+    <p>
+      Инвертирует эту матрицу, используя [link:https://en.wikipedia.org/wiki/Invertible_matrix#Analytic_solution analytic method].
+
+      Вы не можете инвертировать с детерминантом, равным нулю. Если вы попытаетесь это сделать, метод выдаст нулевую матрицу.
+    </p>
+
+    <h3>[method:Float getMaxScaleOnAxis]()</h3>
+    <p>Получает максимальное значение масштаба по 3 осям.</p>
+
+    <h3>[method:this identity]()</h3>
+    <p>Сбрасывает данную матрицу в [link:https://en.wikipedia.org/wiki/Identity_matrix identity matrix].</p>
+
+    <h3>[method:this lookAt]([param:Vector3 eye], [param:Vector3 center], [param:Vector3 up],)</h3>
+    <p>
+      Строит матрицу вращения, направленную от [page:Vector3 eye] к [page:Vector3 center], ориентированную вектором [page:Vector3 up].
+    </p>
+
+    <h3>[method:this makeRotationAxis]([param:Vector3 axis], [param:Float theta])</h3>
+    <p>
+    [page:Vector3 axis] — Ось вращения, должна быть нормализована.<br>
+    [page:Float theta] — Угол поворота в радианах.<br><br>
+
+    Устанавливает эту матрицу как преобразование вращения вокруг [page:Vector3 axis] на [page:Float theta] радиан.<br>
+
+    Это несколько спорная, но математически обоснованная альтернатива вращению через [page:Quaternions].
+    Смотрите обсуждение [link:https://www.gamedev.net/articles/programming/math-and-physics/do-we-really-need-quaternions-r1199 здесь].
+    </p>
+
+    <h3>[method:this makeBasis]([param:Vector3 xAxis], [param:Vector3 yAxis], [param:Vector3 zAxis])</h3>
+    <p>
+    Установить это в [link:https://en.wikipedia.org/wiki/Basis_(linear_algebra) basis] матрицу, состоящую из трех предоставленных базисных векторов:
+    <code>
+xAxis.x, yAxis.x, zAxis.x, 0,
+xAxis.y, yAxis.y, zAxis.y, 0,
+xAxis.z, yAxis.z, zAxis.z, 0,
+0,       0,       0,       1
+    </code>
+    </p>
+
+    <h3>[method:this makePerspective]([param:Float left], [param:Float right], [param:Float top], [param:Float bottom], [param:Float near], [param:Float far])</h3>
+    <p>
+      Создает матрицу [link:https://en.wikipedia.org/wiki/3D_projection#Perspective_projection перспективной проекции].
+      Она используется внутри  [page:PerspectiveCamera.updateProjectionMatrix]()
+    </p>
+
+    <h3>[method:this makeOrthographic]([param:Float left], [param:Float right], [param:Float top], [param:Float bottom], [param:Float near], [param:Float far])</h3>
+    <p>
+    Создает матрицу [link:https://en.wikipedia.org/wiki/Orthographic_projection ортогональной проекции].
+    Она используется внутри  [page:OrthographicCamera.updateProjectionMatrix]().
+    </p>
+
+    <h3>[method:this makeRotationFromEuler]([param:Euler euler])</h3>
+    <p>
+      Устанавливает компонент вращения (левая верхняя матрица 3x3) этой матрицы на поворот, заданный [page:Euler Euler Angle].
+      Остальная часть матрицы устанавливается в тождество. В зависимости от [page:Euler.order order] порядка [page:Euler euler] возможны шесть исходов.
+      Полный список смотрите [link:https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix здесь].
+    </p>
+
+    <h3>[method:this makeRotationFromQuaternion]([param:Quaternion q])</h3>
+    <p>
+      Устанавливает компонент вращения этой матрицы на вращение, заданное [page:Quaternion q], как описано [link:https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion here].
+      Остальная часть матрицы устанавливается в тождество. Таким образом, при задании [page:Quaternion q] = w + xi + yj + zk результирующая матрица будет иметь вид:
+    <code>
+1-2y²-2z²    2xy-2zw    2xz+2yw    0
+2xy+2zw      1-2x²-2z²  2yz-2xw    0
+2xz-2yw      2yz+2xw    1-2x²-2y²  0
+0            0          0          1
+    </code>
+    </p>
+
+    <h3>[method:this makeRotationX]([param:Float theta])</h3>
+    <p>
+    [page:Float theta] — Угол поворота в радианах.<br><br>
+
+    Устанавливает эту матрицу как вращательное преобразование вокруг оси X на [page:Float theta] (&theta;) радиан.
+    Результирующая матрица будет иметь вид:
+    <code>
+1 0      0        0
+0 cos(&theta;) -sin(&theta;)  0
+0 sin(&theta;) cos(&theta;)   0
+0 0      0        1
+    </code>
+    </p>
+
+    <h3>[method:this makeRotationY]([param:Float theta])</h3>
+    <p>
+    [page:Float theta] — Угол поворота в радианах.<br><br>
+
+    Устанавливает эту матрицу как вращательное преобразование вокруг оси Y на [page:Float theta] (&theta;) радиан.
+    Результирующая матрица будет иметь вид:
+    <code>
+cos(&theta;)  0 sin(&theta;) 0
+0       1 0      0
+-sin(&theta;) 0 cos(&theta;) 0
+0       0 0      1
+    </code>
+    </p>
+
+    <h3>[method:this makeRotationZ]([param:Float theta])</h3>
+    <p>
+    [page:Float theta] — Угол поворота в радианах.<br><br>
+
+    Устанавливает эту матрицу как вращательное преобразование вокруг оси Z на [page:Float theta] (&theta;) радиан.
+    The resulting matrix will be:
+    <code>
+cos(&theta;) -sin(&theta;) 0 0
+sin(&theta;) cos(&theta;)  0 0
+0      0       1 0
+0      0       0 1
+    </code>
+    </p>
+
+    <h3>[method:this makeScale]([param:Float x], [param:Float y], [param:Float z])</h3>
+    <p>
+      [page:Float x] — величина масштабирования по оси X.<br>
+      [page:Float y] — величина масштабирования по оси Y.<br>
+      [page:Float z] — величина масштабирования по оси Z.<br><br>
+
+      Устанавливает эту матрицу в качестве масштабного преобразования:
+      <code>
+x, 0, 0, 0,
+0, y, 0, 0,
+0, 0, z, 0,
+0, 0, 0, 1
+      </code>
+    </p>
+
+    <h3>[method:this makeShear]([param:Float x], [param:Float y], [param:Float z])</h3>
+    <p>
+    [page:Float x] — величина сдвига по оси X.<br>
+    [page:Float y] — величина сдвига по оси Y.<br>
+    [page:Float z] — величина сдвига по оси Z.<br><br>
+
+    Устанавливает эту матрицу в качестве преобразования сдвига:
+<code>
+1, y, z, 0,
+x, 1, z, 0,
+x, y, 1, 0,
+0, 0, 0, 1
+</code>
+    </p>
+
+    <h3>[method:this makeTranslation]([param:Float x], [param:Float y], [param:Float z])</h3>
+    <p>
+      [page:Float x] — значение перевода по оси X.<br>
+      [page:Float y] — значение перевода по оси Y.<br>
+      [page:Float z] — значение перевода по оси Z.<br><br>
+
+      Устанавливает эту матрицу в качестве преобразования перевода:
+    <code>
+1, 0, 0, x,
+0, 1, 0, y,
+0, 0, 1, z,
+0, 0, 0, 1
+    </code>
+    </p>
+
+    <h3>[method:this multiply]([param:Matrix4 m])</h3>
+    <p>После умножения этой матрицы на [page:Matrix4 m].</p>
+
+    <h3>[method:this multiplyMatrices]([param:Matrix4 a], [param:Matrix4 b])</h3>
+    <p>Устанавливает эту матрицу в  [page:Matrix4 a] x [page:Matrix4 b].</p>
+
+    <h3>[method:this multiplyScalar]([param:Float s])</h3>
+    <p>Умножает каждый компонент матрицы на скалярное значение [page:Float s].</p>
+
+    <h3>[method:this premultiply]([param:Matrix4 m])</h3>
+    <p>Предварительно умножает эту матрицу на [page:Matrix4 m].</p>
+
+    <h3>[method:this scale]([param:Vector3 v])</h3>
+    <p>Умножает столбцы этой матрицы на вектор [page:Vector3 v].</p>
+
+    <h3>[method:this set]([param:Float n11], [param:Float n12], [param:Float n13], [param:Float n14], [param:Float n21], [param:Float n22], [param:Float n23], [param:Float n24], [param:Float n31], [param:Float n32], [param:Float n33], [param:Float n34], [param:Float n41], [param:Float n42], [param:Float n43], [param:Float n44])</h3>
+    <p>
+      Установите [page:.elements elements] этой матрицы в заданные значения row-major [page:Float n11],
+      [page:Float n12], ... [page:Float n44].
+    </p>
+
+    <h3>[method:this setPosition]([param:Vector3 v])</h3>
+    <h3>[method:this setPosition]([param:Float x], [param:Float y], [param:Float z]) // optional API</h3>
+    <p>
+      Устанавливает компонент позиции для этой матрицы из вектора [page:Vector3 v], не затрагивая остальную часть матрицы - т.е. если матрица находится в текущем состоянии:
+<code>
+a, b, c, d,
+e, f, g, h,
+i, j, k, l,
+m, n, o, p
+</code>
+Она становится:
+<code>
+a, b, c, v.x,
+e, f, g, v.y,
+i, j, k, v.z,
+m, n, o, p
+</code>
+    </p>
+
+    <h3>[method:Array toArray]([param:Array array], [param:Integer offset])</h3>
+    <p>
+    [page:Array array] — (необязательный) массив для хранения результирующего вектора.<br>
+    [page:Integer offset] — (необязательно) смещение в массиве, на которое следует поместить результат.<br><br>
+
+    Записывает элементы этой матрицы в массив в 
+    [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major] формате.
+    </p>
+
+    <h3>[method:this transpose]()</h3>
+    <p>[link:https://en.wikipedia.org/wiki/Transpose Transposes] данную матрицу.</p>
+
+    [sourceHint]
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Material] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">Материал для отрисовки геометрических фигур в виде wireframe.</p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    const material = new v3d.LineBasicMaterial({
+      color: 0xffffff,
+      linewidth: 1,
+      linecap: 'round', //ignored by WebGLRenderer
+      linejoin:  'round' //ignored by WebGLRenderer
+    });
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_buffergeometry_drawcalls WebGL / buffergeometry / drawcalls]<br>
+      [example:webgl_buffergeometry_lines WebGL / buffergeometry / lines]<br>
+      [example:webgl_buffergeometry_lines_indexed WebGL / buffergeometry / lines / indexed]<br>
+      [example:webgl_decals WebGL / decals]<br>
+      [example:webgl_geometry_nurbs WebGL / geometry / nurbs]<br>
+      [example:webgl_geometry_shapes WebGL / geometry / shapes]<br>
+      [example:webgl_geometry_spline_editor WebGL / geometry / spline / editor]<br>
+      [example:webgl_interactive_buffergeometry WebGL / interactive / buffergeometry]<br>
+      [example:webgl_interactive_voxelpainter WebGL / interactive / voxelpainter]<br>
+      [example:webgl_lines_colors WebGL / lines / colors]<br>
+      [example:webgl_lines_dashed WebGL / lines / dashed]<br>
+      [example:webgl_lines_sphere WebGL / lines / sphere]<br>
+      [example:webgl_materials WebGL / materials]<br>
+      [example:physics_ammo_rope physics / ammo / rope]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Object parameters])</h3>
+
+    <p>
+    [page:Object parameters] — (опционально) объект с одним или несколькими свойствами, определяющими внешний вид материала.
+    Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).<br><br>
+
+    Исключением является свойство [page:Hexadecimal color], которое может быть передано в виде шестнадцатеричной строки
+    и по умолчанию имеет значение *0xffffff* (белый). [page:Color.set](color) вызывается внутренне.
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Material].</p>
+
+    <h3>[property:Color color]</h3>
+    <p>[page:Color] материала, по умолчанию установлен на белый цвет (0xffffff).</p>
+
+    <h3>[property:Float linewidth]</h3>
+    <p>
+      Управляет толщиной линии. По умолчанию *1*.<br><br>
+
+      В связи с ограничениями [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]
+      с [page:WebGLRenderer WebGL] рендерером на большинстве платформ ширина линии будет
+      всегда будет равна 1, независимо от установленного значения.
+    </p>
+
+    <h3>[property:String linecap]</h3>
+    <p>
+      Определяет внешний вид концов линии. Возможные значения: 'butt', 'round' and 'square'.
+      По умолчанию 'round'.<br><br>
+
+      Это соответствует свойству [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]
+      и игнорируется [page:WebGLRenderer WebGL] рендерером.
+    </p>
+
+    <h3>[property:String linejoin]</h3>
+    <p>
+      Определяет внешний вид стыков линий. Возможные значения 'round', 'bevel' и 'miter'. По умолчанию 'round'. <br><br>
+
+      Соответствует свойству [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]
+      и игнорируется [page:WebGLRenderer WebGL] рендерером.
+    </p>
+
+    <h3>[property:Boolean morphTargets]</h3>
+    <p>Определяет, использует ли материал morphTargets. По умолчанию - false.</p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Material].</p>
+
+    [sourceHint]
+  </body>
+</html>

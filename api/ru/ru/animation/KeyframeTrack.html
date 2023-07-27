@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      KeyframeTrack - это последовательность [link:https://en.wikipedia.org/wiki/Key_frame keyframes],
+      состоящая из списков времен и связанных с ними значений, которая используется для анимации определенного свойства объекта.
+    </p>
+
+    <p>
+      Обзор различных элементов системы анимации Verge3D смотрите в статье "Animation System" в разделе "Next Steps" руководства.
+    </p>
+
+    <p>
+      В *KeyframeTrack* всегда есть два массива: массив [page:.times times] хранит значения времени для всех ключевых кадров этого трека в последовательном порядке, а массив [page:.values values values] содержит соответствующие изменяющиеся значения анимированного свойства.
+    </p>
+
+    <p>
+      Одно значение, относящееся к определенному моменту времени, может быть не только простым числом, но и (например) вектором (если анимируется позиция) или кватернионом (если анимируется вращение). По этой причине массив values (который также является плоским массивом) может быть в три или четыре раза длиннее массива times.
+    </p>
+
+    <p>
+      В соответствии с различными возможными типами анимированных значений существует несколько подклассов *KeyframeTrack*, наследующих большинство свойств и методов:
+    </p>
+
+    <ul>
+      <li>[page:BooleanKeyframeTrack]</li>
+      <li>[page:ColorKeyframeTrack]</li>
+      <li>[page:NumberKeyframeTrack]</li>
+      <li>[page:QuaternionKeyframeTrack]</li>
+      <li>[page:StringKeyframeTrack]</li>
+      <li>[page:VectorKeyframeTrack]</li>
+    </ul>
+
+    <p>
+      Некоторые примеры того, как вручную создавать [page:AnimationClip AnimationClip] с различными видами KeyframeTracks, можно найти в файле [link:https://www.soft8soft.com/verge3d/examples/jsm/animation/AnimationClipCreator.js AnimationClipCreator].
+    </p>
+
+    <p>
+      Поскольку явные значения задаются только для дискретных моментов времени, хранящихся в массиве times, все значения между ними должны быть интерполированы.
+    </p>
+
+    <p>
+      Имя дорожки важно для связи этой дорожки с определенным свойством анимированного узла (осуществляется с помощью [page:PropertyBinding]).
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:String name], [param:Array times], [param:Array values], [param:Constant interpolation])</h3>
+    <p>
+      [page:String name] — идентификатор для *KeyframeTrack*.<br>
+      [page:Array times] — массив времен ключевых кадров, преобразованный внутри
+      [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array].<br>
+      [page:Array values] — массив со значениями, относящимися к массиву times, преобразованный внутри
+      [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array].<br>
+      [page:Constant interpolation] — тип используемой интерполяции. Возможные значения смотрите в [page:Animation Animation Constants]. По умолчанию [page:Animation InterpolateLinear].
+    </p>
+
+
+    <h2>Свойства</h2>
+
+
+    <h3>[property:String name]</h3>
+    <p>
+      Имя дорожки может ссылаться на [page:Geometry.morphTargets morph targets] или [page:SkinnedMesh bones] или, возможно, на другие значения внутри анимированного объекта. Формы строк, которые могут быть разобраны для привязки свойств, см. в [page:PropertyBinding.parseTrackName]:
+    </p>
+
+    <p>
+      Имя может указывать на ноду либо по его имени, либо по его uuid (хотя он должен находиться в поддереве ноды графа сцены, переданного в микшер). Или, если имя дорожки начинается с точки, дорожка применяется к корневому узлу, который был передан в микшер.
+    </p>
+
+    <p>
+      Обычно после ноды непосредственно указывается свойство. Но можно указать и подсвойство, например .rotation[x], если вы хотите управлять только X-компонентой вращения через дорожку float.
+    </p>
+
+    <p>
+      Вы также можете указать кости или мультиматериалы, используя имя объекта, например: .bones[R_hand].scale; красный канал диффузного цвета четвертого материала в массиве материалов - в качестве еще одного примера - можно получить с помощью .materials[3].diffuse[r].
+    </p>
+
+    <p>
+      PropertyBinding также определяет имена целей морфа, например: .morphTargetInfluences[run].
+    </p>
+
+    <p>
+      Примечание: Название трека не обязательно должно быть уникальным. Несколько дорожек могут управлять одним и тем же свойством.Результат должен быть основан на взвешенной комбинации между несколькими дорожками в соответствии с весами их соответствующих действий.
+    </p>
+
+    <h3>[property:Float32Array times]</h3>
+    <p>
+      A [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array],
+      преобразованный из массива times, который передается в конструкторе.
+    </p>
+
+    <h3>[property:Float32Array values]</h3>
+    <p>
+      A [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array],
+      преобразуется из массива значений, который передается в конструкторе.
+    </p>
+
+    <h3>[property:Constant DefaultInterpolation]</h3>
+    <p>
+      Тип интерполяции по умолчанию: [page:Animation InterpolateLinear].
+    </p>
+
+    <h3>[property:Constant TimeBufferType]</h3>
+    <p>
+      [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array],
+      тип внутреннего буфера, используемого для времен.
+    </p>
+
+    <h3>[property:Constant ValueBufferType]</h3>
+    <p>
+      [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array Float32Array],
+      тип внутреннего буфера, используемого для значений.
+    </p>
+
+
+    <h2>Методы</h2>
+
+
+    <h3>[method:KeyframeTrack clone]()</h3>
+    <p>
+      Возвращает копию этого трека.
+    </p>
+
+    <h3>[method:null createInterpolant]()</h3>
+    <p>
+      Создает [page:LinearInterpolant LinearInterpolant], [page:CubicInterpolant CubicInterpolant] или [page:DiscreteInterpolant DiscreteInterpolant], в зависимости от значения параметра интерполяции, переданного в конструкторе.
+    </p>
+
+    <h3>[method:null getInterpolation]()</h3>
+    <p>
+      Возвращает интерполяционный тип.
+    </p>
+
+    <h3>[method:Number getValueSize]()</h3>
+    <p>
+      Возвращает размер каждого значения (то есть длину массива [page:.values values values], деленную на длину массива [page:.times times]).
+    </p>
+
+    <h3>[method:DiscreteInterpolant InterpolantFactoryMethodDiscrete]([link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array result])</h3>
+    <p>
+      Создает новый [page:DiscreteInterpolant DiscreteInterpolant] из [page:KeyframeTrack.times times] и [page:KeyframeTrack.times values]. Может быть передан массив Float32Array, который получит результаты. В противном случае будет автоматически создан новый массив соответствующего размера.
+    </p>
+
+    <h3>[method:null InterpolantFactoryMethodLinear]([link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array result])</h3>
+    <p>
+      Создает новый [page:LinearInterpolant LinearInterpolant] из [page:KeyframeTrack.times times] и [page:KeyframeTrack.times values]. Может быть передан массив Float32Array, который получит результаты. В противном случае будет автоматически создан новый массив соответствующего размера.
+    </p>
+
+    <h3>[method:null InterpolantFactoryMethodSmooth]([link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array result])</h3>
+    <p>
+      Создает новый [page:CubicInterpolant CubicInterpolant] из [page:KeyframeTrack.times times] и [page:KeyframeTrack.times values]. Может быть передан массив Float32Array, который получит результаты. В противном случае будет автоматически создан новый массив соответствующего размера.
+    </p>
+
+    <h3>[method:this optimize]()</h3>
+    <p>
+      Удаляет эквивалентные последовательные ключи, которые часто встречаются в целевых последовательностях морфа.
+    </p>
+
+    <h3>[method:this scale]()</h3>
+    <p>
+      Масштабирует время всех ключевых кадров на коэффициент.<br><br>
+
+      Примечание: Полезно, например, для преобразования к определенной частоте кадров в секунды (как это делается внутри [page:AnimationClip.CreateFromMorphTargetSequence animationClip.CreateFromMorphTargetSequence]).
+    </p>
+
+    <h3>[method:this setInterpolation]([param:Constant interpolationType])</h3>
+    <p>
+      Устанавливает тип интерполяции. Варианты выбора смотрите в [page:Animation Animation Constants].
+    </p>
+
+    <h3>[method:this shift]([param:Number timeOffsetInSeconds])</h3>
+    <p>
+      Перемещает все ключевые кадры вперед или назад по времени.
+    </p>
+
+
+    <h3>[method:this trim]([param:Number startTimeInSeconds], [param:Number endTimeInSeconds])</h3>
+    <p>
+      Удаляет ключевые кадры до *startTime* и после *endTime*, не изменяя никаких значений в диапазоне [*startTime*, *endTime*].
+    </p>
+
+    <h3>[method:Boolean validate]()</h3>
+    <p>
+      Выполняет минимальную валидацию дорожек. Возвращает true, если они валидны.
+    </p>
+
+    <p>
+      Этот метод регистрирует ошибки в консоли, если дорожка пуста, если размер значения [page:.valueSize] не действителен, если элемент в массиве [page:.times times] или [page:.values values values] не является действительным числом или если элементы в массиве *times* расположены не по порядку.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

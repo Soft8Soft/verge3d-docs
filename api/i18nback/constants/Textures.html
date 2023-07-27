@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <title>Texture Constants — Soft8Soft</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="List of texture constants used in Verge3D."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>Texture Constants</h1>
+
+    <p>
+      These constants define formats and rendering modes for textures.
+    </p>
+
+    [contents]
+
+    [anchor:mapping]
+    <h2>Mapping Modes</h2>
+
+    <code>
+    v3d.UVMapping
+    v3d.CubeReflectionMapping
+    v3d.CubeRefractionMapping
+    v3d.EquirectangularReflectionMapping
+    v3d.EquirectangularRefractionMapping
+    v3d.CubeUVReflectionMapping
+    </code>
+
+    <p>
+      These define the texture's mapping mode. [page:Constant UVMapping] is the default, and maps the texture using the mesh's UV coordinates.
+    </p>
+    <p>
+      The rest define environment mapping types.
+    </p>
+    <p>
+      [page:Constant CubeReflectionMapping] and [page:Constant CubeRefractionMapping] are for use with a [page:CubeTexture CubeTexture], which is made up of six textures, one for each face of the cube.  [page:Constant CubeReflectionMapping] is the default for a [page:CubeTexture CubeTexture].
+    </p>
+    <p>
+      [page:Constant EquirectangularReflectionMapping] and [page:Constant EquirectangularRefractionMapping] are for use with an equirectangular environment map.  Also called a lat-long map, an equirectangular texture represents a 360-degree view along the horizontal centerline, and a 180-degree view along the vertical axis, with the top and bottom edges of the image corresponding to the north and south poles of a mapped sphere.
+    </p>
+    <p>
+      See the [example:webgl_materials_envmaps materials / envmaps] example.
+    </p>
+
+
+    [anchor:wrapping]
+    <h2>Wrapping Modes</h2>
+
+    <code>
+    v3d.RepeatWrapping
+    v3d.ClampToEdgeWrapping
+    v3d.MirroredRepeatWrapping
+    </code>
+
+    <p>
+      These define the texture's [page:Texture.wrapS wrapS] and [page:Texture.wrapT wrapT] properties, which define horizontal and vertical texture wrapping.
+    </p>
+    <p>
+      With [page:constant RepeatWrapping] the texture will simply repeat to infinity.
+    </p>
+    <p>
+      [page:constant ClampToEdgeWrapping] is the default. The last pixel of the texture stretches to the edge of the mesh.
+    </p>
+    <p>
+      With [page:constant MirroredRepeatWrapping] the texture will repeats to infinity, mirroring on each repeat.
+    </p>
+
+
+    [anchor:magnification]
+    <h2>Magnification Filters</h2>
+
+    <code>
+    v3d.NearestFilter
+    v3d.LinearFilter
+    </code>
+
+    <p>
+      For use with a texture's [page:Texture.magFilter magFilter]  property, these define the texture magnification function to be used when the pixel being textured maps to an area less than or equal to one texture element (texel).
+    </p>
+    <p>
+      [page:constant NearestFilter] returns the value of the texture element that is nearest (in Manhattan distance) to the specified texture coordinates.
+    </p>
+    <p>
+      [page:constant LinearFilter] is the default and returns the weighted average of the four texture elements that are closest to the specified texture coordinates, and can include items wrapped or repeated from other parts of a texture, depending on the values of [page:Texture.wrapS wrapS] and [page:Texture.wrapT wrapT], and on the exact mapping.
+    </p>
+
+
+    [anchor:minification]
+    <h2>Minification Filters</h2>
+
+    <code>
+    v3d.NearestFilter
+    v3d.NearestMipmapNearestFilter
+    v3d.NearestMipmapLinearFilter
+    v3d.LinearFilter
+    v3d.LinearMipmapNearestFilter
+    v3d.LinearMipmapLinearFilter
+    </code>
+
+    <p>
+      For use with a texture's [page:Texture.minFilter minFilter]  property, these define the texture minifying function that is used whenever the pixel being textured maps to an area greater than one texture element (texel).
+    </p>
+    <p>
+      In addition to [page:constant NearestFilter] and [page:constant LinearFilter], the following four functions can be used for minification:
+    </p>
+    <p>
+      [page:constant NearestMipmapNearestFilter] chooses the mipmap that most closely matches the size of the pixel being textured and uses the [page:constant NearestFilter] criterion (the texel nearest to the center of the pixel) to produce a texture value.
+    </p>
+    <p>
+      [page:constant NearestMipmapLinearFilter] chooses the two mipmaps that most closely match the size of the pixel being textured and uses the [page:constant NearestFilter] criterion to produce a texture value from each mipmap. The final texture value is a weighted average of those two values.
+    </p>
+    <p>
+      [page:constant LinearMipmapNearestFilter] chooses the mipmap that most closely matches the size of the pixel being textured and uses the [page:constant LinearFilter] criterion (a weighted average of the four texels that are closest to the center of the pixel) to produce a texture value.
+    </p>
+    <p>
+      [page:constant LinearMipmapLinearFilter] is the default and chooses the two mipmaps that most closely match the size of the pixel being textured and uses the [page:constant LinearFilter] criterion to produce a texture value from each mipmap. The final texture value is a weighted average of those two values.
+    </p>
+    <p>
+      See the [example:webgl_materials_texture_filters materials / texture / filters] example.
+    </p>
+
+    [anchor:types]
+    <h2>Types</h2>
+
+    <code>
+    v3d.UnsignedByteType
+    v3d.ByteType
+    v3d.ShortType
+    v3d.UnsignedShortType
+    v3d.IntType
+    v3d.UnsignedIntType
+    v3d.FloatType
+    v3d.HalfFloatType
+    v3d.UnsignedShort4444Type
+    v3d.UnsignedShort5551Type
+    v3d.UnsignedInt248Type
+    </code>
+
+    <p>
+      For use with a texture's [page:Texture.type type]  property, which must correspond to the correct format. See below for details.
+    </p>
+    <p>
+      [page:constant UnsignedByteType] is the default.
+    </p>
+
+    [anchor:formats]
+    <h2>Formats</h2>
+
+    <code>
+    v3d.AlphaFormat
+    v3d.RedFormat
+    v3d.RedIntegerFormat
+    v3d.RGFormat
+    v3d.RGIntegerFormat
+    v3d.RGBAFormat
+    v3d.RGBAIntegerFormat
+    v3d.LuminanceFormat
+    v3d.LuminanceAlphaFormat
+    v3d.DepthFormat
+    v3d.DepthStencilFormat
+    </code>
+
+    <p>
+      For use with a texture's [page:Texture.format format]  property, these define
+      how elements of a 2d texture, or `texels`, are read by shaders.
+    </p>
+    <p>
+      [page:constant AlphaFormat] discards the red, green and blue components and reads just the alpha component.
+    </p>
+    <p>
+      [page:constant RedFormat] discards the green and blue components and reads just the red component. (can only be used with a WebGL 2 rendering context).
+    </p>
+    <p>
+      [page:constant RedIntegerFormat] discards the green and blue components and reads just the red component. The texels are read as integers instead of floating point.  (can only be used with a WebGL 2 rendering context).
+    </p>
+    <p>
+      [page:constant RGFormat] discards the alpha, and blue components and reads the red, and green components. (can only be used with a WebGL 2 rendering context).
+    </p>
+    <p>
+      [page:constant RGIntegerFormat] discards the alpha, and blue components and reads the red, and green components. The texels are read as integers instead of floating point.  (can only be used with a WebGL 2 rendering context).
+    </p>
+    <p>
+      [page:constant RGBAFormat] is the default and reads the red, green, blue and alpha components.
+    </p>
+    <p>
+      [page:constant RGBAIntegerFormat] is the default and reads the red, green, blue and alpha components. The texels are read as integers instead of floating point. (can only be used with a WebGL 2 rendering context).
+    </p>
+    <p>
+      [page:constant LuminanceFormat] reads each element as a single luminance component.  This is then converted to a floating point, clamped to the range [0,1], and then assembled into an RGBA element by placing the luminance value in the red, green and blue channels, and attaching 1.0 to the alpha channel.
+    </p>
+    <p>
+      [page:constant LuminanceAlphaFormat] reads each element as a luminance/alpha double.  The same process occurs as for the [page:constant LuminanceFormat], except that the alpha channel may have values other than 1.0.
+    </p>
+    <p>
+      [page:constant DepthFormat] reads each element as a single depth value, converts it to floating point, and clamps to the range [0,1]. This is the default for [page:DepthTexture DepthTexture].
+    </p>
+    <p>
+      [page:constant DepthStencilFormat] reads each element is a pair of depth and stencil values.  The depth component of the pair is interpreted as in [page:constant DepthFormat].  The stencil component is interpreted based on the depth + stencil internal format.
+    </p>
+    <p>
+      Note that the texture must have the correct [page:Texture.type type] set, as described above. See [link:https://developer.mozilla.org/en/docs/Web/API/WebGLRenderingContext/texImage2D WebGLRenderingContext.texImage2D] for details.
+    </p>
+
+    [anchor:dds_formats]
+    <h2>DDS / ST3C Compressed Texture Formats</h2>
+
+    <code>
+    v3d.RGB_S3TC_DXT1_Format
+    v3d.RGBA_S3TC_DXT1_Format
+    v3d.RGBA_S3TC_DXT3_Format
+    v3d.RGBA_S3TC_DXT5_Format
+    </code>
+
+    <p>
+      For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format]  property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc/ WEBGL_compressed_texture_s3tc] extension.
+    </p>
+    <p>
+      There are four [link:https://en.wikipedia.org/wiki/S3_Texture_Compression S3TC] formats available via this extension. These are:<br>
+      [page:constant RGB_S3TC_DXT1_Format]: A DXT1-compressed image in an RGB image format.<br>
+      [page:constant RGBA_S3TC_DXT1_Format]: A DXT1-compressed image in an RGB image format with a simple on/off alpha value.<br>
+      [page:constant RGBA_S3TC_DXT3_Format]: A DXT3-compressed image in an RGBA image format. Compared to a 32-bit RGBA texture, it offers 4:1 compression.<br>
+      [page:constant RGBA_S3TC_DXT5_Format]: A DXT5-compressed image in an RGBA image format. It also provides a 4:1 compression, but differs to the DXT3 compression in how the alpha compression is done.
+    </p>
+
+    [anchor:pvrt_formats]
+    <h2>PVRTC Compressed Texture Formats</h2>
+
+    <code>
+    v3d.RGB_PVRTC_4BPPV1_Format
+    v3d.RGB_PVRTC_2BPPV1_Format
+    v3d.RGBA_PVRTC_4BPPV1_Format
+    v3d.RGBA_PVRTC_2BPPV1_Format
+    </code>
+
+    <p>
+      For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format]  property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_pvrtc/ WEBGL_compressed_texture_pvrtc] extension. PVRTC is typically only available on mobile devices with PowerVR chipsets, which are mainly Apple devices.
+    </p>
+    <p>
+      There are four [link:https://en.wikipedia.org/wiki/PVRTC PVRTC] formats available via this extension. These are:<br>
+      [page:constant RGB_PVRTC_4BPPV1_Format]: RGB compression in 4-bit mode. One block for each 4×4 pixels.<br>
+      [page:constant RGB_PVRTC_2BPPV1_Format]: RGB compression in 2-bit mode. One block for each 8×4 pixels.<br>
+      [page:constant RGBA_PVRTC_4BPPV1_Format]: RGBA compression in 4-bit mode. One block for each 4×4 pixels.<br>
+      [page:constant RGBA_PVRTC_2BPPV1_Format]: RGBA compression in 2-bit mode. One block for each 8×4 pixels.
+    </p>
+
+    [anchor:etc_formats]
+    <h2>ETC Compressed Texture Formats</h2>
+
+    <code>
+    v3d.RGB_ETC1_Format
+    v3d.RGB_ETC2_Format
+    v3d.RGBA_ETC2_EAC_Format
+    </code>
+
+    <p>
+      For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format] property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc1/ WEBGL_compressed_texture_etc1] (ETC1) or [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc/ WEBGL_compressed_texture_etc] (ETC2) extensions.
+    </p>
+
+    [anchor:astc_formats]
+    <h2>ASTC Compressed Texture Formats</h2>
+
+    <code>
+    v3d.RGBA_ASTC_4x4_Format
+    v3d.RGBA_ASTC_5x4_Format
+    v3d.RGBA_ASTC_5x5_Format
+    v3d.RGBA_ASTC_6x5_Format
+    v3d.RGBA_ASTC_6x6_Format
+    v3d.RGBA_ASTC_8x5_Format
+    v3d.RGBA_ASTC_8x6_Format
+    v3d.RGBA_ASTC_8x8_Format
+    v3d.RGBA_ASTC_10x5_Format
+    v3d.RGBA_ASTC_10x6_Format
+    v3d.RGBA_ASTC_10x8_Format
+    v3d.RGBA_ASTC_10x10_Format
+    v3d.RGBA_ASTC_12x10_Format
+    v3d.RGBA_ASTC_12x12_Format
+    </code>
+
+    <p>
+      For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format] property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/ WEBGL_compressed_texture_astc] extension.
+    </p>
+
+    [anchor:bptc_formats]
+    <h2>BPTC Compressed Texture Formats</h2>
+
+    <code>
+    v3d.RGBA_BPTC_Format
+    </code>
+
+    <p>
+      For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format] property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/EXT_texture_compression_bptc/ EXT_texture_compression_bptc] extension.
+    </p>
+
+    [anchor:encoding]
+    <h2>Encoding</h2>
+
+    <code class="language-html">
+    v3d.LinearEncoding
+    v3d.sRGBEncoding
+    v3d.BasicDepthPacking
+    v3d.RGBADepthPacking
+    v3d.LinearDepthPacking
+    v3d.RGBADistancePacking
+    v3d.ESMDistancePacking
+    </code>
+
+    <p>
+      For use with a Texture's [page:Texture.encoding encoding] property.
+    </p>
+    <p>
+      If the encoding type is changed after the texture has already been used by a material, you will need to set [page:Material.needsUpdate Material.needsUpdate] to `true` to make the material recompile.
+    </p>
+    <p>
+      [page:constant LinearEncoding] is the default.
+      Values other than this are only valid for a material's `map`, `envMap` and `emissiveMap`.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

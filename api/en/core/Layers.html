@@ -10,15 +10,52 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A [page:Layers] object assigns an [page:Object3D] to 1 or more of 32 layers numbered 0 to 31
-      - internally the layers are stored as a [link:https://en.wikipedia.org/wiki/Mask_(computing) bit mask], and by default all
-      Object3Ds are a member of layer 0.<br /><br />
-
-      This can be used to control visibility - an object must share a layer with a [page:Camera camera] to be visible when that camera's
-      view is rendered.<br /><br />
-
+      A [page:Layers] object assigns an [page:Object3D] to 1 or more of 32 layers numbered `0` to `31`
+      — internally the layers are stored as a [link:https://en.wikipedia.org/wiki/Mask_(computing) bit mask].
+    </p>
+    <p>
+      This can be used to control visibility — an object must share a layer with a [page:Camera camera] to be visible when that camera's view is rendered.
+    </p>
+    <p>
       All classes that inherit from [page:Object3D] have an [page:Object3D.layers] property which is an instance of this class.
     </p>
+
+    <h2>Default Layers</h2>
+
+    <p>
+      By default only channel `0` is enabled for all objects and cameras, however additional layers can be occupied by Verge3D to implement various features:
+    </p>
+
+    <table>
+      <tr>
+        <td>1</td>
+        <td>Left camera when using VR mode.</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Right camera when using VR mode.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Reflection pass when using SSR postprocessing.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Object rendered <em>after</em> reflection pass when using SSR postprocessing.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Refraction pass when using SSR postprocessing.</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Object rendered <em>after</em> refraction pass when using SSR postprocessing.</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>HiDPI render pass.</td>
+      </tr>
+    </table>
 
     <h2>Examples</h2>
 
@@ -45,45 +82,51 @@
     <h2>Methods</h2>
 
     <h3>[method:undefined disable]([param:Integer layer])</h3>
+    <p class="params">
+      layer — an integer from 0 to 31.
+    </p>
     <p>
-      layer - an integer from 0 to 31.<br /><br />
-
-      Remove membership of this *layer*.
+      Remove membership of this `layer`.
     </p>
 
     <h3>[method:undefined enable]([param:Integer layer])</h3>
+    <p class="params">
+      layer — an integer from 0 to 31.
+    </p>
     <p>
-      layer - an integer from 0 to 31.<br /><br />
-
-      Add membership of this *layer*.
+      Add membership of this `layer`.
     </p>
 
     <h3>[method:undefined set]([param:Integer layer])</h3>
+    <p class="params">
+      layer — an integer from 0 to 31.
+    </p>
     <p>
-      layer - an integer from 0 to 31.<br /><br />
-
-      Set membership to *layer*, and remove membership all other layers.
+      Set membership to `layer`, and remove membership all other layers.
     </p>
 
     <h3>[method:Boolean test]([param:Layers layers])</h3>
+    <p class="params">
+      layers — a Layers object.
+    </p>
     <p>
-      layers - a Layers object<br /><br />
-
-      Returns true if this and the passed *layers* object have at least one layer in common.
+      Returns true if this and the passed `layers` object have at least one layer in common.
     </p>
 
     <h3>[method:Boolean isEnabled]([param:Integer layer])</h3>
+    <p class="params">
+      layer — an integer from 0 to 31.
+    </p>
     <p>
-      layer - an integer from 0 to 31.<br /><br />
-
       Returns true if the given layer is enabled.
     </p>
 
     <h3>[method:undefined toggle]([param:Integer layer])</h3>
+    <p class="params">
+      layer — an integer from 0 to 31.
+    </p>
     <p>
-      layer - an integer from 0 to 31.<br /><br />
-
-      Toggle membership of *layer*.
+      Toggle membership of `layer`.
     </p>
 
     <h3>[method:undefined enableAll]()</h3>

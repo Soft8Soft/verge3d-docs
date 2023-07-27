@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr; [page:Line] &rarr; [page:LineSegments] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+    Помогает визуализировать то, что камера содержит в фруструме.<br>
+    Он визуализирует фрустум камеры с помощью [page:LineSegments]..
+    </p>
+
+    <h2>Пример Кода</h2>
+    <code>
+const camera = new v3d.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const helper = new v3d.CameraHelper(camera);
+scene.add(helper);
+    </code>
+
+    <h2>Примеры</h2>
+    <p>
+      [example:webgl_camera WebGL / camera]<br/>
+      [example:webgl_geometry_extrude_splines WebGL / extrude / splines]
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Camera camera])</h3>
+    <p>
+    [page:Camera camera] -- Камера для визуализации.<br><br>
+
+    Это создаст новый [name] для указанной камеры.
+    </p>
+
+
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:LineSegments].</p>
+
+
+
+    <h3>[property:Camera camera]</h3>
+    <p>Визуализируемая камера.</p>
+
+    <h3>[property:Object pointMap]</h3>
+    <p>Здесь содержатся точки, используемые для визуализации камеры.</p>
+
+    <h3>[property:Object matrix]</h3>
+    <p>Референс на [page:Object3D.matrixWorld camera.matrixWorld].</p>
+
+    <h3>[property:Object matrixAutoUpdate]</h3>
+    <p>
+      См. [page:Object3D.matrixAutoUpdate]. Здесь установлено значение *false*, так как помощник использует [page:Object3D.matrixWorld matrixWorld] камеры.
+    </p>
+
+
+
+
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:LineSegments].</p>
+
+
+    <h3>[method:null update]()</h3>
+    <p>Обновляет помощник на основе projectionMatrix камеры.</p>
+
+    [sourceHint]
+  </body>
+</html>

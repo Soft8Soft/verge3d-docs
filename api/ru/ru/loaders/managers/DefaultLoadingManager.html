@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">Глобальный экземпляр [page:LoadingManager LoadingManager], используемый большинством загрузчиков, если не указан пользовательский менеджер.<br><br>
+
+      Этого будет достаточно для большинства целей, однако могут возникнуть ситуации, когда вы захотите использовать отдельные менеджеры загрузки
+      для, скажем, текстур и моделей.
+    </p>
+
+    <h2>Пример Кода</h2>
+
+    <p>
+      Опционально, вы можете задать функции [page:LoadingManager.onStart onStart], [page:LoadingManager.onLoad onLoad],
+      [page:LoadingManager.onProgress onProgress], [page:LoadingManager.onStart onError] для менеджера.
+      Затем они будут применяться к любым загрузчикам, использующим DefaultLoadingManager.<br><br>
+
+      Обратите внимание, что их не следует путать с аналогично названными функциями отдельных загрузчиков, поскольку они предназначены для отображения информации об общем состоянии загрузки, а не для работы с загруженными данными.
+    </p>
+    <code>
+v3d.DefaultLoadingManager.onStart = function(url, itemsLoaded, itemsTotal) {
+
+  console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+
+};
+
+v3d.DefaultLoadingManager.onLoad = function() {
+
+  console.log('Loading Complete!');
+
+};
+
+
+v3d.DefaultLoadingManager.onProgress = function(url, itemsLoaded, itemsTotal) {
+
+  console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+
+};
+
+v3d.DefaultLoadingManager.onError = function(url) {
+
+  console.log('There was an error loading ' + url);
+
+};
+    </code>
+
+
+    <h2>Свойства</h2>
+
+    <p>Подробнее о свойствах смотрите на странице [page:LoadingManager LoadingManager].</p>
+
+    <h2>Методы</h2>
+
+    <p>Подробности о методах см. на странице [page:LoadingManager LoadingManager].</p>
+
+    [sourceHint]
+  </body>
+</html>

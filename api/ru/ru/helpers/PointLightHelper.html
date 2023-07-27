@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr; [page:Mesh] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Отображается вспомогательный объект, состоящий из сферического [page:Mesh] для визуализации
+      [page:PointLight].
+     </p>
+
+     <h2>Пример Кода</h2>
+
+    <code>
+    const pointLight = new v3d.PointLight(0xff0000, 1, 100);
+    pointLight.position.set(10, 10, 10);
+    scene.add(pointLight);
+
+    const sphereSize = 1;
+    const pointLightHelper = new v3d.PointLightHelper(pointLight, sphereSize);
+    scene.add(pointLightHelper);
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_helpers WebGL /  helpers]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:PointLight light], [param:Float sphereSize], [param:Hex color])</h3>
+    <p>
+    [page:PointLight light] -- Свет, который необходимо визуализировать. <br><br>
+
+    [page:Float sphereSize] -- (опционально) Размер сферы помощника. По умолчанию *1*.<br><br>
+
+    [page:Hex color] -- (опционально) если это не задано, помощник примет цвет освещения.
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Mesh].</p>
+
+    <h3>[property:PointLight light]</h3>
+    <p>[page:PointLight], который визуализируется.</p>
+
+    <h3>[property:Object matrix]</h3>
+    <p>Референс на pointLight's [page:Object3D.matrixWorld matrixWorld].</p>
+
+    <h3>[property:Object matrixAutoUpdate]</h3>
+    <p>
+      См. [page:Object3D.matrixAutoUpdate]. Здесь установлено значение *false*, так как помощник использует
+      pointLight's [page:Object3D.matrixWorld matrixWorld].
+    </p>
+
+    <h3>[property:hex color]</h3>
+    <p>
+      Параметр цвета, передаваемый в конструкторе. По умолчанию *undefined*. Если этот параметр изменить, цвет помощника будет обновлен
+      при следующем вызове [page:.update update].
+    </p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Mesh].</p>
+
+    <h3>[method:null dispose]()</h3>
+    <p>Утилизация помощника pointLightHelper.</p>
+
+
+    <h3>[method:null update]()</h3>
+    <p>Обновление помощника в соответствии с позицией [page:.light].</p>
+
+    [sourceHint]
+  </body>
+</html>

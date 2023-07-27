@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>List of generic JavaScript types — Soft8Soft</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="The list of JavaScript types which are commonly used in 3D applications made with Verge3D."/>
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+
+    <h1>Generic JavaScript Types</h1>
+
+    <p>
+      JavaScript is a dynamically-typed language which offers powerful yet easy-to-use typing system. This however imposes responsibility to track the types of your variables passed to Verge3D API methods. Misusing types might lead to complicated issues, so be careful and always consult with the Verge3D docs in case of any doubts.
+    </p>
+
+    <h2>[def:Any]</h2>
+    <p>
+      Any type. There is no such type in JavaScript — this virtual type is used in Verge3D only for documentation purposes.
+    </p>
+
+    <h2>[def:ArrayBuffer]</h2>
+    <p>
+      Buffer which stores arbitrary binary data. The content of this buffer is accessible via <a href="api/en/types/JavaScriptTypes.html#TypedArray">TypedArray</a>.
+    </p>
+
+    <code>
+    const buffer = new ArrayBuffer(8);
+    const view = new Uint16Array(buffer); // 4 16-bit zeros
+    </code>
+
+    <h2>[def:Array]</h2>
+    <p>
+      JavaScript Array value:
+    </p>
+
+    <code>
+    const numArray = [1, 2, 3, 4];
+    const strArray = ['A', 'B', 'C'];
+    const emptyArray = [];
+    </code>
+
+    <h2>[def:Boolean]</h2>
+    <p>
+      Boolean value, either `true` or `false`. Using other data types to represent boolean values, such as `''` (empty string), `1` (one), `0` (zero), `null` is not recommended.
+    </p>
+
+    <h2>[def:Constant]</h2>
+    <p>
+      Verge3D constant which is accessible from the `v3d` namespace, e.g: `v3d.ESMShadowMap`, `v3d.RGBAFormat`, `v3d.MOUSE.LEFT`, etc. All Verge3D constants are described in the corresponding sections of this reference.
+    </p>
+
+    <h2>[def:Float]</h2>
+    <p>
+      Float value such as `3.14`, `-5.0`, or `1e6` (a million). For some Verge3D API methods or properties, you can also use the `Infinity` and `-Infinity` values.
+    </p>
+
+    <h2>[def:Function]</h2>
+    <p>
+      JavaScript function. In the context of Verge3D API, this means you need to pass some pre-defined callback function as parameter to an API method or define some event handler.
+    </p>
+
+    <h2>[def:HTMLElement]</h2>
+    <p>
+      HTML element of any type.
+    </p>
+
+    <h2>[def:Integer]</h2>
+    <p>
+      Integer value such as `10`, `290`, `-1`, or `0xff0000` (hex value for color red).
+    </p>
+    <p>
+      In JavaScript there is no specific data type for integers, so difference between floats and integers is purely logical. In the essence, `10` is same as `10.0`, but in Verge3D context these are different types.
+    </p>
+
+    <h2>[def:null]</h2>
+    <p>
+      JavaScript `null` object. In most cases this means that the data is not available or is empty.
+    </p>
+
+    <h2>[def:Object]</h2>
+    <p>
+      JavaScript object. In most cases this means you need to use the dictionary-like datatype:
+    </p>
+
+    <code>
+    const myObj = {
+        name: 'John Smith',
+        age: 40
+    }
+    </code>
+
+    <p>
+      When using spaces or other non-alphanumeric characters for keys, put them in quotes or double quotes:
+    </p>
+
+    <code>
+    const myObj = {
+        'person name': 'John Smith',
+        'age#': 40
+    }
+    </code>
+
+    <h2>[def:String]</h2>
+    <p>
+      String value, such as `'Hello World!'`. You can also use the double quotation marks to represent strings, e.g `"Hello World!"`.
+    </p>
+
+    <h2>[def:this]</h2>
+    <p>
+      JavaScript `this` value. In most cases, we use `this` to describe methods which return the reference to the same class instance. This allows such methods to be chained, e.g:
+    </p>
+
+    <code>
+    // [0, 0, 0] → [10, 0, 0] → [11, 1, 1] → [6, 0, 0]
+    new v3d.Vector3().setX(10).addScalar(1).sub(new v3d.Vector3(5, 1, 1));
+    </code>
+
+    <p class="note">
+      By definition, all constructors return `this` value, so we don't mention it in the reference.
+    </p>
+
+
+    <h2>[def:TypedArray]</h2>
+    <p>
+      JavaScript typed array value:
+    </p>
+
+    <code>
+    const array1 = new Uint32Array([1,2,3]); // three unsigned 32 bit integers
+    const array2 = new Float32Array(1000);   // 1000 zeros, floats with 32 bit precision
+    </code>
+
+    <p>
+      The following types are the most frequently used in Verge3D:
+    </p>
+
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Usage</th>
+      </tr>
+      <tr>
+        <td>Float32Array</td>
+        <td>Positions, normals, UVs, animations.</td>
+      </tr>
+      <tr>
+        <td>Uint8Array</td>
+        <td>Index buffers for small meshes.</td>
+      </tr>
+      <tr>
+        <td>Uint16Array</td>
+        <td>Index buffers for medium meshes.</td>
+      </tr>
+      <tr>
+        <td>Uint32Array</td>
+        <td>Index buffers for large meshes.</td>
+      </tr>
+    </table>
+
+    <h2>[def:undefined]</h2>
+    <p>
+      JavaScript `undefined` type. As implied by the name, a variable, property, or a function parameter is not defined. Also, JavaScript functions which do not return any values have `undefined` as their return value.
+    </p>
+
+
+  </body>
+</html>

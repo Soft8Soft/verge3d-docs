@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Loader] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Загрузчик для загрузки [page:Image]. Используется модулями [page:CubeTextureLoader] и [page:TextureLoader].
+    </p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    // instantiate a loader
+    const loader = new v3d.ImageLoader();
+
+    // load a image resource
+    loader.load(
+      // resource URL
+      'textures/skyboxsun25degtest.png',
+
+      // onLoad callback
+      function(image) {
+        // use the image, e.g. draw part of it on a canvas
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        context.drawImage(image, 100, 100);
+      },
+
+      // onProgress callback currently not supported
+      undefined,
+
+      // onError callback
+      function() {
+        console.error('An error happened.');
+      }
+    );
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_loader_obj WebGL / loader / obj]<br>
+      [example:webgl_shaders_ocean WebGL / shaders / ocean]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:LoadingManager manager])</h3>
+    <p>
+    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].<br><br>
+
+    Создает новый [name].
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Loader].</p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Loader].</p>
+
+    <h3>[method:HTMLImageElement load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
+    <p>
+    [page:String url] — путь или URL-адрес к файлу. Это также может быть
+      [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br>
+    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженный [page:Image image].<br>
+    [page:Function onProgress] — Эта функция обратного вызова в настоящее время не поддерживается.<br>
+    [page:Function onError] — Вызывается при ошибках загрузки.<br>
+    </p>
+    <p>
+      Начните загрузку из url и верните объект [page:Image image], который будет содержать данные.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

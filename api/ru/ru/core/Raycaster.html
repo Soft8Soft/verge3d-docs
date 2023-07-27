@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Этот класс предназначен для помощи в работе с [link:https://en.wikipedia.org/wiki/Ray_casting raycasting]. Raycasting используется для для захвата мыши (определение объектов в 3d пространстве, над которыми находится мышь) среди прочего. 
+    </p>
+
+    <h2>Пример Кода</h2>
+    <code>
+    const raycaster = new v3d.Raycaster();
+    const mouse = new v3d.Vector2();
+
+    function onMouseMove(event) {
+
+      // calculate mouse position in normalized device coordinates
+      // (-1 to +1) for both components
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+    }
+
+    function render() {
+
+      // update the picking ray with the camera and mouse position
+      raycaster.setFromCamera(mouse, camera);
+
+      // calculate objects intersecting the picking ray
+      const intersects = raycaster.intersectObjects(scene.children);
+
+      for (let i = 0; i < intersects.length; i++) {
+
+        intersects[i].object.material.color.set(0xff0000);
+
+      }
+
+      renderer.render(scene, camera);
+
+    }
+
+    window.addEventListener('mousemove', onMouseMove, false);
+
+    window.requestAnimationFrame(render);
+
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_interactive_cubes Raycasting to a Mesh]<br>
+      [example:webgl_interactive_cubes_ortho Raycasting to a Mesh in using an OrthographicCamera]<br>
+      [example:webgl_interactive_buffergeometry Raycasting to a Mesh with BufferGeometry]<br>
+      [example:webgl_instancing_raycast Raycasting to a InstancedMesh]<br>
+      [example:webgl_interactive_lines Raycasting to a Line]<br>
+      [example:webgl_interactive_raycasting_points Raycasting to Points]<br>
+      [example:webgl_geometry_terrain_raycast Terrain raycasting]<br>
+      [example:webgl_interactive_voxelpainter Raycasting to paint voxels]<br>
+      [example:webgl_raycast_texture Raycast to a Texture]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Vector3 origin], [param:Vector3 direction], [param:Float near], [param:Float far]) {</h3>
+    <p>
+    [page:Vector3 origin] — Вектор начала координат, из которого отбрасывается луч.<br>
+    [page:Vector3 direction] — Вектор направления, задающий направление луча. Должен быть нормализован.<br>
+    [page:Float near] — Все возвращенные результаты находятся дальше, чем near. Near не может быть отрицательным. Значение по умолчанию 0.<br>
+    [page:Float far] — Все возвращенные результаты ближе, чем far. Far не может быть меньше, чем near. Значение по умолчанию - Infinity(Бесконечность).
+    </p>
+    <p>
+      Это создает новый объект raycaster.<br>
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Float far]</h3>
+    <p>
+      Коэффициент дальности луча. Это значение указывает, какие объекты могут быть отброшены на основании расстояния. Это значение не должно быть отрицательным и должно быть больше, чем свойство near. 
+    </p>
+
+    <h3>[property:Float near]</h3>
+    <p>
+      Коэффициент близости райкастера. Это значение указывает, какие объекты могут быть отброшены на основании расстояния. Это значение не должно быть отрицательным и должно быть меньше, чем свойство far.
+    </p>
+
+    <h3>[property:Camera camera]</h3>
+    <p>
+      Камера, которую следует использовать при создании лучей для объектов, зависящих от вида, таких как объекты с билбордами, например [page:Sprites]. Это поле может быть задано вручную или устанавливается при вызове команды "setFromCamera".
+
+      По умолчанию имеет значение null.
+    </p>
+
+    <h3>[property:Layers layers]</h3>
+    <p>
+      Используется [name] для выборочного игнорирования 3D-объектов при выполнении тестов пересечения. Следующий пример кода гарантирует, что экземпляр [name] будет игнорировать только 3D-объекты на слое *1*.
+
+    <code>
+    raycaster.layers.set(1);
+    object.layers.enable(1);
+    </code>
+
+    </p>
+
+    <h3>[property:Object params]</h3>
+    <p>
+      Объект со следующими свойствами:
+
+      <code>
+{
+  Mesh: {},
+  Line: { threshold: 1 },
+  LOD: {},
+  Points: { threshold: 1 },
+  Sprite: {}
+}
+      </code>
+
+      Где порог - точность лучей при пересечении объектов, в мировых единицах.
+    </p>
+
+    <h3>[property:Ray ray]</h3>
+    <p>[Page:Ray] используемый для передачи лучей.</p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:null set]([param:Vector3 origin], [param:Vector3 direction])</h3>
+    <p>
+    [page:Vector3 origin] — Вектор начала координат, из которого отбрасывается луч.<br>
+    [page:Vector3 direction] — Нормализованный вектор направления, задающий направление луча.
+    </p>
+    <p>
+      Обновляет луч с новым началом и направлением. Обратите внимание, что этот метод только копирует значения из аргументов.
+    </p>
+
+    <h3>[method:null setFromCamera]([param:Vector2 coords], [param:Camera camera])</h3>
+    <p>
+    [page:Vector2 coords] — 2D координаты мыши в нормализованных координатах устройства (NDC) --- компоненты X и Y должны быть в пределах от -1 до 1.<br>
+    [page:Camera camera] — камера, из которой должен исходить луч
+    </p>
+    <p>
+      Обновляет луч с новым началом и направлением.
+    </p>
+
+    <h3>[method:Array intersectObject]([param:Object3D object], [param:Boolean recursive], [param:Array optionalTarget])</h3>
+    <p>
+    [page:Object3D object] — Объект, который нужно проверить на пересечение с лучом.<br>
+    [page:Boolean recursive] — Если true, то проверяются также все потомки. В противном случае проверяется только пересечение с объектом. По умолчанию - false.<br>
+    [page:Array optionalTarget] — (необязательно) цель для установки результата. В противном случае создается новый [page:Array]. Если задан, то перед каждым вызовом необходимо очищать этот массив (т.е. array.length = 0;).
+    </p>
+    <p>
+      Проверяет все пересечения между лучом и объектом с потомками или без них. Пересечения возвращаются отсортированными по расстоянию, сначала ближайшие. Возвращается массив пересечений...
+    </p>
+    <code>
+        [{ distance, point, face, faceIndex, object }, ...]
+    </code>
+    <p>
+      [page:Float distance] – расстояние между началом луча и точкой пересечения<br>
+      [page:Vector3 point] – точка пересечения, в мировых координатах<br>
+      [page:Face3 face] – пересекаемая поверхность<br>
+      [page:Integer faceIndex] – индекс пересекаемой грани<br>
+      [page:Object3D object] – пересекаемый объект<br>
+      [page:Vector2 uv] — U,V координаты в точке пересечения<br>
+      [page:Vector2 uv2] — Второй набор координат U,V в точке пересечения<br>
+      [page:Integer instanceId] – Индексный номер экземпляра, в котором луч пересекает InstancedMesh
+    </p>
+    <p>
+      *Raycaster* делегирует метод [page:Object3D.raycast raycast] переданного объекта, когда оценивает, пересекает ли луч объект или нет. Это позволяет [page:Mesh meshes] реагировать на отбрасывание лучей иначе, чем [page:Line lines] и [page:Points pointclouds].
+    </p>
+    <p>
+      Обратите внимание, что для мешей грани должны быть направлены к ориджину [page:.ray ray], чтобы быть обнаруженными; пересечения луча, проходящего через заднюю часть грани, не будут обнаружены. Чтобы направить луч на обе грани объекта, нужно установить свойство [page:Mesh.material material] [page:Material.side side] в *v3d.DoubleSide*.
+    </p>
+
+    <h3>[method:Array intersectObjects]([param:Array objects], [param:Boolean recursive], [param:Array optionalTarget])</h3>
+    <p>
+    [page:Array objects] — Объекты для проверки пересечения с лучом.<br>
+    [page:Boolean recursive] — Если true, то также проверяются все потомки объектов. В противном случае проверяется только пересечение с объектами. По умолчанию false.<br>
+    [page:Array optionalTarget] — (необязательно) цель для установки результата. В противном случае создается новый [page:Array]. Если задан, то перед каждым вызовом необходимо очищать этот массив (т.е. array.length = 0;).
+    </p>
+    <p>
+      Проверяет все пересечения между лучом и объектами с потомками или без них. Пересечения возвращаются отсортированными по расстоянию, сначала возвращаются ближайшие. Пересечения имеют ту же форму, что и те, которые возвращает [page:.intersectObject].
+    </p>
+
+
+    [sourceHint]
+  </body>
+</html>

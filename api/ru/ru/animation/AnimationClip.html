@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      AnimationClip - это многократно используемый набор дорожек ключевых кадров, которые представляют анимацию.<br><br>
+
+      Обзор различных элементов системы анимации Verge3D смотрите в статье "Animation System" в разделе "Next Steps" руководства.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:String name], [param:Number duration], [param:Array tracks])</h3>
+    <p>
+      [page:String name] — название для этого клипа..<br>
+      [page:Number duration] — продолжительность этого клипа (в секундах). Если передано отрицательное значение, длительность будет вычислена из переданного массива *tracks*.<br>
+      [page:Array tracks] — массив [page:KeyframeTrack KeyframeTracks].<br><br>
+
+      Примечание: Вместо непосредственного создания AnimationClip с помощью конструктора, вы можете использовать один из его статических методов для создания AnimationClip: из JSON ([page:.parse parse]), из последовательностей морф-мишеней ([page:.CreateFromMorphTargetSequence CreateFromMorphTargetSequence], [page:. CreateClipsFromMorphTargetSequences CreateClipsFromMorphTargetSequences]) или из иерархий анимации ([page:.parseAnimation parseAnimation]) - если ваша модель еще не содержит AnimationClips в массиве анимаций своей геометрии.
+    </p>
+
+
+    <h2>Свойства</h2>
+
+
+    <h3>[property:Number duration]</h3>
+    <p>
+      Продолжительность этого клипа (в секундах). Она может быть вычислена из массива [page:.tracks tracks tracks] через [page:.resetDuration resetDuration].
+    </p>
+
+    <h3>[property:String name]</h3>
+    <p>
+      Наименование для этого клипа. Определенный клип можно искать через [page:.findByName findByName].
+    </p>
+
+    <h3>[property:Array tracks]</h3>
+    <p>
+      Массив, содержащий [page:KeyframeTrack] для каждого свойства, которое анимируется этим клипом.
+    </p>
+
+    <h3>[property:String uuid]</h3>
+    <p>
+      [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] данного экземпляра клипа. Он присваивается автоматически и не подлежит редактированию.
+    </p>
+
+
+    <h2>Методы</h2>
+
+
+    <h3>[method:AnimationClip clone]()</h3>
+    <p>
+      Возвращает копию этого клипа.
+    </p>
+
+    <h3>[method:this optimize]()</h3>
+    <p>
+      Оптимизирует каждую дорожку, удаляя эквивалентные последовательные ключи (которые часто встречаются в целевых последовательностях морфа).
+    </p>
+
+    <h3>[method:this resetDuration]()</h3>
+    <p>
+      Устанавливает [page:.duration duration duration] клипа на длительность его самого длинного
+      [page:KeyframeTrack].
+    </p>
+
+    <h3>[method:this trim]()</h3>
+    <p>
+      Обрезает все дорожки до длительности клипа.
+    </p>
+
+    <h3>[method:Boolean validate]()</h3>
+    <p>
+      Выполняет минимальную проверку каждой дорожки в клипе. Возвращает true, если все дорожки действительны.
+    </p>
+
+
+    <h2>Статические методы</h2>
+
+
+    <h3>[method:Array CreateClipsFromMorphTargetSequences]([param:String name], [param:Array morphTargetSequence], [param:Number fps], [param:Boolean noLoop])</h3>
+    <p>
+      Возвращает массив новых AnimationClips, созданных из [page:Geometry.morphTargets morph target sequences] геометрии, пытаясь отсортировать имена morph target в шаблоны, основанные на анимационных группах, таких как "Walk_001, Walk_002, Run_001, Run_002 ...".
+    </p>
+
+    <h3>[method:AnimationClip CreateFromMorphTargetSequence]([param:String name], [param:Array morphTargetSequence], [param:Number fps], [param:Boolean noLoop])</h3>
+    <p>
+      Возвращает новый AnimationClip из переданного [page:Geometry.morphTargets morph targets array] геометрии, принимая имя и количество кадров в секунду.<br><br>
+
+      Примечание: Параметр fps является обязательным, но скорость анимации можно переопределить в *AnimationAction* через [page:AnimationAction.setDuration animationAction.setDuration].
+    </p>
+
+    <h3>[method:AnimationClip findByName]([param:Object objectOrClipArray], [param:String name])</h3>
+    <p>
+      Ищет AnimationClip по имени, принимая в качестве первого параметра либо массив AnimationClips, либо сетку или геометрию, содержащую массив с именем "animations".
+    </p>
+
+    <h3>[method:AnimationClip parse]([param:Object json])</h3>
+    <p>
+      Парсит JSON-представление клипа и возвращает AnimationClip.
+    </p>
+
+    <h3>[method:AnimationClip parseAnimation]([param:Object animation], [param:Array bones])</h3>
+    <p>
+      Парсит формат animation.hierarchy и возвращает AnimationClip.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

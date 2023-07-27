@@ -22,6 +22,24 @@ const SEARCH_HINT = {
     'zh': '寻找'
 };
 
+const GENERIC_TYPES = [
+    'Any',
+    'Array',
+    'ArrayBuffer',
+    'Boolean',
+    'Constant',
+    'Float',
+    'Function',
+    'HTMLElement',
+    'Integer',
+    'null',
+    'Object',
+    'String',
+    'this',
+    'TypedArray',
+    'undefined'
+];
+
 let list = null;
 let titles = {};
 
@@ -46,7 +64,19 @@ function generate() {
 
     copyOutput('files');
     copyOutput('prettify');
+
+    // copy docs scenes and all dependencies
     copyOutput('scenes');
+    copyOutput('../examples/files', 'files');
+    copyOutput('../build/v3d.module.js', 'files/v3d.module.js');
+    copyOutput('../examples/jsm', 'files/jsm');
+    copyOutput('../examples/textures/cube/SwedishRoyalCastle', 'files/textures/cube/SwedishRoyalCastle');
+    copyOutput('../examples/textures/brick_diffuse.jpg', 'files/textures/brick_diffuse.jpg');
+    copyOutput('../examples/textures/brick_roughness.jpg', 'files/textures/brick_roughness.jpg');
+    copyOutput('../examples/textures/matcaps/matcap-porcelain-white.jpg', 'files/textures/matcaps/matcap-porcelain-white.jpg');
+    copyOutput('../examples/textures/alphaMap.jpg', 'files/textures/alphaMap.jpg');
+    copyOutput('../examples/textures/gradientMaps/threeTone.jpg', 'files/textures/gradientMaps/threeTone.jpg');
+    copyOutput('../examples/textures/gradientMaps/fiveTone.jpg', 'files/textures/gradientMaps/fiveTone.jpg');
 
     const sitemap = new SitemapStream({ hostname: HOST });
     const writeStream = fs.createWriteStream(path.join(OUTDIR, 'sitemap-docs.xml'));
@@ -151,13 +181,13 @@ function writePage(pageFile, lang, navigation, sitemap) {
             case 'zh':
                 titleDesc = JSDOM.fragment(`
                     <title>${pageTitle} - Verge3D 用户手册 - Soft8Soft</title>
-                    <meta name="description" content="了解如何在使用 Verge3D 或 Three.js 制作的交互式 3D 应用程序中使用 ${pageTitle}">
+                    <meta name="description" content="了解如何在使用 Verge3D 制作的交互式 3D 应用程序中使用 ${pageTitle}">
                 `);
                 break;
             default:
                 titleDesc = JSDOM.fragment(`
                     <title>${pageTitle} - Verge3D User Manual - Soft8Soft</title>
-                    <meta name="description" content="Learn how to use ${pageTitle} in your interactive 3D apps made with Verge3D or Three.js">
+                    <meta name="description" content="Learn how to use ${pageTitle} in your interactive 3D apps made with Verge3D">
                 `);
                 break;
             }
@@ -187,7 +217,6 @@ function writePage(pageFile, lang, navigation, sitemap) {
             <meta property="article:tag" content="Verge3D">
             <meta property="article:tag" content="WebGL">
             <meta property="article:tag" content="3D">
-            <meta property="article:tag" content="ThreeJS">
             <meta property="article:tag" content="interactive">
             <meta property="article:tag" content="realtime">
             <meta property="article:tag" content="3dweb">
@@ -205,6 +234,7 @@ function writePage(pageFile, lang, navigation, sitemap) {
 
             <!-- favicons from realfavicongenerator.net -->
             <link rel="apple-touch-icon" sizes="180x180" href="${HOST}files/icons/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="48x48" href="${HOST}files/icons/favicon-48x48.png">
             <link rel="icon" type="image/png" sizes="32x32" href="${HOST}files/icons/favicon-32x32.png">
             <link rel="icon" type="image/png" sizes="16x16" href="${HOST}files/icons/favicon-16x16.png">
             <link rel="manifest" href="${HOST}files/icons/manifest.json">
@@ -325,7 +355,8 @@ function resolveTemplates(text, name, path, lang) {
 
         // remove locale
         if (section == 'manual' || section == 'api')
-            path = path.replace(/^[A-z0-9-]+\//, ''); }
+            path = path.replace(/^[A-z0-9-]+\//, '');
+    }
 
     text = text.replace(/\[name\]/gi, name);
     text = text.replace(/\[path\]/gi, path);
@@ -337,18 +368,25 @@ function resolveTemplates(text, name, path, lang) {
         return `<a href=\"${getPageURL(p1, lang)}\">${p2}</a>`;
     });
 
-    text = text.replace(/\[(member|property|method|param|def):([\w]+)\]/gi, "[$1:$2 $2]"); // [member:name] to [member:name title]
+    text = text.replace(/\[(member|property|method|param|def):([\w|]+)\]/gi, "[$1:$2 $2]"); // [member:name] to [member:name title]
 
-    text = text.replace(/\[(?:member|property|method):([\w]+) ([\w\.\s]+)\]\s*(\(.*\))?/gi, function(match, p1, p2, p3) {
-        var urlProp = getPageURL(name + '.' + p2, lang);
-        var urlType = getPageURL(p1, lang);
+    text = text.replace(/\[(member|property|method):([\w]+) ([\w\.\s]+)\]\s*(\(.*\))?/gi, function(match, p1, p2, p3, p4) {
+        const urlProp = getPageURL(name + '.' + p3, lang);
+        const urlType = getPageURL(p2, lang);
+        const typeSepChar = (p1 == 'method') ? '→' : ':';
 
-        return `<a href="${urlProp}" class="permalink">#</a> .<a href="${urlProp}" id="${p2}">${p2}</a> ${p3 || ''} : <a href="${urlType}" class="param">${p1}</a>`;
-
+        let outStr = `<a href="${urlProp}" class="permalink">#</a> .<a href="${urlProp}" id="${p3}">${p3}</a>${p4 || ''}`;
+        if (p2 !== 'undefined')
+            outStr += ` ${typeSepChar} <a href="${urlType}" class="param">${p2}</a>`;
+        return outStr;
     });
 
-    text = text.replace(/\[param:([\w\.]+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
-        return `${p2} : <a href=\"${getPageURL(p1, lang)}\" class="param">${p1}</a>`;
+    text = text.replace(/\[param:([\w\.|]+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
+        let outStr = `${p2} : `;
+        p1.split('|').forEach(p1i => {
+            outStr += `<a href=\"${getPageURL(p1i, lang)}\" class="param">${p1i}</a> | `;
+        });
+        return outStr.slice(0, -3);
     });
 
     text = text.replace(/\[def:(\w+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
@@ -358,7 +396,24 @@ function resolveTemplates(text, name, path, lang) {
 
     text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, "[link:$1 $1]"); // [link:url] to [link:url title]
     text = text.replace(/\[link:([\w|\u0400-\u04ff|\:|\/|\.|\-|\_|\(|\)|\#|\=|\?|\&]+) ([\w|\u0400-\u04ff|\:|\/|\.|\-|\_|\s|\=|\?|\u4e00-\u9fa5|\uff08|\uff09|\u0400-\u04ff]+)\]/gi, "<a href=\"$1\"  target=\"_blank\">$2</a>"); // [link:url title]
-    text = text.replace(/\*([\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\-|\(][\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *
+    text = text.replace(/\*([\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\-|\(][\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *text*
+
+    /**
+     * HACK: Strip code blocks before processing backticks and then insert them
+     * back. Backticks that generally denote inline code should not be treated
+     * so if they happen to be inside a code block (where they are used for
+     * template literals), because they would be wrongly replaced with inline
+     * code markup and it would render code inside code blocks incorrect.
+     */
+    const codeBlocks = [];
+    text = text.replace(/<code.*>[\s\S]*?<\/code>/gim, match => {
+        codeBlocks.push(match);
+        return `$CODE_BLOCK_${codeBlocks.length - 1}_BACKTICK_HACK_MARKER`;
+    });
+
+    text = text.replace(/\`(.*?)\`/gi, '<code class="inline">$1</code>'); // `code`
+    text = text.replace(/\$CODE_BLOCK_(\d+)_BACKTICK_HACK_MARKER/gi,
+            (match, p1) => codeBlocks[p1]);
 
     text = text.replace(/\[example:([\w\_]+)\]/gi, "[example:$1 $1]"); // [example:name] to [example:name title]
     text = text.replace(/\[example:([\w\_]+) ([\w\:\/\.\-\_ \s]+)\]/gi, "<a href=\"https://cdn.soft8soft.com/demo/examples/index.html#$1\"  target=\"_blank\">$2</a>"); // [example:name title]
@@ -572,29 +627,40 @@ function getMeta(document, metaName, usePropertyName) {
 
 function getPageURL(pageName, lang) {
 
-    var splitPageName = decomposePageName(pageName, '.', '#');
+    pageName = handleGenericTypes(pageName);
 
-    var localeList = list[lang];
+    const splitPageName = decomposePageName(pageName, '.', '#');
 
-    for (var section in localeList) {
+    const localeList = list[lang];
+    const pageURLsFound = [];
 
-        var categories = localeList[section];
+    for (const section in localeList) {
 
-        for (var category in categories) {
-            var pages = categories[category];
+        const categories = localeList[section];
+
+        for (const category in categories) {
+            const pages = categories[category];
 
             if (splitPageName[0] in pages) {
-
-                return (pages[splitPageName[0]] + '.html' + splitPageName[1]);
-
+                pageURLsFound.push(pages[splitPageName[0]] + '.html' + splitPageName[1]);
             }
-
         }
 
     };
+    if (pageURLsFound.length) {
+        // prioritize the URL which starts with "api"
+        return pageURLsFound.sort()[0];
+    } else {
+        return 'javascript:;';
+    }
 
-    return 'javascript:;';
+}
 
+function handleGenericTypes(pageName) {
+    if (GENERIC_TYPES.indexOf(pageName) > -1)
+        return 'JavaScript Types.' + pageName;
+    else
+        return pageName;
 }
 
 function decomposePageName(pageName, oldDelimiter, newDelimiter) {
@@ -641,7 +707,7 @@ function decomposePageName(pageName, oldDelimiter, newDelimiter) {
  */
 function createTabs(v3dTabsElem) {
     var tabNodes = Array.from(v3dTabsElem.childNodes).filter(function(node) {
-        return node instanceof dom.window.Element;
+        return node.tagName !== undefined;
     });
 
     // ensure that there are pairs (label + content)

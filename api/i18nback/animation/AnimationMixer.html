@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      The AnimationMixer is a player for animations on a particular object in the scene. When
+      multiple objects in the scene are animated independently, one AnimationMixer may be used for
+      each object.
+    </p>
+
+    <p>
+      For an overview of the different elements of the Verge3D animation system, see the <a href="manual/i18nback/programmers_guide/Animation-system.html">Animation System</a> section of the manual.
+    </p>
+
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:Object3D rootObject])</h3>
+    <p class="params">
+      [page:Object3D rootObject] — the object whose animations shall be played by this mixer.<br>
+    </p>
+
+
+    <h2>Properties</h2>
+
+    <h3>[property:Float time]</h3>
+    <p>
+      The global mixer time (in seconds; starting with `0` on the mixer's creation).
+    </p>
+
+    <h3>[property:Float timeScale]</h3>
+    <p>
+      A scaling factor for the global [page:.time mixer time].
+    </p>
+    <p class="note">
+      Setting the mixer's timeScale to `0` and later back to `1` is a possibility to pause/unpause
+      all actions that are controlled by this mixer.
+    </p>
+
+
+    <h2>Methods</h2>
+
+    <h3>[method:AnimationAction clipAction]([param:AnimationClip clip], [param:Object3D optionalRoot])</h3>
+    <p>
+      Returns an [page:AnimationAction] for the passed clip, optionally using a root object different
+      from the mixer's default root. The first parameter can be either an [page:AnimationClip] object
+      or the name of an AnimationClip.
+    </p>
+    <p>
+      If an action fitting the clip and root parameters doesn't yet exist, it will be created by
+      this method. Calling this method several times with the same clip and root parameters always
+      returns the same clip instance.
+    </p>
+
+    <h3>[method:AnimationAction existingAction]([param:AnimationClip clip], [param:Object3D optionalRoot])</h3>
+    <p>
+      Returns an existing [page:AnimationAction] for the passed clip, optionally using a root object
+      different from the mixer's default root.
+    </p>
+    <p>
+      The first parameter can be either an [page:AnimationClip] object or the name of an AnimationClip.
+    </p>
+
+    <h3>[method:Object3D getRoot]()</h3>
+    <p>
+      Returns this mixer's root object.
+    </p>
+
+    <h3>[method:this stopAllAction]()</h3>
+    <p>
+      Deactivates all previously scheduled actions on this mixer.
+    </p>
+
+    <h3>[method:this update]([param:Float deltaTimeInSeconds]) </h3>
+    <p>
+      Advances the global mixer time and updates the animation.
+    </p>
+    <p>
+      This is usually done in the render loop, passing [page:Clock.getDelta clock.getDelta] scaled by the mixer's [page:.timeScale timeScale].
+    </p>
+
+    <h3>[method:this setTime]([param:Float timeInSeconds]) </h3>
+    <p>
+      Sets the global mixer to a specific time and updates the animation accordingly.
+    </p>
+    <p>
+      This is useful when you need to jump to an exact time in an animation. The input parameter will be scaled by the mixer's [page:.timeScale timeScale].
+    </p>
+
+    <h3>[method:undefined uncacheClip]([param:AnimationClip clip])</h3>
+
+    <p>
+      Deallocates all memory resources for a clip. Before using this method make sure to call [page:AnimationAction.stop]() for all related actions.
+    </p>
+
+    <h3>[method:undefined uncacheRoot]([param:Object3D root]) </h3>
+    <p>
+      Deallocates all memory resources for a root object. Before using this method make sure to call [page:AnimationAction.stop]() for all related actions.
+    </p>
+
+    <h3>[method:undefined uncacheAction]([param:AnimationClip clip], [param:Object3D optionalRoot])</h3>
+    <p>
+      Deallocates all memory resources for an action. Before using this method make sure to call [page:AnimationAction.stop]() to deactivate the action.
+    </p>
+
+    <h2>Puzzles</h2>
+
+    <p>
+      You can also employ <a href="manual/i18nback/puzzles/Animation.html">animation</a> puzzles which can be easier to use than [name] API.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

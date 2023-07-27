@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Loader] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Class for loading a font in TTF/WOFF format. Returns a font info object, which can be passed to [page:Font] constructor.
+      This uses the [page:FileLoader] internally for loading files.
+    </p>
+
+    <p class="note">
+      This class requires opentype.js library to be loaded before you call the [page:.load] method.
+    </p>
+
+    <h2>Code Example</h2>
+
+    <code>
+    const loader = new v3d.TTFLoader();
+    const font = loader.load(
+        // resource URL
+        'fonts/bfont.woff',
+
+        // onLoad callback
+        function(font) {
+            // do something with the font
+            scene.add(font);
+        },
+
+        // onProgress callback
+        function(xhr) {
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        },
+
+        // onError callback
+        function(err) {
+            console.log('An error happened');
+        }
+    );
+    </code>
+
+    <h2>Examples</h2>
+
+    <p>
+      [example:webgl_loader_ttf loader / ttf]
+    </p>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:LoadingManager manager])</h3>
+    <p class="params">
+      [page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager v3d.DefaultLoadingManager].
+    </p>
+    <p>
+      Creates a new [name].
+    </p>
+
+    <h2>Properties</h2>
+
+    <p>See the base [page:Loader] class for common properties.</p>
+
+    <h2>Methods</h2>
+
+    <p>See the base [page:Loader] class for common methods.</p>
+
+    <h3>[method:undefined load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
+    <p class="params">
+      [page:String url] — the path or URL to the file. This can also be a [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br>
+      [page:Function onLoad] — Will be called when load completes. The argument will be the loaded font info object.<br>
+      [page:Function onProgress] — Will be called while load progresses. The argument will be the XMLHttpRequest instance, which contains .[page:Integer total] and .[page:Integer loaded] bytes.<br>
+      [page:Function onError] — Will be called when load errors.
+    </p>
+    <p>
+      Begin loading from url and pass the loaded font to onLoad.
+    </p>
+
+    <h3>[method:Object parse]([param:ArrayBuffer arraybuffer])</h3>
+    <p class="params">
+      [page:ArrayBuffer arraybuffer] — the data to parse.
+    </p>
+    <p>
+      Parse the data and return a font info object.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

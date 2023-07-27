@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+    Абстрактный базовый класс для материалов.<br><br>
+
+    Материалы описывают внешний вид [page:Object objects].
+    Они определяются (в основном) независимым от рендерера способом, поэтому вам не придется
+    переписывать материалы, если вы решите использовать другой рендерер.<br><br>
+
+    Следующие свойства и методы наследуются всеми другими типами материалов
+    (хотя они могут иметь другие значения по умолчанию).
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]()</h3>
+    <p>Это создает общий материал.</p>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Float alphaTest]</h3>
+    <p>
+    Устанавливает значение альфа, которое будет использоваться при выполнении альфа-теста.
+    Материал не будет отрисован, если непрозрачность меньше этого значения.
+    По умолчанию *0*.
+    </p>
+
+    <h3>[property:Integer blendDst]</h3>
+    <p>
+    Назначение смешивания. По умолчанию [page:CustomBlendingEquation OneMinusSrcAlphaFactor].
+    Все возможные значения см. в коэффициентах назначения [страница:Константы CustomBlendingEquation].<br>
+    Чтобы это имело какой-либо эффект, для материала [page:Constant blending] должно быть установлено значение [page:Materials CustomBlending].
+    </p>
+
+    <h3>[property:Integer blendDstAlpha]</h3>
+    <p>Прозрачность [page:.blendDst]. Использует значение [page:.blendDst], если оно равно null. По умолчанию *null*.</p>
+
+    <h3>[property:Integer blendEquation]</h3>
+    <p>
+    Уравнивание смешивания, используемое при наложении смешивания. По умолчанию это [page:CustomBlendingEquation AddEquation].
+    Все возможные значения см. в уравнении смешивания [page:CustomBlendingEquation constants].<br>
+    Чтобы этот параметр имел эффект, для материала [page:Constant blending] должно быть установлено значение [page:Materials CustomBlending].
+    </p>
+
+    <h3>[property:Integer blendEquationAlpha]</h3>
+    <p>Прозрачность [page:.blendEquation]. Использует значение [page:.blendEquation], если оно равно null. По умолчанию *null*.</p>
+
+    <h3>[property:Blending blending]</h3>
+    <p>
+    Какое смешивание использовать при отображении объектов с этим материалом. <br>
+    Это значение должно быть установлено в [page:Materials CustomBlending] для использования пользовательских [page:Constant blendSrc], [page:Constant blendDst] или [page:Constant blendEquation].<br>
+    Все возможные значения см. в разделе Режим смешивания [page:Materials constants]. По умолчанию используется [page:Materials NormalBlending].
+    </p>
+
+    <h3>[property:Integer blendSrc]</h3>
+    <p>
+    Источник смешивания. По умолчанию [page:CustomBlendingEquation SrcAlphaFactor].
+    Смотрите коэффициенты источника [page:CustomBlendingEquation constants] для всех возможных значений.<br>
+    Чтобы этот параметр имел эффект, для материала [page:Constant blending] должно быть установлено значение [page:Materials CustomBlending].
+    </p>
+
+    <h3>[property:Integer blendSrcAlpha]</h3>
+    <p>Прозрачность [page:.blendSrc]. Использует значение [page:.blendSrc], если оно равно null. По умолчанию *null*.</p>
+
+    <h3>[property:Boolean clipIntersection]</h3>
+    <p>
+    Изменяет поведение секущих плоскостей так, что обрезается только их пересечение, а не их объединение.
+    По умолчанию *false*.
+    </p>
+
+    <h3>[property:Array clippingPlanes]</h3>
+    <p>
+    Определяемые пользователем секущие плоскости, заданные как объекты v3d.Plane в мировом пространстве.
+    Эти плоскости применяются к объектам, к которым прикреплен данный материал.
+    Точки в пространстве, чье знаковое расстояние до плоскости отрицательно, обрезаются (не отображаются).
+    Необходимо, чтобы [page:WebGLRenderer.localClippingEnabled] было *true*.
+    См. пример [example:webgl_clipping_intersection WebGL / clipping /intersection].
+    По умолчанию *null*.
+    </p>
+
+    <h3>[property:Boolean clipShadows]</h3>
+    <p>
+    Определяет, следует ли обрезать тени в соответствии с плоскостями обрезки, указанными для этого материала. По умолчанию *false*.
+    </p>
+
+    <h3>[property:Boolean colorWrite]</h3>
+    <p>
+    Нужно ли отображать цвет материала.
+    Это свойство можно использовать вместе со свойством [page:Integer renderOrder] меша для создания невидимых объектов, которые закрывают другие объекты. По умолчанию *true*.
+    </p>
+
+    <h3>[property:Object defines]</h3>
+    <p>
+    Пользовательские определения для вставки в шейдер. Они передаются в виде объектного литерала с парами ключ/значение. { MY_CUSTOM_DEFINE: '' , PI2: Math.PI * 2 }. Эти пары определяются как в вершинных, так и во фрагментных шейдерах.  По умолчанию - *undefined*.
+    </p>
+
+    <h3>[property:Integer depthFunc]</h3>
+    <p>
+    Какую функцию глубины использовать. По умолчанию [page:Materials LessEqualDepth]. Все возможные значения см. в режиме глубины [страница:Константы материалов].
+    </p>
+
+    <h3>[property:Boolean depthTest]</h3>
+    <p>
+    Включать ли проверку глубины при рендеринге этого материала. По умолчанию *true*.
+    </p>
+
+    <h3>[property:Boolean depthWrite]</h3>
+    <p>
+    Влияет ли рендеринг этого материала на буфер глубины. По умолчанию *true*.<br><br>
+
+    При отрисовке 2D-наложений может быть полезно отключить запись глубины, чтобы сложить несколько объектов вместе, не создавая артефактов z-индекса.
+    </p>
+
+    <h3>[property:Boolean stencilWrite]</h3>
+    <p>
+    Выполняются ли стенсильные операции со стенсильным буфером. Для выполнения записи или сравнения с буфером стенсила это значение должно быть *true*. По умолчанию *false*.
+    </p>
+
+    <h3>[property:Integer stencilWriteMask]</h3>
+    <p>
+    Bit mask, используемая при записи в буфер стенсила. По умолчанию *0xFF*.
+    </p>
+
+    <h3>[property:Integer stencilFunc]</h3>
+    <p>
+    Используемая функция сравнения стенсилов. По умолчанию [страница:Материалы AlwaysStencilFunc]. Все возможные значения см. в функции стенсила [page:Materials constants].
+    </p>
+
+    <h3>[property:Integer stencilRef]</h3>
+    <p>
+    Значение, используемое при выполнении сравнений стенсилов или операций со стенсилами. По умолчанию *0*.
+    </p>
+
+    <h3>[property:Integer stencilFuncMask]</h3>
+    <p>
+    Bit mask, используемая при сравнении с буфером стенсила. По умолчанию *0xFF*.
+    </p>
+
+    <h3>[property:Integer stencilFail]</h3>
+    <p>
+    Какую операцию выполнять со стенсилом, если функция сравнения возвращает false. По умолчанию - [page:Materials KeepStencilOp]. Все возможные значения см. в разделе стенсильные операции [page:Materials constants].
+    </p>
+
+    <h3>[property:Integer stencilZFail]</h3>
+    <p>
+    Какую операцию выполнять со стенсилом, если функция сравнения возвращает true, но тест глубины не прошел. По умолчанию [page:Materials KeepStencilOp]. Все возможные значения см. в разделе Стенсильные операции [page:Materials constants].
+    </p>
+
+    <h3>[property:Integer stencilZPass]</h3>
+    <p>
+    Какую операцию выполнять со стенсилом, если функция сравнения возвращает true и тест глубины пройден. По умолчанию [page:Materials KeepStencilOp]. Все возможные значения см. в разделе Стенсильные операции [page:Materials constants].
+    </p>
+
+    <h3>[property:Boolean envMapAutoAssign]</h3>
+    <p>
+    Если *true*, то *envMap* и связанные с ним *parallax* свойства таких материалов, как [page:MeshStandardMaterial], [page:MeshPhysicalMaterial] и [page:MeshNodeMaterial] автоматически назначаются/вычисляются в соответствии с тем, какой [page:CubeReflectionProbe] влияет на объект, на котором используется этот материал. По умолчанию [page:Material.DefaultEnvMapAutoAssign] (true).
+    </p>
+
+    <h3>[property:Boolean flatShading]</h3>
+    <p>
+    Определяет, будет ли материал отрисовываться с плоским затенением. По умолчанию - false.
+    </p>
+
+    <h3>[property:Boolean fog]</h3>
+    <p>Влияет ли на материал туман. По умолчанию *true*.</p>
+
+    <h3>[property:Integer id]</h3>
+    <p>Уникальный номер для данного экземпляра материала.</p>
+
+    <h3>[property:String name]</h3>
+    <p>Необязательное имя объекта (не обязательно уникальное). По умолчанию это пустая строка.</p>
+
+    <h3>[property:Boolean needsUpdate]</h3>
+    <p>
+    Указывает, что материал должен быть перекомпилирован.
+    </p>
+
+    <h3>[property:Float opacity]</h3>
+    <p>
+    Плавающая величина в диапазоне *0.0* - *1.0*, указывающая, насколько прозрачен материал.
+    Значение *0.0* означает полностью прозрачный, *1.0* - полностью непрозрачный.<br>
+    Если свойство [page:Boolean transparent] материала не установлено в *true*, материал будет оставаться
+    полностью непрозрачным, и это значение будет влиять только на его цвет. <br>
+    По умолчанию *1.0*.
+    </p>
+
+    <h3>[property:Boolean polygonOffset]</h3>
+    <p>
+    Использовать ли смещение полигонов. По умолчанию *false*. Это соответствует функции *GL_POLYGON_OFFSET_FILL* WebGL.
+    </p>
+
+    <h3>[property:Integer polygonOffsetFactor]</h3>
+    <p>Устанавливает коэффициент смещения полигонов. По умолчанию *0*.</p>
+
+    <h3>[property:Integer polygonOffsetUnits]</h3>
+    <p>Устанавливает единицы измерения смещения полигонов. По умолчанию *0*.</p>
+
+    <h3>[property:String precision]</h3>
+    <p>
+    Переопределяет точность рендеринга по умолчанию для этого материала. Может быть "*highp*", "*mediump*" или "*lowp*".
+    По умолчанию *null*.
+    </p>
+
+    <h3>[property:Boolean premultipliedAlpha]</h3>
+    <p>
+    Нужно ли предварительно умножать значение альфа-канала (прозрачности).
+    Пример разницы смотрите в [Example:webgl_materials_physical_transmission WebGL / Materials / Physical / Transmission].
+    По умолчанию *false*.
+    </p>
+
+    <h3>[property:Boolean dithering]</h3>
+    <p>
+    Применять ли к цвету дизеринг для устранения полос.
+    По умолчанию *false*.
+    </p>
+
+    <h3>[property:Integer shadowSide]</h3>
+    <p>
+    Определяет, с какой стороны грани отбрасывают тени.
+    При установке может быть [page:Materials v3d.FrontSide], [page:Materials v3d.BackSide] или [page:Materials v3d.DoubleSide]. По умолчанию это *null*. <br>
+    Если *null*, то сторона, отбрасывающая тени, определяется следующим образом: <br>
+
+    <table>
+      <thead>
+        <tr>
+          <th>[page:Material.side]</th>
+          <th>сторона, отбрасывающая тень</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>v3d.FrontSide</td>
+          <td>задняя сторона</td>
+        </tr>
+        <tr>
+          <td>v3d.BackSide</td>
+          <td>передняя сторона</td>
+        </tr>
+        <tr>
+          <td>v3d.DoubleSide</td>
+          <td>обе стороны</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    </p>
+
+    <h3>[property:Integer side]</h3>
+    <p>
+    Определяет, какая сторона граней будет отрисовываться - передняя, задняя или обе.
+    По умолчанию [page:Materials v3d.FrontSide].
+    Другие варианты - [page:Materials v3d.BackSide] и [page:Materials v3d.DoubleSide].
+    </p>
+
+    <h3>[property:Boolean toneMapped]</h3>
+    <p>
+    Определяет, накладывается ли на этот материал тоновое отображение в соответствии с настройкой [page:WebGLRenderer.toneMapping toneMapping] рендерера. По умолчанию *true*.
+    </p>
+
+    <h3>[property:Boolean transparent]</h3>
+    <p>
+    Определяет, является ли этот материал прозрачным. Это влияет на рендеринг
+    поскольку прозрачные объекты требуют особого обращения и отображаются после
+    непрозрачных объектов. <br>
+    Если установлено значение true, то степень прозрачности материала
+    контролируется установкой его свойства [page:Float opacity]. <br>
+    По умолчанию *false*.
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+    Значение - это строка 'Material'. Это значение не должно быть изменено и может быть использовано для того, чтобы
+    найти все объекты данного типа в сцене.
+    </p>
+
+    <h3>[property:String uuid]</h3>
+    <p>
+    [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] данного экземпляра материала.
+    Он присваивается автоматически, поэтому его не нужно редактировать.
+    </p>
+
+    <h3>[property:Integer version]</h3>
+    <p>
+    Он начинается с *0* и считает, сколько раз [property:Boolean needsUpdate] установлено в *true*.
+    </p>
+
+    <h3>[property:Boolean vertexColors]</h3>
+    <p>
+    Определяет, будет ли использоваться раскраска вершин. По умолчанию *false*.
+    </p>
+
+    <h3>[property:Boolean visible]</h3>
+    <p>
+    Определяет, является ли данный материал видимым. По умолчанию *true*.
+    </p>
+
+    <h3>[property:Object userData]</h3>
+    <p>
+    Объект, который можно использовать для хранения пользовательских данных о материале. Он не должен содержать
+    ссылки на функции, так как они не будут клонироваться.
+    </p>
+
+
+    <h2>Статические свойства</h2>
+
+    <h3>[property:Boolean DefaultEnvMapAutoAssign]</h3>
+    <p>
+    Настройка по умолчанию для [page:.envMapAutoAssign] для вновь созданных материалов.<br/>
+    Значение по умолчанию - *true*.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[page:EventDispatcher EventDispatcher] методы доступны для этого класса.</h3>
+
+    <h3>[method:Material clone]()</h3>
+    <p>Возвращает новый материал с теми же параметрами, что и данный материал.</p>
+
+    <h3>[method:Material copy]([param:material material])</h3>
+    <p>Копирует параметры из переданного материала в этот материал.</p>
+
+    <h3>[method:null dispose]()</h3>
+    <p>
+    При этом материал утилизируется. Текстуры материала не утилизируются.
+    Их нужно утилизировать с помощью [page:Texture Texture].
+    </p>
+
+    <h3>[method:null onBeforeCompile]([param:Shader shader], [param:WebGLRenderer renderer])</h3>
+    <p>
+    Необязательный коллбэк, который выполняется непосредственно перед компиляцией программы шейдера.
+    Эта функция вызывается с исходным кодом шейдера в качестве параметра. Полезно для модификации встроенных материалов.
+    </p>
+    <p>
+    В отличие от свойств, коллбэк не копируется в методах [page:Material.clone .clone]() и [page:Material.copy .copy]().
+    </p>
+
+    <h3>[method:String customProgramCacheKey]()</h3>
+    <p>
+    В случае использования onBeforeCompile этот коллбэк может использоваться для определения значений параметров, используемых в onBeforeCompile, чтобы Verge3D мог повторно использовать кэшированный шейдер или перекомпилировать шейдер для данного материала по мере необходимости.
+    </p>
+
+    <p>
+    Например, если onBeforeCompile содержит условное утверждение типа:<br>
+
+    <code>if (black) {
+
+      shader.fragmentShader = shader.fragmentShader.replace('gl_FragColor = vec4(1)', 'gl_FragColor = vec4(0)')
+
+    }
+    </code>
+
+    то customProgramCacheKey должен быть установлен следующим образом:<br>
+
+    <code>material.customProgramCacheKey = function() {
+
+      return black ? '1' : '0';
+
+    }
+    </code>
+
+    </p>
+
+    <p>
+    В отличие от свойств, коллбэк не поддерживается [page:Material.clone .clone]() и [page:Material.copy .copy]().
+    </p>
+
+    <h3>[method:null setValues]([param:Object values])</h3>
+    <p>
+    values -- контейнер с параметрами.<br>
+    Устанавливает свойства на основе *values* (значений).
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

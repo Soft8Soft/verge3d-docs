@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr; [page:Light] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Свет, который испускается в определенном направлении. Этот свет будет вести себя так, как будто он находится бесконечно далеко и все лучи, исходящие от него, параллельны. Обычно это используется для имитации дневного света; солнце находится достаточно далеко, чтобы его положение можно было считать бесконечным, и все лучи света, исходящие от него, параллельны.<br><br>
+
+      Этот свет может отбрасывать тени - подробности смотрите на странице [page:DirectionalLightShadow].
+    </p>
+
+    <h2>Примечание о позиции, цели и вращении</h2>
+    <p>
+      Распространенной причиной путаницы при работе с направленным светом является то, что установка вращения не имеет никакого эффекта. Это связано с тем, что DirectionalLight в Verge3D эквивалентен тому, что в других приложениях часто называют "Target Direct Light".<br><br>
+
+      Это означает, что его направление рассчитывается как направление от [page:Object3D.position position] света к [page:.target target] позиции (в отличие от "Free Direct Light", который имеет только компонент вращения).<br><br>
+
+      Это делается для того, чтобы свет отбрасывал тени - камере [page:.shadow shadow shadow] нужна позиция для расчета теней.<br><br>
+
+      Подробности обновления цели смотрите в свойстве [page:.target target] ниже.
+    </p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    // White directional light at half intensity shining from the top.
+    const directionalLight = new v3d.DirectionalLight(0xffffff, 0.5);
+    scene.add(directionalLight);
+    </code>
+
+    <h2>Примеры</h2>
+    <p>
+      [example:misc_controls_fly controls / fly]<br>
+      [example:webgl_effects_parallaxbarrier effects / parallaxbarrier]<br>
+      [example:webgl_effects_stereo effects / stereo]<br>
+      [example:webgl_geometry_extrude_splines geometry / extrude / splines]<br>
+      [example:webgl_materials_bumpmap materials / bumpmap]<br>
+      [example:webgl_materials_cubemap_balls_reflection materials / cubemap / balls / reflection]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Integer color], [param:Float intensity])</h3>
+    <p>
+      [page:Integer color] — (необязательно) шестнадцатеричный цвет света. По умолчанию 0xffffffff (белый).<br>
+      [page:Float intensity] — (необязательно) числовое значение силы/интенсивности света. По умолчанию 1.<br><br>
+
+      Создает новый [name].
+    </p>
+
+    <h2>Свойства</h2>
+
+    <p>Общие свойства смотрите в базовом классе [page:Light Light]..</p>
+
+    <h3>[property:Boolean castShadow]</h3>
+    <p>
+      Если установить значение *true*, свет будет отбрасывать динамические тени. Предупреждение: Это дорого и требует настройки, чтобы тени выглядели правильно. Подробности смотрите в [page:DirectionalLightShadow]. По умолчанию установлено значение *false*.
+    </p>
+
+    <h3>[property:Vector3 position]</h3>
+    <p>
+      Он устанавливается равным [page:Object3D.DefaultUp] (0, 1, 0), чтобы свет светил сверху вниз.
+    </p>
+
+    <h3>[property:DirectionalLightShadow shadow]</h3>
+    <p>
+      [page:DirectionalLightShadow], используемый для расчета теней для этого света.
+    </p>
+
+    <h3>[property:Object3D target]</h3>
+    <p>
+      DirectionalLight(направленный свет) указывает из своего положения [page:.position position] на target.position. По умолчанию позиция цели равна *(0, 0, 0)*.<br>
+
+      *Примечание*: Чтобы положение цели можно было изменить на любое другое, отличное от значения по умолчанию, ее необходимо добавить в [page:Scene scene] с помощью функции
+    </p>
+    <code>
+    scene.add(light.target);
+    </code>
+    <p>
+      Это делается для того, чтобы [page:Object3D.matrixWorld matrixWorld] цели автоматически обновлялся каждый кадр.<br><br>
+
+      Также можно установить цель на другой объект в сцене (все, что имеет свойство [page:Object3D.position position]), например, так:
+    </p>
+    <code>
+    const targetObject = new v3d.Object3D();
+    scene.add(targetObject);
+
+    light.target = targetObject;
+    </code>
+    <p>
+      Теперь направленный свет будет отслеживать целевой объект.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>Общие методы смотрите в базовом классе [page:Light Light].</p>
+
+    <h3>[method:DirectionalLight copy]([param:DirectionalLight source])</h3>
+    <p>
+      Копирует значения всех свойств из источника [page:DirectionalLight source] в этот DirectionalLight.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

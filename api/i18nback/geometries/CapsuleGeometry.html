@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:BufferGeometry] &rarr; [page:LatheGeometry] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      [name] is a geometry class for a capsule with given radii and height.
+      It is constructed using a lathe.
+    </p>
+
+    <iframe id="scene" src="scenes/geometry-browser.html#CapsuleGeometry"></iframe>
+
+    <script>
+
+    // iOS iframe auto-resize workaround
+
+    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
+
+      const scene = document.getElementById('scene');
+
+      scene.style.width = getComputedStyle(scene).width;
+      scene.style.height = getComputedStyle(scene).height;
+      scene.setAttribute('scrolling', 'no');
+
+    }
+
+    </script>
+
+    <h2>Code Example</h2>
+
+    <code>const geometry = new v3d.CapsuleGeometry(1, 1, 4, 8);
+    const material = new v3d.MeshBasicMaterial({color: 0x00ff00});
+    const capsule = new v3d.Mesh(geometry, material);
+    scene.add(capsule);
+    </code>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:Float radius], [param:Float length], [param:Integer capSubdivisions], [param:Integer radialSegments])</h3>
+    <p>
+
+    radius — Radius of the capsule. Optional; defaults to 1.<br>
+    length — Length of the middle section. Optional; defaults to 1.<br>
+    capSegments — Number of curve segments used to build the caps. Optional; defaults to 4.<br>
+    radialSegments — Number of segmented faces around the circumference of the capsule. Optional; defaults to 8.<br>
+    </p>
+
+    <p class="note">
+      Procedural geometry is fun. However, in real life applications this feature is rarely needed. It would be more efficient do design capsules in the preferred modelling suite and export/load to Verge3D via glTF.
+    </p>
+
+    <h2>Properties</h2>
+    <p>See the base [page:BufferGeometry] class for common properties.</p>
+
+    <h3>[property:Object parameters]</h3>
+    <p>
+    An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.
+    </p>
+
+    <h2>Methods</h2>
+    <p>See the base [page:BufferGeometry] class for common methods.</p>
+
+    [sourceHint]
+  </body>
+</html>

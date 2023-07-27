@@ -12,8 +12,9 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      This is used internally by [page:DirectionalLight DirectionalLights] for calculating shadows.<br /><br />
-
+      This is used internally by [page:DirectionalLight DirectionalLights] for calculating shadows.
+    </p>
+    <p>
       Unlike the other shadow classes, this uses an [page:OrthographicCamera] to calculate the shadows,
       rather than a [page:PerspectiveCamera]. This is because light rays from a [page:DirectionalLight]
       are parallel.
@@ -22,24 +23,24 @@
     <h2>Code Example</h2>
 
     <code>
-    //Create a WebGLRenderer and turn on shadows in the renderer
+    // create a WebGLRenderer and turn on shadows in the renderer
     const renderer = new v3d.WebGLRenderer();
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = v3d.PCFSoftShadowMap; // default v3d.PCFShadowMap
 
-    //Create a DirectionalLight and turn on shadows for the light
-    const light = new v3d.DirectionalLight(0xffffff, 1, 100);
+    // create a DirectionalLight and turn on shadows for the light
+    const light = new v3d.DirectionalLight(0xffffff, 1);
     light.position.set(0, 1, 0); //default; light shining from top
     light.castShadow = true; // default false
     scene.add(light);
 
-    //Set up shadow properties for the light
+    // set up shadow properties for the light
     light.shadow.mapSize.width = 512; // default
     light.shadow.mapSize.height = 512; // default
     light.shadow.camera.near = 0.5; // default
     light.shadow.camera.far = 500; // default
 
-    //Create a sphere that cast shadows (but does not receive them)
+    // create a sphere that cast shadows (but does not receive them)
     const sphereGeometry = new v3d.SphereGeometry(5, 32, 32);
     const sphereMaterial = new v3d.MeshStandardMaterial({ color: 0xff0000 });
     const sphere = new v3d.Mesh(sphereGeometry, sphereMaterial);
@@ -47,14 +48,14 @@
     sphere.receiveShadow = false; //default
     scene.add(sphere);
 
-    //Create a plane that receives shadows (but does not cast them)
+    // create a plane that receives shadows (but does not cast them)
     const planeGeometry = new v3d.PlaneGeometry(20, 20, 32, 32);
     const planeMaterial = new v3d.MeshStandardMaterial({ color: 0x00ff00 })
     const plane = new v3d.Mesh(planeGeometry, planeMaterial);
     plane.receiveShadow = true;
     scene.add(plane);
 
-    //Create a helper for the shadow camera (optional)
+    // create a helper for the shadow camera (optional)
     const helper = new v3d.CameraHelper(light.shadow.camera);
     scene.add(helper);
     </code>
@@ -62,7 +63,7 @@
     <h2>Constructor</h2>
     <h3>[name]()</h3>
     <p>
-      Creates a new [name]. This is not intended to be called directly - it is called
+      Creates a new [name]. This is not intended to be called directly — it is called
       internally by [page:DirectionalLight].
     </p>
 
@@ -74,12 +75,18 @@
     <h3>[property:Camera camera]</h3>
     <p>
       The light's view of the world. This is used to generate a depth map of the scene; objects behind
-      other objects from the light's perspective will be in shadow.<br /><br />
-
+      other objects from the light's perspective will be in shadow.
+    </p>
+    <p>
       The default is an [page:OrthographicCamera] with [page:OrthographicCamera.left left] and
       [page:OrthographicCamera.bottom bottom] set to -5,  [page:OrthographicCamera.right right]
-      and  [page:OrthographicCamera.top top] set to 5, the [page:OrthographicCamera.near near]
+      and [page:OrthographicCamera.top top] set to 5, the [page:OrthographicCamera.near near]
       clipping plane at 0.5 and the [page:OrthographicCamera.far far] clipping plane at 500.
+    </p>
+
+    <h3>[property:Boolean isDirectionalLightShadow]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
     </p>
 
 
@@ -88,6 +95,14 @@
       See the base [page:LightShadow LightShadow] class for common methods.
     </p>
 
+
+    <h2>Puzzles</h2>
+
+    <p>
+      The <a href="manual/en/puzzles/Objects.html#set_shadow_param">set shadow param</a> puzzle allows to enable/disable casting or receiving shadows in a visual manner.
+    </p>
+
     [sourceHint]
+
   </body>
 </html>

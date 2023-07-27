@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Луч, который испускается из начала координат в определенном направлении. Он используется [page:Raycaster] для помощи [link:https://en.wikipedia.org/wiki/Ray_casting raycasting]. Raycasting используется для пикинга мыши (определение объектов в 3D-пространстве, над которыми находится мышь), а также для других целей.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Vector3 origin], [param:Vector3 direction])</h3>
+    <p>
+    [page:Vector3 origin] — (необязательно) начало координат [page:Ray]. По умолчанию это [page:Vector3] в точке (0, 0, 0)..<br>
+    [page:Vector3 direction] - [page:Vector3] Направление [page:Ray]. Оно должно быть нормализовано (с помощью [page:Vector3.normalize]), чтобы методы работали правильно.  По умолчанию это [page:Vector3] в точке (0, 0, -1).<br><br>
+
+    Создает новый [name].
+    </p>
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Vector3 origin]</h3>
+    <p>Начало координат [page:Ray]. По умолчанию это [page:Vector3] в точке (0, 0, 0).</p>
+
+    <h3>[property:Vector3 direction]</h3>
+    <p>
+      Направление [page:Ray]. Оно должно быть нормализовано (с помощью [page:Vector3.normalize]), чтобы методы работали правильно. По умолчанию это [page:Vector3] в точке (0, 0, -1).
+    </p>
+
+
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:Ray applyMatrix4]([param:Matrix4 matrix4])</h3>
+    <p>
+    [page:Matrix4 matrix4] - [page:Matrix4] для применения к данному [page:Ray].<br><br>
+
+    Преобразуйте этот [page:Ray] с помощью [page:Matrix4].
+    </p>
+
+    <h3>[method:Vector3 at]([param:Float t], [param:Vector3 target]) </h3>
+    <p>
+    [page:Float t] — расстояние вдоль [page:Ray] для получения позиции.<br>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
+
+    Получить [page:Vector3], который находится на заданном расстоянии вдоль данного [page:Ray].
+    </p>
+
+    <h3>[method:Ray clone]()</h3>
+    <p>
+      Создает новый Ray c [page:.origin origin] и [page:.direction direction] идентичными данному.
+    </p>
+
+    <h3>[method:Vector3 closestPointToPoint]([param:Vector3 point], [param:Vector3 target])</h3>
+    <p>
+    [page:Vector3 point] — точка, к которой нужно подойти ближе всего. <br>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
+
+    Получите точку вдоль данного [page:Ray], которая ближе всего к заданному [page:Vector3].
+    </p>
+
+    <h3>[method:Ray copy]([param:Ray ray])</h3>
+    <p>
+      Копирует свойства [page:.origin origin] и [page:.direction direction direction] из [page:Ray ray] в этот луч.
+    </p>
+
+    <h3>[method:Float distanceSqToPoint]([param:Vector3 point])</h3>
+    <p>
+    [page:Vector3 point] - [page:Vector3] для вычисления расстояния до.<br><br>
+
+    Получите квадратичное расстояние ближайшего приближения между [page:Ray] и [page:Vector3].
+    </p>
+
+    <h3>[method:Float distanceSqToSegment]([param:Vector3 v0], [param:Vector3 v1], [param:Vector3 optionalPointOnRay], [param:Vector3 optionalPointOnSegment])</h3>
+    <p>
+    [page:Vector3 v0] — начало отрезка линии.<br>
+    [page:Vector3 v1] — конец отрезка линии.<br>
+    optionalPointOnRay - (необязательно), если указано, получает точку на данном
+      [page:Ray], которая ближе всего к отрезку.<br>
+    optionalPointOnSegment - (необязательно), если указано, получает точку на отрезке прямой, которая ближе всего к данному [page:Ray].<br><br>
+
+    Получите квадратичное расстояние между данным [page:Ray] и отрезком прямой.
+    </p>
+
+    <h3>[method:Float distanceToPlane]([param:Plane plane])</h3>
+    <p>
+    [page:Plane plane] - [page:Plane] для получения расстояния до.<br><br>
+
+    Получите расстояние от [page:.origin origin] до [page:Plane], или *null*, если [page:Ray] не пересекает [page:Plane].
+    </p>
+
+    <h3>[method:Float distanceToPoint]([param:Vector3 point])</h3>
+    <p>
+    [page:Vector3 point] - [page:Vector3] для вычисления расстояния.<br><br>
+
+    Получает расстояние ближайшего сближения между [page:Ray] и точкой [page:Vector3].
+    </p>
+
+
+    <h3>[method:Boolean equals]([param:Ray ray])</h3>
+    <p>
+    [page:Ray ray] - [page:Ray] для сравнения.<br><br>
+
+    Возвращает true, если этот и другой [page:Ray ray] имеют одинаковые [page:.origin origin] и [page:.direction direction].
+    </p>
+
+    <h3>[method:Vector3 intersectBox]([param:Box3 box], [param:Vector3 target])</h3>
+    <p>
+    [page:Box3 box] - [page:Box3] для интерсекта.<br>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
+
+    Пересекает данный [page:Ray] с [page:Box3], возвращая точку пересечения или *null*, если пересечения нет.
+    </p>
+
+    <h3>[method:Vector3 intersectPlane]([param:Plane plane], [param:Vector3 target])</h3>
+    <p>
+    [page:Plane plane] - [page:Plane] для интерсекта.<br>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
+
+    Пересекает данный [page:Ray] с [page:Plane], возвращая точку пересечения или *null*, если пересечения нет.
+    </p>
+
+    <h3>[method:Vector3 intersectSphere]([param:Sphere sphere], [param:Vector3 target])</h3>
+    <p>
+    [page:Sphere sphere] - [page:Sphere] для интерсекта.<br>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
+
+    Пересекает данный [page:Ray] с [page:Sphere], возвращая точку пересечения или *null*, если пересечения нет.
+    </p>
+
+    <h3>[method:Vector3 intersectTriangle]([param:Vector3 a], [param:Vector3 b], [param:Vector3 c], [param:Boolean backfaceCulling], [param:Vector3 target])</h3>
+    <p>
+    [page:Vector3 a], [page:Vector3 b], [page:Vector3 c] — Точки [page:Vector3], составляющие треугольник.<br>
+    [page:Boolean backfaceCulling] — использовать ли backface culling.<br>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
+
+    Пересекает данный [page:Ray] с треугольником, возвращая точку пересечения или *null*, если пересечения нет.
+    </p>
+
+    <h3>[method:Boolean intersectsBox]([param:Box3 box])</h3>
+    <p>
+    [page:Box3 box] - [page:Box3] для интерсекта.<br><br>
+
+    Возвращает true, если данный [page:Ray] пересекается с [page:Box3].
+    </p>
+
+    <h3>[method:Boolean intersectsPlane]([param:Plane plane])</h3>
+    <p>
+    [page:Plane plane] - [page:Plane] для пересечения.<br><br>
+
+    Возвращает true, если данный [page:Ray] пересекается с [page:Plane].
+    </p>
+
+    <h3>[method:Boolean intersectsSphere]([param:Sphere sphere])</h3>
+    <p>
+    [page:Sphere sphere] - [page:Sphere] для пересечения.<br><br>
+
+    Возвращает true, если данный [page:Ray] пересекается с [page:Sphere].
+    </p>
+
+    <h3>[method:Ray lookAt]([param:Vector3 v])</h3>
+    <p>
+    [page:Vector3 v] - [page:Vector3] для направления.<br><br>
+
+    Регулирует направление луча так, чтобы он указывал на вектор в мировых координатах.
+    </p>
+
+    <h3>[method:Ray recast]([param:Float t])</h3>
+    <p>
+    [page:Float t] — Расстояние вдоль  [page:Ray] для интерполяции.<br><br>
+
+    Устанавливает свойства [page:.origin origin] и [page:.direction direction direction] этого луча, копируя значения из заданных объектов.
+    </p>
+
+    <h3>[method:Ray set]([param:Vector3 origin], [param:Vector3 direction])</h3>
+    <p>
+    [page:Vector3 origin] - [page:.origin origin] данного [page:Ray].<br>
+    [page:Vector3 origin] - [page:.direction direction] данного [page:Ray].
+    Для правильной работы методов его необходимо нормализовать (с помощью [page:Vector3.normalize]).<br><br>
+
+    Устанавливает свойства [page:.origin origin] и [page:.direction direction] этого луча, копируя значения из заданных объектов.
+    </p>
+
+
+
+    [sourceHint]
+  </body>
+</html>

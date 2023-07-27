@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">Создает 6 камер, которые рендерят [page:WebGLCubeRenderTarget].</p>
+
+    <h2>Пример кода</h2>
+
+    <code>
+    // Create cube render target
+    const cubeRenderTarget = new v3d.WebGLCubeRenderTarget(128, { format: v3d.RGBFormat, generateMipmaps: true, minFilter: v3d.LinearMipmapLinearFilter });
+
+    // Create cube camera
+    const cubeCamera = new v3d.CubeCamera(1, 100000, cubeRenderTarget);
+    scene.add(cubeCamera);
+
+    // Create car
+    const chromeMaterial = new v3d.MeshLambertMaterial({ color: 0xffffff, envMap: cubeRenderTarget.texture });
+    const car = new Mesh(carGeometry, chromeMaterial);
+    scene.add(car);
+
+    // Update the render target cube
+    car.visible = false;
+    cubeCamera.position.copy(car.position);
+    cubeCamera.update(renderer, scene);
+
+    // Render the scene
+    car.visible = true;
+    renderer.render(scene, camera);
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic]<br>
+      [example:webgl_shading_physical shading / physical]
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Number near], [param:Number far], [param:WebGLCubeRenderTarget renderTarget])</h3>
+    <p>
+    near -- Ближнее расстояние обрезания. <br>
+    far -- Дальнее расстояние обрезания. <br>
+    renderTarget -- Назначение цели кубического рендера.
+    </p>
+
+    <p>
+      Создает CubeCamera, содержащую 6 [page:PerspectiveCamera PerspectiveCamera], которые рендерятся на [page:WebGLCubeRenderTarget].
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства смотрите в базовом классе [page:Object3D].</p>
+
+    <h3>[property:WebGLCubeRenderTarget renderTarget]</h3>
+    <p>
+      Назначение цели кубического рендера.
+    </p>
+
+    <h2>Методы</h2>
+    <p>Общие методы смотрите в базовом классе [page:Object3D].</p>
+
+    <h3>[method:null update]([param:WebGLRenderer renderer], [param:Scene scene])</h3>
+    <p>
+    renderer -- Текущий рендерер WebGL <br>
+    scene -- Текущая сцена
+    </p>
+    <p>
+      Вызовите эту функцию для обновления [page:CubeCamera.renderTarget renderTarget].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

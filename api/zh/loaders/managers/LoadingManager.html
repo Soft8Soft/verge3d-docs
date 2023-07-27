@@ -11,7 +11,7 @@
 
     <p class="desc">
       其功能是处理并跟踪已加载和待处理的数据。如果未手动设置加强管理器，则会为加载器创建和使用默认全局实例加载器管理器
-      - 请参阅 [page:DefaultLoadingManager].<br /><br />
+      - 请参阅 [page:DefaultLoadingManager].<br><br>
 
       一般来说，默认的加载管理器已足够使用了，但有时候也需要设置单独的加载器 - 例如，如果你想为对象和纹理显示单独的加载条。
 
@@ -96,9 +96,9 @@
     <h2>例子</h2>
 
     <p>
-      [example:webgl_loader_fbx WebGL / loader / fbx]<br />
-      [example:webgl_loader_obj WebGL / loader / obj]<br />
-      [example:webgl_materials_physical_reflectivity WebGL / materials / physical / reflectivity]<br />
+      [example:webgl_loader_fbx WebGL / loader / fbx]<br>
+      [example:webgl_loader_obj WebGL / loader / obj]<br>
+      [example:webgl_materials_physical_reflectivity WebGL / materials / physical / reflectivity]<br>
       [example:webgl_postprocessing_outline WebGL / postprocesing / outline]
     </p>
 
@@ -106,9 +106,9 @@
 
     <h3>[name]([param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
     <p>
-    [page:Function onLoad] — (可选) 所有加载器加载完成后，将调用此函数。<br />
-    [page:Function onProgress] — (可选) 当每个项目完成后，将调用此函数。<br />
-    [page:Function onError] — (可选) 当一个加载器遇到错误时，将调用此函数。 <br />
+    [page:Function onLoad] — (可选) 所有加载器加载完成后，将调用此函数。<br>
+    [page:Function onProgress] — (可选) 当每个项目完成后，将调用此函数。<br>
+    [page:Function onError] — (可选) 当一个加载器遇到错误时，将调用此函数。 <br>
 
     创建一个新的 [name].
     </p>
@@ -119,10 +119,10 @@
     <h3>[property:Function onStart]</h3>
     <p>
       此函数在加载开始时被调用。
-      有如下参数：<br />
-      [page:String url] — 被加载的项的url。<br />
-      [page:Integer itemsLoaded] — 目前已加载项的个数。<br />
-      [page:Iteger itemsTotal] — 总共所需要加载项的个数。<br /><br />
+      有如下参数：<br>
+      [page:String url] — 被加载的项的url。<br>
+      [page:Integer itemsLoaded] — 目前已加载项的个数。<br>
+      [page:Iteger itemsTotal] — 总共所需要加载项的个数。<br><br>
 
       该函数默认为undefined。
     </p>
@@ -135,10 +135,10 @@
     <h3>[property:Function onProgress]</h3>
     <p>
       此方法加载每一个项，加载完成时进行调用。
-      有如下参数：<br />
-    [page:String url] — 被加载的项的url。<br />
-    [page:Integer itemsLoaded] — 目前已加载项的个数。<br />
-    [page:Iteger itemsTotal] — 总共所需要加载项的个数。<br /><br />
+      有如下参数：<br>
+    [page:String url] — 被加载的项的url。<br>
+    [page:Integer itemsLoaded] — 目前已加载项的个数。<br>
+    [page:Iteger itemsTotal] — 总共所需要加载项的个数。<br><br>
 
       默认情况下，该函数为undefined，除非在构造函数中传入。
     </p>
@@ -146,8 +146,8 @@
     <h3>[property:Function onError]</h3>
     <p>
       此方法将在任意项加载错误时，进行调用。
-      有如下参数：<br />
-      [page:String url] — 加载发生错误的项目的url<br /><br />
+      有如下参数：<br>
+      [page:String url] — 加载发生错误的项目的url<br><br>
 
       默认情况下，该函数为undefined，除非在构造函数中传入。
     </p>
@@ -157,7 +157,7 @@
 
     <h3>[method:LoadingManager addHandler]([param:Object regex], [param:Loader loader])</h3>
     <p>
-    [page:Object regex] — A regular expression.<br />
+    [page:Object regex] — A regular expression.<br>
     [page:Loader loader] — The loader.
     <p>
     Registers a loader with the given regular expression. Can be used to define what loader should be used in
@@ -184,21 +184,21 @@ manager.addHandler(/\.tga$/i, new TGALoader());
 
     <h3>[method:String resolveURL]([param:String url])</h3>
     <p>
-    [page:String url] — 所要加载的url<br /><br />
+    [page:String url] — 所要加载的url<br><br>
 
     给定URL，使用URL修饰符回调（如果有）并返回已解析的URL。如果未设置URL修饰符，则返回原始URL。
     </p>
 
     <h3>[method:null setURLModifier]([param:Function callback])</h3>
     <p>
-    [page:Function callback] — 设置URL修饰符成功时回调。使用url参数进行回调，并且必须返回 [page:String resolvedURL] 。<br /><br />
+    [page:Function callback] — 设置URL修饰符成功时回调。使用url参数进行回调，并且必须返回 [page:String resolvedURL] 。<br><br>
 
     如果设置了回调，则在发送请求之前将向每个资源URL传递回调。回调可以返回最初的URL，也可以返回新URL以覆盖加载行为。
     此行为可用于从.ZIP、拖拽API和数据URI中加载资源文件。
     </p>
 
 
-    <br />
+    <br>
     <p>
       <em>Note: The following methods are designed to be called internally by loaders. You shouldn't call
       them directly.</em>
@@ -206,21 +206,21 @@ manager.addHandler(/\.tga$/i, new TGALoader());
 
     <h3>[method:null itemStart]([param:String url])</h3>
     <p>
-    [page:String url] — 所要加载的url<br /><br />
+    [page:String url] — 所要加载的url<br><br>
 
     任何使用管理器的加载器都会调用此方法， 当加载器需要开始加载URL时。
     </p>
 
     <h3>[method:null itemEnd]([param:String url])</h3>
     <p>
-    [page:String url] — 所要加载的url<br /><br />
+    [page:String url] — 所要加载的url<br><br>
 
     任何使用管理器的加载器都会调用此方法， 当加载器需要加载URL结束时。
     </p>
 
     <h3>[method:null itemError]([param:String url])</h3>
     <p>
-    [page:String url] — 所要加载的url<br /><br />
+    [page:String url] — 所要加载的url<br><br>
 
     任何使用管理器的加载器都会调用此方法， 当加载器出现加载错误时。
     </p>

@@ -13,11 +13,7 @@
     <h1>Using JavaScript in Verge3D Applications</h1>
 
     <p>
-    Thanks to the Puzzles, you can implement most of the functionality found in typical WebGL applications without writing a single line of code. However, there can be special cases where you may want to use JavaScript - for example, to leverage third-party programming libraries or to implement some non-trivial feature which cannot be realized with the Puzzles alone.
-    </p>
-
-    <p>
-    You can use any text editor for adding JavaScript code, but it is more convenient to work if your editor supports syntax highlighting and line numbering, like Notepad++ or VS Code.
+      Thanks to the Puzzles, you can implement most of the functionality found in typical WebGL applications without writing a single line of code. However, there can be special cases where you may want to use JavaScript — for example, to leverage third-party programming libraries or to implement some non-trivial feature which cannot be realized with the Puzzles alone.
     </p>
 
     [contents]
@@ -81,26 +77,30 @@
         favorite text editor.
     </p>
 
+    <p class="note">
+      You can use any text editor for adding JavaScript code, but it is more convenient to work if your editor supports syntax highlighting and line numbering, like Notepad++ or VS Code.
+    </p>
+
     <p>
-    Search for "runCode" - this place in the file should look something like this:
+      Search for "runCode" — this place in the file should look something like this:
     </p>
 
     <code>
-function runCode(app) {
+    function runCode(app, puzzles) {
         // add your code here, e.g. console.log('Hello, World!');
 
-}
+    }
     </code>
 
     <p>
-    You can add some code inside that declaration (between the curly brackets), so that it turns to:
+      You can add some code inside that declaration (between the curly brackets), so that it turns to:
     </p>
 
     <code>
-function runCode(app) {
+    function runCode(app, puzzles) {
         // add your code here, e.g. console.log('Hello, World!');
         console.log('Just added some JavaScript!');
-}
+    }
     </code>
 
     <p>
@@ -110,14 +110,14 @@ function runCode(app) {
     <img src="files/using-javascript/basics-console-log.jpg" alt="Viewing script output in browser console">
 
     <p>
-    With code you can change something in your scene, for example, move the default Verge3D cube (named "Box001" in 3ds Max and "Cube" in Blender)...
+      With code you can change something in your scene, for example, move the default Verge3D cube (named "Box001" in 3ds Max and "Cube" in Blender)...
     </p>
 
     <code>
-function runCode(app) {
-        var obj = app.scene.getObjectByName('Cube');
+    function runCode(app, puzzles) {
+        const obj = app.scene.getObjectByName('Cube');
         obj.position.x = 2;
-}
+    }
     </code>
 
     <p>
@@ -125,20 +125,17 @@ function runCode(app) {
     </p>
 
     <code>
-function runCode(app) {
-        var obj = app.scene.getObjectByName('Cube');
+    function runCode(app, puzzles) {
+        const obj = app.scene.getObjectByName('Cube');
         obj.material = new v3d.MeshPhongMaterial({ color: '#00BB00', emissive: '#550000' });
-}
+    }
     </code>
 
     <img src="files/using-javascript/basics-change-material.jpg" alt="Change material with JavaScript">
 
     <p>
-    Check out <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">Verge3D code examples</a> to get inspired. Click <strong>View source</strong> button to open the code for an example.
+      For more info on using JavaScript in your Verge3D applications refer to the <a href="api/en/index.html">programmer's guide</a>.
     </p>
-
-    <img src="files/using-javascript/basics-code-examples.jpg" alt="Verge3D code examples">
-
 
 
     [anchor:Method_3_Compact]
@@ -159,26 +156,23 @@ function runCode(app) {
     </p>
 
     <code>
-'use strict';
+    'use strict';
 
-window.addEventListener('load', function() {
+    const CONTAINER_ID = 'v3d-container';
+    const SCENE_URL = 'template.gltf';
 
-var app = new v3d.App('container', null,
-        new v3d.SimplePreloader({ container: 'container' }));
+    const preloader = new v3d.SimplePreloader({ container: CONTAINER_ID });
+    const app = new v3d.App(CONTAINER_ID, null, preloader);
 
-var url = 'my_awesome_app.gltf';
-
-app.load(url, function() {
+    app.loadScene(SCENE_URL, () => {
         app.enableControls();
+        app.run();
         runCode();
-});
+    });
 
-function runCode() {
+    function runCode() {
         // add your code here, e.g. console.log('Hello, World!');
-
-}
-
-});
+    }
     </code>
 
     <p>
@@ -186,9 +180,8 @@ function runCode() {
     </p>
 
     <p>
-    You can proceed by adding your code inside the "runCode" function as described in Method #2. Of course, you can completely overhaul this application template instead - for example, you can discard the App class, load the scene using some other file format or setup the controls in some specific way.
+      You can proceed by adding your code inside the "runCode" function as described in Method #2. Of course, you can completely overhaul this application template instead: replace the App class with your own implementation, load the scene using the different 3D file format, or setup the controls in some specific way.
     </p>
-
 
 
     [anchor:Method_4_Hardcore]
@@ -196,11 +189,11 @@ function runCode() {
     <h2>Method #4 (Hardcore)</h2>
 
     <p>
-    This method will suit programmers who are familiar with the Three.js library, as you basically can use the same API with Verge3D.
+      This method will suit programmers who are familiar with the Three.js library, as its API is similar to the one used in Verge3D.
     </p>
 
-    </p>
-    Copy the <strong>v3d.js</strong> file from the <i>build</i> folder of your Verge3D installation, link it to an <strong>.html</strong> file and <a href="manual/en/programmers_guide/Programming-basics.html">start coding</a>! How did you think the <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">code examples</a> were created in the first place?
+    <p>
+      Copy the <strong>v3d.js</strong> file from the <i>build</i> folder of your Verge3D installation, link it to an <strong>.html</strong> file and <a href="manual/en/programmers_guide/Programming-basics.html">start coding</a>! Alternatively, there is an <a href="manual/en/programmers_guide/Using-NodeJS-NPM.html">NPM package</a> available at your disposal.
     </p>
 
 

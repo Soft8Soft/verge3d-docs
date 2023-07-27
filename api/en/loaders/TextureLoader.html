@@ -33,30 +33,26 @@
 
     // load a resource
     loader.load(
-      // resource URL
-      'textures/land_ocean_ice_cloud_2048.jpg',
+        // resource URL
+        'textures/land_ocean_ice_cloud_2048.jpg',
 
-      // onLoad callback
-      function(texture) {
-        // in this example we create the material when the texture is loaded
-        const material = new v3d.MeshBasicMaterial({
-          map: texture
-         });
-      },
+        // onLoad callback
+        function(texture) {
+            // in this example we create the material when the texture is loaded
+            const material = new v3d.MeshBasicMaterial({
+                map: texture
+            });
+        },
 
-      // onProgress callback currently not supported
-      undefined,
+        // onProgress callback currently not supported
+        undefined,
 
-      // onError callback
-      function(err) {
-        console.error('An error happened.');
-      }
+        // onError callback
+        function(err) {
+            console.error('An error happened.');
+        }
     );
     </code>
-
-    <p>
-      Please note Verge3D r84 dropped support for TextureLoader progress events. For a TextureLoader that supports progress events, see [link:https://github.com/mrdoob/three.js/issues/10439#issuecomment-293260145 this thread].
-    </p>
 
     <h2>Examples</h2>
 
@@ -67,10 +63,11 @@
     <h2>Constructor</h2>
 
     <h3>[name]([param:LoadingManager manager])</h3>
+    <p class="params">
+      [page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager v3d.DefaultLoadingManager].
+    </p>
     <p>
-    [page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager v3d.DefaultLoadingManager].<br /><br />
-
-    Creates a new [name].
+      Creates a new [name].
     </p>
 
 
@@ -83,10 +80,10 @@
     <h3>[method:Texture load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
     <p>
     [page:String url] — the path or URL to the file. This can also be a
-      [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br />
-    [page:Function onLoad] (optional) — Will be called when load completes. The argument will be the loaded [page:Texture texture].<br />
-    [page:Function onProgress] (optional) — This callback function is currently not supported.<br />
-    [page:Function onError] (optional) — Will be called when load errors.<br /><br />
+      [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br>
+    [page:Function onLoad] (optional) — Will be called when load completes. The argument will be the loaded [page:Texture texture].<br>
+    [page:Function onProgress] (optional) — This callback function is currently not supported.<br>
+    [page:Function onError] (optional) — Will be called when load errors.<br><br>
 
     Begin loading from the given URL and pass the fully loaded [page:Texture texture] to onLoad. The method also returns a new texture object which can directly be used for material creation.
     If you do it this way, the texture may pop up in your scene once the respective loading process is finished.

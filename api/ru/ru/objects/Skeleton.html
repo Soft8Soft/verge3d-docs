@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Используйте массив [page:Bone bones] для создания скелета, который может быть использован в [page:SkinnedMesh].
+    </p>
+
+    <h2>Пример Кода</h2>
+    <code>
+    // Create a simple "arm"
+
+    const bones = [];
+
+    const shoulder = new v3d.Bone();
+    const elbow = new v3d.Bone();
+    const hand = new v3d.Bone();
+
+    shoulder.add(elbow);
+    elbow.add(hand);
+
+    bones.push(shoulder);
+    bones.push(elbow);
+    bones.push(hand);
+
+    shoulder.position.y = -5;
+    elbow.position.y = 0;
+    hand.position.y = 5;
+
+    const armSkeleton = new v3d.Skeleton(bones);
+    </code>
+
+    <p>
+      Пример использования со стандартной [page:BufferGeometry] смотрите на странице [page:SkinnedMesh].
+     </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Array bones], [param:Array boneInverses])</h3>
+    <p>
+      [page:Array bones] — Массив [page:Bone bones]. По умолчанию это пустой массив.<br/>
+      [page:Array boneInverses] — (необязательный) массив из [page:Matrix4 Matrix4s].<br><br>
+
+    Создает новый [name].
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Array bones]</h3>
+    <p>
+      Массив [page:bone bones]. Обратите внимание, что это копия исходного массива, а не референс,
+      поэтому вы можете изменять исходный массив, не затрагивая этот.
+    </p>
+
+    <h3>[property:Array boneInverses]</h3>
+    <p>
+      Массив [page:Matrix4 Matrix4s], представляющий обратную сторону [page:Matrix4 matrixWorld]
+      отдельных костей.
+    </p>
+
+    <h3>[property:Float32Array boneMatrices]</h3>
+    <p>
+      Буфер массива, содержащий данные о костях при использовании вертексной текстуры.
+    </p>
+
+    <h3>[property:DataTexture boneTexture]</h3>
+    <p>
+      [page:DataTexture] содержит данные костей при использовании вертексной текстуры.
+    </p>
+
+    <h3>[property:Integer boneTextureSize]</h3>
+    <p>
+    Размер [page:.boneTexture].
+    </p>
+
+    <h2>Методы</h2>
+
+    <h3>[method:Skeleton clone]()</h3>
+    <p>
+      Возвращает клон этого Skeleton-объекта.
+    </p>
+
+
+    <h3>[method:null calculateInverses]()</h3>
+    <p>Генерирует массив [page:.boneInverses boneInverses], если он не предоставлен в конструкторе.</p>
+
+
+    <h3>[method:null pose]()</h3>
+    <p>Возвращает скелет к базовой позе.</p>
+
+
+    <h3>[method:null update]()</h3>
+    <p>
+      Обновляет [page:Float32Array boneMatrices] и [page:DataTexture boneTexture] после изменения костей.
+      Это вызывается автоматически [page:WebGLRenderer], если скелет используется с [page:SkinnedMesh].
+    </p>
+
+    <h3>[method:Bone getBoneByName]([param:String name])</h3>
+    <p>
+    name -- Строка для сопоставления со свойством .name кости. <br><br>
+
+    Ищет по массиву костей скелета и возвращает первую с совпадающим именем.<br>
+    </p>
+
+    <h3>[method:null dispose]()</h3>
+    <p>
+      Может использоваться, если экземпляр [name] устаревает в приложении. Метод освободит внутренние ресурсы.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

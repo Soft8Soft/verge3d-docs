@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Объект [page:Layers] назначает [page:Object3D] на 1 или более из 32 слоев, пронумерованных от 0 до 31 - внутренне слои хранятся как [link:https://en.wikipedia.org/wiki/Mask_(computing) bit mask], и по умолчанию все Object3D являются членами слоя 0.<br><br>
+
+      Это можно использовать для управления видимостью - объект должен иметь общий слой с [page:Camera camera], чтобы быть видимым при рендеринге вида этой камеры.<br><br>
+
+      Все классы, наследующие от [page:Object3D], имеют свойство [page:Object3D.layers], которое является экземпляром этого класса.
+    </p>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_layers WebGL / layers]
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]()</h3>
+    <p>
+      Создайте новый Layers object, членство в котором изначально установлено на слой 0.
+    </p>
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Integer mask]</h3>
+    <p>
+      Битовая маска, хранящая информацию о том, к какому из 32 слоев в данный момент относится этот объект слоев.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:null disable]([param:Integer layer])</h3>
+    <p>
+      layer - целое число от 0 до 31.<br><br>
+
+      Удалить членство этого *layer*.
+    </p>
+
+    <h3>[method:null enable]([param:Integer layer])</h3>
+    <p>
+      layer - целое число от 0 до 31.<br><br>
+
+      Добавьте членство в этом *layer*.
+    </p>
+
+    <h3>[method:null set]([param:Integer layer])</h3>
+    <p>
+      layer - целое число от 0 до 31.<br><br>
+
+      Установите членство в *layer* и удалите членство во всех остальных слоях.
+    </p>
+
+    <h3>[method:Boolean test]([param:Layers layers])</h3>
+    <p>
+      layers - Layers object<br><br>
+
+      Возвращает true, если этот и переданный объект *layers* имеют хотя бы один общий слой.
+    </p>
+
+    <h3>[method:null toggle]([param:Integer layer])</h3>
+    <p>
+      layer - целое число от 0 до 31.<br><br>
+
+      Переключение принадлежности к *слою*.
+    </p>
+
+    <h3>[method:null enableAll]()</h3>
+    <p>
+      Добавьте принадлежность ко всем слоям.
+    </p>
+
+    <h3>[method:null disableAll]()</h3>
+    <p>
+      Удалите членство со всех слоев.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

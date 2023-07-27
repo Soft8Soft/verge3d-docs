@@ -20,6 +20,42 @@
     [contents]
 
 
+    [anchor:receiving_orders_rest_api]
+
+    <h2>Receving Orders in Background via REST API</h2>
+
+    <p>In some cases you might want to create custom experience for placing orders instead of redirecting users to the order page.</p>
+
+    <p>Say you want to create a basic table customizer. This is how your data might look like:</p>
+
+    <code>
+    {
+        "user_name": "John Smith",
+        "user_email": "john.smith@example.com",
+        "user_phone": "+123456789"
+        "items": [
+            {
+                "sku": "table_top_white",
+                "quantity": 1
+            },
+            {
+                "sku": "table_leg_brown",
+                "quantity": 4
+            },
+        ]
+    }</code>
+
+    <p>
+      You can compose this structure by creating a JavaScript object and then send it to the server via XMLHttpRequest, however using dictionary along with <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzle might be easier.
+    </p>
+
+    <p>To do this, assign a proper URL for your "send data" puzzle. This one looks like:</p>
+
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v2/place_order/</code>
+
+    <p>Where HOSTNAME is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
+
+
     [anchor:customizing_ecommerce_forms]
 
     <h2>Customizing e-commerce forms</h2>

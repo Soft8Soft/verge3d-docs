@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Geometry] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">Генерирует геометрию, представляющую параметрическую поверхность.</p>
+
+    <iframe id="scene" src="scenes/geometry-browser.html#ParametricGeometry"></iframe>
+
+    <script>
+
+    // iOS iframe auto-resize workaround
+
+    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
+
+      const scene = document.getElementById('scene');
+
+      scene.style.width = getComputedStyle(scene).width;
+      scene.style.height = getComputedStyle(scene).height;
+      scene.setAttribute('scrolling', 'no');
+
+    }
+
+    </script>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    const geometry = new v3d.ParametricGeometry(v3d.ParametricGeometries.klein, 25, 25);
+    const material = new v3d.MeshBasicMaterial({ color: 0x00ff00 });
+    const klein = new v3d.Mesh(geometry, material);
+    scene.add(klein);
+    </code>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Function func], [param:Integer slices], [param:Integer stacks])</h3>
+    <p>
+    func — Функция, которая принимает значения [page:Float u] и [page:Float v] от 0 до 1 и изменяет третий аргумент [page:Vector3]<br>
+    slices — Количество срезов, используемых для параметрической функции <br>
+    stacks — Количество стеков, используемых для параметрической функции
+    </p>
+
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Geometry].</p>
+
+    <h3>[property:Object parameters]</h3>
+    <p>
+    Объект со свойством для каждого из параметров конструктора. Любая модификация после построения не изменяет геометрию.
+    </p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Geometry].</p>
+
+    [sourceHint]
+  </body>
+</html>

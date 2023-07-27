@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Loader] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Класс для загрузки [page:CubeTexture CubeTexture].
+      Для загрузки файлов используется внутренний [page:ImageLoader].
+    </p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+const scene = new v3d.Scene();
+scene.background = new v3d.CubeTextureLoader()
+  .setPath('textures/cubeMaps/')
+  .load([
+        'px.png',
+        'nx.png',
+        'py.png',
+        'ny.png',
+        'pz.png',
+        'nz.png'
+      ]);
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_materials_cubemap materials / cubemap]<br>
+      [example:webgl_materials_cubemap_balls_reflection materials / cubemap / balls / reflection]<br>
+      [example:webgl_materials_cubemap_balls_refraction materials / cubemap / balls / refraction]<br>
+      [example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic]<br>
+      [example:webgl_materials_cubemap_refraction materials / cubemap / refraction]
+    </p>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:LoadingManager manager])</h3>
+    <p>
+    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком.
+    По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].<br><br>
+
+    Создает новый [name].
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Loader].</p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Loader].</p>
+
+    <h3>[method:CubeTexture load]([param:String urls], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
+    <p>
+    [page:String urls] — массив из 6 ссылок на изображения, по одной для каждой стороны CubeTexture.
+    Ссылки должны быть указаны в следующем порядке: pos-x, neg-x, pos-y, neg-y, pos-z, neg-z.
+    Они также могут быть [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URIs].<br>
+    Обратите внимание, что по традиции кубомапы задаются в системе координат, в которой положительный угол x находится справа, если смотреть вверх по положительной оси z - другими словами, используется левосторонняя система координат. Поскольку Verge3D использует правостороннюю систему координат, карты окружения, используемые в Verge3D, поменяют местами pos-x и neg-x.<br>
+    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженная [page:Texture texture].<br>
+    [page:Function onProgress] — Вызывается в процессе загрузки. Аргументом будет экземпляр XMLHttpRequest, который содержит байты .[page:Integer total] и .[page:Integer loaded].<br>
+    [page:Function onError] — Вызывается при ошибках загрузки.<br>
+    </p>
+    <p>
+    Начните загрузку из url и передайте загруженную [page:CubeTexture texture] в onLoad.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

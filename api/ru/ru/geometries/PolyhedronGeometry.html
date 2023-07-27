@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Geometry] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+    Многогранник - это трехмерное твердое тело с плоскими гранями. Этот класс берет массив вершин,
+    спроецирует их на сферу, а затем разделяет их до желаемого уровня детализации.
+    </p>
+
+    <h2>Пример Кода</h2>
+<code>
+const verticesOfCube = [
+    -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+    -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
+];
+
+const indicesOfFaces = [
+    2,1,0,    0,3,2,
+    0,4,7,    7,3,0,
+    0,1,5,    5,4,0,
+    1,2,6,    6,5,1,
+    2,3,7,    7,6,2,
+    4,5,6,    6,7,4
+];
+
+const geometry = new v3d.PolyhedronGeometry(verticesOfCube, indicesOfFaces, 6, 2);
+</code>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Array vertices], [param:Array indices], [param:Float radius], [param:Integer detail])</h3>
+    <p>
+    vertices — [page:Array] точек формы [1,1,1, -1,-1,-1, ...] <br>
+    indices — [page:Array] индексов, составляющих грани формы [0,1,2, 2,3,0, ...] <br>
+    radius — [page:Float] — Радиус конечной формы <br>
+    detail — [page:Integer] — На сколько уровней подразделять геометрию. Чем больше деталей, тем более гладкой будет форма.
+    </p>
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Geometry].</p>
+
+    <h3>[property:Object parameters]</h3>
+    <p>
+    Объект со свойством для каждого из параметров конструктора. Любая модификация после построения не изменяет геометрию.
+    </p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Geometry].</p>
+
+    [sourceHint]
+  </body>
+</html>

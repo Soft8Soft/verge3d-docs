@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Свойство буферизованного графа сцены, позволяющее взвешенное накопление; используется внутренне.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:PropertyBinding binding], [param:String typeName], [param:Number valueSize])</h3>
+    <p>
+      -- binding <br>
+      -- typeName <br>
+      -- valueSize <br>
+    </p>
+
+
+    <h2>Свойства</h2>
+
+
+    <h3>[property:PropertyBinding binding]</h3>
+    <p>
+
+    </p>
+
+    <h3>[property:TypedArray buffer]</h3>
+    <p>
+      Буфер с размером [page:PropertyMixer valueSize] * 4. <br><br>
+      Имеет следующий вид:  [incoming | accu0 | accu1 | orig]<br><br>
+      Интерполяторы могут использовать .buffer в качестве своего .result, после чего данные поступают в 'incoming'. 'accu0' и 'accu1' используются с чередованием кадров для суммарного результата и сравниваются для обнаружения изменений. 'orig' хранит исходное состояние свойства.
+    </p>
+
+    <h3>[property:Number cumulativeWeight]</h3>
+    <p>
+      По умолчанию *0*.
+    </p>
+
+    <h3>[property:Number valueSize]</h3>
+    <p>
+
+    </p>
+
+    <h3>[property:Number referenceCount]</h3>
+    <p>
+      По умолчанию *0*.
+    </p>
+
+    <h3>[property:Number useCount]</h3>
+    <p>
+      По умолчанию *0*.
+    </p>
+
+
+    <h2>Methods</h2>
+
+
+    <h3>[method:null accumulate]([param:Number accuIndex], [param:Number weight])</h3>
+    <p>
+      Накопление данных в [page:PropertyMixer.buffer buffer][accuIndex] 'incoming' области в 'accu[i]'.<br>
+
+      Если вес равен *0*, это ничего не дает.
+    </p>
+
+    <h3>[method:null apply]([param:Number accuIndex])</h3>
+    <p>
+      Применение состояния [page:PropertyMixer.buffer buffer] 'accu[i]' к привязке, когда accus отличается.
+    </p>
+
+    <h3>[method:null saveOriginalState]()</h3>
+    <p>
+      Запоминает состояние связанного свойства и копирует его в оба accus.
+    </p>
+
+    <h3>[method:null restoreOriginalState]()</h3>
+    <p>
+      Применяет к привязке состояние, принятое ранее через 'saveOriginalState'.
+    </p>
+
+
+    [sourceHint]
+  </body>
+</html>

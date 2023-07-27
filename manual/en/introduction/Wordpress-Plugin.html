@@ -17,13 +17,11 @@
 
     <p>Verge3D for WordPress plugin offers the following features:</p>
     <ul>
-      <li>WebGL application hosting and publishing (direct, via iframes, or WordPress shortcodes).</li>
-      <li>Integration with WooCommerce system. You can embed Verge3D applications into product pages and make powerful 3D configurators with Puzzles or JavaScript.</li>
+      <li>WebGL application hosting and embedding (direct, via iframe, or shortcode).</li>
+      <li>An easy-to-use widget for Elementor.</li>
+      <li>Integration with WooCommerce system. You can embed Verge3D applications into product pages and make powerful 3D configurators with Puzzles.</li>
+      <li>Proprietary e-commerce system alternative to WooCommerce.</li>
       <li>Persistent file storage.</li>
-      <li>E-commerce system for placing customer orders, submitted with the <a href="manual/en/puzzles/ECommerce.html#place_order" target="_parent">place order</a>, <a href="manual/en/puzzles/ECommerce.html#place_order_adv" target="_parent">place order+</a>, or <a href="manual/en/puzzles/Advanced.html#send_data" target="_parent">send data</a> puzzles.</li>
-      <li>Quotes and invoices generator.</li>
-      <li>PayPal or card payments.</li>
-      <li>Support for downloadable products.</li>
     </ul>
 
     <p>These features can work independently on each other. For example, you might want just the embedding, or you can handle orders received from a Verge3D application hosted somewhere else (such as on Verge3D Network etc).</p>
@@ -35,7 +33,7 @@
 
     [anchor:sandbox]
 
-    <h2>Plugin sandbox</h2>
+    <h2>Plugin Sandbox</h2>
 
     <p>To try out the features of the plugin please check out the <a href="https://sandbox.soft8soft.com" target="_blank">Verge3D for WordPress sandbox</a>. It provides a safe environment that you can use to test your Verge3D apps.</p>
 
@@ -72,7 +70,7 @@ post_max_size = 128M</code>
 
     [anchor:uploading_applications]
 
-    <h2>Uploading applications</h2>
+    <h2>Uploading Applications</h2>
 
     <p>Use the <strong>Applications</strong> admin menu to access <strong>Verge3D Applications</strong> screen:</p>
 
@@ -92,16 +90,20 @@ post_max_size = 128M</code>
 
     <p>where <em>YOUR_APP_ID</em> is an ID of your application displayed in the table on the <strong>Verge3D Application</strong> screen.</p>
 
+    <p>
+      If you use the Elementor plug-in, there is a <a href="manual/en/introduction/Wordpress-Plugin.html#elementor_widget">widget</a> which can make the things even simpler.
+    </p>
+
 
     [anchor:application_settings]
 
-    <h2>Application settings</h2>
+    <h2>Application Settings</h2>
 
     <p>
       On the *Manage Verge3D Application* screen you can find the following settings:
     </p>
 
-    <img src="files/wordpress/app-settings.jpg" alt="3D app settings">
+    <img src="files/wordpress/app-settings.webp" alt="3D app settings">
 
     <dl>
       <dt>Title</dt>
@@ -112,14 +114,103 @@ post_max_size = 128M</code>
       <dd>Height of the app canvas embedded in WordPress pages/posts/product pages (in pixels). Please note that the actual size can be affected by WordPress theme, layout, custom CSS code, etc.</dd>
       <dt>Allow fullscreen mode</dt>
       <dd>Allow/deny fullscreen mode. If unchecked, the app fullscreen button will be removed making it impossible to enter fullscreeen mode.</dd>
+      <dt>Allow AR/VR</dt>
+      <dd>Allow/deny AR/VR sessions for the app.</dd>
+      <dt>Loading</dt>
+      <dd>Loading strategy for the application. Set it to *Lazy* to defer loading when the app is off-screen. Use *Eager* to force the browser to load it immediately. *Auto* means the browser itself decides when to load the app.</dd>
       <dt>App Image</dt>
       <dd>Application image. This image replaces the default 3D view button which is shown in the image gallery on the WooCommerce product page. See <a href="manual/en/introduction/Wordpress-Plugin.html#woocommerce">below</a> for more info.</dd>
     </dl>
 
 
+    [anchor:elementor_widget]
+
+    <h2>Elementor Widget</h2>
+
+    <p>
+      This feature allows you to embed uploaded Verge3D applications to Elementor pages. Simply drag-and-drop the *Verge3D* widget from the *General* tab (or by using search):
+    </p>
+
+    <img src="files/wordpress/elementor-widget.webp" class="with-border" alt="Elementor widget from embedding WebGL applications in WordPress">
+
+    <p>and select the application you need on the *Content* panel:</p>
+
+    <img src="files/wordpress/elementor-widget-settings.webp" class="with-border" alt="Elementor widget settings">
+
+    <p>
+      You can set the size of the canvas and other app features in the <a href="manual/en/introduction/Wordpress-Plugin.html#application_settings">application settings</a>.
+    </p>
+
+
+    [anchor:interacting_with_buttons]
+
+    <h2>Interacting with Buttons</h2>
+
+    <p>
+      With Puzzles, you can easily hook the buttons designed in WordPress (or other button-like elements) to the 3D scene. By clicking a button you can trigger various events in your scene, such as playing animation, doing material customizations, uploading textures, playing sounds, etc. Sometimes this is the most straightforward way to implement UI for your app without the need to develop a <a href="manual/en/introduction/HTML-based-user-interfaces.html">full-featured HTML UI</a>.
+    </p>
+
+    <figure>
+      <img src="files/wordpress/spinner-with-button.webp" class="with-border" alt="Example of the page with a Verge3D app embedded, controlled by a button dropped from the Block Editor toolbox">
+      <figcaption>Example of the page with a Verge3D app embedded, controlled by a button dropped from the Block Editor toolbox.</figcaption>
+    </figure>
+
+    <h3>Buttons from Built-In Editor (aka Block Editor)</h3>
+
+    <p>
+      To implement button clicks in the built-in WordPress editor, first assign a <em>custom CSS class</em>. You can do it by selecting the button and typing your CSS class name in the *Block* → *Advanced* → *ADDITIONAL CSS CLASS(ES)* panel:
+    </p>
+
+    <img src="files/wordpress/button-class-block-editor.webp" class="with-border" alt="Assigning custom button class in WordPress editor">
+
+    <p>
+      Then use the <a href="manual/en/puzzles/HTML.html#event">event</a> Puzzle to assign event listener on the button element. The element itself is retrieved with the <a href="manual/en/puzzles/HTML.html#query_selector">query selector</a> Puzzle:
+    </p>
+
+    <img src="files/wordpress/button-class-click.webp" alt="Clicking on the button with custom CSS class">
+
+    <p>
+      Specify the CSS class assigned on the button as the first term of the selector (the dot prefix means "get element by a CSS class"), followed by the *a* for anchor tag:
+    </p>
+
+    <code class="language-html">
+      .my-button a
+    </code>
+
+    <p>
+      Note, that since Verge3D application is embedded in an iframe, you must also enable *in parent doc*.
+    </p>
+
+    <h3>Buttons from Elementor</h3>
+
+    <p>
+      Clicks from buttons created with Elementor are handled a bit differently. Instead of class name, you should assign <em>custom ID</em> for your button, which you can do inside the *Edit Button* → *Content* → *Button ID* panel:
+    </p>
+
+    <img src="files/wordpress/button-id-elementor.webp" class="with-border" alt="Assigning custom button ID in Elementor">
+
+    <p>
+      Then use the <a href="manual/en/puzzles/HTML.html#event">event</a> Puzzle to assign event listener on the button element. The element itself is retrieved with the <a href="manual/en/puzzles/HTML.html#query_selector">query selector</a> Puzzle:
+    </p>
+
+    <img src="files/wordpress/button-id-click.webp" alt="Clicking on the button with custom ID">
+
+    <p>
+      Specify the element ID assigned on the button as the first term of the selector (the hash tag means "get element by ID"), followed by the *a* for anchor tag:
+    </p>
+
+    <code class="language-html">
+      #my-button a
+    </code>
+
+    <p>
+      Note, that since Verge3D application is embedded in an iframe, you must also enable *in parent doc*.
+    </p>
+
+
     [anchor:woocommerce]
 
-    <h2>Integrating with WooCommerce</h2>
+    <h2>WooCommerce Integration</h2>
 
     <p>WooCommerce is a popular e-commerce system which powers over 28% of all online stores. Verge3D offers a seamless integration with WooCommerce via this WordPress plugin and <a href="manual/en/puzzles/ECommerce.html">e-commerce puzzles</a>.</p>
 
@@ -137,9 +228,12 @@ post_max_size = 128M</code>
       <li>Grouped</li>
       <li>External/Affiliate</li>
       <li>Variable</li>
+      <li>Composite (requires the <a href="https://woocommerce.com/products/composite-products/" target="_blank">WooCommerce Composite Products</a> extension)</li>
     </ul>
 
-    <p>Check out the [demoLink:drink_shop] demo from the asset store which shows how these product types can be integrated with Verge3D.</p>
+    <p>
+      Check out the [demoLink:drink_shop] and [demoLink:simple_configurator] demos from the Asset Store which show how these product types can be integrated with Verge3D.
+    </p>
 
     <h3>3D only vs 2D gallery + 3D</h3>
 
@@ -148,7 +242,7 @@ post_max_size = 128M</code>
     </p>
 
     <figure>
-      <img src="files/wordpress/woo-replace-product-image.jpg" alt="WebGL app replacing WooCommerce product image">
+      <img src="files/wordpress/woo-replace-product-image.jpg" class="with-border" alt="WebGL app replacing WooCommerce product image">
       <figcaption><a href="https://sandbox.soft8soft.com/product/spinner/" target="_blank">Spinner</a> product page in Verge3D Sandbox.</figcaption>
     </figure>
 
@@ -161,7 +255,7 @@ post_max_size = 128M</code>
     </p>
 
     <figure>
-      <img src="files/wordpress/woo-add-gallery-item.jpg" alt="WebGL app as item in WooCommerce product gallery images">
+      <img src="files/wordpress/woo-add-gallery-item.jpg" class="with-border" alt="WebGL app as item in WooCommerce product gallery images">
       <figcaption><a href="https://sandbox.soft8soft.com/product/4k-curved-tv/" target="_blank">Smart TV</a> product page in Verge3D Sandbox.</figcaption>
     </figure>
 
@@ -170,7 +264,7 @@ post_max_size = 128M</code>
     </p>
 
 
-    <h3>Product settings</h3>
+    <h3>Product Settings</h3>
 
     <p>For each product supported there is a set of plugin-specific settings located on the *Verge3D* tab of the *Product data*:</p>
 
@@ -192,45 +286,29 @@ post_max_size = 128M</code>
     [demo:spinner]
 
 
-    [anchor:uploading_files]
+    [anchor:e_commerce_system]
+    <h2>Alternative E-Commerce System</h2>
 
-    <h2>Uploading files</h2>
+    <p>
+      E-commerce system which comes with Verge3D for WordPress plug-in is a self-sufficient option alternative to WooCommerce. It allows:
+    </p>
 
-    <p>This feature allows the users to persistently store content created in Verge3D applications, such as taken screenshots, uploaded textures, and saved configurations.</p>
+    <ul>
+      <li>placing customer orders, submitted with the <a href="manual/en/puzzles/ECommerce.html#place_order" target="_parent">place order</a>, <a href="manual/en/puzzles/ECommerce.html#place_order_adv" target="_parent">place order+</a>, or <a href="manual/en/puzzles/Advanced.html#send_data" target="_parent">send data</a> puzzles.</li>
+      <li>sending notification emails to customers or sales staff.</li>
+      <li>generating quotes and invoices, attaching these to emails.</li>
+      <li>attaching various data to the orders: PDF, custom text, JSONs, images, sounds, or videos.</li>
+      <li>processing payments via PayPal or cards.</li>
+      <li>distributing downloadable products.</li>
+    </ul>
 
-    <p>To upload your file on the server use the following REST API method:</p>
-
-    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/upload_file/</code>
-
-    <p>Where HOSTNAME is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
-
-    <p>Upon success this method returns the following JSON file with the info on the uploaded file:</p>
-    <code>
-    {
-        "id": THE_ID_OF_THE_UPLOADED_FILE,
-        "link": LINK_TO_THE_UPLOADED_FILE,
-        "size": FILE_SIZE
-    }</code>
-
-    <p>Use the link provided in the request to retrieve your file or use the ID and <em>get_file</em> REST API method:</p>
-
-    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/get_file/ID</code>
-
-    <h3>Using puzzles</h3>
-
-    <p>Use the <strong>send data</strong> and <strong>loaded data</strong> puzzles to upload your files. Parse the JSON fields of the API response by using the <strong>in dict ... get key ...</strong> puzzle.</p>
-    <p>The example below uploads the user-selected file specified in the "opened file" puzzle to the Soft8Soft sandbox and then saves the web address to that file in the <strong>link</strong> variable:</p>
-
-    <img src="files/wordpress/send_load_puzzles.png" alt="Send/load puzzles">
-
-    <p>To retrieve/download your files use the <strong>load data</strong> and <strong>loaded data</strong> puzzles.</p>
-
-    [demo:custom_image]
+    <p>
+      The system does not rely on any third-party plugins and can be easily customized with PHP to meet your needs.
+    </p>
 
 
     [anchor:receiving_orders_with_order_form]
-
-    <h2>Receiving orders with order form</h2>
+    <h3>Receiving Orders with Order Form</h3>
 
     <p>To handle regular orders sent by your Verge3D applications (by the <a href="manual/en/puzzles/ECommerce.html#place_order" target="_parent">place order</a> or <a href="manual/en/puzzles/ECommerce.html#place_order_adv" target="_parent">place order+</a> puzzles), add an order form to some of your WordPress page/post using the following shortcode:</p>
 
@@ -238,48 +316,14 @@ post_max_size = 128M</code>
 
     <p>Then specify the link to that page/post as the "send to" parameter of the *place order*/<strong>place order +</strong> puzzles. Each time this puzzle is executed, your app will redirect users to your order form:</p>
 
-    <img src="files/wordpress/order-form.jpg" alt="WordPress order form" style="max-width: 867px;">
+    <img src="files/wordpress/order-form.jpg" class="with-border" alt="WordPress order form" style="max-width: 867px;">
 
     [demo:ring]
 
 
-    [anchor:receiving_orders_rest_api]
-
-    <h2>Receving orders in background via REST API</h2>
-
-    <p>In some cases you might want to create custom experience for placing orders instead of redirecting users to the order page.</p>
-
-    <p>Say you want to create a basic table customizer. This is how your data might look like:</p>
-
-    <code>
-    {
-        "user_name": "John Smith",
-        "user_email": "john.smith@example.com",
-        "user_phone": "+123456789"
-        "items": [
-            {
-                "sku": "table_top_white",
-                "quantity": 1
-            },
-            {
-                "sku": "table_leg_brown",
-                "quantity": 4
-            },
-        ]
-    }</code>
-
-    <p>You can compose this structure using the dictionary puzzles and then send it to the server using the "send data" puzzle.</p>
-
-    <p>To do this, assign a proper URL for your "send data" puzzle. This one looks like:</p>
-
-    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v2/place_order/</code>
-
-    <p>Where HOSTNAME is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
-
-
     [anchor:managing_orders]
 
-    <h2>Managing orders</h2>
+    <h3>Managing Orders</h3>
 
     <p>Use the <strong>Orders</strong> admin menu to access <strong>E-Commerce Orders</strong> screen:</p>
 
@@ -290,7 +334,7 @@ post_max_size = 128M</code>
 
     [anchor:managing_products]
 
-    <h2>Managing products</h2>
+    <h3>Managing Products</h3>
 
     <p>
       Use the <strong>Products</strong> admin menu to access <strong>E-Commerce Products</strong> screen:
@@ -314,7 +358,7 @@ post_max_size = 128M</code>
 
     [anchor:getting_product_info]
 
-    <h2>Getting info about products</h2>
+    <h3>Getting Info About Products</h3>
 
     <p>This feature allows the users receive information about products stored on server.</p>
 
@@ -334,7 +378,7 @@ post_max_size = 128M</code>
         "currency": "Currency symbol, such as $"
     }</code>
 
-    <h3>Using puzzles</h3>
+    <h4>Using Puzzles</h4>
 
     <p>
       Use the <strong>load data</strong> and <strong>loaded data</strong> puzzles to get info about your products:
@@ -343,15 +387,56 @@ post_max_size = 128M</code>
     <img src="files/wordpress/get_product_info_puzzles.jpg" alt="Getting product info with puzzles">
 
 
+    [anchor:uploading_files]
+
+    <h2>Uploading Files</h2>
+
+    <p>This feature allows the users to persistently store content created in Verge3D applications, such as taken screenshots, uploaded textures, and saved configurations.</p>
+
+    <p>To upload your file on the server use the following REST API method:</p>
+
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/upload_file/</code>
+
+    <p>Where HOSTNAME is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
+
+    <p>Upon success this method returns the following JSON file with the info on the uploaded file:</p>
+    <code>
+    {
+        "id": THE_ID_OF_THE_UPLOADED_FILE,
+        "link": LINK_TO_THE_UPLOADED_FILE,
+        "size": FILE_SIZE
+    }</code>
+
+    <p>Use the link provided in the request to retrieve your file or use the ID and <em>get_file</em> REST API method:</p>
+
+    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v1/get_file/ID</code>
+
+    <h3>Using Puzzles</h3>
+
+    <p>Use the <strong>send data</strong> and <strong>loaded data</strong> puzzles to upload your files. Parse the JSON fields of the API response by using the <strong>in dict ... get key ...</strong> puzzle.</p>
+    <p>The example below uploads the user-selected file specified in the "opened file" puzzle to the Soft8Soft sandbox and then saves the web address to that file in the <strong>link</strong> variable:</p>
+
+    <img src="files/wordpress/send_load_puzzles.png" alt="Send/load puzzles">
+
+    <p>To retrieve/download your files use the <strong>load data</strong> and <strong>loaded data</strong> puzzles.</p>
+
+    [demo:custom_image]
+
+
+
     [anchor:plug_in_settings]
 
-    <h2>Plugin settings</h2>
+    <h2>Plugin Settings</h2>
 
     <p>Use <strong>Settings</strong> admin menu to modify the plugin global settings:</p>
 
+    <p class="note">
+      Most of these settings are used for the e-commerce system which comes with the plug-in. You don't need these if you just want to use WooCommerce.
+    </p>
+
     <img src="files/wordpress/settings.jpg" alt="Verge3D for WordPress settings">
 
-    <h3>General tab</h3>
+    <h3>General Tab</h3>
 
     <dl>
       <dt>Currency</dt>
@@ -368,7 +453,7 @@ post_max_size = 128M</code>
       <dd>Text to display when order failed.</dd>
     </dl>
 
-    <h3>Mail tab</h3>
+    <h3>Mail Tab</h3>
 
     <dl>
       <dt>Order notification e-mail</dt>
@@ -385,7 +470,7 @@ post_max_size = 128M</code>
       <dd>Use these options to configure subject and content of invoice emails sent to your customers.</dd>
     </dl>
 
-    <h3>Documents tab</h3>
+    <h3>Documents Tab</h3>
 
     <p>To use this feature properly you need to install Chrome/Chromium browser on your server. It will be operated in the so-called <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" target="_blank">headless mode</a> to convert HTML orders to PDF format. Specify the path to the Chrome/Chromium executable if you installed it in some custom directory or leave the path field blank if you installed it system-wide.</p>
     <p>Please note, that it order to install Chrome system-wide you need to have admin access to the server. If you don't, download <a href="https://www.chromium.org/getting-involved/download-chromium" target="_blank">latest Chromium build</a>, unpack it in some user-accessible directory on your server and then specify the path to the Chromium executable in the path field (e.g <em>/home/ubuntu/chrome-linux/chrome)</em>.</p>
@@ -399,7 +484,7 @@ post_max_size = 128M</code>
       <dd>Additional content displayed in invoice documents.</dd>
     </dl>
 
-    <h3>Payment tab</h3>
+    <h3>Payment Tab</h3>
 
     <dl>
       <dt>Paid status</dt>
@@ -408,7 +493,7 @@ post_max_size = 128M</code>
       <dd>PayPal payment method activation checker and app's client ID. Use the following <a href="https://developer.paypal.com/developer/applications/" target="_blank">page</a> for instructions on how to optain it.</dd>
     </dl>
 
-    <h3>Security tab</h3>
+    <h3>Security Tab</h3>
 
     <p>
       To make your server more secure, always disable features you don't use.

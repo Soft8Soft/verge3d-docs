@@ -42,27 +42,26 @@
     </p>
 
     <dl>
-      <dt>None</dt>
-      <dd>Do not install any binaries. Use the NPM utility and the instructions <a href="manual/en/introduction/Creating-Desktop-Apps.html#using_npm">below</a> to continue building your app.</dd>
-
+      <dt>None (npm package)</dt>
+      <dd>Build an npm package intead of the ready-to-use executable. The option is for advanced users who are familiar with the NPM utility. Follow the instructions <a href="manual/en/introduction/Creating-Desktop-Apps.html#using_npm">below</a> to continue building your app.</dd>
       <dt>Windows (64-bit)</dt>
       <dd>Windows 7 or later, 64 bit.</dd>
-      <dt>macOS (64-bit)</dt>
-      <dd>macOS 10.10 (Yosemite) or later, Intel Macs.</dd>
-      <dt>macOS App Store (64-bit)</dt>
-      <dd>Reduced version for Mac App Store. Runs on macOS 10.10 (Yosemite) or later, Intel Macs.</dd>
-      <dt>Linux (64-bit)</dt>
-      <dd>Linux, 64 bit, such as Ubuntu, Fedora, OpenSuse, or Arch.</dd>
       <dt>Windows (ARM)</dt>
-      <dd>Windows 10 running on devices with 64-bit ARM processors.</dd>
-      <dt>macOS (ARM)</dt>
-      <dd>macOS 11 (Big Sur) or later, Apple Silicon (aka M1/M2) Macs.</dd>
-      <dt>macOS App Store (ARM)</dt>
-      <dd>Reduced version for Mac App Store. Runs on macOS 11 (Big Sur) or later, Apple Silicon (aka M1/M2) Macs.</dd>
-      <dt>Linux (ARM)</dt>
-      <dd>Linux on 64-bit ARM devices.</dd>
+      <dd>Windows 10+ running on devices with 64-bit ARM processors.</dd>
       <dt>Windows (32-bit)</dt>
       <dd>Windows 7 or later, 32 bit.</dd>
+      <dt>macOS (64-bit)</dt>
+      <dd>macOS 10.13 (High Sierra) or later, Intel Macs.</dd>
+      <dt>macOS (ARM)</dt>
+      <dd>macOS 11 (Big Sur) or later, Apple Silicon (aka M1/M2) Macs.</dd>
+      <dt>macOS App Store (64-bit)</dt>
+      <dd>Reduced version for Mac App Store. Runs on macOS 10.13 (High Sierra) or later, Intel Macs.</dd>
+      <dt>macOS App Store (ARM)</dt>
+      <dd>Reduced version for Mac App Store. Runs on macOS 11 (Big Sur) or later, Apple Silicon (aka M1/M2) Macs.</dd>
+      <dt>Linux (64-bit)</dt>
+      <dd>Linux, 64 bit, such as Ubuntu, Fedora, OpenSuse, or Arch.</dd>
+      <dt>Linux (ARM)</dt>
+      <dd>Linux on 64-bit ARM devices.</dd>
     </dl>
 
     <p class="note">
@@ -79,7 +78,7 @@
     <h2>Running your Application</h2>
 
     <p>
-      Exec your application by running *electron.exe* (or *Electron.app* on macOS, or *electron* on Linux) located in the app directory.
+      Exec your application by running *app_name.exe* (or *AppName.app* on macOS, or *app_name* on Linux) located in the app directory.
     </p>
 
     <img src="files/creating-desktop-apps/electron-new-app.jpg" alt="Running Verge3D content as desktop app" style="max-width: 827px">
@@ -92,6 +91,24 @@
 
     <p>
       Click on the *More info* link, then *Run anyway* to run the application. In order to fix this issue, expecially when you distribute your work to the end users, your app must be signed. See more in the <a href="https://www.electronjs.org/docs/tutorial/code-signing" target="_blank">code signing</a> section of the Electron documentation.
+    </p>
+
+    <p>
+      On macOS (Apple Silicon version) you might even get the error saying that your app is demaged (which is not case):
+    </p>
+
+    <img src="files/creating-desktop-apps/macos-app-is-demaged.webp" alt="macOS app is demaged dialog" style="max-width: 378px">
+
+    <p>
+      In that case you need to clear the quarantine attribute for the ZIP archive (with Terminal app):
+    </p>
+
+    <code>
+      xattr -r -d com.apple.quarantine my_awesome_app.zip
+    </code>
+
+    <p>
+      and then unpack/launch your app again.
     </p>
 
 
@@ -167,7 +184,7 @@
     </p>
 
     <p>
-      Run your application, you should get the following:
+      Place the modified *main.js* in your application folder, then run the app builder again. You should get the following:
     </p>
 
     <img src="files/creating-desktop-apps/electron-app-with-menu.jpg" alt="Verge3D app with menu" style="max-width: 800px">
@@ -178,12 +195,23 @@
     <h2>Advanced Electron Development with NPM</h2>
 
     <p>
-      To work with Electron, you'll need the *npm* utility which is part of the *Node.js* runtime. You can install it by following <a href="https://nodejs.org/en/download/" target="_blank">these instructions</a>.
+      By using the *npm* utility you can improve the efficiency of your Electron-based development pipeline. You can install it by following <a href="https://nodejs.org/en/download/" target="_blank">these instructions</a>.
     </p>
 
     <p>
-      See more info on how to use NPM in the <a href="https://www.electronjs.org/docs" target="_blank">Electron docs</a>.
+      See more info on how to use *npm* in the <a href="https://www.electronjs.org/docs" target="_blank">Electron docs</a>.
     </p>
+
+
+    [anchor:overriding_template_files]
+
+    <h2>Overriding Template Files</h2>
+
+    <p>
+      The template files for Electron-based builds are located inside the *manager/templates/Electron* directory inside the Verge3D installation folder. Editing these files are not recommended, but you can easily override any of these by putting the file with the same name in your application folder. For example, to provide your own implementation of the *main.js* script which is responsible for the app initialization, simply copy it from the template folder (or create a new one from scratch) and place it in the app folder:
+    </p>
+
+    <img src="files/creating-desktop-apps/override-main.webp" alt="Override main.js file for Electron">
 
 
     [anchor:no_internet_connection]
@@ -199,15 +227,15 @@
     </p>
 
     <ul>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-win32-x64.zip">Windows (64-bit)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-darwin-x64.zip">macOS (64-bit)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-mas-x64.zip">macOS App Store (64-bit)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-linux-x64.zip">Linux (64-bit)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-win32-arm64.zip">Windows (ARM)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-darwin-arm64.zip">macOS (ARM)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-mas-arm64.zip">macOS App Store (ARM)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-linux-arm64.zip">Linux (ARM)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v19.0.4/electron-v19.0.4-win32-ia32.zip">Windows (32-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-x64.zip">Windows (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-arm64.zip">Windows (ARM)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-ia32.zip">Windows (32-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-darwin-x64.zip">macOS (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-darwin-arm64.zip">macOS (ARM)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-mas-x64.zip">macOS App Store (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-mas-arm64.zip">macOS App Store (ARM)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-linux-x64.zip">Linux (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-linux-arm64.zip">Linux (ARM)</a></li>
     </ul>
 
     <p>

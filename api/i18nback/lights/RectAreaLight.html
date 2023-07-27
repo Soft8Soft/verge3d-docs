@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr; [page:Light] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      RectAreaLight emits light uniformly across the face a rectangular plane. This light type can be
+      used to simulate light sources such as bright windows or strip lighting.
+    </p>
+
+    <p>
+      This light can cast shadows — see [page:RectAreaLightShadow] page for details.
+    </p>
+
+    <h2>Code Example</h2>
+
+    <code>
+    const width = 10;
+    const height = 10;
+    const intensity = 1;
+    const rectLight = new v3d.RectAreaLight(0xffffff, intensity,  width, height);
+    rectLight.position.set(5, 5, 0);
+    rectLight.lookAt(0, 0, 0);
+    scene.add(rectLight)
+
+    const rectLightHelper = new RectAreaLightHelper(rectLight);
+    rectLight.add(rectLightHelper);
+    </code>
+
+    <h2>Examples</h2>
+
+    <p>
+      [example:webgl_lights_rectarealight WebGL / rectarealight]
+    </p>
+
+    <h2>Constructor</h2>
+
+
+    <h3>[name]([param:Integer color], [param:Float intensity], [param:Float width], [param:Float height])</h3>
+    <p class="params">
+      [page:Integer color] — (optional) hexadecimal color of the light. Default is `0xffffff` (white).<br>
+      [page:Float intensity] — (optional) the light's intensity, or brightness. Default is `1`.<br>
+      [page:Float width] — (optional) width of the light. Default is `10`.<br>
+      [page:Float height] — (optional) height of the light. Default is `10`.
+    </p>
+    <p>
+      Creates a new [name].
+    </p>
+
+    <h2>Properties</h2>
+    <p>
+      See the base [page:Light Light] class for common properties.
+    </p>
+
+    <h3>[property:Float height]</h3>
+    <p>
+      The height of the light.
+    </p>
+
+    <h3>[property:Float intensity]</h3>
+    <p>
+      The light's intensity. Default is `1`.<br>
+      In [page:WebGLRenderer.physicallyCorrectLights physically correct] mode, intensity is the luminance
+      (brightness) of the light measured in nits (cd/m^2).
+    </p>
+    <p>
+      Changing the intensity will also change the light's power.
+    </p>
+
+    <h3>[property:Boolean isRectAreaLight]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
+    </p>
+
+    <h3>[property:Float power]</h3>
+    <p>
+      The light's power. In [page:WebGLRenderer.physicallyCorrectLights physically correct] mode, power is the luminous power of the light measured in lumens (lm).
+    </p>
+    <p>
+      Changing the power will also change the light's intensity.
+    </p>
+
+    <h3>[property:Float width]</h3>
+    <p>
+      The width of the light.
+    </p>
+
+    <h2>Methods</h2>
+    <p>
+      See the base [page:Light Light] class for common methods.
+    </p>
+
+
+    <h3>[method:this copy]([param:RectAreaLight source])</h3>
+    <p>
+      Copies value of all the properties from the [page:RectAreaLight source] to this [name].
+    </p>
+
+
+    <h2>Puzzles</h2>
+
+    <p>The following puzzles work with the area lights:</p>
+
+    <ul>
+      <li><a href="manual/i18nback/puzzles/Objects.html#create_object">create object</a> — select *light*, then *area*.</li>
+      <li><a href="manual/i18nback/puzzles/Camera.html#set_light_param">set light param</a> — to set various light parameters.</li>
+      <li><a href="manual/i18nback/puzzles/Camera.html#get_light_param">get light param</a> — to obtain light parameters.</li>
+    </ul>
+
+    [sourceHint]
+
+  </body>
+</html>

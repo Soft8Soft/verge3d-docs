@@ -1,64 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Drawing Lines with JavaScript — Soft8Soft</title>
     <meta charset="utf-8">
+    <meta name="description" content="How to create and render lines in Verge3D with JavaScript coding."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
   </head>
   <body><article>
-    <h1>Drawing Lines</h1>
-    <div>
-      <p>
-        Let's say you want to draw a line or a circle, not a wireframe [page:Mesh].
-        First we need to set up the [page:WebGLRenderer renderer], [page:Scene scene] and camera (see the Creating a scene page).
-      </p>
 
-      <p>Here is the code that we will use:</p>
-      <code>
-const renderer = new v3d.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+    <h1>[name]</h1>
 
-const camera = new v3d.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-camera.position.set(0, 0, 100);
-camera.lookAt(0, 0, 0);
+    <p>
+      In this guide we show how to create and render lines using Verge3D API.
+    </p>
 
-const scene = new v3d.Scene();
-      </code>
-      <p>Next thing we will do is define a material. For lines we have to use [page:LineBasicMaterial] or [page:LineDashedMaterial].</p>
-      <code>
-//create a blue LineBasicMaterial
-const material = new v3d.LineBasicMaterial({ color: 0x0000ff });
-      </code>
+    <h2>Thin Lines</h2>
 
-      <p>
-        After material we will need a geometry with some vertices:
-      </p>
+    <p>
+      Thin lines are easier to create, but due to limitations imposed by WebGL, cannot be thicker than 1px. Do draw such lines first define a material. It can be either [page:LineBasicMaterial] or [page:LineDashedMaterial].
+    </p>
 
-      <code>
-const points = [];
-points.push(new v3d.Vector3(- 10, 0, 0));
-points.push(new v3d.Vector3(0, 10, 0));
-points.push(new v3d.Vector3(10, 0, 0));
+    <code>
+    // create a blue LineBasicMaterial
+    const material = new v3d.LineBasicMaterial({ color: 0x0000ff });
+    </code>
 
-const geometry = new v3d.BufferGeometry().setFromPoints(points);
-      </code>
+    <p>
+      After material we will need a geometry with some vertices:
+    </p>
 
-      <p>Note that lines are drawn between each consecutive pair of vertices, but not between the first and last (the line is not closed.)</p>
+    <code>
+    const points = [];
+    points.push(new v3d.Vector3(-10, 0, 0));
+    points.push(new v3d.Vector3( 0, 10, 0));
+    points.push(new v3d.Vector3( 10, 0, 0));
 
-      <p>Now that we have points for two lines and a material, we can put them together to form a line.</p>
-      <code>
-const line = new v3d.Line(geometry, material);
-      </code>
-      <p>All that's left is to add it to the scene and call [page:WebGLRenderer.render render].</p>
+    const geometry = new v3d.BufferGeometry().setFromPoints(points);
+    </code>
 
-      <code>
-scene.add(line);
-renderer.render(scene, camera);
-      </code>
+    <p>
+      Note that lines are drawn between each consecutive pair of vertices, but not between the first and last (the line is not closed).
+    </p>
 
-      <p>You should now be seeing an arrow pointing upwards, made from two blue lines.</p>
-    </div>
+    <p>Now that we have points for two lines and a material, we can put them together to form a line:</p>
+
+    <code>
+    const line = new v3d.Line(geometry, material);
+    </code>
+
+    <p>All that's left is to add it to the scene.</p>
+
+    <code>
+    app.scene.add(line);
+    </code>
+
+    <p>You should now be seeing an arrow pointing upwards, made from two blue lines.</p>
+
+    <img src="files/api/thin-line.webp" alt="Drawing thin line with JavaScript" style="max-width: 775px">
+
+
+    <h2>Thick Lines</h2>
+
+    <p>
+      Thick lines created by [page:MeshLine] or [page:MeshLineIndexed] class depending on the source data you provide. Similarly to thin lines they require a special material which is now called [page:MeshLineMaterial].
+    </p>
+
+    <code>
+    // create a blue MeshLineMaterial
+    const material = new v3d.MeshLineMaterial({ color: 0x0000ff, lineWidth: 0.3 });
+    </code>
+
+    <p>
+      `lineWidth` is the absolute width of the line in world units, not the pixel size.
+    </p>
+
+    <p>
+      To generate the line with triangulated geometry you need to pass some points to [page:MeshLineIndexed].
+    </p>
+
+    <code>
+    const points = [];
+    points.push(new v3d.Vector3(-10, 0, 0));
+    points.push(new v3d.Vector3( 0, 10, 0));
+    points.push(new v3d.Vector3( 10, 0, 0));
+
+    const geometry = new v3d.BufferGeometry().setFromPoints(points);
+
+    const line = new v3d.MeshLineIndexed();
+    line.fromBufferGeometry(geometry);
+    </code>
+
+    <p>
+      The good thing, is that such geometry can be used with regular [page:Mesh] objects:
+    </p>
+
+    <code>
+    const mesh = new v3d.Mesh(line.geometry, material);
+    </code>
+
+    <p>
+      Adding this mesh to the scene will get you the same arrow, but way thicker:
+    </p>
+
+    <code>
+    app.scene.add(mesh);
+    </code>
+
+    <img src="files/api/thick-line.webp" alt="Drawing thick line with JavaScript" style="max-width: 775px">
+
+
+    <h2>See Also</h2>
+
+    <p>[page:LineHTML] class can be used to draw the lines between 3D objects and HTML elements.</p>
+
   </article></body>
 </html>

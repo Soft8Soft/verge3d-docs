@@ -42,12 +42,40 @@
 
     <h2>Constructor</h2>
 
-    <h3>[name](container, ctxSettings, preloader)</h3>
-    <p>
-      container - the id of an HTML-element or the HTML-element itself to contain the canvas.<br />
-      ctxSettings - the WebGL context attributes to be passed in the <strong>canvas.getContext()</strong> method.<br />
-      preloader - the instance of application's [page:Preloader Preloader] class.<br />
-    </p>
+    <h3>[name]([param:String|HTMLElement container], [param:Object ctxSettings], [param:Preloader preloader])</h3>
+
+    <dl class="params">
+      <dt>[page:String container]</dt>
+      <dd>The ID of an HTML-element or the HTML-element itself to contain the canvas.</dd>
+      <dt>[page:Object ctxSettings]</dt>
+      <dd>
+        The WebGL context attributes to be passed in the `canvas.getContext()` method:
+        <dl>
+          <dt>[page:Boolean alpha]</dt>
+          <dd>Use transparent canvas. Default is `false`.</dd>
+          <dt>[page:Boolean antialias]</dt>
+          <dd>Enable multi-sampled anti-aliasing (MSAA). Default is `true`.</dd>
+          <dt>[page:Boolean depth]</dt>
+          <dd>Use depth buffer. Default is `true`.</dd>
+          <dt>[page:Boolean desynchronized]</dt>
+          <dd>Create desynchronized context for CAD-like applications. Default is `false`.</dd>
+          <dt>[page:Boolean failIfMajorPerformanceCaveat]</dt>
+          <dd>Fail to create a 3D context if the target device is slow (uses software rendering). Default is `false`.</dd>
+          <dt>[page:Boolean powerPreference]</dt>
+          <dd>Prefer high-end (`"high-performance"`) or low-end (`"low-power"`) graphics on dual-GPU systems. Default is `"default"`.</dd>
+          <dt>[page:Boolean premultipliedAlpha]</dt>
+          <dd>Use premultiplied alpha for rendering. Default is `true`.</dd>
+          <dt>[page:Boolean preserveDrawingBuffer]</dt>
+          <dd>Preserve content of the 3D canvas between frames. Default is `false`.</dd>
+          <dt>[page:Boolean stencil]</dt>
+          <dd>Allow stencil buffer to be used for rendering. Default is `true`.</dd>
+          <dt>[page:Boolean xrCompatible]</dt>
+          <dd>Make context compatible with WebXR (AR/VR). Default is `false`.</dd>
+        </dl>
+      </dd>
+      <dt>[page:Preloader preloader]</dt>
+      <dd>The instance of application's [page:Preloader Preloader] class.</dd>
+    </dl>
 
     <p>This constructor does the following:</p>
 
@@ -56,37 +84,47 @@
       <li>Checks whether WebGL technology is supported, if not displays an error dialog.</li>
       <li>Initializes an application clock.</li>
       <li>Creates a new 3D canvas with WebGL 1.0 or WebGL 2.0 context and adds it to the container element.</li>
-      <li>Initializes a GLTF loader.</li>
+      <li>Initializes a [page:GLTFLoader glTF Loader].</li>
       <li>Prepares texture compression module.</li>
       <li>Initializes methods for accelerated raycasting (BVH).</li>
-      <li>Adds an app instance to <strong>v3d.apps</strong> list (in case of non-modularized engine).</li>
+      <li>Adds an app instance to `v3d.apps` list (in case of non-modularized engine).</li>
     </ol>
 
     <h2>Properties</h2>
 
+    <h3>[property:String aaMethod]</h3>
+
+    <p>Anti-aliasing method used to improve the visual quality of the rendered scene, one of:</p>
+
+    <ul>
+      <li>'AUTO'</li>
+      <li>'MSAA4'</li>
+      <li>'MSAA8'</li>
+      <li>'MSAA16'</li>
+      <li>'FXAA'</li>
+    </ul>
+
+    <p>This value is set by [page:.loadScene] so consider it read-only.</p>
+
     <h3>[property:Array actions]</h3>
 
-    <p>Array of [page:AnimationAction animation actions] used to schedule app animations. Instead of accessing this list directly you can also use the [page:SceneUtils.getAnimationActionByName getAnimationActionByName] method to search for an action by its clip name.</p>
+    <p>Array of [page:AnimationAction animation actions] used to schedule app animations. Instead of accessing this list directly, you should use the [page:SceneUtils.getAnimationActionByName] method to search for an action by its clip name.</p>
+
+    <h3>[property:Camera camera]</h3>
+
+    <p>Application main camera. Do not replace this value directly if you need to change the main camera. Instead use the [page:App.setCamera .setCamera] method.</p>
 
     <h3>[property:Boolean clearBkgOnLoad]</h3>
 
-    <p>Set the scene background to *null* after loading a glTF scene. Default is *false*.</p>
+    <p>Set the scene background to `null` after loading a glTF scene. Default is `false`.</p>
+
+    <h3>[property:Clock clock]</h3>
+
+    <p>Application [page:Clock] object.</p>
 
     <h3>[property:HTMLElement container]</h3>
 
     <p>A container element. This is a parent element for 3D Canvas used for rendering operations.</p>
-
-    <h3>[property:Scene scene]</h3>
-
-    <p>Application main scene.</p>
-
-    <h3>[property:Camera camera]</h3>
-
-    <p>Application main camera.</p>
-
-    <h3>[property:Clock clock]</h3>
-
-    <p>Application clock object.</p>
 
     <h3>[property:Array compileCallbacks]</h3>
 
@@ -117,42 +155,73 @@
 
     </code>
 
-
-    <h3>[property:null controls]</h3>
+    <h3>[property:Object controls]</h3>
 
     <p>Application main camera controls object.</p>
 
-    <h3>[property:Number frame]</h3>
+    <h3>[property:Integer disableRenderTrigger]</h3>
+
+    <p>Used to implement delay when using [page:.disableRendering] with non-zero parameter `after`. Do not modify.</p>
+
+    <h3>[property:Float elapsed]</h3>
+
+    <p>Time in seconds passed since the last frame.</p>
+
+    <h3>[property:Boolean enableRender]</h3>
+
+    <p>Read only, `true` if the rendering is enabled, otherwise `false`. To enable/disable the actual rendering use the [page:.enableRendering] and [page:.disableRendering] methods.</p>
+
+    <h3>[property:Integer frame]</h3>
 
     <p>Current rendering frame of the application.</p>
 
-    <h3>[property:Number frameRateDivider]</h3>
+    <h3>[property:Float frameRateDivider]</h3>
 
-    <p>Application FPS divider. Use [page:.setFrameRateDivider setFrameDivider] to set this value.</p>
+    <p>Application FPS divider. Use [page:.setFrameRateDivider] to set this value.</p>
+
+    <h3>[property:GLTFLoader loader]</h3>
+
+    <p>Application's [page:GLTFLoader glTF loader] instance.</p>
 
     <h3>[property:AnimationMixer mixer]</h3>
 
     <p>Mixer used to play animations loaded from glTF data.</p>
 
-    <h3>[property:HTMLElement preloader]</h3>
+    <h3>[property:Preloader preloader]</h3>
 
-    <p>App preloader element (exists only during scene loading)</p>
-
-    <h3>[property:WebGLRenderer renderer]</h3>
-
-    <p>Application WebGL renderer.</p>
+    <p>App [page:Preloader preloader] instance (exists only during the scene loading).</p>
 
     <h3>[property:Array renderCallbacks]</h3>
 
     <p>Array of functions which will be called every time when rendering begins.</p>
 
-    <h3>[property:GLTFLoader loader]</h3>
+    <h3>[property:WebGLRenderer renderer]</h3>
 
-    <p>Application glTF loader.</p>
+    <p>Application's [page:WebGLRenderer WebGL renderer] class instance.</p>
 
-    <h3>[property:Number worldCubemapRes]</h3>
+    <h3>[property:Scene scene]</h3>
+
+    <p>Application main scene.</p>
+
+    <h3>[property:Boolean ssaaOnPause]</h3>
+
+    <p>Trigger SSAA (supersample anti-aliasing) upon [page:.disableRendering rendering pause]. Default is `false`.</p>
+
+    <h3>[property:Stats stats]</h3>
+
+    <p>Instance of the [page:Stats] class used to display FPS counter element. Created and destroyed with [page:.showFPS] and [page:.hideFPS] methods.</p>
+
+    <h3>[property:Boolean useHDR]</h3>
+
+    <p>Whether HDR rendering is enabled for the app or not. HDR rendering is enabled when a) it is requested by the main glTF scene and b) it is supported by the target hardware.</p>
+
+    <h3>[property:Integer worldCubemapRes]</h3>
 
     <p>Resolution of the cubemap texture representing the world material. Default is 1024.</p>
+
+    <h3>[property:Object3D xrCameraParent]</h3>
+
+    <p>AR/VR camera parent used to move the camera in WebXR session.</p>
 
     <h3>[property:Array xrControllers]</h3>
 
@@ -166,202 +235,338 @@
 
     <h2>Methods</h2>
 
-    <h3>[method:null animate]()</h3>
+    <h3>[method:undefined animate]()</h3>
     <p>
       Handler for scene updates: rendering, animations and camera controls. Do not change unless you know what you are doing.
     </p>
 
-    <h3>[method:null appendScene](url, loadCb, progressCb, errorCb, loadCameras, loadLights)</h3>
+    <h3>[method:undefined appendScene]([param:String url], [param:Function loadCb], [param:Function progressCb], [param:Function errorCb], [param:Boolean loadCameras], [param:Boolean loadLights])</h3>
     <p>
-      Append the scene from the specified glTF file to the current scene. The loadCb
-      callback will receive the loaded scene as a parameter after the loading is finished.<br/><br/>
-      If there is no active scene in the application, then nothing will be appended.<br/><br/>
+      Append the scene from the specified glTF file to the current scene. The `loadCb`
+      callback will receive the loaded scene as a parameter after the loading is finished
+    </p>
 
-      Such parameters as *loadCameras* and *loadLights* are used to specify if
+    <p>
+      If there is no active scene in the application, then nothing will be appended.
+    </p>
+
+    <p>
+      Parameters `loadCameras` and `loadLights` are used to specify if
       cameras and lights will be appended from the loaded scene. Both parameters
-      are *true* by default.
+      are `true` by default.
     </p>
 
-    <h3>[method:null disablePostprocessing](keepOutline)</h3>
+    <h3>[method:undefined assignClippingPlanes]([param:Scene scene])</h3>
     <p>
-      Disable all post-processing effects (except outline when keepOutline=true).
+      Prepare clipping planes for the given scene.
     </p>
 
-    <h3>[method:null disableRendering](after)</h3>
+    <h3>[method:undefined disablePostprocessing]([param:Boolean keepOutline], [param:Boolean keepGTAO])</h3>
+    <p>
+      Disable all post-processing effects (except outline when `keepOutline=true` or ambient occlusion when `keepGTAO=true`).
+    </p>
+
+    <h3>[method:undefined disableRendering]([param:Integer after])</h3>
     <p>
       Disable graphics updates in the animation loop after the given amount of frames (specify 0 to disable immediately). The controls and the animation mixer will keep being updated and the render callbacks will keep being called.
     </p>
 
-    <h3>[method:null disableSSAA]()</h3>
-    <p>
-      Disable supersample anti-aliasing.
-    </p>
-
-    <h3>[method:null dispose]()</h3>
+    <h3>[method:undefined dispose]()</h3>
     <p>
       Unloads the scene (by calling [page:.unload unload]) and disposes the
       whole application, which includes cleaning up the application's
       [page:WebGLRenderer renderer] and removing the canvas element from the
-      DOM. Emits the [page:.eventDispose dispose] event.<br/><br/>
+      DOM. Emits the [page:.eventDispose dispose] event.</p>
 
+    <p>
       The application is no longer usable after disposing. This approach is best
       suited for cases where the complete clean up is needed.
     </p>
 
-    <h3>[method:null enableControls]()</h3>
+    <h3>[method:undefined disposeEnvironment]()</h3>
     <p>
-      Enable controls for the main app camera. Depending on the control type specified for the camera this method will give you  'ORBIT', 'FLYING' or static camera.
+      Dispose environment and background buffers.
     </p>
 
-    <h3>[method:null enablePostprocessing](effects)</h3>
+    <h3>[method:undefined enableControls]([param:HTMLElement element])</h3>
     <p>
-      Enable the given post-processing effects.
+      Enable controls for the main app camera. Depending on the control type specified for the camera this method will give you 'ORBIT', 'FLYING', 'FIRST_PERSON', or static camera.
     </p>
 
-    <h3>[method:null enableRendering]()</h3>
+    <p>
+      The optional `element` parameter is used to specify the canvas element to assign mouse/keyboard/touch events. If not specified, controls will be assigned on the [page:WebGLRenderer.domElement .domElement] element of the app's [page:.renderer] instance.
+    </p>
+
+    <h3>[method:undefined enablePostprocessing]([param:Array effects])</h3>
+    <p>
+      Enable the given post-processing effects. Each effect represented by an object with the following properties:
+    </p>
+
+    <dl>
+      <dt>Afterimage</dt>
+      <dd><code>
+{
+  type: 'afterimage',
+  damp: 0.85
+}
+      </code></dd>
+
+      <dt>Bloom</dt>
+      <dd><code>
+{
+  type: 'bloom',
+  threshold: 0.8,
+  strength: 0.3,
+  radius: 0.5
+}
+      </code></dd>
+
+      <dt>Brightness/Contrast</dt>
+      <dd><code>
+{
+  type: 'brightnessContrast',
+  brightness: 0.1,
+  contrast: 0.3
+}
+      </code></dd>
+
+      <dt>DOF</dt>
+      <dd><code>
+{
+  type: 'dof',
+  focus: 10,
+  aperture: 1,
+  maxblur: 0.001,
+  depthLeakThreshold: 0.2
+}
+      </code></dd>
+
+      <dt>Grayscale</dt>
+      <dd><code>
+{
+  type: 'grayscale'
+}
+      </code></dd>
+
+      <dt>GTAO</dt>
+      <dd><code>
+{
+  type: 'gtao',
+  distance: 0.2,
+  factor: 1.0,
+  precision: 0.250,
+  bentNormals: true,
+  bounceApprox: true
+}
+      </code></dd>
+
+      <dt>Outline</dt>
+      <dd><code>
+{
+  type: 'outline',
+  edgeStrength: 3.0,
+  edgeGlow: 0.0,
+  edgeThickness: 1.0,
+  pulsePeriod: 0.0,
+  visibleEdgeColor: new Vector4(1, 1, 1, 1),
+  hiddenEdgeColor: new Vector4(0.1, 0.04, 0.02, 1)
+}
+      </code></dd>
+
+      <dt>SSR (reflection or refraction)</dt>
+      <dd><code>
+{
+  type: 'ssr',
+  useRefract: false,
+  objects: [],
+  steps: 100,
+  stride: 5,
+  binarySearchSteps: 4,
+  thickness: 0.01,
+  maxDistance: 100,
+  renderTargetScale: 0.5,
+  jitter: 0.1,
+  renderAfter: []
+}
+      </code></dd>
+    </dl>
+
+    <h3>[method:undefined enableRendering]()</h3>
     <p>
       Enable graphics updates in the animation loop.
     </p>
 
-    <h3>[method:null enableSSAA](sampleLevel, iterative)</h3>
+    <h3>[method:undefined enableSSAA]([param:Integer sampleLevel], [param:Boolean iterative])</h3>
     <p>
       Enable supersample anti-aliasing. The number of samples is calculated as 2^sampleLevel (e.g specify 4 to enable 16x SSAA).
     </p>
 
-    <h3>[method:Camera getCamera]()</h3>
+    <h3>[method:undefined endWebXR]()</h3>
     <p>
-      Returns the main app camera.
+      End WebXR session.
     </p>
 
-    <h3>[method:number getHeight]()</h3>
+    <h3>[method:WebGLRenderTarget generateRTargetPMREM]([param:WebGLRenderTarget cubeRT])</h3>
+    <p>
+      Convert cubemap render target `cubeRT` to PMREM render target. This method executed by [page:.updateEnvironment] and rarely needed on its own.
+    </p>
+
+    <h3>[method:Camera getCamera]([param:Boolean tryXrIfAvail])</h3>
+    <p>
+      Returns the main app camera. This method is recommended over accessing [page:.camera] property directly since it works for both regular rendering and WebXR mode (AR/VR). To return AR/VR camera specify `tryXrIfAvail=true`.
+    </p>
+
+    <h3>[method:Float getHeight]()</h3>
     <p>
       Return calculated container element height.
     </p>
 
-    <h3>[method:number getWidth]()</h3>
+    <h3>[method:Float getWidth]()</h3>
     <p>
       Return calculated container element width.
     </p>
 
-    <h3>[method:null hideFPS]()</h3>
+    <h3>[method:undefined hideFPS]()</h3>
     <p>
       Hide frame rate counter.
     </p>
 
-    <h3>[method:null initPostprocessing]()</h3>
+    <h3>[method:undefined initPostprocessing]()</h3>
     <p>
-      Handler for app post-processing initialization. Do not change unless you know what you are doing.
+      Handler for app post-processing initialization. Do not execute it unless you know what you are doing. Normally, you should assign any post-processing effects by using [page:.enablePostprocessing] method.
     </p>
 
-    <h3>[method:null initWebXR](mode, referenceSpaceType, successCb, failureCb, exitCb, options)</h3>
+    <h3>[method:undefined initWebXR]([param:String mode], [param:String referenceSpaceType], [param:Function successCb], [param:Function failureCb], [param:Function exitCb], [param:Object options])</h3>
+
+    <dl class="params">
+      <dt>`mode`</dt>
+      <dd>"immersive-vr" for VR session, "immersive-ar" for AR session.</dd>
+      <dt>`referenceSpaceType`</dt>
+      <dd>one of "viewer", "local", "local-floor", "bounded-floor", "unbounded".</dd>
+      <dt>`successCb`</dt>
+      <dd>callback executed on success.</dd>
+      <dt>`failureCb`</dt>
+      <dd>callback executed when the method fails.</dd>
+      <dt>`exitCb`</dt>
+      <dd>callback executed when the user leaves WebXR session.</dd>
+      <dt>`options`</dt>
+      <dd>dictionary object with additional params, such as `domOverlay` to enable HTML in AR mode.</dd>
+    </dl>
+
     <p>
       Initialize AR/VR session.
     </p>
 
-    <ul>
-      <li>*mode* — "immersive-vr" for VR session, "immersive-ar" for AR session.</li>
-      <li>*referenceSpaceType* — one of "viewer", "local", "local-floor", "bounded-floor", "unbounded".</li>
-      <li>*successCb* — callback executed on success.</li>
-      <li>*failureCb* — callback executed when the method fails.</li>
-      <li>*exitCb* — callback executed when the user leaves WebXR session.</li>
-      <li>*options* — dictionary object with additional params, such as *domOverlay* to enable HTML in AR mode.</li>
-    </ul>
-
-    <h3>[method:null loadScene](url, loadCb, progressCb, errorCb)</h3>
+    <h3>[method:undefined loadScene]([param:String url], [param:Function loadCb], [param:Function progressCb], [param:Function errorCb])</h3>
     <p>
       Load the glTF scene. The loadCb callback will receive the loaded scene as
       a parameter after the loading is finished. Emits the
-      [page:.eventSceneLoad sceneLoad] event.<br/><br/>
+      [page:.eventSceneLoad sceneLoad] event.
+    </p>
 
+    <p>
       If there already is an active scene (e.g. loaded before via the
-      [page:.loadScene loadScene] method), then use [page:.unload unload] first to
+      [page:.loadScene] method), then use [page:.unload] first to
       avoid conflicts between the existed scene and the loaded one.
     </p>
 
-    <h3>[method:null onResize]()</h3>
+    <h3>[method:undefined onResize]()</h3>
     <p>
       Handler for canvas resize event. Do not change unless you know what you are doing.
     </p>
 
-    <h3>[method:null pause]()</h3>
+    <h3>[method:undefined pause]()</h3>
     <p>
       Pauses the application: animation, controls, render callbacks and
       rendering. Emits the [page:.eventPause pause] event.
     </p>
 
-    <h3>[method:null printPerformanceInfo](delta)</h3>
+    <h3>[method:undefined printPerformanceInfo]([param:Float delta])</h3>
     <p>
-      Estimate and print out rendering performance profile. delta is an optional period of estimation (default 1).
+      Estimate and print out a rendering <a href="manual/en/introduction/Performance-Bottlenecks.html#performance_profile">performance profile</a>. `delta` is an optional period of estimation in seconds (default `1`).
     </p>
 
-    <h3>[method:null render]()</h3>
+    <h3>[method:undefined render]()</h3>
     <p>
       Handler for scene rendering. Do not change unless you know what you are
       doing. Emits the [page:.eventBeforeRender beforeRender] and
       [page:.eventAfterRender afterRender] events.
     </p>
 
-    <h3>[method:null resume]()</h3>
+    <h3>[method:undefined resume]()</h3>
     <p>
       Resumes the application: animation, controls, render callbacks and
       rendering. Emits the [page:.eventResume resume] event.
     </p>
 
-    <h3>[method:null run]()</h3>
+    <h3>[method:undefined run]()</h3>
     <p>
       Starts the application by removing the preloader and starting the
       rendering cycle.
     </p>
 
-    <h3>[method:Camera setCamera](camera)</h3>
+    <h3>[method:Camera setCamera]([param:Camera camera])</h3>
     <p>
       Set the main app camera.
     </p>
 
-    <h3>[method:null setFrameRateDivider]([param:Integer divider])</h3>
+    <h3>[method:undefined setFrameRateDivider]([param:Integer divider])</h3>
     <p>
       Lowers the maximum frame by dividing it by a specified integer number. By default the engine tries to render scenes at 60 frames per second. If the divider is set to 2, for example, the FPS will be topped out to 30.
     </p>
 
-    <h3>[method:null showFPS]()</h3>
+    <h3>[method:undefined showFPS]()</h3>
     <p>
       Show frame rate counter.
     </p>
 
-    <h3>[method:null unload]([page:Object3D rootObj])</h3>
-    <p>
-      [page:Object3D rootObj] -- (optional) an object to unload along with its
+    <h3>[method:undefined unload]([param:Object3D rootObj])</h3>
+    <p class="params">
+      [page:Object3D rootObj] — (optional) an object to unload along with its
       children; if no object is given or the given object is the main application
-      scene then the method performs full scene cleanup.<br/><br/>
+      scene then the method performs full scene cleanup.
+    </p>
 
-      Unloads either a part or the whole scene depending on the parameters.<br/><br/>
+    <p>
+      Unloads either a part or the whole scene depending on the parameters.
+    </p>
 
-      If the given *rootObj* is one of the scene objects, then this method removes
+    <p>
+      If the given `rootObj` is one of the scene objects, then this method removes
       the given object and its descendants from the scene and also frees the
       related resources (geometries, materials, textures, etc...). If the given
-      *rootObj* is the scene instance itself, then this method performs full
+      `rootObj` is the scene instance itself, then this method performs full
       scene cleanup, which includes disposing all objects, the scene's environment,
-      cameras and camera controls, animations, postprocessing, internal webgl
-      objects, etc...<br/><br/>
+      cameras and camera controls, animations, postprocessing, internal WebGL
+      objects, etc...
+    </p>
 
-      After the application's scene was fully unloaded the [page:.loadScene loadScene]
+    <p>
+      After the application's scene was fully unloaded the [page:.loadScene]
       method can be used to load a completely new scene. This approach is best
       suited for loading/unloading multiple scenes without disposing the
       whole application.
     </p>
 
-    <h3>[method:null updateEnvironment]([page:Material wMat])</h3>
+    <h3>[method:undefined updateConstraints]([param:Scene scene])</h3>
+    <p>
+      Update constraints on the scene. Normally, you don't need to use this method, since all constraints updated during scene load (by the [page:.loadScene] and [page:.appendScene] methods).
+    </p>
+
+    <h3>[method:undefined updateEnvironment]([param:Material wMat])</h3>
     <p>
       Update world environment from the specified material. Such material is
       usually stored in the [page:Scene.worldMaterial] property.
     </p>
 
-    <h3>[method:null updateEnvMapProbes]([page:Object3D object3d])</h3>
-    <p>
-      object3d - an object or a scene for searching probe objects among its descendants<br/><br/>
+    <h3>[method:undefined updateReflectionProbes]([param:Object3D object3d])</h3>
+    <p class="params">
+      object3d — an object or a scene for searching probe objects among its descendants.
+    </p>
 
+    <p>
       Update all [page:CubeReflectionProbe] objects that are descendants of the
-      given *object3d* object.
+      given `object3d` object.
     </p>
 
     <h2>Events</h2>
@@ -430,6 +635,27 @@
       </code>
     </p>
 
-    [sourceHint]
+
+    <h2>Puzzles</h2>
+
+    <p>
+      Check out the following puzzles to handle your app in a visual way:
+    </p>
+
+    <ul>
+      <li><a href="manual/en/puzzles/Initialization.html#configure_application">configure application</a> — to set up app initialization.</li>
+      <li><a href="manual/en/puzzles/Scenes.html#load_scene">load scene</a> — to load a new scene.</li>
+      <li><a href="manual/en/puzzles/Scenes.html#append_scene">append scene</a> — to append some asset to the app.</li>
+      <li><a href="manual/en/puzzles/Scenes.html#enable_rendering">enable rendering</a>/<a href="manual/en/puzzles/Scenes.html#disable_rendering">disable rendering</a> — to enable/disable rendering (with optional anti-aliasing).</li>
+      <li><a href="manual/en/puzzles/Postprocessing.html">postprocessing</a> — to enable/disable various post-processing effects.</li>
+    </ul>
+
+
+    <h2>Source</h2>
+
+    <p>
+      The source code for this module is available in the `src/extras/App.js` file inside the Verge3D's *installation folder*.
+    </p>
+
   </body>
 </html>

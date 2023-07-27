@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Этот класс хранит данные для атрибутов (таких как позиции вершин, индексы граней, нормали, цвета, UVs и любые пользовательские атрибуты), связанных с [page:BufferGeometry], что позволяет более эффективно передавать данные на GPU. Подробности и пример использования см. на этой странице.<br><br>
+
+      Данные хранятся в виде векторов любой длины (определяется [page:BufferAttribute.itemSize itemSize]), и в общем случае в описанных ниже методах при передаче индекса он автоматически умножается на длину вектора.
+    </p>
+
+    <h2>Конструктор</h2>
+    <h3>[name]([param:TypedArray array], [param:Integer itemSize], [param:Boolean normalized])</h3>
+    <p>
+    [page:TypedArray array] -- Должен быть [link:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/TypedArray TypedArray]. Используется для инстанцирования буфера. <br>
+    Этот массив должен иметь
+     <code>itemSize * numVertices</code>
+     элементов, где numVertices - количество вершин в ассоциированной [page:BufferGeometry BufferGeometry].<br><br>
+
+
+    [page:Integer itemSize] --  количество значений массива, которые должны быть связаны с конкретной вершиной. Например, если этот атрибут хранит трехкомпонентный вектор (такой как позиция, нормаль или цвет), то itemSize должен быть равен 3.
+    <br><br>
+
+    [page:Boolean normalized] -- (необязательно) Применяется только к целочисленным данным. Указывает, как базовые данные в буфере отображаются на значения в коде GLSL. Например, если [page:TypedArray array] является экземпляром UInt16Array, и [page:Boolean normalized] равно true, значения 0 - +65535 в данных массива будут отображены на 0.0f - +1.0f в атрибуте GLSL. Массив Int16Array (подписанный) будет отображать значения -32767 - +32767 на -1.0f - +1.0f. Если [page:Boolean normalized] равно false, значения будут преобразованы в плавающие без изменений, т.е. 32767 станет 32767.0f.
+    </p>
+
+    <h2>Свойства</h2>
+
+    <h3>[property:TypedArray array]</h3>
+    <p>
+      Массив [page:TypedArray array], содержащий данные, хранящиеся в буфере.
+    </p>
+
+    <h3>[property:Integer count]</h3>
+    <p>
+      Сохраняет длину массива [page:BufferAttribute.array array], разделенную на [page:BufferAttribute.itemSize itemSize].<br><br>
+
+      Если в буфере хранится трехкомпонентный вектор (такой как позиция, нормаль или цвет), то подсчитывается количество таких векторов.
+    </p>
+
+    <h3>[property:Integer itemSize]</h3>
+    <p>Длина векторов, которые хранятся в массиве [page:BufferAttribute.array array].</p>
+
+    <h3>[property:String name]</h3>
+    <p>
+      Необязательное имя для данного экземпляра атрибута. По умолчанию это пустая строка.
+    </p>
+
+    <h3>[property:Boolean needsUpdate]</h3>
+    <p>
+      Флаг, указывающий на то, что данный атрибут изменился и должен быть повторно отправлен на GPU. Установите это значение в true при изменении значения массива.<br><br>
+
+      Установка этого значения в true также увеличивает версию [page:BufferAttribute.version].
+    </p>
+
+    <h3>[property:Boolean normalized]</h3>
+    <p>
+      Указывает, как базовые данные в буфере отображаются на значения в коде шейдера GLSL. Подробности см. в конструкторе выше.
+    </p>
+
+    <h3>[property:Function onUploadCallback]</h3>
+    <p>
+      Функция обратного вызова, которая выполняется после того, как рендерер передал данные массива атрибутов на GPU.
+    </p>
+
+    <h3>[property:Object updateRange]</h3>
+    <p>Объект, содержащий:<br>
+      [page:Integer offset]: По умолчанию *0*. Позиция, с которой следует начать обновление.<br>
+      [page:Integer count]: По умолчанию *-1*, что означает не использовать диапазоны обновления. <br><br>
+
+      Это можно использовать для обновления только некоторых компонентов хранимых векторов (например, только компонента, связанного с цветом).
+    </p>
+
+    <h3>[property:Usage usage]</h3>
+    <p>
+      Определяет предполагаемую схему использования хранилища данных в целях оптимизации. Соответствует параметру *usage* в [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData WebGLRenderingContext.bufferData](). По умолчанию *v3d.StaticDrawUsage*.
+    </p>
+
+    <h3>[property:Integer version]</h3>
+    <p>Номер версии, увеличивающийся каждый раз, когда свойство [page:BufferAttribute.needsUpdate needsUpdate] установлено в true.</p>
+
+    <h2>Методы</h2>
+
+    <h3>[method:this applyMatrix3]([param:Matrix3 m])</h3>
+    <p>Применяет матрицу [page:Matrix3 m] к каждому элементу Vector3 данного BufferAttribute.</p>
+
+    <h3>[method:this applyMatrix4]([param:Matrix4 m])</h3>
+    <p>Применяет матрицу [page:Matrix4 m] к каждому элементу Vector3 данного BufferAttribute.</p>
+
+    <h3>[method:this applyNormalMatrix]([param:Matrix3 m])</h3>
+    <p>Применяет нормальную матрицу [page:Matrix3 m] к каждому элементу Vector3 данного BufferAttribute.</p>
+
+    <h3>[method:this transformDirection]([param:Matrix4 m])</h3>
+    <p>Применяет матрицу [page:Matrix4 m] к каждому элементу Vector3 этого BufferAttribute, интерпретируя элементы как векторы направления.</p>
+
+    <h3>[method:BufferAttribute clone]() </h3>
+    <p>Возвращает копию этого bufferAttribute.</p>
+
+    <h3>[method:BufferAttribute copy]([param:BufferAttribute bufferAttribute])</h3>
+    <p>Копирует другой BufferAttribute в этот BufferAttribute.</p>
+
+    <h3>[method:BufferAttribute copyArray](array) </h3>
+    <p>Скопируйте заданный здесь массив (который может быть обычным массивом или TypedArray) в [page:BufferAttribute.array array].<br><br>
+
+      Смотрите [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set]
+      для заметок о требованиях при копировании TypedArray.
+    </p>
+
+    <h3>[method:null copyAt] ([param:Integer index1], [param:BufferAttribute bufferAttribute], [param:Integer index2]) </h3>
+    <p>Скопируйте вектор из bufferAttribute[index2] в [page:BufferAttribute.array array][index1]..</p>
+
+    <h3>[method:BufferAttribute copyColorsArray]([param:Array colors]) </h3>
+    <p>Скопируйте массив, представляющий значения цветов RGB, в [page:BufferAttribute.array array].</p>
+
+    <h3>[method:BufferAttribute copyVector2sArray]([param:Array vectors]) </h3>
+    <p>Скопируйте массив, представляющий [page:Vector2]s, в массив [page:BufferAttribute.array array].</p>
+
+    <h3>[method:BufferAttribute copyVector3sArray]([param:Array vectors]) </h3>
+    <p>Скопируйте массив, представляющий [page:Vector3]s, в массив [page:BufferAttribute.array array].</p>
+
+    <h3>[method:BufferAttribute copyVector4sArray]([param:Array vectors]) </h3>
+    <p>Скопируйте массив, представляющий [page:Vector4]s, в массив [page:BufferAttribute.array array].</p>
+
+    <h3>[method:Number getX]([param:Integer index]) </h3>
+    <p>Возвращает x-компоненту вектора по заданному индексу.</p>
+
+    <h3>[method:Number getY]([param:Integer index]) </h3>
+    <p>Возвращает компонент y вектора по заданному индексу.</p>
+
+    <h3>[method:Number getZ]([param:Integer index]) </h3>
+    <p>Возвращает z-компоненту вектора по заданному индексу.</p>
+
+    <h3>[method:Number getW]([param:Integer index]) </h3>
+    <p>Возвращает w-компоненту вектора по заданному индексу.</p>
+
+    <h3>[method:this onUpload]([param:Function callback]) </h3>
+    <p>
+      Устанавливает значение свойства onUploadCallback.<br><br>
+
+      В [example:webgl_buffergeometry WebGL / Buffergeometry] это используется для освобождения памяти после передачи буфера на GPU.
+    </p>
+
+    <h3>[method:BufferAttribute set] ([param:Array value], [param:Integer offset]) </h3>
+    <p>
+    value -- [page:Array] или [page:TypedArray], из которого копируются значения. <br>
+    offset -- (необязательно) индекс массива [page:BufferAttribute.array array], с которого следует начать копирование.<br><br>
+
+    Вызывает [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set]([page:Array value], [page:Integer offset])
+    на массиве [page:BufferAttribute.array array].<br><br>
+
+    В частности, смотрите на этой странице требования к тому, чтобы [page:Array value] был [page:TypedArray].
+    </p>
+
+    <h3>[method:BufferAttribute setUsage] ([param:Usage value]) </h3>
+    <p>Установите [page:BufferAttribute.usage usage usage] в значение.</p>
+
+    <h3>[method:BufferAttribute setX]([param:Integer index], [param:Float x]) </h3>
+    <p>Устанавливает x-компонент вектора по заданному индексу.</p>
+
+    <h3>[method:BufferAttribute setY]([param:Integer index], [param:Float y]) </h3>
+    <p>Устанавливает компонент y вектора по заданному индексу.</p>
+
+    <h3>[method:BufferAttribute setZ]([param:Integer index], [param:Float z]) </h3>
+    <p>Устанавливает компонент z вектора по заданному индексу.</p>
+
+    <h3>[method:BufferAttribute setW]([param:Integer index], [param:Float w]) </h3>
+    <p>Устанавливает w-компоненту вектора по заданному индексу.</p>
+
+    <h3>[method:BufferAttribute setXY]([param:Integer index], [param:Float x], [param:Float y]) </h3>
+    <p>Устанавливает x и y компоненты вектора по заданному индексу.</p>
+
+    <h3>[method:BufferAttribute setXYZ]([param:Integer index], [param:Float x], [param:Float y], [param:Float z]) </h3>
+    <p>Устанавливает x, y и z компоненты вектора по заданному индексу.</p>
+
+    <h3>[method:BufferAttribute setXYZW]([param:Integer index], [param:Float x], [param:Float y], [param:Float z], [param:Float w]) </h3>
+    <p>Устанавливает x, y, z и w компоненты вектора по заданному индексу.</p>
+
+
+
+    [sourceHint]
+  </body>
+</html>

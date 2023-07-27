@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>Пользовательские Константы Уравнения Смешивания</h1>
+
+    <p>
+      Они работают со всеми типами материалов. Сначала установите режим смешивания материала на v3d.CustomBlending, затем задайте нужное уравнение смешивания, коэффициент источника и коэффициент назначения.
+    </p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    const material = new v3d.MeshBasicMaterial({color: 0x00ff00});
+    material.blending = v3d.CustomBlending;
+    material.blendEquation = v3d.AddEquation; //default
+    material.blendSrc = v3d.SrcAlphaFactor; //default
+    material.blendDst = v3d.OneMinusSrcAlphaFactor; //default
+    </code>
+
+    <h2>Примеры</h2>
+    <p>[example:webgl_materials_blending_custom materials / blending / custom]</p>
+
+    <h2>Уравнения Смешивания</h2>
+    <code>
+    v3d.AddEquation
+    v3d.SubtractEquation
+    v3d.ReverseSubtractEquation
+    v3d.MinEquation
+    v3d.MaxEquation
+    </code>
+
+    <h2>Исходные Факторы</h2>
+    <code>
+    v3d.ZeroFactor
+    v3d.OneFactor
+    v3d.SrcColorFactor
+    v3d.OneMinusSrcColorFactor
+    v3d.SrcAlphaFactor
+    v3d.OneMinusSrcAlphaFactor
+    v3d.DstAlphaFactor
+    v3d.OneMinusDstAlphaFactor
+    v3d.DstColorFactor
+    v3d.OneMinusDstColorFactor
+    v3d.SrcAlphaSaturateFactor
+    </code>
+
+    <h2>Факторы Назначения</h2>
+    <p>
+      Все коэффициенты источника действительны как коэффициенты назначения, за исключением <code>v3d.SrcAlphaSaturateFactor</code>
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

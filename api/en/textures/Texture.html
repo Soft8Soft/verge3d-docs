@@ -29,13 +29,20 @@
 
     <h2>Constructor</h2>
 
-    <h3>[name](image, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding)</h3>
+    <h3>[name]([param:Image image], [param:Constant mapping], [param:Constant wrapS], [param:Constant wrapT], [param:Constant magFilter], [param:Constant minFilter], [param:Constant format], [param:Constant type], [param:Integer anisotropy], [param:Constant encoding])</h3>
+
+    <p>Refer to the properties below for the explanation of the constructor params meaning.</p>
 
     <h2>Properties</h2>
 
     <h3>[property:Integer id]</h3>
     <p>
     Readonly - unique number for this texture instance.
+    </p>
+
+    <h3>[property:Boolean isTexture]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
     </p>
 
     <h3>[property:String uuid]</h3>
@@ -51,103 +58,99 @@
 
     <h3>[property:Image image]</h3>
     <p>
-    An image object, typically created using the [page:TextureLoader.load] method.
-    This can be any image (e.g., PNG, JPG, GIF, DDS) or video (e.g., MP4, OGG/OGV) type supported by Verge3D.<br /><br />
-
-    To use video as a texture you need to have a playing HTML5
-    video element as a source for your texture image and continuously update this texture
-    as long as video is playing - the [page:VideoTexture VideoTexture] class handles this automatically.
+      An image object, typically created using the [page:TextureLoader.load] method.
+      This can be any image (e.g., PNG, JPG, GIF, DDS) or video (e.g., MP4, OGG/OGV) type supported by Verge3D.
+    </p>
+    <p>
+      To use video as a texture you need to have a playing HTML5
+      video element as a source for your texture image and continuously update this texture
+      as long as video is playing - the [page:VideoTexture VideoTexture] class handles this automatically.
     </p>
 
     <h3>[property:Array mipmaps]</h3>
     <p>
-    Array of user-specified mipmaps (optional).
+      Array of user-specified mipmaps (optional).
     </p>
 
-    <h3>[property:number mapping]</h3>
+    <h3>[property:Constant mapping]</h3>
     <p>
-    How the image is applied to the object. An object type of [page:Textures v3d.UVMapping] is the default,
-    where the U,V coordinates are used to apply the map.<br />
-
-    See the [page:Textures texture constants] page for other mapping types.
+      How the image is applied to the object. An object type of [page:Textures.mapping v3d.UVMapping] is the default, where the U,V coordinates are used to apply the map.
+    </p>
+    <p>
+      See the [page:Textures.mapping texture constants] page for other mapping types.
     </p>
 
-    <h3>[property:number wrapS]</h3>
+    <h3>[property:Constant wrapS]</h3>
     <p>
-    This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.<br />
-    The default is [page:Textures v3d.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels.
-    The other two choices are [page:Textures v3d.RepeatWrapping] and [page:Textures v3d.MirroredRepeatWrapping].
-    See the [page:Textures texture constants] page for details.
+      This defines how the texture is wrapped horizontally and corresponds to *U* in UV mapping.
+    </p>
+    <p>
+      The default is [page:Textures.wrapping v3d.ClampToEdgeWrapping], where the edge is clamped to the outer edge texels. The other two choices are [page:Textures.wrapping v3d.RepeatWrapping] and [page:Textures.wrapping v3d.MirroredRepeatWrapping].
+    </p>
+    <p>
+      See the [page:Textures.wrapping texture constants] page for details.
     </p>
 
-    <h3>[property:number wrapT]</h3>
+    <h3>[property:Constant wrapT]</h3>
     <p>
-    This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping.<br />
-    The same choices are available as for [property:number wrapS].<br /><br />
-
-    NOTE: tiling of images in textures only functions if image dimensions are powers of two
-     (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels.
-     Individual dimensions need not be equal, but each must be a power of two.
-     This is a limitation of WebGL, not Verge3D.
+      This defines how the texture is wrapped vertically and corresponds to *V* in UV mapping. The same choices are available as for [page:.wrapS].
+    </p>
+    <p>
+      NOTE: tiling of images in textures only functions if image dimensions are powers of two (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, ...) in terms of pixels. Individual dimensions need not be equal, but each must be a power of two.  This is a limitation of WebGL, not Verge3D.
     </p>
 
-    <h3>[property:number magFilter]</h3>
+    <h3>[property:Constant magFilter]</h3>
     <p>
-    How the texture is sampled when a texel covers more than one pixel. The default is
-     [page:Textures v3d.LinearFilter], which takes the four closest texels and bilinearly interpolates among them.
-     The other option is [page:Textures v3d.NearestFilter], which uses the value of the closest texel.<br />
-     See the [page:Textures texture constants] page for details.
+      How the texture is sampled when a texel covers more than one pixel. The default is [page:Textures.magnification v3d.LinearFilter], which takes the four closest texels and bilinearly interpolates among them. The other option is [page:Textures.magnification v3d.NearestFilter], which uses the value of the closest texel.
+    </p>
+    <p>
+     See the [page:Textures.magnification texture constants] page for details.
     </p>
 
-    <h3>[property:number minFilter]</h3>
+    <h3>[property:Constant minFilter]</h3>
     <p>
-    How the texture is sampled when a texel covers less than one pixel. The default is
-    [page:Textures v3d.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter. <br /><br />
-
-    See the [page:Textures texture constants] page for all possible choices.
+      How the texture is sampled when a texel covers less than one pixel. The default is [page:Textures.minification v3d.LinearMipmapLinearFilter], which uses mipmapping and a trilinear filter.
+    </p>
+    <p>
+      See the [page:Textures.minification texture constants] page for all possible choices.
     </p>
 
-    <h3>[property:number anisotropy]</h3>
+    <h3>[property:Integer anisotropy]</h3>
     <p>
-    The number of samples taken along the axis through the pixel that has the highest density of texels.
-    By default, this value is 1. A higher value gives a less blurry result than a basic mipmap,
-    at the cost of more texture samples being used. Use [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy]() to
-    find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
+      The number of samples taken along the axis through the pixel that has the highest density of texels. By default, this value is `1`. A higher value gives a less blurry result than a basic mipmap, at the cost of more texture samples being used. Use [page:WebGLRenderer.capabilities renderer.capabilities.getMaxAnisotropy]() to find the maximum valid anisotropy value for the GPU; this value is usually a power of 2.
     </p>
 
-    <h3>[property:number format]</h3>
+    <h3>[property:Constant format]</h3>
     <p>
-    The default is [page:Textures v3d.RGBAFormat].<br /><br />
-
-    See the [page:Textures texture constants] page for details of other formats.
+      The default is [page:Textures.formats v3d.RGBAFormat].
+    </p>
+    <p>
+      See the [page:Textures.formats texture constants] page for details of other formats.
     </p>
 
     <h3>[property:String internalFormat]</h3>
     <p>
-    The default value is obtained using a combination of [page:Texture.format .format] and
-    [page:Texture.type .type].<br />
-
-    The GPU format allows the developer to specify how the data is going to be
-    stored on the GPU.<br /><br />
-
-    See the [page:Textures texture constants] page for details regarding all supported internal formats.
+      The default value is obtained using a combination of [page:Texture.format .format] and [page:Texture.type .type].
+    </p>
+    <p>
+      The GPU format allows the developer to specify how the data is going to be stored on the GPU.
     </p>
 
-    <h3>[property:number type]</h3>
+    <h3>[property:Constant type]</h3>
     <p>
-    This must correspond to the [page:Texture.format .format]. The default is [page:Textures v3d.UnsignedByteType],
-    which will be used for most texture formats.<br /><br />
-
-    See the [page:Textures texture constants] page for details of other formats.
+      This must correspond to the [page:Texture.format .format]. The default is [page:Textures.types v3d.UnsignedByteType], which will be used for most texture formats.
+    </p>
+    <p>
+      See the [page:Textures.types texture constants] page for details of other formats.
     </p>
 
     <h3>[property:Vector2 offset]</h3>
     <p>
     How much a single repetition of the texture is offset from the beginning, in each direction U and V.
-    Typical range is *0.0* to *1.0*.
+    Typical range is `0.0` to `1.0`.
     </p>
     <p>
-      The below texture types share the *first* uv channel in the engine. The offset (and repeat) setting is evaluated according to
+      The below texture types share the `first` uv channel in the engine. The offset (and repeat) setting is evaluated according to
       the following priorities and then shared by those textures:
       <ol>
         <li>color map</li>
@@ -165,7 +168,7 @@
       </ol>
     </p>
     <p>
-      The below texture types share the *second* uv channel in the engine. The offset (and repeat) setting is evaluated according to
+      The below texture types share the `second` uv channel in the engine. The offset (and repeat) setting is evaluated according to
       the following priorities and then shared by those textures:
       <ol>
         <li>ao map</li>
@@ -181,9 +184,9 @@
     tiling effect. Setting different repeat values for textures is restricted in the same way like [page:.offset].
     </p>
 
-    <h3>[property:number rotation]</h3>
+    <h3>[property:Float rotation]</h3>
     <p>
-    How much the texture is rotated around the center point, in radians. Positive values are counter-clockwise. Default is *0*.
+    How much the texture is rotated around the center point, in radians. Positive values are counter-clockwise. Default is `0`.
     </p>
 
     <h3>[property:Vector2 center]</h3>
@@ -214,7 +217,7 @@
 
     <h3>[property:Boolean premultiplyAlpha]</h3>
     <p>
-    If set to *true*, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is *false*.<br /><br />
+    If set to `true`, the alpha channel, if present, is multiplied into the color channels when the texture is uploaded to the GPU. Default is `false`.<br><br>
 
     Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].
     You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
@@ -222,13 +225,13 @@
 
     <h3>[property:Boolean flipY]</h3>
     <p>
-    If set to *true*, the texture is flipped along the vertical axis when uploaded to the GPU. Default is *true*.<br /><br />
+    If set to `true`, the texture is flipped along the vertical axis when uploaded to the GPU. Default is `true`.<br><br>
 
     Note that this property has no effect for [link:https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap ImageBitmap].
     You need to configure on bitmap creation instead. See [page:ImageBitmapLoader].
     </p>
 
-    <h3>[property:number unpackAlignment]</h3>
+    <h3>[property:Integer unpackAlignment]</h3>
     <p>
     4 by default. Specifies the alignment requirements for the start of each pixel row in memory.
     The allowable values are 1 (byte-alignment), 2 (rows aligned to even-numbered bytes),
@@ -237,18 +240,17 @@
     for more information.
     </p>
 
-    <h3>[property:number encoding]</h3>
+    <h3>[property:Constant encoding]</h3>
     <p>
-    [page:Textures v3d.LinearEncoding] is the default.
-    See the [page:Textures texture constants] page for details of other formats.<br /><br />
-
-    Note that if this value is changed on a texture after the material has been used,
-    it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.
+      [page:Textures.encoding v3d.LinearEncoding] is the default. See the [page:Textures.encoding texture constants] page for details of other formats.
+    </p>
+    <p>
+      Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a Material.needsUpdate for this value to be realized in the shader.
     </p>
 
     <h3>[property:Integer version]</h3>
     <p>
-    This starts at *0* and counts how many times [property:Boolean needsUpdate] is set to *true*.
+    This starts at `0` and counts how many times [page:Texture.needsUpdate .needsUpdate] is set to `true`.
     </p>
 
     <h3>[property:Function onUpdate]</h3>
@@ -259,7 +261,7 @@
 
     <h3>[property:Boolean needsUpdate]</h3>
     <p>
-    Set this to *true* to trigger an update next time the texture is used. Particularly important for setting the wrap mode.
+    Set this to `true` to trigger an update next time the texture is used. Particularly important for setting the wrap mode.
     </p>
 
     <h3>[property:Object userData]</h3>
@@ -268,9 +270,15 @@
     references to functions as these will not be cloned.
     </p>
 
+    <h3>[property:Source source]</h3>
+    <p>
+    The data definition of a texture. A reference to the data source can be shared across textures.
+    This is often useful in context of spritesheets where multiple textures render the same data but with different texture transformations.
+    </p>
+
     <h2>Methods</h2>
 
-    <h3>[page:EventDispatcher EventDispatcher] methods are available on this class.</h3>
+    <p>[page:EventDispatcher EventDispatcher] methods are available on this class.</p>
 
     <h3>[method:undefined updateMatrix]()</h3>
     <p>
@@ -281,18 +289,12 @@
     <h3>[method:Texture clone]()</h3>
     <p>
     Make copy of the texture. Note this is not a "deep copy", the image is shared.
-    Besides, cloning a texture does not automatically mark it for a texture upload. You have to set [page:Texture.needsUpdate] to true as soon as its image property (the data source) is fully loaded or ready.
-    </p>
-
-    <h3>[method:Object toJSON]([param:Object meta])</h3>
-    <p>
-    meta -- optional object containing metadata.<br />
-    Convert the texture to Verge3D [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
+    Besides, cloning a texture does not automatically mark it for a texture upload. You have to set [page:Texture.needsUpdate .needsUpdate] to true as soon as its image property (the data source) is fully loaded or ready.
     </p>
 
     <h3>[method:undefined dispose]()</h3>
     <p>
-    Frees the GPU related resources allocated by a texture. Call this method whenever a texture is no longer used in your app.
+    Frees the GPU-related resources allocated by this instance. Call this method whenever this instance is no longer used in your app.
     </p>
 
     <h3>[method:Vector2 transformUv]([param:Vector2 uv])</h3>

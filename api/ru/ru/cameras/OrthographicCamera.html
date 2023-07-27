@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr; [page:Camera] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Камера, использующая  [link:https://en.wikipedia.org/wiki/Orthographic_projection orthographic projection].<br><br>
+
+      В этом режиме проекции размер объекта на отрендеренном изображении остается постоянным независимо от расстояния до камеры.<br><br>
+
+      Это может быть полезно, в частности, для рендеринга 2D-сцен и элементов пользовательского интерфейса.
+    </p>
+
+    <h2>Пример Кода</h2>
+
+    <code>
+    const camera = new v3d.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);
+    scene.add(camera);
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_camera camera]<br>
+      [example:webgl_interactive_cubes_ortho interactive / cubes / ortho]<br>
+      [example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic]<br>
+      [example:webgl_postprocessing_advanced postprocessing / advanced]<br>
+      [example:webgl_postprocessing_dof2 postprocessing / dof2]<br>
+      [example:webgl_postprocessing_godrays postprocessing / godrays]<br>
+      [example:webgl_rtt rtt]<br>
+      [example:webgl_shaders_tonemapping shaders / tonemapping]<br>
+      [example:webgl_shadowmap shadowmap]
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]([param:Number left], [param:Number right], [param:Number top], [param:Number bottom], [param:Number near], [param:Number far])</h3>
+    <p>
+    left — Левая плоскость фрустума камеры.<br>
+    right — Правая плоскость фрустума камеры.<br>
+    top — Верхняя плоскость фрустума камеры.<br>
+    bottom — Нижняя плоскость фрустума камеры.<br>
+    near — Ближняя плоскость фрустума камеры.<br>
+    far — Дальняя плоскость фрустума камеры.<br><br>
+
+    Вместе они определяют [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum].
+    </p>
+
+
+    <h2>Свойства</h2>
+    <p>
+      Общие свойства смотрите в базовом классе [page:Camera].<br>
+      Обратите внимание, чтобы изменения, в большинстве из этих свойств, вступили в силу после внесения, вам нужно будет вызвать
+      [page:OrthographicCamera.updateProjectionMatrix .updateProjectionMatrix],
+    </p>
+
+    <h3>[property:Float bottom]</h3>
+    <p>Нижняя плоскость фрустума камеры.</p>
+
+    <h3>[property:Float far]</h3>
+    <p>
+      Дальняя плоскость фрустума камеры. По умолчанию *2000*.<br><br>
+
+      Должно быть больше, чем текущее значение плоскости [page:.near near].
+    </p>
+
+    <h3>[property:Float left]</h3>
+    <p>Левая плоскость фрустума камеры.</p>
+
+    <h3>[property:Float near]</h3>
+    <p>
+      Ближняя плоскость фрустума камеры. По умолчанию *0.1*.<br><br>
+
+      Диапазон допустимых значений - от 0 до текущего значения плоскости [page:.far far]. Обратите внимание, что, в отличие от [page:PerspectiveCamera], *0* является допустимым значением для ближней плоскости ортографической камеры.
+    </p>
+
+    <h3>[property:Float right]</h3>
+    <p>Правая плоскость фрустума камеры.</p>
+
+    <h3>[property:Float top]</h3>
+    <p>Верхнаяя плоскость фрустума камеры.</p>
+
+    <h3>[property:Object view]</h3>
+    <p>Устанавливается [page:OrthographicCamera.setViewOffset setViewOffset]. По умолчанию *null*.</p>
+
+    <h3>[property:number zoom]</h3>
+    <p>Получает или устанавливает коэффициент масштабирования камеры. По умолчанию *1*.</p>
+
+    <h2>Методы</h2>
+    <p>Общие методы смотрите в базовом классе [page:Camera].</p>
+
+    <h3>[method:null setViewOffset]([param:Float fullWidth], [param:Float fullHeight], [param:Float x], [param:Float y], [param:Float width], [param:Float height])</h3>
+    <p>
+    fullWidth — полная ширина многоракурсной установки<br>
+    fullHeight — полная высота многоракурсной установки<br>
+    x — горизонтальное смещение подкамеры<br>
+    y — вертикальное смещение подкамеры<br>
+    width — ширина подкамеры<br>
+    height — высота подкамеры<br><br>
+
+    Устанавливает смещение в большем [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum].
+    Это полезно для многооконных или многомониторных настроек. Пример использования смотрите в [page:PerspectiveCamera.setViewOffset PerspectiveCamera].
+    </p>
+
+    <h3>[method:null clearViewOffset]()</h3>
+    <p>
+      Удаляет любое смещение, установленное методом .setViewOffset.
+    </p>
+
+    <h3>[method:null updateProjectionMatrix]()</h3>
+    <p>
+      Обновляет матрицу проекции камеры. Должно вызываться после любого изменения параметров.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

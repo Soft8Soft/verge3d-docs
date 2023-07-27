@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      A class containing useful rendering methods.
+    </p>
+
+    <h2>Methods</h2>
+
+    <h3>[method:Integer assignAllLayersMask]([param:Object3D obj])</h3>
+    <p>
+      Enable all possible Verge3D [page:Layers layers] for the given [page:Object3D object]. The function returns the layers mask which was applied to the object before the assignment.
+    </p>
+
+    <h3>[method:WebGLCubeRenderTarget renderSceneToCubemap]([param:Scene scene], [param:WebGLRenderer renderer], [param:WebGLCubeRenderTarget cubeRenderTarget], [param:Object cameraOptions])</h3>
+    <p>
+      Render the given scene into a cubemap. The parameters are:
+    </p>
+
+    <dl class="params">
+      <dt>scene</dt>
+      <dd>[page:Scene] to render into a cubemap</dd>
+      <dt>renderer</dt>
+      <dd>[page:WebGLRenderer]</dd>
+      <dt>cubeRenderTarget</dt>
+      <dd>[page:WebGLCubeRenderTarget] render target containing the cubemap to render into</dd>
+      <dt>cameraOptions</dt>
+      <dd>
+        An object containing options for the cube camera used to render the scene into the cubemap; the options and their default values are:<br/>
+        camPos — cube camera position<br/>
+        clipStart — near plane value<br/>
+        clipEnd — far plane value
+      </dd>
+    </dl>
+
+    <code>
+    {
+        camPos: new Vector3(),
+        clipStart: 0.1,
+        clipEnd: 100
+    }
+    </code>
+
+    <h3>[method:WebGLCubeRenderTarget renderWorldNodeMatToCubemap]([param:WebGLRenderer renderer], [param:MeshNodeMaterial material], [param:Integer cubeRes], [param:Object options])</h3>
+    <p>
+      Render a world node material to a cubemap. The parameters are:
+    </p>
+    <dl class="params">
+      <dt>renderer</dt>
+      <dd>[page:WebGLRenderer]</dd>
+      <dt>material</dt>
+      <dd>world node material, should be of type [page:MeshNodeMaterial]</dd>
+      <dt>cubeRes</dt>
+      <dd>resolution of the rendered cubemap</dd>
+      <dt>options</dt>
+      <dd>
+        (optional) object that holds texture parameters
+        for an auto-generated cube render target; has the same format
+        as the `options` parameter for the [page:WebGLCubeRenderTarget]
+        constructor
+      </dd>
+    </dl>
+    <p>
+      The resulting [page:WebGLCubeRenderTarget render target] with a cube
+      texture in it can be used as a scene background.
+    </p>
+
+  </body>
+</html>

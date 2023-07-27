@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Texture] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">Создает текстуру куба, состоящую из шести изображений.</p>
+
+    <h2>Пример кода</h2>
+
+    <code>
+    const loader = new v3d.CubeTextureLoader();
+    loader.setPath('textures/cube/pisa/');
+
+    const textureCube = loader.load([
+      'px.png', 'nx.png',
+      'py.png', 'ny.png',
+      'pz.png', 'nz.png'
+    ]);
+
+    const material = new v3d.MeshBasicMaterial({ color: 0xffffff, envMap: textureCube });
+    </code>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name](images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy)</h3>
+
+    <p>
+      CubeTexture почти эквивалентен по функциональности и использованию [page:Texture]. Единственные различия заключаются в том, что
+      изображения представляют собой массив из 6 изображений, а не одно изображение, и опциями отображения являются
+      [page:Textures v3d.CubeReflectionMapping] (по умолчанию) или [page:Textures v3d.CubeRefractionMapping].
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <p>
+      Общие свойства смотрите в базовом классе [page:Texture Texture].
+    </p>
+
+    <h2>Методы</h2>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:Texture Texture].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

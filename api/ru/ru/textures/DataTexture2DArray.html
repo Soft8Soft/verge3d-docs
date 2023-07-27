@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Texture] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">Создает массив текстур непосредственно из исходных данных, ширины и высоты и глубины. Этот тип текстуры можно использовать только в контексте рендеринга WebGL 2.</p>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name](data, width, height, depth)</h3>
+    <p>
+      Аргумент данных должен быть [link:https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView ArrayBufferView].
+      Свойства, унаследованные от [page:Texture], используются по умолчанию, за исключением magFilter и minFilter по умолчанию к v3d.NearestFilter. Свойства flipY и generateMipmaps изначально имеют значение false.
+    </p>
+    <p>
+      Интерпретация данных зависит от типа и формата:
+      Если тип - v3d.UnsignedByteType, то для адресации данных текселя пригодится Uint8Array.
+      Если формат v3d.RGBAFormat, то для одного текселя требуется четыре значения: красный, зеленый, синий и альфа (обычно непрозрачность). Аналогично, v3d.RGBFormat определяет формат, в котором для каждого текселя используется только три значения.<br>
+
+      Для упакованных типов, v3d.UnsignedShort4444Type, v3d.UnsignedShort5551Type или v3d.UnsignedShort565Type, все цветовые компоненты одного текселя могут быть адресованы как битовые поля внутри целочисленного элемента Uint16Array.<br>
+
+      Для использования типов v3d.FloatType и v3d.HalfFloatType реализация WebGL должна поддерживать соответствующие расширения OES_texture_float и OES_texture_half_float. Чтобы использовать v3d.LinearFilter для билинейной покомпонентной интерполяции текселей на основе этих типов, расширения WebGL OES_texture_float_linear или OES_texture_half_float_linear также должны присутствовать.
+    </p>
+
+    <h2>Пример кода</h2>
+
+    <p>Создает [name], где каждая текстура имеет свой цвет.</p>
+
+    <code>
+    // create a buffer with color data
+
+    const width = 512;
+    const height = 512;
+    const depth = 100;
+
+    const size = width * height;
+    const data = new Uint8Array(3 * size * depth);
+
+    for (let i = 0; i < depth; i++) {
+
+      const color = new v3d.Color(Math.random(), Math.random(), Math.random());
+      const r = Math.floor(color.r * 255);
+      const g = Math.floor(color.g * 255);
+      const b = Math.floor(color.b * 255);
+
+      for (let j = 0; j < size; j ++) {
+
+        const stride = (i * size + j) * 3;
+
+        data[stride] = r;
+        data[stride + 1] = g;
+        data[stride + 2] = b;
+
+      }
+    }
+
+    // used the buffer to create a [name]
+
+    const texture = new v3d.DataTexture2DArray(data, width, height, depth);
+    texture.format = v3d.RGBFormat;
+    texture.type = v3d.UnsignedByteType;
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl2_materials_texture2darray WebGL2 / materials / texture2darray]
+    </p>
+
+    <h2>Свойства</h2>
+
+    <p>
+      Общие свойства смотрите в базовом классе [page:Texture Texture].
+    </p>
+
+    <h3>[property:Image image]</h3>
+    <p>
+      Переопределяется с помощью типа записи, содержащего данные, ширину, высоту и глубину.
+    </p>
+
+    <h2>Методы</h2>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:Texture Texture].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

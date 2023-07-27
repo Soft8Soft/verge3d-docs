@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Уровень детализации - показывать меши с большей или меньшей детализацией геометрии в зависимости от расстояния от камеры.<br><br>
+
+      Каждый уровень связан с объектом, и визуализация может переключаться между ними на указанные расстояния. Обычно создается три меша: один для дальнего расстояния (низкая детализация), другой для среднего расстояния (средняя детализация)
+      и один для близкого расстояния (высокая детализация).
+    </p>
+
+    <h2>Пример кода</h2>
+
+    <code>
+    const lod = new v3d.LOD();
+
+    //Create spheres with 3 levels of detail and create new LOD levels for them
+    for(let i = 0; i < 3; i++) {
+
+      const geometry = new v3d.IcosahedronBufferGeometry(10, 3 - i)
+
+      const mesh = new v3d.Mesh(geometry, material);
+
+      lod.addLevel(mesh, i * 75);
+
+    }
+
+    scene.add(lod);
+    </code>
+
+    <h2>Примеры</h2>
+
+    <p>
+      [example:webgl_lod webgl / lod]
+    </p>
+
+    <h2>Конструктор</h2>
+    <h3>[name]()</h3>
+    <p>
+      Создает новый [name].
+    </p>
+
+
+    <h2>Свойства</h2>
+    <p>Общие свойства см. в базовом классе [page:Object3D].</p>
+
+    <h3>[property:Boolean autoUpdate]</h3>
+    <p>
+      Обновляется ли объект LOD автоматически рендерером в каждом кадре или нет.
+      Если установлено значение false, вы должны самостоятельно вызывать [page:LOD.update]() в цикле рендеринга.
+      По умолчанию установлено значение true.
+    </p>
+
+    <h3>[property:Array levels]</h3>
+    <p>
+    Массив объектов [page:Object level]<br><br>
+
+    Каждый уровень представляет собой объект с двумя свойствами:<br>
+    [page:Object3D object] - [page:Object3D] для отображения на этом уровне.<br>
+    [page:Float distance] — Расстояние, на котором будет отображаться данный уровень детализации.
+    </p>
+
+    <h2>Методы</h2>
+    <p>Общие методы см. в базовом классе [page:Object3D].</p>
+
+    <h3>[method:this addLevel]([param:Object3D object], [param:Float distance])</h3>
+    <p>
+    [page:Object3D object] - [page:Object3D] для отображения на этом уровне.<br>
+    [page:Float distance] — Расстояние, на котором отображается данный уровень детализации.<br><br>
+
+    Добавляет меш, который будет отображаться на определенном расстоянии и дальше. Как правило, чем дальше расстояние,
+    тем меньше детализация меша.
+    </p>
+
+    <h3>[method:LOD clone]()</h3>
+    <p>
+      Возвращает клон данного LOD-объекта и связанных с ним объектов, определяющих расстояние.
+    </p>
+
+
+    <h3>[method:Integer getCurrentLevel]()</h3>
+    <p>
+    Получить текущий активный уровень LOD. В качестве индекса массива уровней.
+    </p>
+
+
+
+    <h3>[method:Object3D getObjectForDistance]([param:Float distance])</h3>
+    <p>
+      Получить ссылку на первый [page:Object3D] (меш) больше, чем [page:Float distance].
+    </p>
+
+    <h3>[method:Array raycast]([param:Raycaster raycaster], [param:Array intersects])</h3>
+    <p>
+    Получить пересечения между отбрасываемым [page:Ray] и его LODом.
+    [page:Raycaster.intersectObject] вызовет этот метод.
+    </p>
+
+
+    <h3>[method:null update]([param:Camera camera])</h3>
+    <p>
+      Установите видимость каждого [page:levels level level]'s [page:Object3D object] в зависимости от расстояния от [page:Camera camera].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

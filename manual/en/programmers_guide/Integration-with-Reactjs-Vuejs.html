@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>How to integrate a Verge3D app into a React.js/Vue.js project — Soft8Soft</title>
+    <title>Integration with React.js and Vue.js — Soft8Soft</title>
     <meta charset="utf-8">
+    <meta name="description" content="Learn how to integrate a Verge3D application into a React.js/Vue.js project."/>
     <base href="../../../" />
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css" />
@@ -60,7 +61,16 @@
     </p>
 
     <p>
-        2) Copy the following files from Verge3D distribution into your app:
+        2) Enter the *react-app-example* directory and install the *verge3d* npm package:
+
+    <code>
+    cd react-app-example
+    npm i verge3d
+    </code>
+    </p>
+
+    <p>
+        3) Copy the following files from Verge3D distribution into your app:
         <ul>
             <li>
                 the contents of Verge3D's *manager/templates/Embeddable/public*
@@ -69,9 +79,6 @@
             <li>
                 the contents of Verge3D's *manager/templates/Embeddable/src*
                 directory to *react-app-example/src*
-            </li>
-            <li>
-                the Verge3D engine file *build/v3d.js* to *react-app-example/public*
             </li>
         </ul>
         or use the commands below:
@@ -87,7 +94,6 @@
     MY_PATH=/path/to/my/react/app
     cp -r $V3D_PATH/manager/templates/Embeddable/public/* $MY_PATH/public/
     cp -r $V3D_PATH/manager/templates/Embeddable/src/* $MY_PATH/src/
-    cp $V3D_PATH/build/v3d.js $MY_PATH/public/
     </code>
     </div>
 
@@ -100,18 +106,9 @@
     $MY_PATH = "path\to\my\react\app"
     Copy-Item -Path "$V3D_PATH\manager\templates\Embeddable\public\*" -Destination "$MY_PATH\public" -Recurse
     Copy-Item -Path "$V3D_PATH\manager\templates\Embeddable\src\*" -Destination "$MY_PATH\src" -Recurse
-    Copy-Item "$V3D_PATH\build\v3d.js" -Destination "$MY_PATH\public"
     </code>
     </div>
     </v3d-tabs>
-
-    <p>
-        3) Add the following script tag into *react-app-example/public/index.html*:
-
-    <code>
-    &lt;script src="%PUBLIC_URL%/v3d.js"&gt;&lt;/script&gt;
-    </code>
-    </p>
 
     <p>
         4) Create a file called *react-app-example/src/V3DApp.js* with the
@@ -135,14 +132,12 @@
       #containerId = `v3d-container-${this.#uuid}`;
       #fsButtonId = `fullscreen-button-${this.#uuid}`;
       #sceneURL = 'v3dApp/app.gltf';
-      #logicURL = 'v3dApp/visual_logic.js';
 
       async loadApp() {
         ({ app: this.#app, PL: this.#PL } = await createApp({
           containerId: this.#containerId,
           fsButtonId: this.#fsButtonId,
           sceneURL: this.#sceneURL,
-          logicURL: this.#logicURL,
         }));
       }
 
@@ -217,21 +212,29 @@
 
     <p>
         Here's a simple instruction on how to create a basic Vue.js + Verge3D
-        application with the Vue CLI utility. You can find a copy of this
-        instruction in *manager/templates/Embeddable/README.md* inside the
-        Verge3D distribution.
+        application with Vite. You can find a copy of this instruction in
+        *manager/templates/Embeddable/README.md* inside the Verge3D distribution.
     </p>
 
     <p>
-        1) Create a Vue.js application via the Vue CLI utility:
+        1) Create a Vue.js application via Vite:
 
     <code>
-    npx @vue/cli create vue-app-example
+    npm create vite@latest vue-app-example -- --template vue
     </code>
     </p>
 
     <p>
-        2) Copy the following files from Verge3D distribution into your app:
+        2) Enter the *vue-app-example* directory and install the *verge3d* npm package:
+
+    <code>
+    cd vue-app-example
+    npm i verge3d
+    </code>
+    </p>
+
+    <p>
+        3) Copy the following files from Verge3D distribution into your app:
         <ul>
             <li>
                 the contents of Verge3D's *manager/templates/Embeddable/public*
@@ -240,9 +243,6 @@
             <li>
                 the contents of Verge3D's *manager/templates/Embeddable/src*
                 directory to *vue-app-example/src*
-            </li>
-            <li>
-                the Verge3D engine file *build/v3d.js* to *vue-app-example/public*
             </li>
         </ul>
         or use the commands below:
@@ -258,7 +258,6 @@
     MY_PATH=/path/to/my/vue/app
     cp -r $V3D_PATH/manager/templates/Embeddable/public/* $MY_PATH/public/
     cp -r $V3D_PATH/manager/templates/Embeddable/src/* $MY_PATH/src/
-    cp $V3D_PATH/build/v3d.js $MY_PATH/public/
     </code>
     </div>
 
@@ -271,92 +270,17 @@
     $MY_PATH = "path\to\my\vue\app"
     Copy-Item -Path "$V3D_PATH\manager\templates\Embeddable\public\*" -Destination "$MY_PATH\public" -Recurse
     Copy-Item -Path "$V3D_PATH\manager\templates\Embeddable\src\*" -Destination "$MY_PATH\src" -Recurse
-    Copy-Item "$V3D_PATH\build\v3d.js" -Destination "$MY_PATH\public"
     </code>
     </div>
     </v3d-tabs>
-
-    <p>
-        3) Add the following script tag into *vue-app-example/public/index.html*:
-
-    <code>
-    &lt;script src="&lt;%= BASE_URL %&gt;v3d.js"&gt;&lt;/script&gt;
-    </code>
-    </p>
 
     <p>
         4) Create a file *vue-app-example/src/components/V3DApp.vue* containing the
         following code:
 
     <v3d-tabs style="width: 1200px;">
-    <label>Vue 2</label>
-    <code>
-    &lt;template&gt;
-      &lt;div :id="containerId"&gt;
-        &lt;div
-          :id="fsButtonId"
-          class="fullscreen-button fullscreen-open"
-          title="Toggle fullscreen mode"
-        &gt;&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/template&gt;
-
-    &lt;script&gt;
-    import { createApp } from '../v3dApp/app';
-
-    export default {
-      name: 'V3DApp',
-
-      created() {
-        this.app = null;
-        this.PL = null,
-
-        this.uuid = window.crypto.randomUUID();
-        this.containerId = `v3d-container-${this.uuid}`;
-        this.fsButtonId = `fullscreen-button-${this.uuid}`;
-        this.sceneURL = 'v3dApp/app.gltf';
-        this.logicURL = 'v3dApp/visual_logic.js';
-
-        this.loadApp = async function() {
-          ({ app: this.app, PL: this.PL } = await createApp({
-            containerId: this.containerId,
-            fsButtonId: this.fsButtonId,
-            sceneURL: this.sceneURL,
-            logicURL: this.logicURL,
-          }));
-        }
-
-        this.disposeApp = function() {
-          this.app?.dispose();
-          this.app = null;
-
-          // dispose Puzzles' visual logic
-          this.PL?.dispose();
-          this.PL = null;
-        }
-
-        this.reloadApp = function() {
-          this.disposeApp();
-          this.loadApp();
-        }
-      },
-
-      mounted() {
-        this.loadApp();
-      },
-
-      beforeDestroy() {
-        this.disposeApp();
-      },
-    }
-    &lt;/script&gt;
-
-    &lt;style&gt;
-    @import '../v3dApp/app.css';
-    &lt;/style&gt;
-    </code>
-
     <label>Vue 3</label>
+    <span>
     <code>
     &lt;template&gt;
       &lt;div :id="containerId"&gt;
@@ -382,14 +306,12 @@
         this.containerId = `v3d-container-${this.uuid}`;
         this.fsButtonId = `fullscreen-button-${this.uuid}`;
         this.sceneURL = 'v3dApp/app.gltf';
-        this.logicURL = 'v3dApp/visual_logic.js';
 
         this.loadApp = async function() {
           ({ app: this.app, PL: this.PL } = await createApp({
             containerId: this.containerId,
             fsButtonId: this.fsButtonId,
             sceneURL: this.sceneURL,
-            logicURL: this.logicURL,
           }));
         }
 
@@ -422,6 +344,74 @@
     @import '../v3dApp/app.css';
     &lt;/style&gt;
     </code>
+    </span>
+
+    <label>Vue 2</label>
+    <span>
+    <code>
+    &lt;template&gt;
+      &lt;div :id="containerId"&gt;
+        &lt;div
+          :id="fsButtonId"
+          class="fullscreen-button fullscreen-open"
+          title="Toggle fullscreen mode"
+        &gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;
+
+    &lt;script&gt;
+    import { createApp } from '../v3dApp/app';
+
+    export default {
+      name: 'V3DApp',
+
+      created() {
+        this.app = null;
+        this.PL = null,
+
+        this.uuid = window.crypto.randomUUID();
+        this.containerId = `v3d-container-${this.uuid}`;
+        this.fsButtonId = `fullscreen-button-${this.uuid}`;
+        this.sceneURL = 'v3dApp/app.gltf';
+
+        this.loadApp = async function() {
+          ({ app: this.app, PL: this.PL } = await createApp({
+            containerId: this.containerId,
+            fsButtonId: this.fsButtonId,
+            sceneURL: this.sceneURL,
+          }));
+        }
+
+        this.disposeApp = function() {
+          this.app?.dispose();
+          this.app = null;
+
+          // dispose Puzzles' visual logic
+          this.PL?.dispose();
+          this.PL = null;
+        }
+
+        this.reloadApp = function() {
+          this.disposeApp();
+          this.loadApp();
+        }
+      },
+
+      mounted() {
+        this.loadApp();
+      },
+
+      beforeDestroy() {
+        this.disposeApp();
+      },
+    }
+    &lt;/script&gt;
+
+    &lt;style&gt;
+    @import '../v3dApp/app.css';
+    &lt;/style&gt;
+    </code>
+    </span>
     </v3d-tabs>
     </p>
 
@@ -451,11 +441,11 @@
         *vue-app-example* directory:
 
     <code>
-    npm run serve
+    npm run dev
     </code>
 
         By default the application now should be available at
-        <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>.
+        <a href="http://localhost:5173/" target="_blank">http://localhost:5173/</a>.
     </p>
 
 
@@ -521,8 +511,8 @@
 
     <p class="note">
 		You can check where Verge3D stores your applications in
-		<a href="manual/en/introduction/App-Manager.html#App_Manager_Settings">App Manager Settings</a> ->
-		*General* -> *Applications Folder*.
+		<a href="manual/en/introduction/App-Manager.html#settings_general_tab">App Manager Settings</a> →
+		*General* → *Applications Folder*.
 	</p>
 
     <p>
@@ -544,8 +534,8 @@
     V3D_APPS_PATH=/path/to/v3d/applications
     MY_PATH=/path/to/my/app
     ln -s $MY_PATH/public/v3dApp $V3D_APPS_PATH/my_awesome_app/v3dApp
-    ln -s v3dApp/visual_logic.js $V3D_APPS_PATH/my_awesome_app/visual_logic.js
-    ln -s v3dApp/visual_logic.xml $V3D_APPS_PATH/my_awesome_app/visual_logic.xml
+    ln -s $MY_PATH/src/v3dApp/visual_logic.js $V3D_APPS_PATH/my_awesome_app/visual_logic.js
+    ln -s $MY_PATH/src/v3dApp/visual_logic.xml $V3D_APPS_PATH/my_awesome_app/visual_logic.xml
     </code>
     </div>
 
@@ -562,26 +552,11 @@
     $V3D_APPS_PATH = "path\to\v3d\applications"
     $MY_PATH = "path\to\my\app"
     cmd /c mklink /D $V3D_APPS_PATH\my_awesome_app\v3dApp (Resolve-Path $MY_PATH\public\v3dApp)
-    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.js (Resolve-Path $V3D_APPS_PATH\my_awesome_app\v3dApp\visual_logic.js)
-    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.xml (Resolve-Path $V3D_APPS_PATH\my_awesome_app\v3dApp\visual_logic.xml)
+    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.js (Resolve-Path $MY_PATH\src\v3dApp\visual_logic.js)
+    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.xml (Resolve-Path $MY_PATH\src\v3dApp\visual_logic.xml)
     </code>
     </div>
     </v3d-tabs>
-
-    <p>
-        After that, it only remains to open the file *MY_PATH/src/v3dApp/app.js*,
-        then find the following line:
-    </p>
-
-    <code>
-    var LOAD_LOGIC_FILES = false;
-    </code>
-
-    <p>and change it as follows to enable loading the Puzzles' logic script:</p>
-
-    <code>
-    var LOAD_LOGIC_FILES = true;
-    </code>
 
     <p>
     Now you can see your project in the Application Manager and you can use the
@@ -602,13 +577,11 @@
         <br/><br/>
 
         When using the Puzzles Editor with a React/Vue application all file
-        paths specified in such puzzles are calculated relative to the app root
-        path which usually points to the app's *public* directory. If a React/Vue
-        application was created according to the guide described in this manual
-        then that directory is the one that should contain the *v3d.js* file and
-        the *v3dApp* directory. Also, if the Puzzles Editor was integrated with
-        a React/Vue application the way described in this manual then the Editor
-        can only access the app's *public/v3dApp* directory.
+        paths specified in such puzzles are calculated relatively to the app root
+        path which usually points to the app's *public* directory. If the
+        Puzzles Editor was integrated with a React/Vue application the way
+        described in this manual then the Editor can only access the app's
+        *public/v3dApp* directory.
         <br/><br/>
 
         So, if, for example, we want to load a sound file via puzzles, then that

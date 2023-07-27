@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      Эффективное представление геометрии меша, линии или точки. Включает позиции вершин, индексы граней, нормали, цвета, UVs и пользовательские атрибуты в буферах, снижая затраты на передачу всех этих данных в GPU.
+    </p>
+    <p>
+      Для чтения и редактирования данных в атрибутах BufferGeometry смотрите документацию [page:BufferAttribute].
+    </p>
+    <p>
+      Менее эффективное, но более простое в использовании представление геометрии см. в [page:Geometry].
+    </p>
+
+    <h2>Пример Кода</h2>
+    <code>
+    const geometry = new v3d.BufferGeometry();
+    // создадим простую квадратную форму. Дублируем левый верхний и правый нижний угол вершин, потому что каждая вершина должна появляться один раз в треугольнике.
+    const vertices = new Float32Array([
+      -1.0, -1.0,  1.0,
+       1.0, -1.0,  1.0,
+       1.0,  1.0,  1.0,
+
+       1.0,  1.0,  1.0,
+      -1.0,  1.0,  1.0,
+      -1.0, -1.0,  1.0
+    ]);
+
+    // itemSize = 3, поскольку на каждую вершину приходится 3 значения (компонента) geometry.setAttribute('position', new v3d.BufferAttribute(vertices, 3)); const material = new v3d.MeshBasicMaterial({ color: 0xff0000 }); const mesh = new v3d.Mesh(geometry, material);
+    </code>
+
+    <h2>Примеры</h2>
+    <p>
+      [example:webgl_buffergeometry Mesh with non-indexed faces]<br>
+      [example:webgl_buffergeometry_indexed Mesh with indexed faces]<br>
+      [example:webgl_buffergeometry_lines Lines]<br>
+      [example:webgl_buffergeometry_lines_indexed Indexed Lines]<br>
+      [example:webgl_buffergeometry_custom_attributes_particles Particles]<br>
+      [example:webgl_buffergeometry_rawshader Raw Shaders]
+    </p>
+
+    <h2>Конструктор</h2>
+
+
+    <h3>[name]()</h3>
+    <div>
+    Создает новый [name]. Также устанавливает несколько свойств в значение по умолчанию.
+    </div>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Object attributes]</h3>
+    <p>
+      Эта хэш-карта имеет в качестве id имя устанавливаемого атрибута, а в качестве value - [page:BufferAttribute buffer] для его установки.
+      Вместо прямого доступа к этому свойству, используйте [page:.setAttribute] и [page:.getAttribute] для доступа к атрибутам этой геометрии.
+    </p>
+
+    <h3>[property:Box3 boundingBox]</h3>
+    <p>
+      Ограничевающая область для bufferGeometry, которая может быть рассчитана с помощью [page:.computeBoundingBox](). По умолчанию *null*.
+    </p>
+
+    <h3>[property:Sphere boundingSphere]</h3>
+    <p>
+      Граничная сфера для bufferGeometry, которая может быть вычислена с помощью [page:.computeBoundingSphere](). По умолчанию *null*.
+    </p>
+
+    <h3>[property:Object drawRange]</h3>
+    <p>
+      Определяет часть геометрии для отрисовки. Его не следует задавать напрямую, вместо этого используйте [page:.setDrawRange]. По умолчанию
+      <code>
+        { start: 0, count: Infinity }
+      </code>
+      Для неиндексированной BufferGeometry, count - это количество вершин для рендеринга. Для индексированной BufferGeometry, count - это количество индексов для рендеринга.
+    </p>
+
+    <h3>[property:Array groups]</h3>
+    <p>
+      Разделите геометрию на группы, каждая из которых будет отрисована в отдельном вызове WebGL draw. Это позволяет использовать массив материалов вместе с bufferGeometry.<br><br>
+
+      Каждая группа является объектом формы:
+      <code>{ start: Integer, count: Integer, materialIndex: Integer }</code>
+      где start указывает первый элемент в этом вызове рисования - первая вершина для неиндексированной геометрии, иначе - индекс первого треугольника. Count указывает, сколько вершин (или индексов) будет включено, а materialIndex указывает индекс массива материалов для использования.<br><br>
+
+      Используйте [page:.addGroup] для добавления групп, а не изменяйте этот массив напрямую.
+    </p>
+
+
+    <!-- Note: groups used to be called drawCalls
+
+    <h3>[property:Array drawcalls]</h3>
+    <p>
+    For geometries that use indexed triangles, this Array can be used to split the object
+    into multiple WebGL draw calls. Each draw call will draw some subset of the vertices
+    in this geometry using the configured [page:Material shader]. This may be necessary if,
+    for instance, you have more than 65535 vertices in your object.
+    </p> -->
+
+
+    <h3>[property:Integer id]</h3>
+    <p>Уникальный номер для данного экземпляра bufferGeometry.</p>
+
+    <h3>[property:BufferAttribute index]</h3>
+    <p>
+      Позволяет повторно использовать вершины в нескольких треугольниках; это называется использованием "индексированных треугольников" и работает так же, как в [page:Geometry]: каждый треугольник связан с индексами трех вершин. Поэтому этот атрибут хранит индекс каждой вершины для каждой треугольной грани.
+
+      Если этот атрибут не установлен, то [page:WebGLRenderer renderer] предполагает, что все три смежные позиции представляют собой один треугольник.
+
+      По умолчанию *null*.
+    </p>
+
+    <h3>[property:Object morphAttributes]</h3>
+    <p>
+      Хэшмап [page:BufferAttribute]-атрибутов, содержащих сведения о геометрических [page:Geometry.morphTargets morphTargets].
+    </p>
+
+    <h3>[property:Boolean morphTargetsRelative]</h3>
+    <p>
+      Используется для управления поведением цели морфа; если установлено значение true, данные цели морфа обрабатываются как относительные смещения, а не как абсолютные позиции/нормали.
+
+      По умолчанию *false*.
+    </p>
+
+    <h3>[property:String name]</h3>
+    <p>
+      Необязательное имя для данного экземпляра bufferGeometry. По умолчанию это пустая строка.
+    </p>
+
+    <h3>[property:Object userData]</h3>
+    <p>
+      Объект, который можно использовать для хранения пользовательских данных о BufferGeometry. Он не должен содержать ссылки на функции, так как они не будут клонироваться.
+    </p>
+
+    <h3>[property:String uuid]</h3>
+    <p>
+    [link:http://en.wikipedia.org/wiki/Universally_unique_identifier UUID] данного экземпляра объекта. Он присваивается автоматически и не подлежит редактированию.
+    </p>
+
+    <h2>Методы</h2>
+
+    <h3>[page:EventDispatcher EventDispatcher] методы доступны для этого класса.</h3>
+
+    <h3>[method:BufferGeometry setAttribute]([param:String name], [param:BufferAttribute attribute])</h3>
+    <p>
+      Устанавливает атрибут для данной геометрии. Используйте это свойство вместо свойства attributes, так как для ускорения итерации по атрибутам ведется внутренняя хэш-карта [page:.attributes].
+    </p>
+
+    <h3>[method:null addGroup]([param:Integer start], [param:Integer count], [param:Integer materialIndex])</h3>
+    <p>
+      Добавляет группу к этой геометрии; подробности см. в свойстве [page:BufferGeometry.groups groups].
+    </p>
+
+
+    <h3>[method:null applyMatrix4]([param:Matrix4 matrix])</h3>
+    <p>Запекает матричное преобразование непосредственно в координаты вершин.</p>
+
+    <h3>[method:BufferGeometry center] ()</h3>
+    <p>Отцентрируйте геометрию на основе ограничительной рамки.</p>
+
+    <h3>[method:BufferGeometry clone]()</h3>
+    <p>Создает клон этой BufferGeometry.</p>
+
+    <h3>[method:BufferGeometry copy]([param:BufferGeometry bufferGeometry])</h3>
+    <p>Копирует другую BufferGeometry в эту BufferGeometry.</p>
+
+    <h3>[method:null clearGroups]()</h3>
+    <p>Очищает все группы.</p>
+
+    <h3>[method:null computeBoundingBox]()</h3>
+    <p>
+      Вычисляет граничную область геометрии, обновляя атрибут [page:.boundingBox].<br>
+      Граничные поля не вычисляются по умолчанию. Они должны быть вычислены явно, иначе они *null*.
+    </p>
+
+    <h3>[method:null computeBoundingSphere]()</h3>
+    <p>
+      Вычисляет граничную сферу геометрии, обновляя атрибут [page:.boundingSphere].<br>
+      Граничные сферы не вычисляются по умолчанию. Их нужно вычислить явно, иначе они будут *null*.
+    </p>
+
+    <h3>[method:null computeVertexNormals]()</h3>
+    <p>Вычисляет нормали вершин путем усреднения нормалей граней.</p>
+
+    <h3>[method:null dispose]()</h3>
+    <p>
+      Удаляет объект из памяти. <br>
+      Вы должны вызвать этот вызов, когда вы хотите удалить BufferGeometry во время работы приложения.
+    </p>
+
+    <h3>[method:BufferGeometry fromDirectGeometry]([param:Geometry])</h3>
+    <p>
+      Заполняет эту BufferGeometry данными из объекта [page:DirectGeometry], содержащего грани. Не реализовано для линейной геометрии.<br><br>
+
+      Примечание: [page:DirectGeometry] в основном используется как промежуточный объект для преобразования между [page:Geometry] и BufferGeometry.
+    </p>
+
+    <h3>[method:BufferGeometry fromGeometry]([param:Geometry])</h3>
+    <p>Заполняет этот BufferGeometry данными из объекта [page:Geometry], содержащего грани. Не реализовано для линейной геометрии.</p>
+
+    <h3>[method:BufferAttribute getAttribute]([param:String name])</h3>
+    <p>Возвращает атрибут [page:BufferAttribute] с указанным именем.</p>
+
+    <h3>[method:BufferAttribute getIndex] ()</h3>
+    <p>Возвращает буфер [page:.index].</p>
+
+    <h3>[method:Boolean hasAttribute]([param:String name])</h3>
+    <p>Возвращает *true*, если атрибут с указанным именем существует.</p>
+
+    <h3>[method:BufferGeometry lookAt] ([param:Vector3 vector])</h3>
+    <p>
+    vector - Вектор мира, на который можно посмотреть.<br><br>
+
+    Поворачивает геометрию лицом к точке в пространстве. Обычно это выполняется однократно, а не в цикле.
+    Используйте [page:Object3D.lookAt] для типичного использования сетки в реальном времени.
+    </p>
+
+    <h3>[method:null merge]([param:BufferGeometry bufferGeometry], [param:Integer offset])</h3>
+    <p>Слияние в другой BufferGeometry с необязательным смещением места начала слияния.</p>
+
+    <h3>[method:null normalizeNormals]()</h3>
+    <p>
+      Каждый нормальный вектор в геометрии будет иметь величину 1. Это исправит освещение на поверхностях геометрии.
+    </p>
+
+    <h3>[method:BufferAttribute deleteAttribute]([param:String name])</h3>
+    <p>Удаляет атрибут [page:BufferAttribute] с указанным именем.</p>
+
+    <h3>[method:BufferGeometry rotateX] ([param:Float radians])</h3>
+    <p>
+      Поверните геометрию вокруг оси X. Обычно это делается однократно, а не во время цикла.
+      Используйте [page:Object3D.rotation] для типичного вращения сетки в реальном времени.
+    </p>
+
+    <h3>[method:BufferGeometry rotateY] ([param:Float radians])</h3>
+    <p>
+      Поверните геометрию вокруг оси Y. Обычно это делается однократно, а не во время цикла.
+      Используйте [page:Object3D.rotation] для типичного вращения сетки в реальном времени.
+    </p>
+
+    <h3>[method:BufferGeometry rotateZ] ([param:Float radians])</h3>
+    <p>
+      Поворот геометрии вокруг оси Z. Обычно это делается однократно, а не во время цикла.
+      Используйте [page:Object3D.rotation] для типичного вращения сетки в реальном времени.
+    </p>
+
+    <h3>[method:BufferGeometry scale] ([param:Float x], [param:Float y], [param:Float z])</h3>
+    <p>
+      Масштабирование геометрических данных. Обычно это делается однократно, а не во время цикла.
+      Используйте [page:Object3D.scale] для типичного масштабирования сетки в реальном времени.
+    </p>
+
+    <h3>[method:BufferGeometry setIndex] ([param:BufferAttribute index])</h3>
+    <p>Установите буфер [page:.index].</p>
+
+    <h3>[method:null setDrawRange] ([param:Integer start], [param:Integer count])</h3>
+    <p>Установите свойство [page:.drawRange]. Для неиндексированной BufferGeometry, count - это количество вершин для отрисовки.
+      Для индексированной BufferGeometry, count - это количество индексов для рендеринга.</p>
+
+    <h3>[method:BufferGeometry setFromObject] ([param:Object3D object])</h3>
+    <p>Устанавливает атрибуты для этой BufferGeometry из [page:Object3D].</p>
+
+    <h3>[method:BufferGeometry setFromPoints] ([param:Array points])</h3>
+    <p>Устанавливает атрибуты для этой BufferGeometry из массива точек.</p>
+
+    <h3>[method:BufferGeometry toNonIndexed]()</h3>
+    <p>Возвращает неиндексную версию индексированной BufferGeometry.</p>
+
+    <h3>[method:BufferGeometry translate] ([param:Float x], [param:Float y], [param:Float z])</h3>
+    <p>
+      Перевести геометрию. Обычно это делается однократно, а не во время цикла. Используйте [page:Object3D.position] для типичного перевода меша в реальном времени.
+    </p>
+
+    <h3>[method:BufferGeometry updateFromObject] ([param:Object3D object])</h3>
+    <div>Обновляет атрибуты для этой BufferGeometry из [page:Object3D].</div>
+
+    [sourceHint]
+  </body>
+</html>

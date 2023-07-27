@@ -10,36 +10,44 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      An AnimationClip is a reusable set of keyframe tracks which represent an animation.<br /><br />
+      An [name] is a reusable set of keyframe tracks which represent an animation.
+    </p>
 
-      For an overview of the different elements of the Verge3D animation system see the
-      "Animation System" article in the "Next Steps" section of the manual.
+    <p>
+      For an overview of the different elements of the Verge3D animation system, see the <a href="manual/en/programmers_guide/Animation-system.html">Animation System</a> section of the manual.
     </p>
 
 
     <h2>Constructor</h2>
 
 
-    <h3>[name]([param:String name], [param:Number duration], [param:Array tracks])</h3>
-    <p>
-      [page:String name] - a name for this clip.<br />
-      [page:Number duration] - the duration of this clip (in seconds). If a negative value is passed,
-      the duration will be calculated from the passed *tracks* array.<br />
-      [page:Array tracks] - an array of [page:KeyframeTrack KeyframeTracks].<br /><br />
+    <h3>[name]([param:String name], [param:Float duration], [param:Array tracks], [param:Constant blendMode])</h3>
+    <p class="params">
+      [page:String name] — a name for this clip.<br>
+      [page:Float duration] — the duration of this clip (in seconds). If a negative value is passed,
+      the duration will be calculated from the passed `tracks` array.<br>
+      [page:Array tracks] — an array of [page:KeyframeTrack KeyframeTracks].<br>
+      [page:Integer blendMode] — (optional) defines how the animation is blended/combined when two or more animations are simultaneously played. Default is `v3d.NormalAnimationBlendMode`.
+    </p>
 
+    <p>
       Note: Instead of instantiating an AnimationClip directly with the constructor, you can use one
       of its static methods to create AnimationClips: from JSON ([page:.parse parse]), from morph
       target sequences ([page:.CreateFromMorphTargetSequence CreateFromMorphTargetSequence],
       [page:.CreateClipsFromMorphTargetSequences CreateClipsFromMorphTargetSequences]) or from
-      animation hierarchies ([page:.parseAnimation parseAnimation]) - if your model doesn't already
+      animation hierarchies ([page:.parseAnimation parseAnimation]) — if your model doesn't already
       hold AnimationClips in its geometry's animations array.
     </p>
 
-
     <h2>Properties</h2>
 
+    <h3>[property:Constant blendMode]</h3>
+    <p>
+      Defines how the animation is blended/combined when two or more animations are simultaneously played.
+      Valid values are `NormalAnimationBlendMode` (default) and `AdditiveAnimationBlendMode`.
+    </p>
 
-    <h3>[property:Number duration]</h3>
+    <h3>[property:Float duration]</h3>
     <p>
       The duration of this clip (in seconds). This can be calculated from the [page:.tracks tracks]
       array via [page:.resetDuration resetDuration].
@@ -82,11 +90,6 @@
       [page:KeyframeTrack].
     </p>
 
-    <h3>[method:Object toJSON]()</h3>
-    <p>
-      Returns a JSON object representing the serialized animation clip.
-    </p>
-
     <h3>[method:this trim]()</h3>
     <p>
       Trims all tracks to the clip's duration.
@@ -101,19 +104,20 @@
     <h2>Static Methods</h2>
 
 
-    <h3>[method:Array CreateClipsFromMorphTargetSequences]([param:String name], [param:Array morphTargetSequence], [param:Number fps], [param:Boolean noLoop])</h3>
+    <h3>[method:Array CreateClipsFromMorphTargetSequences]([param:String name], [param:Array morphTargetSequence], [param:Float fps], [param:Boolean noLoop])</h3>
     <p>
       Returns an array of new AnimationClips created from the morph
       target sequences of a geometry, trying to sort morph target names into animation-group-based
       patterns like "Walk_001, Walk_002, Run_001, Run_002 ...".
     </p>
 
-    <h3>[method:AnimationClip CreateFromMorphTargetSequence]([param:String name], [param:Array morphTargetSequence], [param:Number fps], [param:Boolean noLoop])</h3>
+    <h3>[method:AnimationClip CreateFromMorphTargetSequence]([param:String name], [param:Array morphTargetSequence], [param:Float fps], [param:Boolean noLoop])</h3>
     <p>
-      Returns a new AnimationClip from the passed morph targets array of a geometry, taking a name and the number of frames per second.<br /><br />
-
-      Note: The fps parameter is required, but the animation speed can be overridden in an
-      *AnimationAction* via [page:AnimationAction.setDuration animationAction.setDuration].
+      Returns a new AnimationClip from the passed morph targets array of a geometry, taking a name and the number of frames per second.
+    </p>
+    <p class="note">
+      The fps parameter is required, but the animation speed can be overridden in an
+      `AnimationAction` via [page:AnimationAction.setDuration animationAction.setDuration].
     </p>
 
     <h3>[method:AnimationClip findByName]([param:Object objectOrClipArray], [param:String name])</h3>
@@ -132,12 +136,14 @@
       Parses the animation.hierarchy format and returns an AnimationClip.
     </p>
 
-    <h3>[method:Object toJSON]([param:AnimationClip clip])</h3>
+
+    <h2>Puzzles</h2>
+
     <p>
-      Takes an AnimationClip and returns a JSON object.
+      You can also employ <a href="manual/en/puzzles/Animation.html">animation</a> puzzles which can be easier to use than [name] API.
     </p>
 
-
     [sourceHint]
+
   </body>
 </html>

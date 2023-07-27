@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="i18nback">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:Object3D] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Abstract base class for cameras. This class should always be inherited when you build a new camera.
+    </p>
+
+
+    <h2>Constructor</h2>
+
+    <h3>[name]()</h3>
+    <p>
+      Creates a new [name]. Note that this class is not intended to be called directly;
+      you probably want a [page:PerspectiveCamera] or [page:OrthographicCamera] instead.
+    </p>
+
+    <h2>Properties</h2>
+
+    <p>See the base [page:Object3D] class for common properties.</p>
+
+    <h3>[property:ControlSettings controls]</h3>
+    <p>
+      Camera control settings used to assign application [page:App.controls controls].
+    </p>
+
+    <h3>[property:Boolean ignoreShadowLayers]</h3>
+    <p>
+      Ignore camera layers when rendering objects into the shadow map. Used internally by SSR pass. Default is `false`.
+    </p>
+
+    <h3>[property:Boolean isCamera]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
+    </p>
+
+    <h3>[property:Layers layers]</h3>
+    <p>
+      The [page:Layers layers] that the camera is a member of. This is an inherited property from [page:Object3D].
+    </p>
+    <p>
+      Objects must share at least one layer with the camera to be seen when the camera's viewpoint is rendered.
+    </p>
+
+    <h3>[property:Matrix4 matrixWorldInverse]</h3>
+    <p>
+      This is the inverse of matrixWorld. MatrixWorld contains the Matrix which has
+      the world transform of the Camera.
+    </p>
+
+    <h3>[property:Matrix4 projectionMatrix]</h3>
+    <p>This is the matrix which contains the projection.</p>
+
+    <h3>[property:Matrix4 projectionMatrixInverse]</h3>
+    <p>The inverse of projectionMatrix.</p>
+
+    <h3>[property:Object viewportFit]</h3>
+
+    <p>
+      An object with viewport fit settings:
+    </p>
+
+    <dl class="params">
+      <dt>[page:Cameras type]</dt>
+      <dd>Viewport fit type, see [page:Cameras here] for more info.</dd>
+      <dt>[page:Float initialAspect]</dt>
+      <dd>Initial viewport aspect ratio.</dd>
+    </dl>
+
+
+    <h2>Methods</h2>
+
+    <p>See the base [page:Object3D] class for common methods.</p>
+
+    <h3>[method:Camera clone]([param:Boolean recursive])</h3>
+    <p>
+      Return a new camera with the same properties as this one.
+    </p>
+
+    <h3>[method:this copy]([param:Camera source], [param:Boolean recursive])</h3>
+    <p>
+      Copy the properties from the source camera into this one.
+    </p>
+
+    <h3>[method:Vector3 getWorldDirection]([param:Vector3 target])</h3>
+    <p class="params">
+      [page:Vector3 target] — the result will be copied into this Vector3.
+    </p>
+    <p>
+      Returns a [page:Vector3] representing the world space direction in which the camera is looking.
+      (Note: A camera looks down its local, negative z-axis).
+    </p>
+
+    <h2>Puzzles</h2>
+    <p>
+      There are numerous <a href="manual/i18nback/puzzles/Camera.html">camera puzzles</a> to manage your camera with no coding.
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>
