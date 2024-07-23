@@ -14,7 +14,7 @@
 
     <p>Use these puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more.</p>
 
-    <img src="files/puzzles/puzzles-advanced.jpg" alt="Advanced visual programming blocks">
+    <img src="files/puzzles/puzzles-advanced.webp" alt="Advanced visual programming blocks">
 
 
     <h2>Contents</h2>
@@ -76,8 +76,6 @@
     </ul>
 
 
-    <!-- COMPAT: < 3.5 -->
-    <a href="#" id="call_JS_function"></a>
     [anchor:call_external_function]
 
     <h3>call external function</h3>
@@ -152,7 +150,7 @@ function prepareExternalInterface(app) {
     <h3>read JSON</h3>
 
     <p>
-      Interprets text (or <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a>) as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which is returned in a dictionary.
+      Interprets text (or <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a>) as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which is returned in a dictionary.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-JSON.jpg" alt="Read JSON visual programming block">
@@ -164,7 +162,7 @@ function prepareExternalInterface(app) {
     <h3>read CSV</h3>
 
     <p>
-      Interprets text (or <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a>) as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
+      Interprets text (or <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a>) as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-CSV.jpg" alt="Read CSV visual programming block">
@@ -269,32 +267,56 @@ function prepareExternalInterface(app) {
       Returns a given JavaScript object.
     </p>
 
-    <img src="files/puzzles/puzzles-advanced-javascript-object.jpg" alt="Visual programming block to work with JavaScript objects">
+    <img src="files/puzzles/puzzles-advanced-javascript-object.webp" alt="Visual programming block to work with JavaScript objects">
 
     <p>You can get the following JavaScript objects with this puzzle:</p>
 
     <dl>
-      <dt>window</dt>
-      <dd>Return the top-level *window* object as dictionary value.</dd>
       <dt>arguments</dt>
-      <dd>Returns the list of arguments of the currently executed function. Can be used to get arguments of Puzzles procedures or additional arguments passed to internal Puzzles callbacks (see below).</dd>
+      <dd>
+        <p>
+          Returns the list of arguments of the currently executed function. Can be used to get arguments of Puzzles procedures or additional arguments passed to internal Puzzles callbacks.
+        </p>
+        <p>
+          For example, when using <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> puzzle, you can get the internal JavaScript event which triggers the puzzle logic using the first argument of the callback executed behind the *do* slot. In the example below we use this event to get X and Y coordinates of the mouse pointer:
+        </p>
+
+        <img src="files/puzzles/puzzles-advanced-javascript-object-arguments.webp" alt="Working with JavaScript arguments" style="max-width: 735px;">
+
+        <p>The following puzzles support advanced options:</p>
+
+        <ul>
+          <li><a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/en/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/en/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> event which triggers puzzles in the <em>do</em> slots.</li>
+          <li><a href="manual/en/puzzles/Time.html#after">after</a>, <a href="manual/en/puzzles/Time.html#set_timer">set timer</a> — timer ID returned by the puzzles' <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> call.</li>
+          <li><a href="manual/en/puzzles/Time.html#every_frame">every frame</a> — delta time and total elapsed time.</li>
+          <li><a href="manual/en/puzzles/HTML.html#event">event</a> — event object.</li>
+          <li><a href="manual/en/puzzles/AR_VR.html#session_event">on session event</a> — WebXR event object.</li>
+        </ul>
+      </dd>
+
+      <dt>html element</dt>
+      <dd>
+        <p>
+          Returns a <a href="manual/en/puzzles/Dictionaries.html">dictionary</a> which represents a DOM object for the specified HTML element. This is useful to access HTML element properies which are not yet supported by the <a href="manual/en/puzzles/HTML.html#set_property">set property</a> or <a href="manual/en/puzzles/HTML.html#get_property">get property</a> puzzles.
+        </p>
+
+        <img src="files/puzzles/puzzles-advanced-javascript-object-html-element.webp" alt="Working with JavaScript window object" style="max-width: 885px;">
+      </dd>
+
+      <dt>form data</dt>
+      <dd>
+        Get FormData object for the `&lt;form&gt;` element.
+      </dd>
+
       <dt>this</dt>
-      <dd>JavaScript *this* value.</dd>
+      <dd>Value represented by JavaScript's <a href="api/en/types/JavaScriptTypes.html#this">`this`</a> keyword.</dd>
+
+      <dt>window</dt>
+      <dd>
+        <p>Return the top-level *window* object as dictionary value.</p>
+        <img src="files/puzzles/puzzles-advanced-javascript-object-window.webp" alt="Working with JavaScript window object" style="max-width: 950px;">
+      </dd>
     </dl>
-
-    <p>The *arguments* option can be used to retrieve additional puzzles options. For example, when using <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> puzzle, you can get the internal JavaScript event which triggers the puzzle logic using the first argument of the callback executed behind the *do* slot. In the example below we use this event to get X and Y coordinates of the mouse pointer:</p>
-
-    <img src="files/puzzles/puzzles-advanced-javascript-object-example.jpg" alt="Working with JavaScript objects">
-
-    <p>The following puzzles support advanced options:</p>
-
-    <ul>
-      <li><a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/en/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/en/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> event which triggers puzzles in the <em>do</em> slots.</li>
-      <li><a href="manual/en/puzzles/Time.html#after">after</a>, <a href="manual/en/puzzles/Time.html#set_timer">set timer</a> — timer ID returned by the puzzles' <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> call.</li>
-      <li><a href="manual/en/puzzles/Time.html#every_frame">every frame</a> — delta time and total elapsed time.</li>
-      <li><a href="manual/en/puzzles/HTML.html#event">event</a> — event object.</li>
-      <li><a href="manual/en/puzzles/AR_VR.html#session_event">on session event</a> — WebXR event object.</li>
-    </ul>
 
 
     [anchor:wait_promise]

@@ -31,6 +31,10 @@ const GENERIC_TYPES = [
     'Float',
     'Function',
     'HTMLElement',
+    'HTMLCanvasElement',
+    'HTMLImageElement',
+    'Image',
+    'ImageBitmap',
     'Integer',
     'null',
     'Object',
@@ -230,9 +234,8 @@ function writePage(pageFile, lang, navigation, sitemap) {
         `));
 
         head.appendChild(JSDOM.fragment(`
-            <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <!-- favicons from realfavicongenerator.net -->
             <link rel="apple-touch-icon" sizes="180x180" href="${HOST}files/icons/apple-touch-icon.png">
             <link rel="icon" type="image/png" sizes="48x48" href="${HOST}files/icons/favicon-48x48.png">
             <link rel="icon" type="image/png" sizes="32x32" href="${HOST}files/icons/favicon-32x32.png">
@@ -244,6 +247,11 @@ function writePage(pageFile, lang, navigation, sitemap) {
         var imgLicenseData = createImgLicenseData(dom);
         if (imgLicenseData)
             head.appendChild(JSDOM.fragment(imgLicenseData));
+
+        if (pageFile.endsWith('FAQ.html')) {
+            const faqData = createFaqData(dom);
+            head.appendChild(JSDOM.fragment(faqData));
+        }
 
         var body = dom.window.document.body;
 
@@ -335,6 +343,86 @@ function createImgLicenseData(dom) {
         return null;
 }
 
+function collectFaqAnswer(elem) {
+    const next = elem.nextElementSibling;
+    if (['P', 'OL', 'UL', 'DL', 'DT', 'DD', 'CODE'].includes(next.nodeName)) {
+        // replace unsupported tags by <p>
+        const html = next.outerHTML.replaceAll('<dl>', '<p>').
+                                    replaceAll('<dt>', '<p>').
+                                    replaceAll('<dd>', '<p>').
+                                    replaceAll('<code>', '<p>').
+                                    replaceAll('<code class="language-html">', '<p>').
+                                    replaceAll('</dl>', '</p>').
+                                    replaceAll('</dt>', '</p>').
+                                    replaceAll('</dd>', '</p>').
+                                    replaceAll('</code>', '</p>');
+        return html + collectFaqAnswer(next);
+    } else if (['IMG'].includes(next.nodeName)) {
+        // pass these tags
+        return collectFaqAnswer(next);
+    } else {
+        // stop
+        return '';
+    }
+}
+
+/**
+ * https://developers.google.com/search/docs/appearance/structured-data/faqpage
+ */
+function createFaqData(dom) {
+
+    const faqData = [];
+
+    const questions = dom.window.document.getElementsByTagName('h3');
+
+    for (let i = 0; i < questions.length; i++) {
+        const questionElem = questions[i];
+        const question = questionElem.textContent;
+
+        if (question) {
+            const answer = collectFaqAnswer(questionElem).replaceAll('"', '\\"').replaceAll('\n', '');
+            faqData.push(`
+                {
+                    "@type": "Question",
+                    "name": "${question}",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "${answer}"
+                    }
+                }
+            `);
+        }
+    }
+
+    return `
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [${faqData.join(',')}]
+        }
+    </script>`;
+}
+
+function demoURL(id, url) {
+
+    let path = 'https://cdn.soft8soft.com/demo/';
+
+    if (url.includes('max'))
+        path += 'max/';
+    else if (url.includes('maya'))
+        path += 'maya/';
+    else
+        path += 'blender/';
+
+    if (id.includes('/'))
+        path = path + id + '.html';
+    else
+        path = path + id + '/' + id + '.html';
+
+    return path;
+}
+
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -422,42 +510,42 @@ function resolveTemplates(text, name, path, lang) {
     case 'ru':
         text = text.replace(/\[sourceHint\]/gi, "<h2>Исходный файл</h2><p>О том как получить исходный код этого модуля читайте <a href=\"manual/ru/programmers_guide/How-to-obtain-Verge3D-sources.html\">тут</a>.</p>");
 
-        text = text.replace(/\[demo:([\w\_]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
-            const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.replace('_', ' '));
-            return `<p class="demoNote">Смотрите пример в магазине ассетов — <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow" title="Открыть ${demoTitle} в магазине ассетов «Вёрдж3Д» (потребуется запустить менеджер приложений)">${demoTitle}</a>.</p>`;
+        text = text.replace(/\[demo:([\w\_\/\-]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
+            const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.split('/')[0].replace('_', ' '));
+            return `<p class="demoNote">Данная функциональность используется в демо-приложении <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a> (качайте в магазине ассетов).</p>`;
         });
 
-        text = text.replace(/\[demoLink:([\w\_]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
-            const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.replace('_', ' '));
-            return `<a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow" title="Открыть ${demoTitle} в магазине ассетов «Вёрдж3Д» (потребуется запустить менеджер приложений)">${demoTitle}</a>`;
+        text = text.replace(/\[demoLink:([\w\_\/\-]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
+            const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.split('/')[0].replace('_', ' '));
+            return `<a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a>`;
         });
 
         break;
     case 'zh':
         text = text.replace(/\[sourceHint\]/gi, "<h2>源代码</h2><p>关于如何获取此模块的源代码，请查看 <a href=\"manual/zh/programmers_guide/How-to-obtain-Verge3D-sources.html\">本页</a>。</p>");
 
-        text = text.replace(/\[demo:([\w\_]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.replace('_', ' '));
-            return `<p class="demoNote">例如，请参考资产商店中的以下演示 — <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow">${demoTitle}</a>.</p>`;
+        text = text.replace(/\[demo:([\w\_\/\-]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
+            return `<p class="demoNote">有关使用示例，请查看 <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a> 演示（也可在资源商店中找到）。</p>`;
         });
 
-        text = text.replace(/\[demoLink:([\w\_]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.replace('_', ' '));
-            return `<a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow">${demoTitle}</a>`;
+        text = text.replace(/\[demoLink:([\w\_\/\-]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
+            return `<a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a>`;
         });
 
         break;
     default:
         text = text.replace(/\[sourceHint\]/gi, "<h2>Source</h2><p>For more info on how to obtain the source code of this module see <a href=\"manual/en/programmers_guide/How-to-obtain-Verge3D-sources.html\">this page</a>.</p>");
 
-        text = text.replace(/\[demo:([\w\_]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.replace('_', ' '));
-            return `<p class="demoNote">For usage example, check out the following demo from the Asset Store: <a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow" title="Open ${demoTitle} in Verge3D Asset Store (requires App Manager running)">${demoTitle}</a>.</p>`;
+        text = text.replace(/\[demo:([\w\_\/\-]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
+            return `<p class="demoNote">For usage example, check out the <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow" title="Launch the ${demoTitle} demo">${demoTitle}</a> demo (also available in the Asset Store).</p>`;
         });
 
-        text = text.replace(/\[demoLink:([\w\_]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.replace('_', ' '));
-            return `<a href=\"http://localhost:8668/store?req=status#${p1}\" target=\"_blank\" rel="nofollow" title="Open ${demoTitle} in Verge3D Asset Store (requires App Manager running)">${demoTitle}</a>`;
+        text = text.replace(/\[demoLink:([\w\_\/\-]+)\]/gi, function(match, p1) {
+            const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
+            return `<a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow" title="Launch the ${demoTitle} demo">${demoTitle}</a>`;
         });
 
 
@@ -542,7 +630,7 @@ function createNavigation(list, language, section, indexLink) {
 
     var content = JSDOM.fragment(
        `<nav id="panel" class="collapsed">
-          <h1><a href="${indexLink}">${section}</a></h1>
+          <div class="h1-like"><a href="${indexLink}">${section}</a></div>
 
           <a id="expandButton" href="#">
             <span></span>
@@ -573,8 +661,9 @@ function createNavigation(list, language, section, indexLink) {
         var categoryContainer = document.createElement('div');
         navigation.appendChild(categoryContainer);
 
-        var categoryHead = document.createElement('h2');
+        var categoryHead = document.createElement('div');
         categoryHead.textContent = category;
+        categoryHead.className = 'h2-like';
         categoryContainer.appendChild(categoryHead);
 
         var categoryContent = document.createElement('ul');
@@ -627,7 +716,7 @@ function getMeta(document, metaName, usePropertyName) {
 
 function getPageURL(pageName, lang) {
 
-    pageName = handleGenericTypes(pageName);
+    pageName = handleGenericTypes(pageName, lang);
 
     const splitPageName = decomposePageName(pageName, '.', '#');
 
@@ -656,10 +745,15 @@ function getPageURL(pageName, lang) {
 
 }
 
-function handleGenericTypes(pageName) {
-    if (GENERIC_TYPES.indexOf(pageName) > -1)
-        return 'JavaScript Types.' + pageName;
-    else
+function handleGenericTypes(pageName, lang) {
+    if (GENERIC_TYPES.indexOf(pageName) > -1) {
+        switch (lang) {
+            case 'ru':
+                return 'Типы Ява Скрипта.' + pageName;
+            default:
+                return 'JavaScript Types.' + pageName;
+        }
+    } else
         return pageName;
 }
 

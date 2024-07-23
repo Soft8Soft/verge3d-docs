@@ -15,7 +15,11 @@
     <h1>Creating Mobile Applications with Apache Cordova</h1>
 
     <p>
-      Apache Cordova is a tool which converts web applications to cross-platform mobile applications. Cordova is mostly used to create apps for Android and iOS platforms, however, it's also possible to develop Windows, macOS, and Linux applications. The tool is completely free, easy-to-use and allows for advanced customizations with JavaScript (if you need it).
+      Apache Cordova is a tool which converts web applications to cross-platform mobile applications. Cordova is mostly used to create apps for Android and iOS platforms, however, it's also possible to develop Windows, macOS, and Linux applications. The tool is completely free, easy-to-use and allows for advanced customizations with Puzzles or JavaScript (if you need it).
+    </p>
+
+    <p class="demoNote">
+      To see Cordova in action, download the Farmer's Journey game from <a href="https://apps.apple.com/us/app/farmers-journey/id1565673160" target="_blank">App Store</a> or <a href="https://play.google.com/store/apps/details?id=com.soft8soft.farmersjourneys" target="_blank">Google Play</a>.
     </p>
 
 
@@ -50,6 +54,10 @@
 
     <p>
       The good part, you don't need to be an Android or iOS developer to create apps for these platforms. Once you have your development system up and running, creating mobile versions of your Verge3D apps would be really easy!
+    </p>
+
+    <p class="note">
+      Another method of distributing your apps across various mobile and desktop platforms is by using the installable <a href="manual/en/introduction/App-Manager.html#app_settings_pwa_tab">progressive web apps</a>.
     </p>
 
 
@@ -123,11 +131,11 @@
     </p>
 
     <p>
-      Once Android Studio is installed, you need to specify path to it in the *ANDROID_SDK_ROOT* environment variable. On Windows you'll also need to set the *JAVA_HOME* variable with the path to the Java directory.
+      Once Android Studio is installed, you need to specify path to it in the *ANDROID_HOME* environment variable. On Windows you'll also need to set the *JAVA_HOME* variable with the path to the Java directory.
     </p>
 
     <p>
-      See <a href="https://cordova.apache.org/docs/en/10.x/guide/platforms/android/index.html#setting-environment-variables">here</a> on how to setup these variables.
+      See <a href="https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#setting-environment-variables">here</a> on how to setup these variables.
     </p>
 
     <p>
@@ -179,13 +187,19 @@
     <code>cordova build android</code>
 
     <p>
-      To run it in the Android emulator, exec:
+      To run it in the Android emulator, make sure you have a virtual device added to Device Manager in the Android Studio (it should match the version of the SDK platform installed before):
+    </p>
+
+    <img src="files/creating-mobile-apps/android-studio-device-manager.webp" alt="Device Manager" style="max-width: 803px">
+
+    <p>
+      then exec this command:
     </p>
 
     <code>cordova emulate android</code>
 
     <p>
-      To run your app on the real phone connected to your system run:
+      To run your app on the real phone connected to your system (e.g via USB cable) run:
     </p>
 
     <code>cordova run android</code>
@@ -264,11 +278,33 @@
 
     [anchor:modifying_app_icon]
 
-    <h3>Modifying Application Name and Icon</h3>
+    <h3>Modifying App Icon</h3>
 
     <p>
-      See the <a href="https://cordova.apache.org/docs/en/latest/config_ref/images.html" target="_blank">official Cordova guide</a> on how to assign custom icon to your application.
+      To be able to generate proper icon for your mobile app, first assign the 512x512 image in the <a href="manual/en/introduction/App-Manager.html#app_settings_general_tab">application settings</a>:
     </p>
+
+    <img src="files/creating-mobile-apps/app-icon-512.webp" alt="Assigning favicon of size 512 pixels in app settings" style="max-width: 707px">
+
+    <p>
+      Every time you create a Cordova template, this image will be used as a source to create a set of icons, required by Android/iOS. The actual resizing is performed by the ImageMagick utility.
+    </p>
+
+    <p>
+      For Windows installations of Verge3D, ImageMagick is already included in your distribution, so the conversion will happen automatically.
+    </p>
+
+    <p>
+      For macOS install ImageMagick with Homebrew:
+    </p>
+
+    <code>brew install imagemagick</code>
+
+    <p>
+      For Ubuntu Linux, use the APT package manager:
+    </p>
+
+    <code>sudo apt install imagemagick</code>
 
 
     [anchor:cordova_specific_events]
@@ -296,7 +332,7 @@
     <h3>Creating Native UI Dialogs</h3>
 
     <p>
-      Use the <a href="https://cordova.apache.org/docs/en/10.x/reference/cordova-plugin-dialogs/index.html" target="_blank">cordova-plugin-dialogs</a> plugin.
+      Use the <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-dialogs/index.html" target="_blank">cordova-plugin-dialogs</a> plugin.
     </p>
 
 

@@ -82,29 +82,13 @@
 
     [anchor:shadow_filtering_pcf]
 
-    <h3>PCF</h3>
-
-    <p>Stands for Percentage Closer Filtering. Uses multiple shadow map lookups for smoothed shadow rendering. Average quality and performance.</p>
-
-    <img src="files/shadows-blender/shadow-filtering-pcf.jpg" alt="Example of PCF shadows">
-
-
-    [anchor:shadow_filtering_pcf_bilinear]
-
-    <h3>PCF (Bilinear)</h3>
-
-    <p>Similar to PCF but uses bilinear interpolation for each shadow map lookup. Gives smoothed shadows at the expense of more computation power.</p>
-
-    <img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg" alt="Example of bilinear PCF shadows">
-
-
-    [anchor:shadow_filtering_pcf_poisson_disk]
-
     <h3>PCF (Poisson Disk)</h3>
 
-    <p>Uses pseudorandom <em>Poisson Disk Sampling</em> to eliminate shadow pixelation for PCF shadows. This was made the default setting because it corresponds the most to what you see in the 3D editor viewport. The performance is comparable to *PCF (Bilinear)* algorithm or better.</p>
+    <p>
+      Stands for Percentage Closer Filtering. Uses pseudorandom <em>Poisson Disk Sampling</em> to eliminate shadow pixelation. This was made the default setting because it corresponds the most to what you see in the 3D editor viewport.
+    </p>
 
-    <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg" alt="Example of poisson shadows">
+    <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg" alt="Example of PCF poisson shadows">
 
 
     [anchor:shadow_filtering_esm]
@@ -112,13 +96,7 @@
     <h3>ESM</h3>
 
     <p>
-        Stands for Exponential Shadow Maps. Shadows are smoothest but light
-        leaks are possible. Use <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a>
-        setting on lights to remove light leaks artefacts. The performance is
-        comparable to *PCF (Bilinear)* algorithm. ESM shadows can be particularly
-        tricky to set up, therefore see ESM-related issues in the
-        <a href="manual/en/maya/Shadows.html#troubleshooting">Troubleshooting</a>
-        section.
+      Stands for Exponential Shadow Maps. Shadows are smoothest but light leaks are possible. Use <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a> setting on lights to remove light leaks artefacts. The performance is comparable to *PCF* algorithm. ESM shadows can be particularly tricky to set up, therefore see ESM-related issues in the <a href="manual/en/maya/Shadows.html#troubleshooting">Troubleshooting</a> section.
     </p>
 
     <img src="files/shadows-blender/shadow-filtering-esm.jpg" alt="Example of ESM shadows">
@@ -128,16 +106,7 @@
 
     <h3>Which filtering type to choose?</h3>
     <p>
-        It's recommended to try the default
-        <a href="manual/en/maya/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson Disk)</a>
-        shadows first, because they offer good quality and performance. If you
-        need faster but less quality shadows then try
-        <a href="manual/en/maya/Shadows.html#shadow_filtering_basic">Basic</a>
-        or
-        <a href="manual/en/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a>.
-        Try <a href="manual/en/maya/Shadows.html#shadow_filtering_esm">ESM</a>
-        if you want more quality, soft shadows, but the drawback is that they
-        can be tricky to set up (artefact-wise) for a particular scene.
+      It's recommended to try the default <a href="manual/en/maya/Shadows.html#shadow_filtering_pcf">PCF</a> shadows first, because they offer good quality and performance. If you need faster but less quality shadows then try <a href="manual/en/maya/Shadows.html#shadow_filtering_basic">Basic</a> or <a href="manual/en/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Try <a href="manual/en/maya/Shadows.html#shadow_filtering_esm">ESM</a> if you want more quality, soft shadows, but the drawback is that they can be tricky to set up (artefact-wise) for a particular scene.
     </p>
 
 
@@ -152,18 +121,13 @@
     <img src="files/shadows-maya/shadow-settings-global.jpg" alt="Global shadow settings in Maya" style="max-width: 416px">
 
     <dl>
-        <dt>Shadow Filtering</dt>
-        <dd>Shadow map filtering algorithm. See <a href="manual/en/maya/Shadows.html#shadow_filtering">above</a>.</dd>
+      <dt>Shadow Filtering</dt>
+      <dd>Shadow map filtering algorithm. See <a href="manual/en/maya/Shadows.html#shadow_filtering">above</a>.</dd>
 
-        <dt id="esm-distance-scale">ESM Distance Scale</dt>
-        <dd>
-            ESM shadows scaling factor. Since the ESM filtering algorithm uses
-            absolute distance values, decrease the scale value if you're working
-            on a scene which is much bigger than the default cube, and increase
-            it if your scene is much smaller. Default value is 2.5. Works only for
-            <a href="manual/en/maya/Shadows.html#shadow_filtering_esm">ESM</a>
-            shadows.
-        </dd>
+      <dt id="esm-distance-scale">ESM Distance Scale</dt>
+      <dd>
+        ESM shadows scaling factor. Since the ESM filtering algorithm uses absolute distance values, decrease the scale value if you're working on a scene which is much bigger than the default cube, and increase it if your scene is much smaller. Default value is 2.5. Works only for <a href="manual/en/maya/Shadows.html#shadow_filtering_esm">ESM</a> shadows.
+      </dd>
     </dl>
 
 
@@ -175,34 +139,45 @@
       Shadows can be enabled/disabled for each individual light using Maya's native panels. Supported shadow settings are highlighted with green.
     </p>
 
-    <img src="files/shadows-maya/shadow-settings-perlight.jpg" alt="Maya light shadow settings" style="max-width: 459px">
+    <img src="files/shadows-maya/shadow-settings-perlight.jpg" alt="Maya light shadow settings" style="max-width: 616px">
 
     <dl>
-        <dt id="use-depth-map-shadows">Use Depth Map Shadows</dt>
-        <dd>
-            must be enabled for shadows to appear in Verge3D.
-        </dd>
-        <dt id="resolution">Resolution</dt>
-        <dd>
-            controls how big is the shadow texture (trading between speed and
-            quality).
-        </dd>
-        <dt id="filter-size">Filter Size</dt>
-        <dd>
-            controls the blurriness ratio for shadows.
-        </dd>
-        <dt id="bias">Bias</dt>
-        <dd>
-            can be tweaked until you get rid of self-shadow artefacts and/or
-            the peter-panning effect.
-        </dd>
-        <dt id="esm-bias">ESM Bias</dt>
-        <dd>
-            controls the bias to reduce ESM <em>light leaking</em> artefacts.
-            Works only for
-            <a href="manual/en/maya/Shadows.html#shadow_filtering_esm">ESM</a>
-            shadows.
-        </dd>
+      <dt id="use-depth-map-shadows">Use Depth Map Shadows</dt>
+      <dd>
+        Must be enabled for shadows to appear in Verge3D.
+      </dd>
+      <dt id="resolution">Resolution</dt>
+      <dd>
+        Controls how big is the shadow texture (trading between speed and quality).
+      </dd>
+      <dt id="filter-size">Filter Size</dt>
+      <dd>
+        Controls the blurriness ratio for shadows.
+      </dd>
+      <dt id="bias">Bias</dt>
+      <dd>
+        Can be tweaked until you get rid of self-shadow artefacts and/or the peter-panning effect.
+      </dd>
+      <dt id="esm-bias">ESM Bias</dt>
+      <dd>
+        Controls the bias to reduce ESM <em>light leaking</em> artefacts. Works only for <a href="manual/en/maya/Shadows.html#shadow_filtering_esm">ESM</a> shadows.
+      </dd>
+      <dt id="csm-count">Count</dt>
+      <dd>
+        Number of cascades to use. More cascades means better shadow accuracy, but lower frame rate.
+      </dd>
+      <dt id="csm-fade">Fade</dt>
+      <dd>
+        If is greater than 0, then the size of each cascade (distance interval) is increased so that neighboring cascades overlap. Fade is then applied in the overlapping area to provide a smooth transition between cascades. Higher values mean that the cascade size is increased more, which reduces the available shadow resolution within the cascade as some of it is used in the overlap region. Do not use this parameter if you do not need it (set it to 0).
+      </dd>
+      <dt id="csm-distribution">Distribution</dt>
+      <dd>
+        PUts more resolution towards the near clip plane. Only works in perspective view.
+      </dd>
+      <dt id="csm-light-cascade-margin">Cascade Margin</dt>
+      <dd>
+        Set larger values only if the shadows of tall or big objects appear truncated.
+      </dd>
     </dl>
 
 
@@ -217,14 +192,14 @@
     <img src="files/shadows-maya/shadow-settings-perobject.jpg" alt="Maya object shadow settings" style="max-width: 422px">
 
     <dl>
-        <dt id="casts-shadows">Casts Shadows</dt>
-        <dd>enable/disable shadow casting for this object.</dd>
-        <dt>Receive Shadows</dt>
-        <dd>enable/disable shadow receiving for this object.</dd>
+      <dt id="casts-shadows">Casts Shadows</dt>
+      <dd>Enable/disable shadow casting for this object.</dd>
+      <dt>Receive Shadows</dt>
+      <dd>Enable/disable shadow receiving for this object.</dd>
     </dl>
 
     <p>
-      See also Autodesk's official <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771" target="_blank">documentation</a> for more information and best practices on using shadows in Maya.
+      See also Autodesk's official <a href="https://help.autodesk.com/view/MAYAUL/2025/ENU/?guid=GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771" target="_blank">documentation</a> for more information and best practices on using shadows in Maya.
     </p>
 
 
@@ -234,50 +209,32 @@
 
     <h3>Shadows in Verge3D and in the Maya viewport look different</h3>
     <ul>
-        <li>
-            Verge3D doesn't use the same shadow rendering
-            techniques as a 3d software can use - mostly for performance reasons.
-            This can include ray-traycing, various post-processing effects and
-            non-realtime methods. That's why there can be differences and
-            shadows won't look exactly the same as in the viewport.
-        </li>
-        <li>
-            Verge3D aims to resemble the Maya viewport. In order to make
-            configuring shadows easier, follow the instructions described here:
-            <a href="manual/en/maya/Shadows.html#prepare_viewport">Preparing Maya Viewport</a>.
-        </li>
+      <li>
+        Verge3D doesn't use the same shadow rendering techniques as a 3d software can use - mostly for performance reasons.  This can include ray-traycing, various post-processing effects and non-realtime methods. That's why there can be differences and shadows won't look exactly the same as in the viewport.
+      </li>
+      <li>
+        Verge3D aims to resemble the Maya viewport. In order to make configuring shadows easier, follow the instructions described here: <a href="manual/en/maya/Shadows.html#prepare_viewport">Preparing Maya Viewport</a>.
+      </li>
     </ul>
 
     <h3>Shadows look too pixelated</h3>
     <ul>
-        <li>
-            Use higher <a href="manual/en/maya/Shadows.html#resolution">Resolution</a>
-            values.
-        </li>
-        <li>
-            Try to mask low resolution with soft penumbra. Such shadow filtering
-            techniques as
-            <a href="manual/en/maya/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a>
-            and
-            <a href="manual/en/maya/Shadows.html#shadow_filtering_esm">ESM</a>
-            along with properly adjusted
-            <a href="manual/en/maya/Shadows.html#filter-size">Filter Size</a>
-            can make pixelization less prominent.
-        </li>
+      <li>
+        Use higher <a href="manual/en/maya/Shadows.html#resolution">Resolution</a> values.
+      </li>
+      <li>
+        Try to mask low resolution with soft penumbra. Such shadow filtering techniques as <a href="manual/en/maya/Shadows.html#shadow_filtering_pcf">PCF</a> and <a href="manual/en/maya/Shadows.html#shadow_filtering_esm">ESM</a> along with properly adjusted <a href="manual/en/maya/Shadows.html#filter-size">Filter Size</a> can make pixelization less prominent.
+      </li>
     </ul>
 
     <h3>Shadows are visible in the Maya viewport but not in Verge3D</h3>
     <ul>
-        <li>
-            In order to enable shadows in Verge3D the
-            <a href="manual/en/maya/Shadows.html#use-depth-map-shadows">Use Depth Map Shadows</a>
-            option must be enabled.
-        </li>
-        <li>
-            Very high <a href="manual/en/maya/Shadows.html#bias">Bias</a>
-            can partially or completely remove shadows. If that's the case try
-            to lower its value.
-        </li>
+      <li>
+        In order to enable shadows in Verge3D the <a href="manual/en/maya/Shadows.html#use-depth-map-shadows">Use Depth Map Shadows</a> option must be enabled.
+      </li>
+      <li>
+        Very high <a href="manual/en/maya/Shadows.html#bias">Bias</a> can partially or completely remove shadows. If that's the case try to lower its value.
+      </li>
     </ul>
 
     <h3>Shadows have artefacts</h3>
@@ -285,26 +242,20 @@
     <img src="files/shadows-blender/self-shadow-artefacts.jpg" alt="Self-shadowing artifacts" style="max-width: 485px">
 
     <ul>
-        <li>
-            Such artefacts are called "shadow acne" or "self-shadow artefacts".
-            Increase the <a href="manual/en/maya/Shadows.html#bias">Bias</a>
-            value to get rid of them.
-        </li>
+      <li>
+        Such artefacts are called "shadow acne" or "self-shadow artefacts". Increase the <a href="manual/en/maya/Shadows.html#bias">Bias</a> value to get rid of them.
+      </li>
     </ul>
 
     <h3>Shadows have no/small penumbra</h3>
 
     <ul>
-        <li>
-            In case of <a href="manual/en/maya/Shadows.html#shadow_filtering_basic">Basic</a>
-            or <a href="manual/en/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a>
-            shadows there's no control of the penumbra. Choose the other
-            <a href="manual/en/maya/Shadows.html#shadow_filtering">shadow filtering types</a>
-            instead.
-        </li>
-        <li>
-            Increase <a href="manual/en/maya/Shadows.html#filter-size">Filter Size</a>.
-        </li>
+      <li>
+        In case of <a href="manual/en/maya/Shadows.html#shadow_filtering_basic">Basic</a> or <a href="manual/en/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a> shadows there's no control of the penumbra. Choose the other <a href="manual/en/maya/Shadows.html#shadow_filtering">shadow filtering types</a> instead.
+      </li>
+      <li>
+        Increase <a href="manual/en/maya/Shadows.html#filter-size">Filter Size</a>.
+      </li>
     </ul>
 
     <h3>ESM shadows look faded</h3>
@@ -312,14 +263,12 @@
     <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" alt="Light leaking shadow artifacts" style="max-width: 500px">
 
     <ul>
-        <li>
-            Increase the <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a>
-            value.
-        </li>
-        <li>
-            Increase the <a href="manual/en/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
-            value.
-        </li>
+      <li>
+        Increase the <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a> value.
+      </li>
+      <li>
+        Increase the <a href="manual/en/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a> value.
+      </li>
     </ul>
 
     <h3>ESM shadows look too sharp or have no penumbra</h3>
@@ -327,33 +276,25 @@
     <img src="files/shadows-blender/esm-sharp-shadows.jpg" alt="ESM shadows too sharp" style="max-width: 500px">
 
     <ul>
-        <li>
-            Increase <a href="manual/en/maya/Shadows.html#filter-size">Filter Size</a>.
-        </li>
-        <li>
-            Decrease the <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a>
-            value.
-        </li>
-        <li>
-            Decrease the <a href="manual/en/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
-            value.
-        </li>
-        <li>
-            Such artefacts can appear on a receiver object's edge:
+      <li>
+        Increase <a href="manual/en/maya/Shadows.html#filter-size">Filter Size</a>.
+      </li>
+      <li>
+        Decrease the <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a> value.
+      </li>
+      <li>
+        Decrease the <a href="manual/en/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a> value.
+      </li>
+      <li>
+        Such artefacts can appear on a receiver object's edge:
 
-            <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" alt="ESM shadows edge artifacts" style="display: block; max-width: 500px">
+        <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" alt="ESM shadows edge artifacts" style="display: block; max-width: 500px">
 
-            It's one of ESM drawbacks. The solution is to avoid such situations.
-        </li>
-        <li>
-            If an object receiving shadows doesn't cast shadows itself
-            (e.g. if they are disabled via <a href="manual/en/maya/Shadows.html#casts-shadows">Casts shadows</a>),
-            then the shadows can have no penumbra at all no matter how large
-            <a href="manual/en/maya/Shadows.html#filter-size">Filter Size</a>
-            is. The solution is to enable shadow casting on the receiving
-            object or use an additional shadow casting object as an underlay
-            to fix the penumbra.
-        </li>
+        It's one of ESM drawbacks. The solution is to avoid such situations.
+      </li>
+      <li>
+        If an object receiving shadows doesn't cast shadows itself (e.g. if they are disabled via <a href="manual/en/maya/Shadows.html#casts-shadows">Casts shadows</a>), then the shadows can have no penumbra at all no matter how large <a href="manual/en/maya/Shadows.html#filter-size">Filter Size</a> is. The solution is to enable shadow casting on the receiving object or use an additional shadow casting object as an underlay to fix the penumbra.
+      </li>
     </ul>
 
     <h3>ESM Shadows have artefacts</h3>
@@ -361,14 +302,36 @@
     <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" alt="ESM shadows self-shadow artifacts" style="max-width: 500px">
 
     <ul>
-        <li>
-            Decrease the <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a>
-            value.
-        </li>
-        <li>
-            Decrease the <a href="manual/en/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
-            value.
-        </li>
+      <li>
+        Decrease the <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a> value.
+      </li>
+      <li>
+        Decrease the <a href="manual/en/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a> value.
+      </li>
+    </ul>
+
+    <h3>Cascaded shadow maps, shadows are clipped at a certain angle</h3>
+
+    <img src="files/shadows-blender/csm-artefacts-clipped-shadow.jpg" style="max-width: 500px">
+    <ul>
+      <li>
+        Increase the <a href="manual/en/maya/Shadows.html#csm-light-cascade-margin">Cascade Margin</a>.
+      </li>
+    </ul>
+
+    <h3>Cascaded shadow maps and ESM shadows, shadows look faded at the intersection of cascades</h3>
+
+    <img src="files/shadows-blender/esm-csm-artefacts-light-leaking.jpg" style="max-width: 500px">
+    <ul>
+      <li>
+        Increase the <a href="manual/en/maya/Shadows.html#csm-light-cascade-margin">Cascade Margin</a>.
+      </li>
+      <li>
+        Increase the <a href="manual/en/maya/Shadows.html#esm-bias">ESM Bias</a> value.
+      </li>
+      <li>
+        Increase the <a href="manual/en/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a> value.
+      </li>
     </ul>
 
 

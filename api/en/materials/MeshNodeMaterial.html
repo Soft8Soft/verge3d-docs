@@ -166,7 +166,7 @@
 
     <h3>[property:String profile]</h3>
     <p>
-      Node material profile, it can be `"blender"`, `"max"`, or `"maya"`.
+      Node material profile, one of `"blender"`, `"max"`, or `"maya"`.
     </p>
 
 
@@ -179,10 +179,80 @@
       Check if the node material uses nodes that render GTAO effect.
     </p>
 
-    <h3>[method:Object findNodeByName]([param:String name])</h3>
+    <h3>[method:undefined connectTexture]([param:Texture tex], [param:String nodeName], [param:String inputName])</h3>
+    <p>
+      Connect texture to the node input. Both the node and its input specified by their names.
+    </p>
+
+    <h3>[method:Boolean isUnlit]()</h3>
+    <p>
+      Check if this material is unlit (based on emissive nodes).
+    </p>
+
+    <h3>[method:Node findNodeByName]([param:String name])</h3>
     <p>
       Find and return a node which has the given name.
     </p>
+
+    <h3>[method:Color getInputColor]([param:Node node], [param:Integer index])</h3>
+    <p>
+      Resolve color value passed to given node input.
+    </p>
+
+    <h3>[method:Texture getInputTexture]([param:Node node], [param:Integer index])</h3>
+    <p>
+      Find texture connected to given node input.
+    </p>
+
+    <h3>[method:Float getInputValue]([param:Node node], [param:Integer index])</h3>
+    <p>
+      Resolve float value passed to given node input.
+    </p>
+
+    <h3>[method:Node getMainShaderNode]()</h3>
+    <p>
+      Analyze material and return main shader node.
+    </p>
+
+    <h3>[method:Node getStandardProp]([param:String prop])</h3>
+    <p>
+      Analyze material node structure and return a value of the "standard" property. If the property could not be resolved, return default value for that property.
+    </p>
+
+    <p>
+      Allowed properties:
+    </p>
+
+    <dl>
+      <dt>[page:Color color]</dt>
+      <dd>Material base color. Default is `0xffffff` (white).</dd>
+      <dt>[page:Texture map]</dt>
+      <dd>Material base texture. Default is `null` (no texture).</dd>
+      <dt>[page:Float opacity]</dt>
+      <dd>Material opacity value. Default is `1.0` (opaque).</dd>
+      <dt>[page:Float metalness]</dt>
+      <dd>Material metalness value. Default is `0.5` (semi-metallic).</dd>
+      <dt>[page:Texture metalnessMap]</dt>
+      <dd>Material metalness texture. Default is `null` (no texture)</dd>
+      <dt>[page:Float roughness]</dt>
+      <dd>Material roughness value. Default is `0.5`.</dd>
+      <dt>[page:Texture roughnessMap]</dt>
+      <dd>Material roughness texture. Default is `null` (no texture)</dd>
+      <dt>[page:Texture aoMap]</dt>
+      <dd>Material ambient occlusion texture. Default is `null` (no texture)</dd>
+      <dt>[page:Float aoMapIntensity]</dt>
+      <dd>Ambient occlusion map influence. Default it `1.0`.</dd>
+      <dt>[page:Texture normalMap]</dt>
+      <dd>Material normal map texture. Default is `null` (no texture)</dd>
+      <dt>[page:Vector2 normalScale]</dt>
+      <dd>Intensity of normal mapping along U and V coordinates. Default is `(1.0, 1.0)`.</dd>
+      <dt>[page:Color emissive]</dt>
+      <dd>Material emissive color. Default is `0x000000` (black).</dd>
+      <dt>[page:Texture emissiveMap]</dt>
+      <dd>Material emissive texture. Default is `null` (no texture)</dd>
+      <dt>[page:Float emissiveIntensity]</dt>
+      <dd>Material emissive intensity. Default is `0.0`.</dd>
+    </dl>
 
     <h3>[method:Boolean hasNode]([param:String nodeType])</h3>
     <p>
@@ -230,11 +300,6 @@
     <h3>[method:undefined nodeGraphTraverse]([param:DiGraph nodeGraph], [param:Function cb])</h3>
     <p>
       Traverse the graph and execute the given callback function per each node in the graph.
-    </p>
-
-    <h3>[method:DiGraph nodeGraphDiffuse]([param:Color color], [param:Float opacity], [param:String profile])</h3>
-    <p>
-      Generate node-based diffuse (lambert) material with the `color` and `opacity` params. The `profile` string should be one of the: `"blender"`, `"max"`, `"maya"`.
     </p>
 
     <h2>Puzzles</h2>

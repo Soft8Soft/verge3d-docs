@@ -33,7 +33,7 @@
     <h2>Environment Lighting</h2>
 
     <p>
-      Environment lighting is a very important component of Verge3D graphics pipeline. You can illuminate your entire scene with just an environment map alone, without using any light objects. See the [demoLink:scooter] demo as an example of this approach.
+      Environment lighting is a very important component of Verge3D graphics pipeline. You can illuminate your entire scene with just an environment map alone, without using any light objects. See the [demoLink:scooter/index] demo as an example of this approach.
     </p>
 
     <iframe class="video-480p" src="https://www.youtube.com/embed/symQy5gEHdY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -66,7 +66,7 @@
 
     <img src="files/lighting-blender/light-properties-point.jpg" alt="Blender point light properties" style="max-width: 320px">
 
-    <p>*Color* and *Power* properties are supported in Verge3D. You can also animate the *Power* property.</p>
+    <p>*Color*, *Power*, and *Custom Distance* properties are supported in Verge3D. You can also animate the *Power* property.</p>
 
     [anchor:sun_lights]
 
@@ -82,7 +82,7 @@
 
     <img src="files/lighting-blender/light-properties-spot.jpg" alt="Blender spot light properties" style="max-width: 325px">
 
-    <p>*Color*, *Power*, *Spot Shape*: *Size* and *Blend* properties are supported in Verge3D. You can also animate the *Power* property.</p>
+    <p>*Color*, *Power*, *Custom Distance*, *Spot Shape*: *Size* and *Blend* properties are supported in Verge3D. You can also animate the *Power* property.</p>
 
     [anchor:area_lights]
 
@@ -90,7 +90,7 @@
 
     <img src="files/lighting-blender/light-properties-area.jpg" alt="Blender area light properties" style="max-width: 325px">
 
-    <p>*Color*, *Power*, as well *Size* for *Square*-shaped and *Size X*/*Size Y* for *Rectangular*-shaped lights are supported in Verge3D. *Disk* and *Ellipse* shapes are not supported. The *Power* property of area lights can be animated.</p>
+    <p>*Color*, *Power*, *Custom Distance*, as well *Size* for *Square*-shaped and *Size X*/*Size Y* for *Rectangular*-shaped lights are supported in Verge3D. *Disk* and *Ellipse* shapes are not supported. The *Power* property of area lights can be animated.</p>
 
     <p class="note">
       In addition, you can assign shadow properties on your lights. See the <a href="manual/en/blender/Shadows.html#per_light_settings">corresponding section</a> for more info.
@@ -392,16 +392,23 @@
 
         <dl>
           <dt>Standard</dt>
-          <dd>No additional color correction applied. Switch to this method if you don't need color correction as it works slightly faster than *Filmic*.</dd>
+          <dd>No additional color correction applied. Switch to this method if you don't need color correction as it works slightly faster than *Filmic* or *AgX*.</dd>
+
+          <dt>AgX</dt>
+          <dd>Blender's default method in version 4.0 and above</dd>
 
           <dt>Filmic</dt>
-          <dd>Blender default method.</dd>
+          <dd>This was Blender's default method before version 4.0.</dd>
 
           <dt>Filmic Log, Raw, False Color</dt>
           <dd>Unsupported, if specified Verge3D will fall back to the *Standard* method.</dd>
         </dl>
 
       </dd>
+
+      <dt>Look</dt>
+      <dd>Only *None* and *Punchy* (for *AgX* view transform) values supported by Verge3D.</dd>
+
     </dl>
 
     [anchor:global_rendering_properties_verge3d]
@@ -480,11 +487,8 @@
         <p>Algorithm to use for image-based environment lighting.</p>
 
         <dl>
-          <dt>PMREM (slow)</dt>
+          <dt>PMREM (best)</dt>
           <dd>Use prefiltered, mipmapped radiance environment maps (PMREMs). This property is selected by default because it offers the highest quality and decent performance at the same time.</dd>
-
-          <dt>Light Probe + Cubemap (deprecated)</dt>
-          <dd>This mode was deprecated in Verge3D 4.3. Specifying it will make your scene fallback to PMREM lighting.</dd>
 
           <dt>Light Probe (fast)</dt>
           <dd>Disable image-based specular reflections altogether, still the diffuse component will be applied. This mode is fast but provides decent quality for non-metallic surfaces only (e.g. rendered with <em>BSDF Diffuse</em> shader).</dd>
@@ -560,6 +564,8 @@
         direction and make environment lighting a bit more realistic.
       </dd>
     </dl>
+
+    [demo:ambient_occlusion]
 
 
     [anchor:outline_rendering]
@@ -783,7 +789,7 @@
       </dd>
       <dt>Depth Test</dt>
       <dd>
-        Disable depth test and raise the <a href="manual/en/blender/Lighting-and-Rendering.html#per_object_rendering_properties">Rendering Order</a> property for planar objects such as sprites or decals if you want them rendered above all objects.
+        Disable depth test and raise the <a href="manual/en/blender/Lighting-and-Rendering.html#per_object_rendering_properties">Render Order</a> property for planar objects such as sprites or decals if you want them rendered above all objects.
       </dd>
       <dt>Dithering</dt>
       <dd>

@@ -36,10 +36,22 @@
       Assigns a material to an object, completely replacing the old material. Also works for a list of objects, a group (or a list of groups) or with the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
     </p>
 
-    <img src="files/puzzles/puzzles-materials-assign-material.jpg" alt="Visual programming block to assign material">
+    <img src="files/puzzles/puzzles-materials-assign-material.webp" alt="Visual programming block to assign material">
 
     <p>
-      In some situations, namely when normal-mapped material assigned to an object which have no normal mapping, this puzzle might render your material completely black. If this happens, <em>disable</em> mesh attributes optimization in the export settings:
+      This puzzle requires a material which must be assigned to some existing model (can be hidden), kinda a swatch card:
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-assign-material-example.webp" alt="Assigning material in configurator">
+
+    <p>
+      Also, the source and destination meshes should have the same layout for UVs and color attributes, e.g in Blender:
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-assign-material-uvs.webp" alt="UVs in Blender" style="max-width: 565px;">
+
+    <p>
+      In some situations, namely when a normal-mapped material is assigned to an object without normal mapping, this puzzle might render your material completely black. If this happens, <em>disable</em> mesh attributes optimization in the export settings:
     </p>
 
     <v3d-tabs>
@@ -261,7 +273,7 @@
     <h3>texture from text</h3>
 
     <p>
-      Creates an image from specified text and returns it in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format.
+      Creates an image from specified text and returns it in <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a> format.
     </p>
 
     <img src="files/puzzles/puzzles-materials-texture-from-text.jpg" alt="Texture from text visual programming block">
@@ -378,7 +390,7 @@
     <h3>generate normal map</h3>
 
     <p>
-      Converts an image to normal map and returns it in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format.
+      Converts an image to normal map and returns it in <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a> format.
     </p>
 
     <img src="files/puzzles/puzzles-materials-generate-normalmap.jpg" alt="Visual logic block to generate normal maps">
@@ -390,7 +402,7 @@
     <dl>
       <dt>(source image)</dt>
       <dd>
-        image URL, usually black and white height map. Also images in <a href="manual/en/puzzles/HTML.html#data_uri">Data URI</a> format can be supplied such as the output of the <a href="manual/en/puzzles/Materials.html#texture_from_text">texture from text</a> puzzle.
+        image URL, usually black and white height map. Also images in <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a> format can be supplied such as the output of the <a href="manual/en/puzzles/Materials.html#texture_from_text">texture from text</a> puzzle.
       </dd>
       <dt>strength</dt>
       <dd>linear factor affecting the height. Recommended values: 0.01 to 5.</dd>

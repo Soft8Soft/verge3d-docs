@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Class for storing and applying camera control settings.
+    </p>
+
+    <h2>Code Example</h2>
+
+    <code>
+    const aspect = app.container.offsetWidth / app.container.offsetHeight;
+    const camera = new v3d.PerspectiveCamera(45, aspect, 1, 1000);
+    camera.position.z = -5;
+    camera.controlSettings = new v3d.ControlSettings('ORBIT');
+    app.scene.add(camera);
+    // sets active camera and assigns app controls
+    app.setCamera(camera);
+    </code>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:String type], [param:Boolean enablePan], [param:Float rotateSpeed], [param:Float moveSpeed])</h3>
+
+    <ul class="params">
+      <li>[page:String type] — controls type: `'ORBIT'`, `'FIRST_PERSON'`, or `'FLYING'`. Optional, default is `'ORBIT'`.</li>
+      <li>[page:Boolean enablePan] — create camera controls with panning enabled. Optional, default is `'true'`.</li>
+      <li>[page:Float rotateSpeed] — camera rotation speed. Optional, default is `1`.</li>
+      <li>[page:Float moveSpeed] — camera movement speed. Optional, default is `1`.</li>
+    </ul>
+
+    <p>
+      Create a new object with camera control settings.
+    </p>
+
+
+    <h2>Properties</h2>
+
+    <h3>[property:Boolean enableKeys]</h3>
+    <p>
+      Enable or disable the use of keyboard controls. Default is `true`.
+    </p>
+
+    <h3>[property:Boolean enablePan]</h3>
+    <p>
+      Enable or disable camera panning. Default is `true`.
+    </p>
+
+    <h3>[property:Boolean enableRotate]</h3>
+    <p>
+      Enable or disable horizontal and vertical rotation of the camera. Default is `true`.
+    </p>
+
+    <h3>[property:Boolean enableZoom]</h3>
+    <p>
+      Enable or disable zooming (dollying) of the camera.
+    </p>
+
+    <h3>[property:Float moveSpeed]</h3>
+    <p>
+      Movements speed factor. Upon [page:.assignToControls assigning] settings to actual controls object, this value affects both panning and zooming speeds. Default is `1`.
+    </p>
+
+    <h3>[property:Boolean orbitEnableTurnover]</h3>
+    <p>
+      Enable or disable moving the camera over the head. Default is `false`.
+    </p>
+
+    <h3>[property:Float orbitMaxAzimuthAngle]</h3>
+    <p>
+      How far you can orbit horizontally, upper limit. Range is `-Math.PI` to `Math.PI` (or `Infinity` for no limit) and default is `Infinity`;
+    </p>
+
+    <h3>[property:Float orbitMaxDistance]</h3>
+    <p>
+      How far you can dolly out ([page:PerspectiveCamera] only). Default is `Infinity`.
+    </p>
+
+    <h3>[property:Float orbitMaxPolarAngle]</h3>
+    <p>
+      How far you can orbit vertically, upper limit. Range is `0` to `Math.PI` radians, and default is `Math.PI`.
+    </p>
+
+    <h3>[property:Float orbitMaxZoom]</h3>
+    <p>
+      How far you can zoom out ([page:OrthographicCamera] only). Default is Infinity.
+    </p>
+
+    <h3>[property:Float orbitMinAzimuthAngle]</h3>
+    <p>
+      How far you can orbit horizontally, lower limit. Range is `-Math.PI` to `Math.PI` (or `-Infinity` for no limit) and default is `-Infinity`;
+    </p>
+
+    <h3>[property:Float orbitMinDistance]</h3>
+    <p>
+       How far you can dolly in ([page:PerspectiveCamera] only). Default is `0`.
+    </p>
+
+    <h3>[property:Float orbitMinPolarAngle]</h3>
+    <p>
+      How far you can orbit vertically, lower limit. Range is `0` to `Math.PI` radians, and default is `0`.
+    </p>
+
+    <h3>[property:Float orbitMinZoom]</h3>
+    <p>
+      How far you can zoom in ([page:OrthographicCamera] only). Default is `0`.
+    </p>
+
+    <h3>[property:Float rotateSpeed]</h3>
+    <p>
+      Rotations speed factor. Default is `1`.
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+      Controls type: `'ORBIT'`, `'FIRST_PERSON'`, or `'FLYING'`.
+    </p>
+
+    <h2>Methods</h2>
+
+    <h3>[method:undefined assignToControls]([param:Controls controls], [param:Scene scene])</h3>
+
+    <ul class="params">
+      <li>[page:Controls controls] — camera controls object, such as [page:OrbitControls].</li>
+      <li>[page:Scene scene] — scene where controls will be applied, only required for [page:FirstPersonControls].</li>
+    </ul>
+
+    <p>
+      Assign control settings to actual controls object.
+    </p>
+
+    <h3>[method:ControlSettings clone]()</h3>
+    <p>
+      Clone control settings.
+    </p>
+
+    <h3>[method:ControlSettings copy]([param:ControlSettings source])</h3>
+    <p>
+      Copy control settings.
+    </p>
+
+
+    [sourceHint]
+
+  </body>
+</html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Verge3D for 3ds Max: glTF Materials (glTF 2.0-compliant PBR) — Soft8Soft</title>
+    <title>Verge3D for 3ds Max: glTF PBR Materials — Soft8Soft</title>
     <meta charset="utf-8">
     <meta name="description" content="How to setup glTF-compliant PBR materials in 3ds Max to be used with Verge3D."/>
     <base href="../../../" />
@@ -17,10 +17,10 @@
   </head>
   <body><article>
 
-    <h1>glTF Materials (glTF 2.0-compliant PBR) / 3ds Max</h1>
+    <h1>glTF PBR Materials / 3ds Max</h1>
 
     <p>
-      If your content needs to be compatible with glTF 2.0 standard <a href="manual/en/introduction/FAQ.html#gltf_materials">for some reason</a>, you can use physical materials for this purpose as described below.
+      If your content needs to be fully-compatible with glTF 2.0 standard <a href="manual/en/introduction/FAQ.html#gltf_materials">for some reason</a>, you'll need to use the simplistic material setup. This setup is based on a limited set of 3ds Max nodes which should be connected with each other as specified below.
     </p>
 
     <figure>
@@ -36,40 +36,108 @@
     [contents]
 
 
-    [anchor:introduction]
+    [anchor:setting_up]
 
-    <h2>Introduction</h2>
+    <h2>Setting Up</h2>
 
     <p>
-      Depending on the 3ds Max version, we recommend the use of the following materials to create glTF 2.0-compatible content:
+      Add a <strong>Physical Material</strong> shader node as follows: go to <strong>Materials/Map Browser</strong> and choose <strong>Physical Material</strong> from the <strong>General</strong> material list.
     </p>
 
-    <table style="width:450px">
-      <tr>
-        <th>3ds Max version</th>
-        <th>Material</th>
-      </tr>
-      <tr>
-        <td>2023-2024</td>
-        <td><a href="manual/en/max/GLTF-Materials.html#gltf_material">glTF Material</a></td>
-      </tr>
-      <tr>
-        <td>2022</td>
-        <td><a href="manual/en/max/GLTF-Materials.html#using_usd_preview_material">Usd Preview Surface</a></td>
-      </tr>
-      <tr>
-        <td>2021</td>
-        <td><a href="manual/en/max/GLTF-Materials.html#physical_material">Physical Material</a></td>
-      </tr>
-    </table>
+    <img src="files/physical-material/phmat_02.png" alt="Adding Physical material in 3ds Max">
+
+    <p>
+      Then you can connect texture nodes to the <strong>Physical Material</strong> as described below.  Note that all textures are optional and any of them can be safely omitted.
+    </p>
+
+    <img src="files/physical-material/phmat_01.png" alt="Physial material setup">
+
+    <ul>
+      <li>
+        Connect an <strong>Ambient Occlusion</strong> texture to the <strong>Base Weight Map</strong> input. For better consistency between the 3ds Max viewport and Verge3D you can also connect the <strong>Ambient Occlusion</strong> texture to the <strong>Refl Color Map</strong> input, but it's not necessary.
+      </li>
+      <li>
+        Connect a <strong>Base Color</strong> texture to the <strong>Base Color Map</strong> input.
+      </li>
+      <li>
+        Connect a <strong>Roughness</strong> texture to the <strong>Roughness Map</strong> input.
+      </li>
+      <li>
+        Connect a <strong>Metallic</strong> texture to the <strong>Metalness Map</strong> input.
+      </li>
+      <li>
+        Connect a <strong>Normal</strong> texture to a <strong>Normal Map</strong> node and then connect it to the <strong>Bump Map</strong> input of the <strong>Physical Material</strong>. You should also set the <strong>Bump Map Amount</strong> value in the <strong>Special Map</strong> panel of the <strong>Physical Material</strong> to 1.0.
+      </li>
+      <li>
+        Connect an <strong>Emission</strong> texture to the <strong>Emission Color Map</strong>. You should also set the emission factor to 1.0 in the <strong>Basic Parameters</strong> panel of the <strong>Physical Material</strong> preferences.
+      </li>
+      <li>
+        The <strong>Transparency</strong> map will be taken from Alpha Channel of the <strong>Base Color</strong> texture.
+      </li>
+    </ul>
+
+    <img src="files/physical-material/phmat_03.png" alt="Setting parameters of bump map in 3ds Max">
+
+    <h3>Transparency Texture</h3>
+
+    <p>
+      The engine will use the <strong>Alpha</strong> channel from the <strong>Base Color</strong> texture as a transparency map automatically, if it is present. To make the transparency visible in the 3ds Max viewport, connect the <strong>Alpha</strong> channel of the <strong>Base Color</strong> texture to the <strong>Transparency Color Map</strong> input.
+    </p>
+
+    <img src="files/physical-material/phmat_06.png" alt="glTF material with transparency">
+
+    <p>
+      Also in the <strong>Preferences</strong> of the texture, in the <strong>Bitmap Parameters</strong> panel you should set <strong>Mono Chanel Output</strong> to <strong>Alpha</strong> and <strong>RGB Channel Output</strong> to <strong>Alpha as Gray</strong>.
+    </p>
+
+    <img src="files/physical-material/phmat_07.png" alt="Transparent texture map settings in 3ds Max">
+
+
+    [anchor:color_space]
+
+    <h2>Color Space and Gamma Correction</h2>
+
+    <p>
+      For correct rendering, the color space should be taken into account for images. All images, except the <strong>Base Color</strong> and <strong>Emission</strong> textures, must be presented in the linear color space. To do this, select <strong>Override Gamma</strong> with the 1.0 value in the <strong>Gamma Preferences</strong> when you open an image in the <strong>Open Image</strong> dialog box (as can be seen below).
+    </p>
+
+    <img src="files/physical-material/phmat_04.png" alt="Overriding image gamma in 3ds Max">
+
+    <p>
+      On the contrary, the <strong>Base Color</strong> and <strong>Emission</strong> textures must be opened in sRGB color space (with Gamma 2.2). To make it happen, just leave <strong>Automatic</strong> in the gamma preferences of the <strong>Open Image</strong> dialog box.
+    </p>
+
+    <img src="files/physical-material/phmat_05.png" alt="Choosing automatic gamma in 3ds Max">
+
+
+    [anchor:exporting_substance]
+
+    <h2>Exporting Textures from Substance Painter</h2>
+
+    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
+
+    <img src="files/physical-material/substance_screenshot.jpg" alt="Substance painter screen" style="max-width: 819px;">
+
+    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
+
+    <img src="files/physical-material/pbr_texture_set_preview.jpg" alt="Occulsion roughness metallness texture atlas" style="max-width: 819px;">
+
+    <p>
+      To facilitate exporting textures from Substance Painter and to ensure maximum capabilities within the Verge3D engine we recommend using <a href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D export preset</a>. Place this preset file to the *export-presets* folder usually located in the <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> directory (create it if does not exist).
+    </p>
+
+    <img src="files/physical-material/phmat_09.png" alt="Exporting material from Substance painter">
+
+    <p>When exporting textures from Substance Painter, choose *Verge3d for 3ds Max* in the export dialog window so that all generated textures are compatible with the glTF 2.0 standard Verge3D is based on.</p>
+
 
 
     [anchor:gltf_material]
 
-    <h2>glTF Material</h2>
+    <h2>Alternative Setup based on glTF Material</h2>
 
     <p>
-      The *glTF Material* is fully compatible with glTF 2.0.
+      Verge3D exporter plugin also supports 3ds Max' *glTF Material* materials by converting them directly into glTF 2.0-compatible PBR model.
     </p>
 
     <p class="note">
@@ -77,7 +145,7 @@
     </p>
 
     <p>
-      Add a <b>glTF Material</b> shader node as follows: go to <b>Materials/Map Browser</b> and choose <b>glTF Material</b> from the <b>General</b> material list.
+      Add a <strong>glTF Material</strong> shader node as follows: go to <strong>Materials/Map Browser</strong> and choose <strong>glTF Material</strong> from the <strong>General</strong> material list.
     </p>
 
     <img src="files/gltf-materials-max/gltf_mat_in_map_browser.jpg" alt="Adding glTF material in 3ds Max" style="max-width: 540px;">
@@ -89,24 +157,26 @@
     <img src="files/gltf-materials-max/gltf_mat_example_00.jpg" alt="glTF material shader" style="max-width: 713px;">
 
     <ol>
-      <li>Assign *glTF Material* to your model.</li>
       <li>
-      Connect a <b>Base Color</b> texture to the <b>Base Color Map</b> input.
+        Assign *glTF Material* to your model.
       </li>
       <li>
-      Connect a <b>Transparency</b> texture to the <b>Alpha Map</b> input, otherwise the alpha channel will be taken from <b>Base Color Map</b>.
+        Connect a <strong>Base Color</strong> texture to the <strong>Base Color Map</strong> input.
       </li>
       <li>
-      Connect a <b>Metallic</b> texture to the <b>Metalness Map</b> input.
+        Connect a <strong>Transparency</strong> texture to the <strong>Alpha Map</strong> input, otherwise the alpha channel will be taken from <strong>Base Color Map</strong>.
       </li>
       <li>
-      Connect a <b>Roughness</b> texture to the <b>Roughness Map</b> input.
+        Connect a <strong>Metallic</strong> texture to the <strong>Metalness Map</strong> input.
       </li>
       <li>
-      Connect an <b>Normal</b> texture to the <b>Normal Map</b> input.
+        Connect a <strong>Roughness</strong> texture to the <strong>Roughness Map</strong> input.
       </li>
       <li>
-      Connect an <b>Occlusion</b> texture to the <b>Occlusion (AO) Map</b> input.
+        Connect an <strong>Normal</strong> texture to the <strong>Normal Map</strong> input.
+      </li>
+      <li>
+        Connect an <strong>Occlusion</strong> texture to the <strong>Occlusion (AO) Map</strong> input.
       </li>
     </ol>
 
@@ -143,13 +213,15 @@
 
     [anchor:using_usd_preview_material]
 
-    <h2>Usd Preview Surface Material</h2>
+    <h2>Alternative Setup based on Usd Preview Surface Material</h2>
 
     <p>
       You can use these materials to make your 3ds Max scenes compatible with both glTF and USD formats. You might need to install "USD for 3ds Max" plugin, which is available from "Product Updates" in your Autodesk account.
     </p>
 
-    <p>Assign the <b>Usd Preview Surface</b> material node. Then you can connect texture nodes, note that all textures are optional and any of them can be safely omitted. The following settings are supported in Verge3D:</p>
+    <p>
+      Assign the <strong>Usd Preview Surface</strong> material node. Then you can connect texture nodes, note that all textures are optional and any of them can be safely omitted. The following settings are supported in Verge3D:
+    </p>
 
     <ul>
       <li>Diffuse Color </li>
@@ -171,125 +243,35 @@
     </p>
 
     <ol>
-      <li>Assign *Usd Preview Surface* to your model.</li>
       <li>
-      Connect a <b>Diffuse Color</b> texture to the <b>Diffuse Color Map</b> input.
+        Assign *Usd Preview Surface* to your model.
       </li>
       <li>
-      Connect a <b>Metallic</b> texture to the <b>Metallic Map</b> input.
+        Connect a <strong>Diffuse Color</strong> texture to the <strong>Diffuse Color Map</strong> input.
       </li>
       <li>
-      Connect a <b>Roughness</b> texture to the <b>Roughness Map</b> input.
+        Connect a <strong>Metallic</strong> texture to the <strong>Metallic Map</strong> input.
       </li>
       <li>
-      Connect an <b>Occlusion</b> texture to the <b>Occlusion Map</b> input.
+        Connect a <strong>Roughness</strong> texture to the <strong>Roughness Map</strong> input.
       </li>
       <li>
-      Connect an <b>Normal</b> texture to the <b>Normal Map</b> input.
+        Connect an <strong>Occlusion</strong> texture to the <strong>Occlusion Map</strong> input.
+      </li>
+      <li>
+        Connect an <strong>Normal</strong> texture to the <strong>Normal Map</strong> input.
       </li>
     </ol>
 
 
-    [anchor:physical_material]
-
-    <h2>Physical Material</h2>
-
-    <p>
-    Add a <b>Physical Material</b> shader node as follows: go to <b>Materials/Map Browser</b> and choose <b>Physical Material</b> from the <b>General</b> material list.
-    </p>
-
-    <img src="files/physical-material/phmat_02.png" alt="Adding Physical material in 3ds Max">
-
-    <p>
-    Then you can connect texture nodes to the <b>Physical Material</b> as described below.  Note that all textures are optional and any of them can be safely omitted.
-    </p>
-
-    <img src="files/physical-material/phmat_01.png" alt="Physial material setup">
-
-    <ul>
-      <li>
-      Connect an <b>Ambient Occlusion</b> texture to the <b>Base Weight Map</b> input. For better consistency between the 3ds Max viewport and Verge3D you can also connect the <b>Ambient Occlusion</b> texture to the <b>Refl Color Map</b> input, but it's not necessary.
-      </li>
-      <li>
-      Connect a <b>Base Color</b> texture to the <b>Base Color Map</b> input.
-      </li>
-      <li>
-      Connect a <b>Roughness</b> texture to the <b>Roughness Map</b> input.
-      </li>
-      <li>
-      Connect a <b>Metallic</b> texture to the <b>Metalness Map</b> input.
-      </li>
-      <li>
-      Connect a <b>Normal</b> texture to a <b>Normal Map</b> node and then connect it to the <b>Bump Map</b> input of the <b>Physical Material</b>. You should also set the <b>Bump Map Amount</b> value in the <b>Special Map</b> panel of the <b>Physical Material</b> to 1.0.
-      </li>
-      <li>
-      Connect an <b>Emission</b> texture to the <b>Emission Color Map</b>. You should also set the emission factor to 1.0 in the <b>Basic Parameters</b> panel of the <b>Physical Material</b> preferences.
-      </li>
-      <li>
-      The <b>Transparency</b> map will be taken from Alpha Channel of the <b>Base Color</b> texture.
-      </li>
-    </ul>
-
-    <img src="files/physical-material/phmat_03.png" alt="Setting parameters of bump map in 3ds Max">
-
-    <h3>Transparency Texture</h3>
-
-    <p>
-    The engine will use the <b>Alpha</b> channel from the <b>Base Color</b> texture as a transparency map automatically, if it is present. To make the transparency visible in the 3ds Max viewport, connect the <b>Alpha</b> channel of the <b>Base Color</b> texture to the <b>Transparency Color Map</b> input.
-    </p>
-
-    <img src="files/physical-material/phmat_06.png" alt="glTF material with transparency">
-
-    <p>
-    Also in the <b>Preferences</b> of the texture, in the <b>Bitmap Parameters</b> panel you should set <b>Mono Chanel Output</b> to <b>Alpha</b> and <b>RGB Channel Output</b> to <b>Alpha as Gray</b>.
-    </p>
-
-    <img src="files/physical-material/phmat_07.png" alt="Transparent texture map settings in 3ds Max">
-
-
-    [anchor:color_space]
-
-    <h2>Color Space and Gamma Correction</h2>
-
-    <p>
-    For correct rendering, the color space should be taken into account for images. All images, except the <b>Base Color</b> and <b>Emission</b> textures, must be presented in the linear color space. To do this, select <b>Override Gamma</b> with the 1.0 value in the <b>Gamma Preferences</b> when you open an image in the <b>Open Image</b> dialog box (as can be seen below).
-    </p>
-
-    <img src="files/physical-material/phmat_04.png" alt="Overriding image gamma in 3ds Max">
-
-    <p>
-    On the contrary, the <b>Base Color</b> and <b>Emission</b> textures must be opened in sRGB color space (with Gamma 2.2). To make it happen, just leave <b>Automatic</b> in the gamma preferences of the <b>Open Image</b> dialog box.
-    </p>
-
-    <img src="files/physical-material/phmat_05.png" alt="Choosing automatic gamma in 3ds Max">
-
-
-    [anchor:exporting_substance]
-
-    <h2>Exporting Textures from Substance Painter</h2>
-
-    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
-
-    <img src="files/physical-material/substance_screenshot.jpg" alt="Substance painter screen" style="max-width: 819px;">
-
-    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
-
-    <img src="files/physical-material/pbr_texture_set_preview.jpg" alt="Occulsion roughness metallness texture atlas" style="max-width: 819px;">
-
-    <p>
-      To facilitate exporting textures from Substance Painter and to ensure maximum capabilities within the Verge3D engine we recommend using <a href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D export preset</a>. Place this preset file to the *export-presets* folder usually located in the <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> directory (create it if does not exist).
-    </p>
-
-    <img src="files/physical-material/phmat_09.png" alt="Exporting material from Substance painter">
-
-    <p>When exporting textures from Substance Painter, choose *Verge3d for 3ds Max* in the export dialog window so that all generated textures are compatible with the glTF 2.0 standard Verge3D is based on.</p>
-
 
     [anchor:export_to_gltf_in_runtime]
 
-    <h2>Export to glTF in Runtime</h2>
+    <h2>Exporting to glTF in Runtime</h2>
 
-    <p>With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/en/puzzles/Scenes.html#export_to_gltf">reference</a>.</p>
+    <p>
+      With *export to gltf* puzzle you can export your models or the entire scene in realtime. Then you can download the exported model or upload to the server for permanent storage. See more in the puzzle's <a href="manual/en/puzzles/Scenes.html#export_to_gltf">reference</a>.
+    </p>
 
 
     <h2>Got Questions?</h2>

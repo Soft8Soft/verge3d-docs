@@ -62,6 +62,38 @@
     </p>
 
 
+    [anchor:oit_rendering]
+
+    <h2>Order-Independent Transparency (OIT)</h2>
+
+    <p>
+      Verge3D allows the use of an approximate order-independent transparency technique, which do not require rendering geometry in sorted order, so it solves most transparency issues without any of the above considerations.
+    </p>
+
+    <img src="files/transparency-common/oit-example.jpg" alt="Order-Independent Transparency example">
+
+    <p>OIT can be enabled though the <a href="manual/en/maya/Lighting-and-Rendering.html#global_rendering_settings">Verge3D Settings panel</a>.</p>
+
+    <img src="files/transparency-maya/oit.jpg" alt="Order-Independent Transparency setting in Maya" style="max-width: 631px;">
+
+    <p>Known limitations:</p>
+
+    <ul>
+      <li>
+        OIT is only compatible with WebGL 2, otherwise it has no effect.
+      </li>
+      <li>
+        OIT is ignored by <a href="manual/en/maya/Lighting-and-Rendering.html#light_probes">Reflection Cubemap Light Probes</a> and <a href="manual/en/maya/Lighting-and-Rendering.html#reflection_plane_light_probes">Reflection Plane Light Probes</a>.
+      </li>
+      <li>
+        May not work well with high opacity objects.
+      </li>
+      <li>
+        Should not be used together with *MSAA* (multisample anti-aliasing) in scenes with 2 or more opaque objects. Instead you can use *FXAA* (fast approximate anti-aliasing) which is fully compatible with OIT.
+      </li>
+    </ul>
+
+
     [anchor:standard_surface_materials]
 
     <h2>Transparency for Standard Surface Materials</h2>

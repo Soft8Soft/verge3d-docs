@@ -77,7 +77,7 @@
       <dd>The instance of application's [page:Preloader Preloader] class.</dd>
     </dl>
 
-    <p>This constructor does the following:</p>
+    <p>Verge3D application constructor. This constructor does the following:</p>
 
     <ol>
       <li>Creates a new container element (if necessary).</li>
@@ -157,7 +157,7 @@
 
     <h3>[property:Object controls]</h3>
 
-    <p>Application main camera controls object.</p>
+    <p>Application camera controls. Use [page:.enableControls] to assign this value.</p>
 
     <h3>[property:Integer disableRenderTrigger]</h3>
 
@@ -190,6 +190,17 @@
     <h3>[property:Preloader preloader]</h3>
 
     <p>App [page:Preloader preloader] instance (exists only during the scene loading).</p>
+
+    <h3>[property:Boolean registerServiceKeys]</h3>
+
+    <p>Register the service keys like triple tilda (~~~) which displays service menu. Default is `true`. If you need to disable service keys, set this value to `false` right after making a new App instance.</p>
+
+    <code>
+    const app = new v3d.App(containerId, ctxSettings, preloader);
+    app.registerServiceKeys = false;
+    </code>
+
+    <p>If you need to disable the service keys for the running application, use the [page:AppUtils.unregisterServiceKeys] method.</p>
 
     <h3>[property:Array renderCallbacks]</h3>
 
@@ -431,30 +442,19 @@
       Hide frame rate counter.
     </p>
 
-    <h3>[method:undefined initPostprocessing]()</h3>
-    <p>
-      Handler for app post-processing initialization. Do not execute it unless you know what you are doing. Normally, you should assign any post-processing effects by using [page:.enablePostprocessing] method.
-    </p>
-
     <h3>[method:undefined initWebXR]([param:String mode], [param:String referenceSpaceType], [param:Function successCb], [param:Function failureCb], [param:Function exitCb], [param:Object options])</h3>
 
-    <dl class="params">
-      <dt>`mode`</dt>
-      <dd>"immersive-vr" for VR session, "immersive-ar" for AR session.</dd>
-      <dt>`referenceSpaceType`</dt>
-      <dd>one of "viewer", "local", "local-floor", "bounded-floor", "unbounded".</dd>
-      <dt>`successCb`</dt>
-      <dd>callback executed on success.</dd>
-      <dt>`failureCb`</dt>
-      <dd>callback executed when the method fails.</dd>
-      <dt>`exitCb`</dt>
-      <dd>callback executed when the user leaves WebXR session.</dd>
-      <dt>`options`</dt>
-      <dd>dictionary object with additional params, such as `domOverlay` to enable HTML in AR mode.</dd>
-    </dl>
+    <ul class="params">
+      <li>[page:String mode] — `"immersive-vr"` for VR session, `"immersive-ar"` for AR session.</li>
+      <li>[page:String referenceSpaceType] — one of `"viewer"`, `"local"`, `"local-floor"`, `"bounded-floor"`, `"unbounded"`.</li>
+      <li>[page:Function successCb] — callback executed on success.</li>
+      <li>[page:Function failureCb] — callback executed when the method fails.</li>
+      <li>[page:Function exitCb] — callback executed when the user leaves WebXR session.</li>
+      <li>[page:Object options] — dictionary object with additional params, such as `domOverlay` to enable HTML in AR mode.</li>
+    </ul>
 
     <p>
-      Initialize AR/VR session.
+      Initialize an AR/VR session.
     </p>
 
     <h3>[method:undefined loadScene]([param:String url], [param:Function loadCb], [param:Function progressCb], [param:Function errorCb])</h3>
@@ -507,7 +507,7 @@
 
     <h3>[method:Camera setCamera]([param:Camera camera])</h3>
     <p>
-      Set the main app camera.
+      Set the active camera and switch the app [page:.controls controls] based on [page:Camera.controlSettings settings] assigned on the camera. Also, if the app has [page:App.postprocessing postprocessing] is enabled, updates the camera for the corresponding post-processing passes.
     </p>
 
     <h3>[method:undefined setFrameRateDivider]([param:Integer divider])</h3>
@@ -561,7 +561,7 @@
 
     <h3>[method:undefined updateReflectionProbes]([param:Object3D object3d])</h3>
     <p class="params">
-      object3d — an object or a scene for searching probe objects among its descendants.
+      [page:Object3D object3d] — an object or a scene for searching probe objects among its descendants.
     </p>
 
     <p>

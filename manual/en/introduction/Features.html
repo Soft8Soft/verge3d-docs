@@ -95,14 +95,14 @@
       </tr>
 
       <tr>
-        <td>Blender 2.91-3.6</td>
-        <td>Autodesk 3ds Max 2021-2024</td>
-        <td>Autodesk Maya 2022-2024</td>
+        <td>Blender 3.0-4.2</td>
+        <td>Autodesk 3ds Max 2022-2025</td>
+        <td>Autodesk Maya 2022-2025</td>
       </tr>
 
       <tr>
         <td colspan=3>
-          In addition, you can use any modelling suite supporting export to glTF 2.0 format as well as any 3D graphics software supporting export to <a href="manual/en/introduction/Features.html#feature_import_formats">20+ import formats</a> including USDZ, FBX, OBJ, COLLADA, and 3DS.
+          In addition, you can use any modelling suite supporting export to glTF 2.0 format.
         </td>
       </tr>
 
@@ -124,6 +124,7 @@
             <li>Generating quotes and invoices, sending these documents via email.</li>
             <li>Product downloads.</li>
             <li>PayPal payments.</li>
+            <li>Custom form submissions.</li>
           </ul>
 
           <p>
@@ -144,6 +145,7 @@
             <li>Generator for SCORM 1.2 courses, which work in any compatible learning-management system, such as Moodle, Chamilo, SCORM Cloud, CANVAS, iSpring.</li>
             <li>SCORM 1.2 puzzles.</li>
             <li>300+ puzzles to implement interactive learning experiences.</li>
+            <li>Support for ChromeOS devices for both creating and running 3D content.</li>
           </ul>
         </td>
       </tr>
@@ -179,13 +181,13 @@
               <a href="manual/en/max/Material-System.html#Standard">Standard</a> with Scanline as reference renderer.
             </li>
             <li>
-              <a href="manual/en/max/GLTF-Materials.html#gltf_material">glTF Material</a>.
-            </li>
-            <li>
               <a href="manual/en/max/GLTF-Materials.html#physical_material">Physical glTF-compliant</a>.
             </li>
             <li>
-              <a href="manual/en/max/GLTF-Materials.html#using_usd_preview_material">glTF-compliant Usd Preview Surface</a>.
+              <a href="manual/en/max/GLTF-Materials.html#gltf_material">glTF Material</a>.
+            </li>
+            <li>
+              <a href="manual/en/max/GLTF-Materials.html#using_usd_preview_material">Usd Preview Surface</a>.
             </li>
           </ul>
         </td>
@@ -211,7 +213,7 @@
       </tr>
 
       <tr id="feature_lighting">
-        <th rowspan=3>Lighting</th>
+        <th rowspan=2>Lighting</th>
         <th>Verge3D for Blender</th>
         <th>Verge3D for 3ds Max</th>
         <th>Verge3D for Maya</th>
@@ -230,7 +232,7 @@
               </ul>
             </li>
             <li>
-              Image-based lighting via World shader nodes
+              Image-based lighting via World shader nodes.
             </li>
             <li>
               Reflection Cubemap Light Probes.
@@ -260,7 +262,7 @@
               </ul>
             </li>
             <li>
-              Image-based lighting via Environment Maps
+              Image-based lighting via Environment Maps.
             </li>
             <li>
               Reflection Cubemap Light Probes.
@@ -294,22 +296,16 @@
           </ul>
         </td>
       </tr>
-      <tr>
-        <td colspan=3>In addition, you can create rectangular and hemisphere lights via JavaScript.</td>
-      </tr>
 
       <tr id="feature_shadows">
         <th>Shadows</th>
         <td colspan=3>
-          Verge3D supports casting shadows from directional, point and spot light sources:
+          Verge3D supports casting shadows from directional, point, spot, and area light sources:
           <ul>
-            <li>Basic non-smoothed shadows.</li>
-            <li>Bilinear shadows.</li>
-            <li>PCF shadows.</li>
-            <li>Bilinear PCF shadows.</li>
-            <li>Poisson disk PCF shadows.</li>
+            <li>Basic non-smoothed (pixelated) shadows.</li>
+            <li>Shadows with bilinear filtering.</li>
+            <li>PCF shadows (with Poisson disk sampling).</li>
             <li>ESM shadows.</li>
-            <li>VSM shadows (via JavaScript).</li>
           </ul>
         </td>
       </tr>
@@ -321,13 +317,16 @@
           <ul>
             <li>Creating new applications based on provided templates.</li>
             <li>Running applications and 3D modelling suites (Blender, 3ds Max, Maya).</li>
+            <li>Customizing app look and metadata.</li>
+            <li>Creating installable progressive web apps (PWA).</li>
             <li>Editing and running Puzzles logic.</li>
             <li>Updating apps to new Verge3D versions.</li>
             <li>Publising applications on Verge3D Network.</li>
+            <li>Exporting/importing apps to/from ZIP arhives.</li>
             <li>Managing licensing keys.</li>
             <li>Accessing Verge3D documentation and support channels.</li>
           </ul>
-          App Manager can be easily accessed right from Blender, 3ds Max or Maya.
+          App Manager can be easily accessed right from Blender, 3ds Max, or Maya. Alternatevely, you can run it via desktop launcher (Windows only) or command line.
         </td>
       </tr>
 
@@ -386,6 +385,7 @@
             <li>Controlling animations.</li>
             <li>Moving, rotating cameras. Setting the active camera.</li>
             <li>Controlling parameters of light sources and environment lighting.</li>
+            <li>Performing constuctive solid geometry (CSG) operations.</li>
             <li>Loading and exporting assets in runtime.</li>
             <li>Uploading/downloading data over network in JSON/CSV/Text format.</li>
             <li>Loading user images.</li>
@@ -435,8 +435,12 @@
       <tr id="feature_ui">
         <th>UI and HTML Layout</th>
         <td colspan=3>
-          Interface layouts, created using external WYSIWYG editors, can be <a href="manual/en/introduction/HTML-based-user-interfaces.html">linked with Puzzles</a> to trigger changes to a 3D scene being rendered in the browser and vice versa.
-          <br>We recommend using <a href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a> website builder for fully code-less pipeline.
+          You have multiple options to create UI for your apps:
+          <ul>
+            <li>3D models as UI elements.</li>
+            <li>HTML Puzzles.</li>
+            <li>WYSIWYG editors (aka website builders), such as <a href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a></li>
+            <li>Custom HTML/CSS code.</li>
         </td>
       </tr>
 
@@ -479,32 +483,18 @@
             <li>Screen Space Reflection and Refraction (SSR)</li>
             <li>Supersampling Anti-Aliasing (SSAA)</li>
           </ul>
-          And, in addition, the following effects can be enabled with JavaScript:
-          <ul>
-            <li>Adaptive Tone Mapping</li>
-            <li>Crepuscular Rays (also known as sunbeams or god rays)</li>
-            <li>Enhanced Subpixel Morphological Anti-Aliasing (SMAA)</li>
-            <li>Glitch</li>
-            <li>Image Crossfading</li>
-            <li>Image Masking</li>
-            <li>Motion Blur</li>
-            <li>Pixelated Imagery</li>
-            <li>Sobel Filter</li>
-            <li>Temporal Anti-Aliasing (TAA)</li>
-          </ul>
         </td>
       </tr>
 
       <tr id="feature_vr">
         <th>Virtual Reality</th>
         <td colspan=3>
-          <p>The following VR devices <a href="manual/en/introduction/AR-VR-development.html">supported</a>:</p>
+          <p>The following VR devices <a href="manual/en/introduction/AR-VR-development.html">are known to work</a>:</p>
           <ul>
-            <li>Oculus Quest 1-2.</li>
+            <li>Meta Quest.</li>
             <li>HTC Vive.</li>
-            <li>Cardboard — on Android devices.</li>
-            <li>Anaglyph 3D — implemented on top of stereo camera, can be activated using JavaScript.</li>
           </ul>
+          <p>In general, any device which supports WebXR technology should be compatible with Verge3D.</p>
         </td>
       </tr>
 
@@ -571,6 +561,7 @@
         <td>
           <ul>
             <li>Blender Essential Pack</li>
+            <li>Blender Machinery Pack</li>
             <li>Blender Jewelry Pack</li>
           </ul>
           <p>See <a href="manual/en/blender/Material-Library.html">here</a> on how to use these packs.</p>
@@ -592,14 +583,15 @@
       <tr id="feature_demos">
         <th>Demos and Examples</th>
         <td colspan=3>
-          Over 150 coding examples and a series of full-featured demo applications including:
+          <p>The following demos are freely available from the Verge3D Asset Store:</p>
           <ul>
             <li><a href="https://cdn.soft8soft.com/demo/blender/arcade_racing/arcade_racing.html" target="_blank">Arcade Racing</a> — racing demo with advanced physics simulations.</li>
             <li><a href="https://cdn.soft8soft.com/demo/blender/augmented_reality/augmented_reality.html" target="_blank">Augmented Reality</a> — basic AR demo.</li>
             <li><a href="https://cdn.soft8soft.com/demo/blender/clipping_planes/clipping_planes.html" target="_blank">Clipping Planes</a> — shows how clipping planes (aka cross-sections or plane sections) can be used for engineering and scientific purposes.</li>
             <li><a href="https://cdn.soft8soft.com/demo/blender/custom_image/custom_image.html" target="_blank">Custom Image</a> — a virtual picture frame which allows uploading, storing and sharing your images.</li>
-            <li><a href="https://cdn.soft8soft.com/demo/blender/e-learning/e-learning.html" target="_blank">E-Learning</a> — simple e-learning app.</li>
-            <li><a href="https://cdn.soft8soft.com/demo/blender/farmers_journey/index.html" target="_blank">Farmer's Journey</a> — arcade browser game made without coding.</li>
+            <li><a href="https://cdn.soft8soft.com/demo/blender/e-learning/e-learning.html" target="_blank">E-Learning</a> — SCORM-compatible e-learning app which can also be run in the standalone mode.</li>
+            <li><a href="https://cdn.soft8soft.com/demo/blender/farmers_journey/farmers_journey.html" target="_blank">Farmer's Journey</a> — arcade browser game made without coding.</li>
+            <li><a href="https://cdn.soft8soft.com/demo/blender/firstperson_camera/firstperson_camera.html" target="_blank">Firstperson Camera</a> — first-person real estate visualization.</li>
             <li><a href="https://cdn.soft8soft.com/demo/blender/global_illumination/global_illumination.html" target="_blank">Global Illumination</a> — an interior demo with advanced lighting effects (such as dynamic cubemap probes and area lights).</li>
             <li><a href="https://cdn.soft8soft.com/demo/blender/gltf_compat/gltf_compat.html" target="_blank">GLTF Compat</a> — a demo featuring glTF 2.0 compatible materials.</li>
             <li><a href="https://cdn.soft8soft.com/demo/blender/industrial_robot/index.html" target="_blank">Industrial Robot VR</a> — interactive robot simulator with AR and VR capabilities.</li>
@@ -623,60 +615,21 @@
       <tr id="feature_import_formats">
         <th>Import Formats</th>
         <td colspan=3>
-          <p>In addition to glTF 2.0 you can import the following formats.</p>
-          <p>Geometry/Materials:</p>
-          <ul>
-            <li>3DM — CAD format developed by openNURBS initiative, supported in Rhinoceros, SAP 3D Visual Enterprise Viewer, Moment of Inspiration (MoI), Deep View (by Right Hemisphere).</li>
-            <li>3DS — older Autodesk 3ds Max file format.</li>
-            <li>3MF — 3D manufacturing format.</li>
-            <li>AMF — additive manufacturing file format.</li>
-            <li>COLLADA — COLLAborative Design Activity format.</li>
-            <li>DRACO — compressed 3D file format.</li>
-            <li>FBX</li>
-            <li>G-Code — used in computer-aided manufacturing to control automated machine tools.</li>
-            <li>IFC — a CAD data exchange file format intended for description of architectural, building and construction industry data.</li>
-            <li>KMZ — Keyhole Markup Language.</li>
-            <li>LDraw — format describing LEGO® bricks and models.</li>
-            <li>LWO — 3D format created by LightWave 3D.</li>
-            <li>OBJ/MTL — geometry and material definition file formats developed by Wavefront Technologies.</li>
-            <li>PCD — 3D point cloud data format.</li>
-            <li>PDB — Protein Data Bank format.</li>
-            <li>PLY — Polygon File Format, designed to store three-dimensional data from 3D scanners.</li>
-            <li>PRWM — Packed Raw WebGL Model.</li>
-            <li>STL — stereolithography data format, takes its origin from the CAD software by 3D Systems.</li>
-            <li>SEA3D — an open-source format for game development.</li>
-            <li>Tilt Brush</li>
-            <li>VOX — a blocky 3D format used by the Voxlap game engine.</li>
-            <li>VRML — Virtual Reality Modeling Language.</li>
-            <li>VRM — glTF-based 3D avatar format.</li>
-            <li>VTK — Visualization Toolkit format.</li>
-            <li>X — DirectX file format.</li>
-          </ul>
-          <p>Animation:</p>
-          <ul>
-            <li>BVH — Biovision Hierarchy character animation file format.</li>
-            <li>MD2 — used in Quake II engine.</li>
-            <li>MMD — MikuMikuDance format.</li>
-          </ul>
+          <p>glTF 2.0 with or without custom Verge3D extensions.</p>
           <p>Images:</p>
           <ul>
-            <li>DDS — texture compression format.</li>
-            <li>EXR — OpenEXR, high dynamic range raster file format.</li>
             <li>GIF — Graphics Interchange Format.</li>
             <li>HDR — RGBE or Radiance HDR.</li>
             <li>JPEG</li>
-            <li>KTX,KTX2 — compressed texture formats developed by Khronos.</li>
-            <li>Lottie — format for creating fancy web animations.</li>
-            <li>NRRD — "nearly raw raster data" format.</li>
+            <li>KTX2 — compressed texture format developed by Khronos.</li>
             <li>PNG — portable graphics format.</li>
-            <li>PVR — texture compression format.</li>
-            <li>SVG — Scalable Vector Graphics.</li>
-            <li>TGA — Truevision TGA raster graphics format.</li>
             <li>WebP — format developed by Google intended as a replacement for JPEG, PNG, and GIF file formats.</li>
           </ul>
           <p>Fonts:</p>
           <ul>
             <li>TTF</li>
+            <li>WOFF</li>
+            <li>OTF</li>
           </ul>
         </td>
       </tr>
@@ -684,15 +637,7 @@
       <tr id="feature_export_formats">
         <th>Export Formats</th>
         <td colspan=3>
-          In addition to glTF 2.0 you can export to the following formats:
-          <ul>
-            <li>COLLADA</li>
-            <li>MMD</li>
-            <li>OBJ</li>
-            <li>PLY</li>
-            <li>STL</li>
-            <li>USDZ</li>
-          </ul>
+          glTF 2.0 and USDZ (with Puzzles).
         </td>
       </tr>
 
@@ -703,16 +648,8 @@
           <ul>
             <li>Orbit Controls — targeted 3D view.</li>
             <li>Flying Controls — free-flight view.</li>
-            <li>First-Person Controls</li>
-            <li>Virtual Reality Controls</li>
-          </ul>
-          These camera control modes can be enabled with JavaScript:
-          <ul>
-            <li>Flyover Controls</li>
-            <li>Pointerlock Controls</li>
-            <li>Device Orientation Controls — implements gyroscope-driven view.</li>
-            <li>Map Controls — hovering camera</li>
-            <li>Trackball Controls</li>
+            <li>First-Person Controls (with optional collision mesh).</li>
+            <li>Virtual Reality Controls (with optional collision mesh).</li>
           </ul>
         </td>
       </tr>
@@ -720,32 +657,20 @@
       <tr id="feature_3d_primitives">
         <th>3D Primitives</th>
         <td colspan=3>
-          You can load geometry exported from any modelling suite. In addition to that, the following 3D primitives can be created with JavaScript:
+          You can load geometry exported from any modelling suite. In addition to that, the following 3D primitives can be created with Puzzles:
           <ul>
+            <li>Box</li>
+            <li>Capsule</li>
             <li>Circle</li>
             <li>Cone</li>
-            <li>Convex Hull</li>
-            <li>Cube (Box)</li>
             <li>Cylinder</li>
-            <li>Dodecahedron — a polyhedron with twelve flat faces.</li>
-            <li>Extruded Shape</li>
-            <li>Icosahedron — a polyhedron with 20 faces.</li>
-            <li>Font — procedural text generated from <em>typeface.json</em> fonts.</li>
-            <li>Lathe (Vase) — a 3D privitive with axial symmetry.</li>
-            <li>Line</li>
-            <li>NURBS</li>
-            <li>Octahedron — a polyhedron with eight faces.</li>
+            <li>Icosahedron</li>
             <li>Plane</li>
             <li>Ring</li>
             <li>Sphere</li>
-            <li>Spline Curve</li>
-            <li>Tetrahedron — a triangular pyramid.</li>
-            <li>Polyhedron</li>
-            <li>Text</li>
+            <li>Textured Plane</li>
             <li>Torus</li>
-            <li>Tube</li>
             <li>Utah Teapot</li>
-            <li>Wireframe</li>
           </ul>
         </td>
       </tr>
@@ -753,7 +678,7 @@
       <tr id="feature_requirements">
         <th>System Requirements</th>
         <td colspan=3>
-          Verge3D applications can be launched on any system capable of running a web browser with WebGL technology supported. See the actual list of these browsers on <a href="https://www.soft8soft.com/webgl-supported-browsers-and-troubleshooting/" target="_blank">this page</a>.
+          Verge3D applications can be launched on any system capable of running a modern web browser. See the actual list of these browsers on <a href="https://www.soft8soft.com/webgl-supported-browsers-and-troubleshooting/" target="_blank">this page</a>.
         </td>
       </tr>
 
@@ -766,13 +691,13 @@
 
       <tr>
         <td>
-          <a href="https://www.blender.org/download/requirements/" target="_blank">Similar to Blender</a>
+          Any system that meets <a href="https://www.blender.org/download/requirements/" target="_blank">Blender system requirements</a>.
         </td>
         <td>
-          <a href="https://knowledge.autodesk.com/support/3ds-max/troubleshooting/caas/sfdcarticles/sfdcarticles/System-requirements-for-Autodesk-3ds-Max-2024.html" target="_blank">Similar to 3ds Max</a>
+          Any system that meets <a href="https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/System-requirements-for-Autodesk-3ds-Max-2025.html" target="_blank">3ds Max system requirements</a>.
         </td>
         <td>
-          <a href="https://knowledge.autodesk.com/support/maya/troubleshooting/caas/sfdcarticles/sfdcarticles/System-requirements-for-Autodesk-Maya-2024.html" target="_blank">Similar to Maya</a>
+          Any system that meets <a href="https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/System-Requirements-for-Autodesk-Maya-2025.html" target="_blank">Maya system requirements</a>.
         </td>
       </tr>
     </table>

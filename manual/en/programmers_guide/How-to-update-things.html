@@ -67,11 +67,11 @@
     const geometry = new v3d.BufferGeometry();
 
     // attributes
-    const positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
+    const positions = new Float32Array(MAX_POINTS * 3); // 3 coords per vertex
     geometry.setAttribute('position', new v3d.BufferAttribute(positions, 3));
 
     // draw range
-    const drawCount = 2; // draw the first 2 points, only
+    const drawCount = 2; // draw the first 2 vertices, only
     geometry.setDrawRange(0, drawCount);
 
     // material
@@ -93,15 +93,13 @@
     x = y = z = index = 0;
 
     for (let i = 0, l = MAX_POINTS; i < l; i++) {
-
-        positions[index ++] = x;
-        positions[index ++] = y;
-        positions[index ++] = z;
+        positions[index++] = x;
+        positions[index++] = y;
+        positions[index++] = z;
 
         x += (Math.random() - 0.5) * 30;
         y += (Math.random() - 0.5) * 30;
         z += (Math.random() - 0.5) * 30;
-
     }
     </code>
 
@@ -128,19 +126,12 @@
     line.geometry.computeBoundingSphere();
     </code>
 
-    <h3>Examples</h3>
-
-    <p>
-      [example:webgl_custom_attributes WebGL / custom / attributes]<br>
-      [example:webgl_buffergeometry_custom_attributes_particles WebGL / buffergeometry / custom / attributes / particles]
-    </p>
-
 
     <h2>Materials</h2>
 
     <p>All uniforms values can be changed freely (e.g. colors, textures, opacity, etc), values are sent to the shader every frame.</p>
 
-    <p>Also GLstate related parameters can change any time (depthTest, blending, polygonOffset, etc).</p>
+    <p>Also WebGL state-related parameters can change any time (depthTest, blending, polygonOffset, etc).</p>
 
     <p>The following properties can't be easily changed at runtime (once the material is rendered at least once):</p>
     <ul>
@@ -172,12 +163,6 @@
 
     <p>If the number is large (e.g. each face could be potentially different), consider a different solution, such as using attributes / textures to drive different per-face look.</p>
 
-    <h3>Examples</h3>
-    <p>
-      [example:webgl_materials_car WebGL / materials / car]<br>
-      [example:webgl_postprocessing_dof WebGL / webgl_postprocessing / dof]
-    </p>
-
 
     <h2>Textures</h2>
 
@@ -189,30 +174,16 @@
 
     <p>Render targets update automatically.</p>
 
-    <h3>Examples</h3>
-    <p>
-      [example:webgl_materials_video WebGL / materials / video]<br>
-      [example:webgl_rtt WebGL / rtt]
-    </p>
-
 
     <h2>Cameras</h2>
 
-    <p>A camera's position and target is updated automatically. If you need to change</p>
+    <p>A camera's position and target is updated automatically. If you need to change:</p>
 
     <ul>
-      <li>
-        fov
-      </li>
-      <li>
-        aspect
-      </li>
-      <li>
-        near
-      </li>
-      <li>
-        far
-      </li>
+      <li>fov</li>
+      <li>aspect</li>
+      <li>near</li>
+      <li>far</li>
     </ul>
 
     <p>

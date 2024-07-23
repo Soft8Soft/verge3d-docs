@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:LightShadow] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      This is used internally by [page:DirectionalLight DirectionalLights] for calculating shadows.
+    </p>
+    <p>
+      Unlike the other shadow classes, this uses an [page:OrthographicCamera] to calculate the shadows,
+      rather than a [page:PerspectiveCamera]. This is because light rays from a [page:DirectionalLight]
+      are parallel. [page:DirectionalLight] usually illuminate a large scene with many objects, some close, some far away. To optimize shadow calculation in this situation, a technique called Cascaded Shadow Maps is used.
+    </p>
+
+
+    <h2>Constructor</h2>
+    <h3>[name]()</h3>
+    <p>
+      Creates a new [name]. This is not intended to be called directly — it is called
+      internally by [page:DirectionalLight].
+    </p>
+
+    <h2>Properties</h2>
+    <p>
+      See the base [page:LightShadow LightShadow] class for common properties.
+    </p>
+
+    <h3>[property:Camera camera]</h3>
+    <p>
+      Dummy camera.
+    </p>
+
+    <h3>[property:Boolean cascadesFitToScene]</h3>
+    <p>
+      Defines the method for creating subfrustums. If `true`, uses `fit to scene`, else `fit to cascade` method. The default is `false`. Use [page:.setCascadesFitToScene] to set this value.
+    </p>
+
+    <h3>[property:Function customSplitsCallback]</h3>
+    <p>
+      Defines custom method of partitioning the frustum into the subfrustums. The function should take this arguments: [page:Integer numCascades], [page:Float near], [page:Float far], [page:Array breaks], [page:Float exponent].
+    </p>
+
+    <h3>[property:Float exponent]</h3>
+    <p>
+      Defines the method of partitioning the frustum into the subfrustums, 0.0 linear split, 1.0 - logarifmic (i.e. puts more resolution towards the near clip plane). Only works in perspective view. Range is `0.0` to `1.0`. The default is `0.5`. Use [page:.setExponent] to set this value.
+    </p>
+
+    <h3>[property:Float fade]</h3>
+    <p>
+      When the Fade is greater than 0.0, the size of each cascade (distance interval) is increased so that neighboring cascades overlap. Then a fade is applied in the overlapping region to provide a smooth transition between cascades. Try to use small values, else you may get rendering artifacts. Range is `0.0` to `1.0`. The default is `0.0`. Use [page:.setFade] to set this value.
+    </p>
+
+    <h3>[property:Boolean isDirectionalLightShadowCSM]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
+    </p>
+
+    <h3>[property:CSMFrustum mainFrustum]</h3>
+    <p>
+      The main frustum.
+    </p>
+
+    <h3>[property:Float maxDistance]</h3>
+    <p>
+      Frustum far plane distance (i.e. shadows are not visible farther this distance from camera). May be smaller than camera.far value. Range is `0.0` to `Infinity`. The default is `100000`. Use [page:.setMaxDistance] to set this value.
+    </p>
+
+    <h3>[property:Boolean noLastCascadeCutOff]</h3>
+    <p>
+      If `true`, disables cutting off the last cascade for better shadow coverage. The default is `true`. Use [page:.setNoLastCascadeCutOff] to set this value.
+    </p>
+
+    <h3>[property:Integer numCascades]</h3>
+    <p>
+      The number of shadow cascades. Range is `1` to `4`. The default is `1`. Use [page:.setNumCascades] to set this value.
+    </p>
+
+    <h3>[property:Float lightMargin]</h3>
+    <p>
+      Defines how far shadow camera is moved along z axis in cascade frustum space. The larger is the value the more space the shadow will be able to cover. Should be set to high values for scenes with large or tall shadow casters. Range is `0.0` to `Infinity`. The default is `100.0`. Ignored if [page:.autoLightMargin] is `true`. Use [page:.setLightMargin] to set this value.
+    </p>
+
+
+    <h2>Methods</h2>
+    <p>
+      See the base [page:LightShadow LightShadow] class for common methods.
+    </p>
+
+    <h3>[method:this createCascades]()</h3>
+    <p>
+      Creates shadow map cascades.
+    </p>
+
+    <h3>[method:this getBreaks]([param:Camera camera])</h3>
+    <p>
+      Recalculates split intervals for shadow cascades. Used internally.
+    </p>
+
+    <h3>[method:this initCascades]([param:Camera camera])</h3>
+    <p>
+      Inits cascades, i.e. splits the main frustum. Used internally.
+    </p>
+
+    <h3>[method:null setCascadesFitToScene]([param:Boolean cascadesFitToScene])</h3>
+    <p>
+      Defines the method for creating subfrustums. See [page:.cascadesFitToScene].
+    </p>
+
+    <h3>[method:null setExponent]([param:Float exponent])</h3>
+    <p>
+      Defines the method of partitioning the frustum into the subfrustums, 0.0 linear split, 1.0 - logarifmic (i.e. puts more resolution towards the near clip plane). See [page:.exponent].
+    </p>
+
+    <h3>[method:null setFade]([param:Float fade])</h3>
+    <p>
+      Sets the value of smooth transition between cascades. See [page:.fade].
+    </p>
+
+    <h3>[method:null setMaxDistance]([param:Float maxDistance])</h3>
+    <p>
+      Sets frustum far plane distance (i.e. shadows are not visible farther this distance from camera). See [page:.maxDistance].
+    </p>
+
+    <h3>[method:null setNoLastCascadeCutOff]([param:Boolean noLastCascadeCutOff])</h3>
+    <p>
+      If set `true`, disables cutting off the last cascade for better shadow coverage. See [page:.noLastCascadeCutOff].
+    </p>
+
+    <h3>[method:null setNumCascades]([param:Integer numCascades])</h3>
+    <p>
+      Defines the number of shadow cascades. See [page:.numCascades].
+    </p>
+
+    <h3>[method:null setLightMargin]([param:Float lightMargin])</h3>
+    <p>
+      Defines how far shadow camera is moved along z axis in cascade frustum space. See [page:.lightMargin].
+    </p>
+
+    <h3>[method:this update]([param:Camera camera], [param:DirectionalLight light])</h3>
+    <p>
+      Recalculates positions and frustums of shadow cascades.
+    </p>
+
+    <h3>[method:this updateFrustums]([param:Camera camera])</h3>
+    <p>
+      Recalculates frustums for shadow cascades. Must be called after changing the view camera projection matrix, [page:.exponent], [page:.maxDistance] or any bias settings.
+    </p>
+
+    <h3>[method:this updateMaps]()</h3>
+    <p>
+      Updates shadow maps. Used internally.
+    </p>
+
+    <h3>[method:this updateMapSize]([param:Vector2 size])</h3>
+    <p>
+      Changes shadow map resolution.
+    </p>
+
+    <h3>[method:this updateCascadePositions]([param:Camera camera])</h3>
+    <p>
+      Recalculates positions of shadow cascades.
+    </p>
+
+    <h3>[method:this updateShadowBounds]([param:Camera camera])</h3>
+    <p>
+      Recalculates frustums for shadow cascades. Used internally.
+    </p>
+
+
+    <h2>Puzzles</h2>
+
+    <p>
+      The <a href="manual/en/puzzles/Objects.html#set_shadow_param">set shadow param</a> puzzle allows to enable/disable casting or receiving shadows in a visual manner.
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>

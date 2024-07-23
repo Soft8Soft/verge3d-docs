@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      This class is mainly intended for use internally by [page:DirectionalLightShadowCSM DirectionalLightShadowCSM] for calculating
+      subfrustums.
+    </p>
+
+
+    <h2>Constructor</h2>
+
+    <h3>[name]()</h3>
+    <p>
+      Creates a new [name].
+    </p>
+
+
+    <h2>Properties</h2>
+
+    <h3>[property:Object vertices]</h3>
+    <p>Contains 8 points forming the frustum.</p>
+    <p class="params">
+      [page:Array near] — array of [page:Vector3 points] forming the near plane.<br>
+      [page:Array far] — array of [page:Vector3 points] forming the far plane.
+    </p>
+
+    <h2>Methods</h2>
+
+    <h3>[method:this setFromProjectionMatrix]([param:Matrix4 matrix], [param:Float maxFar])</h3>
+    <p class="params">
+      [page:Matrix4 matrix] — view [page:Camera camera]'s projection matrix.<br>
+      [page:Float maxFar] — frustum far plane distance.
+    </p>
+    <p>
+      Sets frustum points from projection matrix.
+    </p>
+
+    <h3>[method:this split]([param:Array breaks], [param:Array target], [param:Boolean fitToScene])</h3>
+    <p class="params">
+      [page:Array breaks] — array of split intervals.<br>
+      [page:Array target] — array of [page:CSMFrustum subfrustums], should be `target.length <= breaks.length`.<br>
+      [page:Boolean fitToScene] — if `true`, uses `fit to scene`, else `fit to cascade` method.
+    </p>
+    <p>
+      Splits this frustum into subfrustums.
+    </p>
+
+    <h3>[method:this toSpace]([param:Matrix4 matrix], [param:this target])</h3>
+    <p class="params">
+      [page:Matrix4 matrix] — matrix applied to each frustum point.<br>
+      [page:this target] — [page:CSMFrustum frustum] to which the results will be written.
+    </p>
+    <p>
+      Multiplies each frustum point by a matrix and write the results to the target.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

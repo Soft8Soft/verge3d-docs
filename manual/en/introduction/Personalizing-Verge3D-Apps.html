@@ -19,15 +19,6 @@
     [contents]
 
 
-    [anchor:custom_ui]
-
-    <h2>Custom UI</h2>
-
-    <p>
-      The best way to create fully-customized Verge3D experience is to <a href="manual/en/introduction/HTML-based-user-interfaces.html">build UI on top of your 3D part</a> (see the [demoLink:scooter] demo as an example of this approach). However, given the difficulties of creating such UI, we'll descuss customizing <em>default</em> Verge3D experiences here. This includes preloader screen, annotations, fullscreen button, as well as page title/description and social media tags.
-    </p>
-
-
     [anchor:introduction]
 
     <h2>Introduction to UI Styling</h2>
@@ -41,6 +32,12 @@
     </p>
 
     <img src="files/personalizing-verge3d-apps/light-dark-theme.jpg" alt="Light/dark application templates" style="max-width: 522px">
+
+    <p>
+      And then use the <a href="manual/en/introduction/App-Manager.html#app_settings">Application Settings</a> dialog to tweak your app:
+    </p>
+
+    <img src="files/app-manager/app-manager-app-settings-panel.webp" alt="Open app settings dialog">
 
     <p>
       For more advanced customizations, check out the <strong>src/style.css</strong> file in the <em>Verge3D installation</em> folder. Do not change this file as it is compiled right into Verge3D. Instead, add all styling code into your application main CSS file. For example if your app is called "My Awesome App" then you should modify the following file (located in the <em>applications</em> folder):
@@ -61,10 +58,12 @@
 
     <img src="files/personalizing-verge3d-apps/preloader-classes.jpg" alt="Preloader CSS classes">
 
-    <p>*v3d-simple-preloader-background* — to customize the background of the entire preloader screen.</p>
-    <p>*v3d-simple-preloader-container* — to modify the container element with the preloader image and bar. By overriding this class you can customize position and size of the preloader.</p>
-    <p>*v3d-simple-preloader-bar* — to customize the loading bar.</p>
-    <p>*v3d-simple-preloader-logo* — to customize the preloader image.</p>
+    <ul>
+      <li>*v3d-simple-preloader-background* — to customize the background of the entire preloader screen.</li>
+      <li>*v3d-simple-preloader-container* — to modify the container element with the preloader image and bar. By overriding this class you can customize position and size of the preloader.</li>
+      <li>*v3d-simple-preloader-bar* — to customize the loading bar.</li>
+      <li>*v3d-simple-preloader-logo* — to customize the preloader image.</li>
+    </ul>
 
     <p>For example, if you need to make progress bar <em>red</em> instead of the default <em>blue</em>, add the following code to your application's main CSS file:</p>
 
@@ -85,7 +84,7 @@
 
     <p>Replace PATH_TO_YOUR_IMAGE with the actual URL of your image, such as <em>my_company_logo.png</em>.</p>
 
-    <p class="note">Recommended preloader image size is 110x110px.</p>
+    <p class="note">Recommended preloader image size is 120x120px.</p>
 
     <p>To assign custom background image instead of default <em>white</em>:</p>
 
@@ -160,10 +159,12 @@
 
     <p>There are two CSS classes which define look of this error screen:</p>
 
-    <img src="files/personalizing-verge3d-apps/webgl-error-screen.jpg" alt="WebGL error screen">
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen.webp" class="with-border" alt="WebGL error screen">
 
     <ul>
-      <li>*v3d-webgl-error* — for changing the style of the message box (including its border).</li>
+      <li>*v3d-webgl-error-container* — for changing the style of the error container.</li>
+      <li>*v3d-webgl-error-image* — for changing the image displayed above the error message.</li>
+      <li>*v3d-webgl-error* — for changing the style of the message.</li>
       <li>*v3d-webgl-error-link* — for styling the error message link.</li>
     </ul>
 
@@ -172,7 +173,8 @@
     <code class="language-css">
     .v3d-webgl-error {
         color: white;
-        border-color: black;
+        border: solid 1px black;
+        padding: 10px;
         background-color: red;
     }
     .v3d-webgl-error-link {
@@ -182,13 +184,13 @@
 
     <p>will make your WebGL error message look like this:</p>
 
-    <img src="files/personalizing-verge3d-apps/webgl-error-screen-customized.jpg" alt="Customized WebGL error screen">
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen-customized.jpg" class="with-border" alt="Customized WebGL error screen">
 
     <p>
       With Puzzles, this CSS code becomes:
     </p>
 
-    <img src="files/personalizing-verge3d-apps/webgl-error-screen-puzzles.jpg" alt="Puzzles to tweak WebGL error screen">
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen-puzzles.webp" alt="Puzzles to tweak WebGL error screen">
 
     <p class="note">
       Since WebGL error message generated before the engine initialized, this snippet will only work if placed in the *init* tab of the Puzzles editor.
@@ -236,7 +238,7 @@
     </p>
 
     <code>
-&lt;meta name=&quot;description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
     </code>
 
     <p>
@@ -277,6 +279,7 @@
       <li>favicon.ico</li>
       <li>favicon-16x16.png</li>
       <li>favicon-32x32.png</li>
+      <li>favicon-48x48.png</li>
       <li>apple-touch-icon.png</li>
       <li>android-chrome-192x192.png</li>
       <li>android-chrome-512x512.png</li>
@@ -297,9 +300,9 @@
     </p>
 
     <code>
-&lt;meta name=&quot;twitter:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
-&lt;meta name=&quot;twitter:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
-&lt;meta name=&quot;twitter:image:src&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
+    &lt;meta name=&quot;twitter:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
+    &lt;meta name=&quot;twitter:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
+    &lt;meta name=&quot;twitter:image:src&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
     </code>
 
     <p>
@@ -311,10 +314,19 @@
     </p>
 
     <code>
-&lt;meta property=&quot;og:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
-&lt;meta property=&quot;og:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
-&lt;meta property=&quot;og:image&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
+    &lt;meta property=&quot;og:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
+    &lt;meta property=&quot;og:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
+    &lt;meta property=&quot;og:image&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
     </code>
+
+
+    [anchor:custom_ui]
+
+    <h2>Fully-Customized UI</h2>
+
+    <p>
+      The best way to create fully-customized Verge3D experience is to <a href="manual/en/introduction/HTML-based-user-interfaces.html">build UI on top of your 3D part</a> (see the [demoLink:scooter/index] demo as an example of this approach).
+    </p>
 
 
     <h2>Got Questions?</h2>

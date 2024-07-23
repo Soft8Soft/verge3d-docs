@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      An exporter for USDZ assets.
+    </p>
+
+    <h2>Code Example</h2>
+
+    <code>
+    const usdzExporter = new v3d.USDZExporter();
+
+    const dataURL = await new Promise(function(resolve, reject) {
+        usdzExporter.parse(app.scene).then(function(value) {
+            const dataUrl = URL.createObjectURL(new Blob([value], { type: 'application/octet-stream' }));
+            resolve(dataUrl);
+        }, function(reason) {
+            console.error('USDZ export failed: ' + reason);
+            reject(reason);
+        });
+    });
+    </code>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]()</h3>
+
+    <p>
+      Creates a new [name].
+    </p>
+
+    <h2>Methods</h2>
+
+    <h3>[method:undefined parse]([param:Object3D|Scene scene], [param:Object options])</h3>
+
+    <dl class="params">
+      <dt>[page:Object3D scene]</dt>
+      <dd>
+        Scene or objects to export.
+      </dd>
+
+      <dt>[page:Options options]</dt>
+      <dd>
+        Export options:
+        <ul>
+          <li>[page:Boolean quickLookCompatible] — enable maximum compatibility with Apple Quick Look. Default is `true`.</li>
+          <li>[page:Integer maxTextureSize] — restricts the image maximum size (both width and height) to the given value. Default is `1024`.</li>
+        </ul>
+      </dd>
+    </dl>
+
+    <p>
+      Generates a .usdz output from the input (scene or objects).
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>

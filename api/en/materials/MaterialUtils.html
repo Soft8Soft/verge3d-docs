@@ -10,15 +10,63 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      A class containing useful material methods.
+      A module containing useful utility methods to work with Verge3D materials.
     </p>
 
     <h2>Methods</h2>
+
+    <h3>[method:DiGraph createDiffuseMaterial]([param:String name], [param:Color color], [param:Float opacity], [param:String profile])</h3>
+    <ul class="params">
+      <li>[page:String name] — material name.</li>
+      <li>[page:Color color] — material diffuse color.</li>
+      <li>[page:Float opacity] — material opacity.</li>
+      <li>[page:String profile] — material profile, specifies which nodes will be used to compose the node graph. One of `"blender"`, `"max"`, `"maya"`.</li>
+    </ul>
+
+    <p>
+      Generate node-based diffuse (lambert) material with the given `color` and `opacity` params.
+    </p>
+
+    <h3>[method:MeshNodeMaterial createEnvironmentMaterial]([param:String name], [param:Texture envTex], [param:Texture|Color bkgTexOrColor])</h3>
+    <ul class="params">
+      <li>[page:String name] — material name.</li>
+      <li>[page:Texture envTex] — texture used for environment lighting.</li>
+      <li>bkgTexOrColor — [page:Texture texture] or [page:Color color] used for background.</li>
+    </ul>
+    <p>
+      Create node-based material which can be used for environment lighting and scene background.
+    </p>
+
+    <h3>[method:DiGraph createStandardPBRMaterial]([param:String profile], [param:Object params])</h3>
+    <ul class="params">
+      <li>[page:String profile] — material profile, specifies which nodes will be used to compose the node graph. One of `"blender"`, `"max"`, `"maya"`.</li>
+      <li>[page:Object params] — (optional) additional material properties.</li>
+    </ul>
+
+    <p>
+      Generate node-based standard PBR material with the given set of parameters:
+    </p>
+
+    <dl class="params">
+      <dt>[page:Color color]</dt>
+      <dd>Material base color. Default is `'white'`.</dd>
+      <dt>[page:Float opacity]</dt>
+      <dd>Material opacity value. Default is `1.0` (opaque).</dd>
+      <dt>[page:Float metalness]</dt>
+      <dd>Material metalness value. Default is `0` (non-metallic).</dd>
+      <dt>[page:Float roughness]</dt>
+      <dd>Material roughness value. Default is `1`.</dd>
+      <dt>[page:Color emissive]</dt>
+      <dd>Material emissive color. Default is `'black'`.</dd>
+      <dt>[page:Float emissiveIntensity]</dt>
+      <dd>Material emissive color intensity. Default is `1`.</dd>
+    </dl>
 
     <h3>[method:undefined disposeTextures]([param:Material mat])</h3>
     <p>
       Dispose all [page:Texture textures] found in the given [page:Material material].
     </p>
+
 
     [sourceHint]
 

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    [page:TargetConstraint] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      A constraint which allows to connect one type of transform property (location, rotation, or scale) of the target object to the same or a different type of transform property in the owner object, within a given range of values (which might be different for each target and owner property). You can also switch between axes, and use the range values not as limits, but rather as “markers” to define a mapping between input (target) and output (owner) values.
+    </p>
+
+    <p>
+      Constraints are used to set up various relations between objects by
+      affecting their position, rotation and scale. Can be used with the
+      [page:Object3D.constraints Object3D.constraints] property.
+    </p>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:Object3D target])</h3>
+
+    <p class="params">[page:Object3D target] — constraint's target object.</p>
+
+
+    <h2>Properties</h2>
+    <p>See the base [page:TargetConstraint] class for common properties.</p>
+
+    <h3>[property:String coordSystem]</h3>
+    <p>
+      Which coordinate system to use. For example if you exported your scene through Verge3d for Blender/3ds Max, then this value should be `'Z_UP_RIGHT'`. More info in <a href="https://www.soft8soft.com/wiki/index.php/Coordinate_Systems">Verge3D Wiki</a>. Default is `'Y_UP_RIGHT'`.
+    </p>
+
+    <h3>[property:Boolean fixCameraLightRotation]</h3>
+    <p>
+      In Verge3D we use right-handed coordinate system with the Y axis pointing in the up direction, but Blender and 3ds Max uses right-handed coordinate system with Z axis pointing in the up direction (<a href="https://www.soft8soft.com/wiki/index.php/Coordinate_Systems">Verge3D Wiki</a>). So, to correct the rotation for cameras and lights, set `fixCameraLightRotation = true`. Default is `false`.
+    </p>
+
+    <h3>[property:Vector3 fromMax]</h3>
+    <p>
+      A [page:Vector3 fromMax] controls the upper bound independently for each axis (X, Y, and Z) of the input value range. Default is `(0, 0, 0)`.
+    </p>
+
+    <h3>[property:Vector3 fromMin]</h3>
+    <p>
+      A [page:Vector3 fromMin] controls the lower bound independently for each axis (X, Y, and Z) of the input value range. Default is `(0, 0, 0)`.
+    </p>
+
+    <h3>[property:Float influence]</h3>
+    <p>
+      The percentage of influence the constraint has on the object. Default is `1.0` (100%).
+    </p>
+
+    <h3>[property:Boolean isTransformationConstraint]</h3>
+    <p>
+      Used to check whether this or derived classes are transformation constraints. Default is `true`.
+    </p>
+
+    <h3>[property:String mapFrom]</h3>
+    <p>
+      The type of property to use as an input. Can be one of the `'POSITION'`, `'ROTATION'`, `'SCALE'`. Default is `POSITION`.
+    </p>
+
+    <h3>[property:String mapTo]</h3>
+    <p>
+      The type of property to use as an output. Can be one of the `'POSITION'`, `'ROTATION'`, `'SCALE'`. Default is `POSITION`.
+    </p>
+
+    <h3>[property:Array mapToAxisFromAxis]</h3>
+    <p>
+      An array of three elements - axis switches, they allow you to select which input axis will be mapped to the output X, Y and Z axes, respectively (by index). Each element in array can be one of the `'X'`, `'-X'`, `'Y'`, `'-Y'`, `'Z'`, `'-Z'`. Default is `['X', 'Y', 'Z']`.
+    </p>
+
+    <h3>[property:String mixMode]</h3>
+    <p>
+      Specifies how the new transformation is combined with the existing transformation. Depends on [page:.mapTo mapTo]:
+      <ul>
+        <li>
+          `'POSITION'`
+          <ul>
+            <li>`'ADD'` - The new values are added to the existing axis values.</li>
+            <li>`'REPLACE'` - The result of the constraint replaces the existing transformation.</li>
+          </ul>
+        </li>
+        <li>
+          `'ROTATION'`
+          <ul>
+            <li>`'ADD'` - The new values are added to the existing axis values.</li>
+            <li>`'AFTER'` - The new rotation is added after the existing rotation, as if it was applied to a child of the constraint owner.</li>
+            <li>`'BEFORE'` - The new rotation is added before the existing rotation, as if it was applied to a parent of the constraint owner.</li>
+            <li>`'REPLACE'` - The result of the constraint replaces the existing transformation.</li>
+          </ul>
+        </li>
+        <li>
+          `'SCALE'`
+          <ul>
+            <li>`'MULTIPLY'` - The new values are multiplied with the existing axis values.</li>
+            <li>`'REPLACE'` - The result of the constraint replaces the existing transformation.</li>
+          </ul>
+        </li>
+      </ul>
+      Default is `'REPLACE'`.
+    </p>
+
+    <h3>[property:Integer ownerSpace]</h3>
+    <p>
+      The space used to evaluate the owner of the constraint. Can be one of the `v3d.ConstraintSpaceWorld`, `v3d.ConstraintSpaceCustom`, `v3d.ConstraintSpaceLocal`. Default is `v3d.ConstraintSpaceWorld`.
+    </p>
+
+    <h3>[property:Object3D ownerSpaceObj]</h3>
+    <p>
+      The custom object whose space is used to evaluate the owner of the constraint. Works only when [page:.ownerSpace ownerSpace] = `v3d.ConstraintSpaceCustom`. Default is `null`.
+    </p>
+
+    <h3>[property:Integer targetSpace]</h3>
+    <p>
+      The space used to evaluate the target of the constraint. Can be one of the `v3d.ConstraintSpaceWorld`, `v3d.ConstraintSpaceCustom`, `v3d.ConstraintSpaceLocal`. Default is `v3d.ConstraintSpaceWorld`.
+    </p>
+
+    <h3>[property:Object3D targetSpaceObj]</h3>
+    <p>
+      The custom object whose space is used to evaluate the target of the constraint. Works only when [page:.targetSpace targetSpace] = `v3d.ConstraintSpaceCustom`. Default is `null`.
+    </p>
+
+    <h3>[property:Vector3 toMax]</h3>
+    <p>
+      Controls the upper bound independently for each axis (X, Y, and Z) of the output value range. Default is `(0, 0, 0)`.
+    </p>
+
+    <h3>[property:Vector3 toMin]</h3>
+    <p>
+      Controls the lower bound independently for each axis (X, Y, and Z) of the output value range. Default is `(0, 0, 0)`.
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+      The constraint's type. Equals to `'TransformationConstraint'`.
+    </p>
+
+    <h3>[property:Boolean useMotionExtrapolate]</h3>
+    <p>
+     By default, [page:.fromMin fromMin] and [page:.fromMax fromMax] act as strict boundaries for an input value, any value outside these limits will be "clipped" to the nearest boundary. When [page:.useMotionExtrapolate useMotionExtrapolate] is enabled, the behavior changes - they become "markers" instead of strict limits. This allows for a proportional (linear) mapping between the input value and its corresponding output value. Default is `false`.
+    </p>
+
+
+    <h2>Methods</h2>
+
+    <p>See the base [page:TargetConstraint] class for common methods.</p>
+
+
+<!--     <h2>Puzzles</h2>
+
+    <p>
+      You can use the <a href="manual/en/puzzles/Animation.html#copy_transform">copy transform</a> puzzle to apply [name] in a visual manner.
+    </p> -->
+
+    [sourceHint]
+
+  </body>
+</html>

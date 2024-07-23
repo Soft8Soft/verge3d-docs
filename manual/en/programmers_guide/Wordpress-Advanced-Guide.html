@@ -46,19 +46,104 @@
     }</code>
 
     <p>
-      You can compose this structure by creating a JavaScript object and then send it to the server via XMLHttpRequest, however using dictionary along with <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzle might be easier.
+      You have two options to make an order based on this data:
     </p>
 
-    <p>To do this, assign a proper URL for your "send data" puzzle. This one looks like:</p>
+    <ol>
+      <li>By using POST request with regular form data (version v1)</li>
+      <li>By using POST request with JSON (version v2)</li>
+    </ol>
 
-    <code class="language-html">https://HOSTNAME/wp-json/verge3d/v2/place_order/</code>
 
-    <p>Where HOSTNAME is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
+    [anchor:place_order_form_data]
+
+    <h3>Submitting Orders with Form Data</h3>
+
+    <p>
+      To do this, you might compose an HTML form with the fields specified above and then submit it directly or via <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzle to the following address:
+    </p>
+
+    <code class="language-html">https://WP_HOST/wp-json/verge3d/v1/place_order/</code>
+
+    <p>Where WP_HOST is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
+
+    <p>
+      With puzzles, the form fields which require user input (i.e. "user_name", "user_email", "user_phone") can be created as follows:
+    </p>
+
+    <img src="files/wordpress-advanced/order-form-text-inputs.webp" alt="Specifying order form text items">
+
+    <p>
+      While order items with product SKUs can be composed with hidden form inputs:
+    </p>
+
+    <img src="files/wordpress-advanced/order-form-hidden-inputs.webp" alt="Specifying order form hidden items">
+
+    <p>
+      The form can be submitted without reloading the entire page as follows:
+    </p>
+
+    <img src="files/wordpress-advanced/order-form-submit.webp" alt="Sending form data with Puzzles">
+
+
+    [anchor:place_order_json]
+
+    <h3>Submitting Orders with JSON</h3>
+
+    <p>
+      You can compose this structure by creating a JavaScript object and then send it to the server via JavaScript fetch() call, however using <a href="manual/en/puzzles/Dictionaries.html">dictionary</a> along with <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzle might be easier.
+    </p>
+
+    <p>The URL address for submitting orders in JSON format is:</p>
+
+    <code class="language-html">https://WP_HOST/wp-json/verge3d/v2/place_order/</code>
+
+    <p>Where WP_HOST is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em></p>
+
+    <p>
+      For example, use the following puzzles to compose the order specified above:
+    </p>
+
+    <img src="files/wordpress-advanced/order-json-submit.webp" alt="Sending JSON with Puzzles">
+
+    <p>
+      The <a href="manual/en/puzzles/ECommerce.html#order_item">order item</a> puzzle from the E-Commerce tab might save you some time when composing order items.
+    </p>
+
+
+    [anchor:sending_forms]
+
+    <h2>Sending Forms to Email</h2>
+
+    <p>
+      Verge3D for WordPress offers a feature which allows you to send data obtained from custom HTML forms to an email address specified in admin settings. For example, you can use this to receive inquiries or support questions for your products or services, implementing preorders, obtaining customer's contact info, etc.
+    </p>
+
+    <p>The URL address for submitting custom forms is:</p>
+
+    <code class="language-html">https://WP_HOST/wp-json/verge3d/v1/send_form/</code>
+
+    <p>Where WP_HOST is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em>.</p>
+
+    <p>
+      The form itself can be implemented with HTML/CSS, Puzzles, or a website builder, like Webflow. See <a href="manual/en/introduction/HTML-based-user-interfaces.html">here</a> for more info on creating HTML-based UI. Form submission is performed directly, by clicking on the "Submit" button, or indirectly, via JavaScript/Puzzles (to avoid page reload).
+    </p>
+
+    <p>
+      For example, by using Puzzles, you can send the form without reloading the page like that (actual form construction is not shown):</p>
+
+    <img src="files/wordpress-advanced/send-form-custom.webp" alt="Sending custom form with Puzzles">
+
+    <p>
+      The <a href="manual/en/puzzles/Library.html#inquiry_form">Inquiry Form</a> library can simplify things a lot. Use it as a basis for your own form solutions.
+    </p>
+
+    <img src="files/puzzles/puzzles-library-inquiry-form-look.webp" alt="Inqury form look">
 
 
     [anchor:customizing_ecommerce_forms]
 
-    <h2>Customizing e-commerce forms</h2>
+    <h2>Customizing E-Commerce Forms</h2>
 
     <p>To modify e-commerce forms copy the form templates located in the <em>templates</em> directory of the Verge3D plugin to your WordPress theme directory under the <em>verge3d</em> subdirectory.</p>
 
@@ -81,7 +166,7 @@
       </tr>
       <tr>
         <td>order_pdf.php</td>
-        <td>Order email PDF attachment template. This template is used to generate HTML files which will be converted to PDF and attached to order emails.</td>
+        <td>Order email PDF attachment template. This template is used to generate HTML files which will be converted to PDF and attached to order emails (e.g. quotes and invoices).</td>
       </tr>
       <tr>
         <td>order_form.php</td>
@@ -95,17 +180,31 @@
         <td>order_failed.php</td>
         <td>Message displayed when the order was rejected.</td>
       </tr>
+      <tr>
+        <td>payment_paypal.php</td>
+        <td>Page for PayPal payment processing.</td>
+      </tr>
+      <tr>
+        <td>product_admin_form.php</td>
+        <td>Page which displays products in WordPress admin interface.</td>
+      </tr>
+      <tr>
+        <td>send_form_email_body.php</td>
+        <td>Email template for forms generated by REST API.</td>
+      </tr>
     </table>
 
     <h3>Security Measures</h3>
 
-    <p>When using custom forms for your e-commerce applications be sure to properly escape output data sent by your customers. Use the following <a href="https://developer.wordpress.org/plugins/security/securing-output/" target="_blank">guide</a> for more info.</p>
+    <p>When using custom forms for your e-commerce applications be sure to properly escape output data sent by your customers. Use the following <a href="https://developer.wordpress.org/apis/security/escaping/" target="_blank">guide</a> for more info.</p>
 
     [anchor:ecommerce_protocol_specification]
 
-    <h2>E-commerce protocol specification</h2>
+    <h2>E-commerce Protocol Specification</h2>
 
-    <p>The <strong>place order</strong> and <strong>place order +</strong> puzzles use the following protocol to handle orders. Orders are sent from the browser to server using HTTP POST requests with the following parameters:</p>
+    <p>
+      The <strong>place order</strong> and <strong>place order +</strong> puzzles use the following protocol to handle orders. Orders are sent from the browser to server using HTTP POST requests with the following parameters:
+    </p>
 
     <table>
       <tr>
@@ -118,7 +217,7 @@
       </tr>
       <tr>
         <td>v3d_attachments[]</td>
-        <td>Order attachments. This optional value must be an array of data URIs representing order attachments.
+        <td>Order attachments. This optional value must be an array of [link:manual/en/puzzles/HTML.html#data_url Data URLs] representing order attachments.
       </tr>
     </table>
 
@@ -164,7 +263,7 @@
       </tr>
     </table>
 
-    <p>The more advanced JSON-based protocol uses the following set of parameters:</p>
+    <p>The more advanced protocol based on REST API uses the following set of parameters:</p>
 
     <table>
       <tr>
