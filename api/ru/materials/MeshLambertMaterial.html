@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Material] &rarr;
@@ -12,47 +12,30 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Материал для неблестящих поверхностей, без спекулярных бликов.<br /><br />
+      Материал для неблестящих поверхностей, без спекулярных бликов.<br><br>
 
       Материал использует нефизически основанную модель [link:https://en.wikipedia.org/wiki/Lambertian_reflectance Lambertian]
       для расчета отражательной способности. Она может хорошо имитировать некоторые поверхности (например, необработанное дерево или камень),
-      но не может имитировать блестящие поверхности со спекулярными бликами (например, лакированное дерево).<br /><br />
+      но не может имитировать блестящие поверхности со спекулярными бликами (например, лакированное дерево).<br><br>
 
 
 
       Затенение рассчитывается с помощью модели шейдинга [link:https://en.wikipedia.org/wiki/Gouraud_shading Gouraud].
       При этом вычисляется затенение для каждой вершины (т.е. в  [link:https://en.wikipedia.org/wiki/Shader#Vertex_shaders vertex shader])
-      и интерполирует результаты по граням полигона.<br /><br />
+      и интерполирует результаты по граням полигона.<br><br>
 
       Из-за простоты моделей отражения и освещения производительность будет выше, чем при использовании этого материала.
-      при использовании этого материала вместо [page:MeshPhongMaterial], [page:MeshStandardMaterial] или [page:MeshPhysicalMaterial],
+      при использовании этого материала вместо [page:MeshStandardMaterial] или [page:MeshPhysicalMaterial],
       но приведет к некоторой графической точности.
     </p>
 
-    <iframe id="scene" src="scenes/material-browser.html#MeshLambertMaterial"></iframe>
-
-    <script>
-
-    // iOS iframe auto-resize workaround
-
-    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
-
-      const scene = document.getElementById('scene');
-
-      scene.style.width = getComputedStyle(scene).width;
-      scene.style.height = getComputedStyle(scene).height;
-      scene.setAttribute('scrolling', 'no');
-
-    }
-
-    </script>
 
     <h2>Конструктор</h2>
 
     <h3>[name]([param:Object parameters])</h3>
     <p>
-      [page:Object parameters] - (опционально) объект с одним или несколькими свойствами, определяющими внешний вид материала.
-      Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).<br /><br />
+      [page:Object parameters] — (необ.) объект с одним или несколькими свойствами, определяющими внешний вид материала.
+      Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).<br><br>
 
       Исключением является свойство [page:Hexadecimal color], которое может быть передано в виде шестнадцатеричной строки
       и по умолчанию имеет значение *0xffffff* (белый). [page:Color.set](color) вызывается внутренне.
@@ -63,7 +46,7 @@
 
     <h3>[property:Texture alphaMap]</h3>
     <p>Альфа-карта - это черно-белая текстура, которая контролирует непрозрачность поверхности.
-      (черный: полностью прозрачный; белый: полностью непрозрачный). По умолчанию - null.<br /><br />
+      (черный: полностью прозрачный; белый: полностью непрозрачный). По умолчанию - null.<br><br>
 
       Используется только цвет текстуры, игнорируя альфа-канал, если он существует.
       Для текстур RGB и RGBA рендерер [page:WebGLRenderer WebGL] будет использовать
@@ -84,7 +67,7 @@
 
     <h3>[property:Integer combine]</h3>
     <p>
-      Как объединить результат цвета поверхности с картой окружения, если таковая имеется.<br /><br />
+      Как объединить результат цвета поверхности с картой окружения, если таковая имеется.<br><br>
 
       Возможные варианты [page:Materials v3d.Multiply] (по умолчанию), [page:Materials v3d.MixOperation],
       [page:Materials v3d.AddOperation]. Если выбрано смешивание, то [page:.reflectivity] используется
@@ -121,7 +104,7 @@
 
     <h3>[property:Boolean morphNormals]</h3>
     <p>
-      Определяет, использует ли материал morphNormals. Установите значение true, чтобы передавать атрибуты morphNormals из [page:Geometry] в шейдер. По умолчанию *false*.
+      Определяет, использует ли материал morphNormals. Установите значение true, чтобы передавать атрибуты morphNormals из [page:BufferGeometry] в шейдер. По умолчанию *false*.
     </p>
 
     <h3>[property:Boolean morphTargets]</h3>
@@ -148,7 +131,7 @@
 
     <h3>[property:String wireframeLinecap]</h3>
     <p>
-      Определяет внешний вид концов линий. Возможные значения "butt", "round" и "square". По умолчанию 'round'.<br /><br />
+      Определяет внешний вид концов линий. Возможные значения "butt", "round" и "square". По умолчанию 'round'.<br><br>
 
       Это соответствует свойству [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]
       и игнорируется [page:WebGLRenderer WebGL] рендерером.
@@ -156,14 +139,14 @@
 
     <h3>[property:String wireframeLinejoin]</h3>
     <p>
-      Определяет внешний вид стыков линий. Возможные значения "round", "bevel" и "miter". По умолчанию 'round'.<br /><br />
+      Определяет внешний вид стыков линий. Возможные значения "round", "bevel" и "miter". По умолчанию 'round'.<br><br>
 
       Это соответствует свойству [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]
       и игнорируется [page:WebGLRenderer WebGL] рендерером.
     </p>
 
     <h3>[property:Float wireframeLinewidth]</h3>
-    <p>Управляет толщиной вайрфрейма. По умолчанию - 1.<br /><br />
+    <p>Управляет толщиной вайрфрейма. По умолчанию - 1.<br><br>
 
     В связи с ограничениями [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]
     with the [page:WebGLRenderer WebGL] рендерера на большинстве платформ ширина линии будет

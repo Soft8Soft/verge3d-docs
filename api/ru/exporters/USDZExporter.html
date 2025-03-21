@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Осуществляет экспорт в формат USDZ.
+    </p>
+
+    <h2>Пример</h2>
+
+    <code>
+    const usdzExporter = new v3d.USDZExporter();
+
+    const dataURL = await new Promise(function(resolve, reject) {
+        usdzExporter.parse(app.scene).then(function(value) {
+            const dataUrl = URL.createObjectURL(new Blob([value], { type: 'application/octet-stream' }));
+            resolve(dataUrl);
+        }, function(reason) {
+            console.error('Ошибка экспорта в USDZ: ' + reason);
+            reject(reason);
+        });
+    });
+    </code>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]()</h3>
+
+    <p>
+      Создаёт новый [name].
+    </p>
+
+    <h2>Methods</h2>
+
+    <h3>[method:undefined parse]([param:Object3D|Scene scene], [param:Object options])</h3>
+
+    <dl class="params">
+      <dt>[page:Object3D scene]</dt>
+      <dd>
+        Экспортируемая сцена или массив объектов.
+      </dd>
+
+      <dt>[page:Options options]</dt>
+      <dd>
+        Опции экспорта:
+        <ul>
+          <li>[page:Boolean quickLookCompatible] — включить режим максимальной совместимости с форматом Apple Quick Look. По умолчанию `true`.</li>
+          <li>[page:Integer maxTextureSize] — ограничивает размер экспортируемых изображений (используется одновременно для ширины и высоты). По умолчанию `1024`.</li>
+        </ul>
+      </dd>
+    </dl>
+
+    <p>
+      Создаёт новый *.usdz*-ресурс на основе поданной на вход сцены или массива объектов.
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>

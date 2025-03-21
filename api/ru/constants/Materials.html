@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <title>Константы материалов — Софт Эйт Софт</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Список констант материалов, использумых в Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
-    <h1>Константы Материалов</h1>
+    <h1>Константы материалов</h1>
 
     <p class="desc">
-      Эти константы определяют свойства, общие для всех типов материалов, за исключением операций объединения текстур, которые применяются только к [page:MeshBasicMaterial.combine MeshBasicMaterial], [page:MeshLambertMaterial.combine MeshLambertMaterial] и [page:MeshPhongMaterial.combine MeshPhongMaterial].<br />
+      Эти константы определяют свойства, общие для всех типов материалов, за исключением операций объединения текстур, которые применяются только к [page:MeshBasicMaterial.combine MeshBasicMaterial] и [page:MeshLambertMaterial.combine MeshLambertMaterial].
     </p>
 
-
     <h2>Сторона</h2>
+
     <code>
     v3d.FrontSide
     v3d.BackSide
     v3d.DoubleSide
+    v3d.TwoPassDoubleSide
     </code>
+
     <p>
-      Определяет, с какой стороны будут отрисовываться полигоны - спереди, сзади или с обеих. По умолчанию [page:Constant FrontSide].
+      Определяет, с какой стороны будут отрисовываться полигоны: спереди, сзади или с обеих. По умолчанию [page:Constant FrontSide].
+    </p>
+    <p>
+      Константа [page:Materials TwoPassDoubleSide] рендерит двусторонние материалы в двух отдельных стадиях, в порядке задний-передний, что позволяет устранить ряд артефактов прозрачности.
     </p>
 
-    <h2>Режим смешивания</h2>
+    <h2>Режимы смешивания</h2>
+
     <code>
     v3d.NoBlending
     v3d.NormalBlending
@@ -34,49 +42,58 @@
     v3d.CustomBlending
     </code>
 
-
     <p>
-      Они управляют уравнениями смешивания источника и получателя для RGB и Alpha материала, отправляемыми в WebGLRenderer для использования WebGL.<br />
-    [page:Constant NormalBlending] по умолчанию.<br />
-    Обратите внимание, что для использования [page:Constant CustomBlending] необходимо установить [page:CustomBlendingEquation Custom Blending Equations].<br />
-    Смотрите пример [example:webgl_materials_blending materials / blending].<br />
+      Они управляют уравнениями смешивания источника и получателя для RGB и Alpha материала, отправляемыми в WebGLRenderer для использования WebGL. [page:Constant NormalBlending] используется по умолчанию. Обратите внимание, что для использования [page:Constant CustomBlending] необходимо установить пользовательские константы уравнения смешивание (см. ниже).
     </p>
 
-    <h2>Режим Глубины</h2>
+    <h2>Режимы глубины</h2>
+
     <code>
     v3d.NeverDepth
     v3d.AlwaysDepth
+    v3d.EqualDepth
     v3d.LessDepth
     v3d.LessEqualDepth
     v3d.GreaterEqualDepth
     v3d.GreaterDepth
     v3d.NotEqualDepth
     </code>
+
     <p>
-      Функция глубины, которую материал использует для сравнения Z-глубины входящих пикселей с текущим значением Z-буфера глубины. Если результат сравнения true, пиксель будет отрисован.<br />
-    [page:Materials NeverDepth] никогда не вернет true.<br />
-    [page:Materials AlwaysDepth] всегда возвращает true..<br />
-    [page:Materials LessDepth] вернет true, если Z-глубина входящего пикселя меньше Z-глубины текущего буфера.<br />
-    [page:Materials LessEqualDepth] используется по умолчанию и возвращает true, если Z-глубина входящего пикселя меньше или равна Z-глубине текущего буфера.<br />
-    [page:Materials GreaterEqualDepth] вернет true, если Z-глубина входящего пикселя больше или равна Z-глубине текущего буфера.<br />
-    [page:Materials GreaterDepth] вернет true, если Z-глубина входящего пикселя больше, чем Z-глубина текущего буфера.<br />
-    [page:Materials NotEqualDepth] вернет true, если Z-глубина входящего пикселя не равна Z-глубине текущего буфера.<br />
+      Функция глубины, которую материал использует для сравнения Z-глубины входящих пикселей с текущим значением Z-буфера глубины. Если результат сравнения true, пиксель будет отрисован.
     </p>
 
-    <h2>Операции Объединения Текстур</h2>
+    <ul>
+      <li>[page:Materials NeverDepth] никогда не вернет true.</li>
+      <li>[page:Materials AlwaysDepth] всегда возвращает true.</li>
+      <li>[page:Materials EqualDepth] вернёт true, если Z-глубина входящего пикселя равна Z-глубине текущего буфера..</li>
+      <li>[page:Materials LessDepth] вернет true, если Z-глубина входящего пикселя меньше Z-глубины текущего буфера.</li>
+      <li>[page:Materials LessEqualDepth] используется по умолчанию и возвращает true, если Z-глубина входящего пикселя меньше или равна Z-глубине текущего буфера.</li>
+      <li>[page:Materials GreaterEqualDepth] вернет true, если Z-глубина входящего пикселя больше или равна Z-глубине текущего буфера.</li>
+      <li>[page:Materials GreaterDepth] вернет true, если Z-глубина входящего пикселя больше, чем Z-глубина текущего буфера.</li>
+      <li>[page:Materials NotEqualDepth] вернет true, если Z-глубина входящего пикселя не равна Z-глубине текущего буфера.</li>
+    </ul>
+
+    <h2>Операции объединения текстур</h2>
+
     <code>
     v3d.MultiplyOperation
     v3d.MixOperation
     v3d.AddOperation
     </code>
+
     <p>
-      Они определяют, как результат цвета поверхности объединяется с картой окружения (если она присутствует), для [page:MeshBasicMaterial.combine MeshBasicMaterial], [page:MeshLambertMaterial.combine MeshLambertMaterial] and [page:MeshPhongMaterial.combine MeshPhongMaterial]. <br />
-    [page:Constant MultiplyOperation] используется по умолчанию и умножает цвет карты окружения на цвет поверхности.<br />
-    [page:Constant MixOperation] использует отражательную способность для смешивания двух цветов.<br />
-    [page:Constant AddOperation] добавляет два цвета.
+      Они определяют, как результат цвета поверхности объединяется с картой окружения (если она присутствует), для [page:MeshBasicMaterial.combine MeshBasicMaterial] и [page:MeshLambertMaterial.combine MeshLambertMaterial].
     </p>
 
-    <h2>Функции Стенсилов</h2>
+    <ul>
+      <li>[page:Constant MultiplyOperation] используется по умолчанию и умножает цвет карты окружения на цвет поверхности.</li>
+      <li>[page:Constant MixOperation] использует отражательную способность для смешивания двух цветов.</li>
+      <li>[page:Constant AddOperation] суммирует два цвета.</li>
+    </ul>
+
+    <h2>Функции шаблонов</h2>
+
     <code>
     v3d.NeverStencilFunc
     v3d.LessStencilFunc
@@ -87,19 +104,24 @@
     v3d.GreaterEqualStencilFunc
     v3d.AlwaysStencilFunc
     </code>
+
     <p>
-      Какую функцию стенсила использует материал для определения необходимости выполнения операции стенсила.<br />
-    [page:Materials NeverStencilFunc] никогда не вернет true.<br />
-    [page:Materials LessStencilFunc] вернет true, если базовое значение стенсила меньше текущего значения стенсила.<br />
-    [page:Materials EqualStencilFunc] вернет true, если базовое значение стенсила равно текущему значению стенсила.<br />
-    [page:Materials LessEqualStencilFunc] вернет true, если базовое значение стенсила меньше или равно текущему значению стенсила.<br />
-    [page:Materials GreaterStencilFunc] вернет true, если базовое значение стенсила больше, чем текущее значение стенсила.<br />
-    [page:Materials NotEqualStencilFunc] вернет true, если базовое значение стенсила не равно текущему значению стенсила.<br />
-    [page:Materials GreaterEqualStencilFunc] вернет true, если базовое значение стенсила больше или равно текущему значению стенсила.<br />
-    [page:Materials AlwaysStencilFunc] всегда возвращает true.<br />
+      Какую функцию шаблона использует материал для определения необходимости выполнения операции шаблона.
     </p>
 
-    <h2>Операции со Стенсилами</h2>
+    <ul>
+      <li>[page:Materials NeverStencilFunc] никогда не вернет true.</li>
+      <li>[page:Materials LessStencilFunc] вернет true, если опорное значение шаблона меньше текущего значения шаблона.</li>
+      <li>[page:Materials EqualStencilFunc] вернет true, если опорное значение шаблона равно текущему значению шаблона.</li>
+      <li>[page:Materials LessEqualStencilFunc] вернет true, если опорное значение шаблона меньше или равно текущему значению шаблона.</li>
+      <li>[page:Materials GreaterStencilFunc] вернет true, если опорное значение шаблона больше, чем текущее значение шаблона.</li>
+      <li>[page:Materials NotEqualStencilFunc] вернет true, если опорное значение шаблона не равно текущему значению шаблона.</li>
+      <li>[page:Materials GreaterEqualStencilFunc] вернет true, если опорное значение шаблона больше или равно текущему значению шаблона.</li>
+      <li>[page:Materials AlwaysStencilFunc] всегда возвращает true.</li>
+    </ul>
+
+    <h2>Операции с шаблонами</h2>
+
     <code>
     v3d.ZeroStencilOp
     v3d.KeepStencilOp
@@ -110,18 +132,90 @@
     v3d.DecrementWrapStencilOp
     v3d.InvertStencilOp
     </code>
+
     <p>
-      Какую операцию стенсила материал выполнит с пикселем буфера стенсила, если предоставленная функция стенсила пройдет.<br />
-    [page:Materials ZeroStencilOp] установит значение стенсила равным 0.<br />
-    [page:Materials KeepStencilOp] не изменит текущее значение стенсила.<br />
-    [page:Materials ReplaceStencilOp] заменит значение стенсила на указанное опорное значение стенсила.<br />
-    [page:Materials IncrementStencilOp] увеличит текущее значение стенсила на 1.<br />
-    [page:Materials DecrementStencilOp] уменьшит текущее значение стенсила на 1.<br />
-    [page:Materials IncrementWrapStencilOp] увеличит текущее значение стенсила на 1. Если значение увеличится после 255, оно будет установлено в 0.<br />
-    [page:Materials DecrementWrapStencilOp] увеличит текущее значение стенсила на 1. Если значение уменьшится ниже 0, оно будет установлено на 255.<br />
-    [page:Materials InvertStencilOp] выполнит побитовое преобразование текущего значения стенсила.<br />
+      Какую операцию шаблона материал выполнит с пикселем буфера шаблона, если предоставленная функция шаблона пройдет.
+    </p>
+
+    <ul>
+      <li>[page:Materials ZeroStencilOp] установит значение шаблона равным `0`.</li>
+      <li>[page:Materials KeepStencilOp] не изменит текущее значение шаблона.</li>
+      <li>[page:Materials ReplaceStencilOp] заменит значение шаблона на указанное опорное значение шаблона.</li>
+      <li>[page:Materials IncrementStencilOp] увеличит текущее значение шаблона на `1`.</li>
+      <li>[page:Materials DecrementStencilOp] уменьшит текущее значение шаблона на `1`.</li>
+      <li>[page:Materials IncrementWrapStencilOp] увеличит текущее значение шаблона на `1`. Если значение увеличится после `255`, оно будет установлено в `0`.</li>
+      <li>[page:Materials DecrementWrapStencilOp] увеличит текущее значение шаблона на `1`. Если значение уменьшится ниже `0`, оно будет установлено в `255`.</li>
+      <li>[page:Materials InvertStencilOp] выполнит побитовое преобразование текущего значения шаблона.</li>
+    </ul>
+
+    <h2>Тип карты нормалей</h2>
+
+    <code>
+    v3d.TangentSpaceNormalMap
+    v3d.ObjectSpaceNormalMap
+    </code>
+
+    <p>
+      Определяет тип карты нормалей. Для TangentSpaceNormalMap информация о нормалях определяется относительно поверхности. Для ObjectSpaceNormalMap информация о нормалях определяется относительно поворота объекта. По умолчанию используется [page:Constant TangentSpaceNormalMap].
+    </p>
+
+    <h2>Версия GLSL</h2>
+
+    <code>
+    v3d.GLSL1
+    v3d.GLSL3
+    </code>
+
+    <h2>Пользовательские константы уравнения смешивания</h2>
+
+    <p>
+      Они работают со всеми типами материалов. Сначала установите режим смешивания материала в `v3d.CustomBlending`, затем задайте нужное уравнение смешивания, фактор источника и фактор назначения.
+    </p>
+
+    <h2>Пример</h2>
+
+    <code>
+    const material = new v3d.MeshBasicMaterial({color: 0x00ff00});
+    material.blending = v3d.CustomBlending;
+    material.blendEquation = v3d.AddEquation; // по умолчанию
+    material.blendSrc = v3d.SrcAlphaFactor; // по умолчанию
+    material.blendDst = v3d.OneMinusSrcAlphaFactor; // по умолчанию
+    </code>
+
+
+    <h2>Уравнения смешивания</h2>
+
+    <code>
+    v3d.AddEquation
+    v3d.SubtractEquation
+    v3d.ReverseSubtractEquation
+    v3d.MinEquation
+    v3d.MaxEquation
+    </code>
+
+    <h2>Факторы источника</h2>
+
+    <code>
+    v3d.ZeroFactor
+    v3d.OneFactor
+    v3d.SrcColorFactor
+    v3d.OneMinusSrcColorFactor
+    v3d.SrcAlphaFactor
+    v3d.OneMinusSrcAlphaFactor
+    v3d.DstAlphaFactor
+    v3d.OneMinusDstAlphaFactor
+    v3d.DstColorFactor
+    v3d.OneMinusDstColorFactor
+    v3d.SrcAlphaSaturateFactor
+    </code>
+
+    <h2>Факторы назначения</h2>
+
+    <p>
+      Все коэффициенты источника действительны как коэффициенты назначения, за исключением `v3d.SrcAlphaSaturateFactor`.
     </p>
 
     [sourceHint]
+
   </body>
 </html>

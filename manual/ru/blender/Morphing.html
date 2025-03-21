@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D для Blender: Ключи формы (также известные как морфинг) - Soft8Soft</title>
+    <title>Вердж3Д для Блендера: Ключи формы (морфинг) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Узнайте, как настраивать и использовать ключи формы (морфинг) в Verge3D для Blender."/>
-    <base href="../../../" />
+    <meta name="description" content="Узнайте, как настраивать и использовать ключи формы (морфинг) в Вердж3Д для Блендера.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Ключи формы (также известные как морфинг) / Blender</h1>
+    <h1>Ключи формы (морфинг) / Блендер</h1>
 
-    <p>Ключи формы (в Verge3D называются морфинг) это свойство, которое позволяет изменять объект в реальном времени. Наиболее распространенным вариантом использования ключей формы является создание параметрических объектов, у которых могут изменяться размеры, форма, толщина, отверстия, контуры и др.</p>
+    <p>
+      Ключи формы (в «Вердж3Д» носят название морфинг) это функция, позволяющая изменять геометрию объекта в реальном времени. Наиболее распространенным вариантом использования ключей формы является создание параметрических объектов, у которых могут изменяться размеры, форма, толщина, отверстия, контуры и др.
+    </p>
 
-    <p>Для примера ознакомьтесь с видео приведённым ниже:</p>
-
-    <iframe class="video-480p" src="https://www.youtube.com/embed/5TbRgUcjwa4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe class="video-480p" src="https://rutube.ru/play/embed/944f8d6575a7bfb2a9bc903cd251f8a4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <h2>Содержание</h2>
 
@@ -28,40 +28,54 @@
     <h2>Настройка</h2>
 
     <p>
-        Ключи формы в Blender экспортируются по умолчанию. В Verge3D поддерживаются только ключи формы типа *Relative*. Обращаем ваше внимание, что из-за технических ограничений максимальное количество активных ключей формы ограничено. В большинстве случаев, ограничение количества ключей для объектов составит 6 и 5 для объектов со скиннингом (ключ "Basis" не учитывается при подсчёте). Ознакомьтесь с <a href="manual/ru/introduction/Hardware-Related-Issues.html#too_many_attributes">данной темой</a>
-        для получения информации о подсчёте ограничений в более сложных ситуациях.<br/><br/>
-
-        Во время рендера, движок выбирает 6 ключей формы с самым большим влиянием и игнорирует остальные.
+      Ключи формы экспортируются из «Блендера» по умолчанию. В «Вердж3Д» поддерживаются только ключи формы типа *Relative*.
     </p>
 
-    <img src="files/morphing-blender/example.jpg" alt="Morphing in Verge3D for Blender" class="centered" style="max-width: 819px">
+    <img src="files/morphing-blender/example.webp" alt="Морфинг в Блендере">
 
 
     [anchor:animation]
 
     <h2>Анимация</h2>
 
-    <p>Чтобы анимировать ключи формы в Verge3D, добавьте ключевые кадры для их параметра <strong>Value</strong>. Анимация ключей формы работает точно также, как и анимация других параметров. Вы можете воспроизводить анимацию при запуске приложения, а можете использовать для этой задачи <a href="manual/ru/puzzles/Animation.html">animation puzzles</a>.</p>
+    <p>
+      Чтобы анимировать ключи формы в «Вердж3Д», добавьте ключевые кадры для их параметра <strong>Value</strong>. Анимация ключей формы работает точно также, как и анимация других параметров. Вы можете воспроизводить анимацию при запуске приложения, либо использовать для этого <a href="manual/ru/puzzles/Animation.html">анимационные пазлы</a>.
+    </p>
+
+    <p>
+      Анимацию морфинга нужно производить для всех ключей формы. Например, такая анимация работать не будет:
+    </p>
+
+    <img src="files/morphing-blender/partial-shape-keys-animation.jpg" style="max-width: 467px">
+
+    <p>
+      Для решения этой проблемы нужно добавить как минимум один анимационный ключ для всех ключей формы (кроме "Basis", анимация которого не предполагается).
+    </p>
 
 
     [anchor:controlling_with_puzzles]
 
-    <h2>Управление с помощью Puzzles</h2>
+    <h2>Управление с помощью пазлов</h2>
 
-    <p>Чтобы управлять ключами формы в реальном времени существуют два пазла: <a href="manual/ru/puzzles/Objects.html#get_morph_factor">get morph factor</a> и <a href="manual/ru/puzzles/Objects.html#set_morph_factor">set morph factor</a>.</p>
+    <p>
+      Чтобы управлять ключами формы в реальном времени существуют два пазла: <a href="manual/ru/puzzles/Objects.html#set_morph_factor">set morph factor</a> и <a href="manual/ru/puzzles/Objects.html#get_morph_factor">get morph factor</a>.
+    </p>
+
+    [demo:parametric_models/index Параметрические модели]
 
 
     [anchor:see_also]
 
-    <h2>Дополнительная Информация</h2>
+    <h2>Дополнительная информация</h2>
 
-    <p>Вы также можете ознакомиться с данным <a href="https://youtu.be/Y-VUwoDL0qo" target="_blank">видео</a>, в котором объясняется, как работают параметрические объекты в Verge3D.</a>
+    <p>
+      Вы также можете ознакомиться с данным <a href="https://rutube.ru/play/embed/c638671bec8df8981aa7ee4ea094c532" target="_blank">видео</a>, в котором объясняется, как работают параметрические объекты в Вердж3Д.
+    </a>
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
-
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

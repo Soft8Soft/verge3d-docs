@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Создание пользовательских интерфейсов на основе HTML для 3D веб-приложений - Soft8Soft</title>
+    <title>Создание пользовательских интерфейсов 3Д-веб-приложений на основе HTML — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Узнайте, как можно расширить приложения Verge3D с помощью HTML и CSS."/>
-    <base href="../../../" />
+    <meta name="description" content="Узнайте как разрабатывать интерфейсы Вердж3Д-приложений с помощью HTML и CSS.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Создание пользовательских интерфейсов на основе HTML для 3D Веб-приложений</h1>
+    <h1>Создание пользовательских интерфейсов 3Д-веб-приложений на основе HTML</h1>
 
     <p>
-        Узнайте, как можно использовать стандартные веб-технологии для создания удобных интерфейсов мобильных приложений и для гармоничной web-интеграции.
+      В этом разделе описано использование стандартных веб-технологий для создания 3Д-приложений оптимизированных для различных устройств и экранов, а также приложений, которые максимально гармонично встраиваются в существующие сайты.
     </p>
 
     [contents]
@@ -24,339 +24,241 @@
     <h2>Введение</h2>
 
     <p>
-        Шаблон приложения Verge3D предлагает одностраничный широкоэкранный макет с полноэкранной кнопкой и прелоадером. Интерактивные элементы, такие как кнопки, могут быть реализованы как 3D-объекты, прикрепленные к камере - то же самое относится и к текстовым блокам.
+      Стандартные шаблоны «Вердж3Д»-приложений предлагают одностраничный широкоэкранный макет с полноэкранной кнопкой и прелоадером. Интерактивные элементы, такие как кнопки, могут быть реализованы как 3Д-объекты, прикрепленные к камере (то же самое относится и к текстовым блокам).
     </p>
 
     <p>
-        Однако более гибким и эффективным подходом будет использование установленных веб-стандартов для создания пользовательских интерфейсов. С помощью HTML и CSS вы можете создать любой макет для своего приложения. Пользовательский интерфейс и особенно текст, созданные с помощью HTML и CSS, благодаря специализированным механизмам растеризации современных веб-браузеров обычно выглядят более четкими, чем их 3D-аналоги. Этот подход также позволит вам легко смешивать 2D-медиа, такие как изображения, видео и веб-ссылки, с WebGL-контентом и стилизовать ваше приложение в соответствии с дизайном веб-сайта, на котором оно будет установлено.
+      Однако более гибким и эффективным подходом будет использование штатных веб-технологий для создания пользовательских интерфейсов. С помощью HTML и CSS вы можете создать любой макет для своего приложения. Пользовательский интерфейс и особенно текст, созданные с помощью HTML и CSS, благодаря специализированным механизмам растеризации современных веб-браузеров обычно выглядят более четкими, чем их 3Д-аналоги. Этот подход также позволит вам легко смешивать 2Д-медиа, такие как изображения, видео и веб-ссылки, с WebGL-контентом и стилизовать ваше приложение в соответствии с дизайном веб-сайта, на котором оно будет установлено.
     </p>
 
     <p>
-        Существует множество инструментов для веб-дизайна, начиная от простого текстового редактора и заканчивая полноценными конструкторами сайтов. Последние могут создавать полные наборы HTML/CSS/JavaScript, готовых к использованию веб-страниц, позволяя вам никогда не прикасаться к коду.
+      Существует множество инструментов для веб-дизайна, начиная от простого текстового редактора и заканчивая полноценными конструкторами сайтов. Последние могут создавать полные наборы HTML/CSS/«Ява Скрипт», готовых к использованию веб-страниц, позволяя вам никогда не прикасаться к коду.
     </p>
 
 
     [anchor:Where_to_Add_HTML_and_CSS]
 
-    <h2>Где добавить HTML и CSS</h2>
+    <h2>Куда добавлять HTML и CSS</h2>
 
     <p>
-        Предположим, вы создали свое приложение с помощью App Manager (с параметрами конфигурации по умолчанию) и назвали его <strong>my_awesome_app</strong>. Если вы заглянете в папку <i>verge3d/applications/my_awesome_app</i> то найдете там файлы <i>my_awesome_app.html</i> и <i>my_awesome_app.css</i>, которые, казалось бы, естественно начать редактировать - но это только кажется! 
+      Предположим, вы создали свое приложение с помощью диспетчера приложений (с параметрами конфигурации по умолчанию) и назвали его <strong>my_awesome_app</strong>. Если вы заглянете в папку <strong>my_awesome_app</strong> находящуюся в папке приложений, то найдете там файлы <strong>my_awesome_app.html</strong> и <strong>my_awesome_app.css</strong>, которые, казалось бы, можно редактировать — однако не стоит с этим торопиться!
     </p>
 
     <p>
-        На практике вы, возможно, никогда не захотите редактировать эти файлы, поскольку они автоматически генерируются менеджером приложений и могут быть переопределены в результате <a href="manual/ru/introduction/Updating.html" target="_blank">обновления</a>. Более надежным способом добавления собственного HTML/CSS в приложение Verge3D является создание <i>нового</i> файла <strong>.html</strong>, в который встраивается <strong>.html</strong> приложения Verge3D в стиле матрешки.
+      На практике вам не стоит редактировать эти файлы, поскольку они создаются диспетчером приложений автоматически и могут быть переопределены в результате <a href="manual/ru/introduction/Updating.html" target="_blank">обновления</a>. Более надежным способом добавления собственного HTML/CSS в «Вердж3Д»-приложение является создание <em>нового</em> <strong>.html</strong>-файла, в который в свою очередь встраивается <strong>.html</strong>-файл самого приложения на подобие матрешки.
     </p>
 
 
     [anchor:Quick_Overview_Teapot_Heater]
 
-    <h2>Быстрый обзор: Teapot Heater</h2>
+    <h2>Пример: Подогреватель чайников</h2>
 
     <p>
-        Посмотрите на следующий пример (демонстрация Verge3D <a href="https://cdn.soft8soft.com/demo/applications/teapot_heater_max/index.html" target="_blank">Teapot Heater</a>): весь интерфейс построен с помощью стороннего программного обеспечения для веб-дизайна и сохранен как <i>index.html</i> (это имя не является обязательным). Помимо HTML-элементов интерфейса, файл <i>index.html</i> содержит элемент <strong>iframe</strong>, в который встроен проект Verge3D - <i>teapot_heater.html</i>.
+      Посмотрите следующий пример — ([demoLink:teapot_heater/index Подогреватель чайников]). Интерфейс этого приложения построен с помощью стороннего программного обеспечения для веб-дизайна и сохранен как <strong>index.html</strong> (это имя не является обязательным). Помимо HTML-элементов интерфейса, файл <strong>index.html</strong> содержит элемент <strong>iframe</strong>, в который встроен проект «Вердж3Д» — <strong>teapot_heater.html</strong>.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/layered-html.jpg" class="centered">
+    <img src="files/HTML-based-user-interfaces/layered-html.jpg">
 
     <p>
-        В Verge3D App Manager такой составной проект имеет два значка запуска, которые можно использовать для независимого запуска чистого проекта Verge3D или собранного приложения:
+      В диспетчере приложений «Вердж3Д» такой составной проект имеет два значка запуска: первый используется для запуска составного приложения, а второй для запуска 3Д-приложения отдельно.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/teapot-heater-app-manager.jpg" class="centered" style="max-width: 676px;">
+    <img src="files/HTML-based-user-interfaces/teapot-heater-app-manager.jpg" style="max-width: 676px;">
 
     <p>
-        Наконец, 2D и 3D части логически связаны между собой с помощью <a href="manual/ru/puzzles/HTML.html" target="_blank">HTML-пазлов</a>.
+      Наконец, 2Д и 3Д-части логически связаны между собой с помощью <a href="manual/ru/puzzles/HTML.html">HTML-пазлов</a>.
     </p>
 
 
     [anchor:Tutorial]
 
-    <h2>Урок</h2>
+    <h2>Уроки</h2>
 
     <p>
-        В следующем уроке мы покажем, как создать простое приложение с пользовательским интерфейсом на основе HTML. В этом приложении будет только 2 кнопки для скрытия и раскрытия стандартного куба.
+      В следующем уроке мы покажем, как создать простое приложение с пользовательским интерфейсом на основе HTML. В этом приложении будет только 2 кнопки для скрытия и раскрытия стандартного куба.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/tutorial-final-app.jpg" class="centered" style="max-width: 835px;">
+    <img src="files/HTML-based-user-interfaces/tutorial-final-app.jpg" style="max-width: 835px;">
 
     <p>
-        Мы начнем с создания нового проекта под названием <strong>my_awesome_app</strong> в App Manager. Затем продемонстрируем вам два способа создания дополнительного файла <strong>.html</strong> для пользовательского интерфейса: с использованием стороннего конструктора веб-страниц и  на основе кода. После того как пользовательский интерфейс будет готов, мы сделаем HTML-кнопки работоспособными с помощью Puzzles.
+      Мы начнем с создания нового проекта под названием <strong>my_awesome_app</strong> в диспетчере приложений. Затем продемонстрируем вам два способа создания дополнительного файла <strong>.html</strong> для пользовательского интерфейса: с использованием стороннего конструктора веб-страниц и на основе кода. После того как пользовательский интерфейс будет готов, мы сделаем HTML-кнопки работоспособными с помощью редактора пазлов.
     </p>
-
 
 
     [anchor:Designer_Approach]
 
-    <h3>Дизайнерский Подход</h3>
+    <h3>Дизайнерский подход</h3>
 
     <p>
-        Из нескольких бесплатных и платных конструкторов сайтов, для использования в работе с Verge3D, мы рекомендуем <a href="https://webflow.grsm.io/3441118" target="_blank">Webflow</a> - онлайн-редактор, который позволяет даже абсолютному новичку легко создавать пользовательский интерфейс для приложений Verge3D. Тем не менее, вы можете попробовать и другие инструменты, такие как Adobe Dreamweaver, Google Web Designer, Tumult Hype или Pinegrow, хотя они могут потребовать от пользователя определенных знаний HTML/CSS.
+      Из нескольких бесплатных и платных конструкторов сайтов, для использования в работе с «Вердж3Д», мы рекомендуем <a href="https://webflow.grsm.io/3441118" target="_blank">«Вебфлоу»</a> — онлайн-редактор, который позволяет даже абсолютному новичку легко создавать пользовательский интерфейс для «Вердж3Д»-приложений. Тем не менее, вы можете попробовать и другие инструменты, такие как «Адоби Дримвивер», «Гугл Веб Дизайнер», «Тумулт Хайп» или «Пайнгроу», хотя они могут потребовать от пользователя определенных знаний HTML/CSS.
     </p>
 
     <p>
-        Создайте учетную запись Webflow, нажав кнопку "Get started" на их веб-сайте. Необходимый компонент "Embed" и функция "Export Code" доступны только в платных планах "Account", поэтому вам необходимо приобрести <a href="https://webflow.grsm.io/3441119" target="_blank">подписку</a>, прежде чем приступать к данному руководству.
+      Создайте учетную запись «Вебфлоу», нажав кнопку "Get started" на их веб-сайте. Необходимый компонент "Embed" и функция "Export Code" доступны только в платных планах "Workspace", поэтому вам необходимо приобрести <a href="https://webflow.grsm.io/3441119" target="_blank">подписку</a>, прежде чем приступать к данному руководству.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-buy-account-plans.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-buy-account-plans.jpg">
 
-    <p>
-        Войдите в свою учетную запись Webflow, перейдите в <strong>Dashboard</strong> и нажмите <strong>New Project</strong>.
+    <p class="note">
+      Для оплаты сервиса гражданам и компаниям из России и Белоруссии потребуется карта зарубежного банка.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-new-project.jpg" class="centered" style="max-width: 1000px;">
-
     <p>
-        Выберите <strong>Blank Site</strong> среди шаблонов. Заполните название проекта и нажмите кнопку <strong>Create project</strong>:
+      Войдите в свою учетную запись «Вебфлоу», перейдите в <strong>Dashboard</strong> и нажмите <strong>New Project</strong>.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-new-project2.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-new-project.jpg">
 
     <p>
-        Теперь мы встроим наше приложение Verge3D в эту веб-страницу. На левой панели нажмите самую верхнюю кнопку с иконкой "плюс" ((<strong>Добавить элементы</strong>). Найдите компонент <strong>Embed</strong> и щелкните на нем (или перетащите его):
+      Выберите <strong>Blank Site</strong> среди шаблонов. Заполните название проекта и нажмите кнопку <strong>Create project</strong>:
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-iframe.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-new-project2.jpg">
 
     <p>
-        Скопируйте следующую строку и вставьте ее в окно редактора:
+      Теперь мы встроим наше приложение «Вердж3Д» в эту веб-страницу. На левой панели нажмите самую верхнюю кнопку с иконкой "плюс" ((<strong>Добавить элементы</strong>). Найдите компонент <strong>Embed</strong> и щелкните на нем (или перетащите его):
+    </p>
+
+    <img src="files/HTML-based-user-interfaces/webflow-add-iframe.jpg">
+
+    <p>
+      Скопируйте следующую строку и вставьте ее в окно редактора:
     </p>
 
     <code>
 &lt;iframe width="100%" height="100%" frameborder="0" src="my_awesome_app.html"&gt;&lt;/iframe&gt;
     </code>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-iframe2.jpg" class="centered" style="max-width: 801px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-iframe2.jpg" style="max-width: 801px;">
 
     <p class="note">
-        Эта строка кода предполагает, что мы скопируем веб-страницу, сгенерированную Webflow, в папку нашего приложения, так что элемент &lt;iframe&gt; подхватит основной HTML-файл приложения Verge3D под названием <b>my_awesome_app.html</b>.
+      Эта строка кода предполагает, что мы скопируем веб-страницу, сгенерированную «Вебфлоу», в папку нашего приложения, так что элемент &lt;iframe&gt; подхватит основной HTML-файл приложения «Вердж3Д» под названием <strong>my_awesome_app.html</strong>.
     </p>
 
     <p>
-        Нажмите кнопку <strong>Save & Close</strong>. Теперь компонент <strong>Embed</strong> размещен на странице. Не обращайте внимания на надпись об ошибке 404 - она исчезнет после экспорта проекта.
+      Нажмите кнопку <strong>Save & Close</strong>. Теперь компонент <strong>Embed</strong> размещен на странице. Не обращайте внимания на надпись об ошибке 404 - она исчезнет после экспорта проекта.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-iframe3.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-iframe3.jpg">
 
     <p>
-        Сделаем так, чтобы компонент <strong>Embed</strong> занимал всю страницу. Нажмите на кнопку <strong>Style</strong> в правом верхнем углу. На панели <strong>Size</strong> укажите <strong>100%</strong> для <strong>Width</strong> и <strong>Height</strong> (вам придется нажать на маленькие кнопки <strong>PX</strong>, чтобы переключиться с пикселей на проценты). Также выберите <strong>Fixed</strong> для <strong>Position</strong>.
+      Сделаем так, чтобы компонент <strong>Embed</strong> занимал всю страницу. Нажмите на кнопку <strong>Style</strong> в правом верхнем углу. На панели <strong>Size</strong> укажите <strong>100%</strong> для <strong>Width</strong> и <strong>Height</strong> (вам придется нажать на маленькие кнопки <strong>PX</strong>, чтобы переключиться с пикселей на проценты). Также выберите <strong>Fixed</strong> для <strong>Position</strong>.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-iframe4.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-iframe4.jpg">
 
     <p>
-        Давайте добавим эти две кнопки. Снова нажмите кнопку <strong>Add Elements</strong> на самой левой панели, найдите элемент <strong>Button</strong> и перетащите его на страницу.
+      Давайте добавим эти две кнопки. Снова нажмите кнопку <strong>Add Elements</strong> на самой левой панели, найдите элемент <strong>Button</strong> и перетащите его на страницу.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-buttons.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-buttons.jpg">
 
     <p>
-        Обратите внимание, что кнопка не будет видна сразу, так как ее полностью закрывает ранее добавленный компонент <strong>Embed</strong>. Чтобы исправить ситуацию, выберите только что добавленный элемент в <strong>Навигаторе</strong> (раскрытый кнопкой на левой панели)...
+      Обратите внимание, что кнопка не будет видна сразу, так как ее полностью закрывает ранее добавленный компонент <strong>Embed</strong>. Чтобы исправить ситуацию, выберите только что добавленный элемент в <strong>Навигаторе</strong> (раскрытый кнопкой на левой панели)...
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-buttons2.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-buttons2.jpg">
 
     <p>
-        ...и на вкладке <strong>Style</strong> выберите <strong>Fixed</strong> для элемента <strong>Position</strong>, как мы это делали для компонента <strong>Embed</strong>. Также обеспечьте ему некоторое расстояние, установив верхнее и левое поля по 10 пикселей каждое.
+      ...и на вкладке <strong>Style</strong> выберите <strong>Fixed</strong> для элемента <strong>Position</strong>, как мы это делали для компонента <strong>Embed</strong>. Также обеспечьте ему некоторое расстояние, установив верхнее и левое поля по 10 пикселей каждое.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-buttons3.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-buttons3.jpg">
 
     <p>
-        Теперь кнопка должна стать видимой в левом верхнем углу страницы. Дважды щелкните по ней, чтобы отредактировать надпись и изменить ее на "Hide".
+      Теперь кнопка должна стать видимой в левом верхнем углу страницы. Дважды щелкните по ней, чтобы отредактировать надпись и изменить ее на "Hide".
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-buttons4.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-buttons4.jpg">
 
     <p>
-        Добавьте еще одну кнопку с помощью той же процедуры. Установите ее левое поле на 80 пикселей, чтобы она появилась рядом с кнопкой "Hide", и измените ее надпись на "Show".
+      Добавьте еще одну кнопку с помощью той же процедуры. Установите ее левое поле на 80 пикселей, чтобы она появилась рядом с кнопкой "Hide", и измените ее надпись на "Show".
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-buttons5.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-buttons5.jpg">
 
     <p>
-        Теперь нам нужно задать уникальные <strong>ID</strong> для обеих кнопок - мы будем использовать их в пазлах. Для этого выделите кнопку, перейдите на вкладку <strong>Element Settings</strong> и введите "hide_button" в поле <strong>ID</strong>. Повторите это для второй кнопки, присвоив ей <strong>ID</strong> "show_button".
+      Теперь нам нужно задать уникальные <strong>ID</strong> для обеих кнопок — мы будем использовать их в пазлах. Для этого выделите кнопку, перейдите на вкладку <strong>Element Settings</strong> и введите "hide_button" в поле <strong>ID</strong>. Повторите это для второй кнопки, присвоив ей <strong>ID</strong> "show_button".
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-add-buttons6.jpg" class="centered" style="max-width: 1000px;">
+    <img src="files/HTML-based-user-interfaces/webflow-add-buttons6.jpg">
 
     <p>
-        На этом этапе мы можем сгенерировать наш файл UI <strong>.html</strong> и попробовать его в приложении Verge3D. Нажмите кнопку с угловыми скобками (<strong>Export Code</strong>) в верхней части...
+      На этом этапе мы можем сгенерировать наш файл UI <strong>.html</strong> и попробовать его в приложении «Вердж3Д». Нажмите кнопку с угловыми скобками (<strong>Export Code</strong>) в верхней части...
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-export-code.jpg" class="centered">
+    <img src="files/HTML-based-user-interfaces/webflow-export-code.jpg">
 
     <p>
-    ...затем нажмите <strong>Prepare ZIP</strong> и наконец, <strong>Download ZIP</strong>:
+      ...затем нажмите <strong>Prepare ZIP</strong> и наконец, <strong>Download ZIP</strong>:
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-export-code2.jpg" class="centered" style="max-width: 638px">
+    <img src="files/HTML-based-user-interfaces/webflow-export-code2.jpg" style="max-width: 638px">
 
     <p>
-        Найдите загруженный ZIP-файл и распакуйте его содержимое в папку приложения, <strong>my_awesome_app</strong>.
+      Найдите загруженный ZIP-файл и распакуйте его содержимое в папку приложения, <strong>my_awesome_app</strong>.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/webflow-export-code3.jpg" class="centered" style="max-width: 829px">
+    <img src="files/HTML-based-user-interfaces/webflow-export-code3.jpg" style="max-width: 829px">
 
     <p>
-        Запустите/перезагрузите Verge3D App Manager - новый <strong>.html</strong>-файл должен отображаться в виде дополнительной синей иконки.
+      Запустите/перезагрузите диспетчер приложений — новый <strong>.html</strong>-файл должен отображаться в виде дополнительной синей иконки.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager.jpg" class="centered" style="max-width: 699px;">
+    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager.jpg" style="max-width: 699px;">
 
     <p>
-        Более наглядно структуру файлов можно увидеть на странице приложения, которую можно открыть, нажав на название своего приложения.
+      Более наглядно структуру файлов можно увидеть на странице приложения, которую можно открыть, нажав на название своего приложения.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager-app-page.jpg" class="centered" style="max-width: 875px;">
+    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager-app-page.jpg" style="max-width: 875px;">
 
     <p>
-        Теперь запустите собранное приложение, нажав на иконку <strong>index.html</strong>. Вы должны увидеть что-то вроде этого:
+      Теперь запустите собранное приложение, нажав на иконку <strong>index.html</strong>. Вы должны увидеть что-то вроде этого:
     </p>
 
-    <img src="files/HTML-based-user-interfaces/tutorial-final-app.jpg" class="centered" style="max-width: 835px;">
+    <img src="files/HTML-based-user-interfaces/tutorial-final-app.jpg" style="max-width: 835px;">
 
     <p>
-        Давайте сделаем HTML-кнопки кликабельными, чтобы пользователь мог скрывать и раскрывать куб. Этого легко добиться, используя пазл <a href="manual/ru/puzzles/HTML.html#event">event</a> HTML, используемый в связи с идентификаторами элементов, которые мы назначили в Webflow. Запустите редактор Puzzles и добавьте эти блоки:
+      Давайте сделаем HTML-кнопки кликабельными, чтобы пользователь мог скрывать и раскрывать куб. Этого легко добиться, используя пазл <a href="manual/ru/puzzles/HTML.html#event">event</a> HTML, используемый в связи с идентификаторами элементов, которые мы назначили в «Вебфлоу». Запустите редактор пазлов и добавьте эти блоки:
     </p>
 
-    <img src="files/HTML-based-user-interfaces/html-puzzles.jpg" class="centered" style="max-width: 632px;">
+    <img src="files/HTML-based-user-interfaces/html-puzzles.jpg" style="max-width: 632px;">
 
     <p>
-        Поскольку кнопки расположены в родительском <strong>.html</strong>-файле, в который встроено приложение Verge3D, мы должны установить флажок <strong>in parent doc</strong>, чтобы они работали.
-    </p>
-
-    <p>
-        Вот и все! Сохраните пазлы и запустите/загрузите собранное приложение снова, чтобы проверить, работают ли кнопки на кубике!
-    </p>
-
-<!--
-
-    <h2>Case #2: Google Web Designer</h2>
-
-    <p>
-    There were a video version of this tutorial on our <a href="https://www.youtube.com/watch?v=g0wTXSm5mN0" target="_blank">YouTube channel</a>, but it is now considered outdated. Please refer to the content below for the modern version.
+      Поскольку кнопки расположены в родительском <strong>.html</strong>-файле, в который встроено приложение «Вердж3Д», мы должны установить флажок <strong>in parent doc</strong>, чтобы они работали.
     </p>
 
     <p>
-    <a href="https://www.google.com/webdesigner/" target="_blank">Google Web Designer</a> is a free cross-platform tool for creating web pages and web-based adverts in a visual manner. Unfortunately for 3D artists, this tool still requires some knowledge of CSS attributes which should be typed manually in the text box, and have some other issues (aka the hidden cost of freebies). Nevertheless, this tool may still be useful for creating intermediate products with simplified UI to be finalized by a web developer.
+      Вот и все! Сохраните пазлы и запустите/загрузите собранное приложение снова, чтобы проверить, работают ли кнопки на кубике!
     </p>
+
+
+    [anchor:puzzles_approach]
+
+    <h3>Вёрстка на пазлах</h3>
 
     <p>
-    Once you launched this software, select <strong>Create new file</strong>...
+      Ознакомиться с этим подходом вам может серия видеоуроков:
     </p>
 
-    <img src="files/HTML-based-user-interfaces/gwd-create-new.jpg" class="centered">
-
-    <p>
-    ...then select <strong>HTML</strong> on the left panel and fill out all the fields: <strong>Name</strong> (e.g. "my_awesome_app_gwd"), <strong>Location</strong> (use any path, yet preferably <i>out</i> of your app folder to avoid confusion with the published version) and <strong>Title</strong> (e.g. "My Awesome App"), and click <strong>OK</strong>.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-create-new2.jpg" class="centered">
-
-    <p class="note">
-    At first run, if you didn't maximize the window at startup and maximized it later, the newly created blank document may appear small. Use the *Viewport Resize* tool and drag the document corner to make it bigger or even fullscreen.
-    <img src="files/HTML-based-user-interfaces/gwd-viewport-resize.jpg" class="centered" style="max-width: 800px">
-    </p>
-
-    <p>
-    Let's start by adding the <strong>iframe</strong> element for embedding our Verge3D app's main launching file, <i>my_awesome_app.html</i>. In Google Web Designer this can be done by dragging the <strong>IFrame</strong> component out from the list under the <strong>Components</strong> tab.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-add-iframe.jpg" class="centered">
-
-    <p>
-    After the <strong>IFrame</strong> component is placed on the page, switch to the <strong>Properties</strong> tab and make your <strong>iframe</strong> element occupy the entire page by specifying zeroes for the left and top positions and 100% for the width and height. Also, in the <strong>Source</strong> field put the path to Verge3D app main file - "my_awesome_app.html" (assuming that we'll be publishing our UI file in the root of the app folder).
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-add-iframe2.jpg" class="centered">
-
-    <p>
-    At this stage we can generate our UI <strong>.html</strong> file and try it with the Verge3D app. Click the <strong>Publish</strong> button in the top-right corner and select <strong>Locally</strong>.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-publish.jpg" class="centered">
-
-    <p>
-    In the publishing dialog select the path to the <strong>verge3d/applications</strong> folder as <strong>Location</strong>. Use the name of your application folder, <strong>my_awesome_app</strong>, in the <strong>Name</strong> field in order to save the files right in its root.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-publish2.jpg" class="centered">
-
-    <p>
-    As a result, several new files will be added to your application folder, including *index.html* and some scripts.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-publish-check-files.jpg" class="centered" style="max-width: 602px">
-
-    <p>
-    The new HTML file immediately starts being displayed as an extra blue icon in the App Manager. You can run it to check if it actually loads the Verge3D app.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager.jpg" class="centered" style="max-width: 699px;">
-
-    <p>
-    More clearly the file structure can be seen from the application page, which you can open by clicking on your application name.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager-app-page.jpg" class="centered" style="max-width: 875px;">
-
-    <p>
-    Now let's add those two buttons. On the most left panel click on the <strong>Element tool</strong>, then select the <strong>Div element</strong> and start drawing a rectangle on the page.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-add-buttons.jpg" class="centered" style="max-width: 1000px;">
-
-    <p>
-    In the <strong>Properties</strong> tab use the color picker to fill the button with color, specify its position and dimensions and most importantly, set the <strong>ID</strong> for this element which we will be using for referencing it in Puzzles.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-add-buttons2.jpg" class="centered" style="max-width: 325px;">
-
-    <p>
-    To add a caption to the button ("Hide" or "Show"), double-click on it so that it becomes outlined in red. Click on the <strong>Text tool</strong>, then on the button and type text in the text area. Use font settings to setup the size, color and other properties. You can use the <strong>Selection tool</strong> (the first button with an arrow) to move your text field on the button.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-add-buttons3.jpg" class="centered" style="max-width: 1000px;">
-
-    <p>
-    As a result, in the <strong>Outliner</strong> panel you should see the <strong>iframe</strong> element, 2 <strong>div</strong> elements with unique IDs assigned to them and two text elements nested inside those <strong>divs</strong>.
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-add-buttons4.jpg" class="centered" style="max-width: 328px;">
-
-    <p>
-    As a finishing touch, in the CSS properties window we can make the mouse cursor turn to its "clicking" form when it is over those buttons:
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/gwd-add-buttons5.jpg" class="centered" style="max-width: 384px;">
-
-    <p>
-    After publishing the <i>index.html</i> file and running the assembled app from the App Manager you should see something like this:
-    </p>
-
-    <img src="files/HTML-based-user-interfaces/tutorial-final-app.jpg" class="centered" style="max-width: 835px;">
-
-    <p>
-    For more information on using Google Web Designer tools and components refer to their <a href="https://support.google.com/webdesigner" target="_blank">docs</a>.
-    </p>
--->
+    <iframe class="video-480p" src="https://rutube.ru/play/embed/88dd6ad1aabc968dea1222e96a777fc3/" frameBorder="0" allow="clipboard-write; autoplay" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
 
     [anchor:Developer_Approach]
 
-    <h3>Подход Разработчиков</h3>
+    <h3>Подход веб-разработчиков</h3>
 
     <p>
-        Обычный текстовый редактор по-прежнему считается многими веб-дизайнерами самым подходящим и гибким инструментом для создания веб-страниц. Даже если вы не собираетесь погружаться в кодирование, это руководство может помочь вам понять внутреннюю структуру веб-страницы, созданной с помощью более удобных для художника инструментов.
+      Обычный текстовый редактор по-прежнему считается многими веб-дизайнерами самым подходящим и гибким инструментом для создания веб-страниц. Даже если вы не собираетесь погружаться в кодирование, это руководство может помочь вам понять внутреннюю структуру веб-страницы, созданной с помощью более удобных для художника инструментов.
     </p>
 
     <p>
-        Для редактирования HTML/CSS кода можно использовать любой текстовый редактор, но удобнее работать, если ваш редактор поддерживает подсветку синтаксиса и нумерацию строк, как Notepad++ или VS Code.
+      Для редактирования HTML/CSS кода можно использовать любой текстовый редактор, но удобнее работать, если ваш редактор поддерживает подсветку синтаксиса и нумерацию строк, как Notepad++ или VS Code.
     </p>
 
     <p>
-        Базовый HTML-документ, с которого мы можем начать, выглядит следующим образом. Вы можете просто скопировать это содержимое в новый текстовый документ и сохранить как <i>index.html</i> в папке <strong>verge3d/applications/my_awesome_app</strong>. Опять же, имя файла не является обязательным, и мы используем его везде только для единообразия.
+      Базовый HTML-документ, с которого мы можем начать, выглядит следующим образом. Вы можете просто скопировать это содержимое в новый текстовый документ и сохранить как <strong>index.html</strong> в какой-либо подпапке папки с приложениями «Вердж3Д». Опять же, имя файла не является обязательным, и мы используем его везде только для единообразия.
     </p>
 
     <code>
@@ -378,19 +280,19 @@
     </code>
 
     <p>
-        Запустите/перезагрузите Verge3D App Manager - новый <strong>.html</strong> файл должен отображаться в виде дополнительной синей иконки.
+      Запустите/перезагрузите диспетчер приложений — новый <strong>.html</strong>-файл должен отображаться в виде дополнительной синей иконки.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager.jpg" class="centered" style="max-width: 699px;">
+    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager.jpg" style="max-width: 699px;">
 
     <p>
-        Более наглядно структуру файлов можно увидеть на странице приложения, которую можно открыть, нажав на название своего приложения.
+      Более наглядно структуру файлов можно увидеть на странице приложения, которую можно открыть, нажав на название своего приложения.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager-app-page.jpg" class="centered" style="max-width: 875px;">
+    <img src="files/HTML-based-user-interfaces/my-awesome-app-manager-app-page.jpg" style="max-width: 875px;">
 
     <p>
-        Теперь мы можем добавить элемент <strong>iframe</strong> в </strong>body</strong> документа для встраивания основного запускающего файла нашего приложения Verge3D, <i>my_awesome_app.html</i>:
+      Теперь мы можем добавить элемент <strong>iframe</strong> в <strong>body</strong> документа для встраивания основного запускающего файла нашего приложения «Вердж3Д», <strong>my_awesome_app.html</strong>:
     </p>
 
     <code>
@@ -400,7 +302,7 @@
     </code>
 
     <p>
-        Если вы сейчас запустите собранное приложение из менеджера приложений, оно отобразит небольшую вставку стандартного приложения cube в левом верхнем углу. Мы можем сделать его широкоэкранным и без границ, используя CSS:
+      Если вы сейчас запустите собранное приложение из диспетчера приложений, оно отобразит небольшую вставку стандартного приложения cube в левом верхнем углу. Мы можем сделать его широкоэкранным и без границ, используя CSS:
     </p>
 
     <code>
@@ -417,7 +319,7 @@
     </code>
 
     <p>
-        Теперь давайте создадим 2 кнопки, добавив в тело 2 элемента <strong>div</strong>, снабженные уникальными атрибутами <strong>id</strong> для ссылок в CSS и в пазлах:
+      Теперь давайте создадим 2 кнопки, добавив в тело 2 элемента <strong>div</strong>, снабженные уникальными атрибутами <strong>id</strong> для ссылок в CSS и в пазлах:
     </p>
 
     <code>
@@ -426,7 +328,7 @@
     </code>
 
     <p>
-        Однако вы не заметите их в приложении, пока не настроите их позиционирование и стилизацию с помощью CSS:
+      Однако вы не заметите их в приложении, пока не настроите их позиционирование и стилизацию с помощью CSS:
     </p>
 
     <code>
@@ -451,7 +353,7 @@
     </code>
 
     <p>
-        Вот и все - теперь у вас есть две HTML-кнопки в вашем приложении! Таким должен получиться финальный <i>index.html</i>:
+      Вот и все - теперь у вас есть две HTML-кнопки в вашем приложении! Таким должен получиться финальный <i>index.html</i>:
     </p>
 
     <code>
@@ -506,23 +408,23 @@
     </code>
 
     <p>
-        При запуске собранного приложения из диспетчера приложений вы должны увидеть что-то вроде этого:
+      При запуске собранного приложения из диспетчера приложений вы должны увидеть что-то вроде этого:
     </p>
 
-    <img src="files/HTML-based-user-interfaces/tutorial-final-app.jpg" class="centered" style="max-width: 835px;">
+    <img src="files/HTML-based-user-interfaces/tutorial-final-app.jpg" style="max-width: 835px;">
 
     <p>
-        Давайте сделаем HTML-кнопки кликабельными, чтобы пользователь мог скрывать и раскрывать куб. Этого легко добиться, используя пазл <a href="manual/ru/puzzles/HTML.html#event">event</a> HTML, используемый с идентификаторами элементов, которые мы назначили в Webflow. Запустите редактор Puzzles и добавьте эти блоки:
+      Давайте сделаем HTML-кнопки кликабельными, чтобы пользователь мог скрывать и раскрывать куб. Этого легко добиться, используя пазл <a href="manual/ru/puzzles/HTML.html#event">event</a>, используемый с идентификаторами элементов, которые мы назначили в «Вебфлоу». Запустите редактор пазлов и добавьте эти блоки:
     </p>
 
-    <img src="files/HTML-based-user-interfaces/html-puzzles.jpg" class="centered" style="max-width: 632px;">
+    <img src="files/HTML-based-user-interfaces/html-puzzles.jpg" style="max-width: 632px;">
 
     <p>
-        Поскольку кнопки расположены в родительском <strong>.html</strong> файле, в который встроено приложение Verge3D, мы должны установить флажок <strong>in parent doc</strong>, чтобы они работали.
+      Поскольку кнопки расположены в родительском <strong>.html</strong> файле, в который встроено приложение «Вердж3Д», мы должны установить флажок <strong>in parent doc</strong>, чтобы они работали.
     </p>
 
     <p>
-        Вот и все! Сохраните пазлы и запустите/загрузите собранное приложение снова, чтобы проверить, работают ли кнопки!
+      Вот и все! Сохраните пазлы и запустите/загрузите собранное приложение снова, чтобы проверить, работают ли кнопки!
     </p>
 
 
@@ -531,28 +433,28 @@
     <h2>Аннотации</h2>
 
     <p>
-        Аннотации Verge3D - это самый простой способ отобразить информационные всплывающие элементы над 3D-контентом. Вам не нужно знать HTML, чтобы добавить их в свое приложение. Просто воспользуйтесь функцией добавления <a href="manual/ru/puzzles/Objects.html#add_annotation">add annotation</a>.
+      Аннотации «Вердж3Д» — это самый простой способ отобразить информационные всплывающие элементы над 3Д-контентом. Вам не нужно знать HTML, чтобы добавить их в свое приложение. Просто воспользуйтесь функцией добавления <a href="manual/ru/puzzles/Objects.html#add_annotation">add annotation</a>.
     </p>
 
-    <img src="files/HTML-based-user-interfaces/annotation.jpg" class="centered" style="max-width: 600px">
+    <img src="files/HTML-based-user-interfaces/annotation.jpg" style="max-width: 600px">
 
     <p>
-        Вы можете изменить стиль ваших аннотаций, изменив шрифт, форму, цвет или размер. Дополнительную информацию смотрите <a href="manual/ru/introduction/Styling-Verge3D-Apps.html#annotations">здесь</a>.
+      Вы можете изменить стиль ваших аннотаций, изменив шрифт, форму, цвет или размер. Дополнительную информацию смотрите <a href="manual/ru/introduction/Personalizing-Verge3D-Apps.html#annotations">здесь</a>.
     </p>
 
 
     [anchor:see_also]
 
-    <h2>Смотрите Также</h2>
+    <h2>Смотрите также</h2>
 
-    <p>Ознакомьтесь со следующим видеоуроком, объясняющим, как создавать пользовательские интерфейсы на основе HTML для наших 3D веб-приложений.</p>
+    <p>Ознакомьтесь со следующим видеоуроком, объясняющим, как создавать пользовательские интерфейсы для 3Д-веб-приложений на основе HTML.</p>
 
-    <iframe class="video-480p" src="https://www.youtube.com/embed/F_R_rkC7mgQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe class="video-480p" src="https://rutube.ru/play/embed/05a1e52c19a313ee6d86899f4e913084" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-    <h2>Остались Вопросы?</h2>
+    <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

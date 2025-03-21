@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Пазлы HTML - Soft8Soft</title>
+    <title>Пазлы HTML — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как использовать пазлы Verge3D для манипулирования элементами HTML DOM."/>
-    <base href="../../../" />
+    <meta name="description" content="Как использовать пазлы Вердж3Д для манипулирования HTML-элементами.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
     <h1>Пазлы HTML</h1>
 
-    <p>Эти пазлы управляют элементами HTML DOM.</p>
+    <p>Эти пазлы управляют HTML-элементами.</p>
 
-    <img src="files/puzzles/puzzles-html.jpg">
+    <img src="files/puzzles/puzzles-html.webp">
 
     <h2>Содержание</h2>
 
@@ -25,12 +25,12 @@
     <h2>Что такое HTML DOM?</h2>
 
     <p>
-      HTML DOM (Document Object Model, смотрите техническую документацию <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank">здесь</a>) - это программный интерфейс к HTML-странице. Он позволяет вам изменять свое приложение не только путем редактирования его кода, но и путем выполнения различных пазлов. Например, вы можете добавлять новые элементы HTML, настраивать внешний вид страницы, рисовать что-то поверх ваших моделей, делать снимки экрана, загружать файлы и т.д.
+      HTML DOM (HyperText Markup Language Document Object Model, смотрите техническую документацию <a href="https://ru.wikipedia.org/wiki/Document_Object_Model" target="_blank">здесь</a>) — это программный интерфейс к HTML-странице. Он позволяет вам изменять свое приложение не только путем редактирования его кода, но и путем выполнения различных пазлов. Например, вы можете добавлять новые элементы HTML, настраивать внешний вид страницы, рисовать что-то поверх ваших моделей, делать снимки экрана, загружать файлы и т.д.
     </p>
 
     [anchor:puzzles_reference]
 
-    <h2>Перечень Пазлов</h2>
+    <h2>Перечень пазлов</h2>
 
 
     [anchor:add_HTML_element]
@@ -38,10 +38,144 @@
     <h3>add HTML element</h3>
 
     <p>
-      Создает элемент HTML с указанным <a href="https://www.w3schools.com/tags/default.asp" target="_blank">типом</a> и идентификатором (соответствует атрибуту "id") и добавляет его непосредственно перед или сразу после указанного существующего элемента HTML.
+      Создает элемент HTML с указанным <a href="https://www.w3schools.com/tags/default.asp" target="_blank">типом</a> и идентификатором (соответствует атрибуту *id*) и добавляет внутрь (*to*), непосредственно перед (*before*) или сразу после (*after*) указанного существующего HTML-элемента.
+    </p>
+    <p>
+      Переключатель *in parent doc* должен быть установлен, если создаваемый HTML-элемент должен находиться во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
     </p>
 
-    <img src="files/puzzles/puzzles-html-add-html-elem.jpg">
+    <img src="files/puzzles/puzzles-html-add-html-elem.webp">
+
+    <p>
+      Например, чтобы создать красную ссылку на официальный сайт «Софт Эйт Софт», можно использовать следующие пазлы:
+    </p>
+
+    <img src="files/puzzles/puzzles-html-add-html-elem-example.webp">
+
+    <p>Поддерживаемые элементы:</p>
+
+    <table>
+      <tr>
+        <th>Элемент</th>
+        <th>Описание</th>
+      </tr>
+      <tr>
+        <td>a</td>
+        <td>Ссылка. Используйте свойство `"href"`, чтобы назначить адрес ссылки и `"textContent"` либо `"innerHTML"`, чтобы назначить её текст. Кроме того, вы можете добавить любой кликабельный элемент внутрь этой ссылки с использованием того же пазла <em>add HTML element</em>.</td>
+      </tr>
+      <tr>
+        <td>b</td>
+        <td>Отображает внутренний текст (назначаемый с помощью свойств `"textContent"` и `"innerHTML"`) полужирным шрифтом.</td>
+      </tr>
+      <tr>
+        <td>br</td>
+        <td>Разделитель строки.</td>
+      </tr>
+      <tr>
+        <td>button</td>
+        <td>Кнопка.</td>
+      </tr>
+      <tr>
+        <td>canvas</td>
+        <td>Низкоуровневый элемент для рендеринга 2Д или 3Д-графики.</td>
+      </tr>
+      <tr>
+        <td>dialog</td>
+        <td>Определяет диалоговый элемент.</td>
+      </tr>
+      <tr>
+        <td>div</td>
+        <td>Определяет контейнер для других элементов. С помощью CSS может быть настроен для представления всего: иконок, изображений, кнопок, прелоадеров и др.</td>
+      </tr>
+      <tr>
+        <td>form</td>
+        <td>Определяет форму — элемент-контейнер для `&lt;input&gt;` и `&lt;textarea&gt;` элементов, в свою очередь представляющих поля этой формы.</td>
+      </tr>
+      <tr>
+        <td>h1..h6</td>
+        <td>Заголовки страниц, от самых больших к самым маленьким. Текст заголовка указывается в свойстве `"textContent"`.</td>
+      </tr>
+      <tr>
+        <td>iframe</td>
+        <td>Определяет вложенное окно страницы (или подстраницу). УРЛ подстраницы указывается в свойстве `"src"`.</td>
+      </tr>
+      <tr>
+        <td>img</td>
+        <td>Элемент изображения. УРЛ данного изображения указывается в свойстве `"src"`.</td>
+      </tr>
+      <tr>
+        <td>input</td>
+        <td>Элемент ввода пользовательских данных. Свойство `"type"` определяет тип этого элемента, например: `"text"`, `"checkbox"`, `"file"`, `"radio"`, `"number"`, и т.д.</td>
+      </tr>
+      <tr>
+        <td>label</td>
+        <td>Элемент метки. Используется для указания текстовых надписей к полям формы, таким как `&lt;input&gt;` или `&lt;textarea&gt;`.</td>
+      </tr>
+      <tr>
+        <td>li</td>
+        <td>Элемент пункта списка. Является дочерним элементом для `&lt;ul&gt;` и `&lt;ol&gt;`, определяющих неупорядоченный и упорядоченных списки соответственно.</td>
+      </tr>
+      <tr>
+        <td>link</td>
+        <td>Элемент, используемый для подключения CSS-стилей и для определения брузерных иконок.</td>
+      </tr>
+      <tr>
+        <td>ol</td>
+        <td>Упорядоченный список. Используйте элементы `&lt;li&gt;` чтобы определить пункты этого списка.</td>
+      </tr>
+      <tr>
+        <td>option</td>
+        <td>Элемент опции родительского элемента `&lt;select&gt;`.</td>
+      </tr>
+      <tr>
+        <td>p</td>
+        <td>Определяет параграф. Текстовое наполнение параграфа указывается в свойстве `"textContent"`.</td>
+      </tr>
+      <tr>
+        <td>script</td>
+        <td>Используется для включения (и запуска) «Ява Скрипта». УРЛ этого скрипта указывается в свойстве `"src"`.</td>
+      </tr>
+      <tr>
+        <td>select</td>
+        <td>Определяет выпадающий список. Используйте элементы `&lt;option&gt;` чтобы определить пункты этого списка.</td>
+      </tr>
+      <tr>
+        <td>span</td>
+        <td>Определяет контейнер для текста.</td>
+      </tr>
+      <tr>
+        <td>style</td>
+        <td>Используется для подключения CSS-стилей. Код CSS указывается в свойстве `"textContent"`.</td>
+      </tr>
+      <tr>
+        <td>table</td>
+        <td>Таблица.</td>
+      </tr>
+      <tr>
+        <td>td</td>
+        <td>Определяет ячейку таблицы `&lt;table&gt;`.</td>
+      </tr>
+      <tr>
+        <td>th</td>
+        <td>Определяет заголовочную ячейку таблицы `&lt;table&gt;`.</td>
+      </tr>
+      <tr>
+        <td>tr</td>
+        <td>Определяет строку таблицы `&lt;table&gt;`.</td>
+      </tr>
+      <tr>
+        <td>textarea</td>
+        <td>Многострочный текст.</td>
+      </tr>
+      <tr>
+        <td>ul</td>
+        <td>Неупорядоченный список. Используйте элементы `&lt;li&gt;` чтобы определить пункты этого списка.</td>
+      </tr>
+      <tr>
+        <td>video</td>
+        <td>Видео-элемент. УРЛ видео файла указывается в свойстве `"src"`.</td>
+      </tr>
+    </table>
 
 
     [anchor:remove_html_element]
@@ -49,33 +183,370 @@
     <h3>remove HTML element</h3>
 
     <p>
-      Удаляет элемент HTML с указанным идентификатором.
+      Удаляет HTML-элемент с указанным идентификатором. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
     </p>
 
     <img src="files/puzzles/puzzles-html-remove-html-elem.jpg">
 
 
-    [anchor:get_attribute]
+    [anchor:set_property]
 
-    <h3>get attribute</h3>
-
-    <p>
-      Получает <a href="https://www.w3schools.com/tags/ref_attributes.asp" target="_blank">атрибут</a> из HTML-элемента с заданным id. Флажок "in parent doc" должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong> файл приложения Verge3D внедрен с помощью <strong>iframe</strong>).
-    </p>
-
-    <img src="files/puzzles/puzzles-html-get-attr.jpg">
-
-
-
-    [anchor:set_attribute]
-
-    <h3>set attribute</h3>
+    <h3>set property</h3>
 
     <p>
-      Устанавливает <a href="https://www.w3schools.com/tags/ref_attributes.asp" target="_blank">атрибут</a> для HTML-элемента с указанным id. Флажок "in parent doc"  должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong> файл приложения Verge3D внедрен с помощью <strong>.iframe</strong>). Также работает со списками идентификаторов элементов.
+      Устанавливает свойство HTML-элемента с указанным идентификатором (*id*). Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`). Пазл также работает со списками идентификаторов элементов.
     </p>
 
-    <img src="files/puzzles/puzzles-html-set-attr.jpg">
+    <img src="files/puzzles/puzzles-html-set-prop.webp">
+
+    <table>
+      <tr>
+        <th>Свойство</th>
+        <th>Описание</th>
+      </tr>
+      <tr>
+        <td>action</td>
+        <td>Указывает на УРЛ обрабатывающий отправку формы `&lt;form&gt;`.</td>
+      </tr>
+      <tr>
+        <td>alt</td>
+        <td>Устанавливает текст элемента, показываемый в случае если элемент не может быть показан.</td>
+      </tr>
+      <tr>
+        <td>checked</td>
+        <td>Показывает установлен ли элемент checkbox/radio.</td>
+      </tr>
+      <tr>
+        <td>className</td>
+        <td>Устанавливает атрибут элемента *class*.</td>
+      </tr>
+      <tr>
+        <td>disabled</td>
+        <td>Указывает что данный элемент или группа элементов должна быть выключена.</td>
+      </tr>
+      <tr>
+        <td>download</td>
+        <td>Указывает что target данного элемента будет загружаться по клику на элементе.</td>
+      </tr>
+      <tr>
+        <td>height</td>
+        <td>Определяет высоту элементов `&lt;img&gt;`, `&lt;audio&gt;`, `&lt;video&gt;`, `&lt;canvas&gt;` или `&lt;iframe&gt;`. Чтобы указать размеры для других элементов, используйте свойства CSS.</td>
+      </tr>
+      <tr>
+        <td>href</td>
+        <td>Указывает УРЛ назначения для элемента-ссылки.</td>
+      </tr>
+      <tr>
+        <td>htmlFor</td>
+        <td>Определяет элемент, связанный с элементом-ссылкой `&lt;label&gt;`.</td>
+      </tr>
+      <tr>
+        <td>id</td>
+        <td>Определяет уникальный идентификатор элемента.</td>
+      </tr>
+      <tr>
+        <td>innerHTML</td>
+        <td>Устанавливает внутренний HTML элемента.</td>
+      </tr>
+      <tr>
+        <td>loop</td>
+        <td>Указывает на то что `&lt;audio&gt;`/`&lt;video&gt;` должны зацикливать воспроизведение.</td>
+      </tr>
+      <tr>
+        <td>max</td>
+        <td>Устанавливает максимальное значение для элемента `&lt;input&gt;`.</td>
+      </tr>
+      <tr>
+        <td>method</td>
+        <td>Определяет каким образом отправлять на сервер содержимое элемента-формы `&lt;form&gt;`. Также может быть установлен в `"dialog"`, указывающий на специальные <em>диалоговые формы</em>.</td>
+      </tr>
+      <tr>
+        <td>min</td>
+        <td>Устанавливает минимальное значение для элемента `&lt;input&gt;`.</td>
+      </tr>
+      <tr>
+        <td>muted</td>
+        <td>Указывает что `&lt;audio&gt;`/`&lt;video&gt;` элементы должны воспроизводиться без звука.</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>Определяет имя элемента. Это имя используется при отправки форм.</td>
+      </tr>
+      <tr>
+        <td>placeholder</td>
+        <td>Краткое указание на то, что должно находиться в элементах `&lt;input&gt;` и `&lt;textarea&gt;`.</td>
+      </tr>
+      <tr>
+        <td>rel</td>
+        <td>Указывает на отношение текущего документа и связанного с ним документа. Используется для `&lt;a&gt;`, `&lt;form&gt;`, или `&lt;link&gt;`.</td>
+      </tr>
+      <tr>
+        <td>required</td>
+        <td>Логическое значение указывающее на то, требуется ли вводить значение для данного поля формы.</td>
+      </tr>
+      <tr>
+        <td>returnValue</td>
+        <td>Значение возвращаемое после закрытия диалога `&lt;dialog&gt;`.</td>
+      </tr>
+      <tr>
+        <td>scrollLeft</td>
+        <td>Указывает количество пикселей прокручивания в горизонтальном направлении.</td>
+      </tr>
+      <tr>
+        <td>scrollTop</td>
+        <td>Указывает количество пикселей прокручивания в вертикальном направлении.</td>
+      </tr>
+      <tr>
+        <td>src</td>
+        <td>Указывает УРЛ файла, загружаемого элементами `&lt;img&gt;`, `&lt;video&gt;`, `&lt;script&gt;` и `&lt;iframe&gt;`.</td>
+      </tr>
+      <tr>
+        <td>step</td>
+        <td>Интервал увеличения/уменьшения значений для элементов `&lt;input&gt;` типов `"number"`, `"range"` и `"date"`.</td>
+      </tr>
+      <tr>
+        <td>style</td>
+        <td>Определяет CSS-стиль конкретного элемента.</td>
+      </tr>
+      <tr>
+        <td>tabIndex</td>
+        <td>Устанавливает свойство элемента <a href="https://www.w3schools.com/jsref/prop_html_tabindex.asp" target="_blank">tabIndex</a>.</td>
+      </tr>
+      <tr>
+        <td>target</td>
+        <td>Определяет пункт назначения для ссылок или отправляемых форм.</td>
+      </tr>
+      <tr>
+        <td>textContent</td>
+        <td>Устанавливает текстовое содержимое элемента.</td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>Дополнительная информация, появляющаяся при наведении на элемент.</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>Тип элемента `&lt;input&gt;`, например `"number"`, `"text"`, `"file"`, `"radio"`.</td>
+      </tr>
+      <tr>
+        <td>value</td>
+        <td>Значение элементов `&lt;input&gt;`, `&lt;button&gt;` или `&lt;option&gt;`.</td>
+      </tr>
+      <tr>
+        <td>volume</td>
+        <td>Уровень громкости для элементов `&lt;audio&gt;`/`&lt;video&gt;`.</td>
+      </tr>
+      <tr>
+        <td>width</td>
+        <td>Определяет ширину элементов `&lt;img&gt;`, `&lt;audio&gt;`, `&lt;video&gt;`, `&lt;canvas&gt;` или `&lt;iframe&gt;`. Чтобы указать размеры для других элементов, используйте свойства CSS.</td>
+      </tr>
+    </table>
+
+
+    [anchor:get_property]
+
+    <h3>get property</h3>
+
+    <p>
+      Получает значение свойства HTML-элемента с заданным идентификатором *id*. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
+    </p>
+
+    <img src="files/puzzles/puzzles-html-get-prop.webp">
+
+    <table>
+      <tr>
+        <th>Свойство</th>
+        <th>Описание</th>
+      </tr>
+      <tr>
+        <td>action</td>
+        <td>Получает УРЛ обрабатывающий отправку формы `&lt;form&gt;`.</td>
+      </tr>
+      <tr>
+        <td>alt</td>
+        <td>Получает текст элемента, показываемый в случае если элемент не может быть показан.</td>
+      </tr>
+      <tr>
+        <td>checked</td>
+        <td>Показывает установлен ли элемент checkbox/radio.</td>
+      </tr>
+      <tr>
+        <td>className</td>
+        <td>Получает атрибут элемента *class*.</td>
+      </tr>
+      <tr>
+        <td>clientHeight</td>
+        <td>Получает высоту элемента, включая заполнение, но исключая рамку, прокрутку и надбавку.</td>
+      </tr>
+      <tr>
+        <td>clientWidth</td>
+        <td>Получает ширину элемента, включая заполнение, но исключая рамку, прокрутку и надбавку.</td>
+      </tr>
+      <tr>
+        <td>disabled</td>
+        <td>Указывает что данный элемент или группа элементов должна быть выключена.</td>
+      </tr>
+      <tr>
+        <td>download</td>
+        <td>Указывает что target данного элемента будет загружаться по клику на элементе.</td>
+      </tr>
+      <tr>
+        <td>duration</td>
+        <td>Время воспроизведения элементов `&lt;audio&gt;`/`&lt;video&gt;`.</td>
+      </tr>
+      <tr>
+        <td>ended</td>
+        <td>Возвращает `true` если элементы `&lt;audio&gt;`/`&lt;video&gt;` закончили воспроизведение.</td>
+      </tr>
+      <tr>
+        <td>height</td>
+        <td>Определяет высоту элементов `&lt;img&gt;`, `&lt;audio&gt;`, `&lt;video&gt;`, `&lt;canvas&gt;` или `&lt;iframe&gt;`. Чтобы указать размеры для других элементов, используйте свойства CSS.</td>
+      </tr>
+      <tr>
+        <td>href</td>
+        <td>Указывает УРЛ назначения для элемента-ссылки.</td>
+      </tr>
+      <tr>
+        <td>htmlFor</td>
+        <td>Определяет элемент, связанный с элементом-ссылкой `&lt;label&gt;`.</td>
+      </tr>
+      <tr>
+        <td>id</td>
+        <td>Определяет уникальный идентификатор элемента.</td>
+      </tr>
+      <tr>
+        <td>innerHTML</td>
+        <td>Получает внутренний HTML элемента.</td>
+      </tr>
+      <tr>
+        <td>innerHeight</td>
+        <td>Получает высоту браузерного окна, включая элемент прокрутки (если есть).</td>
+      </tr>
+      <tr>
+        <td>innerWidth</td>
+        <td>Получает ширину браузерного окна, включая элемент прокрутки (если есть).</td>
+      </tr>
+      <tr>
+        <td>loop</td>
+        <td>Указывает на то что `&lt;audio&gt;`/`&lt;video&gt;` должны зацикливать воспроизведение.</td>
+      </tr>
+      <tr>
+        <td>max</td>
+        <td>Получает максимальное значение для элемента `&lt;input&gt;`.</td>
+      </tr>
+      <tr>
+        <td>method</td>
+        <td>Определяет каким образом отправлять на сервер содержимое элемента-формы `&lt;form&gt;`. Также может быть установлен в `"dialog"`, указывающий на специальные <em>диалоговые формы</em>.</td>
+      </tr>
+      <tr>
+        <td>min</td>
+        <td>Получает минимальное значение для элемента `&lt;input&gt;`.</td>
+      </tr>
+      <tr>
+        <td>muted</td>
+        <td>Указывает что `&lt;audio&gt;`/`&lt;video&gt;` элементы должны воспроизводиться без звука.</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>Определяет имя элемента. Это имя используется при отправки форм.</td>
+      </tr>
+      <tr>
+        <td>offsetHeight</td>
+        <td>Получает высоту элемента, включая заполнение, рамку и прокрутку, но исключая надбавку.</td>
+      </tr>
+      <tr>
+        <td>offsetWidth</td>
+        <td>Получает ширину элемента, включая заполнение, рамку и прокрутку, но исключая надбавку.</td>
+      </tr>
+      <tr>
+        <td>paused</td>
+        <td>Returns `true` if `&lt;audio&gt;`/`&lt;video&gt;` playback was paused.</td>
+      </tr>
+      <tr>
+        <td>placeholder</td>
+        <td>Краткое указание на то, что должно находиться в элементах `&lt;input&gt;` и `&lt;textarea&gt;`.</td>
+      </tr>
+      <tr>
+        <td>rel</td>
+        <td>Указывает на отношение текущего документа и связанного с ним документа. Используется для `&lt;a&gt;`, `&lt;form&gt;`, или `&lt;link&gt;`.</td>
+      </tr>
+      <tr>
+        <td>required</td>
+        <td>Логическое значение указывающее на то, требуется ли вводить значение для данного поля формы.</td>
+      </tr>
+      <tr>
+        <td>returnValue</td>
+        <td>Значение возвращаемое после закрытия диалога `&lt;dialog&gt;`.</td>
+      </tr>
+      <tr>
+        <td>scrollHeight</td>
+        <td>Получает высоту элемента, включая заполнение, но исключая рамку, прокрутку и надбавку. В отличие от свойства `clientHeight` это значение включает <em>общую высоту</em> элемента, включая область невидимую пользователю из-за прокрутки.</td>
+      </tr>
+      <tr>
+        <td>scrollLeft</td>
+        <td>Указывает количество пикселей прокручивания элемента в горизонтальном направлении.</td>
+      </tr>
+      <tr>
+        <td>scrollTop</td>
+        <td>Указывает количество пикселей прокручивания элемента в вертикальном направлении.</td>
+      </tr>
+      <tr>
+        <td>scrollWidth</td>
+        <td>Получает ширину элемента, включая заполнение, но исключая рамку, прокрутку и надбавку. В отличие от свойства `clientWidth` это значение включает <em>общую ширину</em> элемента, включая область невидимую пользователю из-за прокрутки.</td>
+      </tr>
+      <tr>
+        <td>scrollX</td>
+        <td>Указывает количество пикселей прокручивания браузерного окна в горизонтальном направлении.</td>
+      </tr>
+      <tr>
+        <td>scrollY</td>
+        <td>Указывает количество пикселей прокручивания браузерного окна в вертикальном направлении.</td>
+      </tr>
+      <tr>
+        <td>src</td>
+        <td>Указывает УРЛ файла, загружаемого элементами `&lt;img&gt;`, `&lt;video&gt;`, `&lt;script&gt;` и `&lt;iframe&gt;`.</td>
+      </tr>
+      <tr>
+        <td>step</td>
+        <td>Интервал увеличения/уменьшения значений для элементов `&lt;input&gt;` типов `"number"`, `"range"` и `"date"`.</td>
+      </tr>
+      <tr>
+        <td>style</td>
+        <td>Определяет CSS-стиль конкретного элемента.</td>
+      </tr>
+      <tr>
+        <td>tabIndex</td>
+        <td>Получает свойство элемента <a href="https://www.w3schools.com/jsref/prop_html_tabindex.asp" target="_blank">tabIndex</a>.</td>
+      </tr>
+      <tr>
+        <td>target</td>
+        <td>Определяет пункт назначения для ссылок или отправляемых форм.</td>
+      </tr>
+      <tr>
+        <td>textContent</td>
+        <td>Получает текстовое содержимое элемента.</td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>Дополнительная информация, появляющаяся при наведении на элемент.</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>Тип элемента `&lt;input&gt;`, например `"number"`, `"text"`, `"file"`, `"radio"`.</td>
+      </tr>
+      <tr>
+        <td>value</td>
+        <td>Значение элементов `&lt;input&gt;`, `&lt;button&gt;` или `&lt;option&gt;`.</td>
+      </tr>
+      <tr>
+        <td>volume</td>
+        <td>Уровень громкости для элементов `&lt;audio&gt;`/`&lt;video&gt;`.</td>
+      </tr>
+      <tr>
+        <td>width</td>
+        <td>Определяет ширину элементов `&lt;img&gt;`, `&lt;audio&gt;`, `&lt;video&gt;`, `&lt;canvas&gt;` или `&lt;iframe&gt;`. Чтобы указать размеры для других элементов, используйте свойства CSS.</td>
+      </tr>
+    </table>
 
 
     [anchor:create_css_rule]
@@ -83,11 +554,27 @@
     <h3>create css rule</h3>
 
     <p>
-      Создает новое <a href="https://www.w3schools.com/css/css_syntax.asp" target="_blank">правило CSS</a>. Флажок "in parent doc" должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong> файл приложения Verge3D внедрен с помощью <strong>.iframe</strong>).
+      Создает новое <a href="https://developer.mozilla.org/ru/docs/Web/CSS/Syntax" target="_blank">правило CSS</a>. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
     </p>
 
     <img src="files/puzzles/puzzles-html-create-css-rule.jpg">
 
+
+    [anchor:style_constructor]
+
+    <h3>style constructor</h3>
+
+    <p>
+      Создаёт строку с определениями CSS-стилей, разделёнными точкой с запятой.
+    </p>
+
+    <img src="files/puzzles/puzzles-html-style-constructor.webp">
+
+    <p>
+      Следующий пример позволяет сделать зелёную кнопку, расположенную в левом верхнем углу:
+    </p>
+
+    <img src="files/puzzles/puzzles-html-style-constructor-example.webp">
 
 
     [anchor:set_style]
@@ -95,7 +582,7 @@
     <h3>set style</h3>
 
     <p>
-      Устанавливает <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS-свойство</a> для HTML-элемента с указанным id. Флажок "in parent doc"  должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong> файл приложения Verge3D внедрен с помощью <strong>.iframe</strong>). Также работает со списками идентификаторов элементов.
+      Устанавливает <a href="https://developer.mozilla.org/ru/docs/Web/CSS/Reference" target="_blank">CSS-свойство</a> для HTML-элемента с указанным *id*. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`). Также работает со списками идентификаторов элементов.
     </p>
 
     <img src="files/puzzles/puzzles-html-set-style.jpg">
@@ -106,13 +593,13 @@
     <h3>get style</h3>
 
     <p>
-      Берет <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS свойство</a> из HTML-элемента с указанным id. Флажок "in parent doc" должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong> приложения Verge3D внедрен с помощью <strong>iframe</strong>).
+      Получает <a href="https://developer.mozilla.org/ru/docs/Web/CSS/Reference" target="_blank">CSS-свойство</a> из HTML-элемента с указанным *id*. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
     </p>
 
     <img src="files/puzzles/puzzles-html-get-style.jpg">
 
     <p>
-      Этот пазл может быть очень полезен для создания 3D-конфигураторов. Например, вы можете использовать следующую настройку для назначения цвета материала из цвета фона элемента HTML:
+      Этот пазл бывает очень полезен для создания 3Д-конфигураторов. Например, вы можете использовать следующий блок пазлов для назначения цвета материала на основании цвета фона HTML-элемента:
     </p>
 
     <img src="files/puzzles/puzzles-html-get-style-example.jpg">
@@ -123,11 +610,10 @@
     <h3>set css rule</h3>
 
     <p>
-      Устанавливает <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS свойство</a> для указанного правила CSS (находится в <strong>.css</strong> файлах приложения). Флажок "in parent doc" должен быть установлен, если таблицы стилей принадлежат внешнему HTML-документу (в который  <strong>.html</strong> приложения Verge3D внедрен с помощью <strong>iframe</strong>).
+      Устанавливает <a href="https://developer.mozilla.org/ru/docs/Web/CSS/Reference" target="_blank">CSS-свойство</a> для указанного правила CSS (находится в <strong>.css</strong> файлах приложения). Переключатель *in parent doc* должен быть установлен, если таблицы стилей принадлежат внешнему HTML-документу (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
     </p>
 
     <img src="files/puzzles/puzzles-html-set-css-rule.jpg">
-
 
 
     [anchor:event]
@@ -135,11 +621,169 @@
     <h3>event</h3>
 
     <p>
-      Регистрирует <a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">event listener</a> для HTML-элемента с указанным id. Флажок "in parent doc" должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong> приложения Verge3D встроен с помощью <strong>iframe</strong>). Как только происходит событие, срабатывают пазлы, помещенные в слот "do". Также работает со списками идентификаторов элементов.
+      Регистрирует обработчик события для HTML-элемента с указанным *id*. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`). Как только происходит событие, срабатывают пазлы, помещенные в слот *do*. Также работает со списками идентификаторов элементов.
     </p>
 
     <img src="files/puzzles/puzzles-html-on-event.jpg">
 
+    <table>
+      <tr>
+        <th>Собыите</th>
+        <th>Описание</th>
+      </tr>
+      <tr>
+        <td>beforeunload</td>
+        <td>Происходит перед выгрузкой страницы.</td>
+      </tr>
+      <tr>
+        <td>blur</td>
+        <td>Происходит когда элемент теряет фокус. В большинстве случаев обработчик этого события регистрируется на объекте <a href="manual/ru/puzzles/HTML.html#DOM_object_selector">window</a>, чтобы определить момент переключения браузерной вкладки.</td>
+      </tr>
+      <tr>
+        <td>change</td>
+        <td>Происходит при изменении элементов `&lt;input&gt;`, `&lt;select&gt;` и `&lt;textarea&gt;`.</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>Вызывается по нажатию на элемент. Это событие используется наиболее часто.</td>
+      </tr>
+      <tr>
+        <td>dblclick</td>
+        <td>Вызывается по двойному нажатию на элемент. Это событие используется наиболее часто.</td>
+      </tr>
+      <tr>
+        <td>deviceready</td>
+        <td>Используется для <a href="manual/ru/introduction/Creating-Mobile-Apps.html">«Кордова»</a>-приложений. Вызывается когда приложение полностью загружено.</td>
+      </tr>
+      <tr>
+        <td>ended</td>
+        <td>Происходит по окончанию воспроизведения элементов `&lt;audio&gt;` и `&lt;video&gt;`.</td>
+      </tr>
+      <tr>
+        <td>focus</td>
+        <td>Происходит когда элемент получает фокус. В большинстве случаев обработчик этого события регистрируется на объекте <a href="manual/ru/puzzles/HTML.html#DOM_object_selector">window</a>, чтобы определить момент переключения браузерной вкладки.</td>
+      </tr>
+      <tr>
+        <td>fullscreenchange</td>
+        <td>Вызывается при переходе в полноэкранный режим (или возврате из него). В большинстве случаев обработчик этого события регистрируется на объекте <a href="manual/ru/puzzles/HTML.html#DOM_object_selector">document</a>.</td>
+      </tr>
+      <tr>
+        <td>input</td>
+        <td>Происходит при изменении элементов `&lt;input&gt;` и `&lt;textarea&gt;`.</td>
+      </tr>
+      <tr>
+        <td>keydown</td>
+        <td>Происходит при нажатии на кнопку клавиатуры. Свойство события `key` содержит нажатую кнопку. Смотрите как это работает в библиотеке <a href="manual/ru/puzzles/Library.html#keyboard_controls">Keyboard Controls</a>.</td>
+      </tr>
+      <tr>
+        <td>keypress</td>
+        <td>Происходит при нажатии на кнопку клавиатуры. Событие считается устаревшим, вместо него используйте `keydown`.</td>
+      </tr>
+      <tr>
+        <td>keyup</td>
+        <td>Происходит при отпускании кнопки клавиатуры. Свойство события `key` содержит отпущенную кнопку. Смотрите как это работает в библиотеке <a href="manual/ru/puzzles/Library.html#keyboard_controls">Keyboard Controls</a>.</td>
+      </tr>
+      <tr>
+        <td>load</td>
+        <td>Происходит при завершении загрузки страницы или элемента. В большинстве случаев обработчик этого события регистрируется на объекте <a href="manual/ru/puzzles/HTML.html#DOM_object_selector">window</a> (для всей страницы) или `&lt;img&gt;` (чтобы узнать момент окончания загрузки изображения).</td>
+      </tr>
+      <tr>
+        <td>message</td>
+        <td>Служит для получения сообщений от других браузерных окон, в том числе находящихся на других серверах. Свойство `data` события содержит полученное сообщение.</td>
+      </tr>
+      <tr>
+        <td>mousedown</td>
+        <td>Происходит при нажатии кнопки мыши над элементом.</td>
+      </tr>
+      <tr>
+        <td>mouseenter</td>
+        <td>Происходит при переходе указателя мыши на элемент.</td>
+      </tr>
+      <tr>
+        <td>mouseleave</td>
+        <td>Происходит при переходе указателя мыши за элемент.</td>
+      </tr>
+      <tr>
+        <td>mousemove</td>
+        <td>Происходит при перемещении указателя мыши над элементом</td>
+      </tr>
+      <tr>
+        <td>mouseout</td>
+        <td>Происходит при переходе указателя мыши за элемент.</td>
+      </tr>
+      <tr>
+        <td>mouseover</td>
+        <td>Происходит при переходе указателя мыши на элемент.</td>
+      </tr>
+      <tr>
+        <td>mouseup</td>
+        <td>Происходит при отпускании кнопки мыши над элементом.</td>
+      </tr>
+      <tr>
+        <td>pause</td>
+        <td>Происходит при постановке на паузу воспроизведения элементов `&lt;audio&gt;` и `&lt;video&gt;`.</td>
+      </tr>
+      <tr>
+        <td>pointercancel</td>
+        <td>Происходит когда больше не ожидается новое событие указателя.</td>
+      </tr>
+      <tr>
+        <td>pointerdown</td>
+        <td>Происходит при нажатии указателя над элементом.</td>
+      </tr>
+      <tr>
+        <td>pointerenter</td>
+        <td>Происходит при переходе указателя на элемент.</td>
+      </tr>
+      <tr>
+        <td>pointerleave</td>
+        <td>Происходит при переходе указателя за элемент.</td>
+      </tr>
+      <tr>
+        <td>pointermove</td>
+        <td>Происходит при перемещении указателя над элементом</td>
+      </tr>
+      <tr>
+        <td>pointerout</td>
+        <td>Происходит при переходе указателя за элемент.</td>
+      </tr>
+      <tr>
+        <td>pointerover</td>
+        <td>Происходит при переходе указателя на элемент.</td>
+      </tr>
+      <tr>
+        <td>pointerup</td>
+        <td>Происходит при отпускании указателя над элементом.</td>
+      </tr>
+      <tr>
+        <td>resize</td>
+        <td>Происходит при изменении размеров браузерного окна. Обработчик должен быть зарегистрирован на элементе <a href="manual/ru/puzzles/HTML.html#DOM_object_selector">body</a>.</td>
+      </tr>
+      <tr>
+        <td>resume</td>
+        <td>Происходит при возобновлении воспроизведения элементов `&lt;audio&gt;` и `&lt;video&gt;`.</td>
+      </tr>
+      <tr>
+        <td>scroll</td>
+        <td>Происходит в момент прокрутки.</td>
+      </tr>
+      <tr>
+        <td>touchend</td>
+        <td>Происходит когда палец отпускается от экрана.</td>
+      </tr>
+      <tr>
+        <td>touchemove</td>
+        <td>Происходит при движении пальцем над экраном.</td>
+      </tr>
+      <tr>
+        <td>touchstart</td>
+        <td>Происходит когда палец только что коснулся экрана.</td>
+      </tr>
+      <tr>
+        <td>wheel</td>
+        <td>Происходит в момент прокрутки колёсиком мыши.</td>
+      </tr>
+    </table>
 
 
     [anchor:get_event_property]
@@ -147,24 +791,101 @@
     <h3>get event property</h3>
 
     <p>
-      Выводит значение <a href="https://www.w3schools.com/jsref/obj_events.asp" target="_blank">свойства</a> события, сгенерированного пазлом "event".
+      Выводит значение свойства события, сгенерированного пазлом <a href="manual/ru/puzzles/HTML.html#event">event</a>.
     </p>
 
     <img src="files/puzzles/puzzles-html-get-event-property.jpg">
 
+    <table>
+      <tr>
+        <th>Свойство события</th>
+        <th>Описание</th>
+      </tr>
+      <tr>
+        <td>button</td>
+        <td>Нажатая кнопка мыши: `0` — левая, `1` — средняя (колёсико), `2` — правая.</td>
+      </tr>
+      <tr>
+        <td>code</td>
+        <td>Код клавиши для событий `keydown`, `keypress` и `keyup`. Например, `"ArrowLeft"` используется для клавиши левой стрелки, тогда как `"KeyA"` (лат.) для клавиши *Ф* (строчной или прописной).</td>
+      </tr>
+      <tr>
+        <td>data</td>
+        <td>Данные события. Устанавливается для событий `input` и `message`.</td>
+      </tr>
+      <tr>
+        <td>isPrimary</td>
+        <td>Указывает на первичный указатель. Устанавливается для событий указателей, например `pointerdown`.</td>
+      </tr>
+      <tr>
+        <td>pageX, pageY</td>
+        <td>Координаты указателя мыши или пальца. Работает с событиями `click`, `dblclick`, `mouse...` и  `pointer...`.</td>
+      </tr>
+      <tr>
+        <td>key</td>
+        <td>Имя нажатой клавиши для событий `keydown`, `keypress`, or `keyup` event. Например, `"ArrowLeft"` используется для клавиши левой стрелки, тогда как `"ф"` для клавиши *Ф* (строчной).</td>
+      </tr>
+      <tr>
+        <td>offsetX, offsetY</td>
+        <td>Координаты указателя мыши или пальца. Работает с событиями `click`, `dblclick`, `mouse...` и  `pointer...`.</td>
+      </tr>
+      <tr>
+        <td>pointerType</td>
+        <td>Тип указательного устройства: `"mouse"` (мышь), `"pen"` (карандаш) или `"touch"` (палец).</td>
+      </tr>
+      <tr>
+        <td>target.checked</td>
+        <td>Состояние элемента checkbox/radio для которого произошло событие.</td>
+      </tr>
+      <tr>
+        <td>target.id</td>
+        <td>Идентификатор элемента для которого произошло событие.</td>
+      </tr>
+      <tr>
+        <td>target.value</td>
+        <td>Значение элементов `&lt;input&gt;`, `&lt;button&gt;` и `&lt;option&gt;` для которых произошло событие.</td>
+      </tr>
+      <tr>
+        <td>touches.length</td>
+        <td>Количество пальцев на экране в данный момент.</td>
+      </tr>
+      <tr>
+        <td>touches[0].pageX, touches[0].pageY<br>touches[1].pageX, touches[1].pageY</td>
+        <td>Координаты первого или второго указателя (пальца).</td>
+      </tr>
+      <tr>
+        <td>targetTouches.length</td>
+        <td>Количество пальцев на экране в данный момент.</td>
+      </tr>
+      <tr>
+        <td>targetTouches[0].pageX, targetTouches[0].pageY<br>targetTouches[1].pageX, targetTouches[1].pageY</td>
+        <td>Координаты первого или второго указателя (пальца).</td>
+      </tr>
+      <tr>
+        <td>which</td>
+        <td>Нажатая кнопка мыши: `1` — левая, `2` — средняя (колёсико), `3` — правая. Свойство объявлено устаревшим, вместо него следует использовать свойство `button`.</td>
+      </tr>
+    </table>
+
 
     [anchor:DOM_object_selector]
-
-    <!--COMPAT-->
-    <p><a href="manual/ru/puzzles/HTML.html#window" id="window" class="permalink"></a></p>
-    <p><a href="manual/ru/puzzles/HTML.html#document" id="document" class="permalink"></a></p>
-    <p><a href="manual/ru/puzzles/HTML.html#body" id="body" class="permalink"></a></p>
 
     <h3>DOM object selector</h3>
 
     <p>
-      Представляет элемент контейнера canvas - элемент HTML, который содержит визуализированную сцену, <a href="https://www.w3schools.com/jsref/obj_window.asp" target="_blank">DOM window object</a> - вкладку браузера или iframe, в который загружается HTML-документ, <a href="https://www.w3schools.com/jsref/dom_obj_document.asp" target="_blank">DOM document object</a> - корневой узел HTML-документа, или <a href="https://www.w3schools.com/jsref/dom_obj_body.asp" target="_blank">DOM body object</a> - элемент &lt;body&gt; HTML-документа.
+      В зависимости от выбранного в выпадающем списке пункта возвращает:
     </p>
+
+    <dl>
+      <dt>container</dt>
+      <dd>Контейнер, содержащий 3Д-холст — элемент, содержащий отображаемую сцену.</dd>
+      <dt>window</dt>
+      <dd><a href="https://www.w3schools.com/jsref/obj_window.asp" target="_blank">window</a> — объект представляющий браузерное окно или содержимое элемента `&lt;iframe&gt;`.</dd>
+      <dt>document</dt>
+      <dd><a href="https://www.w3schools.com/jsref/dom_obj_document.asp" target="_blank">document</a> — корневой узел HTML-документа.</dd>
+      <dt>body</dt>
+      <dd><a href="https://www.w3schools.com/jsref/dom_obj_body.asp" target="_blank">body</a> — элемент `&lt;body&gt;` представляющий тело HTML документа.</dd>
+    </dl>
 
     <img src="files/puzzles/puzzles-html-DOM-object-selector.jpg">
 
@@ -174,10 +895,57 @@
     <h3>query selector</h3>
 
     <p>
-      Возвращает первый элемент HTML, который соответствует заданному <a href="https://www.w3schools.com/cssref/css_selectors.asp" target="_blank">селектору CSS</a>.
+      Возвращает первый HTML-элемент, который соответствует заданному <a href="https://developer.mozilla.org/ru/docs/Learn_web_development/Core/Styling_basics/Basic_selectors" target="_blank">селектору CSS</a>.
     </p>
 
     <img src="files/puzzles/puzzles-html-query-selector.jpg">
+
+
+    [anchor:dom_object_call]
+
+    <h3>call method</h3>
+
+    <p>
+      Вызывает метод для указанного DOM-объекта: элемента или события.
+    </p>
+
+    <img src="files/puzzles/puzzles-html-dom-object-call.webp">
+
+    <p>
+      Поддерживаемые методы:
+    </p>
+
+    <dl>
+      <dt>blur</dt>
+      <dd>Выводит заданный HTML-элемент из фокуса.</dd>
+      <dt>click</dt>
+      <dd>Имитирует событие нажатия на элементе.</dd>
+      <dt>close</dt>
+      <dd>Закрывает элемент. Метод работает только для элемента `&lt;dialog&gt;` и объекта `window`.</dd>
+      <dt>focus</dt>
+      <dd>Устанавливает фокус на заданном HTML-элементе. Сфокусированные элементы получают события от клавиатуры, например когда пользователь нажимает клавиши «ввод» или «пробел».</dd>
+      <dt>postMessage</dt>
+      <dd>Отправляет событие элементу `&lt;iframe&gt;` или объекту `window`. Событие может быть любого типа: строка, число, массив, словарь, и т.д.</dd>
+      <dt>preventDefault</dt>
+      <dd>
+        <p>
+          Должен вызываться внутри пазла <a href="manual/ru/puzzles/HTML.html#event">event handler</a>. Вызов метода означает, что браузер не будет реагировать на данное событие. Например, если вы назначили обработчик события `click` на каком-нибудь переключателе, `preventDefault` будет блокировать его переключение.
+        </p>
+
+        <img src="files/puzzles/puzzles-html-dom-object-call-prevent-default.webp" style="max-width: 500px;">
+      </dd>
+      <dt>show</dt>
+      <dd>Показать окно диалога `&lt;dialog&gt;`.</dd>
+      <dt>showModal</dt>
+      <dd>Показать окно диалога `&lt;dialog&gt;` и блокировать любые взаимодействия со страницей, пока этот диалог не будет закрыт.</dd>
+      <dt>stopPropagation</dt>
+      <dd>
+        <p>
+          Должен вызываться внутри пазла <a href="manual/ru/puzzles/HTML.html#event">event handler</a>. Вызов метода означает, что браузер заблокирует распространение текущего события (т.е. вызов обработчиков других элементов). Например, если вы назначили обработчик события `keydown` на документе `document` и вызывали `stopPropagation`, клавиатура перестанет работать (в частности клавиши ЦФЫВ больше не будут перемещать камеру).
+        </p>
+        <img src="files/puzzles/puzzles-html-dom-object-call-stop-propagation.webp" style="max-width: 500px;">
+      </dd>
+    </dd>
 
 
     [anchor:create_canvas_elem]
@@ -185,33 +953,35 @@
     <h3>create canvas elem</h3>
 
     <p>
-      Создает элемент canvas с атрибутами *id*, *width* и *height*. Используйте этот пазл вместе с <a href="manual/ru/puzzles/Materials.html#replace_texture">replace texture</a> для создания текстур холста.
+      Создает элемент холста с атрибутами *id*, *width* (ширина) и *height* (высота). Используйте этот пазл вместе с <a href="manual/ru/puzzles/Materials.html#replace_texture">replace texture</a> для создания текстур холста.
     </p>
 
     <img src="files/puzzles/puzzles-html-create-canvas-elem.jpg">
 
     <p>
-      После создания, холст становится доступным для рисования на нем с помощью JavaScript. Вы можете обновить холст внутри функции <em>runCode()</em> модуля <em>your_app_name.js</em> или с помощью пазла <a href="manual/ru/puzzles/Advanced.html#exec_script">exec script</a>.
+      Созданный холст становится доступным для рисования с помощью «Ява Скрипта». Вы можете обновить холст внутри функции <em>runCode()</em> модуля <em>your_app_name.js</em> или с помощью пазла <a href="manual/ru/puzzles/Advanced.html#exec_script">exec script</a>.
     </p>
 
     <p>
-      Чтобы обновить холст, получите текстуру холста по ее ID (указанному как атрибут *id*):
+      Чтобы обновить холст, получите текстуру холста по ее идентификатору (указанному в атрибуте *id*):
     </p>
 
     <code>
-    var canvasTex = v3d.puzzles.canvasTextures['my_canvas'];
+    const canvasTex = v3d.puzzles.canvasTextures['my_canvas'];
     </code>
 
     <p>После этого вы можете получить доступ к элементу HTML canvas следующим образом:</p>
 
     <code>
-    var canvas = canvasTex.image;
+    const canvas = canvasTex.image;
     </code>
 
-    <p>Вы можете использовать стандартные методы, доступные для рисования на холсте HTML. В примере ниже, на белом фоне нарисовано синее улыбающееся лицо:</p>
+    <p>
+      Вы можете использовать стандартные методы, доступные для рисования на холсте HTML. В примере ниже, на белом фоне нарисовано синее улыбающееся лицо:
+    </p>
 
     <code>
-    var ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
     ctx.fillStyle = 'white';
     ctx.strokeStyle = 'blue';
@@ -219,18 +989,19 @@
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.beginPath();
-    ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+    ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // внешняя окружность
     ctx.moveTo(110, 75);
-    ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
+    ctx.arc(75, 75, 35, 0, Math.PI, false);  // улыбка (по часовой стрелке)
     ctx.moveTo(65, 65);
-    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
+    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // левый глаз
     ctx.moveTo(95, 65);
-    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
+    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // правый глаз
     ctx.stroke();
-
     </code>
 
-    <p>Наконец, если вы хотите, чтобы обновления в 3D-рендеринге были видны сразу, вам следует пометить текстуру холста как динамическую:</p>
+    <p>
+      Наконец, если вы хотите, чтобы обновления холста сразу же отображались на текстуре, вам следует пометить текстуру холста соответствующим образом:
+    </p>
 
     <code>
     canvasTex.needsUpdate = true;
@@ -238,17 +1009,28 @@
 
     <img src="files/puzzles/puzzles-html-create-canvas-elem-example.jpg">
 
+    [demo:canvas_texture Текстура холста]
+
 
     [anchor:draw_line]
 
     <h3>draw line</h3>
 
     <p>
-      Соединяет указанный 3D-объект с указанным HTML-элементом динамически обновляемой линией. Флажок "in parent doc" должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong> приложения Verge3D встроен с помощью <strong>iframe</strong>). Вы также можете задать ширину, цвет и смещение для линии.
+      Соединяет указанный 3Д-объект с указанным HTML-элементом динамически обновляемой линией
     </p>
 
     <img src="files/puzzles/puzzles-html-draw-line.jpg">
 
+    <p>
+      Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`). Вы также можете задать ширину (в пикселях), цвет (CSS) и смещение (в пикселях) для создаваемой линии. Данный пазл поддерживает списки объектов, группы (или списки групп), а также пазл <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
+    </p>
+
+    <img src="files/puzzles/puzzles-html-draw-line-example.webp">
+
+    <p>
+      С помощью этого пазла вы можете назначить только одну линию на объект. Созданная линия получает новое имя, например `"CubeLine"`, в случае если исходный объект имеет называние `"Cube"`. Получившийся объект линии добавляется к этому объекту как дочерний.
+    </p>
 
 
     [anchor:remove_line]
@@ -259,8 +1041,7 @@
       Удаляет ранее созданную линию из указанного объекта.
     </p>
 
-    <img src="files/puzzles/puzzles-html-remove-line.jpg">
-
+    <img src="files/puzzles/puzzles-html-remove-line.webp">
 
 
     [anchor:bind_element]
@@ -268,19 +1049,28 @@
     <h3>bind element</h3>
 
     <p>
-      Заставляет указанный HTML-элемент следовать за центром указанного 3D-объекта в пространстве экрана. Флажок "in parent doc" должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong> приложения Verge3D встроен с помощью <strong>iframe</strong>).
+      Заставляет указанный HTML-элемент следовать за центром указанного 3Д-объекта в пространстве экрана. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
     </p>
 
     <img src="files/puzzles/puzzles-html-bind-element.jpg">
 
     <p>
-    *Notes*:
+      *Замечание*:
     </p>
+    <p>
+      Вместо этого можно использовать пазл <a href="manual/ru/puzzles/Objects.html#add_annotation">add annotation</a> и настроить внешний вид аннотаций, как описано <a href="manual/ru/introduction/Personalizing-Verge3D-Apps.html#annotations" target="_parent">здесь</a>.
+    </p>
+
+
+    [anchor:unbind_element]
+
+    <h3>unbind element</h3>
 
     <p>
-      Вместо этого можно использовать пазл <a href="manual/ru/puzzles/Objects.html#add_annotation">add annotation</a> и настроить внешний вид аннотаций, как описано <a href="manual/ru/introduction/Styling-Verge3D-Apps.html#Annotations" target="_parent">здесь</a>.
+      Отвязывает указанный HTML-элемент от объекта, то есть отменяет действие пазла <a href="manual/ru/puzzles/HTML.html#bind_element">bind element</a>. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
     </p>
 
+    <img src="files/puzzles/puzzles-html-unbind-element.jpg">
 
 
     [anchor:init_fullscreen]
@@ -288,7 +1078,7 @@
     <h3>init fullscreen</h3>
 
     <p>
-      Заставляет указанный HTML-элемент вести себя как кнопка полноэкранного режима - первый щелчок по ней вызывает вход в полноэкранный режим, второй - выход из него. Пазлы, размещенные в слотах "on enter do" и "on exit do", срабатывают при входе или выходе из полноэкранного режима. Пазлы, размещенные в слоте "if unavailable do", срабатывают, если полноэкранный режим не поддерживается браузером (например, iOS Safari).
+      Заставляет указанный HTML-элемент вести себя как кнопка полноэкранного режима — первый щелчок по ней вызывает вход в полноэкранный режим, второй — выход из него. Пазлы, размещенные в слотах *on enter do* и *on exit do*, срабатывают при входе или выходе из полноэкранного режима. Пазлы, размещенные в слоте *if unavailable do*, срабатывают, если полноэкранный режим не поддерживается браузером (например, браузером «Сафари» на «Айфонах»).
     </p>
 
     <img src="files/puzzles/puzzles-html-init-fullscreen.jpg">
@@ -299,11 +1089,25 @@
     <h3>open web page</h3>
 
     <p>
-      При срабатывании этого пазла указанный URL открывается в новой или в той же вкладке браузера в зависимости от выпадающего выбора. При запуске из редактора пазлов он запросит подтверждение пользователя, прежде чем покинуть вкладку.
+      При срабатывании этого пазла указанный УРЛ открывается в новой или в той же вкладке браузера в зависимости от выпадающего выбора. При запуске из редактора пазлов он запросит подтверждение пользователя, прежде чем покинуть вкладку.
     </p>
 
     <img src="files/puzzles/puzzles-html-open-web-page.jpg">
 
+    <p>Поддерживаемые настройки:</p>
+
+    <dl>
+      <dt>a new tab</dt>
+      <dd>Открыть в новой вкладке. Чтобы преодолеть ограничение браузера на открытие вкладок, пазл с такой настройкой должен вызываться внутри пазлов <a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a> или <a href="manual/ru/puzzles/HTML.html#event">event</a>.</dd>
+      <dt>the same tab</dt>
+      <dd>Открыть в той же вкладке.</dd>
+      <dt>the same tab (ignore frames)</dt>
+      <dd>Открыть в той же вкладке. Используется внутри приложений, работающих внутри iframe-ов, открывает страницу в самом верхнем окне.</dd>
+      <dt>the same tab (parent frame)</dt>
+      <dd>Открыть в той же вкладке. Используется внутри приложений, работающих внутри iframe-ов, открывает страницу в родительском окне.</dd>
+      <dt>replace URL (no reload)</dt>
+      <dd>Помещает УРЛ в адресную строку браузера но не переходит на указанную страницу.</dd>
+    </dl>
 
 
     [anchor:social_share_link]
@@ -322,29 +1126,26 @@
     <h3>set URL param</h3>
 
     <p>
-      Присваивает или обновляет значение параметра в указанном URL, при необходимости автоматически формируя допустимую <a href="https://en.wikipedia.org/wiki/Query_string" target="_blank">строку запроса</a>, и возвращает обновленный URL.
+      Присваивает или обновляет значение параметра в указанном УРЛ, при необходимости автоматически формируя допустимую <a href="https://en.wikipedia.org/wiki/Query_string" target="_blank">строку запроса</a> и возвращает обновленный УРЛ.
     </p>
 
     <img src="files/puzzles/puzzles-html-set-url-param.jpg">
 
     <p>
-      Этот пазл может быть полезен в ситуациях, когда данные конфигурации приложения хранятся в его URL. Например, вы можете указать изображение, которое будет использоваться в качестве текстуры, следующим образом:
+      Этот пазл может быть полезен в ситуациях, когда данные конфигурации приложения хранятся в его УРЛ. Например, вы можете указать изображение, которое будет использоваться в качестве текстуры, следующим образом:
     </p>
 
-    <pre class="prettyprint"><code class="language-html">
+    <code class="language-html">
     https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
-    </code></pre>
+    </code>
 
     <p>
-      Вы можете загрузить текстуру, получить путь к ней на стороне сервера и сохранить ее в параметре *image_url* URL-адреса приложения следующим образом:
+      Вы можете загрузить текстуру, получить путь к ней на стороне сервера и сохранить ее в параметре *image_url* УРЛ-адреса приложения следующим образом:
     </p>
 
     <img src="files/puzzles/puzzles-html-set-url-param-example.jpg">
 
-    <p>
-      Рабочий пример смотрите в демо *Custom Image* в дистрибутиве Verge3D.
-    </p>
-
+    [demo:custom_image Фоторамка]
 
 
     [anchor:take_screenshot]
@@ -352,21 +1153,14 @@
     <h3>take screenshot</h3>
 
     <p>
-      Делает снимок экрана области просмотра и выводит его в формате <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>.
+      Делает снимок экрана области просмотра и выводит его в формате <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>.
     </p>
 
     <img src="files/puzzles/puzzles-html-take-screenshot.jpg">
 
-    <p>
-    *Notes*:
-    </p>
-
-    <p>
+    <p class="note">
       Вы также должны включить скриншоты для вашего приложения с помощью пазла <a href="manual/ru/puzzles/Initialization.html#configure_application">configure application</a>, иначе создаваемые изображения будут совершенно черными.
     </p>
-
-
-
 
 
     [anchor:get_url_data]
@@ -374,33 +1168,33 @@
     <h3>get URL data</h3>
 
     <p>
-      Извлекает данные URL окна, в которое загружено приложение:
+      Извлекает данные УРЛ окна, в которое загружено приложение:
     </p>
 
+    <dl>
+      <dt>entire URL</dt>
+      <dd>Полный УРЛ страницы, например "https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg".</dd>
+      <dt>page name</dt>
+      <dd>Имя страницы, например "my_awesome_app.html" для "https://www.example.com/my_awesome_app.html".</dd>
+      <dt>parameters</dt>
+      <dd>Словарь параметров страницы, например {"image_url": "https://www.uploadserver.com/path/to/image.jpg"}</dd>
+      <dt>host name</dt>
+      <dd>Имя хоста страницы, например "www.example.com"ю</dd>
+    </dl>
+
     <p>
-    <ul>
-    <li>
-    *Entire URL* - текст, например "https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg"
-    </li>
-    <li>
-    *Parameters* - словарь, например {"image_url": "https://www.uploadserver.com/path/to/image.jpg"}
-    </li>
-    <li>
-    *Host name* - текст, например "www.example.com"
-    </li>
-    </ul>
-    Флажок "in parent doc" должен быть установлен, если требуется окно внешнего HTML-документа (в который с помощью <strong>iframe</strong> встроен <strong>.html</strong> приложения Verge3D).
+      Переключатель *in parent doc* должен быть установлен, если требуется окно внешнего HTML-документа (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`).
     </p>
 
     <img src="files/puzzles/puzzles-html-get-url-data.jpg">
 
     <p>
-      Этот пазл может быть полезен в ситуациях, когда данные конфигурации приложения хранятся в его URL. Например, вы можете указать изображение, которое будет использоваться в качестве текстуры, следующим образом:
+      Этот пазл может быть полезен в ситуациях, когда данные конфигурации приложения хранятся в его УРЛ. Например, вы можете указать изображение, которое будет использоваться в качестве текстуры, следующим образом:
     </p>
 
-    <pre class="prettyprint"><code class="language-html">
+    <code class="language-html">
     https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
-    </code></pre>
+    </code>
 
     <p>
       Затем вы можете получить параметр *image_url*, загрузить и применить текстуру следующим образом:
@@ -408,10 +1202,7 @@
 
     <img src="files/puzzles/puzzles-html-get-url-data-example.jpg">
 
-    <p>
-      Рабочий пример смотрите в демо *Custom Image* в дистрибутиве Verge3D.
-    </p>
-
+    [demo:custom_image Фоторамка]
 
 
 
@@ -420,7 +1211,7 @@
     <h3>download file</h3>
 
     <p>
-      Загружает содержимое, указанное в формате <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>, в файл. Вы также можете передать текст, <a href="manual/ru/puzzles/Dictionaries.html">словарь</a> или <a href="manual/ru/puzzles/Lists.html">список</a> данных для загрузки в текстовый или JSON файл. В этом случае заданный объект будет автоматически преобразован в соответствующий Data URI.
+      Загружает содержимое, указанное в формате <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>, в файл. Вы также можете передать текст, <a href="manual/ru/puzzles/Dictionaries.html">словарь</a> или <a href="manual/ru/puzzles/Lists.html">список</a> данных для загрузки в текстовый или JSON-файл. В этом случае заданный объект будет автоматически преобразован в соответствующий Data URL.
     </p>
 
     <img src="files/puzzles/puzzles-html-download-file.jpg">
@@ -439,16 +1230,83 @@
     <img src="files/puzzles/puzzles-html-download-file-example.jpg">
 
 
-
     [anchor:open_file]
 
-    <h3>open file and opened file</h3>
+    <h3>open file</h3>
 
     <p>
-      Вызывает встроенное диалоговое окно браузера для выбора файлов с устройства пользователя. После того как пользователь выбрал файл, возвращает содержимое файла в формате <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>.
+      Вызывает встроенное диалоговое окно браузера для выбора файлов с устройства пользователя. После того как пользователь выбрал файл, возвращает содержимое файла в пазле <a href="manual/ru/puzzles/HTML.html#opened_file">opened file</a>.
     </p>
 
     <img src="files/puzzles/puzzles-html-open-file.jpg">
+
+
+    [anchor:opened_file]
+
+    <h3>opened file</h3>
+
+    <p>
+      Возвращает содержимое или информацию о файле.
+    </p>
+
+    <img src="files/puzzles/puzzles-html-opened-file.jpg">
+
+    <p>Настройки:</p>
+
+    <dl>
+      <dt>data</dt>
+      <dd>Содержимое файла в формате <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>.</dd>
+      <dt>name</dt>
+      <dd>Имя файла.</dd>
+      <dt>extension</dt>
+      <dd>Расширение файла без точки: <em>txt</em>, <em>jpg</em>, <em>mp3</em>, и т.д.</dd>
+      <dt>size</dt>
+      <dd>Размер файла в байтах.</dd>
+      <dt>mime type</dt>
+      <dd>
+        <p>
+          Тип содержимого файла (MIME-тип). Список наиболее часто используемых в «Вердж3Д»-приложениях MIME-типов:
+        </p>
+        <table style="width: auto">
+          <tr>
+            <td>application/json</td>
+            <td>Файл в формате JSON, также используется для glTF-сцен.</td>
+          </tr>
+          <tr>
+            <td>application/octet-stream</td>
+            <td>Двоичный (бинарный) файл (.bin).</td>
+          </tr>
+          <tr>
+            <td>audio/mpeg</td>
+            <td>Аудио в формате MP3.</td>
+          </tr>
+          <tr>
+            <td>image/jpeg</td>
+            <td>JPEG-изображение.</td>
+          </tr>
+          <tr>
+            <td>image/png</td>
+            <td>PNG-изображение.</td>
+          </tr>
+          <tr>
+            <td>image/webp</td>
+            <td>WebP-изображение.</td>
+          </tr>
+          <tr>
+            <td>text/csv</td>
+            <td>Файл со значениями, разделёнными запятой (CSV).</td>
+          </tr>
+          <tr>
+            <td>text/plain</td>
+            <td>Простой текстовый файл (TXT).</td>
+          </tr>
+          <tr>
+            <td>video/mp4</td>
+            <td>Видео в формате MPEG-4.</td>
+          </tr>
+        </table>
+      </dd>
+    </dl>
 
 
     [anchor:drop_file_to]
@@ -456,26 +1314,111 @@
     <h3>drop file to</h3>
 
     <p>
-      Возвращает файл, перенесенный из файлового менеджера (или другой программы) и помещенный на заданный элемент HTML внутри окна браузера. После того, как пользователь перетащил файл, возвращает его содержимое в виде пазла <a href="manual/ru/puzzles/HTML.html#open_file">opened file</a> (используя формат <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>).
+      Возвращает файл, перенесенный из файлового менеджера (или другой программы) и брошенный на заданный HTML-элемент внутри браузера. После того как пользователь перетащил файл, возвращает его содержимое в виде пазла <a href="manual/ru/puzzles/HTML.html#open_file">opened file</a>.
     </p>
 
     <img src="files/puzzles/puzzles-html-drop-file-to.jpg">
 
     <p>
-      Вы можете активировать дополнительный слот *drag over* для обработки событий перемещения файлов. Например, вы можете использовать его вместе с пазлом <a href="manual/ru/puzzles/Scenes.html#raycast">raycast</a> для выделения объектов курсором/касанием.
+      Вы можете включить дополнительный слот *drag over* для обработки событий перемещения файлов. Например, вы можете использовать его вместе с пазлом <a href="manual/ru/puzzles/Scenes.html#raycast">raycast</a> для выделения объектов под курсором/касанием.
     </p>
 
 
-    [anchor:data_uri]
+    [anchor:url_paths]
 
-    <h2>Data URI Links</h2>
+    <h2>Как правильно указывать пути к ресурсам расположенным в интернете</h2>
 
     <p>
-      Data URI (или Data URL) - это удобный метод встраивания различных ассетов, таких как изображения, модели glTF, звуки, JSON или CSV, внутрь ссылок (<a href="https://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">techie stuff</a>).
+      Ряд пазлов принимает на вход УРЛ-адрес (УРЛ-путь) какого-либо ресурса, в частности:
+    </p>
+
+    <ul>
+      <li><a href="manual/ru/puzzles/HTML.html#open_web_page">open web page</a> — путь к веб-странице.</li>
+      <li><a href="manual/ru/puzzles/Materials.html#replace_texture">replace texture</a> — путь к текстуре.</li>
+      <li><a href="manual/ru/puzzles/Sound.html#load_sound">load sound</a> — путь к аудио-файлу.</li>
+      <li><a href="manual/ru/puzzles/Sound.html#load_video">load video</a> — путь к видео-файлу.</li>
+      <li><a href="manual/ru/puzzles/Scenes.html#load_scene">load scene</a> — glTF-файл.</li>
+      <li><a href="manual/ru/puzzles/Objects.html#create_text_object">create text object</a> — шрифт.</li>
+    </ul>
+
+    <p>
+      Когда мы говорим о УРЛ-адресах, следует иметь в виду, что они существенно отличаются от привычных нам путей к файлам на локальной машине, поскольку в доступ к ним производится не напрямую, а посредством <em>веб-браузеров</em>, которые в свою очередь забирают ресурсы с <em>веб-серверов</em>.
+    </p>
+
+    <img src="files/puzzles/proper-url-fetch.svg" style="max-width: 700px">
+
+    <p>
+      Это значит, что пути никогда не должны указываться так:
+    </p>
+
+    <ul>
+      <li><em>C:\Users\User\Documents\verge3d_apps\my_app\my_scene.gltf</em></li>
+      <li><em>/Users/User/Downloads/my_sound.mp3</em></li>
+      <li><em>/home/user/Desktop/my_texture.jpg</em></li>
+    </ul>
+
+    <p>
+      УРЛ-пути должны использовать исключительно прямую черту (<strong>/</strong>) для разделения папок и могут быть:
+    </p>
+
+    <dl>
+      <dt>Относительными</dt>
+      <dd>
+        <p>
+          Эти пути указываются относительно главного HTML-файла приложения:
+        </p>
+        <ul>
+          <li><em>my_scene.gltf</em> — сцена расположена в той же папке, что и HTML-файл.</li>
+          <li><em>./my_scene.gltf</em> — сцена расположена в той же папке, что и HTML-файл.</li>
+          <li><em>sounds/my_sound.mp3</em> — звук расположен в подпапке <em>sounds</em> папки, в которой находится HTML-файл.</li>
+          <li><em>../textures/my_texture.jpg</em> — текстура находится в подпапке <em>textures</em>, которая в свою очередь находится на один уровень выше (за это отвечают две точки) той папки, где расположен HTML-файл приложения.</li>
+        </ul>
+        <p>
+          Данные пути должны использоваться в большинстве пазлов.
+        </p>
+      </dd>
+
+      <dt>Абсолютными</dt>
+      <dd>
+        <p>
+          Эти пути используются тогда, когда вы точно знаете место расположения ресурса на <em>веб-сервере</em>:
+        </p>
+        <ul>
+          <li><em>https://www.my-host.com/my_app/my_scene.gltf</em> — сцена находится в папке <em>my_app</em> сервера <em>my-host</em>.</li>
+          <li><em>/my_app/fonts/my_font.woff</em> — шрифт находится в подпапке <em>fonts</em> папки <em>my_app</em> на каком-то (его имя неизвестно или не имеет значения) сервере.</li>
+        </ul>
+      </dd>
+
+      <dt>Data URL</dt>
+      <dd>Это специальный тип УРЛ-адреса, который не находится на сервере, а кодирует ресурс напрямую. Мы часто используем такие ссылки чтобы принимать или возвращать значения ряда пазлов. Читайте об этих ссылках <a href="manual/ru/puzzles/HTML.html#data_url">ниже</a>.
+      </dd>
+    </dl>
+
+    <p>
+      Также, поскольку большинство серверов работают под управлением ОС «Линукс», которая имеет <em>нечувствительную к регистру</em> файловую систему (также справедливо для «Вердж3Д Нетворк»), всегда обращайте на имена ресурсов. В частности, следующие пути:
+    </p>
+
+    <ul>
+      <li><em>my_texture.jpeg</em></li>
+      <li><em>My_texture.jpeg</em></li>
+      <li><em>My_Texture.jpeg</em></li>
+    </ul>
+
+    <p>
+      указывают на разные текстуры!
+    </p>
+
+
+    [anchor:data_url]
+
+    <h2>Ссылки Data URL</h2>
+
+    <p>
+      Data URL (или Data URI) — это удобный метод встраивания различных ресурсов, таких как изображения, glTF-сцены (модели), звуки, JSON или CSV-файлы, внутрь ссылок (см. <a href="https://ru.wikipedia.org/wiki/Data:_URL" target="_blank">документацию</a>).
     </p>
 
     <p>
-      Например, следующая ссылка представляет собой маленький логотип Verge3D:
+      Например, следующая ссылка представляет собой маленький логотип «Вердж3Д»:
     </p>
 
     <code class="language-html">
@@ -510,23 +1453,21 @@ E0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC
     <img src="files/puzzles/data-url-logo.jpg">
 
     <p>
-      В пазлах мы широко используем ссылки Data URI, поскольку они обеспечивают удобный способ передачи файлоподобных данных между различными блоками пазлов. Например, вы можете использовать пазлы <a href="manual/ru/puzzles/HTML.html#open_file">open file</a> или <a href="manual/ru/puzzles/HTML.html#drop_file_to">drop file to</a>, чтобы загрузить какой-либо файл (изображение или данные). Затем вы можете внести изменения в вашу сцену в соответствии с этим файлом. После этого вы можете загрузить измененную сцену (или, возможно, некоторые данные, например, документ прайс-листа) обратно на устройство пользователя с помощью <a href="manual/ru/puzzles/HTML.html#download_file">download file</a>, или загрузить этот файл на сервер с помощью пазла <a href="manual/ru/puzzles/Advanced.html#send_data">send data</a>. Во всех этих случаях данные будут передаваться с использованием формата Data URI.
+      В пазлах мы широко используем ссылки Data URL, поскольку они обеспечивают удобный способ передачи файлоподобных данных между различными блоками пазлов. Например, вы можете использовать пазлы <a href="manual/ru/puzzles/HTML.html#open_file">open file</a> или <a href="manual/ru/puzzles/HTML.html#drop_file_to">drop file to</a>, чтобы загрузить какой-либо файл (изображение или данные). Затем вы можете внести изменения в вашу сцену в соответствии с этим файлом. После этого вы можете загрузить измененную сцену (или, возможно, некоторые данные, например, документ прайс-листа) обратно на устройство пользователя с помощью <a href="manual/ru/puzzles/HTML.html#download_file">download file</a>, или загрузить этот файл на сервер с помощью пазла <a href="manual/ru/puzzles/Advanced.html#send_data">send data</a>. Во всех этих случаях данные будут передаваться с использованием формата Data URL.
     </p>
 
-    <p class="note">
-      Ознакомьтесь с демо сценой Custom Image внутри дистрибутива Verge3D в качестве примера использования пазлов Data URI.
-    </p>
+    [demo:custom_image Фоторамка]
 
     <p>
-      Также довольно легко отлаживать данные в формате Data URI. Просто используйте пазл <a href="manual/ru/puzzles/System.html#print_to_console">print to console</a>, затем откройте <a href="manual/ru/introduction/FAQ.html#browser_console">консоль браузера</a>, чтобы просмотреть вывод, а затем щелкните на напечатанном URI внутри консоли, чтобы просмотреть данные в отдельной вкладке браузера.
+      Также довольно легко отлаживать данные в формате Data URL. Просто используйте пазл <a href="manual/ru/puzzles/System.html#print_to_console">print to console</a>, затем откройте <a href="manual/ru/introduction/FAQ.html#browser_console">консоль браузера</a>, чтобы просмотреть вывод, а затем щелкните на напечатанном URI внутри консоли, чтобы просмотреть данные в отдельной вкладке браузера.
     </p>
 
     <img src="files/puzzles/data-url-debugging.jpg">
 
 
-    <h2>Проблема с Пазлами?</h2>
+    <h2>Проблемы с пазлами?</h2>
 
-    <p>Обратитесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
+    <p>Обратитесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

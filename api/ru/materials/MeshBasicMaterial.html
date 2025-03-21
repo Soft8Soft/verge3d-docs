@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Material] &rarr;
@@ -12,36 +12,18 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Материал для отрисовки геометрии простым затененным (flat или wireframe) способом.<br /><br />
+      Материал для отрисовки геометрии простым затененным (flat или wireframe) способом.<br><br>
 
       Этот материал не подвержен влиянию освещения.
     </p>
 
 
-    <iframe id="scene" src="scenes/material-browser.html#MeshBasicMaterial"></iframe>
-
-    <script>
-
-    // iOS iframe auto-resize workaround
-
-    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
-
-      const scene = document.getElementById('scene');
-
-      scene.style.width = getComputedStyle(scene).width;
-      scene.style.height = getComputedStyle(scene).height;
-      scene.setAttribute('scrolling', 'no');
-
-    }
-
-    </script>
-
     <h2>Конструктор</h2>
 
     <h3>[name]([param:Object parameters])</h3>
     <p>
-      [page:Object parameters] - (опционально) объект с одним или несколькими свойствами, определяющими внешний вид материала.
-      Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).<br /><br />
+      [page:Object parameters] — (необ.) объект с одним или несколькими свойствами, определяющими внешний вид материала.
+      Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).<br><br>
 
       Исключением является свойство [page:Hexadecimal color], которое может быть передано в виде шестнадцатеричной строки
       и по умолчанию имеет значение *0xffffff* (белый). [page:Color.set](color) вызывается внутренне.
@@ -52,7 +34,7 @@
 
     <h3>[property:Texture alphaMap]</h3>
     <p>Альфа-карта - это черно-белая текстура, которая контролирует непрозрачность поверхности.
-      (черный: полностью прозрачный; белый: полностью непрозрачный). По умолчанию - null.<br /><br />
+      (черный: полностью прозрачный; белый: полностью непрозрачный). По умолчанию - null.<br><br>
 
       Используется только цвет текстуры, игнорируя альфа-канал, если он существует.
       Для текстур RGB и RGBA рендерер [page:WebGLRenderer WebGL] будет использовать
@@ -73,7 +55,7 @@
 
     <h3>[property:Integer combine]</h3>
     <p>
-      Как объединить результат цвета поверхности с картой окружения, если таковая имеется.<br /><br />
+      Как объединить результат цвета поверхности с картой окружения, если таковая имеется.<br><br>
 
       Возможные варианты [page:Materials v3d.Multiply] (по умолчанию), [page:Materials v3d.MixOperation],
       [page:Materials v3d.AddOperation]. Если выбрано смешивание, то [page:.reflectivity] используется для
@@ -120,7 +102,7 @@
 
     <h3>[property:String wireframeLinecap]</h3>
     <p>
-      Определяет внешний вид концов линии. Возможные значения: "butt", "round" и "square". По умолчанию 'round'.<br /><br />
+      Определяет внешний вид концов линии. Возможные значения: "butt", "round" и "square". По умолчанию 'round'.<br><br>
 
       Это соответствует свойству [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap 2D Canvas lineCap]
       и игнорируется [page:WebGLRenderer WebGL] рендерером.
@@ -128,14 +110,14 @@
 
     <h3>[property:String wireframeLinejoin]</h3>
     <p>
-      Определяет внешний вид стыков линий. Возможные значения "round", "bevel" и "miter". По умолчанию 'round'.<br /><br />
+      Определяет внешний вид стыков линий. Возможные значения "round", "bevel" и "miter". По умолчанию 'round'.<br><br>
 
       Это соответствует свойству [link:https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineJoin 2D Canvas lineJoin]
       и игнорируется [page:WebGLRenderer WebGL] рендерером.
     </p>
 
     <h3>[property:Float wireframeLinewidth]</h3>
-    <p>Управляет толщиной вайрфрейма. По умолчанию - 1.<br /><br />
+    <p>Управляет толщиной вайрфрейма. По умолчанию - 1.<br><br>
 
     В связи с ограничениями [link:https://www.khronos.org/registry/OpenGL/specs/gl/glspec46.core.pdf OpenGL Core Profile]
     с [page:WebGLRenderer WebGL] рендерером на большинстве платформ ширина линии будет

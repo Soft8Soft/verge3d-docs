@@ -1,111 +1,103 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D для Blender: Тени - Soft8Soft</title>
+    <title>Вердж3Д для Блендера: Тени — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Узнайте, как настроить красивые тени в Verge3D для Blender."/>
-    <base href="../../../" />
+    <meta name="description" content="Узнайте, как настроить красивые тени в Вердж3Д для Блендера.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Тени / Blender</h1>
+    <h1>Тени / Блендер</h1>
 
     <p>
-        Здесь описаны лучшие методы настроек используемых в Blender для отображения красивых теней в реальном времени в Verge3D. 
+      Здесь описаны методы настроек теней в «Блендере» при их использовании в движке «Вердж3Д».
     </p>
 
-    <iframe class="video-480p" src="https://www.youtube.com/embed/QbCBcTd9hP0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe class="video-480p" src="https://rutube.ru/play/embed/a01f7181d5c236817de0c7cfdff21b49/" frameBorder="0" allow="clipboard-write; autoplay" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
     <h2>Содержание</h2>
 
     [contents]
 
-    <p class="note">
-        Этот раздел написан для Blender'a версии 2.81 (или выше). Настройки теней для более старых версий Blender'a немного отличаются. 
-    </p>
-
 
     [anchor:prepare_viewport]
-    <h2>Подготовка вьюпорта Blender'a</h2>
+
+    <h2>Подготовка вьюпорта «Блендера»</h2>
+
     <p class="note">
-        Чтобы облегчить настройку теней, рекомендуется настроить окно просмотра Blender'a, как описано в этом разделе.
+      Чтобы облегчить настройку теней, рекомендуется предварительно настроить окно просмотра («вьюпорта») «Блендерa».
     </p>
-
     <p>
-        Verge3D старается быть похожим на движок для рендеринга Eevee(Blender). Следуйте этим инструкциям, чтобы включить его: 
+      «Вердж3Д» старается быть похожим на движок рендеринга «Иви». Чтобы включить его, воспользуйтесь инструкцией:
     </p>
 
     <ul>
-        <li>
-            Убедитесь, что в *Render Properties*, в диалоговом окне *Render Engine* выбран рендерер "Eevee". В версиях Blender 2.8 и выше Eevee включён по умолчанию, но по какой-то причине в файле .blend может быть использован другой движок. В таком случае рекомендуется переключить его на Eevee.
-        </li>
+      <li>
+        <p>
+          Убедитесь, что в *Render Properties*, в диалоговом окне *Render Engine* выбран рендерер *EEVEE*:
+        </p>
+        <img src="files/shadows-blender/render-engine.webp" style="max-width: 375px">
+        <p>
+          В версиях Блендер 2.8 и выше «Иви» включён по умолчанию, но возможно что в вашем <strong>.blend</strong>-файле используется другой движок. В таком случае его следует переключить.
+        </p>
+      </li>
+      <li>
+        <p>
+          Переключите *Viewport Shading* на *Rendered*:
+        </p>
+        <img src="files/shadows-blender/viewport-shading.webp" style="max-width: 493px">
+      </li>
     </ul>
-    <img src="files/shadows-blender/render-engine.jpg" class="centered" style="max-width: 467px;">
-    <ul>
-        <li>
-            Переключите *Viewport Shading* (затенение в окне вьюпорта) на "Rendered".
-        </li>
-    </ul>
-    <img src="files/shadows-blender/viewport-shading.jpg" class="centered" style="max-width: 369px;">
 
     <p>
-        Стоит отметить, что Verge3D не поддерживает мягкие тени так же хорошо как Blender. Опция *Soft Shadows* в Blender'е включает постепенный рендеринг теней, но Verge3D полагается на рендеринг в реальном времени. Учитывая вышесказанное, лучше отключить опцию *Soft Shadows*. Также для достижения мягких теней в Verge3D можно попробовать различные <a href="manual/ru/blender/Shadows.html#shadow_filtering">методы фильтрации теней</a> и настроить <a href="manual/ru/blender/Shadows.html#blur-radius"></a>радиус их размытия</a>. 
+      Стоит отметить, что настройки мягких теней для «Вердж3Д» отличаются от таковых в «Блендере». Мягкие тени в «Вердж3Д» настраиваются с помощью переключателя <a href="manual/ru/blender/Shadows.html#shadow_filtering">фильтрации теней</a> и изменения параметра <a href="manual/ru/blender/Shadows.html#blur-radius">размытия</a>.
     </p>
-    <img src="files/shadows-blender/soft-shadows-not-supported.jpg" class="centered" style="max-width: 381px;">
+
 
     [anchor:shadow_filtering]
 
-    <h2>Типы Фильтрации Теней</h2>
+    <h2>Типы фильтрации теней</h2>
 
-    <p>Тени в Verge3D могут выглядеть по-разному в зависимости от того, какой алгоритм фильтрации карты теней используется. Для указания алгоритма используется свойство *Shadow Map Filtering*, расположенное на вкладке *Render Properties*.
+    <p>
+      Тени в «Вердж3Д» могут выглядеть по-разному в зависимости от того, какой алгоритм фильтрации карты теней используется. Для указания алгоритма используется свойство *Shadow Filtering*, расположенное на вкладке *Render Properties*.
     </p>
 
-    <img src="files/shadows-blender/shadow-filtering-settings.jpg" class="centered" style="max-width: 425px">
+    <img src="files/shadows-blender/shadow-filtering-settings.webp" style="max-width: 325px">
+
+    [demo:tea_ceremony Чайная церемония]
 
 
     [anchor:shadow_filtering_basic]
 
-    <h3>Basic</h3>
+    <h3>Basic — базовые тени</h3>
 
-    <p>Отключить фильтрацию, рендерить карту теней такой, какая она есть. Это самый быстрый метод рендеринга теней.</p>
+    <p>
+      Отключить фильтрацию, рендерить карту теней такой, какая она есть. Это самый быстрый метод рендеринга теней.
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-basic.jpg">
 
 
     [anchor:shadow_filtering_bilinear]
 
-    <h3>Bilinear</h3>
+    <h3>Bilinear — билинейный тип</h3>
 
-    <p>Используйте билинейную фильтрацию для сглаживания соседних пикселей карты теней.</p>
+    <p>
+      Используйте билинейную фильтрацию для сглаживания соседних пикселей карты теней.
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-bilinear.jpg">
 
 
     [anchor:shadow_filtering_pcf]
 
-    <h3>PCF</h3>
+    <h3>PCF — фильтрация процентного затенения</h3>
 
-    <p>Расшифровывается как Percentage Closer Filtering. Использует множественный поиск карты теней для сглаженного рендеринга. Среднее качество и производительность.</p>
-
-    <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
-
-
-    [anchor:shadow_filtering_pcf_bilinear]
-
-    <h3>PCF (Bilinear)</h3>
-
-    <p>Аналогичен PCF, но использует билинейную интерполяцию для каждого поиска карты теней. Дает сглаженные тени за счет большей вычислительной мощности.</p>
-
-    <img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg">
-
-
-    [anchor:shadow_filtering_pcf_poisson_disk]
-
-    <h3>PCF (Poisson Disk)</h3>
-
-    <p>Использует псевдослучайный <em>Poisson Disk Sampling</em> для устранения пикселизации для теней PCF. Эта настройка была выбрана по умолчанию, поскольку она наиболее соответствует тому, что вы видите во вьюпорте 3D-редактора. Производительность сравнима с алгоритмом *PCF (Bilinear)* или даже лучше.
+    <p>
+      Расшифровывается как Percentage Closer Filtering (фильтрация процентного затенения). Использует множественный поиск карты теней для сглаженного рендеринга. Среднее качество и производительность. Алгоритм использует псевдослучайный семплинг с использованием диска Пуассона (<em>Poisson Disk Sampling</em>) для устранения пикселизации. Эта настройка была выбрана по умолчанию, поскольку она наиболее соответствует тому, что вы видите во вьюпорте 3Д-редактора.
     </p>
 
     <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
@@ -113,10 +105,13 @@
 
     [anchor:shadow_filtering_esm]
 
-    <h3>ESM</h3>
+    <h3>ESM — экспоненциальные карты теней</h3>
 
     <p>
-        Расшифровывается как Exponential Shadow Maps. Этот режим позволяет получить наиболее плавные тени, но возможны утечки света. Используйте настройку <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a> для света, чтобы удалить возможные артефакты. Производительность сравнима с алгоритмом *PCF (Bilinear)*. Тени ESM могут быть особенно сложны в настройке, поэтому см. раздел <a href="manual/ru/blender/Shadows.html#troubleshooting">"Устранение неполадок"</a>, посвященный проблемам, связанным с ESM.
+      Расшифровывается как Exponential Shadow Maps (экспоненциальные карты теней). Этот режим позволяет получить наиболее плавные тени, но возможно возникновение артефактов вида "утечки света". Используйте настройку <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>, чтобы убрать эти артефакты. Производительность алгоритма сравнима с алгоритмом *PCF*.
+    </p>
+    <p>
+      Тени ESM могут вызывать сложности в настройке, читайте раздел <a href="manual/ru/blender/Shadows.html#troubleshooting">устранение неполадок</a> прежде чем приступить к настройке теней данного типа.
     </p>
 
     <img src="files/shadows-blender/shadow-filtering-esm.jpg">
@@ -125,258 +120,278 @@
     [anchor:shadow_filtering_choose]
 
     <h3>Какой тип фильтрации выбрать?</h3>
+
     <p>
-        Рекомендуем попробовать использовать тени
-        <a href="manual/ru/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson Disk)</a>
-        ,выставленные по умолчанию, потому что они обеспечивают хорошее качество и производительность. 
-        Если вам вам нужны более быстрые, но менее качественные тени, то попробуйте
-        <a href="manual/ru/blender/Shadows.html#shadow_filtering_basic">Basic</a>
-        или
-        <a href="manual/ru/blender/Shadows.html#shadow_filtering_bilinear">Bilinear</a>.
-        Для большего качества стоит выбрать <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a>
-        мягкие тени, но недостатком является то, что они могут быть сложными для настройки (исправление артефактов) для конкретной сцены.
+      Для начала рекомендуем использовать <a href="manual/ru/blender/Shadows.html#shadow_filtering_pcf">PCF</a> тени (настройка по умолчанию), обеспечивающее хорошее соотношение качество/производительность. Если вам вам нужны более быстрые, но менее качественные тени, используйте тип <a href="manual/ru/blender/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/blender/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Самое лучшее качество достигается с использованием <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a> теней, но их недостатком является увеличенная сложность настройки для конкретных сцен.
     </p>
 
 
     [anchor:global_settings]
 
-    <h2>Общие Настройки</h2>
+    <h2>Общие настройки</h2>
 
     <p>
-       Рендеринг теней настраивается с помощью панелей *Shadows* и *Verge3D Settings*, расположенных на вкладке *Render* в Blender.
+     Рендеринг теней настраивается с помощью панелей *Shadows* и *Verge3D Settings*, расположенных на вкладке *Render* «Блендера».
     </p>
 
-    <img src="files/shadows-blender/shadow-settings-global-blender.jpg" class="centered" style="max-width: 603px">
+    <img src="files/shadows-blender/shadow-settings-global.webp" style="max-width: 650px">
 
     <dl>
-        <dt id="cube-size">Cube Size</dt>
-        <dd>размер карты для теней, отбрасываемых источниками света <em>Point</em>, <em>Spot</em>, and <em>Area</em>.  Большие значения дают лучшее качество, но снижают производительность.</dd>
-        <dt id="cascade-size">Cascade Size</dt>
-        <dd>размер карты для теней, отбрасываемых источником освещения <em>Sun</em>. Большие значения дают лучшее качество, но снижают производительность.</dd>
-        <dt>Light Threshold</dt>
-        <dd>порог интенсивности света, используемый для расчета расстояния до теневого объема.</dd>
-        <dt id="enable-shadows">Enable Shadows</dt>
-        <dd>включить/выключить тени в Verge3D.</dd>
-        <dt>Shadow Map Filtering</dt>
-        <dd>алгоритм фильтрации карты теней. <a href="manual/ru/blender/Shadows.html#shadow_filtering">См. выше</a>.</dd>
-        <dt>Shadow Map Side</dt>
-        <dd>обозначает, какая сторона полигонов отрисовывается во время прохода тени. Подстройте это значение для устранения артефактов самозатенения или если вы рендерите модели состоящие из плоскости(например, листья или бумагу).</dd>
-        <dt id="esm-distance-scale">ESM Distance Scale</dt>
-        <dd>
-            Коэффициент масштабирования теней ESM. Поскольку алгоритм фильтрации ESM использует абсолютные значения расстояния, уменьшите значение масштаба, если вы работаете над сценой, которая намного больше стандартного куба, и увеличьте его, если ваша сцена намного меньше. Значение по умолчанию равно 1. Работает только для теней <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a>. 
-        </dd>
+      <dt id="enable-shadows">Shadows</dt>
+      <dd>
+        Включает/выключает тени на сцене.
+      </dd>
+      <dt>Light Threshold</dt>
+      <dd>
+        Порог интенсивности света, используемый для расчета расстояния до теневого объема.
+      </dd>
+      <dt>Shadow Filtering</dt>
+      <dd>
+        Алгоритм фильтрации карты теней. Смотрите подробности <a href="manual/ru/blender/Shadows.html#shadow_filtering">выше</a>.
+      </dd>
+      <dt>Map Side</dt>
+      <dd>
+        Обозначает, какая сторона полигонов отрисовывается во время рендеринга карты теней. Меняйте это значение для устранения артефактов самозатенения или если вы рендерите плоские модели (например листья или бумагу).
+      </dd>
+      <dt id="esm-distance-scale">ESM Distance Scale</dt>
+      <dd>
+        Коэффициент масштабирования теней ESM. Поскольку алгоритм фильтрации ESM использует абсолютные значения расстояния, уменьшите значение масштаба, если вы работаете над сценой, которая намного больше стандартного куба, и увеличьте его, если ваша сцена намного меньше. Значение по умолчанию равно `1`. Работает только для теней <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a>.
+      </dd>
+      <dt id="cube-size">Cube Size</dt>
+      <dd>
+        Размер карты для теней, отбрасываемых источниками света <em>Point</em>, <em>Spot</em> и <em>Area</em>. Бо́льшие значения дают лучшее качество, но снижают производительность.
+      </dd>
+      <dt id="cascade-size">Cascade Size</dt>
+      <dd>
+        Размер карты для теней, отбрасываемых источником освещения <em>Sun</em>. Бо́льшие значения дают лучшее качество, но снижают производительность.
+      </dd>
     </dl>
+
 
     [anchor:per_light_settings]
 
-    <h2>Per-light Settings</h2>
+    <h2>Настройки теней на источниках</h2>
 
     <p>
-        Тени могут быть включены/выключены/настроены для каждого отдельного света с помощью панелей *Shadow* и *Verge3D Settings*.
+      Тени могут быть включены/выключены/настроены для каждого отдельного света с помощью панелей *Shadow* и *Verge3D Settings*.
     </p>
 
-    <img src="files/shadows-blender/shadow-settings-perlight-blender.jpg" class="centered" style="max-width: 305px">
+    <img src="files/shadows-blender/shadow-settings-perlight.webp" style="max-width: 343px">
 
     <dl>
-        <dt>Clip Start</dt>
-        <dd>Начальное расстояние обрезания, более высокие значения могут немного улучшить качество теней.</dd>
-        <dt id="bias">Bias</dt>
-        <dd>основной параметр, который следует подстроить, чтобы избавиться от артефактов самозатенения и/или эффекта "peter-panning"</dd>
-        <dt id="blur-radius">Blur Radius</dt>
-        <dd>
-            укажите значение больше 1, чтобы сделать тени более плавными (увеличить размытость теней). Этот параметр работает только для
-            <a href="manual/ru/blender/Shadows.html#shadow_filtering_pcf">PCF</a>,
-            <a href="manual/ru/blender/Shadows.html#shadow_filtering_pcf_bilinear">PCF (Bilinear)</a>,
-            <a href="manual/ru/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson Disk)</a>
-            и
-            <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a> теней.
-        </dd>
-        <dt id="esm-bias">ESM Bias</dt>
-        <dd>
-            смещение для уменьшения артефактов <em>утечки света</em> ESM. Работает только для  
-            <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a>
-            теней.
-        </dd>
+      <dt>Shadows</dt>
+      <dd>
+        Включает/выключает тени для данного источника.
+      </dd>
+      <dt id="blur-radius">Blur Radius</dt>
+      <dd>
+        Укажите значение больше `1`, чтобы сделать тени более мягкими (увеличить их размытость). Этот параметр работает только для <a href="manual/ru/blender/Shadows.html#shadow_filtering_pcf">PCF</a> и <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a> теней.
+      </dd>
+      <dt>Clip Start</dt>
+      <dd>
+        Начальное расстояние отсечения тени, более высокие значения могут немного улучшить качество теней.
+      </dd>
+      <dt id="bias">Bias</dt>
+      <dd>
+        Основной параметр, который следует подстроить, чтобы избавиться от артефактов самозатенения и/или эффекта "Питер Пэна".
+      </dd>
+      <dt id="esm-bias">ESM Bias</dt>
+      <dd>
+        Смещение для уменьшения артефактов <em>утечки света</em> ESM. Работает только для <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a> теней.
+      </dd>
     </dl>
 
-
-    [anchor:per_object_material_settings]
-
-    <h2>Настройки для Каждого Объекта/Материала</h2>
-
     <p>
-        Отбрасывание теней можно включить/выключить для каждого отдельного материала через панель *Settings*.
+      Также для теней типа *Sun* имеется ряд опций для настройки каскадов:
     </p>
 
-    <img src="files/shadows-blender/shadow-settings-permaterial.jpg" class="centered" style="max-width: 433px">
+    <img src="files/shadows-blender/shadow-settings-cascades.webp" style="max-width: 340px">
 
     <dl>
-        <dt id="shadow-mode">Shadow Mode</dt>
-        <dd>
-            режим отбрасывания тени для материала. В настоящее время поддерживаются только *None* и *Opaque*. 
-        </dd>
-    </dl>
-
-    <br/>
-
-    <p>
-        Прием теней может быть включен/выключен для каждого отдельного объекта через панель *Verge3D Settings*. 
-    </p>
-
-    <img src="files/shadows-blender/shadow-settings-perobject.jpg" class="centered" style="max-width: 432px;">
-
-    <dl>
-        <dt id="receive-shadows">Receive Shadows</dt>
-        <dd>
-            отрисовывать тени на данном объекте или нет.
-        </dd>
+      <dt>Count</dt>
+      <dd>Количество карт, используемых для рендеринга каскадов.</dd>
+      <dt>Fade</dt>
+      <dd>Фактор сглаживания между смежными каскадами.</dd>
+      <dt id="max-distance">Max Distance</dt>
+      <dd>Максимальное расстояние последнего каскада (отмеряется от камеры).</dd>
+      <dt>Distribution</dt>
+      <dd>Распределение. Более высокие значения отдают приоритет ближайшим каскадам.</dd>
+      <dt id="csm-light-margin">Cascade Margin</dt>
+      <dd>Если тени высоких объектов выглядят усеченными, данное значение должно быть увеличено.</dd>
     </dl>
 
 
     [anchor:configuring_sun_shadows]
 
-    <h2>Настройка Теней от Солнца</h2>
+    <h2>Настройка теней от солнца</h2>
 
-    <p>Поскольку Verge3D пока не поддерживает каскадные карты теней, для настройки солнечных теней необходимо выполнить следующие шаги:</p>
+    <p>
+      Каскадные карты теней поддерживаются начиная с «Вердж3Д» версии 4.6. Рекомендации для их настройки:
+    </p>
 
     <ol>
-      <li>Установить значение каскадов *Count* равным 1.</li>
-      <li>Перейти к просмотру активной камеры, используя меню *View*->*Cameras*->*Active Camera* или клавишу *Numpad 0*.</li>
-      <li id="max-distance">Настроить параметр *Максимальное расстояние*.</li>
+      <li>Перейдите к просмотру активной камеры, используя меню *View*→*Cameras*→*Active Camera* или клавишу *Numpad 0*.</li>
+      <li>Настройте параметры *Cascaded Shadow Map*.</li>
+      <li>Проверьте как выглядят тени в «Вердж3Д».</li>
+      <li>Увеличьте параметр *Cascade Margin*, если тени от высоких или крупных объектов выглядят усеченными.</li>
     </ol>
 
-    <img src="files/shadows-blender/shadow-settings-cascades.jpg" class="centered" style="max-width: 322px">
+    <p class="note">
+      Чтобы увеличить производительность, уменьшите количество теневых каскадов и их разрешение.
+    </p>
+
+
+    [anchor:per_object_material_settings]
+
+    <h2>Настройки теней на объектах/материалах</h2>
+
+    <p>
+      Тени могут быть включены/выключены для каждого объекта с помощью панелей *Visibility* и *Verge3D Settings*.
+    </p>
+
+    <img src="files/shadows-blender/shadow-settings-perobject.webp" style="max-width: 344px">
+
+    <dl>
+      <dt id="shadow-mode">Ray Visibility → Shadow</dt>
+      <dd>
+        Включает/выключает отбрасывание тени от данного объекта.
+      </dd>
+      <dt id="receive-shadows">Receive Shadows</dt>
+      <dd>
+        Включает/выключает приём (отрисовку) тени на данном объекте.
+      </dd>
+    </dl>
 
 
     [anchor:troubleshooting]
 
-    <h2>Устранение Неполадок</h2>
+    <h2>Устранение неполадок</h2>
 
-    <h3>Тени в Verge3D и во вьюпорте Blender выглядят по-разному</h3>
+    <h3>Тени в «Вердж3Д» и во вьюпорте «Блендера» выглядят по-разному</h3>
     <ul>
-        <li>
-            Verge3D не использует те же методы рендеринга теней, которые могут использоваться в 3d-программах - в основном из-за производительности. Трассировка лучей, различные эффекты постобработки и нереалистичные методы. Вот почему могут быть различия и тени не будут выглядеть точно так же, как во вьюпорте.
-        </li>
-        <li>
-            Verge3D основывается на движке рендеринга Eevee. Для того чтобы настроить тени в Eevee, следуйте инструкциям описанным здесь: <a href="manual/ru/blender/Shadows.html#prepare_viewport">Preparing Blender Viewport</a>.
-        </li>
-        <li>
-            Если используется источник освещения *Sun*, ознакомьтесь с
-            <a href="manual/ru/blender/Shadows.html#configuring_sun_shadows">Configuring Sun Shadows</a>.
-        </li>
+      <li>
+        В силу необходимости обеспечения высокой производительности, «Вердж3Д» не использует те же методы рендеринга теней, которые используются в 3Д-редакторах. Речь о трассировке лучей, сложных эффектов пост-обработки и др. В силу этого, вид теней в «Вердж3Д» может существенно отличаться от вьюпорта.
+      </li>
+      <li>
+        «Вердж3Д» основывается на движке рендеринга «Иви». Для того чтобы настроить тени в «Иви», следуйте инструкциям описанным <a href="manual/ru/blender/Shadows.html#prepare_viewport">выше</a>.
+      </li>
+      <li>
+        Если используется источник освещения типа *Sun*, ознакомьтесь с <a href="manual/ru/blender/Shadows.html#configuring_sun_shadows">соответствующими настройками</a>.
+      </li>
     </ul>
 
     <h3>Тени выглядят слишком пикселизированными</h3>
     <ul>
-        <li>
-            Используйте более высокое значение <a href="manual/ru/blender/Shadows.html#cube-size">Cube Size</a>
-            для источников освещения типа *Point*, *Spot*, и *Area*. Используйте более высокое значение
-            <a href="manual/ru/blender/Shadows.html#cascade-size">Cascade Size</a>
-            для *Sun*.
-        </li>
-        <li>
-            При использовании источника освещения *Sun* постарайтесь уменьшить значение
-            <a href="manual/ru/blender/Shadows.html#max-distance">Max Distance</a>
-            настолько, насколько это возможно пока позволяет ваша сцена.
-        </li>
-        <li>
-            Старайтесь маскировать низкое разрешение мягкими полутенями. Такие методы фильтрации теней, как
-            <a href="manual/ru/blender/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a>
-            и
-            <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a>
-            а также правильно настроенный
-            <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a>
-            могут сделать пикселизацию менее заметной.
-        </li>
+      <li>
+        Используйте более высокое значение <a href="manual/ru/blender/Shadows.html#cube-size">Cube Size</a> для источников освещения типа *Point*, *Spot*, и *Area*. Используйте более высокое значение <a href="manual/ru/blender/Shadows.html#cascade-size">Cascade Size</a> для *Sun*.
+      </li>
+      <li>
+        При использовании источника освещения *Sun* постарайтесь уменьшить значение <a href="manual/ru/blender/Shadows.html#max-distance">Max Distance</a> настолько, насколько это возможно.
+      </li>
+      <li>
+        Старайтесь маскировать низкое разрешение мягкими полутенями. Такие методы фильтрации теней, как <a href="manual/ru/blender/Shadows.html#shadow_filtering_pcf">PCF</a> и <a href="manual/ru/blender/Shadows.html#shadow_filtering_esm">ESM</a>, а также правильно настроенный <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a> могут сделать пикселизацию менее заметной.
+      </li>
     </ul>
 
-    <h3>Тени видны во вьюпорте Blender, но не видны в Verge3D</h3>
+    <h3>Тени видны во вьюпорте «Блендера», но не видны в «Вердж3Д»</h3>
     <ul>
-        <li>
-            Тени включены по умолчанию, но их можно отключить вручную. Убедитесь, что опция <a href="manual/ru/blender/Shadows.html#enable-shadows">Enable Shadows</a>
-            активна. Также убедитесь, что опция <a href="manual/ru/blender/Shadows.html#receive-shadows">Receive Shadows</a>
-            не была отключена для объектов, которые должны получать тени.
-        </li>
-        <li>
-            Очень высокое значение <a href="manual/ru/blender/Shadows.html#bias">Bias</a>
-            , а иногда и <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a>
-            могут частично или полностью удалить тени. Если это так, попробуйте снизить эти значения. 
-        </li>
+      <li>
+        Тени могли быть случайно отключены. Убедитесь, что опция <a href="manual/ru/blender/Shadows.html#enable-shadows">Shadows</a> включена. Также убедитесь, что опция <a href="manual/ru/blender/Shadows.html#receive-shadows">Receive Shadows</a> не была отключена для объектов, которые должны получать тени.
+      </li>
+      <li>
+        Очень высокое значение <a href="manual/ru/blender/Shadows.html#bias">Bias</a>, а иногда и <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a> могут частично или полностью удалить тени. В этом случае попробуйте снизить эти значения.
+      </li>
     </ul>
 
     <h3>Тени с артефактами</h3>
-    <img src="files/shadows-blender/self-shadow-artefacts.jpg" class="centered" style="max-width: 485px">
+    <img src="files/shadows-blender/self-shadow-artifacts.jpg" style="max-width: 485px">
     <ul>
-        <li>
-            Такие артефакты называются "shadow acne" или "self-shadow artefacts".
-            Увеличьте значение <a href="manual/ru/blender/Shadows.html#bias">Bias</a>, чтобы избавиться от них.
-        </li>
+      <li>
+        Такие артефакты называются "теневые акне" или "артефакты самозатенения". Увеличьте значение <a href="manual/ru/blender/Shadows.html#bias">Bias</a>, чтобы избавиться от них.
+      </li>
     </ul>
 
     <h3>У теней нет полутени/полутень слишком мала</h3>
     <ul>
-        <li>
-            При использовании <a href="manual/ru/blender/Shadows.html#shadow_filtering_basic">Basic</a>
-            или <a href="manual/ru/blender/Shadows.html#shadow_filtering_bilinear">Bilinear</a>
-            теней нет контроля над полутенью. Вместо них выберите
-            <a href="manual/ru/blender/Shadows.html#shadow_filtering">shadow filtering types</a>.
-        </li>
-        <li>
-            Увеличьте <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a>.
-        </li>
+      <li>
+        Полутень не может быть настроена для теней типа <a href="manual/ru/blender/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/blender/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Вместо них выберите <a href="manual/ru/blender/Shadows.html#shadow_filtering">другой тип фильтрации</a>.
+      </li>
+      <li>
+        Увеличьте значение параметра <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a>.
+      </li>
     </ul>
 
-    <h3>ESM тени выглядят блеклыми</h3>
-    <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" class="centered" style="max-width: 500px">
+    <h3>ESM тени выглядят блёклыми</h3>
+    <img src="files/shadows-blender/esm-artifacts-light-leaking.jpg" style="max-width: 500px">
     <ul>
-        <li>
-            Увеличьте значение <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Увеличьте значение <a href="manual/ru/blender/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
-        </li>
+      <li>
+        Увеличьте значение <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Увеличьте значение <a href="manual/ru/blender/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
     </ul>
 
     <h3>ESM тени выглядят слишком резкими или не имеют полутени.</h3>
-    <img src="files/shadows-blender/esm-sharp-shadows.jpg" class="centered" style="max-width: 500px">
+    <img src="files/shadows-blender/esm-sharp-shadows.jpg" style="max-width: 500px">
     <ul>
-        <li>
-            Увеличьте <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a>.
-        </li>
-        <li>
-            Уменьшите значение <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Уменьшите значение <a href="manual/ru/blender/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
-        </li>
-        <li>
-            Такие артефакты могут появляться на краю объекта, на который падает тень.
-            <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" class="centered" style="max-width: 500px">
-            Это один из недостатков ESM. Решение состоит в том, чтобы избежать таких ситуаций.
-        </li>
-        <li>
-            Если объект, принимающий тени, сам не отбрасывает тени 
-            (например, если они отключены в режиме <a href="manual/ru/blender/Shadows.html#shadow-mode">Shadow Mode</a>),
-            то тени могут вообще не иметь полутени, независимо от того, насколько велик
-            <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a>. Решением является включение отбрасывания теней на принимающем объекте или использование дополнительного объекта, отбрасывающего тени, в качестве подложки для исправления полутени.
-        </li>
+      <li>
+        Увеличьте <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a>.
+      </li>
+      <li>
+        Уменьшите значение <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Уменьшите значение <a href="manual/ru/blender/Shadows.html#esm-distance-scale">ESM Distance Scale</a>
+      </li>
+      <li>
+        Такие артефакты могут появляться на краю объекта, на который падает тень.
+
+        <img src="files/shadows-blender/esm-artifacts-receiver-edge.jpg" style="display: block; max-width: 500px">
+
+        Это один из недостатков ESM. Решение состоит в том, чтобы избежать таких ситуаций.
+      </li>
+      <li>
+        Если объект, принимающий тени, сам не отбрасывает тени (например, если они отключены в режиме <a href="manual/ru/blender/Shadows.html#shadow-mode">Shadow Mode</a>), то тени могут вообще не иметь полутени, независимо от того, насколько велик <a href="manual/ru/blender/Shadows.html#blur-radius">Blur Radius</a>. Решением является включение отбрасывания теней на принимающем объекте или использование дополнительного объекта, отбрасывающего тени, в качестве подложки для исправления полутени.
+      </li>
     </ul>
 
-    <h3>ESM Тени с артефактами</h3>
-    <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" class="centered" style="max-width: 500px">
+    <h3>ESM тени с артефактами</h3>
+    <img src="files/shadows-blender/esm-artifacts-self-shadow.jpg" style="max-width: 500px">
     <ul>
-        <li>
-            Уменьшите значение <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Уменьшите значение <a href="manual/ru/blender/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
-        </li>
+      <li>
+        Уменьшите значение <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Уменьшите значение <a href="manual/ru/blender/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
     </ul>
 
+    <h3>Каскадные карты теней, тени обрезаются под определенным углом</h3>
+    <img src="files/shadows-blender/csm-artifacts-clipped-shadow.jpg" style="max-width: 500px">
+    <ul>
+      <li>
+        Увеличьте значение <a href="manual/ru/blender/Shadows.html#csm-light-margin">Cascade Margin</a>.
+      </li>
+    </ul>
+
+    <h3>Каскадные карты теней и ESM тени, тени выглядят блеклыми на стыке каскадов</h3>
+    <img src="files/shadows-blender/esm-csm-artifacts-light-leaking.jpg" style="max-width: 500px">
+    <ul>
+      <li>
+        Увеличьте значение <a href="manual/ru/blender/Shadows.html#csm-light-margin">Cascade Margin</a>.
+      </li>
+      <li>
+        Увеличьте значение <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Увеличьте значение <a href="manual/ru/blender/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
+    </ul>
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

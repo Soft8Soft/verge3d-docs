@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Класс, содержащий полезные функции для манипуляций со сценой.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:undefined assignDefaultControls]([param:Camera camera], [param:Box3 sceneBox])</h3>
+    <p class="params">
+      camera — штатная камера сцены.<br>
+      sceneBox — коробка, охватывающая все объекты, расположенные на сцене.
+    </p>
+    <p>
+      Назначает настройки управления камерой на основе параметра `sceneBox`.
+    </p>
+
+    <h3>[method:Box3 calcSceneBox]([param:Scene scene])</h3>
+    <p class="params">
+      scene — текущая сцена.
+    </p>
+    <p>
+      Рассчитывает охватывающую коробку сцены.
+    </p>
+
+    <h3>[method:Boolean checkActionIsUsed]([page:Object3D scene], [page:AnimationAction action])</h3>
+    <p>
+      scene — сцена, на которой проверяется, выполняется ли действие над одним из объектов сцены.<br>
+      action — действие для проверки.
+    </p>
+    <p>
+      Проверяет, выполняется ли данное действие над одним из объектов сцены, т.е. существует ли целевой объект действия на сцене.
+    </p>
+
+    <h3>[method:Camera createDefaultCamera]([param:Box3 sceneBox], [param:Float aspect])</h3>
+    <p class="params">
+      sceneBox — коробка сцены.<br>
+      aspect — соотношение сторон камеры.
+    </p>
+    <p>
+      Создаёт экземпляр [page:PerspectiveCamera] камеры, которая смотрит в центр коробки сцены.
+    </p>
+
+    <h3>[method:Group createMeshesFromInstancedMesh]([param:InstancedMesh instancedMesh])</h3>
+    <p class="params">
+      instancedMesh — инстанциируемый меш.
+    </p>
+    <p>
+      Создаёт группу объектов, которая содержит меш для каждого инстанса данного меша.
+    </p>
+
+    <h3>[method:Group createMeshesFromMultiMaterialMesh]([param:Mesh mesh])</h3>
+    <p class="params">
+      mesh — меш с несколькими материалами.
+    </p>
+    <p>
+      Преобразует меш с несколькими материалами в инстанс [page:Group группы], которая содержит отдельной меш для каждого материала.
+    </p>
+
+    <h3>[method:Group createMultiMaterialObject]([page:BufferGeometry geometry], [page:Array materials])</h3>
+    <p>
+      geometry — геометрия для набора материалов.<br>
+      materials — материалы объекта.
+    </p>
+    <p>
+      Создает новую группу, которая содержит новый меш для каждого материала, определенного в `materials`. Имейте в виду, что это не то же самое, что массив материалов, который определяет несколько материалов для одного меша. Данный метод используется для объектов, которым нужен и материал, и реализация вайрфрейма.
+    </p>
+
+    <h3>[method:null getAnimationActionByName]([page:App scope], [param:String animClipName)</h3>
+    <p>
+      scope — экземпляр класса [page:App application].<br>
+      animClipName — имя анимационного клипа.
+    </p>
+    <p>
+      Ищет анимационное действие по названию клипа.
+    </p>
+
+    <h3>[method:Material getMaterialByName]([param:App appInstance], [param:String matName])</h3>
+    <p class="params">
+      appInstance — приложение, для которого осуществляется поиск материала.<br>
+      matName — имя материала.
+    </p>
+    <p>
+      Ищет материал с заданным именем. Если не найден, возвращает `null`.
+    </p>
+
+    <h3>[method:Material getMaterialsByName]([param:App appInstance], [param:String matName])</h3>
+    <p class="params">
+      appInstance — приложение, для которого осуществляется поиск материала.<br>
+      matName — имя материала.
+    </p>
+    <p>
+      Ищет все материалы с заданным именем. Если не найдены, возвращает `[]`.
+    </p>
+
+    <h3>[method:T reduceVertices]([param:Object3D object], [param:Function func], [param:T initialValue])</h3>
+    <p class="params">
+      object — объект для прогона (внутри использует [page:Object3D.traverseVisible traverseVisible]). <br>
+      func — функция поиска, применяемая для редуцирования. Должна быть вида: `(value: T, vertex: Vector3) → T`. <br>
+      initialValue — начальное значение для инициализации редуцирования. Требуется, поскольку также задаёт тип редуцирования, поскольку это не обязательно Vector3.
+    </p>
+    <p>
+      Работает аналогично Array.prototype.reduce(), но оперирует с вертексами всех дочерних объектов в мировой системе координат. Также может работать с преобразованием типа, выдавая тип отличный от Vector3. Может использоваться в частности для совмещения пространства камеры со сценой.
+    </p>
+
+    <h3>[method:undefined sortInstancedMesh]([param:InstancedMesh mesh], [param:Function compareFn])</h3>
+    <p class="params">
+      mesh — InstancedMesh для которого осуществляется сортировка. <br>
+      compareFn — функция сравнения, определяющая порядок сортировки.
+    </p>
+    <p>
+      Сортирует инстансы [page:InstancedMesh] в соответствии с результатом, возвращаемым из функции сравнения. Данная функция принимает на вход два параметра <i>indexA</i> и <i>indexB</i> и должна возвращать числовое значение. Смотрите описание для [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description Array.prototype.sort], чтобы узнать больше информации о функции сортировки и возвращаемых ею значениях.
+    </p>
+    <p>
+      Поскольку сортировка является затратным в плане вычислений процессом, «Вердж3Д» не сортирует инстансы [page:InstancedMesh] автоматически. Ручная сортировка может быть полезна, чтобы улучшить визуализацию материалов с прозрачностью (сначала задние, потом передние), либо чтобы ускорить рендеринг непрозрачных материалов (сначала передние, потом задние).
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

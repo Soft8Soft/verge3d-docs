@@ -1,70 +1,77 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Персонализация приложений Verge3D - Soft8Soft</title>
+    <title>Персонализация приложений Вердж3Д — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как настраивать стили приложений Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Как настраивать стили приложений Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Персонализация приложений Verge3D</h1>
+    <h1>Персонализация «Вердж3Д»-приложений</h1>
 
     <p>
-      Используйте это руководство для создания индивидуальных приложений Verge3D, ориентированных на вашу конкретную аудиторию.
+      Используйте это руководство для создания индивидуальных приложений «Вердж3Д», ориентированных на вашу конкретную аудиторию.
     </p>
 
     [contents]
 
 
-    [anchor:custom_ui]
-
-    <h2>Пользовательский UI</h2>
-
-    <p>
-      Лучший способ создать полностью персонализированный UI в Verge3D - это <a href="manual/ru/introduction/HTML-based-user-interfaces.html">создание пользовательского интерфейса поверх 3D</a> (посмотрите демо <a href="https://cdn.soft8soft.com/demo/applications/scooter/index.html" target="_blank">Scooter demo</a> в качестве примера такого подхода). Однако, учитывая трудности создания такого пользовательского интерфейса, здесь мы расскажем о настройке <em>стандартного</em> интерфейса Verge3D. Сюда входят экран предзагрузки, аннотации, кнопка полноэкранного режима, а также заголовок/описание страницы и теги социальных сетей.
-    </p>
-
-
     [anchor:introduction]
 
-    <h2>Введение в стилизацию UI</h2>
+    <h2>Введение в стилизацию интерфейса</h2>
 
     <p>
-      Наряду с экраном, на котором отображается 3D-часть, приложение Verge3D включает в себя дополнительные HTML-элементы для экрана предзагрузки, аннотаций, кнопки полноэкранного режима и др. Все эти элементы дополнены классами CSS, которые можно легко изменить.
+      Наряду с экраном, на котором отображается 3Д-часть, приложение «Вердж3Д» включает в себя дополнительные HTML-элементы для экрана загрузки, аннотаций, кнопки полноэкранного режима и др. Все эти элементы дополнены классами CSS, которые можно легко менять.
     </p>
 
     <p>
-      Самый простой способ сделать ваше приложение персонализированным - выбрать *Standard Light* или *Standard Dark* в диалоге создания приложения:
+      Самый простой способ сделать ваше приложение персонализированным — выбрать *Standard Light* или *Standard Dark* в диалоге создания приложения:
     </p>
 
-    <img src="files/personalizing-verge3d-apps/light-dark-theme.jpg" class="centered" style="max-width: 522px">
+    <img src="files/personalizing-verge3d-apps/light-dark-theme.webp" style="max-width: 522px">
 
     <p>
-      Для более сложных настроек обратитесь к файлу <em>src/style.css</em> . Не изменяйте этот файл, поскольку он скомпилирован прямо в Verge3D. Вместо этого добавьте весь код стилей в основной CSS-файл вашего приложения. Например, если ваше приложение называется "My Awesome App", то вам следует изменить следующий файл:
+      а затем использовать диалог <a href="manual/ru/introduction/App-Manager.html#app_settings">настройки приложения</a>:
     </p>
 
-    <code>applications/my_awesome_app/my_awesome_app.css</code>
+    <img src="files/app-manager/app-manager-app-settings-panel.webp" alt="Open app settings dialog">
+
+    <p class="note">
+      Читайте дальше только в том случае, если использования штатных шаблонов и диалога настройки приложения не достаточно для настройки внешнего вида ваших приложений.
+    <p>
 
     <p>
-      Кроме того, вы можете изменить классы CSS с помощью редактора пазлов. Смотрите пример пазла <a href="manual/ru/puzzles/HTML.html#set_css_rule">set css rule</a> .
+      Для более сложных персонализаций обратитесь к файлу *src/style.css*, расположенному внутри <em>установочной папки «Вердж3Д»</em>. Не изменяйте этот файл, поскольку он скомпилирован прямо в «Вердж3Д». Вместо этого добавьте код стилей в основной CSS-файл вашего приложения. Например, если ваше приложение называется "My Awesome App", то вам следует изменить следующий файл (расположенный в папке приложений):
+    </p>
+
+    <code>my_awesome_app/my_awesome_app.css</code>
+
+    <p>
+      Кроме того, вы можете изменить классы CSS с помощью редактора пазлов. Смотрите описание пазла <a href="manual/ru/puzzles/HTML.html#set_css_rule">set css rule</a> .
     </p>
 
 
     [anchor:preloader]
 
-    <h2>Настройка Экрана Загрузки</h2>
+    <h2>Настройка экрана загрузки</h2>
 
     <p>Для модификации экрана загрузки измените следующие классы CSS:</p>
 
-    <p>*v3d-simple-preloader-background* - для изменения фона всего экрана экрана загрузки.</p>
-    <p>*v3d-simple-preloader-container* - для изменения элемента контейнера с изображением и полосой экрана загрузки. Переопределив этот класс, вы можете настроить положение и размер экрана загрузки.</p>
-    <p>*v3d-simple-preloader-bar* - для изменения полосы загрузки.</p>
-    <p>*v3d-simple-preloader-logo* - для изменения изображения экрана загрузки.</p>
+    <img src="files/personalizing-verge3d-apps/preloader-classes.jpg">
 
-    <p>Например, если вам нужно сделать индикатор прогресса <em>красным</em> вместо <em>синего</em> по умолчанию, добавьте следующий код в основной CSS-файл вашего приложения:</p>
+    <ul>
+      <li>*v3d-simple-preloader-background* - для изменения фона всего экрана экрана загрузки.</li>
+      <li>*v3d-simple-preloader-container* - для изменения элемента контейнера с изображением и полосой экрана загрузки. Переопределив этот класс, вы можете настроить положение и размер экрана загрузки.</li>
+      <li>*v3d-simple-preloader-bar* - для изменения полосы загрузки.</li>
+      <li>*v3d-simple-preloader-logo* - для изменения изображения экрана загрузки.</li>
+    </ul>
+
+    <p>
+      Например, если вам нужно сделать индикатор прогресса <em>красным</em> вместо <em>синего</em> по умолчанию, добавьте следующий код в основной CSS-файл вашего приложения:
+    </p>
 
     <code class="language-css">
     .v3d-simple-preloader-bar {
@@ -76,42 +83,46 @@
 
     <code class="language-css">
     .v3d-simple-preloader-logo {
-        background-image: url("PATH_TO_YOUR_IMAGE");
+        background-image: url("ПУТЬ_К_ИЗОБРАЖЕНИЮ");
         background-size: cover;
     }
     </code>
 
-    <p>Замените PATH_TO_YOUR_IMAGE на фактический URL вашего изображения, например <em>my_company_logo.png</em>.</p>
+    <p>Замените ПУТЬ_К_ИЗОБРАЖЕНИЮ на фактический УРЛ вашего изображения, например <em>my_company_logo.png</em>.</p>
 
-    <p class="note">Рекомендуемый размер изображения прелоадера - 110x110px.</p>
+    <p class="note">Рекомендуемый размер изображения прелоадера — 120x120px.</p>
 
     <p>Чтобы назначить пользовательское фоновое изображение вместо стандартного <em>белого</em>:</p>
 
     <code class="language-css">
     .v3d-simple-preloader-background {
-        background-image: url("PATH_TO_YOUR_IMAGE");
+        background-image: url("ПУТЬ_К_ИЗОБРАЖЕНИЮ");
     }
     </code>
 
     <p>С пазлами все три варианта настройки стиля будут выглядеть следующим образом:</p>
 
     <!-- HACK: minor styling fix -->
-    <img src="files/personalizing-verge3d-apps/puzzles.jpg" class="centered" style="margin-top:-20px">
+    <img src="files/personalizing-verge3d-apps/preloader-puzzles.jpg" style="margin-top:-10px">
+
+    <p class="note">
+      Эти пазлы необходимо выполнять во вкладке инициализации редактора пазлов, поскольку настройки прелоадера должны применяться до загрузки приложения.
+    </p>
 
 
     [anchor:annotations]
 
-    <h2>Стилизация Аннотаций</h2>
+    <h2>Стилизация аннотаций</h2>
 
     <p>Для стилизации аннотаций используйте следующие классы CSS:</p>
 
     <ul>
-      <li>*v3d-annotation* - для изменения стиля значка аннотации.</li>
-      <li>*v3d-annotation-transparent* - для изменения стиля полупрозрачных аннотаций.</li>
-      <li>*v3d-annotation-dialog* - для стилизации всплывающего диалога аннотации.</li>
+      <li>*v3d-annotation* — для изменения стиля значка аннотации.</li>
+      <li>*v3d-annotation-transparent* — для изменения стиля полупрозрачных (загороженных) аннотаций.</li>
+      <li>*v3d-annotation-dialog* — для стилизации всплывающего диалога аннотации.</li>
     </ul>
 
-    <p>Например, чтобы сделать аннотации квадратными с зеленым фоном код будет выглядеть следующим образом:</p>
+    <p>Например, чтобы сделать аннотации квадратными с зеленым фоном:</p>
 
     <code class="language-css">
     .v3d-annotation {
@@ -120,22 +131,26 @@
     }
     </code>
 
-    <img src="files/personalizing-verge3d-apps/annotation.jpg" class="centered" style="max-width: 544px">
+    <img src="files/personalizing-verge3d-apps/annotation.jpg" style="max-width: 544px">
 
 
     [anchor:fullscreen_button]
 
-    <h2>Изменение Кнопки Полноэкранного Режима</h2>
+    <h2>Изменение кнопки полноэкранного режима</h2>
 
-    <p>Стилизация кнопок полноэкранного режима уже управляется вашим приложением. Смотрите следующие классы в главном файле CSS вашего приложения:</p>
+    <p>
+      Вид кнопок полноэкранного режима управляется вашим приложением. Смотрите следующие классы в главном CSS-файле вашего приложения:
+    </p>
 
     <ul>
-      <li>*fullscreen-button* - для изменения стиля обоих кнопок (открытия и закрытия) кнопки полноэкранного режима.</li>
-      <li>*fullscreen-open* - для изменения стиля кнопки открытия полноэкранного режима.</li>
-      <li>*fullscreen-close* - для изменения кнопки закрытия полноэкранного режима.</li>
+      <li>*fullscreen-button* — для изменения стиля обоих кнопок (открытия и закрытия) кнопки полноэкранного режима.</li>
+      <li>*fullscreen-open* — для изменения стиля кнопки открытия полноэкранного режима.</li>
+      <li>*fullscreen-close* — для изменения кнопки закрытия полноэкранного режима.</li>
     </ul>
 
-    <p>Например, если вам нужно изменить стандартные изображения открытия/закрытия на что-то другое, измените следующие два класса:</p>
+    <p>
+      Например, если вам нужно изменить стандартные изображения открытия/закрытия на что-то другое, измените следующие два класса:
+    </p>
 
     <code class="language-css">
     .fullscreen-open {
@@ -148,28 +163,71 @@
     </code>
 
 
-    [anchor:title_description]
+    [anchor:webgl_error_screen]
 
-    <h2>Название и Описание</h2>
+    <h2>Стилизация диалога ошибки WebGL</h2>
+
+    <p>Вы можете изменить вид диалога с ошибкой WebGL с помощью четырёх классов:</p>
+
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen.webp" class="with-border">
+
+    <ul>
+      <li>*v3d-webgl-error-container* — для изменения стиля контейнерного элемента ошибки.</li>
+      <li>*v3d-webgl-error-image* — для изменения изображения, расположенного выше сообщения об ошибке.</li>
+      <li>*v3d-webgl-error* — для изменения стиля сообщения ошибки.</li>
+      <li>*v3d-webgl-error-link* — для изменения стиля ссылки в сообщении об ошибке.</li>
+    </ul>
+
+    <p>Например следующий CSS-код:</p>
+
+    <code class="language-css">
+    .v3d-webgl-error {
+        color: white;
+        border-color: black;
+        background-color: red;
+    }
+    .v3d-webgl-error-link {
+        color: black;
+    }
+    </code>
+
+    <p>сделает диалог ошибки похожим на этот:</p>
+
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen-customized.jpg" class="with-border">
 
     <p>
-      Трудно переоценить важность назначения осмысленных заголовка и описания для вашего приложения.
+      То же самое с использованием пазлов:
+    </p>
+
+    <img src="files/personalizing-verge3d-apps/webgl-error-screen-puzzles.webp">
+
+    <p class="note">
+      Эти пазлы необходимо выполнять во вкладке инициализации редактора пазлов, поскольку настройки окна ошибки WebGL должны применяться до загрузки приложения.
+    </p>
+
+
+    [anchor:title_description]
+
+    <h2>Заголовок и краткое описание страницы</h2>
+
+    <p>
+      Крайне важно назначать осмысленный заголовок и описание для вашего приложения.
     </p>
 
     <p>
       Заголовок отображается на вкладке браузера, а также используется для названия созданной закладки с вашим приложением:
     </p>
 
-    <img src="files/personalizing-verge3d-apps/app-title.jpg" class="centered">
+    <img src="files/personalizing-verge3d-apps/app-title.jpg">
 
     <p>
       И заголовок, и описание используются поисковыми системами, чтобы найти ваше приложение и представить его пользователю в поисковой выдаче:
     </p>
 
-    <img src="files/personalizing-verge3d-apps/google-title-description.jpg" class="centered">
+    <img src="files/personalizing-verge3d-apps/google-title-description.jpg">
 
     <p>
-      Чтобы изменить название приложения, найдите следующий фрагмент в вашем основном HTML-файле (например<em>my_awesome_app.html</em>):
+      Чтобы изменить название приложения, найдите следующий фрагмент в основном HTML-файле (например <em>my_awesome_app.html</em>):
     </p>
 
     <code>
@@ -189,7 +247,7 @@
     </p>
 
     <code>
-&lt;meta name=&quot;description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
     </code>
 
     <p>
@@ -197,7 +255,7 @@
     </p>
 
     <p class="note">
-      Как и заголовок, текст описания не должен быть длинным - 120-160 символов вполне достаточно.
+      Как и заголовок, текст описания не должен быть длинным — 120-160 символов вполне достаточно.
     </p>
 
 
@@ -214,7 +272,7 @@
     </code>
 
     <p>
-      Смотрите <a href="https://www.w3schools.com/tags/ref_language_codes.asp" target="_blank">здесь</a> для получения списка возможных языков.
+      Смотрите <a href="https://www.w3schools.com/tags/ref_language_codes.asp" target="_blank">здесь</a> для получения списка возможных языков. Для русского языка просто замените *en* на *ru*.
     </p>
 
 
@@ -230,6 +288,7 @@
       <li>favicon.ico</li>
       <li>favicon-16x16.png</li>
       <li>favicon-32x32.png</li>
+      <li>favicon-48x48.png</li>
       <li>apple-touch-icon.png</li>
       <li>android-chrome-192x192.png</li>
       <li>android-chrome-512x512.png</li>
@@ -243,36 +302,45 @@
 
     [anchor:social_media_tags]
 
-    <h2>Теги Социальных Сетей</h2>
+    <h2>Теги социальных сетей</h2>
 
     <p>
-      Чтобы ссылка на ваше приложение выглядела круто в Twitter, измените следующие теги title/description/image в основном HTML-файле:
+      Чтобы ссылка на ваше приложение выглядела круто в «Твиттер», измените следующие теги title/description/image в основном HTML-файле:
     </p>
 
     <code>
-&lt;meta name=&quot;twitter:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
-&lt;meta name=&quot;twitter:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
-&lt;meta name=&quot;twitter:image:src&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
+    &lt;meta name=&quot;twitter:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
+    &lt;meta name=&quot;twitter:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
+    &lt;meta name=&quot;twitter:image:src&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
     </code>
 
     <p>
-      Для получения лучшего результата масштабируйте изображение до размера 1200x630 пикселей и укажите <em>полный</em> URL, например <em>https://www.yoursite.com/app_social_image.jpg</em>, не просто <em>app_social_image.jpg</em>.
+      Для получения лучшего результата масштабируйте изображение до размера 1200x630 пикселей и укажите <em>полный</em> УРЛ, например <em>https://www.yoursite.com/app_social_image.jpg</em>, а не просто <em>app_social_image.jpg</em>.
     </p>
 
     <p>
-      Для Facebook, Reddit, WhatsApp, Weibo, VK и других платформ социальных сетей, поддерживающих протокол Open Graph, найдите и измените следующие теги. Вы можете задать им те же значения, которые вы использовали для Twitter:
+      Для «Фейсбук», «Реддит», «Ватсапп», «Вейбо», «ВК» и других платформ социальных сетей, поддерживающих протокол «Опен Граф», найдите и измените следующие теги. Вы можете задать им те же значения, которые вы использовали для «Твиттера»:
     </p>
 
     <code>
-&lt;meta property=&quot;og:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
-&lt;meta property=&quot;og:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the WebGL and HTML5 technologies.&quot;&gt;
-&lt;meta property=&quot;og:image&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
+    &lt;meta property=&quot;og:title&quot; content=&quot;Verge3D Web Interactive&quot;&gt;
+    &lt;meta property=&quot;og:description&quot; content=&quot;Interactive 3D Web application made with Verge3D. Immerse yourself in amazing graphics experience offered by state-of-the art WebGL and HTML5 technologies.&quot;&gt;
+    &lt;meta property=&quot;og:image&quot; content=&quot;https://cdn.soft8soft.com/images/player_socials.jpg&quot;&gt;
     </code>
+
+
+    [anchor:custom_ui]
+
+    <h2>Собственный интерфейс</h2>
+
+    <p>
+      Лучший способ создать свой собственный интерфейс — это <a href="manual/ru/introduction/HTML-based-user-interfaces.html">показывать набор HTML-элементов поверх 3Д окна</a> (смотрите демо [demoLink:scooter/index Скутер] в качестве примера такого подхода).
+    </p>
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

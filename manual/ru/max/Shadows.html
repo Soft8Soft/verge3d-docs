@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D для 3ds Max: Тени - Soft8Soft</title>
+    <title>Вердж3Д для 3дс Макса: Тени — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Узнайте, как настроить красивые тени в Verge3D для 3ds Max."/>
-    <base href="../../../" />
+    <meta name="description" content="Узнайте, как настроить красивые тени в Вердж3Д для 3дс Макса.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Тени / 3ds Max</h1>
+    <h1>Тени / 3дс Макс</h1>
 
     <p>
-      Здесь описаны лучшие методы настроек используемых в 3ds Max для отображения красивых теней в реальном времени в Verge3D. 
+      Здесь описаны методы настроек теней в «3дс Максе» при их использовании в движке «Вердж3Д».
     </p>
 
-    <iframe class="video-480p" src="https://www.youtube.com/embed/L2SqP4MaaOQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+    <figure style="max-width: 854px">
+      <iframe class="video-480p" src="https://rutube.ru/play/embed/2b1fdfc143c2dd56c99ffdaf012fa39e" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <figcaption>Динамические тени приложения [demoLink:industrial_robot/index Промышленный робот].</figcaption>
+    </figure>
 
     <h2>Содержание</h2>
 
@@ -25,40 +27,46 @@
 
 
     [anchor:prepare_viewport]
-    <h2>Подготовка вьюпорта 3ds Max'a</h2>
+
+    <h2>Подготовка вьюпорта «3дс Макса»</h2>
+
     <p class="note">
-        Чтобы облегчить настройку теней, рекомендуется настроить окно просмотра 3ds Max'a, как описано в этом разделе.
+      Чтобы облегчить настройку теней, рекомендуется предварительно настроить окно просмотра («вьюпорта») «3дс Макса», как описано ниже.
     </p>
 
     <p>
-        Включите следующие параметры вьюпорта:
+      Включите следующие параметры вьюпорта:
     </p>
+
     <ul>
-        <li>
-            *Lighting and Shadows* -> *Illuminate with Scene Lights*
-        </li>
-        <li>
-            *Lighting and Shadows* -> *Shadows*
-        </li>
+      <li>
+        *Lighting and Shadows* → *Illuminate with Scene Lights*
+      </li>
+      <li>
+        *Lighting and Shadows* → *Shadows*
+      </li>
     </ul>
 
-    <img src="files/shadows-max/lighting-and-shadows-menu.jpg" class="centered" style="max-width: 652px;">
+    <img src="files/shadows-max/lighting-and-shadows-menu.jpg" style="max-width: 652px">
 
 
     [anchor:shadow_filtering]
 
-    <h2>Типы Фильтрации Теней</h2>
+    <h2>Типы фильтрации теней</h2>
 
-    <p>Тени в Verge3D выглядят по-разному в зависимости от того, какой алгоритм фильтрации карты теней используется. Свойство *Shadow Filtering*, расположенное на панели *Verge3D Export Settings*, используется для указания алгоритма.</p>
+    <p>
+      Тени в «Вердж3Д» выглядят по-разному в зависимости от того, какой алгоритм фильтрации карты теней используется. Свойство *Shadow Filtering*, расположенное на панели *Verge3D Export Settings*, используется для указания алгоритма.
+    </p>
 
-    <!--<img src="files/shadows-blender/shadow-filtering-settings.jpg" class="centered" style="max-width: 425px">-->
 
 
     [anchor:shadow_filtering_basic]
 
     <h3>Basic</h3>
 
-    <p>Отключить фильтрацию, рендерить карту теней такой, какая она есть. Это самый быстрый метод рендеринга теней.</p>
+    <p>
+      Отключить фильтрацию, рендерить карту теней такой, какая она есть. Это самый быстрый метод рендеринга теней.
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-basic.jpg">
 
@@ -67,7 +75,9 @@
 
     <h3>Bilinear</h3>
 
-    <p>Используйте билинейную фильтрацию для сглаживания соседних пикселей карты теней.</p>
+    <p>
+      Использовать билинейную фильтрацию для сглаживания соседних пикселей карты теней.
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-bilinear.jpg">
 
@@ -76,29 +86,11 @@
 
     <h3>PCF</h3>
 
-    <p>Расшифровывается как Percentage Closer Filtering. Использует множественный поиск карты теней для сглаженного рендеринга. Среднее качество и производительность.</p>
-
-    <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
-
-
-    [anchor:shadow_filtering_pcf_bilinear]
-
-    <h3>PCF (Bilinear)</h3>
-
-    <p>Аналогичен PCF, но использует билинейную интерполяцию для каждого поиска карты теней. Дает сглаженные тени за счет большей вычислительной мощности.</p>
-
-    <img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg">
-
-
-    [anchor:shadow_filtering_pcf_poisson_disk]
-
-    <h3>PCF (Poisson Disk)</h3>
-
     <p>
-        Использует псевдослучайный <em>Poisson Disk Sampling</em> для устранения пикселизации для теней PCF. Эта настройка была выбрана по умолчанию, поскольку она наиболее соответствует тому, что вы видите во вьюпорте 3D-редактора. Производительность сравнима с алгоритмом *PCF (Bilinear)* или даже лучше. 
+      Расшифровывается как Percentage Closer Filtering (фильтрация процентного затенения). Использует множественный поиск карты теней для сглаженного рендеринга. Среднее качество и производительность. Алгоритм использует псевдослучайный семплинг с использованием диска Пуассона (<em>Poisson Disk Sampling</em>) для устранения пикселизации. Эта настройка была выбрана по умолчанию, поскольку она наиболее соответствует тому, что вы видите во вьюпорте 3Д-редактора.
     </p>
 
-    <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
+    <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
 
 
     [anchor:shadow_filtering_esm]
@@ -106,8 +98,10 @@
     <h3>ESM</h3>
 
     <p>
-        Расшифровывается как Exponential Shadow Maps. Этот режим позволяет получить наиболее плавные тени, но возможны утечки света. Используйте настройку <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a> для света, чтобы удалить возможные артефакты. Производительность сравнима с алгоритмом *PCF (Bilinear)*. Тени ESM могут быть особенно сложны в настройке, поэтому см. раздел <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a>, посвященный проблемам, связанным с ESM.
-        section.
+      Расшифровывается как Exponential Shadow Maps (экспоненциальные карты теней). Этот режим позволяет получить наиболее плавные тени, но возможно возникновение артефактов вида «утечки света». Используйте настройку <a href="manual/ru/blender/Shadows.html#esm-bias">ESM Bias</a>, чтобы убрать эти артефакты. Производительность алгоритма сравнима с алгоритмом *PCF*.
+    </p>
+    <p>
+      Тени ESM могут вызывать сложности в настройке, читайте раздел <a href="manual/ru/max/Shadows.html#troubleshooting">устранение неполадок</a> прежде чем приступить к настройке теней данного типа.
     </p>
 
     <img src="files/shadows-blender/shadow-filtering-esm.jpg">
@@ -117,232 +111,280 @@
 
     <h3>Какой тип фильтрации выбрать?</h3>
     <p>
-        Рекомендуем попробовать использовать тени <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson Disk)</a>, выставленные по умолчанию, потому что они обеспечивают хорошее качество и производительность. Если вам вам нужны более быстрые, но менее качественные тени, то попробуйте <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Для большего качества стоит выбрать <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a> мягкие тени, но недостатком является то, что они могут быть сложными для настройки (исправление артефактов) для конкретной сцены.
+      Рекомендуем попробовать использовать тени <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf">PCF</a>, выставленные по умолчанию, поскольку они обеспечивают хорошее качество и производительность. Если вам вам нужны более быстрые, но менее качественные тени, то попробуйте <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Для лучшего качества стоит выбрать <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>-тени, но их недостатком является то, что они могут вызывать сложности в настройке (иметь артефакты) для конкретной сцены.
     </p>
 
 
     [anchor:global_settings]
 
-    <h2>Глобальные Настройки</h2>
+    <h2>Глобальные настройки</h2>
 
     <p>
-        Глобальные настройки для теней находятся в меню *Verge3D Export Settings*. 
+      Глобальные настройки для теней находятся в меню *Verge3D Export Settings*.
     </p>
 
-    <img src="files/shadows-max/shadow-settings-global-max.jpg" class="centered with-caption" style="max-width: 251px"></img>
+    <img src="files/shadows-max/shadow-settings-global-max.jpg" class="with-caption" style="max-width: 272px">
 
     <dl>
-        <dt>Shadow Filtering</dt>
-        <dd>
-            Алгоритм фильтрации карты теней. Смотрите 
-            <a href="manual/ru/max/Shadows.html#shadow_filtering">выше</a>.
-        </dd>
-        <dt id="esm-distance-scale">ESM Distance Scale</dt>
-        <dd>
-            Коэффициент масштабирования теней ESM. Поскольку алгоритм фильтрации ESM использует абсолютные значения расстояния, уменьшите значение масштаба, если вы работаете над сценой, которая намного больше куба по умолчанию, и увеличьте его, если ваша сцена намного меньше. Значение по умолчанию - 0,3. Работает только для теней <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>.
-        </dd>
+      <dt>Shadow Filtering</dt>
+      <dd>
+        Алгоритм фильтрации карты теней. Смотрите <a href="manual/ru/max/Shadows.html#shadow_filtering">выше</a>.
+      </dd>
+      <dt id="esm-distance-scale">ESM Distance Scale</dt>
+      <dd>
+        Коэффициент масштабирования теней ESM. Поскольку алгоритм фильтрации ESM использует абсолютные значения расстояния, уменьшите значение масштаба, если вы работаете над сценой, которая намного больше куба по умолчанию, и увеличьте его, если ваша сцена намного меньше. Значение по умолчанию — `0.3`. Работает только для теней <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>.  </dd>
     </dl>
 
 
     [anchor:per_light_settings]
 
-    <h2>Настройки для каждого источника освещения</h2>
+    <h2>Настройки источников освещения</h2>
 
     <p>
-        Тени можно включать/выключать для каждого отдельного света с помощью встроенных панелей 3ds Max. Поддерживаемые настройки теней выделены зеленым цветом. 
+      Тени можно включать/выключать для каждого отдельного света с помощью встроенных панелей «3дс Макса». Поддерживаемые настройки теней выделены зеленым цветом.
     </p>
 
-    <img src="files/shadows-max/shadow-settings-perlight-max.jpg" class="centered with-caption" style="max-width: 349px">
-
-    <br />
+    <img src="files/shadows-max/shadow-settings-perlight-max.jpg" class="with-caption" style="max-width: 408px">
 
     <dl>
-        <dt id="target-distance">Target Distance</dt>
-        <dd>
-            Может повлиять на расстояние, на котором тени перестают отрисовываться. Доступно только для точечного и направленного света. Настраивайте его, только если вы решаете проблему обрезания теней из раздела <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a>.
-        </dd>
-        <dt>On</dt>
-        <dd>
-            Включение/выключение теней. 
-        </dd>
-        <dt id="shadow-map-type">Shadow Map</dt>
-        <dd>
-            Должен быть выбран в выпадающем списке, чтобы тени появились в Verge3D.
-        </dd>
-        <dt id="falloff-field">Falloff/Field</dt>
-        <dd>
-            Определяет объем теней (чем меньше, тем лучше). Доступно только для точечных и направленных светильников.
-        </dd>
-        <dt id="bias">Bias</dt>
-        <dd>
-            Можно настраивать до тех пор, пока вы не избавитесь от артефактов самозатенения и/или эффекта "peter-panning".
-        </dd>
-        <dt id="size">Size</dt>
-        <dd>
-            управляет размером текстуры тени (выбор между скоростью и качеством). .
-        </dd>
-        <dt id="sample-range">Sample Range</dt>
-        <dd>
-            управляет коэффициентом размытости для теней. 
-        </dd>
-        <dt id="shadow-bias">Shadow Bias</dt>
-        <dd>
-            дополнительная настройка смещения, аналогичная <a href="manual/ru/max/Shadows.html#bias">Bias</a>. Используется для избавления от артефактов самозатенения и/или эффекта peter-panning. 
-        </dd>
-        <dt id="esm-bias">ESM Bias</dt>
-        <dd>
-            смещение для уменьшения артефактов <em>утечки света</em> ESM. Работает только для теней <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>. 
-        </dd>
+      <dt id="target-distance">Target Distance</dt>
+      <dd>
+        Может повлиять на расстояние, на котором тени перестают отрисовываться. Доступно только для точечного и направленного света. Настраивайте его, только если вы решаете проблему обрезания теней из раздела <a href="manual/ru/max/Shadows.html#troubleshooting">Troubleshooting</a>.
+      </dd>
+      <dt>On</dt>
+      <dd>
+        Включение/выключение теней.
+      </dd>
+      <dt id="shadow-map-type">Shadow Map</dt>
+      <dd>
+        Должен быть выбран в выпадающем списке, чтобы тени появились в «Вердж3Д».
+      </dd>
+      <dt id="falloff-field">Falloff/Field</dt>
+      <dd>
+        Определяет объем теней (чем меньше, тем лучше). Доступно только для точечных и направленных светильников.
+      </dd>
+      <dt id="bias">Bias</dt>
+      <dd>
+        Можно настраивать до тех пор, пока вы не избавитесь от артефактов самозатенения и/или эффекта «Питер Пэна».
+      </dd>
+      <dt id="size">Size</dt>
+      <dd>
+        Управляет размером текстуры тени (выбор между скоростью и качеством).
+      </dd>
+      <dt id="sample-range">Sample Range</dt>
+      <dd>
+        Управляет коэффициентом размытости для теней.
+      </dd>
+      <dt id="shadow-bias">Shadow Bias</dt>
+      <dd>
+        Дополнительная настройка смещения, аналогичная <a href="manual/ru/max/Shadows.html#bias">Bias</a>. Используется для избавления от артефактов самозатенения и/или эффекта «Питер Пэна».
+      </dd>
+      <dt id="esm-bias">ESM Bias</dt>
+      <dd>
+        Смещение для уменьшения артефактов <em>утечки света</em> ESM. Работает только для теней <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>.
+      </dd>
+      <dt id="csm-count">Count</dt>
+      <dd>
+        Количество каскадов. Большее количество каскадов обеспечивает более высокое качество теней, но снижает частоту кадров.
+      </dd>
+      <dt id="csm-fade">Fade</dt>
+      <dd>
+        Если больше `0`, то размер каждого каскада (интервал расстояний) увеличивается так, чтобы соседние каскады перекрывались.Таким образом переходы между каскадами становятся плавными. Большие значения означают, что размер области перекрытия между каскадами увеличиваются сильнее, что уменьшает доступное разрешение (качество) теней в каскаде, поскольку часть его используется в области перекрытия. Не используйте этот параметр, если он вам не нужен (установите его на `0`).
+      </dd>
+      <dt id="csm-distribution">Distribution</dt>
+      <dd>
+        Увеличивает разрешение вблизи ближней плоскости отсечения. Работает только в перспективном режиме камеры.
+      </dd>
+      <dt id="csm-light-cascade-margin">Cascade Margin</dt>
+      <dd>
+        Устанавливайте большие значения, только если тени высоких или больших объектов выглядят усеченными.
+      </dd>
+      <dt id="csm-max-distance">Max Distance</dt>
+      <dd>
+        Дистанция, которая определяет зону видимости теней от камеры. За пределами этой зоны тени не будут отображаться. Чем больше значение, тем больше область видимости, однако тем хуже качество теней.
+      </dd>
     </dl>
 
 
     [anchor:per_object_settings]
 
-    <h2>Настройки для Каждого Объекта</h2>
+    <h2>Настройки объектов</h2>
 
     <p>
-        Вы также можете включать и выключать прием и отбрасывание тени для каждого объекта.
+      Вы также можете включать и выключать прием и отбрасывание тени для каждого объекта.
     </p>
 
-    <img src="files/shadows-max/object-properties.jpg" class="centered" style="max-width: 542px">
+    <img src="files/shadows-max/object-properties.jpg" style="max-width: 542px">
 
-    <img src="files/shadows-max/shadows-per-object-settings.jpg" class="centered" style="max-width: 400px">
+    <img src="files/shadows-max/shadows-per-object-settings.jpg" style="max-width: 400px">
 
     <dl>
-        <dt>Receive Shadows</dt>
-        <dd>Включить/выключить прием теней для этого объекта.</dd>
-        <dt id="cast-shadows">Cast Shadows</dt>
-        <dd>Включить/выключить отбрасывание тени для этого объекта.</dd>
+      <dt>Receive Shadows</dt>
+      <dd>Включить/выключить прием теней для этого объекта.</dd>
+      <dt id="cast-shadows">Cast Shadows</dt>
+      <dd>Включить/выключить отбрасывание тени для этого объекта.</dd>
     </dl>
 
-    <br/>
-
     <p>
-        Вы можете посмотреть следующее <a href="https://www.youtube.com/watch?v=ItsmBFa3lU0" target="_blank">видео</a>, объясняющее, как настроить тени в 3ds Max.
+      Вы можете посмотреть следующее <a href="https://www.youtube.com/watch?v=ItsmBFa3lU0" target="_blank">видео</a> (англ.), объясняющее, как настроить тени в «3дс Максе».
     </p>
 
     <p>
-        Дополнительную информацию и лучшие настройки смотрите в официальной <a href="https://knowledge.autodesk.com/support/3ds-max/learn-explore/caas/CloudHelp/cloudhelp/2018/ENU/3DSMax-Lighting-Shading/files/GUID-4BF878CD-5BD6-4F1A-A20B-8A6BD7D3703B-htm.html" target="_blank">документации</a> Autodesk.
+      Дополнительную информацию смотрите в официальной <a href="https://help.autodesk.com/view/3DSMAX/2025/ENU/?guid=GUID-4BF878CD-5BD6-4F1A-A20B-8A6BD7D3703B" target="_blank">документации</a> «Автодеск».
     </p>
 
 
     [anchor:troubleshooting]
 
-    <h2>Устранение Неполадок</h2>
+    <h2>Устранение неполадок</h2>
 
-    <h3>Тени в Verge3D и во вьюпорте Max выглядят по-разному</h3>
+    <h3>Тени в «Вердж3Д» и во вьюпорте «Макса» выглядят по-разному</h3>
+
     <ul>
-        <li>
-            Verge3D не использует те же методы рендеринга теней, которые могут использоваться в 3d-программах - в основном по соображениям производительности. Это может включать в себя трассировку лучей, различные эффекты не имеющие отношение к рендеру в реальном времени. Вот почему могут быть различия и тени не будут выглядеть точно так же, как во вьюпорте.
-        </li>
-        <li>
-            Verge3D стремится быть похожим на вьюпорт Max. Чтобы упростить настройку теней, следуйте инструкциям, описанным здесь: <a href="manual/ru/max/Shadows.html#prepare_viewport">Подготовка вьюпорта Max</a>.
-        </li>
+      <li>
+        «Вердж3Д» не использует те же методы рендеринга теней, которые могут использоваться в 3d-программах - в основном по соображениям производительности. Это может включать в себя трассировку лучей, различные эффекты не имеющие отношение к рендеру в реальном времени. Вот почему могут быть различия и тени не будут выглядеть точно так же, как во вьюпорте.
+      </li>
+      <li>
+        «Вердж3Д» стремится быть похожим на вьюпорт «3дс Макса». Чтобы упростить настройку теней, следуйте инструкциям, описанным здесь: <a href="manual/ru/max/Shadows.html#prepare_viewport">подготовка вьюпорта «3дс Макса»</a>.
+      </li>
     </ul>
 
-    <h3>Тени выглядят слишком Пикселизированными</h3>
+    <h3>Тени выглядят слишком пикселизированными</h3>
+
     <ul>
-        <li>
-            Используйте более высокие значения <a href="manual/ru/max/Shadows.html#size">Size</a>.
-        </li>
-        <li>
-            При использовании направленных источников света постарайтесь уменьшить параметр <a href="manual/ru/max/Shadows.html#falloff-field">Falloff/Field</a> настолько, насколько это возможно, если это соответствует вашей сцене.
-        </li>
-        <li>
-            Попробуйте замаскировать низкое разрешение мягкими полутенями. Такие методы фильтрации теней как
-            <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a>
-            и
-            <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a>
-            вместе с правильно настроенным 
-            <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>
-            может сделать пикселизацию менее заметной.
-        </li>
+      <li>
+        Используйте более высокие значения <a href="manual/ru/max/Shadows.html#size">Size</a>.
+      </li>
+      <li>
+        При использовании направленных источников света постарайтесь уменьшить параметр <a href="manual/ru/max/Shadows.html#falloff-field">Falloff/Field</a> настолько, насколько это возможно, если это соответствует вашей сцене.
+      </li>
+      <li>
+        Попробуйте замаскировать низкое разрешение мягкими полутенями. Такие методы фильтрации теней как <a href="manual/ru/max/Shadows.html#shadow_filtering_pcf">PCF</a> и <a href="manual/ru/max/Shadows.html#shadow_filtering_esm">ESM</a> вместе с правильно настроенным <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a> может сделать пикселизацию менее заметной.
+      </li>
     </ul>
 
-    <h3>Тени видны во вьюпорте Max, но не видны в Verge3D</h3>
+    <h3>Тени видны во вьюпорте «Макса», но не видны в «Вердж3Д»</h3>
+
     <ul>
-        <li>
-            Для включения теней в Verge3D в выпадающем списке типов <a href="manual/ru/max/Shadows.html#shadow-map-type">карт теней</a> необходимо установить значение *Shadow Map*.
-        </li>
-        <li>
-            Очень высокие значения <a href="manual/ru/max/Shadows.html#bias">Bias</a>, <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a> и иногда <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a> могут частично или полностью удалить тени. Если это так, попробуйте снизить эти значения.
-        </li>
+      <li>
+        Для включения теней в «Вердж3Д» в выпадающем списке типов <a href="manual/ru/max/Shadows.html#shadow-map-type">карт теней</a> необходимо установить значение *Shadow Map*.
+      </li>
+      <li>
+        Очень высокие значения <a href="manual/ru/max/Shadows.html#bias">Bias</a>, <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a> и иногда <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a> могут частично или полностью удалить тени. Если это так, попробуйте снизить эти значения.
+      </li>
     </ul>
 
     <h3>Тени имеют артефакты</h3>
-    <img src="files/shadows-blender/self-shadow-artefacts.jpg" class="centered" style="max-width: 485px">
+
+    <img src="files/shadows-blender/self-shadow-artifacts.jpg" style="max-width: 485px">
+
     <ul>
-        <li>
-            Такие артефакты называются "теневым акнэ" или "самотеневыми артефактами". Увеличьте значения <a href="manual/ru/max/Shadows.html#bias">Bias</a> и/или <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a>, чтобы избавиться от них.
-        </li>
+      <li>
+        Такие артефакты называются "теневым акнэ" или "самотеневыми артефактами". Увеличьте значения <a href="manual/ru/max/Shadows.html#bias">Bias</a> и/или <a href="manual/ru/max/Shadows.html#shadow-bias">Shadow Bias</a>, чтобы избавиться от них.
+      </li>
     </ul>
 
     <h3>У теней нет полутени/полутень слишком мала</h3>
+
     <ul>
-        <li>
-            При использовании <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a> теней нет контроля над полутенью. Вместо них выберите <a href="manual/ru/max/Shadows.html#shadow_filtering">shadow filtering types</a>. 
-        </li>
-        <li>
-            Увеличьте <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
-        </li>
+      <li>
+        При использовании <a href="manual/ru/max/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/max/Shadows.html#shadow_filtering_bilinear">Bilinear</a> теней нет контроля над полутенью. Вместо них выберите <a href="manual/ru/max/Shadows.html#shadow_filtering">shadow filtering types</a>.
+      </li>
+      <li>
+        Увеличьте <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
+      </li>
     </ul>
 
     <h3>Тени от точечных и направленных светильников обрезаются</h3>
-    <img src="files/shadows-max/shadow-artefacts-far-clipping.jpg" class="centered" style="max-width: 500px">
+
+    <img src="files/shadows-max/shadow-artifacts-far-clipping.jpg" style="max-width: 500px">
     <ul>
-        <li>
-            Увеличьте значение<a href="manual/ru/max/Shadows.html#target-distance">Target Distance</a>.
-        </li>
+      <li>
+        Увеличьте значение<a href="manual/ru/max/Shadows.html#target-distance">Target Distance</a>.
+      </li>
     </ul>
 
     <h3>Тени ESM выглядят блеклыми</h3>
-    <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" class="centered" style="max-width: 500px">
+
+    <img src="files/shadows-blender/esm-artifacts-light-leaking.jpg" style="max-width: 500px">
     <ul>
-        <li>
-            Увеличьте значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Увеличьте значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
-        </li>
+      <li>
+        Увеличьте значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Увеличьте значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
     </ul>
 
     <h3>ESM тени выглядят слишком резкими или не имеют полутени</h3>
-    <img src="files/shadows-blender/esm-sharp-shadows.jpg" class="centered" style="max-width: 500px">
+
+    <img src="files/shadows-blender/esm-sharp-shadows.jpg" style="max-width: 500px">
+
     <ul>
-        <li>
-            Увеличьте <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
-        </li>
-        <li>
-            Уменьшите значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Уменьшите значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
-        </li>
-        <li>
-            Такие артефакты могут появляться на краю принимающего объекта.
-            <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" class="centered" style="max-width: 500px">
-            Это один из недостатков ESM. Решение состоит в том, чтобы избегать таких ситуаций.
-        </li>
-        <li>
-            Если объект, принимающий тени, сам не отбрасывает тени (например, если они отключены через <a href="manual/ru/max/Shadows.html#cast-shadows">Cast Shadows</a>), то тени могут вообще не иметь полутени, независимо от того, насколько велик <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>. Решением является включение отбрасывания теней на принимающем объекте или использование дополнительного объекта, отбрасывающего тени, в качестве подложки для исправления полутени. 
-        </li>
+      <li>
+        Увеличьте <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>.
+      </li>
+      <li>
+        Уменьшите значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Уменьшите значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
+      <li>
+        Такие артефакты могут появляться на краю принимающего объекта.
+
+        <img src="files/shadows-blender/esm-artifacts-receiver-edge.jpg" style="display: block; max-width: 500px">
+
+        Это один из недостатков ESM. Решение состоит в том, чтобы избегать таких ситуаций.
+      </li>
+      <li>
+        Если объект, принимающий тени, сам не отбрасывает тени (например, если они отключены через <a href="manual/ru/max/Shadows.html#cast-shadows">Cast Shadows</a>), то тени могут вообще не иметь полутени, независимо от того, насколько велик <a href="manual/ru/max/Shadows.html#sample-range">Sample Range</a>. Решением является включение отбрасывания теней на принимающем объекте или использование дополнительного объекта, отбрасывающего тени, в качестве подложки для исправления полутени.
+      </li>
     </ul>
 
-    <h3>Артефакты ESM Shadows </h3>
-    <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" class="centered" style="max-width: 500px">
+    <h3>Артефакты ESM-теней</h3>
+
+    <img src="files/shadows-blender/esm-artifacts-self-shadow.jpg" style="max-width: 500px">
+
     <ul>
-        <li>
-            Уменьшить значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Уменьшить значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
-        </li>
+      <li>
+        Уменьшить значение <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Уменьшить значение <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
+    </ul>
+
+    <h3>Каскадные карты теней, тени обрезаются под определенным углом</h3>
+
+    <img src="files/shadows-blender/csm-artifacts-clipped-shadow.jpg" style="max-width: 500px">
+
+    <ul>
+      <li>
+        Увеличьте <a href="manual/ru/max/Shadows.html#csm-light-cascade-margin">Cascade Margin</a>.
+      </li>
+    </ul>
+
+    <h3>Каскадные карты теней и тени ESM, тени выглядят блеклыми на пересечении каскадов</h3>
+
+    <img src="files/shadows-blender/esm-csm-artifacts-light-leaking.jpg" style="max-width: 500px">
+
+    <ul>
+      <li>
+        Увеличьте <a href="manual/ru/max/Shadows.html#csm-light-cascade-margin">Cascade Margin</a>.
+      </li>
+      <li>
+        Увеличьте <a href="manual/ru/max/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Увеличьте <a href="manual/ru/max/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
     </ul>
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

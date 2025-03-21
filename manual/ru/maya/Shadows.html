@@ -1,70 +1,76 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D for Maya: Shadows - Soft8Soft</title>
+    <title>Вердж3Д длф Майи: Тени — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Узнайте, как настроить красивые тени в Verge3D для Maya."/>
-    <base href="../../../" />
+    <meta name="description" content="Узнайте, как настроить красивые тени в Вердж3Д для Майи.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Тени / Maya</h1>
+    <h1>Тени / Майя</h1>
 
     <p>
-        Здесь описаны настройки и лучшие методы настройки красивых теней в реальном времени в Verge3D для Maya.    </p>
+      Здесь описаны настройки и лучшие методы настройки красивых теней в реальном времени в «Вердж3Д для Майи».
+    </p>
 
     [contents]
 
-    <img src="files/shadows-maya/shadows-example.jpg" class="centered with-caption" style="max-width: 577px">
+    <img src="files/shadows-maya/shadows-example.jpg" class="with-caption" style="max-width: 577px">
 
     <p class="note">
-        Verge3D поддерживает тени для следующих источников освещения: Directional, Point, Spot, и Area.
+      «Вердж3Д» поддерживает тени для следующих источников освещения: Directional, Point, Spot, и Area.
     </p>
 
 
     [anchor:prepare_viewport]
 
-    <h2>Подготовка вьюпорта Maya</h2>
+    <h2>Подготовка вьюпорта «Майи»</h2>
 
     <p>
-        Чтобы облегчить настройку теней, рекомендуется настроить параметры вьюпорта Maya как описано ниже.
+      Чтобы облегчить настройку теней, рекомендуется настроить параметры вьюпорта «Майи» как описано ниже.
     </p>
 
     <p>
-        Включите следующие параметры вьюпорта:    </p>
+      Включите следующие параметры вьюпорта:
+    </p>
 
     <ul>
       <li>
-        *Lighting* -> *Use All Lights*
+        *Lighting* → *Use All Lights*
       </li>
       <li>
-        *Lighting* -> *Shadows*
+        *Lighting* → *Shadows*
       </li>
     </ul>
 
-    <img src="files/shadows-maya/lighting-menu.jpg" class="centered">
+    <img src="files/shadows-maya/lighting-menu.jpg">
 
     <p>
-        Убедитесь, что на сцене расположен хотя бы один источник освещения.
-     </p>
+      Убедитесь, что на сцене расположен хотя бы один источник освещения.
+    </p>
 
 
     [anchor:shadow_filtering]
 
-    <h2>Типы Фильтрации Теней</h2>
+    <h2>Типы фильтрации теней</h2>
 
-    <p>Тени в Verge3D выглядят по-разному в зависимости от того, какой алгоритм фильтрации карты теней используется. Свойство *Shadow Filtering*, расположенное на панели *Verge3D Export Settings*, используется для выбора алгоритма.</p>
+    <p>
+      Тени в «Вердж3Д» выглядят по-разному в зависимости от того, какой алгоритм фильтрации карты теней используется. Свойство *Shadow Filtering*, расположенное на панели *Verge3D Export Settings*, используется для выбора алгоритма.
+    </p>
 
-    <img src="files/shadows-maya/shadow-filtering-settings.jpg" class="centered" style="max-width: 413px">
+    <img src="files/shadows-maya/shadow-filtering-settings.jpg" style="max-width: 413px">
 
 
     [anchor:shadow_filtering_basic]
 
     <h3>Basic</h3>
 
-    <p>Отключить фильтрацию, рендерить карту теней такой, какая она есть. Это самый быстрый метод рендеринга теней.</p>
+    <p>
+      Отключить фильтрацию, рендерить карту теней такой, какая она есть. Это самый быстрый метод рендеринга теней.
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-basic.jpg">
 
@@ -73,34 +79,19 @@
 
     <h3>Bilinear</h3>
 
-    <p>Используйте билинейную фильтрацию для сглаживания соседних пикселей карты теней.</p>
+    <p>
+      Используйте билинейную фильтрацию для сглаживания соседних пикселей карты теней.
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-bilinear.jpg">
 
 
     [anchor:shadow_filtering_pcf]
 
-    <h3>PCF</h3>
+    <h3>PCF — фильтрация процентного затенения</h3>
 
-    <p>Расшифровывается как Percentage Closer Filtering. Использует множественный поиск карты теней для сглаженного рендеринга теней. Среднее качество и производительность.</p>
-
-    <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
-
-
-    [anchor:shadow_filtering_pcf_bilinear]
-
-    <h3>PCF (Bilinear)</h3>
-
-    <p>Аналогичен PCF, но использует билинейную интерполяцию для каждого поиска карты теней. Это дает сглаженные тени за счет большей вычислительной мощности.</p>
-
-    <img src="files/shadows-blender/shadow-filtering-pcf-bilinear.jpg">
-
-
-    [anchor:shadow_filtering_pcf_poisson_disk]
-
-    <h3>PCF (Poisson Disk)</h3>
-
-    <p>Использует псевдослучайный <em>Poisson Disk Sampling</em> для устранения пикселизации для теней PCF. Эта настройка была выбрана по умолчанию, поскольку она наиболее соответствует тому, что вы видите во вьюпорте 3D-редактора. Производительность сравнима с алгоритмом *PCF (Bilinear)* или даже лучше. 
+    <p>
+      Расшифровывается как Percentage Closer Filtering (фильтрация процентного затенения). Использует множественный поиск карты теней для сглаженного рендеринга. Среднее качество и производительность. Алгоритм использует псевдослучайный семплинг с использованием диска Пуассона (<em>Poisson Disk Sampling</em>) для устранения пикселизации. Эта настройка была выбрана по умолчанию, поскольку она наиболее соответствует тому, что вы видите во вьюпорте 3Д-редактора.
     </p>
 
     <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
@@ -108,11 +99,13 @@
 
     [anchor:shadow_filtering_esm]
 
-    <h3>ESM</h3>
+    <h3>ESM — экспоненциальные карты теней</h3>
 
     <p>
-        Расшифровывается как Exponential Shadow Maps. Этот режим позволяет получить наиболее плавные тени, но возможны утечки света. Используйте настройку <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a> для света, чтобы удалить возможные артефакты. Производительность сравнима с алгоритмом *PCF (Bilinear)*. Тени ESM могут быть особенно сложны в настройке, поэтому смотрите раздел 
-        <a href="manual/ru/maya/Shadows.html#troubleshooting">Устранение неполадок</a> посвященный проблемам, связанным с ESM.
+      Расшифровывается как Exponential Shadow Maps (экспоненциальные карты теней). Этот режим позволяет получить наиболее плавные тени, но возможно возникновение артефактов вида "утечки света". Используйте настройку <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a>, чтобы убрать эти артефакты. Производительность алгоритма сравнима с алгоритмом *PCF*.
+    </p>
+    <p>
+      Тени ESM могут вызывать сложности в настройке, читайте раздел <a href="manual/ru/maya/Shadows.html#troubleshooting">устранение неполадок</a> прежде чем приступить к настройке теней данного типа.
     </p>
 
     <img src="files/shadows-blender/shadow-filtering-esm.jpg">
@@ -121,225 +114,245 @@
     [anchor:shadow_filtering_choose]
 
     <h3>Какой тип фильтрации выбрать?</h3>
+
     <p>
-        Рекомендуем попробовать использовать тени <a href="manual/ru/maya/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson Disk)</a> ,выставленные по умолчанию, потому что они обеспечивают хорошее качество и производительность. Если вам вам нужны более быстрые, но менее качественные тени, то попробуйте <a href="manual/ru/maya/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Для большего качества стоит выбрать <a href="manual/ru/maya/Shadows.html#shadow_filtering_esm">ESM</a> мягкие тени, но недостатком является то, что они могут быть сложными для настройки (исправление артефактов) для конкретной сцены. 
+      Рекомендуем попробовать использовать тени <a href="manual/ru/maya/Shadows.html#shadow_filtering_pcf">PCF</a>, выставленные по умолчанию, потому что они обеспечивают хорошее качество и производительность. Если вам вам нужны более быстрые, но менее качественные тени, то попробуйте <a href="manual/ru/maya/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Для большего качества стоит выбрать <a href="manual/ru/maya/Shadows.html#shadow_filtering_esm">ESM</a>-тени, но их недостатком является то, что они могут вызывать сложности в настройке (иметь артефакты) для конкретной сцены.
     </p>
 
 
     [anchor:global_settings]
 
-    <h2>Глобальные Настройки</h2>
+    <h2>Глобальные настройки</h2>
 
     <p>
-        Глобальные настройки для теней находятся в меню *Verge3D Export Settings*.
+      Глобальные настройки для теней находятся в меню *Verge3D Export Settings*.
     </p>
 
-    <img src="files/shadows-maya/shadow-settings-global.jpg" class="centered" style="max-width: 431px">
+    <img src="files/shadows-maya/shadow-settings-global.jpg" style="max-width: 431px">
 
     <dl>
-        <dt>Shadow Filtering</dt>
-        <dd>Алгоритм фильтрации карты теней. Смотрите <a href="manual/ru/maya/Shadows.html#shadow_filtering">выше</a>.</dd>
+      <dt>Shadow Filtering</dt>
+      <dd>Алгоритм фильтрации карты теней. Смотрите <a href="manual/ru/maya/Shadows.html#shadow_filtering">выше</a>.</dd>
 
-        <dt id="esm-distance-scale">ESM Distance Scale</dt>
-        <dd>
-            Коэффициент масштабирования теней ESM. Поскольку алгоритм фильтрации ESM использует
-            абсолютные значения расстояния, уменьшите значение масштаба, если вы работаете
-            над сценой, которая намного больше, чем куб по умолчанию, и увеличьте значение
-            если ваша сцена намного меньше. Значение по умолчанию равно 2,5. Работает только для теней <a href="manual/ru/maya/Shadows.html#shadow_filtering_esm">ESM</a>.
-        </dd>
+      <dt id="esm-distance-scale">ESM Distance Scale</dt>
+      <dd>
+        Коэффициент масштабирования теней ESM. Поскольку алгоритм фильтрации ESM использует абсолютные значения расстояния, уменьшите значение масштаба, если вы работаете над сценой, которая намного больше, чем куб по умолчанию, и увеличьте значение если ваша сцена намного меньше. Значение по умолчанию равно 2,5. Работает только для теней <a href="manual/ru/maya/Shadows.html#shadow_filtering_esm">ESM</a>.
+      </dd>
     </dl>
 
 
     [anchor:per_light_settings]
 
-    <h2>Per-Light Settings</h2>
+    <h2>Настройки источников освещения</h2>
 
     <p>
-        Тени можно включать/выключать для каждого отдельного источника освещения с помощью встроенных панелей Maya. Поддерживаемые настройки теней выделены зеленым цветом.
+      Тени можно включать/выключать для каждого отдельного источника освещения с помощью встроенных панелей «Майи». Поддерживаемые настройки теней выделены зеленым цветом.
     </p>
 
-    <img src="files/shadows-maya/shadow-settings-perlight.jpg" class="centered with-caption" style="max-width: 459px">
+    <img src="files/shadows-maya/shadow-settings-perlight.jpg" class="with-caption" style="max-width: 616px">
 
     <dl>
-        <dt id="use-depth-map-shadows">Use Depth Map Shadows</dt>
-        <dd>
-            должен быть включен, чтобы тени отображались в Verge3D.
-        </dd>
-        <dt id="resolution">Resolution</dt>
-        <dd>
-            управляет разрешением текстуры тени (выбор между скоростью и
-            качеством).
-        </dd>
-        <dt id="filter-size">Filter Size</dt>
-        <dd>
-            управляет размытостью теней.
-        </dd>
-        <dt id="bias">Bias</dt>
-        <dd>
-            можно настраивать до тех пор, пока вы не избавитесь от артефактов самозатенения и/или
-            эффекта peter-panning.
-        </dd>
-        <dt id="esm-bias">ESM Bias</dt>
-        <dd>
-            управляет смещением для уменьшения <em>просветов</em> ESM.
-            Работает только с
-            <a href="manual/ru/maya/Shadows.html#shadow_filtering_esm">ESM</a>
-            тенями.
-        </dd>
+      <dt id="use-depth-map-shadows">Use Depth Map Shadows</dt>
+      <dd>
+        должен Быть включен, чтобы тени отображались в «Вердж3Д».
+      </dd>
+      <dt id="resolution">Resolution</dt>
+      <dd>
+        Управляет разрешением текстуры тени (выбор между скоростью и качеством).
+      </dd>
+      <dt id="filter-size">Filter Size</dt>
+      <dd>
+        Управляет размытостью теней.
+      </dd>
+      <dt id="bias">Bias</dt>
+      <dd>
+        Можно настраивать до тех пор, пока вы не избавитесь от артефактов самозатенения и/или эффекта peter-panning.
+      </dd>
+      <dt id="esm-bias">ESM Bias</dt>
+      <dd>
+        Управляет смещением для уменьшения <em>просветов</em> ESM. Работает только с <a href="manual/ru/maya/Shadows.html#shadow_filtering_esm">ESM</a> тенями.
+      </dd>
+      <dt id="csm-count">Count</dt>
+      <dd>
+        Количество каскадов. Большее количество каскадов обеспечивает более высокое качество теней, но снижает частоту кадров.
+      </dd>
+      <dt id="csm-fade">Fade</dt>
+      <dd>
+        Если больше 0, то размер каждого каскада (интервал расстояний) увеличивается так, чтобы соседние каскады перекрывались.Таким образом переходы между каскадами становятся плавными. Большие значения означают, что размер области перекрытия между каскадами увеличиваются сильнее, что уменьшает доступное разрешение (качество) теней в каскаде, поскольку часть его используется в области перекрытия. Не используйте этот параметр, если он вам не нужен (установите его на 0).
+      </dd>
+      <dt id="csm-distribution">Distribution</dt>
+      <dd>
+        Увеличивает разрешение в ближней плоскости отсечения. Работает только в режиме просмотра перспективы.
+      </dd>
+      <dt id="csm-light-cascade-margin">Cascade Margin</dt>
+      <dd>
+        Устанавливайте большие значения, только если тени высоких или больших объектов выглядят усеченными.
+      </dd>
     </dl>
 
 
     [anchor:per_object_settings]
 
-    <h2>Настройки для каждого объекта</h2>
+    <h2>Настройки объектов</h2>
 
     <p>
-        Вы также можете включать и выключать прием и отбрасывание тени для каждого объекта.
+      Вы также можете включать и выключать прием и отбрасывание тени для каждого объекта.
     </p>
 
-    <img src="files/shadows-maya/shadow-settings-perobject.jpg" class="centered" style="max-width: 422px">
+    <img src="files/shadows-maya/shadow-settings-perobject.jpg" style="max-width: 422px">
 
     <dl>
-        <dt id="casts-shadows">Casts Shadows</dt>
-        <dd>включить/выключить отбрасывание тени для этого объекта.</dd>
-        <dt>Receive Shadows</dt>
-        <dd>включить/выключить прием теней для этого объекта.</dd>
+      <dt id="casts-shadows">Casts Shadows</dt>
+      <dd>Включить/выключить отбрасывание тени для этого объекта.</dd>
+      <dt>Receive Shadows</dt>
+      <dd>Включить/выключить прием теней для этого объекта.</dd>
     </dl>
 
-    <br/>
-
     <p>
-      Смотрите также официальную <a href="https://help.autodesk.com/view/MAYAUL/2020/ENU/?guid=GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771" target="_blank">документацию Autodesk</a> для получения дополнительной информации по использованию теней в Maya.
+      Смотрите также официальную <a href="https://help.autodesk.com/view/MAYAUL/2023/ENU/?guid=GUID-E4FE3CCF-EB03-4C4C-85D4-87792109B771" target="_blank">документацию Autodesk</a> для получения дополнительной информации по использованию теней в «Майе».
     </p>
 
 
     [anchor:troubleshooting]
 
-    <h2>Устранение Неполадок</h2>
+    <h2>Устранение неполадок</h2>
 
-    <h3>Тени в Verge3D и во вьюпорте Maya выглядят по-разному</h3>
+    <h3>Тени в «Вердж3Д» и во вьюпорте «Майи» выглядят по-разному</h3>
+
     <ul>
-        <li>
-            Verge3D не использует те же методы рендеринга теней.
-            техники, которые могут использоваться в 3d-программах - в основном по соображениям производительности.
-            Это может включать в себя трассировку лучей, различные эффекты постобработки. Вот почему могут быть различия и
-            тени не будут выглядеть точно так же, как во вьюпорте.
-        </li>
-        <li>
-            Verge3D стремится к сходству с вьюпортом Maya. Для того чтобы облегчить
-            настройку теней, следуйте инструкциям, описанным здесь:
-            <a href="manual/ru/maya/Shadows.html#prepare_viewport">Подготовка вьюпорта Maya</a>.
-        </li>
+      <li>
+        «Вердж3Д» не использует те же методы рендеринга теней, которые могут использоваться в 3d-программах - в основном по соображениям производительности.  Это может включать в себя трассировку лучей, различные эффекты постобработки. Вот почему могут быть различия и тени не будут выглядеть точно так же, как во вьюпорте.
+      </li>
+      <li>
+        «Вердж3Д» стремится к сходству с вьюпортом «Майи». Для того чтобы облегчить настройку теней, следуйте инструкциям, описанным здесь: <a href="manual/ru/maya/Shadows.html#prepare_viewport">Подготовка вьюпорта «Майи»</a>.
+      </li>
     </ul>
 
     <h3>Тени выглядят слишком пиксельными</h3>
+
     <ul>
-        <li>
-            Используйте более высокое <a href="manual/ru/maya/Shadows.html#resolution">Разрешение</a>.
-        </li>
-        <li>
-            Попробуйте замаскировать низкое разрешение мягкими полутенями. Такие техники фильтрации теней как
-            <a href="manual/ru/maya/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a>
-            и
-            <a href="manual/ru/maya/Shadows.html#shadow_filtering_esm">ESM</a>
-            вместе с правильно отрегулированным
-            <a href="manual/ru/maya/Shadows.html#filter-size">масштабом фильтра</a>
-            могут сделать пикселизацию менее заметной.
-        </li>
+      <li>
+        Используйте более высокое <a href="manual/ru/maya/Shadows.html#resolution">Разрешение</a>.
+      </li>
+      <li>
+        Попробуйте замаскировать низкое разрешение мягкими полутенями. Такие техники фильтрации теней как <a href="manual/ru/maya/Shadows.html#shadow_filtering_pcf_poisson_disk">PCF (Poisson)</a> и <a href="manual/ru/maya/Shadows.html#shadow_filtering_esm">ESM</a> вместе с правильно отрегулированным <a href="manual/ru/maya/Shadows.html#filter-size">масштабом фильтра</a> могут сделать пикселизацию менее заметной.
+      </li>
     </ul>
 
-    <h3>Тени отображаются во вьюпорте Maya, но не видны в Verge3D</h3>
+    <h3>Тени отображаются во вьюпорте «Майи», но не видны в «Вердж3Д»</h3>
+
     <ul>
-        <li>
-            Для того чтобы включить тени в Verge3D, опция
-            <a href="manual/ru/maya/Shadows.html#use-depth-map-shadows">Use Depth Map Shadows</a>
-            должна быть включена.
-        </li>
-        <li>
-            Очень высокий <a href="manual/ru/maya/Shadows.html#bias">Bias</a>
-            может частично или полностью убирать тени. Если это так, попробуйте
-            уменьшить его значение.
-        </li>
+      <li>
+        Для того чтобы включить тени в «Вердж3Д», опция <a href="manual/ru/maya/Shadows.html#use-depth-map-shadows">Use Depth Map Shadows</a> должна быть включена.
+      </li>
+      <li>
+        Очень высокий <a href="manual/ru/maya/Shadows.html#bias">Bias</a> может частично или полностью убирать тени. Если это так, попробуйте уменьшить его значение.
+      </li>
     </ul>
 
     <h3>Тени с артефактами</h3>
-    <img src="files/shadows-blender/self-shadow-artefacts.jpg" class="centered" style="max-width: 485px">
+
+    <img src="files/shadows-blender/self-shadow-artifacts.jpg" style="max-width: 485px">
+
     <ul>
-        <li>
-            Такие артефакты называют "теневыми акне" или "артефактами самозатенения".
-            Увеличьте значение <a href="manual/ru/maya/Shadows.html#bias">Bias</a>
-            чтобы избавиться от них.
-        </li>
+      <li>
+        Такие артефакты называют "теневыми акне" или "артефактами самозатенения".  Увеличьте значение <a href="manual/ru/maya/Shadows.html#bias">Bias</a> чтобы избавиться от них.
+      </li>
     </ul>
 
     <h3>У тени отсутствует либо малая полутень</h3>
+
     <ul>
-        <li>
-            В случае <a href="manual/ru/maya/Shadows.html#shadow_filtering_basic">Basic</a>
-            или <a href="manual/ru/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a>
-            фильтрации управление полутенью отсутствует. Вместо этого выберите другой
-            <a href="manual/ru/maya/Shadows.html#shadow_filtering">тип фильтрации теней</a>
-            .
-        </li>
-        <li>
-            Увеличьте <a href="manual/ru/maya/Shadows.html#filter-size">Filter Size</a>.
-        </li>
+      <li>
+        В случае <a href="manual/ru/maya/Shadows.html#shadow_filtering_basic">Basic</a> или <a href="manual/ru/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a> фильтрации управление полутенью отсутствует. Вместо этого выберите другой <a href="manual/ru/maya/Shadows.html#shadow_filtering">тип фильтрации теней</a>.
+      </li>
+      <li>
+        Увеличьте <a href="manual/ru/maya/Shadows.html#filter-size">Filter Size</a>.
+      </li>
     </ul>
 
     <h3>Тени ESM выглядят блеклыми</h3>
-    <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" class="centered" style="max-width: 500px">
+
+    <img src="files/shadows-blender/esm-artifacts-light-leaking.jpg" style="max-width: 500px">
+
     <ul>
-        <li>
-            Увеличьте параметр <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Увеличьте значение <a href="manual/ru/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
-        </li>
+      <li>
+        Увеличьте параметр <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Увеличьте значение <a href="manual/ru/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
     </ul>
 
     <h3>Тени ESM выглядят слишком резкими или не имеют полутени</h3>
-    <img src="files/shadows-blender/esm-sharp-shadows.jpg" class="centered" style="max-width: 500px">
+
+    <img src="files/shadows-blender/esm-sharp-shadows.jpg" style="max-width: 500px">
+
     <ul>
-        <li>
-            Увеличьте <a href="manual/ru/maya/Shadows.html#filter-size">масштаб фильтра</a>.
-        </li>
-        <li>
-            Уменьшите параметр <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Уменьшите параметр <a href="manual/ru/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
-        </li>
-        <li>
-            Такие артефакты могут появляться на краю принимающего объекта.
-            <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" class="centered" style="max-width: 500px">
-            Это один из недостатков ESM. Решение состоит в том, чтобы избегать таких ситуаций.
-        </li>
-        <li>
-            Если объект, получающий тени, сам не отбрасывает тени 
-            (например, если они отключены через <a href="manual/ru/maya/Shadows.html#casts-shadows">Casts shadows</a>),
-            то тени могут вообще не иметь полутени, независимо от величины
-            <a href="manual/ru/maya/Shadows.html#filter-size">Filter Size</a>. 
-            Решение заключается в том, чтобы включить отбрасывание тени на принимающем
-            объекте или использовать дополнительный объект, отбрасывающий тень, в качестве подложки
-            для устранения полутени.
-        </li>
+      <li>
+        Увеличьте <a href="manual/ru/maya/Shadows.html#filter-size">масштаб фильтра</a>.
+      </li>
+      <li>
+        Уменьшите параметр <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Уменьшите параметр <a href="manual/ru/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
+      <li>
+        Такие артефакты могут появляться на краю принимающего объекта.
+
+        <img src="files/shadows-blender/esm-artifacts-receiver-edge.jpg" style="display: block; max-width: 500px">
+
+        Это один из недостатков ESM. Решение состоит в том, чтобы избегать таких ситуаций.
+      </li>
+      <li>
+        Если объект, получающий тени, сам не отбрасывает тени (например, если они отключены через <a href="manual/ru/maya/Shadows.html#casts-shadows">Casts shadows</a>), то тени могут вообще не иметь полутени, независимо от величины <a href="manual/ru/maya/Shadows.html#filter-size">Filter Size</a>.  Решение заключается в том, чтобы включить отбрасывание тени на принимающем объекте или использовать дополнительный объект, отбрасывающий тень, в качестве подложки для устранения полутени.
+      </li>
     </ul>
 
-    <h3>ESM Тени с артефактами</h3>
-    <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" class="centered" style="max-width: 500px">
+    <h3>ESM тени с артефактами</h3>
+
+    <img src="files/shadows-blender/esm-artifacts-self-shadow.jpg" style="max-width: 500px">
+
     <ul>
-        <li>
-            Уменьшите значение <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a>.
-        </li>
-        <li>
-            Уменьшите параметр <a href="manual/ru/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
-        </li>
+      <li>
+        Уменьшите значение <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Уменьшите параметр <a href="manual/ru/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
+    </ul>
+
+    <h3>Каскадные карты теней, тени обрезаются под определенным углом</h3>
+
+    <img src="files/shadows-blender/csm-artifacts-clipped-shadow.jpg" style="max-width: 500px">
+
+    <ul>
+      <li>
+        Увеличьте <a href="manual/ru/maya/Shadows.html#csm-light-cascade-margin">Cascade Margin</a>.
+      </li>
+    </ul>
+
+    <h3>Каскадные карты теней и тени ESM, тени выглядят блеклыми на пересечении каскадов</h3>
+
+    <img src="files/shadows-blender/esm-csm-artifacts-light-leaking.jpg" style="max-width: 500px">
+
+    <ul>
+      <li>
+        Увеличьте <a href="manual/ru/maya/Shadows.html#csm-light-cascade-margin">Cascade Margin</a>.
+      </li>
+      <li>
+        Увеличьте <a href="manual/ru/maya/Shadows.html#esm-bias">ESM Bias</a>.
+      </li>
+      <li>
+        Увеличьте <a href="manual/ru/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a>.
+      </li>
     </ul>
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

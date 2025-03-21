@@ -2,16 +2,17 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">
-    <base href="../../../" />
+    <base href="../../../">
+    <meta name="description" content="Как использовать матричные преобразования в Вердж3Д.">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
     <h1>Матричные преобразования</h1>
 
     <p>
-      Verge3D использует *матрицы* для кодирования 3D-трансформаций (положений), поворотов и масштабирования. Каждый экземпляр [page:Object3D] имеет матрицу [page:Object3D.matrix matrix], которая хранит положение, ротацию и масштаб этого объекта. На этой странице описано, как обновить трансформацию объекта.
+      «Вердж3Д» использует <em>матрицы</em> для кодирования 3Д-трансформаций (положений), поворотов и масштабирования. Каждый экземпляр [page:Object3D] имеет матрицу [page:Object3D.matrix matrix], которая хранит положение, ротацию и масштаб этого объекта. На этой странице описано, как обновлять трансформацию объектов.
     </p>
 
     <h2>Свойства и matrixAutoUpdate</h2>
@@ -19,28 +20,28 @@
     Существует два способа обновления трансформации объекта:
     <ol>
       <li>
-        Изменить свойства объекта *position*, *quaternion* и *scale*, и позволить Verge3D пересчитать
+        Изменить свойства объекта *position*, *quaternion* и *scale*, и позволить «Вердж3Д» пересчитать
         матрицу объекта из этих свойств:
         <code>
-        object.position.copy(start_position);
-        object.quaternion.copy(quaternion);
+object.position.copy(start_position);
+object.quaternion.copy(quaternion);
         </code>
         По умолчанию свойство *matrixAutoUpdate* имеет значение true, и матрица будет автоматически пересчитываться.
         Если объект статичен или вы хотите вручную контролировать, когда происходит пересчет, для лучшей производительности установите свойство false:
         <code>
-        object.matrixAutoUpdate = false;
+object.matrixAutoUpdate = false;
         </code>
         А после изменения каких-либо свойств вручную обновите матрицу:
         <code>
-        object.updateMatrix();
+object.updateMatrix();
         </code>
       </li>
       <li>
         Модифицировать матрицу объекта напрямую. Класс [page:Matrix4] имеет различные методы для модификации матрицы:
         <code>
-        object.matrix.setRotationFromQuaternion(quaternion);
-        object.matrix.setPosition(start_position);
-        object.matrixAutoUpdate = false;
+object.matrix.setRotationFromQuaternion(quaternion);
+object.matrix.setPosition(start_position);
+object.matrixAutoUpdate = false;
         </code>
         Обратите внимание, что *matrixAutoUpdate* <em>должен</em> иметь значение *false* в этом случае, и вы должны убедиться, что <em>не</em> обращаетесь к *updateMatrix*. Обращение к *updateMatrix* перечеркнет ручные изменения, внесенные в матрицу, пересчитав матрицу из *position*, *scale* и так далее.
       </li>
@@ -54,9 +55,9 @@
       Когда преобразование родительского или дочернего объекта изменяется, вы можете запросить обновление [page:Object3D.matrixWorld matrixWorld] дочернего объекта, вызвав [page:Object3D.updateMatrixWorld updateMatrixWorld]().
     </p>
 
-    <h2>Вращение и Кватернион</h2>
+    <h2>Вращение и кватернионы</h2>
     <p>
-      Verge3D предоставляет два способа трехмерных вращений: [page:Euler Euler angles] и [page:Quaternion Quaternions], а также методы преобразования между ними. Эйлеровы углы подвержены проблеме, называемой "gimbal lock", когда определенные конфигурации могут потерять степень свободы (не позволяя объекту вращаться вокруг одной оси). По этой причине вращение объекта <em>всегда</em> хранится в [page:Object3D.quaternion quaternion].
+      «Вердж3Д» предоставляет два способа трехмерных вращений: [page:Euler углы Эйлера] и [page:Quaternion кватернионы], а также методы преобразования между ними. Эйлеровы углы подвержены проблеме, называемой "gimbal lock", когда определенные конфигурации могут потерять степень свободы (не позволяя объекту вращаться вокруг одной оси). По этой причине вращение объекта <em>всегда</em> хранится в [page:Object3D.quaternion кватернионах].
     </p>
     <p>
       Предыдущие версии библиотеки включали свойство *useQuaternion*, которое имело значение false и заставляло [page:Object3D.matrix matrix] объекта вычисляться на основе эйлерова угла. Эта практика устарела - вместо нее следует использовать метод [page:Object3D.setRotationFromEuler setRotationFromEuler], который обновляет кватернион.

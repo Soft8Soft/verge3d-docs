@@ -1,67 +1,91 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <title>Константы WebGL-рендерера — Софт Эйт Софт</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Список констант WebGL-рендерера, используемых в Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>Константы WebGLRenderer</h1>
 
-    <h2>Режимы отбора граней</h2>
+    <p>
+      Эти константы определяют параметры WebGL-рендерера.
+    </p>
+
+    <h2>Режимы отбраковки граней</h2>
+
     <code>
     v3d.CullFaceNone
     v3d.CullFaceBack
     v3d.CullFaceFront
     v3d.CullFaceFrontBack
     </code>
-    <p>
-    [page:constant CullFaceNone] отключает отбор граней.<br />
-    [page:constant CullFaceBack] включает отбор задних граней (по умолчанию).<br />
-    [page:constant CullFaceFront] включает отбор передних граней.<br />
-    [page:constant CullFaceFrontBack] отбирает как передние, так и задние грани.
-    </p>
 
-    <h2>Типы Теней</h2>
+    <ul>
+      <li>[page:constant CullFaceNone] отключает отбраковку граней.</li>
+      <li>[page:constant CullFaceBack] включает отбраковку задних граней (по умолчанию).</li>
+      <li>[page:constant CullFaceFront] включает отбраковку передних граней.</li>
+      <li>[page:constant CullFaceFrontBack] отбраковывает как передние, так и задние грани.</li>
+    </ul>
+
+    <h2>Типы теней</h2>
+
     <code>
     v3d.BasicShadowMap
+    v3d.BilinearShadowMap
     v3d.PCFShadowMap
-    v3d.PCFSoftShadowMap
-    v3d.VSMShadowMap
     v3d.ESMShadowMap
-    v3d.PCFShadowMapPoissonDisk
     </code>
-    <p>
-      Они определяют свойство WebGLRenderer [page:WebGLRenderer.shadowMap.type shadowMap.type].<br /><br />
 
-    [page:constant BasicShadowMap] передает нефильтрованные карты теней - самый быстрый, но самый низкий уровень качества.<br />
-    [page:constant PCFShadowMap] фильтрует карты теней, используя алгоритм Percentage-Closer Filtering (PCF) (по умолчанию).<br />
-    [page:constant PCFSoftShadowMap] фильтрует карты теней с помощью алгоритма Percentage-Closer Filtering (PCF) с дополнительным билинейным смягчением.<br />
-    [page:constant VSMShadowMap] фильтрует карты теней, используя алгоритм Variance Shadow Map (VSM). При использовании VSMShadowMap все теневые приемники также будут отбрасывать тени.
-    [page:constant ESMShadowMap] использует алгоритм Exponential Shadow Mapping (ESM) с гауссовым смягчением размытия.<br />
-    [page:constant PCFShadowMapPoissonDisk] фильтрует карты теней с помощью алгоритма Percentage-Closer Filtering (PCF) с дополнительным смягчением с помощью случайно вращающегося диска Пуассона.<br />
+    <p>
+      Они определяют свойство WebGLRenderer [page:WebGLRenderer.shadowMap.type shadowMap.type].
     </p>
 
-    <h2>Тональный Маппинг</h2>
+    <ul>
+      <li>[page:constant BasicShadowMap] отображает карты теней без фильтрации. Это самый быстрый алгоритм, но он даёт самый низкий уровень качества.</li>
+      <li>[page:constant BilinearShadowMap] фильтрует карты теней, используя билинейную фильтрацию. Улучшенное качество.</li>
+      <li>[page:constant PCFShadowMapPoissonDisk] фильтрует карты теней с помощью алгоритма Percentage-Closer Filtering (PCF) с дополнительным смягчением с помощью случайно вращающегося диска Пуассона. Этот алгоритм используется по умолчанию.</li>
+      <li>[page:constant ESMShadowMap] использует алгоритм Exponential Shadow Mapping (ESM) с гауссовым размытием.</li>
+    </ul>
+
+    <h2>Тональный маппинг</h2>
+
     <code>
     v3d.NoToneMapping
     v3d.LinearToneMapping
     v3d.ReinhardToneMapping
     v3d.CineonToneMapping
     v3d.ACESFilmicToneMapping
+    v3d.CustomToneMapping
     v3d.LogarithmicMaxToneMapping
     v3d.PhysicalMaxToneMapping
     v3d.FilmicBlenderToneMapping
+    v3d.AgXBlenderToneMapping
+    v3d.PbrNeutralToneMapping
     </code>
+
     <p>
-      Они определяют свойство WebGLRenderer [page:WebGLRenderer.toneMapping toneMapping]. Это свойство используется для аппроксимации внешнего вида высокого динамического диапазона (HDR) на среде низкого динамического диапазона стандартного монитора компьютера или экрана мобильного устройства.<br /><br />
-
-      Смотрите пример [example:webgl_tonemapping WebGL / tonemapping].
-
+      Они определяют свойство WebGLRenderer [page:WebGLRenderer.toneMapping toneMapping]. Тональных маппинг используется для представления изображения, полученного в режиме высокого динамического диапазона (HDR) на устройстве с низким динамическим диапазоном (мониторе компьютера или экране мобильного устройства).
+    </p>
+    <p>
+      Все типы маппинга, за исключением `v3d.CustomToneMapping` являются встроенными. `v3d.CustomToneMapping` требует ручного изменения GLSL-кода во фрагментном шейдере материала.
     </p>
 
+    <h2>Алгоритмы порядконезависимой прозрачности</h2>
+
+    <code>
+    v3d.NoOIT
+    v3d.OITWeighted
+    </code>
+
+    <p>
+      Алгоритм порядконезависимой прозрачности: weighted blended или никакой.
+    </p>
 
     [sourceHint]
+
   </body>
 </html>

@@ -1,108 +1,193 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Loader] &rarr;
+
     <h1>[name]</h1>
 
-    <div class="desc">
-    Загрузчик для ресурсов *glTF* 2.0.
-    <br /><br />
-    <a href="https://www.khronos.org/gltf">glTF</a> (GL Transmission Format) - это 
-    <a href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">спецификация открытого формата</a>
-    для эффективной доставки и загрузки 3D-контента. Ассеты могут предоставляться как в формате JSON (.gltf), так и в бинарном формате (.glb). Внешние файлы хранят текстуры (.jpg, .png, ...) и дополнительные двоичные данные (.bin). Ассет glTF может предоставлять одну или несколько сцен, включая сетки, материалы, текстуры, скины, скелеты, morph-targets, анимацию, свет и/или камеры.
-    </div>
+    <p class="desc">Загрузчик для ресурсов glTF 2.0.</p>
+
+    <p>
+      [link:https://www.khronos.org/gltf glTF] (GL Transmission Format) — это [link:https://github.com/KhronosGroup/glTF/tree/master/specification/2.0 спецификация открытого формата] для эффективной доставки и загрузки 3Д-контента. Ассеты могут предоставляться как в формате JSON (*.gltf*), так и в бинарном формате (*.glb*) (оба поддерживают компрессию LZMA). Внешние файлы хранят текстуры (*.jpg*, *.png*,  *.webp*, *.hdr*) и дополнительные двоичные данные (*.bin*). Ассет glTF может предоставлять одну или несколько сцен, и включать меши, материалы, текстуры, скины, скелеты, морфинг, анимацию, свет, световые зонды, шрифты и камеры.
+    </p>
+    <p>
+      [name] использует [page:ImageBitmapLoader] когда это возможно. Учитывайте что хранящиеся в таком формате карты изображений автоматически не собираются сборщиком мусора и требуют ручной обработки во время выгрузки сцены.
+    </p>
+    <p class="note">
+      Чаще всего [name] вам не потребуется использовать напрямую. Вместо этого используйте метод [page:App.loadScene] и [page:App.appendScene], скрывающие сложность обработки ассетов в формате glTF 2.0.
+    </p>
+
 
     <h2>Расширения</h2>
 
-    <div>
-    GLTFLoader поддерживает следующие расширения glTF:
-    </div>
+    <p>
+      GLTFLoader поддерживает следующие S8S-[link:https://www.soft8soft.com/wiki/index.php/GLTF_extensions_supported_by_Verge3D расширения] glTF 2.0:
+    </p>
 
     <ul>
-      <li>S8S_v3d_animation_data</li>
-      <li>S8S_v3d_data</li>
-      <li>S8S_v3d_camera_data</li>
-      <li>S8S_v3d_material_data</li>
-      <li>S8S_v3d_mesh_data</li>
-      <li>S8S_v3d_node_data</li>
-      <li>S8S_v3d_scene_data</li>
-      <li>S8S_v3d_texture_data</li>
+      <li>S8S_v3d_animation</li>
+      <li>S8S_v3d_camera</li>
+      <li>S8S_v3d_materials</li>
+      <li>S8S_v3d_mesh</li>
+      <li>S8S_v3d_node</li>
+      <li>S8S_v3d_scene</li>
+      <li>S8S_v3d_texture</li>
+      <li>S8S_v3d_lights</li>
+      <li>S8S_v3d_light_probes</li>
+      <li>S8S_v3d_curves</li>
+      <li>S8S_v3d_clipping_planes</li>
     </ul>
+
+    <p>
+      А также стандартные расширения glTF 2.0:
+    </p>
+
+    <ul>
+      <li>KHR_materials_unlit</li>
+      <li>KHR_texture_basisu</li>
+      <li>EXT_texture_webp</li>
+    </ul>
+
 
     <h2>Пример</h2>
 
     <code>
-    // Instantiate a loader
-    var loader = new v3d.GLTFLoader();
+    // создаёт экземпляр загрузчика
+    const loader = new GLTFLoader();
 
-    // Load a glTF resource
-    loader.load('models/gltf/duck/duck.gltf', function(gltf) {
-      scene.add(gltf.scene);
+    // загружает glTF-ресурс
+    loader.load(
+        // УРЛ
+        'duck.gltf',
 
-      gltf.animations; // Array&lt;v3d.AnimationClip&gt;
-      gltf.scene;      // v3d.Scene
-      gltf.scenes;     // Array&lt;v3d.Scene&gt;
-      gltf.cameras;    // Array&lt;v3d.Camera&gt;
+        // вызывается когда ресурс загружен
+        function(gltf) {
+            app.scene.add(gltf.scene);
+
+            gltf.animations; // массив v3d.AnimationClip
+            gltf.scene; // v3d.Scene
+            gltf.scenes; // массив v3d.Scene
+            gltf.cameras; // массив v3d.Camera
+            gltf.asset; // object
+            gltf.world; // object
+        },
+
+        // прогресс
+        function(xhr) {
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        },
+
+        // вызывается в случае ошибок
+        function(error) {
+            console.log('An error happened');
+        }
+    );
+    </code>
+
+
+    <h2>Текстуры</h2>
+
+    <p>
+      Текстуры, содержащие информацию о цвете (напр. [page:MeshStandardMaterial.map]), всегда используют цветовое пространство sRGB, тогда как вертексные цвета и параметры материалов (напр. [page:MeshStandardMaterial.color]) используют линейное пространство. В типовом случае рендеринга, все текстуры конвертируются в линейное пространство, далее в этом производятся расчёты освещения, после чего результат конвертируется обратно в sRGB. За исключением случаев, когда требуется производить пост-обработку в линейном пространстве, всегда выставляйте пространство [page:WebGLRenderer] при использовании формата glTF в:
+    </p>
+
+    <code>
+    renderer.outputEncoding = v3d.sRGBEncoding;
+    </code>
+
+    <p>
+      GLTFLoader автоматически установит цветовое пространство текстур, загруженных из *.gltf* or *.glb* файла, только если указанная выше настройка произведена. Если же вы загружаете текстуры снаружи (например, с помощью [page:TextureLoader]) и применяете эти текстуры на glTF-моделях, цветовое пространство и ориентация должны быть установлены вручную:
+    </p>
+
+    <code>
+    // устанавливаем цветовое пространство
+    texture.encoding = v3d.sRGBEncoding;
+
+    // делаем так, чтобы координата (0, 0) соответствовала верхнему левому краю текстуры
+    texture.flipY = false;
+    </code>
+
+
+    <h2>Неизвестные расширения</h2>
+
+    <p>
+      Метаданные из неизвестных загрузчику расширений сохраняются в поле `.userData.gltfExtensions` экземпляров Object3D, Scene, и Material, либо назначаются на возвращаемом объекте `gltf`. Например:
+    </p>
+
+    <code>
+    loader.load('foo.gltf', function(gltf) {
+        const scene = gltf.scene;
+        const mesh = scene.children[3];
+        const fooExtension = mesh.userData.gltfExtensions.EXT_foo;
+
+        gltf.parser.getDependency('bufferView', fooExtension.bufferView).then(function(fooBuffer) { ... });
     });
     </code>
 
-    [example:webgl_loader_gltf]
 
     <h2>Конструктор</h2>
 
     <h3>[name]([page:LoadingManager manager])</h3>
-    <div>
-    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].
-    </div>
-    <div>
-    Создает новый [name].
-    </div>
+    <ul class="params">
+      [page:LoadingManager manager] — [page:LoadingManager диспетчер загрузок], используемый загрузчиком. По умолчанию используется [page:LoadingManager v3d.DefaultLoadingManager].
+    </ul>
+    <p>
+      Создает новый [name].
+    </p>
+
 
     <h2>Свойства</h2>
+
+    <p>Смотрите свойства [page:Loader базового класса].</p>
 
 
     <h2>Методы</h2>
 
-    <h3>[method:null load]([page:String url], [page:Function onLoad], [page:Function onProgress], [page:Function onError])</h3>
-    <div>
-    [page:String url] — необходим<br />
-    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженный JSON-отклик, возвращенный из [page:Function parse].<br />
-    [page:Function onProgress] — Вызывается во время загрузки. Аргументом будет экземпляр XMLHttpRequest, содержащий байты .[page:Integer total] и .[page:Integer loaded].<br />
-    [page:Function onError] — Вызывается при ошибках загрузки.<br />
-    </div>
-    <div>
-    Начните загрузку из url и вызовите функцию обратного вызова с разобранным содержимым отклика.
-    </div>
+    <h3>[method:undefined load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
+    <ul class="params">
+      <li>[page:String url] — путь к файлу *.gltf* или *.glb*.</li>
+      <li>[page:Function onLoad] — будет вызван после завершения загрузки. На вход этой функции передаётся результат [method:.parse парсинга] ресурса.</li>
+      <li>[page:Function onProgress] — вызывается во время загрузки. Аргументом будет экземпляр XMLHttpRequest, содержащий байты .[page:Integer total] и .[page:Integer loaded]. Если сервер не устанавливает заголовок Content-Length, значение .[page:Integer total] будет равно `0`.</li>
+      <li>[page:Function onError] — (необ.) вызывается при ошибках загрузки. Ошибка передаётся на вход этой функции.</li>
+    </ul>
+    <p>
+      Загружает и парсит glTF-ресурс по указанному пути и вызывает коллбек с содержимым данного ресурса.
+    </p>
 
-    <h3>[method:null setPath]([page:String path])</h3>
-    <div>
-    [page:String path] — Базовый путь для загрузки дополнительных ресурсов, например, текстур и данных .bin.
-    </div>
-    <div>
-    Установите базовый путь для дополнительных ресурсов.
-    </div>
+    <h3>[method:this setKTX2Loader]([param:KTX2Loader ktx2Loader])</h3>
+    <p class="params">
+      [page:KTX2Loader ktx2Loader] — экземпляр класса v3d.KTX2Loader, используемый для загрузки сжатых текстур формата KTX2.
+    </p>
 
-    <h3>[method:null setCrossOrigin]([page:String value])</h3>
-    <div>
-    [page:String value] — Строка crossOrigin для выполнения CORS для загрузки url из другого домена, который разрешает CORS.
-    </div>
+    <h3>[method:undefined parse]([param:ArrayBuffer data], [param:String path], [param:Function onLoad], [param:Function onError])</h3>
+    <ul class="params">
+      <li>[page:ArrayBuffer data] — glTF ассет для парсинга, в виде ArrayBuffer, JSON или объекта.</li>
+      <li>[page:String path] — базовый путь для поиска текстур и *.bin*-файла.</li>
+      <li>[page:Function onLoad] — функция вызываемся по окончании парсинга.</li>
+      <li>[page:Function onError] — (необ.) функция вызываемая в случае ошибки парсинга. Ошибка передаётся на вход этой функции.</li>
+    </ul>
+    <p>
+      Парсит glTF-данные и выполняет [page:Function коллбек] по завершении. Аргументом коллбека будет [page:Object объект], содержащий загруженные части: .[page:Scene scene], .[page:Array scenes], .[page:Array cameras], .[page:Array animations] и .[page:Object asset].
+    </p>
 
-    <h3>[method:null parse]([page:Object json], [page:Function callBack], [page:String path])</h3>
-    <div>
-    [page:Object json] — <em>JSON</em> объект для парсинга.<br />
-    [page:Function callBack] — Будет вызван после завершения парсинга.<br />
-    [page:String path] — Базовый путь, по которому можно найти последующие ресурсы glTF, такие как текстуры и файлы данных .bin.<br />
-    </div>
-    <div>
-    Разберите структуры <em>JSON</em> на основе glTF и выполните [page:Function callback] по завершении. Аргументом [page:Function callback] будет [page:object], содержащий загруженные части: .[page:Scene scene], .[page:Array scenes], .[page:Array cameras] и .[page:Array animations].
-    </div>
+    <h2>Пазлы</h2>
+
+    <p>
+      «Вердж3Д» поддерживает 2 пазла, упрощающие загрузку ресурсов в формате glTF 2.0:
+    </p>
+
+    <ul>
+      <li><a href="manual/ru/puzzles/Scenes.html#load_scene">load scene</a> — загружает и заменяет текущую сцену целиком.</li>
+      <li><a href="manual/ru/puzzles/Scenes.html#append_scene">append scene</a> — добавляет ресурс на текущую сцену.</li>
+    </ul>
 
     [sourceHint]
+
   </body>
 </html>

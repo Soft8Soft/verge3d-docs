@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../../" />
+    <meta charset="utf-8">
+    <base href="../../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
 
@@ -15,7 +15,7 @@
     </p>
 
 
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
     <code>
     //Create a WebGLRenderer and turn on shadows in the renderer
     const renderer = new v3d.WebGLRenderer();
@@ -26,7 +26,7 @@
     const light = new v3d.PointLight(0xffffff, 1, 100);
     light.position.set(0, 10, 0);
     light.castShadow = true; // default false
-    scene.add(light);
+    app.scene.add(light);
 
     //Set up shadow properties for the light
     light.shadow.mapSize.width = 512; // default
@@ -35,23 +35,23 @@
     light.shadow.camera.far = 500; // default
 
     //Create a sphere that cast shadows (but does not receive them)
-    const sphereGeometry = new v3d.SphereBufferGeometry(5, 32, 32);
+    const sphereGeometry = new v3d.SphereGeometry(5, 32, 32);
     const sphereMaterial = new v3d.MeshStandardMaterial({ color: 0xff0000 });
     const sphere = new v3d.Mesh(sphereGeometry, sphereMaterial);
     sphere.castShadow = true; //default is false
     sphere.receiveShadow = false; //default
-    scene.add(sphere);
+    app.scene.add(sphere);
 
     //Create a plane that receives shadows (but does not cast them)
-    const planeGeometry = new v3d.PlaneBufferGeometry(20, 20, 32, 32);
+    const planeGeometry = new v3d.PlaneGeometry(20, 20, 32, 32);
     const planeMaterial = new v3d.MeshStandardMaterial({ color: 0x00ff00 })
     const plane = new v3d.Mesh(planeGeometry, planeMaterial);
     plane.receiveShadow = true;
-    scene.add(plane);
+    app.scene.add(plane);
 
     //Create a helper for the shadow camera (optional)
     const helper = new v3d.CameraHelper(light.shadow.camera);
-    scene.add(helper);
+    app.scene.add(helper);
     </code>
 
     <h2>Конструктор</h2>
@@ -73,12 +73,20 @@
 
     <h3>[method:null updateMatrices]([param:Light light], [param:number viewportIndex])</h3>
     <p>
-      Обновление матриц для камеры и тени, используемых внутри рендерера.<br /><br />
+      Обновление матриц для камеры и тени, используемых внутри рендерера.<br><br>
 
-    light -- свет, для которого создается тень.<br />
-    viewportIndex -- вычисляет матрицу для данного видового экрана
+    light — свет, для которого создается тень.<br>
+    viewportIndex — вычисляет матрицу для данного видового экрана
+    </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Пазл <a href="manual/ru/puzzles/Objects.html#set_shadow_param">set shadow param</a> позволяет включать/выключать отбрасывание теней без программирования.
     </p>
 
     [sourceHint]
+
   </body>
 </html>

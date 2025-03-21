@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      Этот власс создан в основном для внутреннего использования в [page:DirectionalLightShadowCSM DirectionalLightShadowCSM] для расчета под-фрустумов.
+    </p>
+
+    <h2>Конструктор</h2>
+    <h3>[name]()</h3>
+    <p>
+      Создает новый [name].
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Object vertices]</h3>
+    <p>Содержит 8 точек, которые формируют фрустум.</p>
+    <p class="params">
+      [page:Array near] — массив [page:Vector3 точек] формирующие ближню плоскость отсечения.<br>
+      [page:Array far] — массив [page:Vector3 точек] формирующие дальную плоскость отсечения.
+    </p>
+
+    <h2>Методы</h2>
+
+    <h3>[method:this setFromProjectionMatrix]([param:Matrix4 matrix], [param:Float maxFar])</h3>
+    <p class="params">
+      [page:Matrix4 matrix] — матрициа проекции [page:Camera камеры] вида.<br>
+      [page:Float maxFar] — растояние до дальней плоскости отсечения.
+    </p>
+    <p>
+      Вычисляет точки фрустума из матрицы проекции.
+    </p>
+
+    <h3>[method:this split]([param:Array breaks], [param:Array target], [param:Boolean fitToScene])</h3>
+    <p class="params">
+      [page:Array breaks] — массив интервалов.<br>
+      [page:Array target] — массив [page:CSMFrustum CSMFrustum], `target.length <= breaks.length` условие должно быть верным.<br>
+      [page:Boolean fitToScene] — при значении *true*, использует метод *fit to scene*, иначе метод *fit to cascade*.
+    </p>
+    <p>
+      Расделяет этот фрустум на под-фрустумы.
+    </p>
+
+    <h3>[method:this toSpace]([param:Matrix4 matrix], [param:this target])</h3>
+    <p class="params">
+      [page:Matrix4 matrix] — матрица применяемая к каждой точке фрустума.<br>
+      [page:this target] — [page:CSMFrustum фрустум] в который будет записан результат.
+    </p>
+    <p>
+      Умножает каждую точку фрустума на matrix и записывает результат в target.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

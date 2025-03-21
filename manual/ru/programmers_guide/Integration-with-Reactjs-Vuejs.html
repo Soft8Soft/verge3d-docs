@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Как интегрировать приложение Verge3D в проект React.js/Vue.js - Soft8Soft</title>
+    <title>Как интегрировать приложение Вердж3Д в проект React.js/Vue.js — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <base href="../../../" />
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
     <h1>Интеграция с React.js/Vue.js</h1>
 
     <p>
-        Один из самых простых способов интегрировать сцену Verge3D в ваш проект
-        это загрузить ее отдельно через элемент iframe. Но если вы хотите
-        использовать ее непосредственно в своем приложении, то могут возникнуть некоторые трудности. Существует множество возможных конфигураций проекта
-        со своими специфическими проблемами и особенностями. Данное руководство не может охватить
-        их все и ориентировано только на такие популярные javascript-фреймворки, как React.js
-        и Vue.js.
+      Один из самых простых способов интегрировать сцену «Вердж3Д» в ваш проект это загрузить ее отдельно через элемент `&lt;iframe&gt;`. Но если вы хотите использовать ее непосредственно в своем приложении, то могут возникнуть некоторые трудности. Существует множество возможных конфигураций проекта со своими специфическими проблемами и особенностями. Данное руководство не может охватить их все и ориентировано только на такие популярные «Ява Скрипт»-фреймворки, как React.js и Vue.js.
+    </p>
+
+    <p class="note">
+      В магазине ассетов «Вержд3Д» имеются готовые демки для React and Vue.js. Однако если вы хотите узнать, как сделать подобное приложение с нуля, читайте дальше.
     </p>
 
     <p>
-        Verge3D предлагает пример того, как сделать простой 
-        проект "Hello, world!" на React или Vue и интегрировать в него стандартное приложение Verge3D. 
-        Файлы примеров находятся в *manager/templates/Embeddable*
-        внутри дистрибутива Verge3D.
+      «Вердж3Д» предлагает пример того, как сделать простой проект "Hello, world!" на React или Vue и интегрировать в него стандартное приложение «Вердж3Д». Файлы примеров находятся в папках *manager/templates/Embeddable* («Блендер»), *manager/templates/Embeddable-Max* («3дс Макс»), *manager/templates/Embeddable-Maya* («Майя») внутри дистрибутива «Вердж3Д».
     </p>
 
     [contents]
@@ -31,219 +27,382 @@
 
     [anchor:Verge3D_React]
 
-    <h2>Пример Приложения Verge3D на React.js</h2>
+    <h2>Пример приложения «Вердж3Д» на React.js</h2>
 
     <p>
-        Вот простая инструкция о том, как создать базовое приложение React.js + Verge3D
-        с помощью утилиты Create React App. Вы можете найти копию
-        этой инструкции в *manager/templates/Embeddable/README.md* внутри
-        дистрибутива Verge3D.
+      Вот простая инструкция о том, как создать базовое приложение React.js + «Вердж3Д» с помощью утилиты Create React App. Вы можете найти копию этой инструкции в *manager/templates/Embeddable/README.md* внутри дистрибутива «Вердж3Д».
     </p>
 
     <p>
-        1) Создайте приложение React.js с помощью утилиты Create React App:
+      1) Создайте приложение React.js с помощью утилиты Create React App:
+    </p>
 
     <code>
-    npx create-react-app react_v3d_app
+    npx create-react-app react-app-example
     </code>
-    </p>
 
     <p>
-        2) Удалите все файлы в директории *react_v3d_app/src*.
+      2) Перейдите в папку *react-app-example* и установите пакет *verge3d*:
     </p>
-
-    <p>
-        3) Скопируйте содержимое *manager/templates/Embeddable/public* из директории Verge3D
-        в *react_v3d_app/public*.
-    </p>
-
-    <p>
-        Скопируйте содержимое *manager/templates/Embeddable/src* из директории Verge3D
-        в *react_v3d_app/src*.
-    </p>
-
-    <p>
-        Скопируйте файл движка *build/v3d.js* в *react_v3d_app/public*.
-    </p>
-
-    <p>
-        4) Добавьте следующий тег скрипта в *react_v3d_app/public/index.html*.:
 
     <code>
-    &lt;script src="%PUBLIC_URL%/v3d.js"&gt;&lt;/script&gt;
+    cd react-app-example
+    npm i verge3d
     </code>
-    </p>
 
     <p>
-        5) Создайте каталог *components* внутри *react_v3d_app/src*. Затем
-        создайте файл *react_v3d_app/src/components/V3DApp.js* со
-        следующим содержанием:
+      3) Скопируйте в приложение следующие файлы из дистрибутива «Вердж3Д»:
+    </p>
 
-    <!--
-        NOTE: using language-js here to fix incorrect highlighting of class
-        private properties.
-    -->
+    <ul>
+      <li>
+        содержимое папки *manager/templates/Embeddable/public* в *react-app-example/public*
+      </li>
+      <li>
+        содержимое папки *manager/templates/Embeddable/src* в *react-app-example/src*
+      </li>
+    </ul>
+
+    <p>
+      или воспользуйтесь командами ниже:
+    </p>
+
+    <v3d-tabs style="width: 1200px;">
+      <label>Линукс / Мак ОС / Хром ОС</label>
+      <div>
+        <p>
+          *V3D_PATH* и *MY_PATH* это папка дистрибутива «Вердж3Д» и папка приложения соответственно.
+        </p>
+        <code class="language-sh">
+    V3D_PATH=/path/to/v3d/distribution
+    MY_PATH=/path/to/my/react/app
+    cp -r $V3D_PATH/manager/templates/Embeddable/public/* $MY_PATH/public/
+    cp -r $V3D_PATH/manager/templates/Embeddable/src/* $MY_PATH/src/
+        </code>
+      </div>
+
+      <label>Виндоус (PowerShell)</label>
+      <div>
+        <p>
+          *V3D_PATH* и *MY_PATH* это папка дистрибутива «Вердж3Д» и папка приложения соответственно.
+        </p>
+        <code class="language-sh">
+    $V3D_PATH = "path\to\v3d\distribution"
+    $MY_PATH = "path\to\my\react\app"
+    Copy-Item -Path "$V3D_PATH\manager\templates\Embeddable\public\*" -Destination "$MY_PATH\public" -Recurse
+    Copy-Item -Path "$V3D_PATH\manager\templates\Embeddable\src\*" -Destination "$MY_PATH\src" -Recurse
+        </code>
+      </div>
+    </v3d-tabs>
+
+    <p>
+      4) Создайте файл *react-app-example/src/V3DApp.js* со следующем содержимым:
+    </p>
+
+    <!-- NOTE: using language-js here to fix incorrect highlighting of class private properties. -->
     <code class="language-js">
     import React from 'react';
 
-    import * as v3dAppAPI from '../v3dApp/app.js';
-    import '../v3dApp/app.css';
+    import { createApp } from './v3dApp/app';
+    import './v3dApp/app.css';
 
     class V3DApp extends React.Component {
+      #app = null;
+      #PL = null;
 
-        #app = null;
+      #uuid = window.crypto.randomUUID();
+      #containerId = `v3d-container-${this.#uuid}`;
+      #fsButtonId = `fullscreen-button-${this.#uuid}`;
+      #sceneURL = 'v3dApp/app.gltf';
 
-        componentDidMount() {
-            v3dAppAPI.createApp().then(app => {
-                this.#app = app;
-            });
-        }
+      async loadApp() {
+        ({ app: this.#app, PL: this.#PL } = await createApp({
+          containerId: this.#containerId,
+          fsButtonId: this.#fsButtonId,
+          sceneURL: this.#sceneURL,
+        }));
+      }
 
-        componentWillUnmount() {
-            if (this.#app !== null) {
-                this.#app.dispose();
-                this.#app = null;
-            }
-        }
+      disposeApp() {
+        this.#app?.dispose();
+        this.#app = null;
 
-        render() {
-            return &lt;div id={v3dAppAPI.CONTAINER_ID}&gt;
-                &lt;div id="fullscreen_button" className="fullscreen-button fullscreen-open" title="Toggle fullscreen mode"&gt;&lt;/div&gt;
-            &lt;/div&gt;;
-        }
+        // dispose Puzzles' visual logic
+        this.#PL?.dispose();
+        this.#PL = null;
+      }
+
+      reloadApp() {
+        this.disposeApp();
+        this.loadApp();
+      }
+
+      componentDidMount() {
+        this.loadApp();
+      }
+
+      componentWillUnmount() {
+        this.disposeApp();
+      }
+
+      render() {
+        return &lt;div id={this.#containerId}&gt;
+          &lt;div
+            id={this.#fsButtonId}
+            className="fullscreen-button fullscreen-open"
+            title="Toggle fullscreen mode"
+          &gt;&lt;/div&gt;
+        &lt;/div&gt;;
+      }
     }
 
     export default V3DApp;
     </code>
-    </p>
 
     <p>
-        6) Создайте файл *react_v3d_app/src/index.js*, содержащий следующий код:
+      5) Замените содержимое файла *react-app-example/src/index.js* следующим кодом:
+    </p>
 
     <code>
     import React from 'react';
-    import ReactDOM from 'react-dom';
+    import ReactDOM from 'react-dom/client';
 
-    import V3DApp from './components/V3DApp.js';
+    import V3DApp from './V3DApp';
 
-    ReactDOM.render(
-        &lt;V3DApp/&gt;,
-        document.getElementById('root')
-    );
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(&lt;V3DApp/&gt;);
     </code>
-    </p>
 
     <p>
-        7) Запустите сервер разработки, выполнив следующую команду в директории
-        *react_v3d_app*:
+      6) Запустите сервер разработки, выполнив следующую команду в директории *react-app-example*:
+    </p>
 
     <code>
     npm start
     </code>
 
-    Теперь приложение должно быть доступно по адресу
-        <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a> по умолчанию.
+    <p>
+      Приложение будет доступно по адресу <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a>.
     </p>
 
 
     [anchor:Verge3D_Vue]
 
-    <h2>Пример Приложения Verge3D на Vue.js</h2>
+    <h2>Пример приложения «Вердж3Д» на Vue.js</h2>
 
     <p>
-        Вот простая инструкция о том, как создать базовое приложение Vue.js + Verge3D
-        с помощью утилиты Vue CLI. Вы можете найти копию этой
-        инструкцию в *manager/templates/Embeddable/README.md* внутри
-        дистрибутива Verge3D.
+      Вот простая инструкция о том, как создать базовое приложение Vue.js + «Вердж3Д» с помощью утилиты Vue CLI. Вы можете найти копию этой инструкцию в *manager/templates/Embeddable/README.md* внутри дистрибутива «Вердж3Д».
     </p>
 
     <p>
-        1) Создайте приложение Vue.js с помощью утилиты Vue CLI:
+      1) Создайте приложение Vue.js с помощью утилиты Vite:
+    </p>
 
     <code>
-    npx @vue/cli create vue_v3d_app
+    npm create vite@latest vue-app-example -- --template vue
     </code>
-    </p>
 
     <p>
-        2) Скопируйте содержимое *manager/templates/Embeddable/public* из директории Verge3D
-        в *vue_v3d_app/public*.
+      2) Перейдите в папку *vue-app-example* и установите пакет *verge3d*:
     </p>
-
-    <p>
-        Скопируйте содержимое *manager/templates/Embeddable/src* из директории Verge3D
-        в *vue_v3d_app/src*.
-    </p>
-
-    <p>
-        Скопируйте файл движка *build/v3d.js* в *vue_v3d_app/public*.
-    </p>
-
-    <p>
-        3) Добавьте следующий тег скрипта в *vue_v3d_app/public/index.html*:
 
     <code>
-    &lt;script src="&lt;%= BASE_URL %&gt;v3d.js"&gt;&lt;/script&gt;
+    cd vue-app-example
+    npm i verge3d
     </code>
-    </p>
 
     <p>
-        4) Создайте файл *vue_v3d_app/src/components/V3DApp.vue*, содержащий
-        следующий код:
+      3) Скопируйте в приложение следующие файлы из дистрибутива «Вердж3Д»:
+    </p>
 
-    <code>
+    <ul>
+      <li>
+        содержимое папки *manager/templates/Embeddable/public* в *vue-app-example/public*
+      </li>
+      <li>
+        содержимое папки *manager/templates/Embeddable/src* в *vue-app-example/src*
+      </li>
+    </ul>
+
+    <p>
+      или воспользуйтесь командами ниже:
+    </p>
+
+    <v3d-tabs style="width: 1200px;">
+      <label>Линукс / Мак ОС / Хром ОС</label>
+      <div>
+        <p>
+          *V3D_PATH* и *MY_PATH* это папка дистрибутива «Вердж3Д» и папка приложения соответственно.
+        </p>
+        <code class="language-sh">
+    V3D_PATH=/path/to/v3d/distribution
+    MY_PATH=/path/to/my/vue/app
+    cp -r $V3D_PATH/manager/templates/Embeddable/public/* $MY_PATH/public/
+    cp -r $V3D_PATH/manager/templates/Embeddable/src/* $MY_PATH/src/
+        </code>
+      </div>
+
+      <label>Виндоус (PowerShell)</label>
+      <div>
+        <p>
+          *V3D_PATH* и *MY_PATH* это папка дистрибутива «Вердж3Д» и папка приложения соответственно.
+        </p>
+        <code class="language-sh">
+    $V3D_PATH = "path\to\v3d\distribution"
+    $MY_PATH = "path\to\my\vue\app"
+    Copy-Item -Path "$V3D_PATH\manager\templates\Embeddable\public\*" -Destination "$MY_PATH\public" -Recurse
+    Copy-Item -Path "$V3D_PATH\manager\templates\Embeddable\src\*" -Destination "$MY_PATH\src" -Recurse
+        </code>
+      </div>
+    </v3d-tabs>
+
+    <p>
+      4) Создайте файл *vue-app-example/src/components/V3DApp.vue*, содержащий следующий код:
+    </p>
+
+    <v3d-tabs style="width: 1200px;">
+      <label>Vue 3</label>
+      <span>
+        <code>
     &lt;template&gt;
-        &lt;div :id="containerId"&gt;
-            &lt;div id="fullscreen_button" class="fullscreen-button fullscreen-open" title="Toggle fullscreen mode"&gt;&lt;/div&gt;
-        &lt;/div&gt;
+      &lt;div :id="containerId"&gt;
+        &lt;div
+          :id="fsButtonId"
+          class="fullscreen-button fullscreen-open"
+          title="Toggle fullscreen mode"
+        &gt;&lt;/div&gt;
+      &lt;/div&gt;
     &lt;/template&gt;
 
     &lt;script&gt;
-    import * as v3dAppAPI from '../v3dApp/app.js';
+    import { createApp } from '../v3dApp/app';
 
     export default {
-        name: 'V3DApp',
+      name: 'V3DApp',
 
-        data() {
-            return {
-                containerId: v3dAppAPI.CONTAINER_ID,
-            }
-        },
+      created() {
+        this.app = null;
+        this.PL = null,
 
-        app: null,
+        this.uuid = window.crypto.randomUUID();
+        this.containerId = `v3d-container-${this.uuid}`;
+        this.fsButtonId = `fullscreen-button-${this.uuid}`;
+        this.sceneURL = 'v3dApp/app.gltf';
 
-        mounted() {
-            v3dAppAPI.createApp().then(app => {
-                this.$options.app = app;
-            });
-        },
+        this.loadApp = async function() {
+          ({ app: this.app, PL: this.PL } = await createApp({
+            containerId: this.containerId,
+            fsButtonId: this.fsButtonId,
+            sceneURL: this.sceneURL,
+          }));
+        }
 
-        beforeDestroy() {
-            if (this.$options.app) {
-                this.$options.app.dispose();
-                this.$options.app = null;
-            }
-        },
+        this.disposeApp = function() {
+          this.app?.dispose();
+          this.app = null;
+
+          // dispose Puzzles' visual logic
+          this.PL?.dispose();
+          this.PL = null;
+        }
+
+        this.reloadApp = function() {
+          this.disposeApp();
+          this.loadApp();
+        }
+      },
+
+      mounted() {
+        this.loadApp();
+      },
+
+      beforeUnmount() {
+        this.disposeApp();
+      },
     }
     &lt;/script&gt;
 
     &lt;style&gt;
     @import '../v3dApp/app.css';
     &lt;/style&gt;
-    </code>
-    </p>
+        </code>
+      </span>
 
-    <p class="note">
-        Функция beforeDestroy() устарела в Vue.js 3.0.0+, вместо нее используйте beforeUnmount().</br>
-        Подробнее: <a href="https://eslint.vuejs.org/rules/no-deprecated-destroyed-lifecycle.html">https://eslint.vuejs.org/rules/no-deprecated-destroyed-lifecycle.html</a>
-    </p>
+      <label>Vue 2</label>
+      <span>
+        <code>
+    &lt;template&gt;
+      &lt;div :id="containerId"&gt;
+        &lt;div
+          :id="fsButtonId"
+          class="fullscreen-button fullscreen-open"
+          title="Toggle fullscreen mode"
+        &gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/template&gt;
+
+    &lt;script&gt;
+    import { createApp } from '../v3dApp/app';
+
+    export default {
+      name: 'V3DApp',
+
+      created() {
+        this.app = null;
+        this.PL = null,
+
+        this.uuid = window.crypto.randomUUID();
+        this.containerId = `v3d-container-${this.uuid}`;
+        this.fsButtonId = `fullscreen-button-${this.uuid}`;
+        this.sceneURL = 'v3dApp/app.gltf';
+
+        this.loadApp = async function() {
+          ({ app: this.app, PL: this.PL } = await createApp({
+            containerId: this.containerId,
+            fsButtonId: this.fsButtonId,
+            sceneURL: this.sceneURL,
+          }));
+        }
+
+        this.disposeApp = function() {
+          this.app?.dispose();
+          this.app = null;
+
+          // dispose Puzzles' visual logic
+          this.PL?.dispose();
+          this.PL = null;
+        }
+
+        this.reloadApp = function() {
+          this.disposeApp();
+          this.loadApp();
+        }
+      },
+
+      mounted() {
+        this.loadApp();
+      },
+
+      beforeDestroy() {
+        this.disposeApp();
+      },
+    }
+    &lt;/script&gt;
+
+    &lt;style&gt;
+    @import '../v3dApp/app.css';
+    &lt;/style&gt;
+        </code>
+      </span>
+    </v3d-tabs>
 
     <p>
-        5) Измените *vue_v3d_app/src/App.vue* так, чтобы он выглядел следующим образом:
+      5) Замените *vue-app-example/src/App.vue* так, чтобы он выглядел следующим образом:
+    </p>
 
     <code>
     &lt;template&gt;
-        &lt;V3DApp&gt;&lt;/V3DApp&gt;
+      &lt;V3DApp&gt;&lt;/V3DApp&gt;
     &lt;/template&gt;
 
     &lt;script&gt;
@@ -252,97 +411,115 @@
     export default {
       name: 'App',
       components: {
-        V3DApp
-      }
+        V3DApp,
+      },
     }
     &lt;/script&gt;
     </code>
-    </p>
 
     <p>
-        6) Запустите сервер разработки, выполнив следующую команду в каталоге
-        *vue_v3d_app*:
+      6) Запустите сервер разработки, выполнив следующую команду в каталоге *vue-app-example*:
+    </p>
 
     <code>
     npm run serve
     </code>
 
-    Теперь приложение должно быть доступно по адресу
-        <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a> по умолчанию.
+    <p>
+      Приложение должно быть доступно по адресу <a href="http://localhost:5173/" target="_blank">http://localhost:5173/</a>.
     </p>
 
 
     [anchor:using_the_puzzles_editor]
 
-    <h2>Использование Редактора Пазлов</h2>
+    <h2>Использование редактора пазлов</h2>
 
     <p>
-        Нет прямой интеграции между React/Vue и
-        <a href="manual/ru/introduction/Puzzles-Visual-Logic-Editor.html">Редактором Пазлов</a>/
-        <a href="manual/ru/introduction/App-Manager.html">Менеджером приложения</a>.
-        Тем не менее, вы по-прежнему можете использовать пазлы для добавления сценариев поведения в ваши
-        React/Vue-приложения. В этом разделе объясняется, как это сделать и каковы
-        ограничения данного подхода.
+      Нет прямой интеграции между React/Vue и <a href="manual/ru/introduction/Puzzles-Visual-Logic-Editor.html">редактором пазлов</a>/ <a href="manual/ru/introduction/App-Manager.html">диспетчером приложений</a>. Тем не менее, вы по-прежнему можете использовать пазлы для добавления сценариев поведения в ваши React/Vue-приложения. В этом разделе объясняется, как это сделать и каковы ограничения данного подхода.
     </p>
+    <p>
+      Диспетчер приложений не знает, как может выглядеть структура каталогов типичного проекта React/Vue. Однако после некоторой настройки диспетчер может, по крайней мере, скрипты визуальной логики пазлов. Это означает, что вы можете просматривать соответствующие ресурсы сцены и запускать редактор пазлов из <a href="manual/ru/introduction/App-Manager.html#Exploring_Applications">веб-страницы диспетчера приложений</a>.
+    </p>
+    <p>
+      Недостатком здесь является то, что просмотр файлов .gltf и работа с пазлами может осуществляться только через стандартные приложения «Вердж3Д» <a href="manual/ru/introduction/App-Manager.html#Creating_Applications">созданные внутри диспетчера приложений</a>. Таким образом, нет доступа к React/Vue функциям, компонентам, логике и т.д... и пазлы могут быть добавлены только отдельным образом. Тем не менее, полноценное приложение React/Vue может загружаться, запускаться и взаимодействовать с логическим сценарием, созданным в редакторе пазлов.
+    </p>
+
+    <h3>Настройка диспетчера приложений</h3>
 
     <p>
-        Менеджер приложений не знает, как может выглядеть структура каталогов типичного проекта React/Vue. Однако после некоторой настройки менеджер может, по крайней мере, распознать blend-файлы проекта, экспортированные .gltf/.glb/.bin файлы сцен и скрипты визуальной логики пазлов.
-        Это означает, что вы можете просматривать соответствующие ресурсы сцены и запускать
-        редактор пазлов из
-        <a href="manual/ru/introduction/App-Manager.html#Exploring_Applications">веб-страницы Менеджера приложений</a>.
-        <br/><br/>
-
-        Недостатком здесь является то, что просмотр файлов .gltf и работа с пазлами
-        может осуществляться только через Verge3D Player, т.е. так же, как и для всех
-        стандартных приложений Verge3D <a href="manual/ru/introduction/App-Manager.html#Creating_Applications">
-        созданных внутри Менеджера приложений</a>. Таким образом, нет доступа к React/Vue 
-        функциям, компонентам, логике и т.д... и пазлы могут быть добавлены только отдельным образом. Тем не менее, полноценное приложение React/Vue может загружаться, запускаться 
-        и взаимодействовать с логическим сценарием, созданным в редакторе пазлов.
+      Предположим, у нас есть приложение React или Vue, созданное в соответствии с руководством, описанным в этом справочнике.  Для того чтобы "соединить" App Manager и проект React/Vue, нам необходимо создать специальное приложение-адаптер. Имеется <a href="manual/ru/introduction/App-Manager.html#Templates">шаблон</a> приложения, отсутствующий в диспетчере приложений по умолчанию, но который может быть добавлен в настройках. Для этого используйте <a href="manual/ru/introduction/App-Manager.html#Creating_Templates">руководство по созданию шаблонов</a> и назовите шаблон *Embeddable/adapter*, введя это имя в поле с именем. Дальше нажмите на кнопку *Apply Changes*, чтобы добавить новый шаблон:
     </p>
 
-    <h3>Настройка Менеджера Приложений</h3>
+    <img src="files/integration-with-reactjs-vuejs/adding-embeddable-adapter-template.png" style="max-width: 800px">
 
     <p>
-        Предположим, у нас есть приложение React или Vue, созданное в соответствии с
-        руководством, описанным в этом справочнике. Предположим, что оно расположено в пути
-        *APP_PATH*, а ваш дистрибутив Verge3D расположен в пути
-        *VERGE3D_PATH*.
-        <br/><br/>
-
-        Для того чтобы "соединить" App Manager и проект React/Vue, нам необходимо создать специальный каталог внутри *VERGE3D_PATH/applications* (место, где обычно находятся все приложения Verge3D). Мы создадим его как символическую ссылку, указывающую на *APP_PATH/public/v3dApp* - это и есть место внутри нашего проекта React/Vue, где находятся связанные с verge3d сценой ресурсы и логические файлы пазла. Давайте назовем новую директорию *my_app*. Вот как это можно сделать:
+      Далее создайте новое приложение, используя новый шаблон. Назовём его для примера *my_awesome_app*:
     </p>
 
-    <b><u>на Linux</u></b>
-    <code>
-    ln -sr APP_PATH/public/v3dApp VERGE3D_PATH/applications/my_app
-    </code>
-
-    <b><u>на Windows (PowerShell, требуются права администратора)</u></b>
-    <code>
-    cmd /c mklink /D VERGE3D_PATH\applications\my_app (Resolve-Path APP_PATH\public\v3dApp)
-    </code>
+    <img src="files/integration-with-reactjs-vuejs/embeddable-adapter-template-create-app.png" style="max-width: 570px">
 
     <p>
-        После этого остается только открыть файл *APP_PATH/src/v3dApp/app.js*,
-        затем найти следующую строку:
+      Затем вам потребуется добавить символические ссылки, указывающие на ресурсы внутри проекта React/Vue, чтобы диспетчер приложений мог запустить редактор пазлов. Допустим, ваш проект React/Vue находится по пути *MY_PATH*, в то время как папка с приложениями по пути *V3D_APPS_PATH*.
+    </p>
+    <p class="note">
+      Вы можете узнать, где диспетчер приложений сохраняет приложения, посмотрев настройку <a href="manual/ru/introduction/App-Manager.html#settings_general_tab">App Manager Settings</a> → *General* → *Applications Folder*.
+    </p>
+    <p>
+      Мы создадим символически ссылки указывающие из *V3D_APPS_PATH/my_awesome_app/v3dApp* на *MY_PATH/public/v3dApp* — последнее это место, где в проекте React/Vue сохраняются ресурсы «Вердж3Д»-приложения. Также вам потребуется создать пару ссылок на JS и XML файлы логики приложения. Всё это делается следующим образом:
     </p>
 
-    <code>
-    var LOAD_LOGIC_FILES = false;
-    </code>
+    <v3d-tabs style="width: 1400px;">
+      <label>Линукс / Мак ОС / Хром ОС</label>
+      <div>
+        <p>
+          *V3D_APPS_PATH* и *MY_PATH* это папка приложений «Вердж3Д» и папка React/Vue приложения соответственно. Также замените *my_awesome_app* на имя приложения, которое вы указали при его создании в диспетчере приложений.
+        </p>
+        <code class="language-sh">
+    V3D_APPS_PATH=/path/to/v3d/applications
+    MY_PATH=/path/to/my/app
+    ln -s $MY_PATH/public/v3dApp $V3D_APPS_PATH/my_awesome_app/v3dApp
+    ln -s $MY_PATH/src/v3dApp/visual_logic.js $V3D_APPS_PATH/my_awesome_app/visual_logic.js
+    ln -s $MY_PATH/src/v3dApp/visual_logic.xml $V3D_APPS_PATH/my_awesome_app/visual_logic.xml
+        </code>
+      </div>
 
-    <p>и измените ее следующим образом, чтобы включить загрузку логического скрипта пазла:</p>
-
-    <code>
-    var LOAD_LOGIC_FILES = true;
-    </code>
+      <label>Виндоус (PowerShell)</label>
+      <div>
+        <p class="note">
+          Следующие команды PowerShell требуют привилегий администратора.
+        </p>
+        <p>
+          *V3D_APPS_PATH* и *MY_PATH* это папка приложений «Вердж3Д» и папка React/Vue приложения соответственно. Также замените *my_awesome_app* на имя приложения, которое вы указали при его создании в диспетчере приложений.
+        </p>
+        <code class="language-sh">
+    $V3D_APPS_PATH = "path\to\v3d\applications"
+    $MY_PATH = "path\to\my\app"
+    cmd /c mklink /D $V3D_APPS_PATH\my_awesome_app\v3dApp (Resolve-Path $MY_PATH\public\v3dApp)
+    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.js (Resolve-Path $MY_PATH\src\v3dApp\visual_logic.js)
+    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.xml (Resolve-Path $MY_PATH\src\v3dApp\visual_logic.xml)
+        </code>
+      </div>
+    </v3d-tabs>
 
     <p>
-        Теперь вы можете увидеть свой проект в диспетчере приложений. Вы можете открыть его
-        .gltf и .blend файлы и использовать редактор пазлов.
+      Теперь вы можете увидеть свой проект в диспетчере приложений и использовать редактор пазлов.
     </p>
 
-    <img src="files/integration-with-reactjs-vuejs/app-manager.jpg" class="centered" style="max-width: 800px">
+    <img src="files/integration-with-reactjs-vuejs/app-manager.png" style="max-width: 800px">
+
+    <h3>Loading Resources in Puzzles</h3>
+
+    <p>
+      Пазлы <a href="manual/ru/puzzles/Materials.html#replace_texture">replace texture</a>, <a href="manual/ru/puzzles/Scenes.html#load_scene">load scene</a>, <a href="manual/ru/puzzles/Sound.html#load_sound">load sound</a>, <a href="manual/ru/puzzles/Sound.html#load_video">load video</a>, <a href="manual/ru/puzzles/Advanced.html#load_data">load data</a>, и др. требуют указания УРЛ-адреса с загружаемым ресурсам (текстурам, звукам и т.д.).
+    </p>
+    <p>
+      При использовании редактора пазла для разработки React/Vue-приложений все пути для данных пазлов рассчитываются относительно корня приложения, который обычно начинается с папки приложения *public*. Если редактор пазлов используется так как это описано выше, то он имеет доступ только к папке приложения *public/v3dApp*.
+    </p>
+    <p>
+      В частности, если нам нужно загрузить звук с помощью пазлов, этот файл, назовём его *sound.mp3*, должен быть размещён в папке *public/v3dApp* (или какой-либо его подпапке). После этого он может быть загружен по пути <b>v3dApp/mySound.mp3</b>, который и должен быть указан как УРЛ в пазле <a href="manual/ru/puzzles/Sound.html#load_sound">load sound</a>:
+    </p>
+
+    <img src="files/integration-with-reactjs-vuejs/loading-resources-example.png" style="max-width: 460px">
 
   </article></body>
 </html>

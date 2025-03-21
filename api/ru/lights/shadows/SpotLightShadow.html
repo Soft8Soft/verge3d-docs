@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../../" />
+    <meta charset="utf-8">
+    <base href="../../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:LightShadow] &rarr;
@@ -15,63 +15,62 @@
       Это используется внутри [page:SpotLight SpotLights] для расчета теней.
     </p>
 
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
     <code>
-    //Создайте WebGLRenderer и включите в нем тени
+    // создает WebGLRenderer и включает в нем тени
     const renderer = new v3d.WebGLRenderer();
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = v3d.PCFSoftShadowMap; // default v3d.PCFShadowMap
 
-    //Создайте SpotLight и включите тени для света
+    // создает SpotLight и включет тени для источника света
     const light = new v3d.SpotLight(0xffffff);
     light.castShadow = true; // default false
-    scene.add(light);
+    app.scene.add(light);
 
-    //Настройте свойства тени для света
+    // настраиваем свойства теней на источнике света
     light.shadow.mapSize.width = 512; // default
     light.shadow.mapSize.height = 512; // default
     light.shadow.camera.near = 0.5; // default
     light.shadow.camera.far = 500; // default
     light.shadow.focus = 1; // default
 
-    //Создайте сферу, которая отбрасывает тени (но не получает их)
-    const sphereGeometry = new v3d.SphereBufferGeometry(5, 32, 32);
+    // создаёт сферу, которая отбрасывает тени (но не получает их)
+    const sphereGeometry = new v3d.SphereGeometry(5, 32, 32);
     const sphereMaterial = new v3d.MeshStandardMaterial({ color: 0xff0000 });
     const sphere = new v3d.Mesh(sphereGeometry, sphereMaterial);
     sphere.castShadow = true; //default is false
     sphere.receiveShadow = false; //default
-    scene.add(sphere);
+    app.scene.add(sphere);
 
-    //Создайте плоскость, которая принимает тени (но не отбрасывает их)
-    const planeGeometry = new v3d.PlaneBufferGeometry(20, 20, 32, 32);
+    // создаёт плоскость, которая принимает тени (но не отбрасывает их)
+    const planeGeometry = new v3d.PlaneGeometry(20, 20, 32, 32);
     const planeMaterial = new v3d.MeshStandardMaterial({ color: 0x00ff00 })
     const plane = new v3d.Mesh(planeGeometry, planeMaterial);
     plane.receiveShadow = true;
-    scene.add(plane);
+    app.scene.add(plane);
 
-    //Создайте помощника для теневой камеры (необязательно)
+    // создаёт помощника для теневой камеры (необязательно)
     const helper = new v3d.CameraHelper(light.shadow.camera);
-    scene.add(helper);
+    app.scene.add(helper);
     </code>
 
     <h2>Конструктор</h2>
 
     <p>Конструктор создает [param:PerspectiveCamera PerspectiveCamera] для управления видом мира тени.</p>
 
-    <h2>Свойства</h2>
-    <p>Общие свойства смотрите в базовом классе [page:LightShadow LightShadow].</p>
 
+    <h2>Свойства</h2>
+    <p>
+      Смотрите свойства базового класса [page:LightShadow LightShadow].
+    </p>
 
     <h3>[property:Camera camera]</h3>
     <p>
-      Вид света на мир. Это используется для создания карты глубины сцены; объекты, расположенные за другими объектами с точки зрения света, будут находиться в тени.<br /><br />
-
-      По умолчанию используется [page:PerspectiveCamera] с [page:PerspectiveCamera.near near] плоскостью сечения 0,5.
-      Свойство [page:PerspectiveCamera.fov fov] будет отслеживать угол [page:SpotLight.angle angle] свойства [page:SpotLight SpotLight] владельца [page:SpotLight SpotLight] через метод [page:SpotLightShadow.update update]. Аналогично, свойство [page:PerspectiveCamera.aspect aspect] будет отслеживать аспект [page:LightShadow.mapSize mapSize]. Если свойство [page:SpotLight.distance distance] света установлено, плоскость обрезания [page:PerspectiveCamera.far far] будет отслеживать это значение, в противном случае по умолчанию будет установлено значение 500.
-
+      Вид света на мир. Это используется для создания карты глубины сцены; объекты, расположенные за другими объектами с точки зрения света, будут находиться в тени.
     </p>
-
-    <!--Verge3D-->
+    <p>
+      По умолчанию используется [page:PerspectiveCamera] с [page:PerspectiveCamera.near near] плоскостью сечения `0.5`. Свойство [page:PerspectiveCamera.fov fov] будет отслеживать угол [page:SpotLight.angle angle] свойства [page:SpotLight SpotLight] владельца [page:SpotLight SpotLight] через метод [page:SpotLightShadow.update update]. Аналогично, свойство [page:PerspectiveCamera.aspect aspect] будет отслеживать аспект [page:LightShadow.mapSize mapSize]. Если свойство [page:SpotLight.distance distance] света установлено, плоскость обрезания [page:PerspectiveCamera.far far] будет отслеживать это значение, в противном случае по умолчанию будет установлено значение 500.
+    </p>
 
     <h3>[property:Boolean useMinFov90]</h3>
     <p>
@@ -80,12 +79,29 @@
 
     <h3>[property:Number focus]</h3>
     <p>
-      Используется для фокусировки теневой камеры. Поле зрения камеры устанавливается в процентах от поля зрения прожектора. Диапазон - [0, 1]. По умолчанию - 1,0.<br/>
+      Используется для фокусировки теневой камеры. Поле зрения камеры устанавливается в процентах от поля зрения прожектора. Диапазон - `[0, 1]`. По умолчанию — `1.0`.<br/>
     </p>
 
+    <h3>[property:Boolean isSpotLightShadow]</h3>
+    <p>
+      Указывает, что объект является экземпляром класса [name]. Только для чтения.
+    </p>
+
+
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:LightShadow LightShadow].</p>
+
+    <p>
+      Смотрите методы базового класса [page:LightShadow LightShadow].
+    </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Пазл <a href="manual/ru/puzzles/Objects.html#set_shadow_param">set shadow param</a> позволяет включать/выключать отбрасывание теней без программирования.
+    </p>
 
     [sourceHint]
+
   </body>
 </html>

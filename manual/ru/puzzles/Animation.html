@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Пазлы Анимации и Ограничения - Soft8Soft</title>
+    <title>Пазлы анимации и ограничителей (Animation/Constraints) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как управлять анимацией с помощью пазлов Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Как управлять анимацией и ограничителями с помощью блоков визуального программирования Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Пазлы Анимации и Ограничения</h1>
+    <h1>Пазлы анимации и ограничителей (Animation+Constraints)</h1>
 
     <p>
       Пазлы из этой категории используются для выполнения операций с анимационными клипами и процедурной анимацией, а также для ограничения движения объектов.
     </p>
 
-    <img src="files/puzzles/puzzles-animation.jpg">
+    <img src="files/puzzles/puzzles-animation.webp">
 
 
     <h2>Содержание</h2>
@@ -26,28 +26,32 @@
 
     [anchor:puzzles_reference]
 
-    <h2>Перечень Анимационных Пазлов</h2>
+    <h2>Перечень анимационных пазлов</h2>
 
     [anchor:play_animation]
 
     <h3>play animation</h3>
 
     <p>
-      Воспроизводит анимационный клип. Имена анимационных клипов соответствуют объектам, которым назначена анимация в 3ds Max или Blender (на один объект может быть назначен только один анимационный клип). Используйте пазл <a href="manual/ru/puzzles/Selectors.html#select_animation" target="_parent">animation selector</a>, чтобы назначить клип анимации для этого пазла.
+      Воспроизводит анимационный клип. Имена анимационных клипов соответствуют объектам, которым назначена анимация в «Блендере», «3дс Максе» и «Майе» (на один объект может быть назначен только один анимационный клип). Используйте пазл <a href="manual/ru/puzzles/Selectors.html#select_animation" target="_parent">animation selector</a> чтобы назначить клип анимации для этого пазла. В выпадающем списке можно изменить режим анимации — *auto* позволяет использовать режим анимации, заданный в «Блендере», «3дс Максе» или «Майе»; в то время как другие режимы переопределяют настройки, заданные в соответствующем пакете.
     </p>
 
+    <img src="files/puzzles/puzzles-animation-play.webp">
+
     <p>
-      Используйте поля "from" и "to" для указания диапазона кадров. Используйте поле "speed" для указания скорости воспроизведения. Флажок "reversed" включает реверсивное воспроизведение. В выпадающем списке можно изменить режим анимации - "auto" позволяет использовать режим анимации, заданный в 3ds Max или Blender, в то время как другие режимы переопределяют настройки, заданные в 3ds Max или Blender.
+      Используйте поля *from* и *to* для указания диапазона кадров. Используйте поле *speed* для указания скорости воспроизведения. Переключатель *reversed* включает реверсивное воспроизведение.
     </p>
 
+    <img src="files/puzzles/puzzles-animation-play-advanced.webp">
+
     <p>
-      Пазлы в слоте "when finished: do" обрабатываются после завершения анимации (это работает только для режима анимации "once"). 
+      Пазлы в слоте <strong>when finished: do</strong> обрабатываются после завершения анимации (это работает только для режима анимации *once*).
     </p>
 
-    <img src="files/puzzles/puzzles-animation-play.jpg">
+    <img src="files/puzzles/puzzles-animation-play-finished.webp">
 
     <p>
-      Этот пазл также работает для списка анимационных клипов. 
+      Этот пазл также работает для списка анимационных клипов.
     </p>
 
 
@@ -56,11 +60,14 @@
     <h3>stop animation</h3>
 
     <p>
-      Останавливает воспроизведение анимационного клипа. Также работает для списка анимационных клипов.
+      Останавливает воспроизведение анимационного клипа и устанавливает его текущий кадр в ноль. Также работает для списка анимационных клипов.
     </p>
 
-    <img src="files/puzzles/puzzles-animation-stop.jpg">
+    <img src="files/puzzles/puzzles-animation-stop.webp">
 
+    <p class="note">
+      Этот пазл не вызывает пазлы, указанные в слоте *when finished do* пазла <a href="manual/ru/puzzles/Animation.html#play_animation">play animation</a>.
+    </p>
 
 
     [anchor:pause_animation]
@@ -71,8 +78,7 @@
       Приостанавливает воспроизведение анимационного клипа, чтобы его можно было возобновить позже, начиная с кадра, на котором он был приостановлен. Также работает для списка анимационных клипов.
     </p>
 
-    <img src="files/puzzles/puzzles-animation-pause.jpg">
-
+    <img src="files/puzzles/puzzles-animation-pause.webp">
 
 
     [anchor:resume_animation]
@@ -83,8 +89,7 @@
       Возобновляет ранее приостановленный анимационный клип. Также работает для списка анимационных клипов.
     </p>
 
-    <img src="files/puzzles/puzzles-animation-resume.jpg">
-
+    <img src="files/puzzles/puzzles-animation-resume.webp">
 
 
     [anchor:set_animation_frame]
@@ -95,14 +100,16 @@
       Устанавливает анимационный клип на указанный кадр. Также работает для списка анимационных клипов.
     </p>
 
-    <img src="files/puzzles/puzzles-animation-set-animation-frame.jpg">
+    <img src="files/puzzles/puzzles-animation-set-animation-frame.webp">
 
 
     [anchor:get_animation_frame]
 
     <h3>get animation frame</h3>
 
-    <p>Получение текущего кадра анимационного клипа.</p>
+    <p>
+      Получает текущий кадр анимационного клипа.
+    </p>
 
     <img src="files/puzzles/puzzles-animation-get-animation-frame.jpg">
 
@@ -118,9 +125,42 @@
     <img src="files/puzzles/puzzles-animation-is-playing.jpg">
 
 
+    [anchor:set_animation_speed]
+
+    <h3>set animation speed</h3>
+
+    <p>
+      Устанавливает скорость проигрывания анимации с текущего момента воспроизведения (сброса в начало не происходит). Переключатель *reversed* инвертирует направление проигрывания анимации (эквивалентно умножению скорости на -1). Данный пазл также работает со списком анимаций.
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-set-animation-speed.jpg" style="max-width: 1104px;">
+
+
+    [anchor:get_animation_speed]
+
+    <h3>get animation speed</h3>
+
+    <p>
+      Возвращает текущую скорость проигрывания анимации.
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-get-animation-speed.jpg">
+
+
+    [anchor:on_animation_frame_do]
+
+    <h3>on animation frame do</h3>
+
+    <p>
+      Вызывает пазлы указанные в слоте *do* по достижении кадра *frame*.
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-on-animation-frame-do.jpg">
+
+
     [anchor:get_animation]
 
-    <h3>get animation</h3>
+    <h3>get animation of</h3>
 
     <p>
       Получает анимационный ролик указанного объекта. Также работает для списка объектов, группы (или списка групп) или с пазлом <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>. Возвращаемое значение всегда представляет собой список анимационных клипов (даже если среди них есть только один).
@@ -151,7 +191,7 @@
     </p>
 
     <p>
-      Поле *repeat* задает количество повторений после завершения первой анимации. Флажок *yoyo* включает движение назад (работает для *repeat* > 1).
+      Поле *repeat* задает количество повторений после завершения первой анимации. Переключатель *yoyo* включает движение назад (работает для *repeat* > 1).
     </p>
 
     <p>
@@ -171,7 +211,6 @@
     </p>
 
 
-
     [anchor:updated_value]
 
     <h3>updated value</h3>
@@ -183,16 +222,27 @@
     <img src="files/puzzles/puzzles-animation-updated-value.jpg">
 
     <p>
-      Этот пазл может быть размещен в любом месте сценария, но лучше всего работает в слоте *on update do* пазла <a href="manual/ru/puzzles/Animation.html#animate_param">animate param</a>, где он обновляется каждый кадр. 
+      Этот пазл может быть размещен в любом месте сценария, но лучше всего работает в слоте *on update do* пазла <a href="manual/ru/puzzles/Animation.html#animate_param">animate param</a>, где он обновляется каждый кадр.
     </p>
+
+
+    [anchor:animate_param_stop]
+
+    <h3>stop animate param</h3>
+
+    <p>
+      Останавливает анимацию запущенную пазлом <a href="manual/ru/puzzles/Animation.html#animate_param">animate param</a>.
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-animate-param-stop.jpg">
 
 
     [anchor:constraints_puzzles_reference]
 
-    <h2>Перечень Пазлов Ограничения</h2>
+    <h2>Перечень пазлов ограничителей</h2>
 
     <p>
-      Если один объект не является родительским по отношению к другому , ограничения будут работать в мировом пространстве. В противном случае они будут работать в пространстве родительского объекта - вы можете выбрать родительский объект в Blender, 3ds Max или Maya, чтобы отобразить оси координат.
+      Если один объект не является родительским по отношению к другому, ограничители будут работать в мировом пространстве. В противном случае они будут работать в пространстве родительского объекта — вы можете выделить родительский объект в «Блендере», «3дс Максе» или «Майе», чтобы показать оси координат.
     </p>
 
 
@@ -201,11 +251,10 @@
     <h3>limit transform</h3>
 
     <p>
-      Создает ограничение положения, поворота или масштаба объекта вдоль выбранной оси. Ограничение *id* должно быть уникальным, иначе существующее ограничение с таким же id будет заменено. Слоты *min* и *max* задают диапазон, в котором разрешено перемещение.
+      Создает ограничитель положения, поворота или масштаба объекта вдоль выбранной оси. Идентификатор *id* должен быть уникальным, иначе существующий ограничитель с таким же *id* будет заменён. Слоты *min* и *max* задают диапазон, в котором разрешено перемещение.
     </p>
 
     <img src="files/puzzles/puzzles-constraints-limit-transform.jpg">
-
 
 
     [anchor:copy_transform]
@@ -213,31 +262,27 @@
     <h3>copy transform</h3>
 
     <p>
-      Создает ограничение для копирования положения, поворота или масштаба объекта из другого объекта. Ограничение *id* должно быть уникальным, иначе существующее ограничение с таким же id будет заменено.
+      Создает ограничитель для копирования положения, поворота или масштаба объекта из другого объекта. Идентификатор *id* должен быть уникальным, иначе существующий ограничитель с таким же *id* будет заменён.
     </p>
 
     <img src="files/puzzles/puzzles-constraints-copy-transform.jpg">
 
-
-
-    <!--for compatibility-->
-    <p><a href="manual/ru/puzzles/Physics.html#operations" id="operations" class="permalink"></a></p>
 
     [anchor:remove_mute_unmute_constraint]
 
     <h3>remove / mute / unmute constraint</h3>
 
     <p>
-      Удаляет, отключает или приглушает ограничение, назначенное указанному объекту. Другие ограничения, назначенные этому объекту (если таковые имеются), останутся нетронутыми.
+      Удаляет, отключает или включает ограничитель, назначенный указанному объекту. Другие ограничители, назначенные этому объекту (если таковые имеются), останутся нетронутыми.
     </p>
 
     <img src="files/puzzles/puzzles-constraints-remove-mute-unmute-constraint.jpg">
 
 
 
-    <h2>Проблемы с Пазлами?</h2>
+    <h2>Проблемы с пазлами?</h2>
 
-    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
+    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форум</a>!</p>
 
 
   </article></body>

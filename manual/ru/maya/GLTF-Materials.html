@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D для Maya: glTF Материалы (glTF 2.0-compliant PBR) - Soft8Soft</title>
+    <title>Вердж3Д для Майи: glTF-материалы (PBR-совместимый glTF 2.0) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как настроить glTF-совместимые PBR-материалы в Maya для использования в Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Как настроить glTF-совместимые PBR-материалы в Майя для использования в Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>glTF Материалы (glTF 2.0-compliant PBR) / Maya</h1>
+    <h1>glTF-материалы (PBR-совместимый glTF 2.0) / Майя</h1>
 
-    <p>Verge3D для Maya поддерживает <a href="manual/ru/introduction/FAQ.html#gltf_materials">PBR материалы соответствующие стандарту glTF 2.0</a> поверх aiStanadardSurface (Standard Surface in Maya 2020+) шейдера.</p>
+    <p>
+      Если вам <a href="manual/ru/introduction/FAQ.html#gltf_materials">по какой-то причине</a> требуется, чтобы материал был совместим с форматом glTF 2.0, вы должны использовать упрощённую структуру нод. Эта структура должна состоять из ограниченного числа шейдерных нод «Майи», как это указано ниже.
+    </p>
 
     [contents]
+
+    <figure>
+      <img src="files/gltf-materials-maya/gltf-material-example.jpg">
+      <figcaption>Пример сцены, выполненной с использованием glTF-материалов.</figcaption>
+    </figure>
+
+    [demo:gltf_compat glTF]
 
 
     [anchor:setup]
 
-    <h2>Настройка glTF Material</h2>
+    <h2>Настройка glTF материалов</h2>
 
     <p>
-      Назначьте *aiStandardSufrace* узел шейдера к вашему материалу и включите *glTF 2.0 Compatible* проверку, которая находится в панели *Verge3D*.
+      Назначьте шейдерную ноду *Standard Surface* в материале и активируйте опцию *glTF 2.0 Compatible*, которая находится в панели *Verge3D*.
     </p>
 
-    <img src="files/gltf-materials-maya/ai-standard-surface-overview.jpg" class="centered">
+    <img src="files/gltf-materials-maya/standard-surface-overview.webp">
 
-    <p>Настройки aiStandardSurface, которые поддерживаются в Verge3D:</p>
+    <p>
+      Настройки *Standard Surface*, которые поддерживаются в «Вердж3Д»:
+    </p>
 
     <h3>Base Panel</h3>
     <ul>
@@ -53,15 +64,19 @@
       <li>Bump Mapping (Normal Camera input in Hypershade)</li>
     </ul>
 
-    <p>Кроме того, при работе с Ambient Occlusion, вы также можете использовать значение *Weight* из панели *Specular*, чтобы вьюпорт Maya выглядел схоже с рендерингом Verge3D.</p>
+    <p>
+      Кроме того, при работе с Ambient Occlusion, вы также можете использовать значение *Weight* из панели *Specular*, чтобы вьюпорт Майя выглядел схоже с рендерингом «Вердж3Д».
+    </p>
 
 
-    <h3>Создание материала PBR для общего использования</h3>
+    <h3>Создание glTF-материала с базовым набором текстур</h3>
 
-    <p>Выполните следующие шаги, чтобы настроить стандартный PBR шейдер с 3 картами: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
+    <p>
+      Выполните следующие шаги, чтобы настроить стандартный PBR шейдер с 3 картами: Base Color, ORM (Occlusion, Roughness, Metalness) и Normal Map:
+    </p>
 
     <ol>
-      <li>Назначьте *aiStandardSurface* вашей модели.</li>
+      <li>Назначьте *Standard Surface* вашей модели.</li>
       <li>Откройте редактор Hypershade, найдите и выберите этот материал в панели *Browser*.</li>
       <li>Создайте нод *file* с текстурой Base Color. Убедитесь, что параметр *Color Space* имеет значение *sRGB*.</li>
       <li>Подключите выход *Out Color* этой текстуры с входом *Base Color*.</li>
@@ -73,35 +88,99 @@
       <li>Подключите *file* к ноду *bump2d* и нод *bump2d* к входу *Normal Camera*.
     </ol>
 
-    <p>Вот как материал должен выглядеть в редакторе Hypershade:</p>
+    <p>
+      Вот как материал должен выглядеть в редакторе Hypershade:
+    </p>
 
-    <img src="files/materials-maya/pbr-example.jpg" class="centered">
+    <img src="files/materials-maya/pbr-example.jpg">
 
 
     [anchor:exporting_substance]
 
-    <h2>Экспорт текстур из Substance Painter</h2>
+    <h2>Экспорт текстур из «Сабстанс Пейнтера»</h2>
 
-    <p>Модели и запеченные карты нормалей и окклюзии (если таковые имеются) можно загрузить в Substance Painter через формат OBJ.</p>
+    <p>
+      Модели и запеченные карты нормалей и окклюзии (если таковые имеются) можно загрузить в ПО «Сабстанс Пейнтер» через формат OBJ.
+    </p>
 
-    <img src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
+    <img src="files/physical-material-blender/substance_screenshot.jpg" style="max-width: 819px">
 
-    <p>В конечном итоге в этой программе создаются 3 карты: базовый цвет/прозрачность, окклюзия/шероховатость/металлик и нормаль.</p>
+    <p>
+      В конечном итоге в этой программе создаются 3 карты: базовый цвет/прозрачность, окклюзия/шероховатость/металлик и нормаль.
+    </p>
 
-    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
+    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" style="max-width: 819px">
 
+
+    [anchor:using_usd_preview_material]
+
+    <h2>Другой способ, основанный на материале usdPreviewSurface</h2>
+
+    <p>
+      Вы можете использовать эти материалы, чтобы сделать «Майя»-сцену совместимой одновременно с форматами glTF 2.0 и USD.
+    </p>
+
+    <p>
+      Назначьте материал <strong>usdPreviewSurface</strong>. «Вердж3Д» поддерживает следующие его настройки:
+    </p>
+
+    <ul>
+      <li>Color or (вход Diffuse Color в Hypershade)</li>
+      <li>Emission Color or (вход Emissive Color в Hypershade)</li>
+      <li>Occlusion</li>
+      <li>Opacity</li>
+      <li>Alpha Cutoff or (вход Opacity Threshold в Hypershade)</li>
+    </ul>
+
+    <h3>Панель Specular</h3>
+    <ul>
+      <li>Metalness (вход Metallic в Hypershade)</li>
+      <li>Roughness (вход Roughness в Hypershade)</li>
+    </ul>
+
+    <h3>Панель Displacement</h3>
+    <ul>
+      <li>Normal Map (вход Normal в Hypershade)</li>
+    </ul>
+
+    <h3>Создание USD-материала</h3>
+
+    <p>
+      Выполните следующие шаги, чтобы настроить стандартный PBR шейдер с 3 картами: Base Color, ORM (Occlusion, Roughness, Metalness) и Normal Map:
+    </p>
+
+    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" style="max-width: 750px;">
+
+    <ol>
+      <li>Создайте ноду *file* с текстурой Diffuse Color. Убедитесь, что настройка *Color Space* этой ноды установлена в *sRGB*.</li>
+      <li>Соедините выход *Out Color* этой текстуры со входом *Diffuse Color* ноды *usdPreviewSurface*.</li>
+      <li>Создайте ноду *file* с ORM-текстурой. Эта текстура должна содержать 3 канала окклюжн (красный), шероховатость (зелёный) и металличность (синий) info. Убедитесь, что настройка *Color Space* этой ноды установлена в *Raw*.</li>
+      <li>Соедините канал R ORM-текстуры со входом *Occlusion* ноды *usdPreviewSurface* чтобы сделать эффект эмбиент окклюжн.</li>
+      <li>Соедините канал G ORM-текстуры со входом *Roughness* ноды *usdPreviewSurface*.</li>
+      <li>Соедините канал B ORM-текстуры со входом *Metallic* ноды *usdPreviewSurface*.</li>
+      <li>Создайте ноду *file* с картой нормалей. Убедитесь, что настройка *Color Space* этой ноды установлена в *Raw*.
+      </li>
+      <li>Соедините выход ноды *file* со входом *Normal* ноды *usdPreviewSurface*.
+    </ol>
+
+    <p>
+      Вот как материал должен выглядеть в редакторе Hypershade:
+    </p>
+
+    <img src="files/materials-maya/pbr-usd-surface-example.jpg" style="max-width: 819px">
 
     [anchor:export_to_gltf_in_runtime]
 
     <h2>Экспорт в glTF во время запуска</h2>
 
-    <p>С помощью пазла *export to gltf* вы можете экспортировать свои модели или всю сцену в реальном времени. Затем вы можете скачать экспортированную модель или загрузить на сервер для постоянного хранения. Чтобы узнать более подробную информацию, перейдите по <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">ссылке</a>.</p>
-
+    <p>
+      С помощью пазла *export to gltf* вы можете экспортировать свои модели или всю сцену в реальном времени. Затем вы можете скачать экспортированную модель или загрузить на сервер для постоянного хранения. Чтобы узнать более подробную информацию, перейдите по <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">ссылке</a>.
+    </p>
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

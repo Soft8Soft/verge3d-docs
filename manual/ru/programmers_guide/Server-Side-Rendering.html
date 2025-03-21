@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Серверный рендеринг в Вердж3Д — Софт Эйт Софт</title>
+    <meta charset="utf-8">
+    <meta name="description" content="С помощью Вердж3Д вы можете рендерить ваши сцены как на клиенте (в браузере), так и на сервере. Последний подход может использоваться, если у пользователя медленное соединение или слабое железо, либо чтобы продемонстрировать пользователю максимальное качество, при сохранении возможности конфигурирования контента.">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+
+    <meta property="og:image" content="https://cdn.soft8soft.com/images/server_social.jpg">
+    <meta property="article:tag" content="сервер">
+    <meta property="article:tag" content="рендеринг">
+  </head>
+  <body><article>
+    <h1>Серверный рендеринг в Вердж3Д</h1>
+
+    <p>
+      В этом разделе находится информация о том, как делать автономный рендеринг на стороне сервера в «Вердж3Д». Этот подход может использоваться, если у пользователя медленное соединение или слабое железо, либо чтобы продемонстрировать пользователю максимальное качество, при сохранении возможности конфигурирования контента.
+    </p>
+
+    [contents]
+
+
+    [anchor:chrome_headless]
+
+    <h2>Запуск браузера «Хром» на сервере в автономном режиме</h2>
+
+    <p>
+      Вы можете использовать браузер «Гугл Хром» (или «Хромиум») в автономном режиме, т.е. без вывода на экран и отображения пользовательского интерфейса. Для этого его нужно запускать с опцией <strong>--headless</strong>:
+    </p>
+
+    <code>
+      google-chrome --headless --use-gl=egl https://www.soft8soft.com/webglreport
+    </code>
+
+    <p>
+      Опция <strong>--use-gl=egl</strong> включает аппаратное ускорение графики в автономном режиме:
+    </p>
+
+    <figure style="max-width: 700px">
+      <img src="files/server-side-rendering/webglreport-gpu.jpg">
+      <figcaption>Строка "Unmasked Vendor/Renderer" говорит что «Хром» использует реальный GPU на целевой системе</figcaption>
+    </figure>
+
+    <p>
+      По умолчанию автономный режим малополезен. Чтобы разрешить удалённую отладку запущенной страницы, укажите опцию <strong>--remote-debugging-port=9222</strong>:
+    </p>
+
+    <code>
+      google-chrome --headless --use-gl=egl --remote-debugging-port=9222 https://www.soft8soft.com/webglreport
+    </code>
+
+    <p>
+      а затем запустите другой «Хром» на десктопе в режиме инспектирования. Укажите настройку *Discover network targets* затем нажмите *inspect*:
+    </p>
+
+    <img src="files/server-side-rendering/chrome-inspect.jpg" style="max-width: 895px">
+
+    <p>
+      Другая важная функция автономного режима, возможность создания скриншотов страниц:
+    </p>
+
+    <code>
+      google-chrome --headless --use-gl=egl --screenshot https://www.soft8soft.com/webglreport
+    </code>
+
+    <p>
+      а также генерации PDF-файлов:
+    </p>
+
+    <code>
+      google-chrome --headless --use-gl=egl --print-to-pdf https://www.soft8soft.com/webglreport
+    </code>
+
+    <p>
+      Смотрите официальную <a href="https://developer.chrome.com/blog/headless-chrome/" target="_blank">документацию</a> (англ.) «Гугл» для получения дополнительной информации об использовании автономного режима браузера «Хром».
+    </p>
+
+
+    [anchor:puppeteer]
+
+    <h2>Использование Node.js и Puppeteer</h2>
+
+    <p>
+      В ряде случаев нужно иметь больше контроля над автономном режимом «Хрома». В частности, вам может потребоваться делать скриншоты автоматически, либо использовать некую связку клиент-сервер, чтобы запрашивать скриншоты с сервера. Специально для этого «Гугл» разработал библиотеку Puppeteer, работающую на платформе Node.js.
+    </p>
+
+    <p>
+      Для его установки, просто добавьте файл со следующем содержимым в любую папку и назовите его <strong>package.json</strong> (либо скачайте <a href="files/server-side-rendering/package.json" download>готовую версию</a>):
+    </p>
+
+    <code>
+    {
+        &quot;description&quot;: &quot;Headless Chrome tests with Puppeteer&quot;,
+        &quot;dependencies&quot;: {
+            &quot;commander&quot;: &quot;*&quot;,
+            &quot;puppeteer&quot;: &quot;*&quot;
+        }
+    }
+    </code>
+
+    <p>
+      Перейдите в эту папку и запустите:
+    </p>
+
+    <code>
+    npm install
+    </code>
+
+    <p>
+      чтобы установить Puppeteer и все необходимые зависимости (включая сборку браузера «Хромиум»).
+    </p>
+
+    <p>
+      Используйте следующий скрипт Node.js чтобы автоматизировать съёмку скриншотов в «Вердж3Д»-приложении (<a href="files/server-side-rendering/screenshot.js" download>готовая версия</a>):
+    </p>
+
+    <code>
+    #!/usr/bin/node
+
+    import { program } from 'commander';
+    import puppeteer from 'puppeteer';
+
+    program
+        .option('-u, --url [url]', 'URL to open', 'http://localhost:8668/')
+        .option('-s, --screenshot-path [path]', 'A path where to save the screenshot', './screenshot.png')
+        .option('-t, --timeout [ms]', 'Timeout after page loading before taking the screenshot',
+                function(val) { return parseInt(val); }, 2000)
+        .option('-W, --viewport-width [px]', 'The width of the viewport',
+                function(val) { return parseInt(val); }, 1920)
+        .option('-H, --viewport-height [px]', 'The height of the viewport',
+                function(val) { return parseInt(val); }, 1080)
+        .parse(process.argv);
+
+    async function run() {
+        console.log('Launching headless Chrome...');
+        const browser = await puppeteer.launch({
+            args: ['--use-gl=egl']
+        });
+
+        console.log('Opening new page...');
+        const page = await browser.newPage();
+
+        const opts = program.opts();
+
+        console.log('Setting viewport size to ' + opts.viewportWidth + 'x' + opts.viewportHeight + '...');
+        await page.setViewport({ width: opts.viewportWidth, height: opts.viewportHeight });
+
+        console.log('Opening ' + opts.url + ' ...');
+        await page.goto(opts.url);
+
+        console.log('Waiting for ' + opts.timeout + 'ms ...');
+        await timeout(opts.timeout);
+
+        console.log('Taking screenshot...');
+        await page.screenshot({ path: opts.screenshotPath, type: 'png' });
+        console.log('Page\'s screenshot saved to ' + opts.screenshotPath);
+
+        console.log('Closing Chrome...');
+        await browser.close();
+    }
+
+    function timeout(ms) {
+        return new Promise(resolve =&gt; setTimeout(resolve, ms));
+    };
+
+    run();
+    </code>
+
+    <p>
+      Разместите этот код в файле <strong>screenshot.js</strong> в той же папке где был установлен Puppetter и запустите:
+    </p>
+
+    <code>
+    node screenshot.js -u https://cdn.soft8soft.com/demo/blender/spinner/spinner.html
+    </code>
+
+    <p>
+      чтобы сделать скриншот приложения «Спиннер» и сохранить его в виде изображения <strong>screenshot.png</strong>:
+    </p>
+
+    <img src="files/server-side-rendering/puppeteer-screenshot.jpg" style="max-width: 744px">
+
+    <p>
+      Скрипт скриншотов поддерживает разнообразные настройки. Для получения помощи запустите его с опцией <strong>-h</strong>:
+    </p>
+
+    <code>
+    node screenshot.js -h
+    </code>
+
+    <p class="note">
+      С помощью Puppeteer вы также можете снимать видео на основе «Вердж3Д»-приложений. Читайте <a href="https://www.npmjs.com/package/puppeteer-video-recorder" target="_blank">здесь</a> для получения дополнительной информации.
+    </p>
+
+
+    [anchor:next_steps]
+
+    <h2>Дальнейшие шаги</h2>
+
+    <p>
+      В скрипте <strong>screenshot.js</strong> мы используем параметр <em>timeout</em>, чтобы дожидаться загрузки приложения. При реальном применении вам может понадобиться использовать более сложный метод ожидания (<a href="files/server-side-rendering/screenshot2.js" download>скачать</a>):
+    </p>
+
+    <code>
+    console.log('Ждём загрузки приложения...');
+    await page.evaluate(() =&gt; {
+        return new Promise(resolve =&gt; {
+            const interval = setInterval(() =&gt; {
+                if (window.v3d.apps !== undefined &amp;&amp; window.v3d.apps.length &gt; 0) {
+                    clearInterval(interval);
+                    resolve();
+                }
+            }, 0);
+        });
+    });
+
+    await page.evaluate(() =&gt; {
+        const app = window.v3d.apps[0];
+        return new Promise(resolve =&gt; {
+            app.addEventListener('afterRender', () =&gt; {
+                resolve();
+            });
+        });
+    });
+    </code>
+
+    <p>
+      Также в этом разделе мы не рассмотрели взаимодействие клиент-сервер. Для этого вы можете воспользоваться простым <a href="https://www.npmjs.com/package/http-server" target="_blank">HTTP-сервером</a> или более продвинутым <a href="https://www.npmjs.com/package/websocket" target="_blank">WebSocket-сервером</a>.
+    </p>
+
+
+    <h2>Остались вопросы?</h2>
+
+    <p>Задавайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
+
+  </article></body>
+</html>

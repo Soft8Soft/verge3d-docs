@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D для 3ds Max: Окно просмотра и Предпросмотр Рендера - Soft8Soft</title>
+    <title>Вердж3Д для 3дс Макса: Настройка вьюпорта и рендеринга АктивШейд — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Узнайте, как настроить вьюпорт 3ds Max для соответствия внешнему виду Verge3D. Использование рендеринга Scanline/ART и функции ActiveShade для получения эталонного изображения."/>
-    <base href="../../../" />
+    <meta name="description" content="Как настроить вьюпорт и функцию АктивШейд 3дс Макс для соответствия внешнему виду Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Окно просмотра и Предпросмотр Рендера / 3ds Max</h1>
+    <h1>Настройка вьюпорта и рендеринга «АктивШейд» / 3дс Макс</h1>
 
     <p>
-      Из этого руководства вы узнаете, как настроить вьюпорт 3ds Max на соответствие внешнему виду Verge3D, а также как использовать Scanline/ART рендеринг и функцию ActiveShade для получения эталонного изображения.
+      В этом разделе вы узнаете, как настроить вьюпорт «3дс Макса» на соответствие внешнему виду «Вердж3Д». Мы также рассмотрим использование рендера «Арнольд» совместно с функцией «АктивШейд» для получения эталонного изображения.
     </p>
 
     [contents]
@@ -21,87 +21,127 @@
 
     [anchor:Viewport_Settings]
 
-    <h2>Настройки вьюпорта</h2>
+    <h2>Настройка вьюпорта</h2>
 
     <p>
-      Чтобы включить лучший предварительный просмотр окна просмотра в 3ds Max, переключитесь с *Standard* на *High Quality* в настройках видового экрана:
+      Чтобы улучшить качество рендеринга во вьюпорте «3дс Макса», переключитесь со *Standard* на *High Quality* в настройках вьюпорта:
     </p>
 
-    <img src="files/viewport-render-preview/viewport-settings.jpg" class="centered" style="max-width: 784px">
+    <img src="files/viewport-render-preview/viewport-settings.jpg" style="max-width: 670px">
 
     <p>
-      Нажмите *Realistic Materials with Maps* в подменю *Materials* (эта операция требуется каждый раз, когда вы добавляете новый материал):
+      Также выберите *Realistic Materials with Maps* в подменю *Materials* (эта операция требуется каждый раз, когда вы добавляете новый материал):
     </p>
 
-    <img src="files/viewport-render-preview/viewport-settings2.jpg" class="centered" style="max-width: 784px">
+    <img src="files/viewport-render-preview/viewport-settings2.jpg" style="max-width: 670px">
 
     <p>
       Включите *Environment Background* в подменю *Viewport Background* в разделе *Default Shading*:
     </p>
 
-    <img src="files/viewport-render-preview/viewport-settings3.jpg" class="centered" style="max-width: 784px">
+    <img src="files/viewport-render-preview/viewport-settings3.jpg" style="max-width: 670px">
 
     <p class="note">
-      Вышеупомянутые настройки уже предварительно включены в проекте куба по умолчанию.
+      Вышеупомянутые настройки активированы по умолчанию в сцене с кубом в стандартных шаблонах приложений «Вердж3Д».
     </p>
 
     <p>
-      Однако затенение во вьюпорте не всегда обеспечивает отображение приближенное к рендерингу в браузере - например, отражения окружения игнорируют карты нормалей во вьюпорте и т.д.
+      Стоит учесть, что рендеринг во вьюпорте не всегда соответствует рендерингу в браузере. В частности, вьюпорт «3дс Макса» не отображает освещение от окружения модифицированное с помощью карт нормалей и т.д.
     </p>
 
 
-    [anchor:Scanline_ART_Rendering]
+    [anchor:color_management]
 
-    <h2>Scanline/ART Rendering</h2>
+    <h2>Управление цветом</h2>
 
     <p>
-      Рендеринг Verge3D стремится быть как можно ближе к Scanline-рендерингу, если используются стандартные материалы, и к ART-рендерингу, если используются физические материалы. Таким образом, вы можете просматривать свои сцены в 3ds Max без экспорта для более быстрой настройки.
+      С версии 2025 «3ds Max» использует по умолчанию систему управления цветом OCIO (вместе с цветовым пространством ACEScg):
+    </p>
+
+    <img src="files/viewport-render-preview/color-management-ocio.webp" style="max-width: 725px">
+
+    <p>
+      Эта система не поддерживается в «Вердж3Д», поскольку сильно нагружает графический процессор, что в свою очередь препятствует внедрению этой технологии для рендеринга браузерной графики в реальном времени.
+    </p>
+    <p>
+      Система OCIO делает заставляет ваши сцены выглядеть темнее во вьюпорте «3дс Макса», чем в «Вердж3Д»:
+    </p>
+
+    <img src="files/viewport-render-preview/max-vs-verge3d.webp">
+
+    <p>
+      Чтобы переключиться назад, в систему управления цветом gamma (sRGB), откройте диалог *Color Management Settings* в меню *Rendering* → <strong>Color Management...</strong>.
+    </p>
+
+    <img src="files/viewport-render-preview/color-management-settings.webp">
+
+    <p>
+      Переключите *Color Management Mode* в *Gamma Workflow*:
+    </p>
+
+    <img src="files/viewport-render-preview/color-management-gamma.webp" style="max-width: 725px">
+
+    <p>
+      Если переключатель *Apply Color Management Settings automatically* установлен, новая система управления цветом применится автоматически. Соответственно, вы можете просто закрыть диалог *Color Management Settings*.
+    </p>
+
+    <p class="note">
+      Система управления цветом Gamma Workflow уже включена в сцене с кубом в стандартных шаблонах приложений «Вердж3Д».
+    </p>
+
+
+    [anchor:arnold_scanline_rendering]
+
+    <h2>«Арнольд»/«Сканлайн» рендеринг</h2>
+
+    <p>
+      Рендеринг «Вердж3Д» стремится быть как можно ближе к рендеру «Арнольд» при использовании физических материалов и к «Сканлайн»-рендерингу, если используются стандартные материалы. Таким образом, вы можете просматривать и настраивать свои сцены в 3дс Макс без необходимости постоянного контроля в движке «Вердж3Д».
     </p>
 
     <p>
       Чтобы выбрать рендерер, нажмите <strong>Render Setup...</strong> в меню *Rendering* (F10):
     </p>
 
-    <img src="files/viewport-render-preview/render-settings.jpg" class="centered" style="max-width: 303px">
+    <img src="files/viewport-render-preview/render-settings.jpg" style="max-width: 303px">
 
     <p>
-      В окне используйте выпадающий список *Рендерер* для переключения между Scanline и ART:
+      В окне используйте выпадающий список *Renderer* для переключения между «Арнольд» и «Сканлайн»:
     </p>
 
-    <img src="files/viewport-render-preview/render-settings2.jpg" class="centered" style="max-width: 341px">
+    <img src="files/viewport-render-preview/render-settings2.jpg" style="max-width: 402px">
 
     <p>
       Чтобы выполнить рендеринг сцены, нажмите *Render* (Shift+Q):
     </p>
 
-    <img src="files/viewport-render-preview/render-settings3.jpg" class="centered" style="max-width: 306px">
+    <img src="files/viewport-render-preview/render-settings3.jpg" style="max-width: 306px">
 
     <p>
       Впоследствии вы можете использовать кнопку *Render* для повторного рендеринга:
     </p>
 
-    <img src="files/viewport-render-preview/render-settings4.jpg" class="centered">
+    <img src="files/viewport-render-preview/render-settings4.jpg">
 
 
     [anchor:ActiveShade_Mode]
 
-    <h2>ActiveShade Mode</h2>
+    <h2>Режим «АктивШейд»</h2>
 
     <p>
-      Для более быстрых итераций можно использовать режим *ActiveShade*, который автоматически обновляет рендер каждый раз, когда вы изменяете сцену (лучше всего работает с ART-рендером).
+      Для более быстрых итераций можно использовать режим «АктивШейд», который автоматически обновляет рендер каждый раз, когда вы изменяете сцену (лучше всего работает с «Арнольд»-рендером).
     </p>
 
     <p>
-      Вы можете включить ActiveShade в окне <strong> Render Setup...</strong> :
+      Вы можете включить *ActiveShade* в окне <strong>Render Setup...</strong> :
     </p>
 
-    <img src="files/viewport-render-preview/activeshade.jpg" class="centered" style="max-width: 343px">
+    <img src="files/viewport-render-preview/activeshade.jpg" style="max-width: 402px">
 
     <p>
-      После этого вы сможете переключить видовой экран в режим ActiveShade:
+      После этого вы сможете переключать вьюпорт в режим *ActiveShade*:
     </p>
 
-    <img src="files/viewport-render-preview/activeshade2.jpg" class="centered" style="max-width: 654px">
+    <img src="files/viewport-render-preview/activeshade2.jpg" style="max-width: 670px">
 
     <p>
       Таким образом, вы можете добиться лучшего приближения к тому результату, что вы получаете в браузере, со скоростью, близкой к реальному времени.
@@ -109,7 +149,7 @@
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D для Blender: Обзор системы материалов - Soft8Soft</title>
+    <title>Вердж3Д для Блендера: Обзор системы материалов — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Узнайте, какие типы материалов Blender поддерживаются в Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Узнайте, какие блендеровских материалов поддерживаются в Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Обзор системы материалов / Blender</h1>
+    <h1>Обзор системы материалов / Блендер</h1>
 
     <p>
-      Verge3D поддерживает следующие типы материалов:
+      «Вердж3Д» поддерживает следующие типы материалов:
     </p>
 
     [contents]
@@ -21,60 +21,62 @@
 
     [anchor:Eevee]
 
-    <h2>Eevee Материалы</h2>
+    <h2>Материалы «Иви»</h2>
 
     <p>
-      Eevee это движок для рендеринга в реальном времени, который мы рекомендуем использовать с Verge 3D.
+      «Иви» (называется Eevee в «Блендере») — это движок для рендеринга в реальном времени, который мы рекомендуем использовать с «Вердж3Д».
     </p>
 
-    <img src="files/material-system-blender/eevee-material.jpg">
+    <img src="files/material-system-blender/eevee-material.jpg" alt="Блендеровский материал для Иви">
 
     <p>
-      Вы можете ознакомиться более подробно с нодами, которые поддерживает Eevee, пройдя по следующей <a href="manual/ru/blender/Shader-Nodes-Reference.html">ссылке</a>.
+      Список шейдерных нод «Иви» и их параметры, поддерживаемые в «Вердж3Д», приведены в разделе <a href="manual/ru/blender/Shader-Nodes-Reference.html">обзор шейдерных нод</a>.
     </p>
 
 
 
     [anchor:Cycles]
 
-    <h2>Cycles Материалы</h2>
+    <h2>Материалы «Сайклз»</h2>
 
     <p>
-      Cycles это движок рендеринга с поддержкой трассировки лучей в Blender, он может быть воссоздан на движке рендеринга в реальном времени Verge3D только приблизительно. Большинство нод Cycles взаимозаменяемы нодами Eevee, поэтому вы можете трансформировать существующие ассеты, основанные на Cycles, без особых препятствий.
+      «Сайклз» (Cycles в «Блендере») — движок рендеринга с поддержкой трассировки лучей. Поскольку «Вердж3Д» является движком рендеринга в реальном времени, материалы «Сайклз» могут быть воспроизведены в нём лишь приблизительно. Тем не менее, большинство нод «Сайклз» отлично работает в «Иви», что позволяет существенно упростить портирование ассетов для 3Д-веб-платформы.
     </p>
 
-    <img src="files/material-system-blender/cycles.jpg">
-
+    <figure>
+      <img src="files/material-system-blender/cycles.jpg" alt="Пример сцены сделанный в Сайклз">
+      <figcaption>Пример сцены, сделанной для «Сайклз», которая одинаково хорошо работает в «Иви» и «Вердж3Д».</figcaption>
+    </figure>
 
 
     [anchor:glTF_compliant_PBR]
 
-    <h2>PBR Материалы совместимые с форматом glTF</h2>
+    <h2>Материалы совместимые с форматом glTF</h2>
 
     <p>
-      Данные материалы соответствуют <a href="https://www.khronos.org/news/press/khronos-releases-gltf-2.0-specification" target="_blank">glTF 2.0 стандарту</a> для физически корректных материалов (PBR). Согласно этому стандарту, информация о материале закодирована в наборе текстур: base color, occlusion-roughness-metallic упакованные в R, G и B каналы, соответственно.
+      Данные материалы соответствуют <a href="https://www.khronos.org/news/press/khronos-releases-gltf-2.0-specification" target="_blank">стандарту glTF 2.0</a>. Согласно этому стандарту, информация о материале закодирована в наборе текстур: альбедо и оклюжн-рафнесс-металлик (упаковка в красный, зелёный и синий каналы соответственно).
     </p>
 
-    <img src="files/material-system-blender/gltf-pbr.jpg">
+    <img src="files/material-system-blender/gltf-pbr.jpg" alt="Вид glTF-материала во вьюпорте Блендера">
 
     <p>
-      В Verge3D, PBR материалы совместимые с форматом glTF отображаются с помощью шейдерной ноды <b>Principled BSDF</b>, ко входам которой, подключаются PBR текстуры.
+      В «Вердж3Д», PBR-материалы совместимые с форматом glTF отображаются с помощью шейдерной ноды <b>Principled BSDF</b>, ко входам которой подключаются соответствующие текстуры.
     </p>
 
-    <img src="files/physical-material-blender/phmat_01.png" class="centered" style="max-width: 905px;">
+    <img src="files/physical-material-blender/phmat_01.png" alt="Создание glTF-материала в Блендере" style="max-width: 905px;">
 
     <p>
-      Кроме того, вы можете настроить ноды world в качестве окружающей среды, хотя это не является glTF 2.0 стандартом.
+      Кроме того, вы можете настроить шейдерные ноды мира в качестве окружающей среды, хотя это и не является штатной особенностью стандарта glTF 2.0.
     </p>
 
     <p>
-      Ознакомьтесь с главой <a href="manual/ru/blender/GLTF-Materials.html">glTF Materials</a> для большей информации как настроить PBR материалы совместимые с форматом glTF.
+      Ознакомьтесь с главой <a href="manual/ru/blender/GLTF-Materials.html">glTF-материалы</a> чтобы узнать подробнее о настройке PBR-материалов совместимых с форматом glTF.
     </p>
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
 
   </article></body>

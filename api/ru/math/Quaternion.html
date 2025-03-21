@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
@@ -14,7 +14,7 @@
       Кватернионы используются в Verge3D для представления [link:https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation вращений].
     </p>
 
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
 
     <code>
     const quaternion = new v3d.Quaternion();
@@ -30,10 +30,10 @@
 
     <h3>[name]([param:Float x], [param:Float y], [param:Float z], [param:Float w])</h3>
     <p>
-    [page:Float x] - x coordinate<br />
-    [page:Float y] - y coordinate<br />
-    [page:Float z] - z coordinate<br />
-    [page:Float w] - w coordinate
+    [page:Float x] — x coordinate<br>
+    [page:Float y] — y coordinate<br>
+    [page:Float z] — z coordinate<br>
+    [page:Float w] — w coordinate
     </p>
 
 
@@ -72,7 +72,7 @@
 
     <h3>[method:Boolean equals]([param:Quaternion v])</h3>
     <p>
-    [page:Quaternion v] - Кватернион, с которым будет сравниваться данный кватернион.<br /><br />
+    [page:Quaternion v] — Кватернион, с которым будет сравниваться данный кватернион.<br><br>
 
     Сравнивает свойства [page:.x x], [page:.y y], [page:.z z] и [page:.w w] [page:Quaternion v] с эквивалентными свойствами этого кватерниона, чтобы определить, представляют ли они одно и то же вращение.
     </p>
@@ -84,8 +84,8 @@
 
     <h3>[method:Quaternion fromArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - массив формата (x, y, z, w), используемого для построения кватерниона.<br />
-    [page:Integer offset] - (необязательно) смещение в массиве.<br /><br />
+    [page:Array array] — массив формата (x, y, z, w), используемого для построения кватерниона.<br>
+    [page:Integer offset] — (необязательно) смещение в массиве.<br><br>
 
     Устанавливает свойства [page:.x x], [page:.y y], [page:.z z] и [page:.w w] этого кватерниона из массива.
     </p>
@@ -119,7 +119,7 @@
 
     <h3>[method:Quaternion multiplyQuaternions]([param:Quaternion a], [param:Quaternion b])</h3>
     <p>
-      Устанавливает этот кватернион в [page:Quaternion a] x [page:Quaternion b].<br />
+      Устанавливает этот кватернион в [page:Quaternion a] x [page:Quaternion b].<br>
       Адаптировано из метода, изложенного  [link:http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm здесь].
     </p>
 
@@ -128,16 +128,16 @@
 
     <h3>[method:Quaternion rotateTowards]([param:Quaternion q], [param:Float step])</h3>
     <p>
-      [page:Quaternion q] - Целевой кватернион.<br />
-      [page:Float step] - Угловой шаг в радианах.<br /><br />
+      [page:Quaternion q] — Целевой кватернион.<br>
+      [page:Float step] — Угловой шаг в радианах.<br><br>
 
       Поворачивает данный кватернион на заданный угловой шаг к определенному кватерниону *q*. Метод гарантирует, что конечный кватернион не будет превышать *q*.
     </p>
 
     <h3>[method:Quaternion slerp]([param:Quaternion qb], [param:Float t])</h3>
     <p>
-      [page:Quaternion qb] - Другое кватернионное вращение<br />
-      [page:Float t] - коэффициент интерполяции в замкнутом интервале [0, 1].<br /><br />
+      [page:Quaternion qb] — Другое кватернионное вращение<br>
+      [page:Float t] — коэффициент интерполяции в замкнутом интервале [0, 1].<br><br>
 
       Обрабатывает сферическую линейную интерполяцию между кватернионами. [page:Float t] представляет собой величину поворота между данным кватернионом (где [page:Float t] равно 0) и [page:Quaternion qb] (где [page:Float t] равно 1). Этот кватернион устанавливается в результат. Также смотрите статическую версию *slerp* ниже.
 
@@ -152,8 +152,8 @@
 
     <h3>[method:Quaternion setFromAxisAngle]([param:Vector3 axis], [param:Float angle])</h3>
     <p>
-      Устанавливает этот кватернион из вращения, заданного [page:Vector3 axis] и [page:Float angle].<br />
-      Адаптировано из следующего [link:http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm метода].<br />
+      Устанавливает этот кватернион из вращения, заданного [page:Vector3 axis] и [page:Float angle].<br>
+      Адаптировано из следующего [link:http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm метода].<br>
     *Axis*(ось) предполагается нормализованной,  *angle*(угол) - в радианах.
     </p>
 
@@ -162,31 +162,31 @@
 
     <h3>[method:Quaternion setFromRotationMatrix]([param:Matrix4 m])</h3>
     <p>
-    [page:Matrix4 m] - a [page:Matrix4] [page:Matrix4], из которых верхняя 3x3 матрица является чистой
-    [link:https://en.wikipedia.org/wiki/Rotation_matrix матрицей вращение] (т.е. немасштабированной).<br />
-    Устанавливает этот кватернион из компонента вращения [page:Matrix4 m].<br />
+    [page:Matrix4 m] — a [page:Matrix4] [page:Matrix4], из которых верхняя 3x3 матрица является чистой
+    [link:https://en.wikipedia.org/wiki/Rotation_matrix матрицей вращение] (т.е. немасштабированной).<br>
+    Устанавливает этот кватернион из компонента вращения [page:Matrix4 m].<br>
     Адаптировано из следующего [link:http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm метода].
     </p>
 
     <h3>[method:Quaternion setFromUnitVectors]([param:Vector3 vFrom], [param:Vector3 vTo])</h3>
     <p>
-      Применяет к данному кватерниону вращение, необходимое для поворота вектора направления [page:Vector3 vFrom] к вектору направления [page:Vector3 vTo].<br />
-      Адаптировано из следующего [link:http://lolengine.net/blog/2013/09/18/beautiful-maths-quaternion-from-vectors метода].<br />
+      Применяет к данному кватерниону вращение, необходимое для поворота вектора направления [page:Vector3 vFrom] к вектору направления [page:Vector3 vTo].<br>
+      Адаптировано из следующего [link:http://lolengine.net/blog/2013/09/18/beautiful-maths-quaternion-from-vectors метода].<br>
       Предполагается, что [page:Vector3 vFrom] и [page:Vector3 vTo] нормализованы.
     </p>
 
     <h3>[method:Array toArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - Необязательный массив для хранения кватерниона. Если он не указан, будет создан новый массив.<br/>
-    [page:Integer offset] - (необязательно) если указан, результат будет скопирован в этот [page:Array]..<br /><br />
+    [page:Array array] — Необязательный массив для хранения кватерниона. Если он не указан, будет создан новый массив.<br/>
+    [page:Integer offset] — (необязательно) если указан, результат будет скопирован в этот [page:Array]..<br><br>
 
     Возвращает числовые элементы данного кватерниона в массиве формата [x, y, z, w].
     </p>
 
     <h3>[method:this fromBufferAttribute]([param:BufferAttribute attribute], [param:Integer index])</h3>
     <p>
-    [page:BufferAttribute attribute] - атрибут источника.<br />
-    [page:Integer index] - индекс в атрибуте.<br /><br />
+    [page:BufferAttribute attribute] — атрибут источника.<br>
+    [page:Integer index] — индекс в атрибуте.<br><br>
 
     Устанавливает [page:.x x], [page:.y y], [page:.z z], [page:.w w] свойства этого кватерниона из атрибута [page:BufferAttribute].
     </p>
@@ -211,10 +211,10 @@ q.slerp(qb, t)
 
     <h3>[method:Quaternion slerp]([param:Quaternion qStart], [param:Quaternion qEnd], [param:Quaternion qTarget], [param:Float t])</h3>
     <p>
-      [page:Quaternion qStart] - Начальный кватернион (где [page:Float t] равен 0)<br />
-      [page:Quaternion qEnd] - Конечный кватернион (где [page:Float t] равно 1)<br />
-      [page:Quaternion qTarget] - Целевой кватернион, который устанавливается с результатом<br />
-      [page:Float t] - коэффициент интерполяции в замкнутом интервале [0, 1].<br /><br />
+      [page:Quaternion qStart] — Начальный кватернион (где [page:Float t] равен 0)<br>
+      [page:Quaternion qEnd] — Конечный кватернион (где [page:Float t] равно 1)<br>
+      [page:Quaternion qTarget] — Целевой кватернион, который устанавливается с результатом<br>
+      [page:Float t] — коэффициент интерполяции в замкнутом интервале [0, 1].<br><br>
 
       В отличие от обычного метода, статическая версия slerp устанавливает целевой кватернион на результат операции slerp.
       <code>
@@ -232,13 +232,13 @@ q.slerp(qb, t)
 
     <h3>[method:null slerpFlat]([param:Array dst], [param:Integer dstOffset], [param:Array src0], [param:Integer srcOffset0], [param:Array src1], [param:Integer srcOffset1], [param:Float t])</h3>
     <p>
-    [page:Array dst] - Выходной массив.<br />
-    [page:Integer dstOffset] - Смещение в выходном массиве.<br />
-    [page:Array src0] - Исходный массив начального кватерниона.<br />
-    [page:Integer srcOffset0] - Смещение в массиве *src0*.<br />
-    [page:Array src1] - Исходный массив целевого кватнериона.<br />
-    [page:Integer srcOffset1] - Смещение в массиве *src1*..<br />
-    [page:Float t] - Нормированный коэффициент интерполяции (от 0 до 1).<br /><br />
+    [page:Array dst] — Выходной массив.<br>
+    [page:Integer dstOffset] — Смещение в выходном массиве.<br>
+    [page:Array src0] — Исходный массив начального кватерниона.<br>
+    [page:Integer srcOffset0] — Смещение в массиве *src0*.<br>
+    [page:Array src1] — Исходный массив целевого кватнериона.<br>
+    [page:Integer srcOffset1] — Смещение в массиве *src1*..<br>
+    [page:Float t] — Нормированный коэффициент интерполяции (от 0 до 1).<br><br>
     </p>
     <p>
       Подобен статическому методу *slerp* выше, но работает непосредственно с плоскими массивами чисел.

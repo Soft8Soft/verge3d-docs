@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Использование Node.js и NPM — Софт Эйт Софт</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Как использовать Node.js и npm для разработки Вердж3Д-приложений.">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body><article>
+    <h1>Использование Node.js и NPM</h1>
+
+    <p>
+      В этом разделе приведена информации об использовании платформы <strong>Node.js</strong> совместно с менеджером пакетов <strong>npm</strong> для разработки «Вердж3Д»-приложений.
+    </p>
+
+    [contents]
+
+    [anchor:install_nodejs_npm]
+
+    <h2>Установка Node.js и npm</h2>
+
+    <p>
+      Если вы не сделали этого ранее, обе программы могут быть загружены <a href="https://nodejs.org/en/download/" target="_blank">отсюда</a>. Там же вы найдёте инструкции по установке.
+    </p>
+
+
+    [anchor:creating_basic_verge3d_app]
+
+    <h2>Создание простейшего «Вердж3Д»-приложения</h2>
+
+    <p>
+      Создайте папку для вашего нового проекта, например <strong>my_app</strong>, перейдите в неё и создайте новый npm пакет командой:
+    </p>
+
+    <code>npm init</code>
+
+    <p>
+      Команда задаст ряд вопросов, укажите свои данные или оставьте предложенные по умолчанию варианты.
+    </p>
+
+    <p>
+      Установите пакет verge3d как зависимость:
+    </p>
+
+    <code>npm install --save verge3d</code>
+
+    <p>
+      Создайте файл <strong>my_app.html</strong> со следующим содержимым:
+    </p>
+
+    <code>
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Моё первое Вердж3Д-приложение&lt;/title&gt;
+        &lt;style&gt;
+          body { margin: 0; }
+          #v3d-container { position: absolute; width: 100%; height: 100% }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div id=&quot;v3d-container&quot;&gt;&lt;/div&gt;
+        &lt;script type="module" src="my_app.js"&gt;&lt;/script&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+    </code>
+
+    <p>
+      Создайте файл <strong>my_app.js</strong> со следующим содержимым:
+    </p>
+
+    <code>
+    import * as v3d from './node_modules/verge3d/build/v3d.module.js';
+
+    const app = new v3d.App('v3d-container');
+
+    app.loadScene('cube.glb', () =&gt; {
+        app.enableControls();
+        app.run();
+    });
+    </code>
+
+    <p>
+      Скачайте файл модели <a href="https://cdn.soft8soft.com/demo/blender/cube/cube.glb">cube.glb</a> и поместите его рядом с файлом <strong>my_app.html</strong>.
+    </p>
+
+    <p>
+      Запустите сервер разработки:
+    </p>
+
+    <code>npx http-server</code>
+
+    <p>
+      Перейдите на страницу <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> в любом браузере, а затем запустите <strong>my_app.html</strong> из предложенного списка.
+    </p>
+
+
+    [anchor:using_webpack]
+
+    <h2>Использование webpack</h2>
+
+    <p>
+      С помощью утилиты *webpack* вы можете упростить разработку «Вердж3Д»-приложений, используя более простые конструкции импорта в вашем коде на «Ява Скрипте»:
+    </p>
+
+    <code>import * as v3d from 'verge3d';</code>
+
+    <p>
+      а также оптимизировать загрузку приложений посредством упаковки модулей «Вердж3Д» и вашего кода в единый «Ява Скрипт»-файл.
+    </p>
+    <p>
+      Сделаем наше приложение совместимым с webpack. Удалите файл <strong>my_app.js</strong>, поскольку он нам больше не понадобится.
+    </p>
+    <p>
+      Установите webpack как зависимость:
+    </p>
+
+    <code>npm install --save webpack webpack-cli</code>
+
+    <p>
+      Измените файл <strong>my_app.html</strong> посредством замены имеющегося кода на:
+    </p>
+
+    <code>
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;Моё первое Вердж3Д-приложение&lt;/title&gt;
+        &lt;style&gt;
+          body { margin: 0; }
+          #v3d-container { position: absolute; width: 100%; height: 100% }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+        &lt;div id=&quot;v3d-container&quot;&gt;&lt;/div&gt;
+        &lt;script src="dist/main.js"&gt;&lt;/script&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+    </code>
+
+    <p>
+      Создайте папку <strong>src</strong> и поместите внутрь новый файл <strong>index.js</strong> со следующим содержимым:
+    </p>
+
+    <code>
+    import * as v3d from 'verge3d';
+
+    const app = new v3d.App('v3d-container');
+
+    app.loadScene('cube.glb', () =&gt; {
+        app.enableControls();
+        app.run();
+    });
+    </code>
+
+    <p>
+      Запустите webpack и соберите ваше приложение:
+    </p>
+
+    <code>npx webpack</code>
+
+    <p>
+      Запустите сервер разработки:
+    </p>
+
+    <code>npx http-server</code>
+
+    <p>
+      Перейдите на страницу <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> в любом браузере, а затем запустите <strong>my_app.html</strong> из предложенного списка.
+    </p>
+
+
+    [anchor:activating_license]
+
+    <h2>Активация лицензии</h2>
+
+    <p>
+      Чтобы подписать модули движка (v3d.js и v3d.module.js) вашим лицензионным ключом, используйте команду <strong>keymanager</strong> (требуется интерпретатор «Питона» версии 3):
+    </p>
+
+    <code>npx keymanager activate node_modules/verge3d/build/v3d.js XXXXXXXXXX</code>
+
+    <p>или</p>
+
+    <code>npx keymanager activate node_modules/verge3d/build/v3d.module.js XXXXXXXXXX</code>
+
+    <p>
+      Где XXXXXXXXXX — ваш лицензионный ключ. Данная команда ничего не выводит, поэтому сразу после активации проверьте работу приложения. Если вы больше не видите водяной знак *MADE WITH VERGE3D TRIAL*, то активация прошла успешно. В случае использования утилиты webpack не забудьте пересобрать ваше приложение после активации.
+    </p>
+
+
+    [anchor:whats_next]
+
+    <h2>Дальнейшие шаги</h2>
+
+    <p>
+      Узнайте как использовать фреймворки <a href="manual/ru/programmers_guide/Integration-with-Reactjs-Vuejs.html">React и Vue.js</a> в ваших «Вердж3Д»-приложениях.
+    </p>
+
+  </article></body>
+</html>

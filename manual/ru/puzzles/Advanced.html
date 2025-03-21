@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Продвинутые Пазлы - Soft8Soft</title>
+    <title>Пазлы для опытных пользователей (Advanced) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как использовать пазлы для реализации расширенных возможностей в ваших приложениях, таких как создание сетей, взаимодействие с кодом JavaScript, преобразование данных, сохранение/восстановление состояния и многое другое."/>
-    <base href="../../../" />
+    <meta name="description" content="Как использовать пазлы для реализации расширенных возможностей в ваших приложениях, таких как работа в сети, взаимодействие с «Ява Скрипт»-кодом, преобразование данных, сохранение/восстановление состояния и многое другое.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Продвинутые Пазлы</h1>
+    <h1>Пазлы для опытных пользователей (Advanced)</h1>
 
-    <p>Используйте эти пазлы для реализации расширенных возможностей в ваших приложениях, таких как работа в сети, взаимодействие с кодом JavaScript, преобразование данных, сохранение/восстановление состояния и многое другое.
+    <p>
+      Используйте эти пазлы для реализации расширенных возможностей в ваших приложениях, таких как работа в сети, взаимодействие с «Ява Скрипт»-кодом, преобразование данных, сохранение/восстановление состояния и многое другое.
     </p>
 
-    <img src="files/puzzles/puzzles-advanced.jpg">
+    <img src="files/puzzles/puzzles-advanced.webp">
 
 
     <h2>Содержание</h2>
@@ -25,7 +26,18 @@
 
     [anchor:puzzles_reference]
 
-    <h2>Перечень Пазлов</h2>
+    <h2>Перечень пазлов</h2>
+
+
+    [anchor:comment]
+
+    <h3>comment</h3>
+
+    <p>
+      Этот пазл выполняет чисто визуальную функцию комментирования скрипта. Также он добавляет строку с комментарием на «Ява Скрипте» в файл <em>visual_logic.js</em>.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-comment.jpg">
 
 
     [anchor:exec_script]
@@ -33,52 +45,51 @@
     <h3>exec script</h3>
 
     <p>
-      Этот пазл выполняет указанный javascript код. Он использует редактор <a href='https://ace.c9.io/'>Ace Editor</a> для отображения и редактирования содержимого. Соответствующие сочетания клавиш можно посмотреть здесь: <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>Default Keyboard Shortcuts</a>.
+      Этот пазл выполняет указанный «Ява Скрипт»-код. Он использует редактор <a href="https://ace.c9.io/" target="_blank">Ace</a> для отображения и редактирования содержимого. Соответствующие сочетания клавиш можно посмотреть <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">здесь</a>. Поле редактора может быть растянуто под нужные размеры.
     </p>
 
     <p>Вы можете использовать следующие встроенные переменные:</p>
     <ul>
-        <li><b>app</b> - экземпляр приложения, для получения подробной информации смотрите <a href="api/en/extras/App.html">App</a></li>
-        <li><b>v3d</b> - пространство имен v3d, которое содержит все модули движка</li>
-        <li><b>VARS</b> - доступ к переменным пазлам</li>
-        <li><b>PROC</b> - доступ к пазлам процедур</li>
+      <li>*app* — экземпляр приложения, для получения подробной информации смотрите <a href="api/ru/extras/App.html">App</a></li>
+      <li>*v3d* — пространство имен v3d, которое содержит все модули движка</li>
+      <li>*puzzles* — объект содержащий объявленные в пазлах процедуры, API физического движка, и др.</li>
+      <li>*VARS* — доступ к переменным пазлов</li>
+      <li>*PROC* — доступ к процедурным пазлам</li>
     </ul>
 
-    <img src="files/puzzles/puzzles-advanced-exec-script.jpg">
+    <img src="files/puzzles/puzzles-advanced-exec-script.png">
 
-    <p><b>Особенности использования встроенных модулей для вкладки "Init" и других вкладок</b></p>
+    <h4>Особенности использования встроенных модулей для вкладки "Init" и других вкладок</h4>
     <ul>
-        <li>
-          Встроенная переменная <b>app</b> недоступна для этого пазла, если она используется внутри вкладки <b>Init</b>, поскольку на этом этапе приложение еще не инициализировано должным образом.
-        </li>
-        <li>
-          Переменные и процедуры, объявленные на вкладке <b>Init</b>, не могут быть доступны из других вкладок через <b>VARS</b>, <b>PROC</b> и наоборот.
-        </li>
+      <li>
+        Встроенная переменная *app* недоступна для этого пазла, если она используется внутри вкладки *Init*, поскольку на этом этапе приложение еще не инициализировано должным образом.
+      </li>
+      <li>
+        Переменные и процедуры, объявленные на вкладке *Init*, не могут быть доступны из других вкладок через *VARS*, *PROC* и наоборот.
+      </li>
     </ul>
 
 
-    <!-- COMPAT: < 3.5 -->
-    <a href="#" id="call_JS_function"></a>
     [anchor:call_external_function]
 
     <h3>call external function</h3>
 
     <p>
-      Выполняет функцию, указанную в JavaScript-коде приложения. По желанию передает параметры для использования в качестве аргументов функции.
+      Выполняет функцию, указанную в «Ява Скрипт»-коде приложения. По желанию передает параметры для использования в качестве аргументов функции.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-call-js-function.jpg">
 
     <p>
-      Для того, чтобы добавить функцию в код JavaScript, откройте файл приложения <strong>.js</strong> (например, <i>my_awesome_app.js</i>, расположенный в <i>verge3d/applications/my_awesome_app</i>) любым текстовым редактором. Найдите "prepareExternalInterface" и добавьте свою функцию внутрь этого объявления (между фигурными скобками), чтобы она выглядела следующим образом:
+      Для того, чтобы добавить функцию в код приложения на «Ява Скрипте», откройте *.js*-файл приложения (например, *my_awesome_app.js*, расположенный в подпапке *my_awesome_app* <em>папки приложений</em>) в любом текстовом редакторе. Найдите `prepareExternalInterface` и добавьте свою функцию внутрь этого объявления (между фигурными скобками), чтобы она выглядела следующим образом:
     </p>
 
     <code>
-function prepareExternalInterface(app) {
+    function prepareExternalInterface(app) {
         app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
             alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
         }
-}
+    }
     </code>
 
 
@@ -87,11 +98,16 @@ function prepareExternalInterface(app) {
     <h3>load data</h3>
 
     <p>
-      Попытка загрузить данные из указанного места. Пазлы в слоте "once ready do" интерпретируются независимо от того, была ли попытка успешной. Доступ к полученным данным можно получить с помощью пазла <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a>.
+      Загрузить данные из указанного места. Доступ к полученным данным можно получить с помощью пазла <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a>. JSON-объекты автоматически конвертируются в <a href="manual/ru/puzzles/Dictionaries.html#introduction">словари</a>, а все остальные форматы данных возвращаются как текстовые строки.
     </p>
 
-    <img src="files/puzzles/puzzles-advanced-load-data.jpg">
+    <img src="files/puzzles/puzzles-advanced-load-data.webp">
 
+    <p>
+      По умолчанию результат запроса кешируется, поэтому все последующие вызовы этого пазла возвращают то же самое значение. Чтобы отключить кеширование, нажмите на значок шестерёнке и включите опцию *disable caching*. Настройка <strong>enable "on error" slot</strong> используется для обработки ошибок с помощью дополнительного слота *on error do*.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-load-data-params.webp">
 
 
     [anchor:send_data]
@@ -99,13 +115,22 @@ function prepareExternalInterface(app) {
     <h3>send data</h3>
 
     <p>
-      Попытка отправить указанные данные с помощью асинхронного <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> запроса. Пазлы в слоте "once ready do" интерпретируются независимо от того, была ли попытка успешной. Если есть какие-либо ответные данные, к ним можно получить доступ через пазл <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a>.
+      Отправляет указанные данные с помощью асинхронного <a href="https://ru.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a>-запроса. Доступ к полученным данным можно получить с помощью пазла <a href="manual/ru/puzzles/Advanced.html#loaded_data">loaded data</a>. JSON-объекты (отправляемые и получаемые) автоматически конвертируются в <a href="manual/ru/puzzles/Dictionaries.html#introduction">словари</a>, значения <a href="manual/ru/puzzles/Advanced.html#javascript_object">form data</a> отправляются как есть, а все остальные форматы данных отправляются/принимаются как текстовые строки.
     </p>
 
+    <img src="files/puzzles/puzzles-advanced-send-data.webp">
 
+    <p>
+      Слот <strong>enable "with headers " slot</strong> используется чтобы назначить дополнительные заголовки запроса с помощью <a href="manual/ru/puzzles/Dictionaries.html#introduction">объекта-словаря</a>. Настройка <strong>enable "on error" slot</strong> используется для обработки ошибок с помощью дополнительного слота *on error do*.
+    </p>
 
-    <img src="files/puzzles/puzzles-advanced-send-data.jpg">
+    <img src="files/puzzles/puzzles-advanced-send-data-params.webp" alt="Params of send data puzzle">
 
+    <p>
+      Учитывайте, что браузеры могут сохранять локальные копии полученных данных для ускорения последующих загрузок. Чтобы предотвратить кеширование, вы можете добавить параметр, меняющий УРЛ-адрес каждый раз когда делается новый запрос. Чтобы добавить такой параметр, используйте пазлы <a href="manual/ru/puzzles/HTML.html#set_url_param">set URL param</a> и <a href="manual/ru/puzzles/Time.html#elapsed_total">elapsed total</a>:
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-send-data-tip-browser-cache.jpg">
 
 
     [anchor:loaded_data]
@@ -113,11 +138,10 @@ function prepareExternalInterface(app) {
     <h3>loaded data</h3>
 
     <p>
-      Возвращает данные, полученные с помощью пазлов <a href="manual/ru/puzzles/Advanced.html#load_data">load data</a> или <a href="manual/ru/puzzles/Advanced.html#send_data">send data</a>.
+      Возвращает данные, полученные с помощью пазлов <a href="manual/ru/puzzles/Advanced.html#load_data">load data</a> и <a href="manual/ru/puzzles/Advanced.html#send_data">send data</a>.
     </p>
 
-    <img src="files/puzzles/puzzles-advanced-loaded-data.jpg">
-
+    <img src="files/puzzles/puzzles-advanced-loaded-data.webp">
 
 
     [anchor:read_JSON]
@@ -125,11 +149,10 @@ function prepareExternalInterface(app) {
     <h3>read JSON</h3>
 
     <p>
-      Интерпретирует текст (или <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>) как данные <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a>, которые обращаются к словарю.
+      Интерпретирует текст (или <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>) как данные в формате <a href="https://ru.wikipedia.org/wiki/JSON" target="_blank">JSON</a> и возвращает их в виде <a href="manual/ru/puzzles/Dictionaries.html#introduction">словаря</a>.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-JSON.jpg">
-
 
 
     [anchor:read_CSV]
@@ -137,17 +160,38 @@ function prepareExternalInterface(app) {
     <h3>read CSV</h3>
 
     <p>
-      Интерпретирует текст (или <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>) как <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">значения, разделенные запятыми</a>. Возвращает список строк таблицы, причем каждая строка представлена в виде списка значений. Разделитель может быть выбран с помощью выпадающего списка, чтобы соответствовать настройкам экспорта CSV-файла. Значение "От строки" указывает, сколько строк будет пропущено, начиная с верхней.
+      Интерпретирует текст (или ссылку <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>) как <a href="https://ru.wikipedia.org/wiki/CSV#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80" target="_blank">CSV-файл</a>. Возвращает список строк таблицы, причем каждая строка представлена в виде списка значений. Разделитель может быть выбран с помощью выпадающего списка, чтобы соответствовать настройкам экспорта CSV-файла. Значение *from row* указывает, сколько строк будет пропущено, начиная с верхней.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-CSV.jpg">
 
     <p>
-      Доступ к строкам и значениям таблицы осуществляется по их числовым индексам, начиная с 0.
+      Доступ к строкам и значениям таблицы осуществляется по их числовым индексам, начиная с `0`.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-csv-example.jpg">
 
+
+    [anchor:connector]
+
+    <h3>connector</h3>
+
+    <p>
+      Этот пазл позволяет соединять другие пазлы между собой, чтобы их было удобнее перемещать, удалять и использовать в других пазлах. Одно из применений — объединение пазлов <a href="manual/ru/puzzles/Sound.html#load_sound">load sound</a> или <a href="manual/ru/puzzles/Sound.html#load_video">load video</a> в одну группу для организации предварительной загрузки медиаресурсов в вашем приложении.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-connector.jpg">
+
+
+    [anchor:connector_slot]
+
+    <h3>connector (слотовый)</h3>
+
+    <p>
+      Этот пазл позволяет объединять несколько пазлов между собой, чтобы их было удобнее перемещать, удалять, комментировать и использовать в составе <a href="manual/ru/puzzles/Library.html">библиотеки</a>.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-connector-slot.jpg">
 
 
     [anchor:save_state]
@@ -165,7 +209,6 @@ function prepareExternalInterface(app) {
     </p>
 
 
-
     [anchor:undo_state]
 
     <h3>undo state</h3>
@@ -177,9 +220,10 @@ function prepareExternalInterface(app) {
     <img src="files/puzzles/puzzles-advanced-undo-state.jpg">
 
     <p>
-      Если этот пазл вызывается несколько раз, состояния восстанавливаются из сохраненной последовательности (если таковая имеется), что позволяет вернуться к любому ранее сохраненному состоянию из стека. 
+      Если этот пазл вызывается несколько раз, состояния восстанавливаются из сохраненной последовательности (если таковая имеется), что позволяет вернуться к любому ранее сохраненному состоянию из стека. В ряде случаев вам может потребоваться узнать момент, когда в очереди восстановления ничего не осталось, в частности, чтобы изменить интерфейс приложения соответствующим образом. В этом случае используйте переменную-счётчик:
     </p>
 
+    <img src="files/puzzles/puzzles-advanced-save-state-and-undo-state-example.jpg">
 
 
     [anchor:all_variable_names]
@@ -187,11 +231,10 @@ function prepareExternalInterface(app) {
     <h3>all variable names</h3>
 
     <p>
-      Возвращает список с именами всех переменных, используемых в пазлах. 
+      Возвращает список с именами всех переменных, используемых в пазлах.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-all-variable-names.jpg">
-
 
 
     [anchor:variable_value_by_name]
@@ -199,7 +242,7 @@ function prepareExternalInterface(app) {
     <h3>variable value by name</h3>
 
     <p>
-      Возвращает значение переменной, заданной ее именем. Этот пазл работает аналогично стандартному пазлу значение переменной, но не требует выбора переменной из предопределенного выпадающего меню.
+      Возвращает значение переменной, заданной её именем. Этот пазл работает аналогично стандартному пазлу значение переменной, но не требует выбора переменной из предопределенного выпадающего меню.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg">
@@ -210,37 +253,59 @@ function prepareExternalInterface(app) {
     <h3>JavaScript object</h3>
 
     <p>
-      Возвращает заданный объект JavaScript.
+      Возвращает заданный «Ява Скрипт»-объект.
     </p>
 
-    <img src="files/puzzles/puzzles-advanced-javascript-object.jpg">
+    <img src="files/puzzles/puzzles-advanced-javascript-object.webp">
 
-    <p>С помощью этого пазла можно получить следующие объекты JavaScript::</p>
+    <p>С помощью этого пазла можно получить следующие объекты «Ява Скрипт»:</p>
 
     <dl>
-      <dt>window</dt>
-      <dd>Возвращает объект верхнего уровня *window* как значение словаря.</dd>
       <dt>arguments</dt>
-      <dd>Возвращает список аргументов текущей выполняемой функции. Может использоваться для получения аргументов процедур пазлов или дополнительных аргументов, передаваемых внутренним обратным вызовам пазлов (смотрите ниже).</dd>
+      <dd>
+        <p>
+          Возвращает список аргументов текущей выполняемой функции. Может использоваться для получения аргументов процедур пазлов или дополнительных аргументов, передаваемых внутренним обработчикам пазлов.
+        </p>
+
+        <p>
+          Например, при использовании пазла <a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a> можно получить внутреннее событие «Ява Скрипт», которое запускает логику пазла, используя первый аргумент обработчика, выполняемого за слотом *do*. В примере ниже мы используем это событие для получения координат X и Y указателя мыши:
+        </p>
+
+        <img src="files/puzzles/puzzles-advanced-javascript-object-arguments.webp" style="max-width: 735px;">
+
+        <p>Следующие пазлы поддерживают расширенные опции:</p>
+
+        <ul>
+          <li><a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/ru/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/ru/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/ru/docs/Web/API/MouseEvent" target="_blank">mouse</a> или <a href="https://developer.mozilla.org/ru/docs/Web/API/TouchEvent" target="_blank">touch</a> события, которые запускают пазлы в слотах <em>do</em>.</li>
+          <li><a href="manual/ru/puzzles/Time.html#after">after</a>, <a href="manual/ru/puzzles/Time.html#set_timer">set timer</a> — идентификатор таймера, возвращаемый внутренним вызовом этих пазлов <a href="https://developer.mozilla.org/ru/docs/Web/API/Window/setInterval" target="_blank">setInterval()</a>.</li>
+          <li><a href="manual/ru/puzzles/Time.html#every_frame">every frame</a> — разница и общее прошедшее время.</li>
+          <li><a href="manual/ru/puzzles/HTML.html#event">event</a> — объект события.</li>
+          <li><a href="manual/ru/puzzles/AR_VR.html#session_event">on session event</a> — объект WebXR-события.</li>
+        </ul>
+      </dd>
+
+      <dt>html element</dt>
+      <dd>
+        <p>
+          Возвращает <a href="manual/ru/puzzles/Dictionaries.html#introduction">словарь</a> с DOM-объектом для указанного HTML-элемента. Эта возможность может быть полезна для доступа к свойствам элементов, которые пока не поддерживаются пазлами <a href="manual/ru/puzzles/HTML.html#set_property">set property</a> и <a href="manual/ru/puzzles/HTML.html#get_property">get property</a>.
+        </p>
+        <img src="files/puzzles/puzzles-advanced-javascript-object-html-element.webp" style="max-width: 885px;">
+      </dd>
+
+      <dt>form data</dt>
+      <dd>
+        Возвращает объект FormData для заданного элемента-формы `&lt;form&gt;`. В частности, используется для <a href="manual/ru/puzzles/Library.html#inquiry_form">отправки пользовательских форм</a> на почту.
+      </dd>
+
       <dt>this</dt>
-      <dd>JavaScript *this* значение.</dd>
+      <dd>Значение <a href="api/ru/types/JavaScriptTypes.html#this">`this`</a> «Ява Скрипта».</dd>
+
+      <dt>window</dt>
+      <dd>
+        <p>Возвращает объект верхнего уровня `window` в виде словаря.</p>
+        <img src="files/puzzles/puzzles-advanced-javascript-object-window.webp" style="max-width: 950px;">
+        </dd>
     </dl>
-
-    <p>
-      Параметр *arguments* можно использовать для получения дополнительных параметров пазла. Например, при использовании пазла <a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a> можно получить внутреннее событие JavaScript, которое запускает логику пазла, используя первый аргумент обратного вызова, выполняемого за слотом *do*. В примере ниже мы используем это событие для получения координат X и Y указателя мыши:
-    </p>
-
-    <img src="files/puzzles/puzzles-advanced-javascript-object-example.jpg">
-
-    <p>Следующие пазлы поддерживают расширенные опции:</p>
-
-    <ul>
-      <li><a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/ru/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/ru/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> или <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> события, которые запускают пазлы в слотах <em>do</em>.</li>
-      <li><a href="manual/ru/puzzles/Time.html#after">after</a>, <a href="manual/ru/puzzles/Time.html#set_timer">set timer</a> — идентификатор таймера, возвращаемый вызовом <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> пазлов.</li>
-      <li><a href="manual/ru/puzzles/Time.html#every_frame">every frame</a> — дельта-время и общее прошедшее время.</li>
-      <li><a href="manual/ru/puzzles/HTML.html#event">event</a> — объект события.</li>
-      <li><a href="manual/ru/puzzles/AR_VR.html#session_event">on session event</a> — WebXR объект события.</li>
-    </ul>
 
 
     [anchor:wait_promise]
@@ -248,13 +313,13 @@ function prepareExternalInterface(app) {
     <h3>wait promise</h3>
 
     <p>
-      Дождитесь разрешения или отклонения промиса и верните его значение (или причину отклонения) в пазле <a href="manual/ru/puzzles/Advanced.html#promise_value">promise value</a>.
+      Дожидается <em>разрешения</em> или <em>отклонения</em> промиса и возвращает его значение (или причину отклонения) в пазле <a href="manual/ru/puzzles/Advanced.html#promise_value">promise value</a>.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-wait-promise.jpg">
 
     <p>
-      Этот пазл может потребоваться для получения значения <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">export to gltf</a> и <a href="manual/ru/puzzles/Materials.html#generate_normal_map">generate normal map</a>. Будучи по своей природе асинхронными, эти пазлы не возвращают разрешенные значения немедленно. Вместо этого они возвращают значения промисов, которые разрешаются в пазлах, используемых в качестве входных данных. В некоторых редких случаях это разрешение не происходит. В этих случаях для разрешения значений промиса следует использовать *wait promise*.
+      Этот пазл может потребоваться для получения значения пазлов <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">export to gltf</a> и <a href="manual/ru/puzzles/Materials.html#generate_normal_map">generate normal map</a>. Будучи по своей природе асинхронными, эти пазлы не возвращают значение сразу. Вместо этого они возвращают промисы, которые неявно разрешаются внутри пазлов, на вход которых приходят. В некоторых редких случаях это разрешение не происходит. В этих случаях для разрешения промисов следует использовать *wait promise*.
     </p>
 
 
@@ -262,23 +327,69 @@ function prepareExternalInterface(app) {
 
     <h3>promise value</h3>
 
-    <p>Значение разрешенного промиса (в случае разрешенного промиса) или строка ошибки (в случае отклоненного промиса).</p>
-
-
-    [anchor:connector]
-
-    <h3>connector</h3>
-
     <p>
-      Этот пазл позволяет соединять другие пазлы между собой, чтобы их было удобнее перемещать, удалять и использовать в других пазлах. Наиболее заметное применение - объединение пазлов <a href="manual/ru/puzzles/Sound.html#load_sound">load sound</a> или <a href="manual/ru/puzzles/Sound.html#load_video">load video</a> в одну группу для организации предварительной загрузки медиаресурсов в вашем приложении.
+      Значение разрешенного промиса (в случае разрешённого промиса) или строка ошибки (в случае отклоненного промиса).
     </p>
 
-    <img src="files/puzzles/puzzles-advanced-connector.jpg">
+
+    [anchor:get_procedure]
+
+    <h3>get procedure</h3>
+
+    <p>
+      Этот пазл используется чтобы получить <a href="manual/ru/puzzles/Procedures.html">процедуру</a>, определённую где-то в пазлах. Возвращаемое значение может быть сохранено в переменную или подано в другую процедуру в качестве параметра и вызвано позже с помощью пазла <a href="manual/ru/puzzles/Advanced.html#call_procedure">call procedure</a>.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-get-procedure.png" style="max-width: 818px">
 
 
-    <h2>Проблемы с Пазлами?</h2>
+    [anchor:call_procedure]
 
-    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
+    <h3>call procedure</h3>
+
+    <p>
+      Вызывает процедуру, полученную ранее с помощью пазла <a href="manual/ru/puzzles/Advanced.html#get_procedure">get procedure</a>. Также может передавать параметры в указанную процедуру. Существует 2 варианта пазла "call procedure" — с и без возвращаемого значения.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-call-procedure.png" style="max-width: 820px">
+
+
+    [anchor:add_event_listener]
+
+    <h3>add event listener</h3>
+
+    <p>
+      Добавляет обработчик события указанного типа, то есть данный пазл вызовет процедуру, полученную с помощью пазла <a href="manual/ru/puzzles/Advanced.html#get_procedure">get procedure</a> в момент отправки события определённого типа.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-add-event-listener.jpg">
+
+
+    [anchor:remove_event_listener]
+
+    <h3>remove event listener</h3>
+
+    <p>
+      Удаляет обработчик события, то есть удаляет процедуру-обработчик событий данного типа.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-remove-event-listener.jpg">
+
+
+    [anchor:dispatch_event]
+
+    <h3>dispatch event</h3>
+
+    <p>
+      Отправляет событие указанного типа. Также может передавать параметры в процедуру-обработчик (одни и те же для каждой).
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-dispatch-event.jpg">
+
+
+    <h2>Проблемы с пазлами?</h2>
+
+    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

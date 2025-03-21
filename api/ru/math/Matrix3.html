@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
 
     <p class="desc">
-      Класс, представляющий 3x3 [link:https://en.wikipedia.org/wiki/Matrix_(mathematics) matrix].
+      Класс представляющий [link:https://ru.wikipedia.org/wiki/Матрица_(математика) матрицу] 3x3.
     </p>
 
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
     <code>
-const m = new Matrix3();
+    const m = new Matrix3();
     </code>
 
     <h2>Замечание о порядке следования строк и столбцов</h2>
     <p>
-      Метод [page:set]() принимает аргументы в порядке [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order row-major], а внутренне они хранятся в массиве [page:.elements elements] в порядке колонок.<br /><br />
+      Метод [page:set]() принимает аргументы в порядке [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order row-major], а внутренне они хранятся в массиве [page:.elements elements] в порядке колонок.<br><br>
 
       Это означает, что вызов
     <code>
@@ -91,22 +91,22 @@ zAxis = (c, f, i)
 
     <h3>[method:this fromArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - массив для чтения элементов из него.<br />
-    [page:Integer offset] - (необязательный) индекс первого элемента в массиве. По умолчанию равен 0.<br /><br />
+    [page:Array array] — массив для чтения элементов из него.<br>
+    [page:Integer offset] — (необязательный) индекс первого элемента в массиве. По умолчанию равен 0.<br><br>
 
     Устанавливает элементы этой матрицы на основе массива в формате [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major].
     </p>
 
     <h3>[method:this invert]()</h3>
     <p>
-      Инвертирует эту матрицу, используя [link:https://en.wikipedia.org/wiki/Invertible_matrix#Analytic_solution analytic method]. 
-      
-      Вы не можете инвертировать матрицу с детерминантом, равным нулю. Если вы попытаетесь это сделать, метод выдаст нулевую матрицу. 
+      Инвертирует эту матрицу, используя [link:https://en.wikipedia.org/wiki/Invertible_matrix#Analytic_solution analytic method].
+
+      Вы не можете инвертировать матрицу с детерминантом, равным нулю. Если вы попытаетесь это сделать, метод выдаст нулевую матрицу.
     </p>
 
     <h3>[method:this getNormalMatrix]([param:Matrix4 m])</h3>
     <p>
-    [page:Matrix4 m] - [page:Matrix4]<br /><br />
+    [page:Matrix4 m] - [page:Matrix4]<br><br>
 
     Устанавливает эту матрицу как левую верхнюю часть 3x3 [link:https://en.wikipedia.org/wiki/Normal_matrix normal matrix]
     переданной [page:Matrix4 matrix4]. Нормальная матрица является [link:https://en.wikipedia.org/wiki/Invertible_matrix inverse] [link:https://en.wikipedia.org/wiki/Transpose transpose]
@@ -115,7 +115,7 @@ zAxis = (c, f, i)
 
     <h3>[method:this identity]()</h3>
     <p>
-      Сбрасывает эту матрицу в матрицу идентичности 3x3: 
+      Сбрасывает эту матрицу в матрицу идентичности 3x3:
     <code>
 1, 0, 0
 0, 1, 0
@@ -135,12 +135,12 @@ zAxis = (c, f, i)
 
     <h3>[method:this set]([param:Float n11], [param:Float n12], [param:Float n13], [param:Float n21], [param:Float n22], [param:Float n23], [param:Float n31], [param:Float n32], [param:Float n33])</h3>
     <p>
-    [page:Float n11] - значение, которое нужно поместить в строку 1, столбец 1.<br />
-    [page:Float n12] - значение, которое нужно поместить в строку 1, столбец 2.<br />
-    ...<br />
-    ...<br />
-    [page:Float n32] - значение, которое нужно поместить в строку 3, столбец 2.<br />
-    [page:Float n33] - значение, которое нужно поместить в строку 3, столбец 3.<br /><br />
+    [page:Float n11] — значение, которое нужно поместить в строку 1, столбец 1.<br>
+    [page:Float n12] — значение, которое нужно поместить в строку 1, столбец 2.<br>
+    ...<br>
+    ...<br>
+    [page:Float n32] — значение, которое нужно поместить в строку 3, столбец 2.<br>
+    [page:Float n33] — значение, которое нужно поместить в строку 3, столбец 3.<br><br>
 
     Устанавливает значения матрицы 3x3 в заданную [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order row-major] последовательность значений.
     </p>
@@ -153,23 +153,23 @@ zAxis = (c, f, i)
 
     <h3>[method:this setUvTransform]([param:Float tx], [param:Float ty], [param:Float sx], [param:Float sy], [param:Float rotation], [param:Float cx], [param:Float cy])</h3>
     <p>
-    [page:Float tx] - смещение x<br />
-    [page:Float ty] - смещение y<br />
-    [page:Float sx] - повтор x<br />
-    [page:Float sy] - повтор y<br />
-    [page:Float rotation] - вращение (в радианах)<br />
-    [page:Float cx] - центр x вращения<br />
-    [page:Float cy] - центр y вращения<br /><br />
+    [page:Float tx] — смещение x<br>
+    [page:Float ty] — смещение y<br>
+    [page:Float sx] — повтор x<br>
+    [page:Float sy] — повтор y<br>
+    [page:Float rotation] — вращение (в радианах)<br>
+    [page:Float cx] — центр x вращения<br>
+    [page:Float cy] — центр y вращения<br><br>
 
     Устанавливает матрицу трансформации UV из смещения, повтора, вращения и центра.
     </p>
 
     <h3>[method:Array toArray]([param:Array array], [param:Integer offset])</h3>
     <p>
-    [page:Array array] - (необязательный) массив для хранения результирующего вектора. Если не указан, будет создан новый массив.<br />
-    [page:Integer offset] - (необязательно) смещение в массиве, на которое следует поместить результат.<br /><br />
+    [page:Array array] — (необязательный) массив для хранения результирующего вектора. Если не указан, будет создан новый массив.<br>
+    [page:Integer offset] — (необязательно) смещение в массиве, на которое следует поместить результат.<br><br>
 
-    Записывает элементы данной матрицы в массив в формате 
+    Записывает элементы данной матрицы в массив в формате
     [link:https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major].
     </p>
 
@@ -178,7 +178,7 @@ zAxis = (c, f, i)
 
     <h3>[method:this transposeIntoArray]([param:Array array])</h3>
     <p>
-    [page:Array array] -  массив для хранения результирующего вектора.<br /><br />
+    [page:Array array] -  массив для хранения результирующего вектора.<br><br>
 
     [link:https://en.wikipedia.org/wiki/Transpose Transposes] эту матрицу в заданный массив и возвращает себя без изменений.
     </p>

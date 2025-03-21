@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Плагин E-Commerce - Soft8Soft</title>
+    <title>Плагин электронной коммерции — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Пазлы из этого плагина используются для реализации 3D-видов и конфигураторов товаров WooCommerce, а также для создания автономных форм заказа/вопроса."/>
-    <base href="../../../" />
+    <meta name="description" content="Блоки визуального программирования для реализации 3Д-интернет-магазинов и конфигураторов товаров Ву Коммерц, а также для создания форм заказа.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Плагин E-Commerce</h1>
+    <h1>Плагин электронной коммерции</h1>
 
     <p>
-      Этот стоковый <a href="manual/ru/puzzles/Plugins.html">плагин</a> добавляет пазлы, которые могут быть использованы для реализации представлений товаров и конфигураторов в WooCommerce 3D , а также для создания автономных форм заказа/запроса.
+      Этот встроенный <a href="manual/ru/puzzles/Plugins.html">плагин</a> содержит пазлы, которые могут быть использованы для создания различных приложений электронной коммерции. Он поддерживает «Пейпал»-платежи, 3Д-визуализацию товаров и конфигураторов в «Ву Коммерц», а также ряд функций для создания продвинутых форм заказа (с использованием решения для «Вордпресс», также входящего в состав «Вердж3Д»).
     </p>
 
     <img src="files/puzzles/puzzles-ecommerce.jpg">
@@ -24,20 +24,61 @@
     [contents]
 
 
-    [anchor:puzzles_reference]
+    [anchor:paypal_puzzles]
 
-    <h2>Перечень Пазлов</h2>
+    <h2>Пазл для PayPal</h2>
+
+
+    [anchor:paypal_create_order]
+
+    <h3>paypal create order</h3>
+
+    <p>
+      Создать заказ с оплатой через «Пейпал». Этот пазл является наиболее простым способом добавления платежей на ваш сайт, поскольку он не требует использования дополнительных решений на стороне сервера. Всё что вам потребуется — верифицированный бизнес-аккаунт «Пейпал».
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-paypal-create-order.jpg">
+
+    <p class="note">
+      На данный момент деятельность «Пейпал» в России и Белоруссии приостановлена. В качестве альтернативы используйте открытую систему «Ву Коммерц», в которой есть возможность осуществления платежей с помощью российских сервисов, таких как «Робокасса».
+    </p>
+
+    <dl>
+      <dt>client ID</dt>
+      <dd>Идентификатор бизнес-аккаунта «Пейпал». Узнайте как получить его <a href="https://developer.paypal.com/developer/applications/" target="_blank">на этой странице</a>. Для тестирования «Пейпал» предоставляет аккаунт-песочницу, для осуществления реальных продаж вам потребуется <a href="https://developer.paypal.com/api/rest/production/" target="_blank">пройти верификацию</a>.</dd>
+      <dt>title</dt>
+      <dd>Заголовок продукта.</dd>
+      <dt>item price</dt>
+      <dd>Цена продукта.</dd>
+      <dt>currency</dt>
+      <dd>Валюта.</dd>
+      <dt>quantity</dt>
+      <dd>Количество продукта.</dd>
+      <dt>on success do</dt>
+      <dd>Пазлы из этого слота будут выполнены в случае успешной транзакции.</dd>
+      <dt>on error do</dt>
+      <dd>Пазлы из этого слота будут выполнены в случае ошибок (недостаточная сумма на карте итд).</dd>
+    </dl>
+
+
+    [anchor:woocommerce_puzzles]
+
+    <h2>Пазлы для «Ву Коммерц»</h2>
+
 
     [anchor:woo_connect]
 
     <h3>connect to WooCommerce</h3>
 
-    <p>Подключитесь к системе WooCommerce, чтобы начать получать информацию о продукте.</p>
+    <p>Подключиться к системе «Ву Коммерц», и начать получение информации о продукте.</p>
 
     <img src="files/puzzles/puzzles-ecommerce-connect-to-woocommerce.jpg">
 
-    <p>Посмотрите этот <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">урок</a> для получения подробной информации.</p>
+    [demo:drink_shop Магазин напитков]
 
+    <p>
+      Посмотрите этот <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">урок</a> (англ.) для получения подробной информации.
+    </p>
 
 
     [anchor:woo_product_info]
@@ -45,35 +86,117 @@
     <h3>product info</h3>
 
     <p>
-      Возвращает <a href="manual/ru/puzzles/Dictionaries.html">словарь</a> с информацией о продукте, полученной с помощью команды *connect to WooCommerce*. Этот словарь (объект JavaScript) содержит следующие поля:
+      Возвращает <a href="manual/ru/puzzles/Dictionaries.html">словарь</a> с информацией о продукте, полученной с помощью пазла <a href="manual/ru/puzzles/ECommerce.html#woo_connect">connect to WooCommerce</a>.
     </p>
 
-    <p><ul>
-      <li>*price* - цена для выбранного клиентом варианта продукта, например, 12.</li>
-      <li>*quantity* - количество выбранных клиентом товарных позиций, например, 2.</li>
-      <li>*sku* - складская единица для выбранного клиентом варианта продукта.</li>
-      <li>*name* - название товара, которое будет отображаться в корзине, например, "Спиннер - желтый, большой".</li>
-      <li>*attributes* - словарь с парами имен/значений атрибутов для выбранного клиентом варианта продукта, например {цвет: "Желтый", размер: "Большой"}.</li>
-      <li>*weight* - физический вес продукта для выбранного клиентом варианта продукта.</li>
-      <li>*length*, *width*, *height* - физические размеры продукта для выбранного клиентом варианта продукта.</li>
-      <li>*type* - тип товара, указанный в панели администратора WooCommerce, один из следующих: "variable", "simple", "group" или "external".</li>
-      <li>*children* - доступна только для "групповых" продуктов. Включает информацию по каждому субпродукту.</li>
-      <li>*status* - ответ сервера: "ok" или "error".</li>
-    </ul></p>
-
     <img src="files/puzzles/puzzles-ecommerce-product-info.jpg">
+
+    <p>
+      Этот словарь содержит следующие поля:
+    </p>
+
+    <dl>
+      <dt>price</dt>
+      <dd>Цена для выбранного клиентом варианта продукта, например, 12.</dd>
+
+      <dt>quantity</dt>
+      <dd>Количество выбранных клиентом товарных позиций, например, 2.</dd>
+
+      <dt>sku</dt>
+      <dd>Складская единица (артикул) выбранного клиентом варианта продукта.</dd>
+
+      <dt>name</dt>
+      <dd>Название товара, которое будет отображаться в корзине, например, «Спиннер - желтый, большой».</dd>
+
+      <dt>attributes</dt>
+      <dd>Словарь с парами имен/значений атрибутов для выбранного клиентом варианта продукта, например {цвет: "Желтый", размер: "Большой"}.</dd>
+
+      <dt>weight</dt>
+      <dd>Физический вес продукта для выбранного клиентом варианта продукта.</dd>
+
+      <dt>length, width, height</dt>
+      <dd>Физические размеры продукта (длина, ширина, высота) для выбранного клиентом варианта продукта.</dd>
+
+      <dt>type</dt>
+      <dd>Тип товара, указанный в панели администратора «Ву Коммерц», один из следующих: "variable", "simple", "group", "external" или "composite".</dd>
+
+      <dt>children</dt>
+      <dd>Доступно только для «групповых» ("group") продуктов. Включает информацию по каждому субпродукту.</dd>
+
+      <dt>components</dt>
+      <dd>Доступно только для композитных ("composite") продуктов. Возвращает список с информацией по каждому компоненту. Используйте пазл <a href="manual/ru/puzzles/ECommerce.html#woo_product_component">product component</a> чтобы получить эту информацию.</dd>
+
+      <dt>status</dt>
+      <dd>Ответ сервера: "ok" или "error".</dd>
+    </dl>
 
 
     [anchor:woo_product_attribute]
 
     <h3>product attribute</h3>
 
-    <p>Возвращает значение атрибута выбранного клиентом варианта товара, например, "Желтый".</p>
+    <p>
+      Возвращает значение атрибута выбранного клиентом варианта товара, например, "Желтый" для атрибута «цвет».
+    </p>
 
     <img src="files/puzzles/puzzles-ecommerce-product-attribute.jpg">
 
-    <p>See <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">this tutorial</a> for more details.</p>
+    <p>
+      Наиболее часто данный пазл используется для получения выбранной вариации продукта типа "variable". Имя атрибута не зависит от регистра символов, например "Color", "color" и "COLOR" представляют один и тот же атрибут.
+    </p>
 
+    <p>
+      Смотрите <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">этот урок</a> (англ.) чтобы узнать больше об использовании этого пазла.
+    </p>
+
+
+    [anchor:woo_product_component]
+
+    <h3>product component</h3>
+
+    <p>
+      Возвращает значение из компонента, предоставляемого расширением <a href="https://woocommerce.com/products/composite-products/" target="_blank">WooCommerce Composite Products</a>.
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-product-component.webp">
+
+    <p>
+      Для удобства, вы можете подать имя компонента (заголовок) (напр. "Drawer Top") или его идентификатор (напри. "1685435951") в качестве первого параметра пазла.
+    </p>
+
+    <p>
+      Вы можете получить следующие свойства компонента:
+    </p>
+
+    <dl>
+      <dt>product name</dt>
+      <dd>Имя продукта в выбранном компоненте. Равно "" (пустой строке) если ничего не выбрано.</dd>
+      <dt>sku</dt>
+      <dd>Артикул продукта в выбранном компоненте. Равен "" (пустой строке) если ничего не выбрано, либо если артикул продукта не назначен.</dd>
+      <dt>quantity</dt>
+      <dd>Количество выбранных товарных позиций.</dd>
+      <dt>type</dt>
+      <dd>Тип продукта: "simple", "variable" или "none" если продукт не выбран.</dd>
+      <dt>weight</dt>
+      <dd>Вес продукта. Равен 0 (нулю) если вес продукта не назначен.</dd>
+      <dt>width</dt>
+      <dd>Ширина продукта. Равна 0 (нулю) если ширина продукта не назначена.</dd>
+      <dt>height</dt>
+      <dd>Высота продукта. Равна 0 (нулю) если высота продукта не назначена.</dd>
+      <dt>length</dt>
+      <dd>Длина продукта. Равна 0 (нулю) если длина продукта не назначена.</dd>
+      <dt>attributes</dt>
+      <dd>Словарь с атрибутами, назначенными для выбраного продукта. Наиболее часто данный пазл используется для получения атрибутов выбранной вариации продукта типа "variable".</dd>
+      <dt>component title</dt>
+      <dd>Имя компонента (заголовок), напр. "Drawer Top". Не следует путать его с именем продута!</dd>
+      <dt>component id</dt>
+      <dd>Идентификатор компонента, напр. "1685435951".</dd>
+    </dl>
+
+
+    [anchor:wordpress_order_form_puzzles]
+
+    <h2>Пазлы для формы заказа «Вордпресс»-плагина</h2>
 
 
     [anchor:place_order]
@@ -81,27 +204,86 @@
     <h3>place order</h3>
 
     <p>
-      Составляет скрытую форму заказа с полями "title", "contents" и"total price", необязательным скриншотом и отправляет эту форму на указанный URL в соответствии со спецификацией, описанной в разделе Wordpress Plugin. По умолчанию форма заказа отправляется на <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">страницу заказа демо-версии</a>.
+      Составляет и отправляет форму заказа товара на указанный УРЛ. По умолчанию форма заказа отправляется в <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">песочницу «Вордпресс»</a>.
     </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order.jpg">
+
+    [demo:ring Кольцо]
 
     <p>
-      Verge3D поставляется с бесплатным плагином Wordpress, который способен обрабатывать запросы, отправленные этим пазлом. При получении такого запроса этот плагин Wordpress отображает страницу с расширенной формой, дополненной полями контактов и комментариев, встроенным скриншотом и капчей. В итоге заполненная форма отправляется клиентом, и в админ-интерфейсе Wordpress создается новый заказ. И клиент, и менеджер по продажам получают уведомление о заказе по электронной почте.
+      «Вердж3Д» поставляется с бесплатным плагином «Вордпресс», который способен обрабатывать запросы, отправленные этим пазлом. При получении такого запроса плагин «Вордпресс» отображает страницу с формой, дополненной полями контактов и комментариев, а также скриншотом товара (при необходимости). Заполненная форма отправляется клиентом, а в админ-интерфейсе «Вордпресс» создается новый заказ.
     </p>
+
+    <dl>
+      <dt>send to</dt>
+      <dd>Ссылка на форму заказа (УРЛ) предоставляемая «Вордпресс»-плагином. За подробной информацией о конфигурации «Вордпресс»-сервера <a href="manual/ru/introduction/Wordpress-Plugin.html#receiving_orders_with_order_form">обратитесь к этому разделу</a>.</dd>
+      <dt>content</dt>
+      <dd>Содержимое закала.</dd>
+      <dt>item price</dt>
+      <dd>Цена единицы товара.</dd>
+      <dt>quantity</dt>
+      <dd>Количество товара.</dd>
+      <dt>make screenshot</dt>
+      <dd>Сделать скриншот перед отправкой заказа. Обязательно включите скриншоты в пазле <a href="manual/ru/puzzles/Initialization.html#configure_application" target="_parent">configure application</a>, иначе скриншот может отображаться черным цветом.</dd>
+    </dl>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order-example.jpg">
+
+    <p class="note">
+      Учтите, что проверка корректности и цены заказа ложится на ваши плечи (или менеджера по продажам). И хотя это маловероятно, хакер может попытаться изменить содержимое заказа на своей стороне и попытаться купить товар за меньшую цену. Чтобы этого не происходило, требуется автоматизированная верификация заказов на сервере, которая предусмотрена в пазле <a href="manual/ru/puzzles/ECommerce.html#place_order_adv">place order +</a>.
+    </p>
+
+
+    [anchor:place_order_adv]
+
+    <h3>place order +</h3>
 
     <p>
-      Информацию о настройке смотрите в разделе <a href="manual/ru/introduction/Wordpress-Plugin.html">Плагин Wordpress</a> данного руководства.
+      Составляет и отправляет форму заказа товара на указанный УРЛ. Этот пазл работает аналогично пазлу <a href="manual/ru/puzzles/ECommerce.html#place_order">place order</a>, но имеет расширенный функционал и более безопасен в использовании.
     </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-place-order-adv.jpg">
+
+    [demo:recliner/index Магазин кресел]
+
+    <dl>
+      <dt>send to</dt>
+      <dd>Ссылка на форму заказа (УРЛ) предоставляемая «Вордпресс»-плагином. За подробной информацией о конфигурации «Вордпресс»-сервера <a href="manual/ru/introduction/Wordpress-Plugin.html#receiving_orders_with_order_form">обратитесь к этому разделу</a>.</dd>
+      <dt>item(s)</dt>
+      <dd>Товар или список товаров. Читайте <a href="manual/ru/puzzles/ECommerce.html#order_item">ниже</a> чтобы узнать больше.</dd>
+      <dt>attachment(s)</dt>
+      <dd>Вложение к товару или список вложение. Вложение это ссылка вида <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a> которая содержит скриншот, изображение, звук, видео, ПДФ, текст или модель в формате glTF.</dd>
+    </dl>
 
     <p>
-      Обязательно включите скриншоты в пазле <a href="manual/ru/puzzles/Initialization.html#configure_application" target="_parent">configure application</a>, иначе скриншот может отображаться черным цветом.
+      Пример использования:
     </p>
 
-    <img src="files/puzzles/puzzles-misc-place-order.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-place-order-adv-example.jpg">
 
 
-    <h2>Проблемы с Пазлами?</h2>
+    [anchor:order_item]
 
-    <p>Обратитесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
+    <h3>order item (sku, qty)</h3>
+
+    <p>
+      Структура товара используемая в пазле <a href="manual/ru/puzzles/ECommerce.html#place_order_adv">place order +</a>.
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-order-item.jpg">
+
+    <dl>
+      <dt>sku</dt>
+      <dd>Артикул товара, зарегистрированного в «Вордпресс»-плагине. Читайте о добавлении новых артикулов <a href="manual/ru/introduction/Wordpress-Plugin.html#managing_products">здесь</a>.</dd>
+      <dt>quantity</dt>
+      <dd>Количество товара.</dd>
+    </dl>
+
+
+    <h2>Проблемы с пазлами?</h2>
+
+    <p>Обратитесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

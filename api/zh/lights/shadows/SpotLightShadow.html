@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../../" />
+    <meta charset="utf-8">
+    <base href="../../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:LightShadow] &rarr;
@@ -26,7 +26,7 @@
     //Create a SpotLight and turn on shadows for the light
     const light = new v3d.SpotLight(0xffffff);
     light.castShadow = true;            // default false
-    scene.add(light);
+    app.scene.add(light);
 
     //Set up shadow properties for the light
     light.shadow.mapSize.width = 512;  // default
@@ -41,18 +41,18 @@
     const sphere = new v3d.Mesh(sphereGeometry, sphereMaterial);
     sphere.castShadow = true; //default is false
     sphere.receiveShadow = false; //default
-    scene.add(sphere);
+    app.scene.add(sphere);
 
     //Create a plane that receives shadows (but does not cast them)
     const planeGeometry = new v3d.PlaneBufferGeometry(20, 20, 32, 32);
     const planeMaterial = new v3d.MeshStandardMaterial({ color: 0x00ff00 })
     const plane = new v3d.Mesh(planeGeometry, planeMaterial);
     plane.receiveShadow = true;
-    scene.add(plane);
+    app.scene.add(plane);
 
     //Create a helper for the shadow camera (optional)
     const helper = new v3d.CameraHelper(light.shadow.camera);
-    scene.add(helper);
+    app.scene.add(helper);
     </code>
 
     <h2>构造函数</h2>

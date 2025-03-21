@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Использование JavaScript в приложениях Verge3D - Soft8Soft</title>
+    <title>Использование Ява Скрипта в приложениях Вердж3Д — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Узнайте, как можно расширить функциональность приложений Verge3D с помощью кода JavaScript."/>
-    <base href="../../../" />
+    <meta name="description" content="Узнайте, как можно расширить функциональность приложений Вердж3Д с помощью кода на Ява Скрипте.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Использование JavaScript в приложениях Verge3D</h1>
+    <h1>Использование Ява Скрипта в Вердж3Д-приложениях</h1>
 
     <p>
-        Благодаря пазлам вы можете реализовать большую часть функциональности, присутствующей в типичных приложениях WebGL, не написав ни строчки кода. Однако могут быть особые случаи, когда вам может понадобиться JavaScript - например, для использования библиотек программирования сторонних разработчиков или для реализации какой-либо нетривиальной функции, которую невозможно реализовать только с помощью пазлов.
-    </p>
-
-    <p>
-        Вы можете использовать любой текстовый редактор для добавления кода JavaScript, но удобнее работать, если ваш редактор поддерживает подсветку синтаксиса и нумерацию строк, как Notepad++ или VS Code.
+      Благодаря пазлам вы можете реализовать практически любую функциональность, присутствующую в WebGL-приложениях, не написав ни строчки кода. Однако бывают особые случаи, когда вам может понадобиться «Ява Скрипт»,— в частности, для использования сторонних библиотек или для реализации нетривиальной функции.
     </p>
 
     [contents]
@@ -26,174 +22,162 @@
 
     [anchor:Method_1_Basic]
 
-    <h2>Метод #1 (Basic)</h2>
+    <h2>Первый способ (простой)</h2>
 
     <p>
-        Самый простой способ включить код javascript в ваши пазлы - использовать специальный пазл под названием <a href="manual/ru/puzzles/Advanced.html#exec_script">exec script</a>.
-        Он имеет встроенный полнофункциональный текстовый редактор с возможностью синтаксической
-        подсветки, проверки синтаксиса, сворачивания кода и многих других функции.
+      Самый простой способ включить «Ява Скрипт»-код в ваши пазлы — использовать специальный пазл под названием <a href="manual/ru/puzzles/Advanced.html#exec_script">exec script</a>. Он имеет встроенный полнофункциональный текстовый редактор с возможностью синтаксической подсветки, проверки синтаксиса, сворачивания кода и множеством других функций.
     </p>
 
     <p>
-        Этот пазл выполняет фрагмент кода javascript.
-        Преимущества использования "exec script" следующие:
-        <ul>
-            <li>это подход, основанный только на пазлах (нет необходимости редактировать .js файлы проекта)</li>
-            <li>такие фрагменты кода можно сохранить в библиотеке пазлов и легко использовать повторно в других проектах</li>
-        </ul>
+      Этот пазл выполняет фрагмент кода на языке «Ява Скрипт» непосредственно. Преимущества использования "exec script" следующие:
+      <ul>
+        <li>это подход, основанный только на пазлах (нет необходимости редактировать исходный код проекта);</li>
+        <li>такие фрагменты кода можно сохранить в библиотеке пазлов и легко использовать повторно в других проектах.</li>
+      </ul>
     </p>
 
     <p>
-        Для того чтобы получить доступ к пазлам <a href="manual/ru/puzzles/Variables.html">переменных</a>
-        и <a href="manual/ru/puzzles/Procedures.html">процедур</a> puzzles
-        изнутри "exec script" вы можете использовать встроенные модули <b>VARS</b> и <b>PROC</b>. Более подробную информацию можно найти в документации <a href="manual/ru/puzzles/Advanced.html#exec_script">"exec script"</a>.
+      Для того чтобы получить доступ к пазлам <a href="manual/ru/puzzles/Variables.html">переменных</a> и <a href="manual/ru/puzzles/Procedures.html">процедур</a> изнутри "exec script" вы можете использовать встроенные модули *VARS* и *PROC*. Более подробную информацию можно найти в документации на пазл <a href="manual/ru/puzzles/Advanced.html#exec_script">exec script</a>.
     </p>
 
     <p>
-        Например, настройка следующего пазла с использованием "exec script" заставляет
-        объекты сцены менять свой материал по щелчку мыши:
+      Например, настройка следующего пазла с использованием "exec script" заставляет объекты сцены менять свой материал по щелчку мыши:
     </p>
 
-    <img src="files/using-javascript/basics-exec-script-example.jpg" class="centered">
+    <img src="files/using-javascript/basics-exec-script-example.jpg" alt="Пример использования пазла exec script">
 
 
 
     [anchor:Method_2_Standard]
 
-    <h2>Метод #2 (Standard)</h2>
+    <h2>Второй способ (типовой)</h2>
 
     <p>
-        Если вы хотите иметь больший контроль, чем тот, который может предложить пазл "exec script", тогда этот метод для вас. Он предполагает использование стандартного шаблона приложения
-        <b>Standard</b>  (<b>Standard Light</b> или <b>Standard Dark</b>):
+      Если вы хотите иметь больший контроль, чем тот, который может предложить пазл "exec script", тогда этот метод для вас. Он предполагает использование стандартного шаблона приложения *Standard* (*Standard Light* или *Standard Dark*):
     </p>
 
-    <img src="files/using-javascript/standard-app-template.jpg" class="centered" style="max-width: 522px">
+    <img src="files/using-javascript/standard-app-template.webp" style="max-width: 522px">
 
     <p>
-        Предположим, вы создали свое приложение с помощью App Manager (с параметрами по умолчанию), и назвали его <strong>my_awesome_app</strong>. 
-        Переходите в папку <i>verge3d/applications</i>, затем в папку <i>my_awesome_app</i>
-        , и откройте файл JavaScript <i>my_awesome_app.js</i> вашим текстовым редактором.
+      Предположим, вы создали свое приложение с помощью диспетчера приложений (с параметрами по умолчанию), и назвали его <strong>my_awesome_app</strong>. Переходите в папку <i>приложений</i>, затем в папку <i>my_awesome_app</i>, и откройте «Ява Скрипт»-файл <i>my_awesome_app.js</i> в текстовом редакторе.
+    </p>
+
+    <p class="note">
+      Вы можете использовать любой текстовый редактор для добавления кода «Ява Скрипт», но удобнее работать, если ваш редактор поддерживает подсветку синтаксиса и нумерацию строк, как «Ноутпад++» или «Вижуал Студио Код».
     </p>
 
     <p>
-        Найдите "runCode" - это место в файле должно выглядеть примерно так:
+      Найдите "runCode" — это место в файле должно выглядеть примерно так:
     </p>
 
     <code>
-function runCode(app) {
-        // добавьте сюда свой код, например console.log('Hello, World!');
+    function runCode(app) {
+        // добавьте сюда свой код, например console.log('Привет, мир!');
 
-}
+    }
     </code>
 
     <p>
-        Вы можете добавить некоторый код между фигурными скобками, и тогда получится:
+      Вы можете добавить некоторый код между фигурными скобками, и тогда получится:
     </p>
 
     <code>
-function runCode(app) {
-        // add your code here, e.g. console.log('Hello, World!');
-        console.log('Just added some JavaScript!');
-}
+    function runCode(app) {
+        // добавьте сюда свой код, например console.log('Привет, мир!');
+        console.log('Это мой новый код!');
+    }
     </code>
 
     <p>
-        Теперь, если вы сохраните <strong>.js</strong> файл и запустите свое приложение, вы заметите... ничего, пока не откроете консоль браузера. Она обычно открывается клавишей F12 (Chrome, Firefox в Windows, Linux). На Mac используйте меню View > Developer > JavaScript Console (Option-Cmd-J) в Chrome или меню Develop > Show Error Console (Option-Cmd-C) в Safari.
+      Теперь, если вы сохраните <strong>.js</strong>-файл и запустите свое приложение, вы заметите... ничего, пока не откроете консоль браузера. Она обычно открывается клавишей F12 («Хром», «Файрфокс» в ОС «Виндоус»/«Линукс»). На «Мак ОС» используйте меню View → Developer → JavaScript Console (⌥-⌘-J) в «Хроме» или меню Develop → Show Error Console (⌥-⌘-C) в «Сафари».
     </p>
 
-    <img src="files/using-javascript/basics-console-log.jpg" class="centered">
+    <img src="files/using-javascript/basics-console-log.jpg">
 
     <p>
-        С помощью кода вы можете изменить что-то в сцене, например, переместить дефолтный куб Verge3D (названный "Box001" в 3ds Max и "Cube" в Blender)...
+      С помощью кода вы можете изменить что-то в сцене, например, переместить дефолтный куб «Вердж3Д» (имеет название "Cube" в «Блендере»", "Box001" в «3дс Максе» и "pCube1" в «Майе»)...
     </p>
 
     <code>
-function runCode(app) {
-        var obj = app.scene.getObjectByName('Cube');
+    function runCode(app) {
+        const obj = app.scene.getObjectByName('Cube');
         obj.position.x = 2;
-}
+    }
     </code>
 
     <p>
-        ...или создать новый материал:
+      ...или создать новый материал:
     </p>
 
     <code>
-function runCode(app) {
-        var obj = app.scene.getObjectByName('Cube');
+    function runCode(app) {
+        const obj = app.scene.getObjectByName('Cube');
         obj.material = new v3d.MeshPhongMaterial({ color: '#00BB00', emissive: '#550000' });
-}
+    }
     </code>
 
-    <img src="files/using-javascript/basics-change-material.jpg" class="centered">
+    <img src="files/using-javascript/basics-change-material.jpg">
 
     <p>
-        Посмотрите <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">примеры кода Verge3D</a>, чтобы вдохновиться. Нажмите кнопку <strong>View source</strong>, чтобы открыть код.
+      Для получения подробной информации об использовании «Ява Скрипта» в «Вердж3Д»-приложениях <a href="api/ru/index.html">обратитесь к справочнику разработчика</a>.
     </p>
-
-    <img src="files/using-javascript/basics-code-examples.jpg" class="centered">
-
 
 
     [anchor:Method_3_Compact]
 
-    <h2>Метод #3 (Compact)</h2>
+    <h2>Третий способ (компактный)</h2>
 
     <p>
-        Этот метод подойдет опытным программистам, которые хотели бы иметь
-        минимальный рабочий фрагмент кода для начала. Это практически то же самое
-        как и <b>Standard</b> за исключением того, что вы используете другой шаблон приложения под названием <b>Code-Based</b> когда создаёте новое приложение:
+      Этот метод подойдет опытным программистам, которые хотят иметь дело с минимальным набором кода. Подход идентичен предыдущему, за исключением того, что используется другой шаблон приложения под названием <strong>Code-Based</strong>:
     </p>
 
-    <img src="files/using-javascript/compact-app-template.jpg" class="centered" style="max-width: 522px">
+    <img src="files/using-javascript/compact-app-template.webp" style="max-width: 522px">
 
     <p>
-        Это приведет к упрощению структуры проекта, при этом редактор пазлов не будет прикреплен к вашему приложению, а файл app <strong>.js</strong> будет содержать всего несколько строк кода:
+      Это приведет к упрощению структуры проекта, при этом редактор пазлов не будет прикреплен к вашему приложению, а <strong>.js</strong>-файл приложения будет содержать всего несколько строк кода:
     </p>
 
     <code>
-'use strict';
+    'use strict';
 
-window.addEventListener('load', function() {
+    const CONTAINER_ID = 'v3d-container';
+    const SCENE_URL = 'template.gltf';
 
-var app = new v3d.App('container', null,
-        new v3d.SimplePreloader({ container: 'container' }));
+    const preloader = new v3d.SimplePreloader({ container: CONTAINER_ID });
+    const app = new v3d.App(CONTAINER_ID, null, preloader);
 
-var url = 'my_awesome_app.gltf';
-
-app.load(url, function() {
+    app.loadScene(SCENE_URL, () => {
         app.enableControls();
+        app.run();
         runCode();
-});
+    });
 
-function runCode() {
-        // add your code here, e.g. console.log('Hello, World!');
+    function runCode() {
+        // добавьте сюда свой код, например console.log('Привет, мир!');
 
-}
-
-});
+    }
     </code>
 
     <p>
-        Приложения такого типа очень просты, но при этом они способны загружать сцену в формате <strong>.gltf</strong> (с прелоадером) и предоставлять пользователю стандартные средства управления камерой.
+      Приложения такого типа очень просты, но при этом они способны загружать сцену в формате <strong>.gltf</strong> (с прелоадером) и предоставлять пользователю стандартные средства управления камерой.
     </p>
 
     <p>
-        Вы можете продолжить, добавив свой код внутри функции "runCode", как описано в Методе #2. Конечно, вы можете полностью изменить этот шаблон приложения - например, отказаться от класса App, загрузить сцену с помощью другого формата файла или настроить элементы управления каким-то особым образом.
+      Вы можете продолжить, добавив свой код внутри функции "runCode", как описано в Методе №2. Конечно, вы можете полностью изменить этот шаблон приложения — например, отказаться от класса App, загрузить сцену с помощью другого формата файла или настроить элементы управления каким-то особым образом.
     </p>
 
 
 
     [anchor:Method_4_Hardcore]
 
-    <h2>Метод #4 (Hardcore)</h2>
+    <h2>Четвёртый способ (самый продвинутый)</h2>
 
     <p>
-        Этот метод подойдет программистам, знакомым с библиотекой Three.js, поскольку в Verge3D вы можете использовать тот же API.
+      Этот метод подойдет программистам, знакомым с библиотекой «Три-Джей-Эс», поскольку в «Вердж3Д» вы можете использовать похожий API.
     </p>
 
     </p>
-    Скопируйте файл <strong>v3d.js</strong> из папки <i>verge3d/build</i>, свяжите его с файлом <strong>.html</strong> и <a href="manual/ru/programmers_guide/Programming-basics.html">начинайте кодить</a>! Как, по вашему мнению, были созданы <a href="https://cdn.soft8soft.com/demo/examples/index.html" target="_blank">примеры кода</a>?
+      Скопируйте файл <strong>v3d.js</strong> из папки <i>build</i> дистрибутива, свяжите его с файлом <strong>.html</strong> и <a href="manual/ru/programmers_guide/Programming-basics.html">начинайте кодить</a>!
     </p>
 
 
@@ -203,21 +187,21 @@ function runCode() {
     <h2>Вдохновляйтесь пазлами</h2>
 
     <p>
-        Это не метод, а скорее совет. На самом деле, когда вы нажмете кнопку *Сохранить* в редакторе пазлов, он создаст самодостаточный, читаемый модуль JavaScript, сохраненный как файл *visual_logic.js* в папке вашего приложения.
+      Это не метод, а скорее совет. Каждый раз, когда вы нажимаете кнопку сохранения в редакторе пазлов, он создаёт самодостаточный и читаемый модуль на «Ява Скрипте» в файле *visual_logic.js* в папке вашего приложения.
     </p>
 
 
-    <img src="files/using-javascript/get-inspired-by-puzzles.jpg" class="centered">
+    <img src="files/using-javascript/get-inspired-by-puzzles.jpg">
 
     <p>
-        Таким образом, вы можете получить рабочий пример того, как работают определенные методы JavaScript API, и повторно использовать сгенерированный сниппет для интересующего вас пазла в собственном коде.
+      Таким образом, вы можете получить рабочий пример того, как работают определенные методы «Ява Скрипт» API, и повторно использовать сгенерированный код для интересующего вас пазла в собственном проекте.
     </p>
 
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
 
   </article></body>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <title>App - Verge3D User Manual - Soft8Soft</title>
-    <meta name="description" content="App is the main class to create and manage your Verge3D applications using JavaScript."/>
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <title>App — Руководство по Вердж3Д — Софт Эйт Софт</title>
+    <meta name="description" content="App это класс содержащий базовый код для создания и управления Вердж3Д-приложениями.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:EventDispatcher] &rarr;
@@ -14,19 +14,19 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Класс App позволяет упростить настройку 3D-приложения. Он включает код для инициализации WebGL рендерера, загрузки glTF сцен, автоматического запуска анимации, а также логику для основных элементов управления камерой.
+      Класс [name] позволяет упростить настройку 3Д-приложения. Он включает код для инициализации WebGL-рендерера, загрузки glTF-сцен, автоматического запуска анимации, а также логику для основных элементов управления камерой.
     </p>
 
     <h2>Пример</h2>
 
     <code>
-    // loaded GLTF 2.0 asset
-    var url = 'template.gltf';
+    // загружаемый glTF-ассет
+    const url = 'template.gltf';
 
-    // construct a new application with simple rotating preloader
-    var app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
+    // создать приложение с простым крутящимся прелоадером
+    const app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
 
-    // load main scene
+    // загрузить главную сцену
     app.loadScene(url, function() {
         app.enableControls();
         app.run();
@@ -34,18 +34,47 @@
     });
 
     function runCode() {
-        // place your own code here
+        // поместите ваш код здесь
     }
     </code>
 
+
     <h2>Конструктор</h2>
 
-    <h3>[name](container, ctxSettings, preloader)</h3>
-    <p>
-      container - идентификатор HTML-элемента или сам HTML-элемент для размещения canvas.<br />
-      ctxSettings - атрибуты контекста WebGL, которые должны быть переданы в методе <strong>canvas.getContext()</strong> .<br />
-      preloader - экземпляр класса [page:Preloader Preloader] приложения.<br />
-    </p>
+    <h3>[name]([param:String|HTMLElement container], [param:Object ctxSettings], [param:Preloader preloader])</h3>
+
+    <dl class="params">
+      <dt>[page:String container]</dt>
+      <dd>Идентификатор HTML-элемента или сам HTML-элемент для размещения холста ("3Д-холста").</dd>
+      <dt>[page:Object ctxSettings]</dt>
+      <dd>
+        Атрибуты контекста WebGL, которые должны быть переданы в методе `canvas.getContext()`:
+        <dl>
+          <dt>[page:Boolean alpha]</dt>
+          <dd>Использовать прозрачный холст. По умолчанию `false`.</dd>
+          <dt>[page:Boolean antialias]</dt>
+          <dd>Использовать мультисампловый анти-алиасинг (MSAA). По умолчанию `true`.</dd>
+          <dt>[page:Boolean depth]</dt>
+          <dd>Использовать буфер глубины. По умолчанию `true`.</dd>
+          <dt>[page:Boolean desynchronized]</dt>
+          <dd>Создать рассинхронизированный контекст для CAD-приложений. По умолчанию `false`.</dd>
+          <dt>[page:Boolean failIfMajorPerformanceCaveat]</dt>
+          <dd>Не разрешать использование медленного 3Д-контекста (например в случае программной отрисовки). По умолчанию `false`.</dd>
+          <dt>[page:Boolean powerPreference]</dt>
+          <dd>Предпочитать мощный (`"high-performance"`) или слабый (`"low-power"`) графический процессор для систем с 2-мя GPU. По умолчанию `"default"`.</dd>
+          <dt>[page:Boolean premultipliedAlpha]</dt>
+          <dd>Премультиплицировать альфа-канал во время рендеринга. По умолчанию `true`.</dd>
+          <dt>[page:Boolean preserveDrawingBuffer]</dt>
+          <dd>Сохранять содержимое 3Д-контекста между кадрами. По умолчанию `false`.</dd>
+          <dt>[page:Boolean stencil]</dt>
+          <dd>Разрешить использование буфера шаблонов (stencil). По умолчанию `true`.</dd>
+          <dt>[page:Boolean xrCompatible]</dt>
+          <dd>Разрешить использование технологии виртуально и дополненной реальности WebXR. По умолчанию `false`.</dd>
+        </dl>
+      </dd>
+      <dt>[page:Preloader preloader]</dt>
+      <dd>Экземпляр класса [page:Preloader Preloader] приложения.</dd>
+    </dl>
 
     <p>Этот конструктор делает следующее:</p>
 
@@ -53,42 +82,55 @@
       <li>Создает новый элемент контейнера (если необходимо).</li>
       <li>Проверяет, поддерживается ли технология WebGL, если нет, выводит диалог об ошибке.</li>
       <li>Инициализирует часы приложения.</li>
-      <li>Создает новый 3D canvas с контекстом WebGL 1.0 или WebGL 2.0 и добавляет его к элементу контейнера.</li>
-      <li>Инициализирует загрузчик GLTF.</li>
-      <li>Добавляет экземпляр приложения в список <strong>v3d.apps</strong> (в случае немодулированного движка).</li>
+      <li>Создает новый 3Д-холст с контекстом WebGL 1.0 или WebGL 2.0 и добавляет его к элементу контейнера.</li>
+      <li>Инициализирует [page:GLTFLoader загрузчик glTF].</li>
+      <li>Подготавливает модуль текстурной компрессии.</li>
+      <li>Инициализирует методы ускоренной трассировки лучей (BVH).</li>
+      <li>Добавляет экземпляр приложения в список `v3d.apps` (в случае немодулированного движка).</li>
     </ol>
+
 
     <h2>Свойства</h2>
 
+    <h3>[property:String aaMethod]</h3>
+
+    <p>Метод анти-алиасинга, используемый для улучшения визуального качества сцены:</p>
+
+    <ul>
+      <li>'AUTO'</li>
+      <li>'MSAA4'</li>
+      <li>'MSAA8'</li>
+      <li>'MSAA16'</li>
+      <li>'FXAA'</li>
+    </ul>
+
+    <p>Это значение устанавливается методом [page:.loadScene], поэтому должно использоваться только для чтения.</p>
+
     <h3>[property:Array actions]</h3>
 
-    <p>Массив [page:AnimationAction animation actions], используемых для планирования анимаций приложения. Вместо прямого доступа к этому списку можно также использовать метод [page:SceneUtils.getAnimationActionByName getAnimationActionByName] для поиска действия по имени клипа.</p>
-
-    <h3>[property:Boolean clearBkgOnLoad]</h3>
-
-    <p>Устанавливает фон сцены на *null* после загрузки сцены glTF. По умолчанию *false*.</p>
-
-    <h3>[property:HTMLElement container]</h3>
-
-    <p>Элемент контейнера. Это родительский элемент для 3D Canvas, используемый для операций рендеринга.</p>
-
-    <h3>[property:Scene scene]</h3>
-
-    <p>Главная сцена приложения.</p>
+    <p>Массив [page:AnimationAction actions], используемый для планирования анимаций приложения. Вместо прямого доступа к этому списку можно также использовать метод [page:SceneUtils.getAnimationActionByName] для поиска действия по имени клипа.</p>
 
     <h3>[property:Camera camera]</h3>
 
     <p>Главная камера приложения.</p>
 
+    <h3>[property:Boolean clearBkgOnLoad]</h3>
+
+    <p>Устанавливает фон сцены на `null` после загрузки сцены glTF. По умолчанию `false`.</p>
+
     <h3>[property:Clock clock]</h3>
 
     <p>Объект часов приложения.</p>
+
+    <h3>[property:HTMLElement container]</h3>
+
+    <p>Элемент контейнера. Это родительский элемент для 3Д-холста, используемого для рендеринга сцены.</p>
 
     <h3>[property:Array compileCallbacks]</h3>
 
     <p>Массив функций, которые будут вызваны непосредственно перед компиляцией шейдера. Компиляция шейдеров происходит во время загрузки сцены, сразу после того, как все ассеты (метаданные glTF, бинарные файлы, текстуры) были получены.</p>
 
-    <p>Используйте обратный вызов компиляции для включения постобработки или добавления тумана, поскольку добавление этих эффектов во время выполнения может негативно сказаться на производительности.</p>
+    <p>Используйте функцию компиляции для включения постобработки или добавления тумана, поскольку добавление этих эффектов во время выполнения может негативно сказаться на производительности.</p>
 
     <code>
 
@@ -96,16 +138,16 @@
         appInstance.scene.fog = new v3d.FogExp2('green', 0.01);
     }
 
-    // loaded GLTF 2.0 asset
-    var url = 'my_scene.gltf';
+    // загружаемый glTF 2.0 ассет
+    const url = 'my_scene.gltf';
 
-    // construct a new application with simple rotating preloader
-    var app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
+    // создать приложение с простым крутящимся прелоадером
+    const app = new v3d.App('v3d-container', null, new v3d.SimplePreloader({ container: 'v3d-container' }));
 
-    // initialize fog just before shader compilation
+    // инициализировать туман перед загрузкой сцены
     app.compileCallbacks.push(initFog);
 
-    // load main scene
+    // загрузить главную сцену
     app.loadScene(url, function() {
         app.enableControls();
         app.run();
@@ -113,48 +155,84 @@
 
     </code>
 
+    <h3>[property:Object controls]</h3>
 
-    <h3>[property:null controls]</h3>
+    <p>Объект управления главной камерой приложения. Используйте метод [page:.enableControls] для установки этого значения.</p>
 
-    <p>Объект управления главной камерой приложения.</p>
+    <h3>[property:Integer disableRenderTrigger]</h3>
 
-    <h3>[property:Number frame]</h3>
+    <p>Используется в работе метода [page:.disableRendering]. Не изменять!</p>
+
+    <h3>[property:Float elapsed]</h3>
+
+    <p>Время в секундах прошедшее с предыдущего кадра.</p>
+
+    <h3>[property:Boolean enableRender]</h3>
+
+    <p>Только для чтения. Свойство установлено в `true` если рендеринг включён, иначе `false`. Для непосредственного включения/выключения рендеринга используются методы [page:.enableRendering] и [page:.disableRendering].</p>
+
+    <h3>[property:Integer frame]</h3>
 
     <p>Текущий кадр рендеринга приложения.</p>
 
-    <h3>[property:Number frameRateDivider]</h3>
+    <h3>[property:Integer frameRateDivider]</h3>
 
-    <p>Делитель FPS приложения. Используйте [page:.setFrameRateDivider setFrameDivider] для установки этого значения.</p>
+    <p>Делитель FPS приложения. Используйте [page:.setFrameRateDivider] для установки этого значения.</p>
+
+    <h3>[property:GLTFLoader loader]</h3>
+
+    <p>glTF-загрузчик приложения.</p>
 
     <h3>[property:AnimationMixer mixer]</h3>
 
     <p>Микшер, используемый для воспроизведения анимации, загруженной из данных glTF.</p>
 
-    <h3>[property:HTMLElement preloader]</h3>
+    <h3>[property:Preloader preloader]</h3>
 
     <p>Элемент предзагрузки приложения (существует только во время загрузки сцены)</p>
 
-    <h3>[property:WebGLRenderer renderer]</h3>
+    <h3>[property:Boolean registerServiceKeys]</h3>
 
-    <p>Рендерер WebGL приложения.</p>
+    <p>Зарегистрировать сервисные комбинации клавиш, например тройную тильду (~~~) для показа сервисного меню. По умолчанию `true`. Если вам необходимо выключить сервисные комбинации, установите это значение в `false` сразу после создания экземпляра класса [name].</p>
+
+    <code>
+    const app = new v3d.App(containerId, ctxSettings, preloader);
+    app.registerServiceKeys = false;
+    </code>
+
+    <p>Если вам необходимо выключить сервисные комбинации для уже работающего приложения, используйте метод [page:AppUtils.unregisterServiceKeys].</p>
 
     <h3>[property:Array renderCallbacks]</h3>
 
-    <p>Массив функций, которые будут вызываться каждый раз, когда начинается рендеринг.</p>
+    <p>Массив функций, которые будут вызываться каждый раз, когда начинается очередной кадр рендеринг.</p>
 
-    <h3>[property:GLTFLoader loader]</h3>
+    <h3>[property:WebGLRenderer renderer]</h3>
 
-    <p>Загрузчик glTF приложения.</p>
+    <p>Рендерер WebGL-приложения.</p>
+
+    <h3>[property:Scene scene]</h3>
+
+    <p>Главная сцена приложения.</p>
+
+    <h3>[property:Boolean ssaaOnPause]</h3>
+
+    <p>Запускать SSAA (суперсемплинг) в момент [page:.disableRendering паузы]. По умолчанию `false`.</p>
+
+    <h3>[property:Stats stats]</h3>
+
+    <p>Инстанс класса [page:Stats статистики], используемый для отображения счётчика кадров. Создаётся и уничтожается с помощью методов [page:.showFPS] и [page:.hideFPS].</p>
+
+    <h3>[property:Boolean useHDR]</h3>
+
+    <p>Показывает, включен или нет рендеринг с высоким динамическим диапазоном (HDR). HDR-рендеринг включён когда а) он запрошен в главном glTF-ресурсе приложения и б) он поддерживается на оборудовании пользователя.</p>
 
     <h3>[property:Number worldCubemapRes]</h3>
 
-    <p>Разрешение текстуры cubemap, представляющей материал мира. По умолчанию - 1024.</p>
+    <p>Разрешение кубической текстуры, представляющей материал мира. Значение по умолчанию — `1024`.</p>
 
-    <h3>[property:Material worldMaterial]</h3>
+    <h3>[property:Object3D xrCameraParent]</h3>
 
-    <p>
-        <span style="color:#f00">Устаревшее.</span> Вместо этого, используйте [page:Scene.worldMaterial]. Это материал, используемый для создания окружения мира.
-    </p>
+    <p>Родительский объект камеры, используемый для перемещения этой камеры в WebXR-сессии.</p>
 
     <h3>[property:Array xrControllers]</h3>
 
@@ -162,173 +240,389 @@
 
     <h3>[property:XRSession xrSession]</h3>
 
-    <p>Активная сессия WebXR.</p>
-
+    <p>Активная сессия WebXR. Не устанавливайте сессию напрямую, используйте метод [page:.initWebXR].</p>
 
 
     <h2>Методы</h2>
 
-    <h3>[method:null animate]()</h3>
+    <h3>[method:undefined animate]()</h3>
     <p>
-      Обработчик обновлений сцены: рендеринга, анимации и управления камерой. Не стоит вносить изменения, если не знаете за что отвечают эти параметры.
+      Обработчик обновлений сцены: рендеринга, анимации и управления камерой. Обычно этот обработчик не требует изменения.
     </p>
 
-    <h3>[method:null appendScene](url, loadCb, progressCb, errorCb, loadCameras, loadLights)</h3>
+    <h3>[method:undefined appendScene]([param:String url], [param:Function loadCb], [param:Function progressCb], [param:Function errorCb], [param:Boolean loadCameras], [param:Boolean loadLights])</h3>
     <p>
-      Добавляет сцену из указанного файла glTF к текущей сцене. loadCb
-      получит загруженную сцену в качестве параметра после завершения загрузки.<br/><br/>
-      Если в приложении нет активной сцены, то ничего не будет добавлено.<br/><br/>
-
-      Такие параметры, как *loadCameras* и *loadLights*, используются для указания того, будут ли камеры и освещение добавлены из загруженной сцены. По умолчанию оба параметра имеют значение *true*.
+      Добавляет сцену из указанного файла glTF к текущей сцене. `loadCb` получит загруженную сцену в качестве параметра после завершения загрузки.
+    </p>
+    <p>
+      Если в приложении нет активной сцены, то ничего добавлено не будет.
+    </p>
+    <p>
+      Такие параметры, как `loadCameras` и `loadLights`, используются для указания того, будут ли камеры и освещение добавлены из загруженной сцены. По умолчанию оба эти параметра имеют значение `true`.
     </p>
 
-    <h3>[method:null cleanup]()</h3>
+    <h3>[method:undefined assignClippingPlanes]([param:Scene scene])</h3>
     <p>
-      <span style="color:#f00">Устаревший.</span> Вместо этого используйте [page:.dispose dispose]
-      или [page:.unload unload].
+      Подготовить плоскости отсечения для данной сцены.
     </p>
 
-    <h3>[method:null disablePostprocessing](keepOutline)</h3>
+    <h3>[method:undefined disablePostprocessing]([param:Boolean keepOutline], [param:Boolean keepGTAO])</h3>
     <p>
-      Отключить все эффекты постобработки (кроме контура, когда keepOutline=true).
+      Отключить все эффекты постобработки (кроме контура, когда `keepOutline=true` и эмбиент окклюжн, когда `keepGTAO=true`).
     </p>
 
-    <h3>[method:null disableRendering](after)</h3>
+    <h3>[method:undefined disableRendering]([param:Integer after])</h3>
     <p>
       Отключает обновление графики в цикле анимации после заданного количества кадров (укажите 0, чтобы отключить сразу). Элементы управления и микшер анимации будут продолжать обновляться, а обратные вызовы рендеринга - вызываться.
     </p>
 
-    <h3>[method:null disableSSAA]()</h3>
+    <h3>[method:undefined dispose]()</h3>
     <p>
-      Отключить сглаживание.
+      Выгружает сцену (вызывая [page:.unload unload]) и утилизирует приложение, что включает очистку [page:WebGLRenderer рендерера] приложения и удаление элемента холста из DOM. Также отправляет сообщение [page:.eventDispose dispose].
+    </p>
+    <p>
+      После утилизации приложение больше не может использоваться. Этот способ лучше всего подходит для случаев, когда требуется полная очистка.
     </p>
 
-    <h3>[method:null dispose]()</h3>
+    <h3>[method:undefined disposeEnvironment]()</h3>
     <p>
-      Выгружает сцену (вызывая [page:.unload unload]) и утилизирует все приложение, что включает очистку [page:WebGLRenderer renderer] приложения и удаление элемента canvas из DOM.<br/><br/>
-
-      После утилизации приложение больше не может использоваться. Этот способ лучше всего
-      подходит для случаев, когда требуется полная очистка.
+      Удаляет буферы фона и окружения.
     </p>
 
-    <h3>[method:null enableControls]()</h3>
+    <h3>[method:undefined enableControls]([param:HTMLElement element])</h3>
     <p>
       Включает элементы управления для главной камеры приложения. В зависимости от типа управления, указанного для камеры, этот метод предоставит вам 'ORBIT', 'FLYING' или статичную камеру.
     </p>
-
-    <h3>[method:null enablePostprocessing](effects)</h3>
     <p>
-      Включает заданные эффекты постобработки.
+      Необязательный параметр `element` используется для указания элемента, получающего события мыши/клавиатуры/тачскрина. Если элемент не указан, события будет назначены на элементе [page:WebGLRenderer.domElement] [page:.renderer рендерера приложения].
     </p>
 
-    <h3>[method:null enableRendering]()</h3>
+    <h3>[method:undefined enablePostprocessing]([param:Array effects])</h3>
+    <p>
+      Включает заданные эффекты постобработки. Эффекты задаются в виде следующих объектов:
+    </p>
+
+    <dl>
+      <dt>Afterimage</dt>
+      <dd><code>
+{
+  type: 'afterimage',
+  damp: 0.85
+}
+      </code></dd>
+
+      <dt>Bloom</dt>
+      <dd><code>
+{
+  type: 'bloom',
+  threshold: 0.8,
+  strength: 0.3,
+  radius: 0.5
+}
+      </code></dd>
+
+      <dt>Brightness/Contrast</dt>
+      <dd><code>
+{
+  type: 'brightnessContrast',
+  brightness: 0.1,
+  contrast: 0.3
+}
+      </code></dd>
+
+      <dt>DOF</dt>
+      <dd><code>
+{
+  type: 'dof',
+  focus: 10,
+  aperture: 1,
+  maxblur: 0.001,
+  depthLeakThreshold: 0.2
+}
+      </code></dd>
+
+      <dt>Grayscale</dt>
+      <dd><code>
+{
+  type: 'grayscale'
+}
+      </code></dd>
+
+      <dt>GTAO</dt>
+      <dd><code>
+{
+  type: 'gtao',
+  distance: 0.2,
+  factor: 1.0,
+  precision: 0.250,
+  bentNormals: true,
+  bounceApprox: true
+}
+      </code></dd>
+
+      <dt>Outline</dt>
+      <dd><code>
+{
+  type: 'outline',
+  edgeStrength: 3.0,
+  edgeGlow: 0.0,
+  edgeThickness: 1.0,
+  pulsePeriod: 0.0,
+  visibleEdgeColor: new Vector4(1, 1, 1, 1),
+  hiddenEdgeColor: new Vector4(0.1, 0.04, 0.02, 1)
+}
+      </code></dd>
+
+      <dt>SSR (отражение или рефракция)</dt>
+      <dd><code>
+{
+  type: 'ssr',
+  useRefract: false,
+  objects: [],
+  steps: 100,
+  stride: 5,
+  binarySearchSteps: 4,
+  thickness: 0.01,
+  maxDistance: 100,
+  renderTargetScale: 0.5,
+  jitter: 0.1,
+  renderAfter: []
+}
+      </code></dd>
+    </dl>
+
+    <h3>[method:undefined enableRendering]()</h3>
     <p>
       Включает обновление графики в цикле анимации.
     </p>
 
-    <h3>[method:null enableSSAA](sampleLevel, iterative)</h3>
+    <h3>[method:undefined enableSSAA](sampleLevel, iterative)</h3>
     <p>
       Включить сглаживание. Количество выборок рассчитывается как 2^sampleLevel (например, укажите 4, чтобы включить 16x SSAA).
     </p>
 
-    <h3>[method:Camera getCamera]()</h3>
+    <h3>[method:undefined endWebXR]()</h3>
     <p>
-      Возвращает главную камеру приложения.
+      Завершает сессию WebXR.
     </p>
 
-    <h3>[method:number getHeight]()</h3>
+    <h3>[method:WebGLRenderTarget generateRTargetPMREM]([param:WebGLRenderTarget cubeRT])</h3>
+    <p>
+      Конвертирует рендер-таргет указанный в `cubeRT` в рендер-таргет формата PMREM. Этот метод вызывается методом [page:.updateEnvironment] и редко требуется сам по себе.
+    </p>
+
+    <h3>[method:Camera getCamera]([param:Boolean tryXrIfAvail])</h3>
+    <p>
+      Возвращает главную камеру приложения. Рекомендуется использовать этот метод вместо свойства [page:.camera] поскольку он работает как в обычном режиме, так и для сессии WebXR (ВР/ДР). Чтобы вернуть камеру, используемую в WebXR, подайте `tryXrIfAvail=true`.
+    </p>
+
+    <h3>[method:Float getHeight]()</h3>
     <p>
       Возвращает рассчитанную высоту элемента контейнера.
     </p>
 
-    <h3>[method:number getWidth]()</h3>
+    <h3>[method:Float getWidth]()</h3>
     <p>
       Возвращает рассчитанную ширину элемента контейнера.
     </p>
 
-    <h3>[method:null initPostprocessing]()</h3>
-    <p>
-      Обработчик для инициализации постобработки приложения. Не изменяйте его, если не знаете, что делаете.
-    </p>
-
-    <h3>[method:null hideFPS]()</h3>
+    <h3>[method:undefined hideFPS]()</h3>
     <p>
       Скрывает счетчик частоты кадров.
     </p>
 
-    <h3>[method:null load](url, loadOkCb, loadErrorCb, autoStart)</h3>
-    <p>
-      <span style="color:#f00">Устаревший.</span> Вместо этого используйте [page:.loadScene loadScene].<br/><br/>
-      Загрузите сцену glTF. Обратный вызов loadOkCb получит загруженную сцену в качестве параметра после завершения загрузки.<br/><br/>
+    <h3>[method:undefined initWebXR]([param:String mode], [param:String referenceSpaceType], [param:Function successCb], [param:Function failureCb], [param:Function exitCb], [param:Object options])</h3>
 
-      Если уже существует активная сцена (например, загруженная ранее с помощью метода [page:.load load]), то сначала используйте [page:.unload unload], чтобы избежать конфликтов между существующей и загруженной сценами.
+    <ul class="params">
+      <li>[page:String mode] — `"immersive-vr"` для ВР-сессии, `"immersive-ar"` для ДР-сессии.</li>
+      <li>[page:String referenceSpaceType] — один из `"viewer"`, `"local"`, `"local-floor"`, `"bounded-floor"`, `"unbounded"`.</li>
+      <li>[page:Function successCb] — коллбек, вызываемый в случае успеха.</li>
+      <li>[page:Function failureCb] — коллбек, вызываемый в случае неудачи.</li>
+      <li>[page:Function exitCb] — коллбек, вызываемый в момент окончания WebXR-сессии.</li>
+      <li>[page:Object options] — объект-словарь с дополнительными параметрами, такими как `domOverlay` чтобы разрешить использование HTML вёрстки в ДР-сессии.</li>
+    </ul>
+
+    <p>
+      Инициализирует сессию WebXR (виртуальная и дополненная реальность).
     </p>
 
-    <h3>[method:null loadScene](url, loadCb, progressCb, errorCb)</h3>
+    <h3>[method:undefined loadScene]([param:String url], [param:Function loadCb], [param:Function progressCb], [param:Function errorCb])</h3>
     <p>
-      Загружает сцену glTF. Обратный вызов loadCb получит загруженную сцену в качестве
-      параметра после завершения загрузки.<br/><br/>
-
-      Если уже существует активная сцена (например, загруженная ранее с помощью метода [page:.load load]), то сначала используйте [page:.unload unload], чтобы избежать конфликтов между существующей и загруженной сценами.
+      Загружает glTF-сцену. Коллбек loadCb получит загруженную сцену в качестве параметра после завершения загрузки. Метод отправляет сообщение [page:.eventSceneLoad sceneLoad].
+    </p>
+    <p>
+      Если активная сцена уже существует (например, загружена ранее с помощью метода [page:.loadScene]), используйте [page:.unload unload], чтобы избежать конфликтов между существующей и загруженной сценами.
     </p>
 
-    <h3>[method:null onResize]()</h3>
+    <h3>[method:undefined onResize]()</h3>
     <p>
-      Обработчик события изменения размера canvas. Не изменяйте его, если не знаете, что делаете.
+      Обработчик события изменения размеров холста. Не изменяйте этот обработчик, если не знаете, что делаете. Если вам необходимо добавить свою логику в момент изменения размеров, делайте как на примере ниже:
     </p>
 
-    <h3>[method:null printPerformanceInfo](delta)</h3>
+    <code>
+    const onResizeOld = app.onResize;
+
+    app.onResize = function() {
+        // вызвать старый
+        onResizeOld.call(app);
+
+        // ваш код
+        console.log("Размеры изменились!");
+    }
+    </code>
+
+    <h3>[method:undefined pause]()</h3>
     <p>
-      Оценивает и распечатывает профиль производительности рендеринга. delta - опциональный период оценки (по умолчанию 1).
+      Ставит приложение на паузу, включая анимацию, контролы, рендер-коллбеки и рендеринг. Отправляет событие [page:.eventPause pause].
     </p>
 
-    <h3>[method:null render]()</h3>
+    <h3>[method:undefined printPerformanceInfo](delta)</h3>
     <p>
-      Обработчик для рендеринга сцены. Не изменяйте его, если не знаете, что делаете.
+      Оценивает и распечатывает <a href="manual/ru/introduction/Performance-Bottlenecks.html#performance_profile">профиль производительности</a> рендеринга. `delta` — необязательный параметр, определяющий период оценки в секундах (по умолчанию `1`).
     </p>
 
-    <h3>[method:null run]()</h3>
+    <h3>[method:undefined render]()</h3>
     <p>
-      Запускает приложение, удаляя прелоадер и запуская
-      цикл рендеринга.
+      Обработчик для рендеринга сцены. Не изменяйте его, если не знаете, что делаете. Отправляет события [page:.eventBeforeRender beforeRender] и [page:.eventAfterRender afterRender].
     </p>
 
-    <h3>[method:null setFrameRateDivider]([param:Integer divider])</h3>
+    <h3>[method:undefined resume]()</h3>
+    <p>
+      Убирает приложение с паузы, включая анимацию, контролы, рендер-коллбеки и рендеринг. Отправляет событие [page:.eventResume resume].
+    </p>
+
+    <h3>[method:undefined run]()</h3>
+    <p>
+      Запускает приложение, удаляя прелоадер и запуская цикл рендеринга.
+    </p>
+
+    <h3>[method:Camera setCamera]([param:Camera camera])</h3>
+    <p>
+      Устанавливает активную камеру и изменяет её [page:.controls контролы] в соответствии с [page:Camera.controlSettings настройками] назначенными на камере. Также, если на сцене присутствует [page:App.postprocessing постобработка], обновляет камеру для соответствующих стадий постобработки.
+    </p>
+
+    <h3>[method:undefined setFrameRateDivider]([param:Integer divider])</h3>
     <p>
       Уменьшает максимальный кадр, деля его на заданное целое число. По умолчанию движок пытается рендерить сцены со скоростью 60 кадров в секунду. Если делитель установлен, например, на 2, FPS будет снижен до 30.
     </p>
 
-    <h3>[method:null showFPS]()</h3>
+    <h3>[method:undefined showFPS]()</h3>
     <p>
       Показать счетчик частоты кадров.
     </p>
 
-    <h3>[method:null unload]([page:Object3D rootObj])</h3>
+    <h3>[method:undefined unload]([page:Object3D rootObj])</h3>
+    <p class="params">
+      [page:Object3D rootObj] — (необ.) объект для выгрузки вместе с его дочерними объектами; если объект не задан или заданный объект является основной сценой приложения, метод выполняет полную очистку сцены.
+    </p>
     <p>
-      [page:Object3D rootObj] -- (опционально) объект для выгрузки вместе с его дочерними объектами; если объект не задан или заданный объект является основной сценой приложения, то метод выполняет полную очистку сцены.<br/><br/>
-
-      Выгружает либо часть, либо всю сцену в зависимости от параметров.<br/><br/>
-
-      Если заданный *rootObj* является одним из объектов сцены, то этот метод удаляет данный объект и его преемников из сцены, а также освобождает связанные с ним ресурсы (геометрии, материалы, текстуры и т.д...). Если данный *rootObj* является самим экземпляром сцены, то этот метод выполняет полную очистку сцены, которая включает удаление всех объектов, окружения сцены, камер и элементов управления камерами, анимации, постпроцессинга, внутренних объектов WebGL и т.д....<br/><br/>
-
-      После того как сцена приложения была полностью выгружена, метод [page:.loadScene loadScene] может быть использован для загрузки совершенно новой сцены. Этот подход лучше всего подходит для загрузки/выгрузки нескольких сцен без выгрузки всего приложения.
+      Выгружает либо часть, либо всю сцену в зависимости от параметра.
+    </p>
+    <p>
+      Если заданный `rootObj` является одним из объектов сцены, то этот метод удаляет данный объект и его потомков из сцены, а также освобождает связанные с ним ресурсы (геометрию, материалы, текстуры и т.д.). Если данный `rootObj` является самим экземпляром сцены, то этот метод выполняет полную очистку сцены, которая включает удаление всех объектов, окружения сцены, камер и элементов управления камерами, анимации, постобработки, внутренних объектов WebGL и т.д.
+    </p>
+    <p>
+      После того как сцена приложения была полностью выгружена, метод [page:.loadScene] может быть использован для загрузки новой сцены. Этот подход лучше подходит для загрузки/выгрузки сцен без удаления самого приложения.
     </p>
 
-    <h3>[method:null updateEnvironment]([page:Material wMat])</h3>
+    <h3>[method:undefined updateConstraints]([param:Scene scene])</h3>
     <p>
-      Обновление окружения мира из указанного материала. Такой материал
-      обычно хранится в свойстве [page:Scene.worldMaterial].
+      Обновляет ограничители на сцене. Обычно вам не нужно вызывать этот метод напрямую, поскольку все ограничители обновляются при загрузке сцены (в методах [page:.loadScene] и [page:.appendScene]).
     </p>
 
-    <h3>[method:null updateEnvMapProbes]([page:Object3D object3d])</h3>
+    <h3>[method:undefined updateEnvironment]([page:Material wMat])</h3>
     <p>
-      object3d - объект или сцена для поиска объектов-зондов среди его преемников.<br/><br/>
+      Обновление мирового окружения на основе материала, указанного в качестве параметра. Данный материал обычно хранится в свойстве сцены [page:Scene.worldMaterial].
+    </p>
 
-      Обновить все объекты [page:CubeReflectionProbe], которые являются преемниками
-      данного объекта *object3d*.
+    <h3>[method:undefined updateReflectionProbes]([page:Object3D object3d])</h3>
+    <p class="params">
+      object3d — объект или сцена для поиска объектов-зондов среди его потомков.
+    </p>
+    <p>
+      Обновить все объекты [page:CubeReflectionProbe], которые являются преемниками данного объекта *object3d*.
     </p>
 
 
-    [sourceHint]
+    <h2>События</h2>
+
+    <h3>[def:eventAfterFirstRender afterFirstRender]</h3>
+    <p>
+      Событие отправляемое сразу после отрисовки первого кадра. Вы можете подписаться на него следующим образом:
+    </p>
+    <code>
+    app.addEventListener('afterFirstRender', e => ...); // свойства объекта е: type ('afterFirstRender'), target (экземпляр App)
+    </code>
+
+    <h3>[def:eventAfterRender afterRender]</h3>
+    <p>
+      Событие отправляемое после каждого кадра (in the beginning of the [page:.render render] method). Вы можете подписаться на него следующим образом:
+    </p>
+    <code>
+    app.addEventListener('afterRender', e => ...); // свойства объекта е: type ('afterRender'), target (экземпляр App)
+    </code>
+
+    <h3>[def:eventBeforeRender beforeRender]</h3>
+    <p>
+      Событие отправляемое до каждого кадра (in the end of the [page:.render render] method). Вы можете подписаться на него следующим образом:
+    </p>
+    <code>
+    app.addEventListener('beforeRender', e => ...); // свойства объекта е: type ('beforeRender'), target (экземпляр App)
+    </code>
+
+    <h3>[def:eventDispose dispose]</h3>
+    <p>
+      Событие отправляемое сразу после уничтожения приложения методом [page:.dispose dispose]. Вы можете подписаться на него следующим образом:
+    </p>
+    <code>
+    app.addEventListener('dispose', e => ...); // свойства объекта е: type ('dispose'), target (экземпляр App)
+    </code>
+
+    <h3>[def:eventPause pause]</h3>
+    <p>
+      Событие отправляемое когда приложение ставится на паузу методом [page:.pause pause]. Вы можете подписаться на него следующим образом:
+    </p>
+    <code>
+    app.addEventListener('pause', e => ...); // свойства объекта е: type ('pause'), target (экземпляр App)
+    </code>
+
+    <h3>[def:eventResume resume]</h3>
+    <p>
+      Событие отправляемое когда приложение убирается с паузы методом [page:.resume resume]. Вы можете подписаться на него следующим образом:
+    </p>
+    <code>
+    app.addEventListener('resume', e => ...); // свойства объекта е: type ('resume'), target (экземпляр App)
+    </code>
+
+    <h3>[def:eventSceneLoad sceneLoad]</h3>
+    <p>
+      Событие отправляемое после того как сцена приложения загружена, осуществлён парсинг и компиляция шейдеров. Это событие отправляется методом [page:.loadScene loadScene]. Вы можете подписаться на него следующим образом:
+    </p>
+    <code>
+    app.addEventListener('sceneLoad', e => ...); // свойства объекта е: type ('sceneLoad'), target (экземпляр App)
+    </code>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Для управления приложением «Вержд3Д» поддерживает ряд пазлов:
+    </p>
+
+    <ul>
+      <li><a href="manual/ru/puzzles/Initialization.html#configure_application">configure application</a> — чтобы настроить процесс инициализации приложения.</li>
+      <li><a href="manual/ru/puzzles/Scenes.html#load_scene">load scene</a> — чтобы загрузить новую сцену.</li>
+      <li><a href="manual/ru/puzzles/Scenes.html#append_scene">append scene</a> — чтобы добавить сцену к приложению.</li>
+      <li><a href="manual/ru/puzzles/Scenes.html#enable_rendering">enable rendering</a>/<a href="manual/ru/puzzles/Scenes.html#disable_rendering">disable rendering</a> — чтобы включить/выключить рендеринг (с возможностью анти-алиасинга).</li>
+      <li><a href="manual/ru/puzzles/Postprocessing.html">postprocessing</a> — чтобы включить-выключить тот или иной эффект постобработки.</li>
+    </ul>
+
+
+    <h2>Исходный файл</h2>
+
+    <p>
+      Исходный файл модуля приложения доступен по следующему пути `src/extras/App.js` внутри установочной папки «Вердж3Д».
+    </p>
+
   </body>
 </html>

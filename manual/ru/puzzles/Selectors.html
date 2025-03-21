@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Перечень Селекторов - Soft8Soft</title>
+    <title>Пазлы селекторов (Selectors) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как использовать Verge3D Puzzles для выбора 3D-объектов, групп, анимационных клипов и материалов."/>
-    <base href="../../../" />
+    <meta name="description" content="Как использовать визуальные блоки программирования для выбора 3Д-объектов, групп, анимационных клипов и материалов.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
-    <h1>Селекторы</h1>
+    <h1>Пазлы селекторов (Selectors)</h1>
 
     <p>
-      Пазлы из этой категории используются для выбора 3D-объектов, групп, анимационных клипов и материалов для вставки в другие пазлы.
+      Пазлы из этой категории используются для выбора 3Д-объектов, групп, анимационных клипов и материалов для вставки в другие пазлы.
     </p>
 
-    <img src="files/puzzles/puzzles-selectors.jpg">
+    <img src="files/puzzles/puzzles-selectors.webp">
 
 
     <h2>Содержание</h2>
@@ -25,7 +25,7 @@
 
     [anchor:puzzles_reference]
 
-    <h2>Перечень Пазлов</h2>
+    <h2>Перечень пазлов</h2>
 
 
     [anchor:select_object]
@@ -33,7 +33,7 @@
     <h3>select object</h3>
 
     <p>
-    Выпадающий список, содержит алфавитный список всех объектов в сцене.
+      Выпадающий список, содержит алфавитный список всех объектов в сцене.
     </p>
 
     <img src="files/puzzles/puzzles-selector-object.jpg">
@@ -44,21 +44,46 @@
     <h3>all objects</h3>
 
     <p>
-    Обозначает все объекты в сцене, чтобы операция могла быть применена к ним в массовом порядке. Не итерируемый.
+      Обозначает все объекты в сцене, чтобы операция могла быть применена к ним в массовом порядке.
     </p>
 
-    <img src="files/puzzles/puzzles-selector-all-objects.jpg">
+    <img src="files/puzzles/puzzles-selector-all-objects.webp">
 
+    <p>
+      Этот пазл не итерируемый, в частности он не может быть подан на вход пазла <a href="manual/ru/puzzles/Loops.html#for_each">for each in list</a>. Чтобы сделать проход по списку объектов, используйте пазл <a href="manual/ru/puzzles/Objects.html#get_objects_from">get objects from</a>
+    </p>
 
     [anchor:select_group]
 
     <h3>select group</h3>
 
     <p>
-    Выпадающий список содержит алфавитный список всех групп объектов, представленных в сцене. Операция может быть применена к группе объектов в большом количестве. Не итерируемая.
+      Выпадающий список содержит алфавитный список всех групп объектов, представленных в сцене. Операция может быть применена к группе объектов в большом количестве.
     </p>
 
-    <img src="files/puzzles/puzzles-selector-group.jpg">
+    <img src="files/puzzles/puzzles-selector-group.webp">
+
+    <p>
+      Что на самом деле обозначается понятием "группа" зависит от пакета моделирования. В «Блендере» это <strong><em>коллекция/collection</em></strong> объектов (самая верхняя коллекция "Scene Collection" не отображается в пазлах):
+    </p>
+
+    <img src="files/puzzles/puzzles-selector-group-blender.webp" style="max-width: 357px">
+
+    <p>
+      В «3дс Максе» это либо <strong><em>группа/group</em></strong> ("Furniture"), либо <strong><em>выбранное множество/selection set</em></strong> ("Furniture2"):
+    </p>
+
+    <img src="files/puzzles/puzzles-selector-group-max.webp" style="max-width: 610px">
+
+    <p>
+      В «Майе» это либо <strong><em>группа/group</em></strong> ("Furniture"), либо <strong><em>множество/set</em></strong> ("Furniture2"):
+    </p>
+
+    <img src="files/puzzles/puzzles-selector-group-maya.webp" style="max-width: 358px">
+
+    <p>
+      Этот пазл не итерируемый, в частности он не может быть подан на вход пазла <a href="manual/ru/puzzles/Loops.html#for_each">for each in list</a>. Чтобы сделать проход по списку объектов, используйте пазл <a href="manual/ru/puzzles/Objects.html#get_objects_from">get objects from</a>
+    </p>
 
 
     [anchor:select_animation]
@@ -66,7 +91,7 @@
     <h3>select animation</h3>
 
     <p>
-    Выпадающий список содержит алфавитный список всех анимационных клипов, представленных в сцене. Клип анимации называется в соответствии с объектом, к которому применяется анимация в Blender, 3ds Max или Maya.
+      Выпадающий список содержит алфавитный список всех анимационных клипов, представленных в сцене. Клип анимации называется в соответствии с объектом, к которому применяется анимация в «Блендере», «3дс Максе» или «Майе».
     </p>
 
     <img src="files/puzzles/puzzles-selector-animation.jpg">
@@ -77,16 +102,30 @@
     <h3>select material</h3>
 
     <p>
-    Выпадающий список содержит алфавитный список всех материалов, которые присутствуют в сцене.
+      Выпадающий список содержит алфавитный список всех материалов, которые присутствуют в сцене.
     </p>
 
     <img src="files/puzzles/puzzles-selector-material.jpg">
 
 
-    <h2>Проблема с Пазлами?</h2>
+    [anchor:get_entity_by_name]
 
-    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
+    <h3>get by name</h3>
 
+    <p>
+      Выбирает сущность (объект, группу, анимационный клип или материал) по имени.
+    </p>
+
+    <img src="files/puzzles/puzzles-selector-get-entity-by-name.jpg">
+
+    <p>
+      Наиболее часто используется совместно с динамической загрузкой сцен. На этапе когда сцена не загружена, вы не можете использовать обычные селекторы для выбора объектов, поскольку они ещё не присутствуют на сцене.
+    </p>
+
+
+    <h2>Проблемы с пазлами?</h2>
+
+    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

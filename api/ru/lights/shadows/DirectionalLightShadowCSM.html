@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:LightShadow] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Это значение используется внутри [page:DirectionalLight DirectionalLights] для расчета теней.<br><br>
+
+      В отличие от других классов теней, этот использует [page:OrthographicCamera] для расчета теней, а не [page:PerspectiveCamera]. Это происходит потому, что лучи света от [page:DirectionalLight] параллельны. Данный тип освещения обычно используется на больших сценах с множеством обьектов, поэтому для оптимизации используется техника *каскадных карт теней*.
+    </p>
+
+
+    <h2>Конструктор</h2>
+    <h3>[name]()</h3>
+    <p>
+      Создает новый [name]. Этот параметр не предназначен для прямого вызова - он вызывается внутри [page:DirectionalLight].
+    </p>
+
+    <h2>Свойства</h2>
+    <p>
+      Общие свойства смотрите в базовом классе [page:LightShadow LightShadow].
+    </p>
+
+    <h3>[property:Camera camera]</h3>
+    <p>
+      Фальшивая камера (заглушка).
+    </p>
+
+    <h3>[property:Boolean cascadesFitToScene]</h3>
+    <p>
+      Задает метод разбиения главного фрустума на под-фрустумы. Если значение *true*, используется метов *fit to scene*, иначе метод *fit to cascade*. Значение по умолчанию *false*. Используйте [page:.setCascadesFitToScene setCascadesFitToScene] для установки этого значения.
+    </p>
+
+    <h3>[property:Function customSplitsCallback]</h3>
+    <p>
+      Задает собственный метод разбиения главного фрустума на интервалы. Функция должна принимать следующие аргументы: [page:Integer numCascades], [page:Float near], [page:Float far], [page:Array breaks], [page:Float exponent].
+    </p>
+
+    <h3>[property:Float exponent]</h3>
+    <p>
+      Определяет метод разбиения главного фрустума на интервалы, 0.0 - линейное разбиение (т.е. равномерно), 1.0 - логарифмическое (т.е. больше точности вблизи к камеры). Работает только с перспективным видом. Диапазон от *0.0* до *1.0*. По умолчанию *0.5*. Используйте [page:.setExponent setExponent] для установки этого значения.
+    </p>
+
+    <h3>[property:Float fade]</h3>
+    <p>
+      Когда значение больше 0.0, размер каждого каскада увеличивается так, чтобы он пересекался с соседними. В пересекающихся областях каскадные тени смешиваются, это избавляет от швов на стыках. Диапазон от *0.0* до *1.0*. По умолчанию *0.0*. Используйте [page:.setFade setFade] для установки этого значения.
+    </p>
+
+    <h3>[property:Boolean isDirectionalLightShadowCSM]</h3>
+    <p>
+      Флаг только для чтения, чтобы проверить, является ли данный объект типа [name].
+    </p>
+
+    <h3>[property:CSMFrustum mainFrustum]</h3>
+    <p>
+      Главный фрустум.
+    </p>
+
+    <h3>[property:Float maxDistance]</h3>
+    <p>
+     Расстояние дальней плоскости фрустума (т.е. тени не будут видны дальше этого растояния от камеры). Диапазон от *0.0* до *Infinity*. По умолчанию *100000*. Используйте [page:.setMaxDistance setMaxDistance] для установки этого значения.
+    </p>
+
+    <h3>[property:Boolean noLastCascadeCutOff]</h3>
+    <p>
+      При значении *true*, тень последнего каскада не обрезается смешиванием, что увеличивыет теневое покрытие. По умолчанию *true*. Используйте [page:.setNoLastCascadeCutOff setNoLastCascadeCutOff] для установки этого значения.
+    </p>
+
+    <h3>[property:Integer numCascades]</h3>
+    <p>
+      Количество теневых каскадов. Диапазон от *1* до *4*. По умолчанию *1*. Используйте [page:.setNumCascades setNumCascades] для установки этого значения.
+    </p>
+
+    <h3>[property:Float lightMargin]</h3>
+    <p>
+      Определяет насколько далеко камера (камера источника теней) сдвинута по оси Z. Чем больше значение тем больше пространства охватывается. Используйте большие значения в сценах с высокими или большими обьектами. Диапазон от *0.0* до *Infinity*. По умолчанию *100.0*. Используйте [page:.setLightMargin setLightMargin] для установки этого значения.
+    </p>
+
+
+    <h2>Методы</h2>
+    <p>
+      Общие методы смотрите в базовом классе [page:LightShadow LightShadow].
+    </p>
+
+    <h3>[method:this createCascades]()</h3>
+    <p>
+      Создает каскадные тени. Должен вызываться 1 раз после инициализации.
+    </p>
+
+    <h3>[method:this getBreaks]([param:Camera camera])</h3>
+    <p>
+      Расчитывает интервалы для каскадных теней. Вызывается внутренними функциями.
+    </p>
+
+    <h3>[method:this initCascades]([param:Camera camera])</h3>
+    <p>
+      Инициализирует каскады, т.е. разбивает главным фрустум на секции. Вызывается внутренними функциями.
+    </p>
+
+    <h3>[method:null setCascadesFitToScene]([param:Boolean cascadesFitToScene])</h3>
+    <p>
+      Задает метод разбиения главного фрустума на под-фрустумы. См [page:.cascadesFitToScene].
+    </p>
+
+    <h3>[method:null setExponent]([param:Float exponent])</h3>
+    <p>
+      Определяет метод разбиения главного фрустума на интервалы, 0.0 - линейное разбиение (т.е. равномерно), 1.0 - логарифмическое (т.е. больше точности вблизи к камеры). См [page:.exponent].
+    </p>
+
+    <h3>[method:null setFade]([param:Float fade])</h3>
+    <p>
+      Задает коэффициент смешения каскадов. См [page:.fade].
+    </p>
+
+    <h3>[method:null setMaxDistance]([param:Float maxDistance])</h3>
+    <p>
+      Задает расстояние дальней плоскости фрустума (т.е. тени не будут видны дальше этого растояния от камеры). См [page:.maxDistance].
+    </p>
+
+    <h3>[method:null setNoLastCascadeCutOff]([param:Boolean noLastCascadeCutOff])</h3>
+    <p>
+      При значении *true*, тень последнего каскада не обрезается смешиванием, что увеличивыет теневое покрытие. См [page:.noLastCascadeCutOff].
+    </p>
+
+    <h3>[method:null setNumCascades]([param:Integer numCascades])</h3>
+    <p>
+      Задает количество теневых каскадов. См [page:.numCascades].
+    </p>
+
+    <h3>[method:null setLightMargin]([param:Float lightMargin])</h3>
+    <p>
+      Определяет насколько далеко камера (камера источника теней) сдвинута по оси Z. См [page:.lightMargin].
+    </p>
+
+    <h3>[method:this update]([param:Camera camera], [param:DirectionalLight light])</h3>
+    <p>
+      Вычисляет фрустум и позицию для каждого теневого каскада.
+    </p>
+
+    <h3>[method:this updateFrustums]([param:Camera camera])</h3>
+    <p>
+      Вычисляет фрустум для каждого теневого каскада. Следует вызываеть при изменении матрицы проекции вида, [page:.exponent], [page:.maxDistance] или любых bias настроек.
+    </p>
+
+    <h3>[method:this updateMaps]()</h3>
+    <p>
+      Обновляет карты теней. Вызывается внутренними функциями.
+    </p>
+
+    <h3>[method:this updateMapSize]([param:Vector2 size])</h3>
+    <p>
+      Обновляет размер карт теней для каскадов.
+    </p>
+
+    <h3>[method:this updateCascadePositions]([param:Camera camera])</h3>
+    <p>
+      Расчитывает позицию для каждого теневого каскада.
+    </p>
+
+    <h3>[method:this updateShadowBounds]([param:Camera camera])</h3>
+    <p>
+      Вычисляет фрустумы для каждого теневого каскада. Вызывается внутренними функциями.
+    </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Пазл <a href="manual/ru/puzzles/Objects.html#set_shadow_param">set shadow param</a> позволяет включать/выключать отбрасывание теней без программирования.
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>

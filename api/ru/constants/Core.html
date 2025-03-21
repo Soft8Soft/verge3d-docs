@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <title>Основные константы — Софт Эйт Софт</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Список основных констант, используемых в Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>Основные константы</h1>
+
+    <p>
+      Эти константы задают базовые функции рендеринга и управления.
+    </p>
 
     <h2>Номер редакции</h2>
 
@@ -15,19 +21,99 @@
     v3d.REVISION
     </code>
 
-    <div id="rev">
-      Текущий номер ревизии Verge3D [link:https://github.com/mrdoob/three.js/releases revision number].
-    </div>
+    <p id="rev">
+      Текущий номер ревизии «Вердж3Д». Смотрите <a href="manual/ru/programmers_guide/Verge3D-Life-Cycle.html">тут</a> для получения дополнительной информации.
+    </p>
+
+    <h2>Цветовые пространства</h2>
+
+    <code>
+    v3d.NoColorSpace
+    v3d.SRGBColorSpace
+    v3d.LinearSRGBColorSpace
+    </code>
+
+    <p>
+      [page:NoColorSpace] обозначает неопределённое цветовое пространство.
+    </p>
+    <p>
+      [page:SRGBColorSpace] (“sRGB”) указывает на цветовое пространство с основными цветами Rec. 709, белой точкой D65 и нелинейной функцией преобразования sRGB. Цветовое пространство sRGB используется по умолчанию в CSS, палитрах и цветовых пипетках. Цвета, определённые в формате шестнадцатеричных чисел, также чаще всего относятся к пространству sRGB.
+    </p>
+    <p>
+      [page:LinearSRGBColorSpace] (“Linear-sRGB”) указывает на цветовое пространство sRGB, но которое использует линейную функцию преобразования. Linear-sRGB является рабочим цветовым пространством в «Вердж3Д» и используется в большинстве процессов рендеринга. RGB-компоненты, задаваемые в материалах, также используют это цветовое пространство.
+    </p>
 
     <h2>Кнопки мыши</h2>
+
     <code>
     v3d.MOUSE.LEFT
     v3d.MOUSE.MIDDLE
     v3d.MOUSE.RIGHT
+    v3d.MOUSE.ROTATE
+    v3d.MOUSE.DOLLY
+    v3d.MOUSE.PAN
     </code>
 
+    <p>
+      Константы LEFT и ROTATE имеют аналогичное внутреннее представление. Константы MIDDLE и DOLLY имеют аналогичное внутреннее представление. Константы RIGHT и PAN имеют аналогичное внутреннее представление.
+    </p>
+
+    <h2>Тачскрин-действия</h2>
+
+    <code>
+    v3d.TOUCH.ROTATE
+    v3d.TOUCH.PAN
+    v3d.TOUCH.DOLLY_PAN
+    v3d.TOUCH.DOLLY_ROTATE
+    </code>
+
+    <h2>Режимы окружения, использующие освещение на основе изображения</h2>
+
+    <code>
+    v3d.IBLEnvironmentPMREM
+    v3d.IBLEnvironmentProbe
+    v3d.IBLEnvironmentNone
+    </code>
+
+    <p>
+      Тип освещения на основе изображения: PMREM, цветовой зонд, либо их отсутствие.
+    </p>
+
+    <h2>Типы использования буфера атрибутов</h2>
+
+    <code>
+    v3d.StaticDrawUsage
+    v3d.DynamicDrawUsage
+    v3d.StreamDrawUsage
+
+    v3d.StaticReadUsage
+    v3d.DynamicReadUsage
+    v3d.StreamReadUsage
+
+    v3d.StaticCopyUsage
+    v3d.DynamicCopyUsage
+    v3d.StreamCopyUsage
+    </code>
+
+    <p>
+      Эти константы используются для указания на тип использования буфера геометрии, что позволяет более эффективно использовать эти данные во время рендеринга.
+    </p>
+
+    <h3>Пример</h3>
+
+    <code>
+    const geometry = new v3d.BufferGeometry();
+    const positionAttribute = new v3d.BufferAttribute(array, 3, false);
+    positionAttribute.setUsage(v3d.DynamicDrawUsage);
+    geometry.setAttribute('position', positionAttribute);
+    </code>
+
+    <p>
+      Для получения подробной информации обратитесь к [link:https://www.khronos.org/opengl/wiki/Buffer_Object#Buffer_Object_Usage документации на OpenGL].
+    </p>
+
+
     [sourceHint]
+
   </body>
-
-
 </html>

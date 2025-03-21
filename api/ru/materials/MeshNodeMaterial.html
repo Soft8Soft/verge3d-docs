@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="Node material API reference including info on how to change material colors, values and textures."/>
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <meta name="description" content="АПИ нодового материала, включая информацию о смене цветов, значений и текстур.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Material] &rarr;
@@ -13,83 +13,127 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Пользовательский материал на основе нод.<br /><br />
-
-      Этот материал используется для описания пользовательских настроек материалов, экспортируемых из Blender или 3ds Max. Может быть физически основанным или нефизическими в зависимости от указанных нод.
+      Пользовательский материал на основе нод.
     </p>
+    <p>
+      Этот материал используется для описания пользовательских настроек материалов, экспортируемых из «Блендера», «3дс Макса» или «Майи». Может быть физически основанным или нефизическими в зависимости от используемых нод.
+    </p>
+
 
     <h2>Примеры</h2>
 
-    <p>Изменение цвета материала, указанного в ноде "RGB.001":</p>
+    <p>
+      Изменение цвета материала, указанного в ноде `"RGB"`:
+    </p>
+
     <code>
-var object = app.scene.getObjectByName("MyObj");
-var mat = object.material;
-var index = mat.nodeRGBMap['RGB.001']; // 'RGB.001' is the name of an RGB node
-mat.nodeRGB[index] = new v3d.Vector4(1, 0, 0, 1); // new color in RGBA format
-mat.needsUpdate = true;
+    const obj = app.scene.getObjectByName('MyObj');
+    const mat = obj.material;
+    const index = mat.nodeRGBMap['RGB']; // 'RGB' — имя ноды RGB
+    mat.nodeRGB[index] = new v3d.Vector4(1, 0, 0, 1); // новый цвет в формате RGBA (красный)
     </code>
 
-    <p>Изменение значения, указанного в ноде "Value.001":</p>
+    <p>
+      Изменение значения, указанного в ноде `"Value"`:
+    </p>
+
     <code>
-var object = app.scene.getObjectByName("Circle");
-var mat = object.material;
-var index = mat.nodeValueMap['Value.001'];
-mat.nodeValue[index] = 0.5; // new value
-mat.needsUpdate = true;
+    const obj = app.scene.getObjectByName('MyObj');
+    const mat = obj.material;
+    const index = mat.nodeValueMap['Value'];
+    mat.nodeValue[index] = 0.5; // новое значение
     </code>
+
 
     <h2>Конструктор</h2>
 
     <h3>[name]([param:Object parameters])</h3>
+    <p class="params">
+      [page:Object parameters] — (необ.) объект с одним или несколькими свойствами, определяющими внешний вид материала. Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).
+    </p>
     <p>
-      [page:Object parameters] - (опционально) объект с одним или несколькими свойствами, определяющими внешний вид материала.
-      Сюда можно передать любое свойство материала (включая любое свойство, унаследованное от [page:Material]).<br /><br />
+      Исключением является свойство [page:Color color] (по умолчанию `0xffffff`, белый цвет). В случае, если параметр [page:.nodeGraph nodeGraph] не подан на вход конструктора, свойство цвета используется для генерации альтернативного нодового графа, который будет рендерить данный цвет.
+    </p>
 
-      Исключением является свойство [page:Hexadecimal color], которое может быть передано в виде шестнадцатеричной строки
-      и по умолчанию имеет значение *0xffffff* (белый). [page:Color.set](color) вызывается внутренне.
+    <code>
+    // nodeGraph не подан, материал отображает красный цвет
+    const mat = new MeshNodeMaterial({color: 'red'});
+    </code>
+
+    <p class="note">
+      Разработка нодовых материалов с помощью «Ява Скрипта» может стать нетривиальной задачей. Намного эффективнее использовать пакет моделирования, в котором данные материалы отображаются прямо во вьюпорте.
     </p>
 
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Material].</p>
+
+    <p>
+      Смотрите свойства базового класса [page:Material].
+    </p>
+
+    <h3>[property:Object additionalNodeGraphs]</h3>
+    <p>
+      Дополнительные графы, представляющие нодовые группы в составе главного графа нодового материала.
+    </p>
 
     <h3>[property:Texture envMap]</h3>
     <p>
-      Карта окружения. Для обеспечения физически корректного рендеринга следует добавлять только те карты окружения, которые были предварительно обработаны [page:PMREMGenerator]. Назначается автоматически из соответствующего объекта [page:CubeReflectionProbe], если [page:Material.envMapAutoAssign] имеет значение *true*. По умолчанию - null.
+      Карта окружения. Для обеспечения физически корректного рендеринга следует добавлять только те карты окружения, которые были предварительно обработаны [page:PMREMGenerator]. Назначается автоматически из соответствующего объекта [page:CubeReflectionProbe], если [page:Material.envMapAutoAssign] имеет значение `true`. По умолчанию — `null`.
     </p>
 
     <h3>[property:Float envMapIntensity]</h3>
     <p>
-      Масштабирует эффект карты окружения путем умножения ее цвета. По умолчанию 1.
+      Устанавливает интенсивность карты окружения путем умножения ее цвета. По умолчанию `1`.
     </p>
 
     <h3>[property:Matrix4 envMapParallaxMatrix]</h3>
     <p>
-      [page:Matrix4] используется для применения эффекта параллакса к [page:.envMap] материала. Эта матрица переносит преобразование из мирового пространства в пространство конкретного [page:CubeReflectionProbe reflection probe], карту окружения которого этот материал использует для рендеринга. Вычисляется автоматически, если [page:Material.envMapAutoAssign] - *true*. По умолчанию это матрица тождества.
+      [page:Matrix4 Матрица], используемая для применения эффекта параллакса к [page:.envMap] материала. Эта матрица переносит преобразование из мирового пространства в пространство конкретного [page:CubeReflectionProbe зонда отражения], карту окружения которого этот материал использует для рендеринга. Вычисляется автоматически, если [page:Material.envMapAutoAssign] равен `true`. По умолчанию используется единичная матрица.
     </p>
 
     <h3>[property:Matrix4 envMapParallaxMatrixInv]</h3>
     <p>
-      [page:Matrix4], обратная к [page:.envMapParallaxMatrix]. Используется для применения эффекта параллакса к [page:.envMap] материала. Вычисляется автоматически, если [page:Material.envMapAutoAssign] - *true*. По умолчанию это матрица тождества.
+      [page:Matrix4 Матрица], обратная к [page:.envMapParallaxMatrix]. Используется для применения эффекта параллакса к [page:.envMap] материала. Вычисляется автоматически, если [page:Material.envMapAutoAssign] равен `true`. По умолчанию используется единичная матрица.
     </p>
 
     <h3>[property:Constant envMapParallaxType]</h3>
     <p>
-      Определяет тип объема параллакса. Такой же, как [page:CubeReflectionProbe.parallaxType]. Назначается автоматически из соответствующего [page:CubeReflectionProbe], если [page:Material.envMapAutoAssign] - *true*. По умолчанию [page:Lights ReflectionProbeTypeInfinite].
+      Определяет тип объема параллакса. Такой же, как [page:CubeReflectionProbe.parallaxType]. Назначается автоматически из соответствующего [page:CubeReflectionProbe], если [page:Material.envMapAutoAssign] равен `true`. По умолчанию используется [page:Lights ReflectionProbeTypeInfinite].
+    </p>
+
+    <h3>[property:Boolean flatShading]</h3>
+    <p>
+      Определяет, будет ли материал использовать плоское освещение. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Boolean fog]</h3>
+    <p>
+      Определяет, будет ли туман влиять на данный материал. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean isMeshNodeMaterial]</h3>
+    <p>
+      Используется для проверки того, представляет ли данный экземпляр класса нодовый материал. Вы не должны изменять этот параметр, так как он используется для оптимизации внутри движка.
+    </p>
+
+    <h3>[property:Integer materialIndex]</h3>
+    <p>
+      Индекс материала. Используется для определения соответствующего выхода блендеровской ноды <a href="manual/ru/blender/Shader-Nodes-Reference.html#object_info">object info</a>.
     </p>
 
     <h3>[property:DiGraph nodeGraph]</h3>
     <p>
-      Графа, содержаная ноды материала.
-    </p>
-    <h3>[property:Object additionalNodeGraphs]</h3>
-    <p>
-      Дополнительные графы, представляющие группу нод главной графы нодов.
+      Граф, содержащий ноды материала.
     </p>
 
-    <h3>[property:String profile]</h3>
+    <h3>[property:Array nodeRGB]</h3>
     <p>
-      Профиль материала ноды, он может быть "blender" или "max".
+      Массив значений [page:Vector4 Vector4], который содержит значения цветов "RGB"-нод материала. Обратите внимание, что эти цвета представлены 4-мерным вектором, а не классом [page:Color Color].
+    </p>
+
+    <h3>[property:Array nodeRGBMap]</h3>
+    <p>
+      Сопоставляет имя "RGB"-ноды с индексом в массиве [page:.nodeRGB]. Используется для определения того, какое значение цвета должно быть обновлено, см. пример выше.
     </p>
 
     <h3>[property:Object nodeTextures]</h3>
@@ -97,51 +141,164 @@ mat.needsUpdate = true;
       Объект с текстурами материалов. Он сопоставляет имена текстур с [page:Texture textures]. Вы можете использовать его для динамического назначения новых текстур материалу.
     </p>
 
-    <h3>[property:Array nodeRGB]</h3>
-    <p>
-      Массив значений [page:Vector4 Vector4], который содержит значения цветов нод "RGB" материала. Обратите внимание, что эти цвета представлены 4-мерным вектором, а не классом [page:Color Color].
-    </p>
-    <h3>[property:Array nodeRGBMap]</h3>
-    Сопоставляет имя ноды "RGB" с индексом в массиве [page:.nodeRGB]. Используется для определения того, какое значение цвета должно быть обновлено, см. пример списка выше.
-    <p>
-    </p>
-
     <h3>[property:Array nodeValue]</h3>
     <p>
-      Массив плавающих значений, которые содержат значения нод "Value" материала.
-    </p>
-    <h3>[property:Array nodeValueMap]</h3>
-    <p>
-      Сопоставляет имя ноды "Value" с индексом в массиве [page:.nodeValue]. Используется для определения значения, которое должно быть обновлено, см. пример списка выше.
+      Массив числовых значений, которые содержат значения "Value"-нод материала.
     </p>
 
-    <h3>[property:Boolean isMeshNodeMaterial]</h3>
+    <h3>[property:Array nodeValueMap]</h3>
     <p>
-      Используется для проверки того, представляет ли данный класс материал ноды.<br />
-      Вы не должны изменять этот параметр, так как он используется внутренне для оптимизации.
+      Сопоставляет имя "Value"-ноды с индексом в массиве [page:.nodeValue]. Используется для определения значения, которое должно быть обновлено, см. пример выше.
+    </p>
+
+    <h3>[property:String profile]</h3>
+    <p>
+      Профиль материала ноды, может быть `"blender"`, `"max"` или `"maya"`.
     </p>
 
 
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:Material].</p>
 
-    <h3>[method:null updateNodeGraph]()</h3>
+    <p>
+      Смотрите методы базового класса [page:Material].
+    </p>
+
+    <h3>[method:Boolean canUseGTAO]()</h3>
+    <p>
+      Проверяет, содержит ли материал ноды, использующие эффект GTAO.
+    </p>
+
+    <h3>[method:undefined connectTexture]([param:Texture tex], [param:String nodeName], [param:String inputName])</h3>
+    <p>
+      Подключает текстуру ко входу указанной ноды. И нода и её вход определяются по имени.
+    </p>
+
+    <h3>[method:Boolean isUnlit]()</h3>
+    <p>
+      Проверяет, является ли данный материал неосвещаемым (основан на эмиссивных нодах).
+    </p>
+
+    <h3>[method:Node findNodeByName]([param:String name])</h3>
+    <p>
+      Ищет и возвращает ноду по заданному имени.
+    </p>
+
+    <h3>[method:Color getInputColor]([param:Node node], [param:Integer index])</h3>
+    <p>
+      Определяет цвет, подданный на вход указанной ноды.
+    </p>
+
+    <h3>[method:Texture getInputTexture]([param:Node node], [param:Integer index])</h3>
+    <p>
+      Определяет текстуру, подданную на вход указанной ноды.
+    </p>
+
+    <h3>[method:Float getInputValue]([param:Node node], [param:Integer index])</h3>
+    <p>
+      Определяет числовое значение, поданное на вход указанной ноды.
+    </p>
+
+    <h3>[method:Node getMainShaderNode]()</h3>
+    <p>
+      Анализирует материал и возвращает главную шейдерную ноду.
+    </p>
+
+    <h3>[method:Node getStandardProp]([param:String prop])</h3>
+    <p>
+      Анализирует материал и возвращает значение «стандартного» параметра. Если данный параметр не может быть установлен, возвращает значение по умолчанию.
+    </p>
+
+    <p>
+      Поддерживаемые параметры:
+    </p>
+
+    <dl>
+      <dt>[page:Color color]</dt>
+      <dd>Базовый цвет материала. По умолчанию `0xffffff` (белый).</dd>
+      <dt>[page:Texture map]</dt>
+      <dd>Базовая текстура материала. По умолчанию `null` (текстура отсутствует).</dd>
+      <dt>[page:Float opacity]</dt>
+      <dd>Значение непрозрачности. По умолчанию `1.0` (непрозрачный).</dd>
+      <dt>[page:Float metalness]</dt>
+      <dd>Значение металличности. По умолчанию `0.5` (полуметалличный).</dd>
+      <dt>[page:Texture metalnessMap]</dt>
+      <dd>Текстура металличности. По умолчанию `null` (текстура отсутствует)</dd>
+      <dt>[page:Float roughness]</dt>
+      <dd>Значение шероховатости. По умолчанию `0.5`.</dd>
+      <dt>[page:Texture roughnessMap]</dt>
+      <dd>Текстура шероховатости. По умолчанию `null` (текстура отсутствует)</dd>
+      <dt>[page:Texture aoMap]</dt>
+      <dd>Текстура эмбиент окклюжн. По умолчанию `null` (текстура отсутствует)</dd>
+      <dt>[page:Float aoMapIntensity]</dt>
+      <dd>Влияние текстуры эмбиент окклюжн. По умолчанию `1.0`.</dd>
+      <dt>[page:Texture normalMap]</dt>
+      <dd>Карта нормалей. По умолчанию `null` (текстура отсутствует)</dd>
+      <dt>[page:Vector2 normalScale]</dt>
+      <dd>Влияние карты нормалей вдоль координат U и V. По умолчанию `(1.0, 1.0)`.</dd>
+      <dt>[page:Color emissive]</dt>
+      <dd>Цвет эмиссии. По умолчанию `0x000000` (чёрный).</dd>
+      <dt>[page:Texture emissiveMap]</dt>
+      <dd>Текстура эмиссии. По умолчанию `null` (текстура отсутствует)</dd>
+      <dt>[page:Float emissiveIntensity]</dt>
+      <dd>Интенсивность эмиссии. По умолчанию `0.0`.</dd>
+    </dl>
+
+    <h3>[method:Boolean hasNode]([param:String nodeType])</h3>
+    <p>
+      Проверяет, содержит ли нодовый материал ноду указанного типа (`nodeType`).
+    </p>
+
+    <h3>[method:Boolean needsLightPathDir]()</h3>
+    <p>
+      Проверяет, содержит ли материал ноды *Light Path*, *Ray Switch*, либо ноды OSL.
+    </p>
+
+    <h3>[method:undefined traverseNodes]([param:Function cb])</h3>
+    <p>
+      Пробегает все ноды материала и вызывает указанную функцию для каждой.
+    </p>
+
+    <h3>[method:undefined updateNodeGraph]()</h3>
     <p>
       Генерирует шейдеры и обновляет другие параметры материала на основе указанного [page:.nodeGraph].
     </p>
 
-    <h2>Статические методы</h2>
-    <h3>[method:DiGraph nodeGraphFromGLTF]([param:Object gltfNodeGraph])</h3>
+    <h3>[method:Boolean useAddTransparency]()</h3>
     <p>
-      Преобразование [page:GLTFLoader GLTF node graph] в формат, используемый свойством [page:.nodeGraph] материала.
+      Проверяет, использует ли материал аддитивную прозрачность.
     </p>
 
-    <h2>Пазлы</h2>
+    <h3>[method:Color worldMaterialColor]()</h3>
     <p>
-      Используйте следующие пазлы для управления материалами: <br />
-      [page:Puzzles.assign_material assign material] - назначить материал объекту. <br />
-      [page:Puzzles.replace_texture replace texture] - заменить текстуру материала.
+      Проверят, может ли мировой материал быть упрощён до одного цвета и возвращает этот цвет. Метод используется внутри движка для оптимизации.
     </p>
+
+
+    <h2>Статические методы</h2>
+
+    <h3>[method:String nodeTexUniName]([param:String type], [param:Integer texIndex])</h3>
+    <p>
+      Генерирует имя [page:Uniform текстурного юниформа] на основе типа и произвольного индекса (например текстурного индекса внутри [page:GLTFLoader ресурса glTF]).
+    </p>
+
+    <h3>[method:DiGraph nodeGraphFromExtGraph]([param:Object gltfExtNodeGraph])</h3>
+    <p>
+      Осуществляет преобразование [page:GLTFLoader нодового графа GLTF] в формат, используемый свойством [page:.nodeGraph] материала.
+    </p>
+
+    <h3>[method:undefined nodeGraphTraverse]([param:DiGraph nodeGraph], [param:Function cb])</h3>
+    <p>
+      Пробегает все ноды материала и вызывает указанную функцию для каждой.
+    </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Используйте <a href="manual/en/puzzles/Materials.html">пазлы материалов</a> для управления материалами без программирования.
+    </p>
+
     [sourceHint]
+
   </body>
 </html>

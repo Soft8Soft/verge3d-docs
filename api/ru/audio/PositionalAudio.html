@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Object3D] &rarr; [page:Audio] &rarr;
@@ -12,22 +12,23 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Создайте позиционный аудиообъект.<br /><br />
-
+      Создаёт позиционный аудиообъект.
+    </p>
+    <p>
       Использует [link:https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API Web Audio API].
     </p>
 
     <h2>Пример кода</h2>
 
     <code>
-    // create an AudioListener and add it to the camera
+    // создаём AudioListener и добавляем его к камере
     const listener = new v3d.AudioListener();
     camera.add(listener);
 
-    // create the PositionalAudio object (passing in the listener)
+    // создаём объект PositionalAudio (добавляем к listener)
     const sound = new v3d.PositionalAudio(listener);
 
-    // load a sound and set it as the PositionalAudio object's buffer
+    // загружаем звук и добавляем как буфер для PositionalAudio
     const audioLoader = new v3d.AudioLoader();
     audioLoader.load('sounds/song.ogg', function(buffer) {
       sound.setBuffer(buffer);
@@ -35,29 +36,22 @@
       sound.play();
     });
 
-    // create an object for the sound to play from
-    const sphere = new v3d.SphereBufferGeometry(20, 32, 16);
-    const material = new v3d.MeshPhongMaterial({ color: 0xff2200 });
+    // создаём объект-источник
+    const sphere = new v3d.SphereGeometry(20, 32, 16);
+    const material = new v3d.MeshLambertMaterial({ color: 0xff2200 });
     const mesh = new v3d.Mesh(sphere, material);
-    scene.add(mesh);
+    app.scene.add(mesh);
 
-    // finally add the sound to the mesh
+    // добавляем звук к источнику
     mesh.add(sound);
     </code>
 
-    <h2>Примеры</h2>
-
-    <p>
-      [example:webaudio_orientation webaudio / orientation]<br />
-      [example:webaudio_sandbox webaudio / sandbox]<br />
-      [example:webaudio_timing webaudio / timing]
-    </p>
 
     <h2>Конструктор</h2>
 
     <h3>[name]([param:AudioListener listener])</h3>
     <p>
-    listener — (необходимый) экземпляр [page:AudioListener AudioListener].
+      listener — (необходимый) экземпляр [page:AudioListener AudioListener].
     </p>
 
 
@@ -68,18 +62,20 @@
     </p>
 
     <h3>[property:PannerNode panner]</h3>
-    <p>Нода PositionalAudio [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode PannerNode].</p>
+    <p>
+      Нода PositionalAudio [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode PannerNode].
+    </p>
 
 
     <h2>Методы</h2>
 
     <p>
-      Наследуемые методы смотрите в классе [page:Audio Audio]. 
+      Наследуемые методы смотрите в классе [page:Audio Audio].
     </p>
 
     <h3>[method:PannerNode getOutput]()</h3>
     <p>
-    Возвращает [page:PositionalAudio.panner panner].
+      Возвращает [page:PositionalAudio.panner panner].
     </p>
 
     <h3>[method:Float getRefDistance]()</h3>
@@ -87,9 +83,9 @@
       Возвращает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/refDistance panner.refDistance].
     </p>
 
-    <h3>[method:PositionalAudio setRefDistance]([param:Float value])</h3>
+    <h3>[method:this setRefDistance]([param:Float value])</h3>
     <p>
-    Устанавливает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/refDistance panner.refDistance].
+      Устанавливает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/refDistance panner.refDistance].
     </p>
 
     <h3>[method:Float getRolloffFactor]()</h3>
@@ -97,9 +93,9 @@
       Возвращает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/rolloffFactor panner.rolloffFactor].
     </p>
 
-    <h3>[method:PositionalAudio setRolloffFactor]([param:Float value])</h3>
+    <h3>[method:this setRolloffFactor]([param:Float value])</h3>
     <p>
-    Устанавливает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/rolloffFactor panner.rolloffFactor].
+      Устанавливает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/rolloffFactor panner.rolloffFactor].
     </p>
 
     <h3>[method:String getDistanceModel]()</h3>
@@ -107,7 +103,7 @@
       Возвращает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel panner.distanceModel].
     </p>
 
-    <h3>[method:PositionalAudio setDistanceModel]([param:String value])</h3>
+    <h3>[method:this setDistanceModel]([param:String value])</h3>
     <p>
       Устанавливает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/distanceModel panner.distanceModel].
     </p>
@@ -117,12 +113,12 @@
       Возвращает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/maxDistance panner.maxDistance].
     </p>
 
-    <h3>[method:PositionalAudio setMaxDistance]([param:Float value])</h3>
+    <h3>[method:this setMaxDistance]([param:Float value])</h3>
     <p>
-    Устанавливает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/maxDistance panner.maxDistance]. 
+      Устанавливает значение параметра [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/maxDistance panner.maxDistance].
     </p>
 
-    <h3>[method:PositionalAudio setDirectionalCone]([param:Float coneInnerAngle], [param:Float coneOuterAngle], [param:Float coneOuterGain])</h3>
+    <h3>[method:this setDirectionalCone]([param:Float coneInnerAngle], [param:Float coneOuterAngle], [param:Float coneOuterGain])</h3>
     <p>
       Этот метод можно использовать для преобразования всенаправленного звука в [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode directional sound].
     </p>

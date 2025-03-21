@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Вердж3Д для Майи: Настройка вьюпорта и рендеринга Арнольда — Софт Эйт Софт</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Как настроить вьюпорт и рендерер Арнольд для соответствия внешнему виду Вердж3Д.">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body><article>
+
+    <h1>Настройка вьюпорта и рендеринга / Майя</h1>
+
+    <p>
+      В этом разделе вы узнаете, как настроить вьюпорт «Майи» на соответствие внешнему виду «Вердж3Д». Мы также рассмотрим использование рендера «Арнольд» для получения эталонного изображения.
+    </p>
+
+    [contents]
+
+
+    [anchor:viewport_settings]
+
+    <h2>Настройка вьюпорта</h2>
+
+    <p>
+      Чтобы улучшить отображение сцен во вьюпорте «Майи» включите опцию *Hardware Texturing* в настройках вьюпорта:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/hardware-texturing.webp" style="max-width: 500px">
+
+    <p>
+      Также переключите освещения с *Use Default Lighting* (освещение по умолчанию) на *Use All Lights* (использовать все источники), либо используйте горячую клавишу *7*:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/use-all-lights.webp" style="max-width: 500px">
+
+    <p class="note">
+      Указанные выше настройки уже включены в сцене с кубом в стандартных шаблонах приложений «Вердж3Д».
+    </p>
+
+    <p>
+      Шейдинг во вьюпорте не всегда даёт правильное представление о том, что может получиться в браузере. Для просмотра сцен вы можете использовать рендерер «Арнольд» (см. <a href="manual/ru/maya/Viewport-Render-Preview.html#arnold_rendering">ниже</a>), либо функцию «Вердж3Д» *Sneak Peek*.
+    </p>
+
+
+    [anchor:color_management]
+
+    <h2>Управление цветом</h2>
+
+    <p>
+      По умолчанию «Майя» используется систему кодирования цветов ACES (с цветовым пространством ACEScg).
+    </p>
+
+    <img src="files/viewport-render-preview-maya/view-transform-aces.webp" style="max-width: 750px">
+
+    <p>
+      Эта система не поддерживается в «Вердж3Д», поскольку сильно нагружает графический процессор, что в свою очередь препятствует внедрению этой технологии для рендеринга браузерной графики в реальном времени.
+    </p>
+
+    <p>
+      Система ACES заставляет ваши сцены выглядеть темнее во вьюпорте «Майи», чем в «Вердж3Д»:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/maya-vs-verge3d.webp">
+
+    <p>
+      Чтобы переключиться назад, в систему кодирования цветов sRGB, откройте настройки «Майи»:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/maya-preferences.webp">
+
+    <p>
+      Перейдите к настройкам *Color Management*, затем нажмите на маленькую стрелку (▼) справа от поля *OCIO Config Path*. Выберите *Reset to Legacy*, далее нажмите на кнопку *Save* чтобы закрыть диалог с настройками «Майи».
+    </p>
+
+    <img src="files/viewport-render-preview-maya/maya-color-management.webp" style="max-width: 864px">
+
+    <p>
+      Убедитесь что настройка цветовой трансформации переключилась в <strong>sRGB gamma (legacy)</strong>:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/view-transform-srgb.webp" style="max-width: 750px">
+
+    <p class="note">
+      Система кодирования цветов sRGB уже включена в сцене с кубом в стандартных шаблонах приложений «Вердж3Д».
+    </p>
+
+
+    [anchor:arnold_rendering]
+
+    <h2>Рендеринг в «Арнольде»</h2>
+
+    <p>
+      «Вердж3Д» ориентируется на «Арнольд» при рендеринге материалов <em>Standard Surface</em> и <em>Open PBR</em>. Таким образом вы можете ориентироваться на «Арнольд» для быстрой настройки сцены, без необходимости её экспортировать в «Вердж3Д» каждый рез.
+    </p>
+    <p>
+      Чтобы переключить рендерер, выберите *Arnold* в меню *Renderer*:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/arnold-renderer-viewport.webp" style="max-width: 600px">
+
+    <p>
+      А затем дождитесь появления картинки приемлемого качества:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/arnold-renderer-viewport-complete.webp" style="max-width: 750px">
+
+    <p>
+      Если в сцене что-то поменяется, «Майя» автоматически обновит рендеринг во вьюпорте. Таким образом вы можете получать быстрое приближение того, что может получиться в браузере.
+    </p>
+
+
+    <h2>Остались вопросы?</h2>
+
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
+
+  </article></body>
+</html>

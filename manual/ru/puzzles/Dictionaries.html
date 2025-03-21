@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Пазлы Словарей - Soft8Soft</title>
+    <title>Пазлы словарей (Dictionaries) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Используйте пазлы-словари для эффективного хранения, передачи и извлечения различных данных в приложениях Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Используйте пазлы-словари для эффективного хранения, передачи и извлечения данных в приложениях Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Словари</h1>
+    <h1>Пазлы словарей (Dictionaries)</h1>
 
     <p>
-      Пазлы из этой категории позволяют эффективно хранить, передавать и извлекать различные данные. В частности, словарь полезен для хранения множества параметров и их массовой передачи из и в JavaScript и по сети.
+      Пазлы этой категории служат для создания и работы с данными в виде словарей.
     </p>
 
     <img src="files/puzzles/puzzles-dictionaries.jpg">
@@ -23,9 +23,42 @@
     [contents]
 
 
+    [anchor:introduction]
+
+    <h2>Введение</h2>
+
+    <p>
+      Пазлы крайне полезны, когда вам нужно хранить, передавать и извлекать разные по своей природе данные в одной сущности. В частности, словарь полезен для хранения множества параметров и их передачи как единого целого в пазлы (например <a href="manual/ru/puzzles/Scenes.html#raycast">raycast</a> или <a href="manual/ru/puzzles/Physics.html#detect_collisions">collision info</a>), «Ява Скрипт» или по сети.
+    </p>
+
+    <p>
+      Например вы можете определить такую сущность «машина» с помощью следующего словаря:
+    </p>
+
+    <img src="files/puzzles/puzzles-dictionaries-example.webp">
+
+    <p>
+      ...который внутри выглядит как:
+    </p>
+
+    <code>
+    {
+      "available": true,
+      "brand": "Tesla",
+      "model": "Model S",
+      "range": 250,
+      "year": 2020
+    }
+    </code>
+
+    <p>
+      Внутри фигурных скобок находятся поля (также называемые «элементами» или «записями»). Каждого поле состоит из ключа (*key*) и связанного с ним значения (*value*), в частности, для ключа "model" из примера выше значением будет "Model S". Ключом может быть только строка, в то время как значением любой из типов данных (строка, число, логический тип, список, другой словарь и т.д.) Также, в отличие от <a href="manual/ru/puzzles/Lists.html">списков</a>, поля словарей хранятся без сортировки, поэтому вы можете добавлять новые поля в любой последовательности.
+    </p>
+
+
     [anchor:puzzles_reference]
 
-    <h2>Перечень Пазлов</h2>
+    <h2>Перечень пазлов</h2>
 
 
     [anchor:create_empty_dict]
@@ -33,14 +66,37 @@
     <h3>create empty dict</h3>
 
     <p>
-      Возвращает словарь, не содержащий записей данных.
+      Возвращает словарь, не содержащий никаких полей (пустой).
     </p>
 
     <img src="files/puzzles/puzzles-dictionaries-create-empty-dict.jpg">
 
     <p>
-      В JavaScript словарь представлен *Объектом* без свойств, то есть { }.
+      В «Ява Скрипте» пустой словарь представлен объектом без свойств, то есть `{ }`.
     </p>
+
+
+    [anchor:create_dict_with]
+
+    <h3>create dict with</h3>
+
+    <p>
+      Возвращает словарь, содержащий указанные ключи и значения.
+    </p>
+
+    <img src="files/puzzles/puzzles-dictionaries-create-dict-with.jpg">
+
+    <p>
+      Ключи/значения могут быть списками:
+    </p>
+
+    <img src="files/puzzles/puzzles-dictionaries-create-dict-with-lists.jpg">
+
+    <p>
+      или многострочными текстами, где каждая строка определяет ключ или значение:
+    </p>
+
+    <img src="files/puzzles/puzzles-dictionaries-create-dict-with-texts.jpg">
 
 
     [anchor:dict_set_key]
@@ -54,7 +110,6 @@
     <img src="files/puzzles/puzzles-dictionaries-dict-set-key.jpg">
 
 
-
     [anchor:dict_get_key]
 
     <h3>dict get key</h3>
@@ -64,7 +119,6 @@
     </p>
 
     <img src="files/puzzles/puzzles-dictionaries-dict-get-key.jpg">
-
 
 
     [anchor:get_keys]
@@ -78,17 +132,15 @@
     <img src="files/puzzles/puzzles-dictionaries-get-keys.jpg">
 
 
-
     [anchor:dict_check_key]
 
     <h3>dict check key</h3>
 
     <p>
-      Проверяет, присутствует ли указанный ключ в словаре, и возвращает результат с булевым типом *true* или *false*.
+      Проверяет, присутствует ли указанный ключ в словаре, и возвращает результат в виде логического `true` или `false`.
     </p>
 
     <img src="files/puzzles/puzzles-dictionaries-dict-check-key.jpg">
-
 
 
     [anchor:dict_remove_key]
@@ -96,11 +148,10 @@
     <h3>dict remove key</h3>
 
     <p>
-      Удаляет элемент, связанный с указанным ключом в словаре, и удаляет сам ключ.
+      Удаляет значение, связанное с указанным ключом в словаре, и удаляет сам ключ.
     </p>
 
     <img src="files/puzzles/puzzles-dictionaries-dict-remove-key.jpg">
-
 
 
     [anchor:is_empty]
@@ -108,7 +159,7 @@
     <h3>is empty</h3>
 
     <p>
-      Проверяет, не содержит ли указанный словарь ключей, и возвращает результат с булевым типом *true* или *false*.
+      Проверяет, не содержит ли указанный словарь ключей, и возвращает результат в виде логического `true` или `false`.
     </p>
 
     <img src="files/puzzles/puzzles-dictionaries-is-empty.jpg">
@@ -116,14 +167,18 @@
 
     [anchor:see_also]
 
-    <h2>Смотрите Также</h2>
+    <h2>Смотрите также</h2>
 
-    <p>Словари хранят элементы по именам. Если вам нужно упорядоченное хранение с индексированными элементами, обратитесь к <a href="manual/ru/puzzles/Lists.html">lists</a>.</p>
+    <ul>
+      <li><a href="manual/ru/puzzles/Lists.html">lists</a> — если вам нужно упорядоченное хранение с индексированными элементами.</li>
+      <li><a href="manual/ru/puzzles/Loops.html#for_each_in_dict">for each in dict</a> — для перечисления полей словаря.</li>
+      <li><a href="manual/ru/puzzles/Advanced.html#send_data">send data</a> — для отправки словаря по сети.</li>
+    </ul>
 
 
-    <h2>Проблемы с Пазлами?</h2>
+    <h2>Проблемы с пазлами?</h2>
 
-    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">forums</a>!</p>
 
   </article></body>
 </html>

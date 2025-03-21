@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Пазлы Материалов - Soft8Soft</title>
+    <title>Пазлы материалов (Materials) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как управлять материалами и текстурами в Пазлах Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Как управлять материалами и текстурами с помощью блоков визуального программирования Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Материалы</h1>
+    <h1>Пазлы материалов (Materials)</h1>
 
     <p>
       Пазлы из этой категории выполняют различные операции с материалами и текстурами.
     </p>
 
-    <img src="files/puzzles/puzzles-materials.jpg">
+    <img src="files/puzzles/puzzles-materials.webp">
 
     <h2>Содержание</h2>
 
@@ -25,7 +25,7 @@
 
     [anchor:puzzles_reference]
 
-    <h2>Перечень Пазлов</h2>
+    <h2>Перечень пазлов</h2>
 
 
     [anchor:assign_material]
@@ -33,10 +33,28 @@
     <h3>assign material</h3>
 
     <p>
-      Присваивает материал объекту, полностью заменяя старый материал. Также работает для списка объектов, группы (или списка групп) или с пазлом <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
+      Присваивает материал объекту, полностью заменяя старый материал. Пазл поддерживает списки объектов, группы (или списки групп) а также пазл <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
 
-    <img src="files/puzzles/puzzles-materials-assign-material.jpg">
+    <img src="files/puzzles/puzzles-materials-assign-material.webp">
+
+    <p>
+      Пазл требует для работы другой объект с назначенным материалом (может быть скрытым), наподобие палитры:
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-assign-material-example.webp">
+
+    <p>
+      Также исходный и конечный меши должны иметь одинаковый набор текстурных развёрток и/или цветовых атрибутов, например в «Блендере»:
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-assign-material-uvs.webp" style="max-width: 565px">
+
+    <p>
+      По умолчанию пазл "assign material" не поддерживает меши с несколькими материалами и устанавливает первый найденный. Включите *multi-material index* и укажите номер материала в поле *index* (например для «Блендера» это будет номер слота материала) чтобы установить материал на нужные полигоны.
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-assign-material-multi.webp">
 
     <p>
       В некоторых ситуациях, а именно, когда материал с отображением нормалей назначен объекту, не имеющему нормалей, этот пазл может сделать ваш материал полностью черным. Если это произошло, <em>отключите</em> оптимизацию атрибутов меша в настройках экспорта:
@@ -45,15 +63,15 @@
     <v3d-tabs>
       <label>Blender</label>
       <div>
-        <img src="files/puzzles/mesh-attributes-not-optimize-blender.jpg" class="centered" style="max-width: 331px;">
+        <img src="files/puzzles/mesh-attributes-not-optimize-blender.webp" style="max-width: 324px">
       </div>
       <label>3ds Max</label>
       <div>
-        <img src="files/puzzles/mesh-attributes-not-optimize-max.jpg" class="centered" style="max-width: 252px;">
+        <img src="files/puzzles/mesh-attributes-not-optimize-max.webp" style="max-width: 272px">
       </div>
       <label>Maya</label>
       <div>
-        <img src="files/puzzles/mesh-attributes-not-optimize-maya.jpg" class="centered" style="max-width: 416px;">
+        <img src="files/puzzles/mesh-attributes-not-optimize-maya.webp" style="max-width: 432px">
       </div>
     </v3d-tabs>
 
@@ -63,11 +81,36 @@
     <h3>replace texture</h3>
 
     <p>
-      Заменяет текстуру, найденную для указанного материала, текстурой, загруженной из предоставленного URI изображения, <a href="manual/ru/puzzles/Sound.html#load_video">видеоассета</a> или <a href="manual/ru/puzzles/HTML.html#create_canvas_elem">холста</a>.
+      Заменяет текстуру у указанного материала новой, полученной на основе <a href="manual/ru/puzzles/HTML.html#url_paths">УРЛ-адреса</a> изображения, <a href="manual/ru/puzzles/Sound.html#load_video">видео</a> или <a href="manual/ru/puzzles/HTML.html#create_canvas_elem">2Д-холста</a>.
     </p>
 
-    <img src="files/puzzles/puzzles-materials-replace-texture.jpg">
+    <img src="files/puzzles/puzzles-materials-replace-texture.webp">
 
+    <p>
+      Данный пазл поддерживает дополнительные настройки, доступные по значку шестерёнки:
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-replace-texture-advanced.webp">
+
+    <dl>
+      <dt>enable "once ready do" slot</dt>
+      <dd>Показать/скрыть слот для пазлов, которые будут вызываться по окончании загрузки текстуры.</dd>
+
+      <dt>flexible texture input</dt>
+      <dd>Разрешить использование <a href="manual/ru/puzzles/Text.html#text">текстовых пазлов</a> для входа "texture" вместо меню выбора из имеющихся текстур.</dd>
+
+      <dt>prevent texture sharing</dt>
+      <dd>Всегда делать копию исходной текстуры перед назначением изображения. Это предотвращает назначение одного и того же изображения на текстуры, которое могут быть расшарены между различными материалами.</dd>
+    </dl>
+
+    [demo:custom_image Фоторамка]
+
+    <p class="note">
+      Чтобы использовать видео с прозрачностью, используйте формат WebM или HEVC и установите тип прозрачности материала в значение *Blend* (смотрите раздел про прозрачность в
+      <a href="manual/ru/blender/Transparency.html#setting_up_in_blender">«Блендере»</a> /
+      <a href="manual/ru/max/Transparency.html#blended_vs_masked">«Максе»</a> /
+      <a href="manual/ru/maya/Transparency.html#blended_vs_masked">«Майе»</a>).
+    </p>
 
 
     [anchor:get_texture_param]
@@ -81,7 +124,6 @@
     <img src="files/puzzles/puzzles-materials-get-texture-param.jpg">
 
 
-
     [anchor:materials_set_color]
 
     <h3>set color</h3>
@@ -93,37 +135,37 @@
     <img src="files/puzzles/puzzles-materials-set-color.jpg">
 
     <v3d-tabs>
-      <label>Blender</label>
+      <label>Блендер</label>
       <div>
         <p>
           Вы можете добавить ноды *RGB* в материалы на основе нод, и их названия будут отображаться в выпадающем меню. Кроме того, доступны входы *Base Color* (или *Color*) для нод BSDF Principled, BSDF Diffuse и BSDF Glossy.
         </p>
 
-        <img src="files/puzzles/puzzles-materials-set-color-example-blender.jpg" class="centered" style="max-width: 643px;">
+        <img src="files/puzzles/puzzles-materials-set-color-example-blender.jpg" style="max-width: 643px;">
 
         <p>
           В случае <em>glTF-совместимых PBR-материалов</em> входы <strong>BaseColor и Emissive</strong> доступны только с помощью этого пазла.
         </p>
       </div>
-      <label>3ds Max</label>
+      <label>3дс Макс</label>
       <div>
         <p>
           Вы можете добавить <strong>Controllers</strong> в свои материалы (стандартные или физические), и их названия будут отображаться в выпадающем меню. Кроме того, доступны входы цвета *Diffuse* (или *Base Color*) для нод стандартного или физического материала.
         </p>
 
-        <img src="files/puzzles/puzzles-materials-set-color-example-max.jpg" class="centered" style="max-width: 759px;">
+        <img src="files/puzzles/puzzles-materials-set-color-example-max.jpg" style="max-width: 759px;">
 
         <p>
           В случае <em>glTF-совместимых PBR-материалов</em> входы <strong>Base Color</strong> и <strong>Emission</strong> доступны только с помощью этого пазла.
         </p>
       </div>
-      <label>Maya</label>
+      <label>Майя</label>
       <div>
         <p>
           Вы можете добавить ноды <strong>Color Constant</strong> в свои материалы, и их названия будут отображаться в выпадающем меню.
         </p>
 
-        <img src="files/puzzles/puzzles-materials-set-color-example-maya.jpg" class="centered" style="max-width: 936px;">
+        <img src="files/puzzles/puzzles-materials-set-color-example-maya.jpg" style="max-width: 936px;">
 
         <p>
           В случае <em>glTF-совместимых PBR-материалов</em> входы <strong>Base Color</strong> и <strong>Emission</strong> доступны только с помощью этого пазла.
@@ -136,7 +178,7 @@
     </p>
 
     <p>
-      Дополнительную информацию о материалах, доступных пользователям Verge3D, можно найти в главе "Обзор системы материалов" данного руководства: <a href="manual/ru/blender/Material-System.html" target="_blank">Blender</a>, <a href="manual/ru/max/Material-System.html" target="_blank">3ds Max</a>, <a href="manual/ru/maya/Materials.html" target="_blank">Maya</a>.
+      Дополнительную информацию о материалах, доступных пользователям «Вердж3Д», можно найти в главе "Обзор системы материалов" данного руководства: <a href="manual/ru/blender/Material-System.html" target="_blank">Блендер</a>, <a href="manual/ru/max/Material-System.html" target="_blank">3дс Макс</a>, <a href="manual/ru/maya/Materials.html" target="_blank">Майя</a>.
     </p>
 
 
@@ -151,14 +193,15 @@
       <li>*green* - компонент зеленого цвета.</li>
       <li>*blue* - компонент синего цвета.</li>
       <li>*rgb* - Компоненты цвета RGB в виде вектора/списка значений.</li>
-      <li>*css (hex)* - CSS style string, такие как #AA00FF.</li>
-      <li>*css (rgb)* - CSS style string, такие как rgb(127, 0, 255).</li>
+      <li>*css (hex)* - CSS-цвет вида #AA00FF.</li>
+      <li>*css (rgb)* - CSS-цвет вида rgb(127, 0, 255).</li>
     </ul>
 
-    <p>Укажите параметр *flexible color input*, чтобы присвоить параметру пользовательского материала строковое значение.</p>
+    <p>
+      Укажите параметр *flexible color input*, чтобы присвоить параметру пользовательского материала строковое значение.
+    </p>
 
     <img src="files/puzzles/puzzles-materials-get-color.jpg">
-
 
 
     [anchor:materials_set_value]
@@ -170,37 +213,37 @@
     <img src="files/puzzles/puzzles-materials-set-value.jpg">
 
     <v3d-tabs>
-      <label>Blender</label>
+      <label>Блендер</label>
       <div>
         <p>
           Вы можете добавить ноды <strong>Value</strong> в материалы на основе нод, и их названия будут отображаться в выпадающем меню.
         </p>
 
-        <img src="files/puzzles/puzzles-materials-set-value-example-blender.jpg" class="centered" style="max-width: 687px;">
+        <img src="files/puzzles/puzzles-materials-set-value-example-blender.jpg" style="max-width: 687px;">
 
         <p>
           В случае <em>glTF-совместимых PBR-материалов</em> с помощью этого пазла доступны следующие входы: *metalness*, *roughness*, *bumpScale*, *emissiveIntesity* и *envMapIntensity*.
         </p>
       </div>
-      <label>3ds Max</label>
+      <label>3дс Макс</label>
       <div>
         <p>
-          Вы можете добавить *Controllers* в ваши материалы (стандартные или физические), и их имена будут показаны в выпадающем меню. 
+          Вы можете добавить *Controllers* в ваши материалы (стандартные или физические), и их имена будут показаны в выпадающем меню.
         </p>
 
-        <img src="files/puzzles/puzzles-materials-set-value-example-max.jpg" class="centered" style="max-width: 739px;">
+        <img src="files/puzzles/puzzles-materials-set-value-example-max.jpg" style="max-width: 739px;">
 
         <p>
           В случае <em>glTF-совместимых PBR-материалов</em> с помощью этого пазла доступны следующие входы: *Metalness*, *Roughness*, *Bump Scale*, *Emissive Intensity* и *Environment Map Intensity*.
         </p>
       </div>
-      <label>Maya</label>
+      <label>Майя</label>
       <div>
         <p>
           Вы можете добавить ноды*Float Constant* в ваш материал, и их имена будут показаны в выпадающем меню.
         </p>
 
-        <img src="files/puzzles/puzzles-materials-set-value-example-maya.jpg" class="centered" style="max-width: 769px;">
+        <img src="files/puzzles/puzzles-materials-set-value-example-maya.jpg" style="max-width: 769px;">
 
         <p>
           В случае <em>glTF-совместимых PBR-материалов</em>, с помощью этого пазла доступны следующие входы: *metalness*, *roughness*, *bumpScale*, *emissiveIntensity* и *envMapIntensity*.
@@ -213,7 +256,7 @@
     </p>
 
     <p>
-      Более подробную информацию о материалах, доступных пользователям Verge3D, можно найти в главе "Обзор системы материалов" данного руководства: <a href="manual/ru/blender/Material-System.html" target="_blank">Blender</a>, <a href="manual/ru/max/Material-System.html" target="_blank">3ds Max</a>, <a href="manual/ru/maya/Materials.html" target="_blank">Maya</a>.
+      Более подробную информацию о материалах, доступных пользователям «Вердж3Д», можно найти в главе "Обзор системы материалов" данного руководства: <a href="manual/ru/blender/Material-System.html" target="_blank">Блендер</a>, <a href="manual/ru/max/Material-System.html" target="_blank">3дс Макс</a>, <a href="manual/ru/maya/Materials.html" target="_blank">Майя</a>.
     </p>
 
     [anchor:materials_get_value]
@@ -229,14 +272,30 @@
 
     [anchor:get_material]
 
-    <h3>get material</h3>
+    <h3>material from</h3>
 
     <p>
-      Получает название материала, назначенного объекту. Если одному объекту присвоено несколько материалов, возвращается первый из них.
+      Получает название материала, назначенного объекту. По умолчанию, если одному объекту присвоено несколько материалов, возвращается первый из них.
     </p>
 
-    <img src="files/puzzles/puzzles-object-get-material.jpg">
+    <img src="files/puzzles/puzzles-materials-material-from.webp">
 
+    <p>
+      Данный пазл поддерживает дополнительные настройки, доступные по значку шестерёнки:
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-material-from-advanced.webp">
+
+    <dl>
+      <dt>multi-material index</dt>
+      <dd>
+        По умолчанию пазл "material from" не поддерживает меши с несколькими материалами и возвращает первый найденный. Включите *multi-material index* и укажите номер материала в поле *index* (например для «Блендера» это будет номер слота материала) чтобы получить нужный вам материал.
+      </dd>
+      <dt>return unique material id</dt>
+      <dd>
+        По умолчанию пазл "material from" возвращает читабельные имена материалов. Однако в ряде случаев (например при использовании одного материала на разных объектах, либо разных материалов с одним и тем же именем) вам может потребоваться изменить материал конкретного объекта, а не изменять их все.  Для этого включите настройку *return unique material id*, чтобы пазл возвращал уникальный идентификатор назначенного материала, а не его имя. Вы можете использовать этот идентификатор (выглядит как: 5c464bf0-043a-40ee-b864-5c026436d7de) во всех пазлах, принимающих на вход материал.
+      </dd>
+    </dl>
 
 
     [anchor:texture_from_text]
@@ -244,50 +303,116 @@
     <h3>texture from text</h3>
 
     <p>
-      Создает изображение из указанного текста и возвращает его в формате Data URI.  <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>.
+      Создает изображение из указанного текста и возвращает его в формате <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>.
     </p>
 
     <img src="files/puzzles/puzzles-materials-texture-from-text.jpg">
 
-    <p>
-      Parameters:
-    </p>
+    <h4>Параметры:</h4>
 
     <dl>
       <dt>text</dt>
       <dd>
-        ввод текста.
+        Исходный текст.
       </dd>
       <dt>
         width, height
       </dt>
       <dd>
-        размеры создаваемого изображения (в пикселях). Рекомендуется использовать значения, кратные двум (256, 512, 1024 и т.д.).
+        Размеры создаваемого изображения (в пикселях). Рекомендуется использовать значения, кратные двум (256, 512, 1024 и т.д.).
       </dd>
       <dt>font family</dt>
       <dd>
-        <a href="https://www.w3schools.com/cssref/pr_font_font-family.asp" target="_blank">font-family</a> CSS свойство для отображения текста. Вы можете использовать системные шрифты, такие как "Arial", или пользовательские шрифты, загруженные с помощью пазла <a href="manual/ru/puzzles/Initialization.html#load_font">load font</a>.
+        <a href="https://www.w3schools.com/cssref/pr_font_font-family.asp" target="_blank">font-family</a> CSS-свойство для отображения текста. Вы можете использовать системные шрифты, такие как "Arial", либо свои шрифты, загруженные с помощью пазла <a href="manual/ru/puzzles/Initialization.html#load_font">load font</a>.
       </dd>
       <dt>size</dt>
       <dd>
-        размер текста, нарисованного на сгенерированном изображении (в пикселях).
+        Размер текста, отображаемого на изображении (в пикселях).
       </dd>
-      <dt>align</dt>
+      <dt>horizontal align</dt>
       <dd>
-        выравнивание текста на создаваемом изображении: *center*, *left*, *right* or *fit*.
+        Горизонтальное выравнивание текста на создаваемом изображении: *center*, *left*, *right*.
       </dd>
-      <dt>offset</dt>
+      <dt>vertical align</dt>
       <dd>
-        расстояние для нарисованного текста (в пикселях).
+        Вертикальное выравнивание текста на создаваемом изображении: *middle*, *top*, *bottom*.
+      </dd>
+      <dt>line height</dt>
+      <dd>
+        Высота строки (в пикселях). Если указано нулевое значение, высота определяется автоматически.
+      </dd>
+      <dt>justify</dt>
+      <dd>
+        Выравнивание по ширине. Если включено, пазл добавит необходимые интервалы между словами.
+      </dd>
+    </dl>
+
+    <h4>box params — параметры области текста (активируются с помощью шестерёнки):</h4>
+
+    <p>
+      Если данные параметры активированы, рендеринг текста будет происходит в воображаемой области, размеры которой меняются с помощью следующих параметров:
+    </p>
+
+    <dl>
+      <dt>box x</dt>
+      <dd>
+        Левая граница области (в пикселях).
+      </dd>
+      <dt>box y</dt>
+      <dd>
+        Верхняя граница области (в пикселях).
+      </dd>
+      </dd>
+      <dt>width</dt>
+      <dd>
+        Ширина области (в пикселях).
+      </dd>
+      <dt>height</dt>
+      <dd>
+        Высота области (в пикселях).
+      </dd>
+    </dl>
+
+    <h4>color params — цветовые параметры (активируются с помощью шестерёнки):</h4>
+
+    <dl>
+      <dt>text color</dt>
+      <dd>
+        Цвет текста.
+      </dd>
+      <dt>background color</dt>
+      <dd>
+        Цвет фона.
       </dd>
     </dl>
 
     <p>
-      В приведенном ниже примере изображение, сгенерированное из текста, используется на модели с помощью пазла <a href="manual/ru/puzzles/Materials.html#replace_texture">replace texture</a>:
+      В приведенном ниже примере изображение, сгенерированное из текста, назначается на модель с помощью пазла <a href="manual/ru/puzzles/Materials.html#replace_texture">replace texture</a>:
     </p>
 
-    <img src="files/puzzles/puzzles-materials-texture-from-text-example.jpg" style="max-width: 770px">
+    <img src="files/puzzles/puzzles-materials-texture-from-text-example.jpg">
 
+
+    [anchor:color_picker]
+
+    <h3>color picker</h3>
+
+    <p>
+      Возвращает выбранный цвет в виде CSS-цвета.
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-color-picker.jpg">
+
+
+    [anchor:compose_color]
+
+    <h3>compose color</h3>
+
+    <p>
+      Создать цвет из линейных RGB компонент (или RGBA при включённом входе *alpha*) и вернуть в виде CSS-цвета.
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-compose-color.jpg">
 
 
     [anchor:generate_normal_map]
@@ -295,19 +420,19 @@
     <h3>generate normal map</h3>
 
     <p>
-      Преобразует изображение в карту нормалей и возвращает ее в формате <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>.
+      Преобразует изображение в карту нормалей и возвращает ее в формате <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>.
     </p>
 
     <img src="files/puzzles/puzzles-materials-generate-normalmap.jpg">
 
     <p>
-    Parameters:
+      Параметры пазла:
     </p>
 
     <dl>
       <dt>(source image)</dt>
       <dd>
-        URL изображения, обычно черно-белая карта высоты. Также изображения в формате <a href="manual/ru/puzzles/HTML.html#data_uri">Data URI</a>,  могут быть предоставлены как выходные данные <a href="manual/ru/puzzles/Materials.html#texture_from_text">texture from text</a> пазла.
+        УРЛ изображения, обычно черно-белая карта высоты. Также изображения в формате <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>,  могут быть предоставлены как выходные данные <a href="manual/ru/puzzles/Materials.html#texture_from_text">texture from text</a> пазла.
       </dd>
       <dt>strength</dt>
       <dd>линейный фактор, влияющий на высоту. Рекомендуемые значения: 0,01 - 5.</dd>
@@ -319,11 +444,11 @@
       <dd>селектор между алгоритмами Собеля или Шарра, используемыми для определения краев.</dd>
       <dt>invert R</dt>
       <dd>
-        инвертировать направление в канале R карты нормалей. На данный момент эта функция отключена для Blender, 3ds Max и Maya, но в будущем может потребоваться ее включение для других поддерживаемых инструментов.
+        инвертировать направление в канале R карты нормалей. На данный момент эта функция отключена для Блендер, 3дс Макс и Майя, но в будущем может потребоваться ее включение для других поддерживаемых инструментов.
       </dd>
       <dt>invert G</dt>
       <dd>
-        инвертировать направление в канале G карты нормалей. Должно быть включено для совместимости с пространством нормалей 3ds Max, но отключено для Blender/Maya.
+        инвертировать направление в канале G карты нормалей. Должно быть включено для совместимости с пространством нормалей 3дс Макс, но отключено для Блендер/Майя.
       </dd>
       <dt>invert height</dt>
       <dd>изменить интерпретацию высоты, чтобы более темные пиксели соответствовали меньшей высоте.</dd>
@@ -347,10 +472,9 @@
     <img src="files/puzzles/puzzles-materials-enable-disable-wireframe.jpg">
 
 
-    <h2>Проблемы с Пазлами?</h2>
+    <h2>Проблемы с пазлами?</h2>
 
-    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
-
+    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

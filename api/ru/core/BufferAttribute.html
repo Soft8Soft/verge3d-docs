@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
 
     <p class="desc">
-      Этот класс хранит данные для атрибутов (таких как позиции вершин, индексы граней, нормали, цвета, UVs и любые пользовательские атрибуты), связанных с [page:BufferGeometry], что позволяет более эффективно передавать данные на GPU. Подробности и пример использования см. на этой странице.<br /><br />
+      Этот класс хранит данные для атрибутов (таких как позиции вершин, индексы граней, нормали, цвета, UVs и любые пользовательские атрибуты), связанных с [page:BufferGeometry], что позволяет более эффективно передавать данные на GPU. Подробности и пример использования см. на этой странице.<br><br>
 
       Данные хранятся в виде векторов любой длины (определяется [page:BufferAttribute.itemSize itemSize]), и в общем случае в описанных ниже методах при передаче индекса он автоматически умножается на длину вектора.
     </p>
@@ -18,16 +18,16 @@
     <h2>Конструктор</h2>
     <h3>[name]([param:TypedArray array], [param:Integer itemSize], [param:Boolean normalized])</h3>
     <p>
-    [page:TypedArray array] -- Должен быть [link:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/TypedArray TypedArray]. Используется для инстанцирования буфера. <br />
+    [page:TypedArray array] — Должен быть [link:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/TypedArray TypedArray]. Используется для инстанцирования буфера. <br>
     Этот массив должен иметь
      <code>itemSize * numVertices</code>
-     элементов, где numVertices - количество вершин в ассоциированной [page:BufferGeometry BufferGeometry].<br /><br />
+     элементов, где numVertices - количество вершин в ассоциированной [page:BufferGeometry BufferGeometry].<br><br>
 
 
-    [page:Integer itemSize] --  количество значений массива, которые должны быть связаны с конкретной вершиной. Например, если этот атрибут хранит трехкомпонентный вектор (такой как позиция, нормаль или цвет), то itemSize должен быть равен 3.
-    <br /><br />
+    [page:Integer itemSize] —  количество значений массива, которые должны быть связаны с конкретной вершиной. Например, если этот атрибут хранит трехкомпонентный вектор (такой как позиция, нормаль или цвет), то itemSize должен быть равен 3.
+    <br><br>
 
-    [page:Boolean normalized] -- (необязательно) Применяется только к целочисленным данным. Указывает, как базовые данные в буфере отображаются на значения в коде GLSL. Например, если [page:TypedArray array] является экземпляром UInt16Array, и [page:Boolean normalized] равно true, значения 0 - +65535 в данных массива будут отображены на 0.0f - +1.0f в атрибуте GLSL. Массив Int16Array (подписанный) будет отображать значения -32767 - +32767 на -1.0f - +1.0f. Если [page:Boolean normalized] равно false, значения будут преобразованы в плавающие без изменений, т.е. 32767 станет 32767.0f.
+    [page:Boolean normalized] — (необязательно) Применяется только к целочисленным данным. Указывает, как базовые данные в буфере отображаются на значения в коде GLSL. Например, если [page:TypedArray array] является экземпляром UInt16Array, и [page:Boolean normalized] равно true, значения 0 - +65535 в данных массива будут отображены на 0.0f - +1.0f в атрибуте GLSL. Массив Int16Array (подписанный) будет отображать значения -32767 - +32767 на -1.0f - +1.0f. Если [page:Boolean normalized] равно false, значения будут преобразованы в плавающие без изменений, т.е. 32767 станет 32767.0f.
     </p>
 
     <h2>Свойства</h2>
@@ -39,7 +39,7 @@
 
     <h3>[property:Integer count]</h3>
     <p>
-      Сохраняет длину массива [page:BufferAttribute.array array], разделенную на [page:BufferAttribute.itemSize itemSize].<br /><br />
+      Сохраняет длину массива [page:BufferAttribute.array array], разделенную на [page:BufferAttribute.itemSize itemSize].<br><br>
 
       Если в буфере хранится трехкомпонентный вектор (такой как позиция, нормаль или цвет), то подсчитывается количество таких векторов.
     </p>
@@ -54,7 +54,7 @@
 
     <h3>[property:Boolean needsUpdate]</h3>
     <p>
-      Флаг, указывающий на то, что данный атрибут изменился и должен быть повторно отправлен на GPU. Установите это значение в true при изменении значения массива.<br /><br />
+      Флаг, указывающий на то, что данный атрибут изменился и должен быть повторно отправлен на GPU. Установите это значение в true при изменении значения массива.<br><br>
 
       Установка этого значения в true также увеличивает версию [page:BufferAttribute.version].
     </p>
@@ -70,9 +70,9 @@
     </p>
 
     <h3>[property:Object updateRange]</h3>
-    <p>Объект, содержащий:<br />
-      [page:Integer offset]: По умолчанию *0*. Позиция, с которой следует начать обновление.<br />
-      [page:Integer count]: По умолчанию *-1*, что означает не использовать диапазоны обновления. <br /><br />
+    <p>Объект, содержащий:<br>
+      [page:Integer offset]: По умолчанию *0*. Позиция, с которой следует начать обновление.<br>
+      [page:Integer count]: По умолчанию *-1*, что означает не использовать диапазоны обновления. <br><br>
 
       Это можно использовать для обновления только некоторых компонентов хранимых векторов (например, только компонента, связанного с цветом).
     </p>
@@ -106,7 +106,7 @@
     <p>Копирует другой BufferAttribute в этот BufferAttribute.</p>
 
     <h3>[method:BufferAttribute copyArray](array) </h3>
-    <p>Скопируйте заданный здесь массив (который может быть обычным массивом или TypedArray) в [page:BufferAttribute.array array].<br /><br />
+    <p>Скопируйте заданный здесь массив (который может быть обычным массивом или TypedArray) в [page:BufferAttribute.array array].<br><br>
 
       Смотрите [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set]
       для заметок о требованиях при копировании TypedArray.
@@ -141,18 +141,16 @@
 
     <h3>[method:this onUpload]([param:Function callback]) </h3>
     <p>
-      Устанавливает значение свойства onUploadCallback.<br /><br />
-
-      В [example:webgl_buffergeometry WebGL / Buffergeometry] это используется для освобождения памяти после передачи буфера на GPU.
+      Устанавливает значение свойства onUploadCallback.
     </p>
 
     <h3>[method:BufferAttribute set] ([param:Array value], [param:Integer offset]) </h3>
     <p>
-    value -- [page:Array] или [page:TypedArray], из которого копируются значения. <br />
-    offset -- (необязательно) индекс массива [page:BufferAttribute.array array], с которого следует начать копирование.<br /><br />
+    value — [page:Array] или [page:TypedArray], из которого копируются значения. <br>
+    offset — (необязательно) индекс массива [page:BufferAttribute.array array], с которого следует начать копирование.<br><br>
 
     Вызывает [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set TypedArray.set]([page:Array value], [page:Integer offset])
-    на массиве [page:BufferAttribute.array array].<br /><br />
+    на массиве [page:BufferAttribute.array array].<br><br>
 
     В частности, смотрите на этой странице требования к тому, чтобы [page:Array value] был [page:TypedArray].
     </p>

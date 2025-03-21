@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:Loader] &rarr;
+
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Класс для загрузки шрифтов в форматах TTF/WOFF. Возвращает объект шрифта, который может быть подан на вход конструктора [page:Font]. Класс использует [page:FileLoader] для загрузки файлов.
+    </p>
+
+    <p class="note">
+      Данный класс требует наличия библиотеки <em>opentype.js</em>, которая должна быть загружена до вызова метода [page:.load].
+    </p>
+
+
+    <h2>Пример</h2>
+
+    <code>
+    const loader = new v3d.TTFLoader();
+    const font = loader.load(
+        // УРЛ ресурса
+        'fonts/bfont.woff',
+
+        // обработчик onLoad
+        function(font) {
+            // сделать что-то со шрифтом
+            app.scene.add(font);
+        },
+
+        // обработчик onProgress
+        function(xhr) {
+            console.log((xhr.loaded / xhr.total * 100) + '% загружено');
+        },
+
+        // обработчик onError
+        function(err) {
+            console.log('Произошла ошибка');
+        }
+    );
+    </code>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:LoadingManager manager])</h3>
+    <p class="params">
+      [page:LoadingManager manager] — используемый [page:LoadingManager менеджер загрузки]. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].
+    </p>
+    <p>
+      Создаёт новый [name].
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <p>
+      Смотри свойства базового класса [page:Loader].
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>
+      Смотри методы базового класса [page:Loader].
+    </p>
+
+    <h3>[method:undefined load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
+    <ul class="params">
+      <li>[page:String url] — УРЛ адрес загружаемого файла. Также может быть ссылкой [link:manual/ru/puzzles/HTML.html#data_url Data URL].</li>
+      <li>[page:Function onLoad] — будет вызван по окончании загрузки. На вход обработчика подаётся загруженный объект шрифта.</li>
+      <li>[page:Function onProgress] — вызывается в процессе загрузки. На вход обработчика подаётся экземпляр XMLHttpRequest, который содержит поля .[page:Integer total] и .[page:Integer loaded] (в байтах).</li>
+      <li>[page:Function onError] — вызывается в случае ошибки загрузки.</li>
+    </ul>
+    <p>
+      Начать загрузку шрифта и подать загруженный шрифт в обработчик `onLoad`.
+    </p>
+
+    <h3>[method:Object parse]([param:ArrayBuffer arraybuffer])</h3>
+    <p class="params">
+      [page:ArrayBuffer arraybuffer] — данные для парсинга.
+    </p>
+    <p>
+      Парсит данные и возвращает объект шрифта.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

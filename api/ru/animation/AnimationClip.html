@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
 
     <p class="desc">
-      AnimationClip - это многократно используемый набор дорожек ключевых кадров, которые представляют анимацию.<br /><br />
+      AnimationClip - это многократно используемый набор дорожек ключевых кадров, которые представляют анимацию.
+    </p>
 
-      Обзор различных элементов системы анимации Verge3D смотрите в статье "Animation System" в разделе "Next Steps" руководства.
+    <p>
+      Обзор элементов анимационной системы «Вердж3Д» находится в разделе <a href="manual/ru/programmers_guide/Animation-system.html">Анимационная система</a> настоящего руководства.
     </p>
 
 
@@ -21,9 +23,9 @@
 
     <h3>[name]([param:String name], [param:Number duration], [param:Array tracks])</h3>
     <p>
-      [page:String name] - название для этого клипа..<br />
-      [page:Number duration] - продолжительность этого клипа (в секундах). Если передано отрицательное значение, длительность будет вычислена из переданного массива *tracks*.<br />
-      [page:Array tracks] - массив [page:KeyframeTrack KeyframeTracks].<br /><br />
+      [page:String name] — название для этого клипа..<br>
+      [page:Number duration] — продолжительность этого клипа (в секундах). Если передано отрицательное значение, длительность будет вычислена из переданного массива *tracks*.<br>
+      [page:Array tracks] — массив [page:KeyframeTrack KeyframeTracks].<br><br>
 
       Примечание: Вместо непосредственного создания AnimationClip с помощью конструктора, вы можете использовать один из его статических методов для создания AnimationClip: из JSON ([page:.parse parse]), из последовательностей морф-мишеней ([page:.CreateFromMorphTargetSequence CreateFromMorphTargetSequence], [page:. CreateClipsFromMorphTargetSequences CreateClipsFromMorphTargetSequences]) или из иерархий анимации ([page:.parseAnimation parseAnimation]) - если ваша модель еще не содержит AnimationClips в массиве анимаций своей геометрии.
     </p>
@@ -72,11 +74,6 @@
       [page:KeyframeTrack].
     </p>
 
-    <h3>[method:Object toJSON]()</h3>
-    <p>
-      Возвращает объект JSON, представляющий сериализованный анимационный клип. 
-    </p>
-
     <h3>[method:this trim]()</h3>
     <p>
       Обрезает все дорожки до длительности клипа.
@@ -93,12 +90,12 @@
 
     <h3>[method:Array CreateClipsFromMorphTargetSequences]([param:String name], [param:Array morphTargetSequence], [param:Number fps], [param:Boolean noLoop])</h3>
     <p>
-      Возвращает массив новых AnimationClips, созданных из [page:Geometry.morphTargets morph target sequences] геометрии, пытаясь отсортировать имена morph target в шаблоны, основанные на анимационных группах, таких как "Walk_001, Walk_002, Run_001, Run_002 ...".
+      Возвращает массив новых AnimationClips, созданных из [page:BufferGeometry.morphTargets morph target sequences] геометрии, пытаясь отсортировать имена morph target в шаблоны, основанные на анимационных группах, таких как "Walk_001, Walk_002, Run_001, Run_002 ...".
     </p>
 
     <h3>[method:AnimationClip CreateFromMorphTargetSequence]([param:String name], [param:Array morphTargetSequence], [param:Number fps], [param:Boolean noLoop])</h3>
     <p>
-      Возвращает новый AnimationClip из переданного [page:Geometry.morphTargets morph targets array] геометрии, принимая имя и количество кадров в секунду.<br /><br />
+      Возвращает новый AnimationClip из переданного [page:BufferGeometry.morphTargets morph targets array] геометрии, принимая имя и количество кадров в секунду.<br><br>
 
       Примечание: Параметр fps является обязательным, но скорость анимации можно переопределить в *AnimationAction* через [page:AnimationAction.setDuration animationAction.setDuration].
     </p>
@@ -117,12 +114,6 @@
     <p>
       Парсит формат animation.hierarchy и возвращает AnimationClip.
     </p>
-
-    <h3>[method:Object toJSON]([param:AnimationClip clip])</h3>
-    <p>
-      Принимает AnimationClip и возвращает объект JSON.
-    </p>
-
 
     [sourceHint]
   </body>

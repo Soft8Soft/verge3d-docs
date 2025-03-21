@@ -2,243 +2,191 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">
-    <base href="../../../" />
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
-    <h1>Как Обновлять Объекты с Помощью Кода</h1>
-    <div>
-      <p>Все объекты по умолчанию автоматически обновляют свои матрицы, если они были добавлены на сцену с помощью</p>
-      <code>
-var object = new v3d.Object3D();
-scene.add(object);
-      </code>
-      или если они являются дочерними объектами другого объекта, который был добавлен в сцену:
-      <code>
-var object1 = new v3d.Object3D();
-var object2 = new v3d.Object3D();
+    <h1>Как обновлять объекты в «Вердж3Д»</h1>
 
-object1.add(object2);
-scene.add(object1); //object1 and object2 will automatically update their matrices
-      </code>
-    </div>
+    <p>Все объекты по умолчанию автоматически обновляют свои матрицы, если они были добавлены на сцену с помощью</p>
+
+    <code>
+    const object = new v3d.Object3D();
+    scene.add(object);
+    </code>
+
+    <p>или если они являются дочерними объектами другого объекта, который был добавлен в сцену:</p>
+
+    <code>
+    const object1 = new v3d.Object3D();
+    const object2 = new v3d.Object3D();
+
+    object1.add(object2);
+    scene.add(object1); // матрицы объектов object1 и object2 обновятся автоматически
+    </code>
 
     <p>Однако, если вы знаете, что объект будет статичным, вы можете отключить эту функцию и обновлять матрицу преобразования вручную только тогда, когда это необходимо.</p>
 
     <code>
-object.matrixAutoUpdate  = false;
-object.updateMatrix();
+    object.matrixAutoUpdate = false;
+    object.updateMatrix();
     </code>
 
-    <h2>Геометрические параметры</h2>
-    <div>
-      <h3>[page:BufferGeometry]</h3>
-      <div>
-        <p>
-          BufferGeometries хранят информацию (такую как позиции вершин, индексы граней, нормали, цвета, UV развертки и любые пользовательские атрибуты) в [page:BufferAttribute buffers] - то есть, [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays typed arrays]. Это делает их в целом быстрее стандартной Геометрии, ценой того, что с ними несколько сложнее работать.
-        </p>
-        <p>
-          Что касается обновления BufferGeometries, самое важное, что нужно понять, это то, что вы не можете изменять размер буферов (это очень затратно, и эквивалентно созданию новой геометрии). Однако вы можете обновить содержимое буферов.
-        </p>
-        <p>
-          Это означает, что если вы знаете, что атрибут вашего BufferGeometry будет расти, например, количество вершин, вы должны предварительно выделить достаточно большой буфер, чтобы вместить все новые вершины, которые могут быть созданы. Конечно, это также означает, что существует максимальный размер вашего BufferGeometry - не существует способа создать BufferGeometry, который может эффективно расширяться бесконечно.
-        </p>
-        <p>
-          Мы будем использовать пример линии, которая удлиняется во время рендеринга. Мы выделим место в буфере для 500 вершин, но сначала нарисуем только две, используя [page:BufferGeometry.drawRange].
-        </p>
-        <code>
-var MAX_POINTS = 500;
+    <h2>[page:BufferGeometry]</h2>
 
-// geometry
-var geometry = new v3d.BufferGeometry();
+    <p>
+      BufferGeometries хранят информацию (такую как позиции вершин, индексы граней, нормали, цвета, UV развертки и любые пользовательские атрибуты) в [page:BufferAttribute buffers] — то есть, [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays typed arrays]. Это делает их в целом быстрее стандартной Геометрии, ценой того, что с ними несколько сложнее работать.
+    </p>
+    <p>
+      Что касается обновления BufferGeometries, самое важное, что нужно понять, это то, что вы не можете изменять размер буферов (это очень затратно, и эквивалентно созданию новой геометрии). Однако вы можете обновить содержимое буферов.
+    </p>
+    <p>
+      Это означает, что если вы знаете, что атрибут вашего BufferGeometry будет расти, например, количество вершин, вы должны предварительно выделить достаточно большой буфер, чтобы вместить все новые вершины, которые могут быть созданы. Конечно, это также означает, что существует максимальный размер вашего BufferGeometry - не существует способа создать BufferGeometry, который может эффективно расширяться бесконечно.
+    </p>
+    <p>
+      Мы будем использовать пример линии, которая удлиняется во время рендеринга. Мы выделим место в буфере для 500 вершин, но сначала нарисуем только две, используя [page:BufferGeometry.drawRange].
+    </p>
 
-// attributes
-var positions = new Float32Array(MAX_POINTS * 3); // 3 vertices per point
-geometry.addAttribute('position', new v3d.BufferAttribute(positions, 3));
+    <code>
+    const MAX_POINTS = 500;
 
-// draw range
-var drawCount = 2; // draw the first 2 points, only
-geometry.setDrawRange(0, drawCount);
+    // геометрия
+    const geometry = new v3d.BufferGeometry();
 
-// material
-var material = new v3d.LineBasicMaterial({ color: 0xff0000, linewidth: 2 });
+    // атрибуты
+    const positions = new Float32Array(MAX_POINTS * 3); // 3 координаты на вертекс
+    geometry.addAttribute('position', new v3d.BufferAttribute(positions, 3));
 
-// line
-var line = new v3d.Line(geometry,  material);
-scene.add(line);
-        </code>
-         <p>
-          Далее мы произвольно добавим точки к линии, используя паттерн, например:
-        </p>
-        <code>
-var positions = line.geometry.attributes.position.array;
+    // объём рендеринга
+    const drawCount = 2; // рисовать только первые 2 вертекса
+    geometry.setDrawRange(0, drawCount);
 
-var x, y, z, index;
-x = y = z = index = 0;
+    // материал
+    const material = new v3d.LineBasicMaterial({ color: 0xff0000, linewidth: 2 });
 
-for (var i = 0, l = MAX_POINTS; i < l; i++) {
+    // линия
+    const line = new v3d.Line(geometry,  material);
+    scene.add(line);
+    </code>
 
-    positions[index ++] = x;
-    positions[index ++] = y;
-    positions[index ++] = z;
+    <p>
+      Далее мы произвольно добавим точки к линии, используя паттерн, например:
+    </p>
 
-    x += (Math.random() - 0.5) * 30;
-    y += (Math.random() - 0.5) * 30;
-    z += (Math.random() - 0.5) * 30;
+    <code>
+    const positions = line.geometry.attributes.position.array;
 
-}
-        </code>
-        <p>
-          Если вы хотите изменить <em>количество точек</em> отображаемых после первого рендеринга, сделайте следующее:
-        </p>
-        <code>
-line.geometry.setDrawRange(0, newValue);
-        </code>
-        <p>
-          Если вы хотите изменить значения данных о позиции после первого рендеринга, вам необходимо
-          установить параметр needsUpdate следующим образом:
-        </p>
-        <code>
-line.geometry.attributes.position.needsUpdate = true; // required after the first render
-        </code>
+    let x, y, z, index;
+    x = y = z = index = 0;
 
-        <p>
-          Если вы измените значения данных о положении после первоначального рендеринга, вам может потребоваться вызвать `.computeBoundingSphere()`, чтобы заново рассчитать геометрическую сферу.
-        </p>
-        <code>
-line.geometry.computeBoundingSphere();
-        </code>
+    for (let i = 0, l = MAX_POINTS; i < l; i++) {
+        positions[index++] = x;
+        positions[index++] = y;
+        positions[index++] = z;
 
-        <p>
-          [link:http://jsfiddle.net/w67tzfhx/ Здесь показана анимированная строка, которую вы можете адаптировать к своему кейсу.
-        </p>
+        x += (Math.random() - 0.5) * 30;
+        y += (Math.random() - 0.5) * 30;
+        z += (Math.random() - 0.5) * 30;
+    }
+    </code>
 
-        <h3>Примеры:</h3>
-          [example:webgl_custom_attributes WebGL / custom / attributes]<br />
-          [example:webgl_buffergeometry_custom_attributes_particles WebGL / buffergeometry / custom / attributes / particles]
+    <p>
+      Если вы хотите изменить <em>количество точек</em> отображаемых после первого рендеринга, сделайте следующее:
+    </p>
 
+    <code>
+    line.geometry.setDrawRange(0, newValue);
+    </code>
 
-      </div>
+    <p>
+      Если вы хотите изменить значения данных о позиции после первого рендеринга, вам необходимо установить параметр needsUpdate следующим образом:
+    </p>
 
-      <h3>[page:Geometry]</h3>
-      <div>
-        <p>
-          Следующие флаги управляют обновлением различных атрибутов геометрии. Флаги устанавливаются только при изменении буферов, эти флаги автоматически сбрасываются обратно в false. Вам нужно постоянно устанавливать их в true, если вы хотите продолжать обновлять буферы. Обратите внимание, что это относится только к [page:Geometry], но не к [page:BufferGeometry].
-        </p>
-        <code>
-var geometry = new v3d.Geometry();
-geometry.verticesNeedUpdate = true;
-geometry.elementsNeedUpdate = true;
-geometry.morphTargetsNeedUpdate = true;
-geometry.uvsNeedUpdate = true;
-geometry.normalsNeedUpdate = true;
-geometry.colorsNeedUpdate = true;
-geometry.tangentsNeedUpdate = true;
-        </code>
+    <code>
+    line.geometry.attributes.position.needsUpdate = true; // требуется после первого рендеринга
+    </code>
 
-        <p>
-          В версиях, предшествующих [link:https://github.com/mrdoob/three.js/releases/tag/r66 r66] для мешей требуется включенный флажок <em>dynamic</em> (для хранения внутренних типовых массивов):
-        </p>
+    <p>
+      Если вы измените значения данных о положении после первоначального рендеринга, вам может потребоваться пересчитать охватывающие объекты.
+    </p>
 
-        <code>
-    //removed after r66
-    geometry.dynamic = true;
-        </code>
-
-        <h3>Примеры:</h3>
-          [example:webgl_geometry_dynamic WebGL / geometry / dynamic]<br />
-      </div>
-
-    </div>
-
-
+    <code>
+    line.geometry.computeBoundingBox();
+    line.geometry.computeBoundingSphere();
+    </code>
 
 
     <h2>Материалы</h2>
-    <div>
-      <p>Все универсальные значения можно свободно менять (например, цвета, текстуры, непрозрачность и т.д.), значения отправляются в шейдер каждый кадр.</p>
 
-      <p>Также параметры, связанные с GLstate, могут изменяться в любое время (depthTest, blending, polygonOffset и т.д.).</p>
+    <p>Все юниформы можно свободно менять (например, цвета, текстуры, альфа-канал и т.д.),— их значения отправляются в шейдер каждый кадр.</p>
 
-      <p>Плоское/гладкое затенение запекается в нормали. Необходимо сбросить буфер нормалей (см. выше).</p>
+    <p>Также параметры, связанные с состоянием WebGL, могут изменяться в любое время (depthTest, blending, polygonOffset и т.д.).</p>
 
-      <p>Следующие свойства не могут быть легко изменены во время выполнения (после того, как материал будет отрисован хотя бы один раз):</p>
-      <ul>
-        <li>numbers and types of uniforms</li>
-        <li>numbers and types of lights</li>
-        <li>presence or not of
-          <ul>
-            <li>texture</li>
-            <li>fog</li>
-            <li>vertex colors</li>
-            <li>skinning</li>
-            <li>morphing</li>
-            <li>shadow map</li>
-            <li>alpha test</li>
-          </ul>
-        </li>
-      </ul>
+    <p>Следующие свойства не могут быть легко изменены во время выполнения (после того, как материал будет отрисован хотя бы один раз):</p>
 
-      <p>Их изменение требует создания новой шейдерной программы. Вам нужно будет установить</p>
-      <code>material.needsUpdate = true</code>
+    <ul>
+      <li>количество и типы юниформов</li>
+      <li>наличие или отсутствие
+        <ul>
+          <li>текстур</li>
+          <li>тумана</li>
+          <li>вертесных цветов</li>
+          <li>скиннинга</li>
+          <li>морфинга</li>
+          <li>карты теней</li>
+          <li>альфа теста</li>
+        </ul>
+      </li>
+    </ul>
 
-      <p>Имейте в виду, что это может быть довольно медленно и вызвать рывки в частоте кадров (особенно на Windows, поскольку компиляция шейдеров в DirectX происходит медленнее, чем в OpenGL).</p>
+    <p>Их изменение потребует создания новой шейдерной программы. Чтобы это сделать, выполните:</p>
 
-      <p>Для более плавного восприятия вы можете в некоторой степени эмулировать изменения этих характеристик, используя "фиктивные" значения, такие как освещение нулевой интенсивности, белые текстуры или туман нулевой плотности.</p>
+    <code>material.needsUpdate = true</code>
 
-      <p>Вы можете свободно изменять материал, используемый для геометрических фрагментов, однако вы не можете изменить способ разделения объекта на фрагменты (в соответствии с материалами фейсов). </p>
+    <p>Имейте в виду, что это может быть довольно медленно и вызвать рывки в частоте кадров (особенно на Виндоус, поскольку компиляция шейдеров в ДиректИкс происходит медленнее, чем в ОпенГЛ).</p>
 
-      <h3>Если вам необходимо иметь различные конфигурации материалов во время работы:</h3>
-      <p>Если количество материалов / фрагментов невелико, можно предварительно разделить объект (например, волосы / лицо / тело / верхняя одежда / брюки для человека, перед / бока / верх / стекло / шины / салон для автомобиля). </p>
+    <p>Для более плавного восприятия вы можете в некоторой степени эмулировать изменения этих характеристик, используя "фиктивные" значения, такие как освещение нулевой интенсивности, белые текстуры или туман нулевой плотности.</p>
 
-      <p>Если их количество велико (например, каждое лицо может быть потенциально разным), рассмотрите другое решение, например, использование атрибутов/текстур для управления различным внешним видом каждого лица.</p>
+    <p>Вы можете свободно изменять материал, используемый для геометрических фрагментов, однако вы не можете изменить способ разделения объекта на фрагменты (в соответствии с материалами фейсов).</p>
 
-      <h3>Примеры:</h3>
-      [example:webgl_materials_cars WebGL / materials / cars]<br />
-      [example:webgl_postprocessing_dof WebGL / webgl_postprocessing / dof]
-    </div>
+    <h3>Если вам необходимо иметь различные конфигурации материалов во время работы:</h3>
+
+    <p>Если количество материалов / фрагментов невелико, можно предварительно разделить объект (например, волосы / лицо / тело / верхняя одежда / брюки для человека, перед / бока / верх / стекло / шины / салон для автомобиля). </p>
+
+    <p>Если их количество велико (например, каждое лицо может быть потенциально разным), рассмотрите другое решение, например, использование атрибутов/текстур для управления различным внешним видом каждого лица.</p>
 
 
     <h2>Текстуры</h2>
-    <div>
-      <p>Текстуры изображений, canvas, видео и данных должны иметь следующий параметр, если они изменяются:</p>
-      <code>
-        texture.needsUpdate = true;
-      </code>
-      <p>Render targets обновляются автоматически.</p>
 
-      <h3>Примеры:</h3>
-      [example:webgl_materials_video WebGL / materials / video]<br />
-      [example:webgl_rtt WebGL / rtt]
+    <p>Текстуры изображений, canvas, видео и данных должны иметь следующий параметр, если они изменяются:</p>
 
-    </div>
+    <code>
+    texture.needsUpdate = true;
+    </code>
+
+    <p>Рендер таргеты обновляются автоматически.</p>
 
 
     <h2>Камеры</h2>
-    <div>
-      <p>Положение и цель камеры обновляются автоматически. Если вам необходимо изменить</p>
-      <ul>
-        <li>
-          fov
-        </li>
-        <li>
-          aspect
-        </li>
-        <li>
-          near
-        </li>
-        <li>
-          far
-        </li>
-      </ul>
-      <p>
-        то вам нужно будет заново вычислить матрицу проекции:
-      </p>
-      <code>
-camera.aspect = window.innerWidth / window.innerHeight;
-camera.updateProjectionMatrix();
-      </code>
-    </div>
+
+    <p>Положение и цель камеры обновляются автоматически. Если вам необходимо изменить:</p>
+
+    <ul>
+      <li>fov</li>
+      <li>aspect</li>
+      <li>near</li>
+      <li>far</li>
+    </ul>
+
+    <p>
+      то вам нужно будет заново вычислить матрицу проекции:
+    </p>
+
+    <code>
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    </code>
+
   </article></body>
 </html>

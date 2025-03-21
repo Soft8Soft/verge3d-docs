@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
@@ -20,8 +20,8 @@
 
     <h3>[name]([param:Vector3 normal], [param:Float constant])</h3>
     <p>
-    [page:Vector3 normal] - (необязательно) единица длины [page:Vector3], определяющая нормаль плоскости. По умолчанию *(1, 0, 0)*.<br />
-    [page:Float constant] - (необязательно) знаковое расстояние от начала координат до плоскости. По умолчанию *0*.
+    [page:Vector3 normal] — (необязательно) единица длины [page:Vector3], определяющая нормаль плоскости. По умолчанию *(1, 0, 0)*.<br>
+    [page:Float constant] — (необязательно) знаковое расстояние от начала координат до плоскости. По умолчанию *0*.
     </p>
 
 
@@ -35,10 +35,10 @@
 
     <h3>[method:Plane applyMatrix4]([param:Matrix4 matrix], [param:Matrix3 optionalNormalMatrix])</h3>
     <p>
-    [page:Matrix4 matrix] - для применения [Page:Matrix4].<br />
-    [page:Matrix3 optionalNormalMatrix] - (необязательно) предварительно вычисленная нормаль [Page:Matrix3] применяемой Matrix4.<br /><br />
+    [page:Matrix4 matrix] — для применения [Page:Matrix4].<br>
+    [page:Matrix3 optionalNormalMatrix] — (необязательно) предварительно вычисленная нормаль [Page:Matrix3] применяемой Matrix4.<br><br>
 
-    Примените Matrix4 к плоскости. Матрица должна быть аффинным, однородным преобразованием.<br />
+    Примените Matrix4 к плоскости. Матрица должна быть аффинным, однородным преобразованием.<br>
     Если поддерживается [page:Matrix3 optionalNormalMatrix], то она может быть создана следующим образом:
     <code>
     const optionalNormalMatrix = new v3d.Matrix3().getNormalMatrix(matrix);
@@ -50,7 +50,7 @@
 
     <h3>[method:Vector3 coplanarPoint]([param:Vector3 target])</h3>
     <p>
-    [page:Vector3 target] — результат будет скопирован в этот Vector3.    <br /><br />
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.    <br><br>
 
     Возвращает [page:Vector3], компланарный плоскости, путем вычисления проекции вектора нормали в начале координат на плоскость.
     </p>
@@ -73,29 +73,29 @@
 
     <h3>[method:Vector3 intersectLine]([param:Line3 line], [param:Vector3 target])</h3>
     <p>
-    [page:Line3 line] - [page:Line3] для проверки пересечения.<br />
-    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br /><br />
+    [page:Line3 line] - [page:Line3] для проверки пересечения.<br>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
 
     Возвращает точку пересечения переданной прямой и плоскости. Возвращает неопределенное значение, если линия не пересекается. Возвращает начальную точку линии, если линия компланарна плоскости.
     </p>
 
     <h3>[method:Boolean intersectsBox]([param:Box3 box])</h3>
     <p>
-    [page:Box3 box] - [page:Box3] для проверки пересечения.<br /><br />
+    [page:Box3 box] - [page:Box3] для проверки пересечения.<br><br>
 
     Определяет, пересекает ли данная плоскость [page:Box3 box].
     </p>
 
     <h3>[method:Boolean intersectsLine]([param:Line3 line])</h3>
     <p>
-    [page:Line3 line] - [page:Line3] для проверки пересечения.<br /><br />
+    [page:Line3 line] - [page:Line3] для проверки пересечения.<br><br>
 
     Проверяет, пересекается ли отрезок прямой с плоскостью (проходит через нее).
     </p>
 
     <h3>[method:Boolean intersectsSphere]([param:Sphere sphere])</h3>
     <p>
-    [page:Sphere sphere]  - [page:Sphere] для проверки пересечения.<br /><br />
+    [page:Sphere sphere]  - [page:Sphere] для проверки пересечения.<br><br>
 
     Определяет, пересекает ли данная плоскость  [page:Sphere sphere].
     </p>
@@ -112,50 +112,50 @@
 
     <h3>[method:Vector3 projectPoint]([param:Vector3 point], [param:Vector3 target])</h3>
     <p>
-    [page:Vector3 point] - [page:Vector3] для проецирования на плоскость.<br />
-    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br /><br />
+    [page:Vector3 point] - [page:Vector3] для проецирования на плоскость.<br>
+    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
 
     Проецирует точку [page:Vector3] на плоскость.
     </p>
 
     <h3>[method:Plane set]([param:Vector3 normal], [param:Float constant])</h3>
     <p>
-      [page:Vector3 normal] - единичная длина [page:Vector3], определяющая нормаль к плоскости.<br />
-      [page:Float constant] - знаковое расстояние от начала координат до плоскости. По умолчанию *0*.<br /><br />
+      [page:Vector3 normal] — единичная длина [page:Vector3], определяющая нормаль к плоскости.<br>
+      [page:Float constant] — знаковое расстояние от начала координат до плоскости. По умолчанию *0*.<br><br>
 
       Устанавливает свойства [page:.normal normal] и [page:.constant constant] этой плоскости, копируя значения из заданной нормали.
     </p>
 
     <h3>[method:Plane setComponents]([param:Float x], [param:Float y], [param:Float z], [param:Float w])</h3>
     <p>
-    [page:Float x] - x значение нормального вектора единичной длины.<br />
-    [page:Float y] - значение y нормального вектора единичной длины.<br />
-    [page:Float z] - значение z нормального вектора единичной длины.<br />
-    [page:Float w] - значение свойства [page:.constant constant] плоскости.<br /><br />
+    [page:Float x] — x значение нормального вектора единичной длины.<br>
+    [page:Float y] — значение y нормального вектора единичной длины.<br>
+    [page:Float z] — значение z нормального вектора единичной длины.<br>
+    [page:Float w] — значение свойства [page:.constant constant] плоскости.<br><br>
 
     Установите отдельные компоненты, определяющие плоскость.
     </p>
 
     <h3>[method:Plane setFromCoplanarPoints]([param:Vector3 a], [param:Vector3 b], [param:Vector3 c])</h3>
     <p>
-     [page:Vector3 a] - первая точка на плоскости.<br />
-     [page:Vector3 b] - вторая точка на плоскости.<br />
-     [page:Vector3 c] - третья точка на плоскости.<br /><br />
+     [page:Vector3 a] — первая точка на плоскости.<br>
+     [page:Vector3 b] — вторая точка на плоскости.<br>
+     [page:Vector3 c] — третья точка на плоскости.<br><br>
 
      Определяет плоскость на основе 3 заданных точек. Порядок предполагается против часовой стрелки и определяет направление [page:.normal normal].
     </p>
 
     <h3>[method:Plane setFromNormalAndCoplanarPoint]([param:Vector3 normal], [param:Vector3 point]) [param:Vector3 this]</h3>
     <p>
-    [page:Vector3 normal] - единичная длина [page:Vector3], определяющая нормаль к плоскости.<br />
-    [page:Vector3 point] - [page:Vector3]<br /><br />
+    [page:Vector3 normal] — единичная длина [page:Vector3], определяющая нормаль к плоскости.<br>
+    [page:Vector3 point] - [page:Vector3]<br><br>
 
     Задает свойства плоскости, определяемые [page:Vector3 normal] и произвольной компланарной [page:Vector3 point].
     </p>
 
     <h3>[method:Plane translate]([param:Vector3 offset])</h3>
     <p>
-    [page:Vector3 offset] - величина, на которую нужно переместить плоскость.<br /><br />
+    [page:Vector3 offset] — величина, на которую нужно переместить плоскость.<br><br>
 
     Переводит плоскость на расстояние, определяемое вектором [page:Vector3 offset]..
     Обратите внимание, что это влияет только на константу плоскости и не влияет на вектор нормали.

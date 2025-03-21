@@ -1,167 +1,177 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
 
     <p class="desc">
-      AnimationActions планируют выполнение анимаций, которые хранятся в [page:AnimationClip AnimationClips].<br /><br />
+      AnimationActions планируют выполнение анимаций, которые хранятся в [page:AnimationClip AnimationClips].
+    </p>
 
-      Примечание: Большинство методов AnimationAction можно объединить в цепочку.<br /><br />
+    <p class="note">
+      Большинство методов AnimationAction можно объединять в цепочку.
+    </p>
 
-      Обзор различных элементов системы анимации Verge3D смотрите в статье "Animation System" в разделе "Next Steps" руководства.
+    <p>
+      Обзор элементов анимационной системы «Вердж3Д» находится в разделе <a href="manual/ru/programmers_guide/Animation-system.html">Анимационная система</a> настоящего руководства.
     </p>
 
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]([param:AnimationMixer mixer], [param:AnimationClip clip], [param:Object3D localRoot])</h3>
-    <p>
-      [page:AnimationMixer mixer] - *AnimationMixer*, который управляется этим действием.<br />
-      [page:AnimationClip clip] - *AnimationClip*, который содержит данные анимации для этого действия.<br />
-      [page:Object3D localRoot] - корневой объект, над которым выполняется это действие.<br /><br />
+    <ul class="params">
+      <li>[page:AnimationMixer mixer] — `AnimationMixer`, который управляется этим действием.</li>
+      <li>[page:AnimationClip clip] — `AnimationClip`, который содержит данные анимации для этого действия.</li>
+      <li>[page:Object3D localRoot] — корневой объект, над которым выполняется это действие.</li>
+      <li>[page:Integer blendMode] — определяет как анимация смешивается/соединяется, когда две или более анимаций проигрываются одновременно.</li>
+    </ul>
 
-      Примечание: Вместо прямого вызова этого конструктора следует создать AnimationAction с помощью функции [page:AnimationMixer.clipAction], поскольку этот метод обеспечивает кэширование для повышения производительности.
+    <p class="note">
+      Вместо прямого вызова этого конструктора следует создать AnimationAction с помощью функции [page:AnimationMixer.clipAction], поскольку этот метод обеспечивает кэширование для повышения производительности.
     </p>
 
 
     <h2>Свойства</h2>
 
+    <h3>[property:Integer blendMode]</h3>
+    <p>
+      Определяет как анимация смешивается/соединяется, когда две или более анимаций проигрываются одновременно. Допустимые значения: `NormalAnimationBlendMode` (по умолчанию) и `AdditiveAnimationBlendMode`.
+    </p>
 
     <h3>[property:Boolean clampWhenFinished]</h3>
     <p>
-      Если *clampWhenFinished* имеет значение true, анимация будет автоматически [page:.paused paused] на последнем кадре.<br /><br />
-
-      Если *clampWhenFinished* установлено в false, [page:.enabled enabled] будет автоматически переключено в false после завершения последнего цикла действия, так что это действие не будет иметь дальнейшего влияния.<br /><br />
-
-      По умолчанию false.<br /><br />
-
-      Примечание: *clampWhenFinished* не имеет никакого влияния, если действие прервано (оно имеет эффект только в том случае, если его последний цикл действительно завершился).
+      Если `clampWhenFinished` имеет значение `true`, анимация будет автоматически [page:.paused поставлена на паузу] на последнем кадре.
+    </p>
+    <p>
+      Если `clampWhenFinished` установлено в `false`, свойство [page:.enabled enabled] будет автоматически переключено в `false` после завершения последнего цикла действия, так что это действие не будет иметь дальнейшего влияния.
+    </p>
+    <p>
+      Значение по умолчанию — `false`.
+    </p>
+    <p class="note">
+      `clampWhenFinished` не имеет никакого влияния, если действие прервано (оно имеет эффект только в том случае, если его последний цикл действительно завершился).
     </p>
 
     <h3>[property:Boolean enabled]</h3>
     <p>
-      Установка *enabled* в *false* отключает это действие, так что оно не оказывает никакого влияния. По умолчанию *true*.<br /><br />
-
-      Когда действие снова включено, анимация продолжается с текущего [page:.time time time] (установка *enabled* в *false* не сбрасывает действие).<br /><br />
-
-      Примечание: Установка значения *enabled* в *true* не приводит к автоматическому перезапуску анимации. Установка *enabled* в *true* немедленно перезапустит анимацию, только если выполняется следующее условие: [page:.paused paused] равно *false*, это действие не было деактивировано (выполнением команды [page:.stop stop] или [page:.reset reset]), и ни [page:.weight weight], ни [page:.timeScale timeScale] не равны 0.
+      Установка `enabled` в `false` отключает действие, так чтобы оно не оказывало влияния влияния. По умолчанию `true`.
     </p>
-
-    <h3>[property:Number loop]</h3>
     <p>
-      Режим зацикливания (можно изменить с помощью [page:.setLoop setLoop]). По умолчанию
-      [page:Animation v3d.LoopRepeat] (with an infinite number of [page:.repetitions repetitions])<br /><br />
-
-      Должна быть одной из этих констант:<br /><br />
-      [page:Animation v3d.LoopOnce] - воспроизведение клипа один раз,<br />
-      [page:Animation v3d.LoopRepeat] - воспроизведение клипа с выбранным числом *repetitions*, каждый раз переходя от конца клипа непосредственно к его началу,<br />
-      [page:Animation v3d.LoopPingPong] - воспроизведение ролика с выбранным количеством *repetitions*, поочередное воспроизведение вперед и назад.
+      Когда действие снова включено, анимация продолжается с текущего [page:.time времени] (установка `enabled` в `false` не сбрасывает действие).
     </p>
+    <p class="note">
+      Установка значения `enabled` в `true` не приводит к автоматическому перезапуску анимации. Установка `enabled` в `true` немедленно перезапустит анимацию, только если выполняется следующее условие: [page:.paused paused] равно `false`, это действие не было деактивировано (выполнением команды [page:.stop stop] или [page:.reset reset]), и ни [page:.weight weight], ни [page:.timeScale timeScale] не равны `0`.
+    </p>
+
+    <h3>[property:Integer loop]</h3>
+    <p>
+      Режим зацикливания (можно изменить с помощью [page:.setLoop setLoop]). По умолчанию [page:Animation v3d.LoopRepeat] (c бесконечным числом [page:.repetitions повторений]).
+    </p>
+    <p>
+      Должен быть одной из этих констант:
+    </p>
+    <ul>
+      <li>[page:Animation v3d.LoopOnce] — воспроизведение клипа один раз</li>
+      <li>[page:Animation v3d.LoopRepeat] — воспроизведение клипа с выбранным числом `repetitions`, каждый раз переходя от конца клипа непосредственно к его началу</li>
+      <li>[page:Animation v3d.LoopPingPong] — воспроизведение ролика с выбранным количеством `repetitions`, поочередное воспроизведение вперед и назад</li>
+    </ul>
 
     <h3>[property:Boolean paused]</h3>
     <p>
-      Установка *paused* в *true* приостанавливает выполнение действия, устанавливая шкалу эффективного времени на 0. По умолчанию *false*.<br /><br />
+      Установка `paused` в `true` приостанавливает выполнение действия, устанавливая шкалу эффективного времени на `0`. По умолчанию `false`.
     </p>
 
-    <h3>[property:Number repetitions]</h3>
+    <h3>[property:Integer repetitions]</h3>
     <p>
-      Количество повторений выполняемой [page:AnimationClip] в течение этого действия. Может быть задано через [page:.setLoop setLoop]. По умолчанию *Infinity*.<br /><br />
+      Количество повторений выполняемой [page:AnimationClip] в течение этого действия. Может быть задано через [page:.setLoop setLoop]. По умолчанию `Infinity`.
+    </p>
+    <p>
       Установка этого числа не имеет эффекта, если для параметра [page:.loop loop mode] установлено значение [page:Animation v3d.LoopOnce].
     </p>
 
-    <h3>[property:Number time]</h3>
+    <h3>[property:Float time]</h3>
     <p>
-      Местное время этого действия (в секундах, начиная с 0).<br /><br />
-
-      Значение обрезается или оборачивается до 0...clip.duration (в зависимости от состояния цикла). Оно может быть масштабировано относительно глобального микшера времени путем изменения [page:.timeScale timeScale] (с помощью [page:.setEffectiveTimeScale setEffectiveTimeScale] или [page:.setDuration setDuration]).<br />
+      Локальное время этого действия (в секундах, начиная с `0`).
+    </p>
+    <p>
+      Значение обрезается или оборачивается до `0...clip.duration` (в зависимости от состояния цикла). Оно может быть масштабировано относительно глобального микшера времени путем изменения [page:.timeScale timeScale] (с помощью [page:.setEffectiveTimeScale setEffectiveTimeScale] или [page:.setDuration setDuration]).
     </p>
 
-    <h3>[property:Number timeScale]</h3>
+    <h3>[property:Float timeScale]</h3>
     <p>
-      Коэффициент масштабирования для [page:.time time]. При значении 0 анимация приостанавливается. Отрицательные значения заставляют анимацию воспроизводиться в обратном направлении. По умолчанию - 1.<br /><br />
-      Свойства/методы, относящиеся к *timeScale* (соответственно *time*), являются:
-      [page:.getEffectiveTimeScale getEffectiveTimeScale],
-      [page:.halt halt],
-      [page:.paused paused],
-      [page:.setDuration setDuration],
-      [page:.setEffectiveTimeScale setEffectiveTimeScale],
-      [page:.stopWarping stopWarping],
-      [page:.syncWith syncWith],
-      [page:.warp warp].
+      Коэффициент масштабирования для [page:.time time]. При значении `0` анимация приостанавливается. Отрицательные значения заставляют анимацию воспроизводиться в обратном направлении. По умолчанию используется значение `1`.
+    </p>
+    <p>
+      Свойствами/методами, относящимися к `timeScale` (соответственно `time`), являются: [page:.getEffectiveTimeScale getEffectiveTimeScale], [page:.halt halt], [page:.paused paused], [page:.setDuration setDuration], [page:.setEffectiveTimeScale setEffectiveTimeScale], [page:.stopWarping stopWarping], [page:.syncWith syncWith], [page:.warp warp].
     </p>
 
-    <h3>[property:Number timeStart]</h3>
+    <h3>[property:Float timeStart]</h3>
     <p>
-      Локальное время начала этого действия (в секундах). Используйте вместе с [page:AnimationClip.duration] для установки диапазона воспроизведения.<br /><br />
+      Локальное время начала этого действия (в секундах). Используйте вместе с [page:AnimationClip.duration] для установки диапазона воспроизведения.
     </p>
 
-    <h3>[property:Number weight]</h3>
+    <h3>[property:Float weight]</h3>
     <p>
-      Степень влияния данного действия (в интервале [0, 1]). Значения от 0 (нет влияния) до 1 (полное влияние) могут использоваться для смешивания нескольких действий. По умолчанию - 1. <br /><br />
-      Свойства/методы, касающиеся *weight*, являются:
-      [page:.crossFadeFrom crossFadeFrom],
-      [page:.crossFadeTo crossFadeTo],
-      [page:.enabled enabled],
-      [page:.fadeIn fadeIn],
-      [page:.fadeOut fadeOut],
-      [page:.getEffectiveWeight getEffectiveWeight],
-      [page:.setEffectiveWeight setEffectiveWeight],
-      [page:.stopFading stopFading].
+      Степень влияния данного действия (в интервале `[0, 1]`). Значения от `0` (нет влияния) до `1` (полное влияние) могут использоваться для смешивания нескольких действий. По умолчанию - `1`.
+    </p>
+    <p>
+      Свойствами/методами, относящимися к `weight`, являются: [page:.crossFadeFrom crossFadeFrom], [page:.crossFadeTo crossFadeTo], [page:.enabled enabled], [page:.fadeIn fadeIn], [page:.fadeOut fadeOut], [page:.getEffectiveWeight getEffectiveWeight], [page:.setEffectiveWeight setEffectiveWeight], [page:.stopFading stopFading].
     </p>
 
     <h3>[property:Boolean zeroSlopeAtEnd]</h3>
     <p>
-      Включает плавную интерполяцию без отдельных клипов для начала, цикла и конца. По умолчанию *true*.
+      Включает плавную интерполяцию без отдельных клипов для начала, цикла и конца. По умолчанию `true`.
     </p>
 
     <h3>[property:Boolean zeroSlopeAtStart]</h3>
     <p>
-      Включает плавную интерполяцию без отдельных клипов для начала, цикла и конца. По умолчанию *true*.
+      Включает плавную интерполяцию без отдельных клипов для начала, цикла и конца. По умолчанию `true`.
     </p>
 
 
     <h2>Методы</h2>
 
-
-    <h3>[method:AnimationAction crossFadeFrom]([param:AnimationAction fadeOutAction], [param:Number durationInSeconds], [param:Boolean warpBoolean])</h3>
+    <h3>[method:this crossFadeFrom]([param:AnimationAction fadeOutAction], [param:Float durationInSeconds], [param:Boolean warpBoolean])</h3>
     <p>
-      Вызывает это действие [page:.fadeIn fade in], одновременно затухая в другом действии в течение заданного интервала времени. Этот метод можно объединить в цепочку.<br /><br />
-
-      Если warpBoolean равен true, будет применена дополнительная [page:.warp warping] (постепенное изменение временных масштабов).<br /><br />
-
-      Примечание: Как и в случае *fadeIn*/*fadeOut*, затухание начинается/заканчивается с весом 1.
-
+      Вызывает это действие [page:.fadeIn fade in], одновременно затухая в другом действии в течение заданного интервала времени. Этот метод можно объединить в цепочку.
+    </p>
+    <p>
+      Если `warpBoolean` равен `true`, будет применён дополнительный [page:.warp warping] (постепенное изменение временных масштабов).
+    </p>
+    <p class="note">
+      Как и в случае `fadeIn`/`fadeOut`, затухание начинается/заканчивается с весом `1`.
     </p>
 
-    <h3>[method:AnimationAction crossFadeTo]([param:AnimationAction fadeInAction], [param:Number durationInSeconds], [param:Boolean warpBoolean])</h3>
+    <h3>[method:this crossFadeTo]([param:AnimationAction fadeInAction], [param:Float durationInSeconds], [param:Boolean warpBoolean])</h3>
     <p>
-      Вызывает это действие [page:.fadeOut fade out], одновременно затухая в другом действии в течение заданного интервала времени. Этот метод можно объединить в цепочку.<br /><br />
-      Если warpBoolean равен true, то дополнительная [page:.warp warping] (постепенное изменение временных масштабов) будет применено.<br /><br />
-
-      Примечание: Как и в случае *fadeIn*/*fadeOut*, затухание начинается/заканчивается с весом 1.
+      Вызывает это действие [page:.fadeOut fade out], одновременно затухая в другом действии в течение заданного интервала времени. Этот метод можно объединить в цепочку.
+    </p>
+    <p>
+      Если `warpBoolean` равен `true`, будет применён дополнительный [page:.warp warping] (постепенное изменение временных масштабов).
+    </p>
+    <p class="note">
+      Как и в случае `fadeIn`/`fadeOut`, затухание начинается/заканчивается с весом `1`.
     </p>
 
-    <h3>[method:AnimationAction fadeIn]([param:Number durationInSeconds])</h3>
+    <h3>[method:this fadeIn]([param:Float durationInSeconds])</h3>
     <p>
-      Увеличивает [page:.weight weight] этого действия постепенно от 0 до 1, в течение заданного интервала времени. Этот метод можно объединить в цепочку.
+      Увеличивает [page:.weight weight] этого действия постепенно от `0` до `1`, в течение заданного интервала времени. Этот метод можно объединить в цепочку.
     </p>
 
-    <h3>[method:AnimationAction fadeOut]([param:Number durationInSeconds])</h3>
+    <h3>[method:this fadeOut]([param:Float durationInSeconds])</h3>
     <p>
-      Уменьшает [page:.weight weight] этого действия постепенно от 1 до 0, в течение заданного интервала времени интервал. Этот метод можно объединить в цепочку.
+      Уменьшает [page:.weight weight] этого действия постепенно от `1` до `0`, в течение заданного интервала времени. Этот метод можно объединить в цепочку.
     </p>
 
-    <h3>[method:Number getEffectiveTimeScale]()</h3>
+    <h3>[method:Float getEffectiveTimeScale]()</h3>
     <p>
-      Возвращает эффективную шкалу времени (учитывая текущие состояния искривления и
-      [page:.paused paused]).
+      Возвращает эффективную шкалу времени (учитывая текущие состояния искривления и [page:.paused paused]).
     </p>
 
     <h3>[method:number getEffectiveWeight]()</h3>
@@ -184,124 +194,143 @@
       Возвращает корневой объект, над которым выполняется данное действие.
     </p>
 
-    <h3>[method:AnimationAction halt]([param:Number durationInSeconds])</h3>
+    <h3>[method:this halt]([param:Float durationInSeconds])</h3>
     <p>
       Замедляет скорость этой анимации до 0, постепенно уменьшая [page:.timeScale timeScale] (начиная с его текущего значения) в течение переданного интервала времени. Этот метод может быть соединен в цепочку.
     </p>
 
     <h3>[method:Boolean isRunning]()</h3>
     <p>
-      Возвращает true, если действие [page:.time time] в данный момент выполняется.<br /><br />
-
-      Помимо активации в микшере (смотрите [page:.isScheduled isScheduled]) должны выполняться следующие условия:
-      [page:.paused paused] равно false, [page:.enabled enabled] равно true,
-      [page:.timeScale timeScale] не равно 0, и нет планирования для отложенного старта
-      ([page:.startAt startAt]).<br /><br />
-
-      Примечание: то, что isRuning* равно true, не обязательно означает, что анимацию можно увидеть. Это происходит только в том случае, если [page:.weight weight] дополнительно имеет ненулевое значение.
+      Возвращает `true`, если действие [page:.time time] в данный момент выполняется.
+    </p>
+    <p>
+      Помимо активации в микшере (смотрите [page:.isScheduled isScheduled]) должны выполняться следующие условия: [page:.paused paused] равно false, [page:.enabled enabled] равно true, [page:.timeScale timeScale] не равно 0, и нет планирования для отложенного старта ([page:.startAt startAt]).
+    </p>
+    <p class="note">
+      Если `isRuning` равно `true`, это не обязательно означает, что анимацию можно увидеть. Это происходит только в том случае, если [page:.weight weight] дополнительно имеет ненулевое значение.
     </p>
 
     <h3>[method:Boolean isScheduled]()</h3>
     <p>
-      Возвращает true, если это действие активировано в микшере.<br /><br />
-      Примечание: это не обязательно означает, что анимация действительно запущена (сравните дополнительные условия для [page:.isRunning isRunning]).
+      Возвращает `true`, если это действие активировано в микшере.
+    </p>
+    <p class="note">
+      Это не обязательно означает, что анимация действительно запущена (сравните дополнительные условия для [page:.isRunning isRunning]).
     </p>
 
-    <h3>[method:AnimationAction play]()</h3>
+    <h3>[method:this play]()</h3>
     <p>
-      Приказывает микшеру активировать действие. Этот метод может быть соединен в цепочку.<br /><br />
-
-      Примечание: Активация этого действия не обязательно означает, что анимация начнется немедленно: Если действие уже завершилось ранее (дойдя до конца своего последнего цикла), или если было установлено время отложенного старта (через [page:.startAt startAt]), сначала должно быть выполнено [page:.reset reset]. Некоторые другие настройки ([page:.paused paused]=true, [page:.enabled enabled]=false, [page:.weight weight]=0, [page:.timeScale timeScale]=0) также могут предотвратить воспроизведение анимации.
+      Приказывает микшеру активировать действие. Этот метод может быть соединен в цепочку.
+    </p>
+    <p class="note">
+      Активация этого действия не обязательно означает, что анимация начнется немедленно: Если действие уже завершилось ранее (дойдя до конца своего последнего цикла), или если было установлено время отложенного старта (через [page:.startAt startAt]), сначала должно быть выполнено [page:.reset reset]. Некоторые другие настройки ([page:.paused paused]=true, [page:.enabled enabled]=false, [page:.weight weight]=0, [page:.timeScale timeScale]=0) также могут предотвратить воспроизведение анимации.
     </p>
 
-    <h3>[method:AnimationAction reset]()</h3>
+    <h3>[method:this reset]()</h3>
     <p>
-      Сбрасывает действие. Этот метод можно объединить в цепочку.<br /><br />
-
-      Этот метод устанавливает [page:.paused paused] в false, [page:.enabled enabled] в true, [page:.time time] в 0, прерывает любое запланированное затухание и искривление, и удаляет внутренний счетчик циклов и планирование для отложенного запуска.<br /><br />
-
-      Примечание: .*reset* всегда вызывается [page:.stop stop], но .*reset* не вызывает сам .*stop*. Это означает: Если вам необходимы и сброс, и остановка одновременно - не вызывайте .*reset*; вместо этого вызовите .*stop*.
+      Сбрасывает действие. Этот метод можно объединить в цепочку.
+    </p>
+    <p>
+      Этот метод устанавливает [page:.paused paused] в `false`, [page:.enabled enabled] в `true`, [page:.time time] в `0`, прерывает любое запланированное затухание и искривление, и удаляет внутренний счетчик циклов и планирование для отложенного запуска.
+    </p>
+    <p class="note">
+      [page:.reset] всегда вызывается [page:.stop stop], но `.reset` не вызывает сам `.stop`. Это означает: если вам необходимы и сброс, и остановка одновременно — не вызывайте `.reset`; вместо этого вызовите `.stop`.
     </p>
 
-    <h3>[method:AnimationAction setDuration]([param:Number durationInSeconds])</h3>
+    <h3>[method:this setDuration]([param:Float durationInSeconds])</h3>
     <p>
       Устанавливает продолжительность одного цикла этого действия (регулируя [page:.timeScale timeScale] и останавливая любое запланированное искривление). Этот метод может быть соединен в цепочку.
     </p>
 
-    <h3>[method:AnimationAction setEffectiveTimeScale]([param:Number timeScale])</h3>
+    <h3>[method:this setEffectiveTimeScale]([param:Float timeScale])</h3>
     <p>
-      Устанавливает [page:.timeScale timeScale] и останавливает любое запланированное искривление. Этот метод может быть соединен в цепочку.<br /><br />
-
-      Если [page:.paused paused] равно false, шкала эффективного времени (внутреннее свойство) также будет установлена в это значение; в противном случае шкала эффективного времени (непосредственно влияющая на анимацию в данный момент) будет установлена в 0.<br /><br />
-
-      Примечание: .*paused* не будет автоматически переключен на *true*, если .*timeScale* установлен в 0 этим методом.
+      Устанавливает [page:.timeScale timeScale] и останавливает любое запланированное искривление. Этот метод может быть соединен в цепочку.
+    </p>
+    <p>
+      Если [page:.paused paused] равно false, шкала эффективного времени (внутреннее свойство) также будет установлена в это значение; в противном случае шкала эффективного времени (непосредственно влияющая на анимацию в данный момент) будет установлена в 0.
+    </p>
+    <p class="note">
+      [page:.paused] не будет автоматически переключен на `true`, если `.timeScale` установлен в `0` этим методом.
     </p>
 
-    <h3>[method:AnimationAction setEffectiveWeight]([param:Number weight])</h3>
+    <h3>[method:this setEffectiveWeight]([param:Float weight])</h3>
     <p>
-      Устанавливает вес [page:.weight weight] и останавливает любое запланированное затухание. Этот метод можно объединить в цепочку.<br /><br />
-
-      Если [page:.enabled enabled] равно true, эффективный вес (внутреннее свойство) также будет установлен этому значению; в противном случае эффективный вес (непосредственно влияющий на анимацию в данный момент) будет установлен в 0.<br /><br />
-
-      Примечание: .*enabled* не будет автоматически переключен на *false*, если .*weight* установлен в 0 этим методом.
+      Устанавливает вес [page:.weight weight] и останавливает любое запланированное затухание. Этот метод можно объединить в цепочку.
+    </p>
+    <p>
+      Если [page:.enabled enabled] равно true, эффективный вес (внутреннее свойство) также будет установлен этому значению; в противном случае эффективный вес (непосредственно влияющий на анимацию в данный момент) будет установлен в `0`.
+    </p>
+    <p class="note">
+      [page:.enabled] не будет автоматически переключен на `false`, если `.weight` установлен в `0` этим методом.
     </p>
 
-    <h3>[method:AnimationAction setLoop]([param:Number loopMode], [param:Number repetitions])</h3>
+    <h3>[method:this setLoop]([param:Integer loopMode], [param:Integer repetitions])</h3>
     <p>
       Устанавливает режим [page:.loop loop] и количество повторений [page:.repetitions repetitions]. Этот метод можно объединить в цепочку.
     </p>
 
-    <h3>[method:AnimationAction startAt]([param:Number startTimeInSeconds])</h3>
+    <h3>[method:this startAt]([param:Float startTimeInSeconds])</h3>
     <p>
-      Определяет время отложенного старта (обычно передается как [page:AnimationMixer.time] + deltaTimeInSeconds). Этот метод может быть соединен в цепочку.<br /><br />
+      Определяет время отложенного старта (обычно передается как [page:AnimationMixer.time] + deltaTimeInSeconds). Этот метод может быть соединен в цепочку.<br><br>
 
-      Примечание: Анимация начнется только в указанное время, если .*startAt* связан цепочкой с [page:.play play], или если действие уже было активировано в микшере (предыдущим вызовом .*play*, без остановки или сброса в это время).
+      Примечание: Анимация начнется только в указанное время, если `.startAt` связан цепочкой с [page:.play play], или если действие уже было активировано в микшере (предыдущим вызовом `.play`, без остановки или сброса в это время).
     </p>
 
-    <h3>[method:AnimationAction stop]()</h3>
+    <h3>[method:this stop]()</h3>
     <p>
-      Сообщает микшеру о необходимости деактивировать это действие. Этот метод может быть соединен в цепочку.<br /><br />
-
-      Действие будет немедленно остановлено и полностью [page:.reset reset].<br /><br />
-
-      Примечание: Вы можете остановить все активные действия на одном микшере за один раз с помощью [page:AnimationMixer.stopAllAction mixer.stopAllAction].
+      Сообщает микшеру о необходимости деактивировать это действие. Этот метод может быть соединен в цепочку.
+    </p>
+    <p>
+      Действие будет немедленно остановлено и полностью [page:.reset сброшено].
+    </p>
+    <p class="notes">
+      Вы можете остановить все активные действия на одном микшере за один раз с помощью [page:AnimationMixer.stopAllAction mixer.stopAllAction].
     </p>
 
-    <h3>[method:AnimationAction stopFading]()</h3>
+    <h3>[method:this stopFading]()</h3>
     <p>
       Останавливает все запланированные [page:.fadeIn fading], которые применяются к этому действию. Этот метод может быть цепочкой.
     </p>
 
-    <h3>[method:AnimationAction stopWarping]()</h3>
+    <h3>[method:this stopWarping]()</h3>
     <p>
       Останавливает любое запланированное [page:.warp warping], которое применяется к этому действию. Этот метод может быть цепочкой.
     </p>
 
-    <h3>[method:AnimationAction syncWith]([param:AnimationAction otherAction])</h3>
+    <h3>[method:this syncWith]([param:AnimationAction otherAction])</h3>
     <p>
-      Синхронизирует это действие с переданным другим действием. Этот метод может быть соединен в цепочку.<br /><br />
-
-      Синхронизация выполняется путем установки значений [page:.time time] и [page:.timeScale timeScale] этого действия на соответствующие значения другого действия (останавливая любое запланированное искривление).<br /><br />
-
-      Примечание: Будущие изменения *time* и *timeScale* другого действия не будут обнаружены.
+      Синхронизирует это действие с переданным другим действием. Этот метод может быть соединен в цепочку.
+    </p>
+    <p>
+      Синхронизация выполняется путем установки значений [page:.time time] и [page:.timeScale timeScale] этого действия на соответствующие значения другого действия (останавливая любое запланированное искривление).
+    </p>
+    <p class="note">
+      Примечание: Будущие изменения `time` и `timeScale` другого действия не будут обнаружены.
     </p>
 
-    <h3>[method:AnimationAction warp]([param:Number startTimeScale], [param:Number endTimeScale], [param:Number durationInSeconds])</h3>
+    <h3>[method:this warp]([param:Float startTimeScale], [param:Float endTimeScale], [param:Float durationInSeconds])</h3>
     <p>
-      Изменяет скорость воспроизведения в пределах заданного интервала времени, постепенно изменяя [page:.timeScale timeScale] от *startTimeScale* до *endTimeScale*. Этот метод можно объединить в цепочку.
+      Изменяет скорость воспроизведения в пределах заданного интервала времени, постепенно изменяя [page:.timeScale timeScale] от `startTimeScale` до `endTimeScale`. Этот метод можно объединить в цепочку.
     </p>
 
 
     <h2>События</h2>
 
-
     <p class="desc">
       Есть два события, указывающие на завершение одного цикла действия, соответственно, всего действия. Вы можете реагировать на них с помощью:
     </p>
+
     <code>
     mixer.addEventListener('loop', function(e) { …}); // properties of e: type, action and loopDelta
     mixer.addEventListener('finished', function(e) { …}); // properties of e: type, action and direction
     </code>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Вместо вызовов АПИ [name] вы можете использовать <a href="manual/ru/puzzles/Animation.html">анимационные пазлы</a>.
+    </p>
 
     [sourceHint]
   </body>

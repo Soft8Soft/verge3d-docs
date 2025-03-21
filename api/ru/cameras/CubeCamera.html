@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Object3D] &rarr;
@@ -21,12 +21,12 @@
 
     // Create cube camera
     const cubeCamera = new v3d.CubeCamera(1, 100000, cubeRenderTarget);
-    scene.add(cubeCamera);
+    app.scene.add(cubeCamera);
 
     // Create car
     const chromeMaterial = new v3d.MeshLambertMaterial({ color: 0xffffff, envMap: cubeRenderTarget.texture });
     const car = new Mesh(carGeometry, chromeMaterial);
-    scene.add(car);
+    app.scene.add(car);
 
     // Update the render target cube
     car.visible = false;
@@ -38,21 +38,15 @@
     renderer.render(scene, camera);
     </code>
 
-    <h2>Примеры</h2>
-
-    <p>
-      [example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic]<br />
-      [example:webgl_shading_physical shading / physical]
-    </p>
 
     <h2>Конструктор</h2>
 
 
     <h3>[name]([param:Number near], [param:Number far], [param:WebGLCubeRenderTarget renderTarget])</h3>
     <p>
-    near -- Ближнее расстояние обрезания. <br />
-    far -- Дальнее расстояние обрезания. <br />
-    renderTarget -- Назначение цели кубического рендера.
+    near — Ближнее расстояние обрезания. <br>
+    far — Дальнее расстояние обрезания. <br>
+    renderTarget — Назначение цели кубического рендера.
     </p>
 
     <p>
@@ -72,8 +66,8 @@
 
     <h3>[method:null update]([param:WebGLRenderer renderer], [param:Scene scene])</h3>
     <p>
-    renderer -- Текущий рендерер WebGL <br />
-    scene -- Текущая сцена
+    renderer — Текущий рендерер WebGL <br>
+    scene — Текущая сцена
     </p>
     <p>
       Вызовите эту функцию для обновления [page:CubeCamera.renderTarget renderTarget].

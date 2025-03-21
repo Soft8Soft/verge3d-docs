@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Object3D] &rarr; [page:Mesh] &rarr;
@@ -16,28 +16,11 @@
       Материал должен поддерживать скиннинг и он должен быть включен. - см. [page:MeshStandardMaterial.skinning].
     </p>
 
-    <iframe id="scene" src="scenes/bones-browser.html"></iframe>
 
-    <script>
-
-    // iOS iframe auto-resize workaround
-
-    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent)) {
-
-      const scene = document.getElementById('scene');
-
-      scene.style.width = getComputedStyle(scene).width;
-      scene.style.height = getComputedStyle(scene).height;
-      scene.setAttribute('scrolling', 'no');
-
-    }
-
-    </script>
-
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
 
     <code>
-    const geometry = new v3d.CylinderBufferGeometry(5, 5, 5, 5, 15, 5, 30);
+    const geometry = new v3d.CylinderGeometry(5, 5, 5, 5, 15, 5, 30);
 
     // create the skin indices and skin weights
 
@@ -90,8 +73,8 @@
     <h2>Конструктор</h2>
     <h3>[name]([param:BufferGeometry geometry], [param:Material material])</h3>
     <p>
-    [page:Geometry geometry] - экземпляр [page:BufferGeometry].<br />
-    [page:Material material] - (необязательный) экземпляр [page:Material]. По умолчанию это новый [page:MeshBasicMaterial].
+    [page:BufferGeometry geometry] — экземпляр [page:BufferGeometry].<br>
+    [page:Material material] — (необязательный) экземпляр [page:Material]. По умолчанию это новый [page:MeshBasicMaterial].
     </p>
 
 
@@ -131,7 +114,7 @@
     <h3>[method:null bind]([param:Skeleton skeleton], [param:Matrix4 bindMatrix])</h3>
     <p>
     [page:Skeleton skeleton] - [page:Skeleton] созданный из древа [page:Bone Bones].<br/>
-    [page:Matrix4 bindMatrix] - [page:Matrix4] которая представляет собой базовое преобразование скелета.<br /><br />
+    [page:Matrix4 bindMatrix] - [page:Matrix4] которая представляет собой базовое преобразование скелета.<br><br>
 
     Привязка скелета к сетке со скинами. Матрица привязки сохраняется в свойстве .bindMatrix
     и вычисляется .bindMatrixInverse.

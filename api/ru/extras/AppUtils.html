@@ -1,41 +1,80 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
 
-    <div class="desc">Класс, содержащий полезные служебные функции для ваших 3D-приложений.</div>
+    <p class="desc">
+      Этот класс содержит ряд функций, которые могут быть полезны при создании 3Д-приложений.
+    </p>
 
     <h2>Методы</h2>
 
+    <h3>[method:undefined addToAppList]([param:App app])</h3>
+    <p>
+      Добавляет `app` в глобальный массив `v3d.apps` array. Обычно этот метод вызывается в конструкторе [page:App App].
+    </p>
+
     <h3>[method:Object getPageParams]</h3>
-    <div>
-      Разбирает GET-параметры страницы и возвращает объект с разобранными данными key-value.
-    </div>
+    <p>
+      Разбирает GET-параметры страницы и возвращает объект с разобранными данными ключ-значение.
+    </p>
+
+    <h3>[method:Boolean isJS]([param:String url])</h3>
+    <p>
+      Проверяет, является ли параметр `url` «Яваскрипт»-файлом.
+    </p>
+
+    <h3>[method:Boolean isXML]([param:String url])</h3>
+    <p>
+      Проверяет, является ли параметр `url` XML-файлом.
+    </p>
 
     <h3>[method:null loadScript](url, appendElem, callback)</h3>
-    <div>
-      url - URL загруженного скрипта.<br>
-      appendElem - Элемент HTML для добавления загруженного сценария.<br>
-      callback - обработчик события загрузки.
-    </div>
-    <div>
-      Загружает и выполняет заданный файл JavaScript.
-    </div>
+    <ul class="params">
+      <li>url — URL загруженного скрипта.</li>
+      <li>appendElem — HTML-элемент для добавления загруженного сценария.</li>
+      <li>callback — обработчик события загрузки.</li>
+    </ul>
+    <p>
+      Загружает и выполняет заданный «Яваскрипт»-файл.
+    </p>
 
-    <h3>[method:null drawWatermark](elem, text)</h3>
-    <div>
-      elem -- Объект, который нужно удалить из родителя.  <br />
-      text -- Сцена, на которую нужно прикрепить объект.
-    </div>
-    <div>
-      Добаляет водяной знак (копирайт и/или возможное информационное сообщение) к вашему приложению.
-    </div>
+    <h3>[method:undefined printPerformanceInfo]([param:App scope], [param:Float delta])</h3>
+    <p>
+      Собирает и выводит профиль производительности. Смотрите [page:App.printPerformanceInfo] для получения подробной инфомрации.
+    </p>
+
+    <h3>[method:undefined registerServiceKeys]([param:App app])</h3>
+    <p>
+      Регистрирует сервисные клавиатурные комбинации (такие как тройная тильда) для запущенного приложения.
+    </p>
+
+    <h3>[method:undefined removeFromAppList]([param:App app])</h3>
+    <p>
+      Удаляет `app` из глобального массива `v3d.apps`. Обычно вызывается методом [page:App.dispose].
+    </p>
+
+    <h3>[method:undefined unregisterServiceKeys]([param:App app])</h3>
+    <p>
+      Удаляет сервисные клавиатурные комбинации для запущенного приложения
+    </p>
+
+    <h3>[method:String updatePageParam]([param:String url], [param:String param], [param:Any paramVal])</h3>
+    <ul class="params">
+      <li>[page:String url] — входной УРЛ.</li>
+      <li>[page:String param] — имя параметра.</li>
+      <li>[page:Any paramVal] — значение параметра.</li>
+    </ul>
+    <p>
+      Обновляет GET-параметр `url` и возвращает обновлённый УРЛ-адрес.
+    </p>
+
 
     [sourceHint]
 

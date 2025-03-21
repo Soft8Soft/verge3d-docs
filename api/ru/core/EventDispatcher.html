@@ -1,42 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
 
     <p class="desc">
-      События JavaScript для пользовательских объектов.<br />
-      [link:https://github.com/mrdoob/eventdispatcher.js Eventdispatcher on GitHub]
+      Обработка пользовательских событий «Ява Скрипта».
     </p>
 
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
 
     <code>
-    // Adding events to a custom object
-
+    // добавление возможности отправки события
     class Car extends EventDispatcher {
-
-      start() {
-
-        this.dispatchEvent({ type: 'start', message: 'vroom vroom!' });
-
-      }
-
+        start() {
+            this.dispatchEvent({ type: 'start', message: 'брум-брум!' });
+        }
     };
 
-    // Using events with the custom object
-
+    // обработка события
     const car = new Car();
 
     car.addEventListener('start', function(event) {
-
-      alert(event.message);
-
+        alert(event.message);
     });
 
     car.start();
@@ -53,41 +44,52 @@
     <h2>Методы</h2>
 
     <h3>[method:null addEventListener]([param:String type], [param:Function listener])</h3>
+    <ul class="params">
+      <li>type — тип события, которое необходимо обработать.</li>
+      <li>listener — функция-обработчик, которая вызывается при наступлении события.</li>
+    </ul>
     <p>
-    type - Тип события, которое необходимо прослушать.<br />
-    listener - Функция, которая вызывается при наступлении события.
-    </p>
-    <p>
-      Добавляет слушателя к типу события.
+      Добавляет обработчик события.
     </p>
 
     <h3>[method:Boolean hasEventListener]([param:String type], [param:Function listener])</h3>
+    <ul class="params">
+      <li>type — тип события, которое необходимо обработать.</li>
+      <li>listener — функция-обработчик, которая вызывается при наступлении события.</li>
+    </ul>
     <p>
-    type - Тип события, которое необходимо прослушать.<br />
-    listener - Функция, которая вызывается при наступлении события.
-    </p>
-    <p>
-      Проверяет, добавлен ли слушатель к типу события.
+      Проверяет, имеется ли обработчик события данного типа.
     </p>
 
     <h3>[method:null removeEventListener]([param:String type], [param:Function listener])</h3>
+    <ul class="params">
+      <li>type — тип событий, обрабатываемых функцией-обработчиком.<li>
+      <li>listener — удаляемая функция-обработчик.</li>
+    </ul>
     <p>
-    type - Тип удаляемого слушателя.<br />
-    listener - Функция слушателя, которая удаляется.
-    </p>
-    <p>
-      Удаляет слушателя из типа события.
+      Удаляет обработчик данного события.
     </p>
 
     <h3>[method:null dispatchEvent]([param:Object event])</h3>
-    <p>
-    event - Событие, которое запускается.
+    <p class="params">
+      event — отправляемое событие.
     </p>
     <p>
-      Запуск типа события.
+      Отправка события.
     </p>
 
+
+    <h2>Пазлы</h2>
+
+    <p>«Вердж3Д» поддерживает ряд пазлов, реализующих похожую функциональность без необходимости писать код:</p>
+
+    <ul>
+      <li><a href="manual/ru/puzzles/Advanced.html#add_event_listener">add event listener</a></li>
+      <li><a href="manual/ru/puzzles/Advanced.html#remove_event_listener">remove event listener</a></li>
+      <li><a href="manual/ru/puzzles/Advanced.html#dispatch_event">dispatch event</a></li>
+    </ul>
 
     [sourceHint]
+
   </body>
 </html>

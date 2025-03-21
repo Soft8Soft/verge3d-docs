@@ -2,62 +2,117 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">
-    <base href="../../../" />
+    <meta name="description" content="Как рисовать линии в Вердж3Д с использованием Ява Скрипта.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
-    <h1>Рисование Линий</h1>
-    <div>
-      <p>
-        Допустим, вы хотите нарисовать линию или круг, а не меш [page:Mesh].
-        Сначала нам нужно настроить [page:WebGLRenderer renderer], [page:Scene scene] и камеру (см. страницу Создание сцены).
-      </p>
 
-      <p>Вот код, который мы будем использовать:</p>
-      <code>
-var renderer = new v3d.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+    <h1>Рисование линий в «Вердж3Д»</h1>
 
-var camera = new v3d.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-camera.position.set(0, 0, 100);
-camera.lookAt(0, 0, 0);
+    <p>
+      В этом руководстве мы покажем, как создавать и отображать линии с помощью «Вердж3Д» API.
+    </p>
 
-var scene = new v3d.Scene();
-      </code>
-      <p>Следующее, что мы сделаем, это определим материал. Для линий мы должны использовать [page:LineBasicMaterial] или [page:LineDashedMaterial].</p>
-      <code>
-//create a blue LineBasicMaterial
-var material = new v3d.LineBasicMaterial({ color: 0x0000ff });
-      </code>
+    <h2>Тонкие линии</h2>
 
-      <p>
-        После материала нам понадобится [page:Geometry] или [page:BufferGeometry] с некоторыми вершинами
-        (рекомендуется использовать BufferGeometry, так как он более производителен, однако для простоты мы будем использовать Geometry):
-      </p>
+    <p>
+      Тонкие линии создавать легче, но из-за ограничений, налагаемых WebGL, они не могут быть толще 1 пикселя. Чтобы нарисовать такие линии, сначала потребуется создать [page:LineBasicMaterial] материал.
+    </p>
 
-      <code>
-var geometry = new v3d.Geometry();
-geometry.vertices.push(new v3d.Vector3(-10, 0, 0));
-geometry.vertices.push(new v3d.Vector3(0, 10, 0));
-geometry.vertices.push(new v3d.Vector3(10, 0, 0));
-      </code>
+    <code>
+    // создаем синий LineBasicMaterial
+    const material = new v3d.LineBasicMaterial({ color: 0x0000ff });
+    </code>
 
-      <p>Обратите внимание, что линии проводятся между каждой последовательной парой вершин, но не между первой и последней (линия не замкнута).</p>
+    <p>
+      После материала нам понадобится геометрия с несколькими вершинами:
+    </p>
 
-      <p>Теперь, когда у нас есть точки для двух линий и материал, мы можем соединить их вместе, чтобы сформировать линию.</p>
-      <code>
-var line = new v3d.Line(geometry, material);
-      </code>
-      <p>Остается только добавить ее в сцену и вызвать [page:WebGLRenderer.render render].</p>
+    <code>
+    const points = [];
+    points.push(new v3d.Vector3(-10, 0, 0));
+    points.push(new v3d.Vector3( 0, 10, 0));
+    points.push(new v3d.Vector3( 10, 0, 0));
 
-      <code>
-scene.add(line);
-renderer.render(scene, camera);
-      </code>
+    const geometry = new v3d.BufferGeometry().setFromPoints(points);
+    </code>
 
-      <p>Теперь вы должны увидеть стрелку, направленную вверх, составленную из двух синих линий.</p>
-    </div>
+    <p>
+      Обратите внимание, что линии рисуются между каждой последовательной парой вершин, а не между первой и последней (линия не замкнута).
+    </p>
+
+    <p>Теперь, когда у нас есть точки для двух линий и материал, мы можем соединить их в линию:</p>
+
+    <code>
+    const line = new v3d.Line(geometry, material);
+    </code>
+
+    <p>Осталось только добавить его на сцену.</p>
+
+    <code>
+    app.scene.add(line);
+    </code>
+
+    <p>Теперь вы должны увидеть стрелку, направленную вверх, состоящую из двух синих линий.</p>
+
+    <img src="files/api/thin-line.webp" alt="Рисование тонкой линии с помощью Ява Скрипта" style="max-width: 775px">
+
+
+    <h2>Толстые линии</h2>
+
+    <p>
+      Толстые линии создаются с помощью класса [page:MeshLine] или [page:MeshLineIndexed] в зависимости от исходных данных. Как и тонкие линии, для них требуется специальный материал, который теперь называется [page:MeshLineMaterial].
+    </p>
+
+    <code>
+    // создаем синий MeshLineMaterial
+    const material = new v3d.MeshLineMaterial({ color: 0x0000ff, lineWidth: 0.3 });
+    </code>
+
+    <p>
+      `lineWidth` — это абсолютная ширина линии в единицах сцены, а не размер пикселя.
+    </p>
+
+    <p>
+      Чтобы создать линию с триангулированной геометрией, вам нужно передать несколько точек в [page:MeshLineIndexed].
+    </p>
+
+    <code>
+    const points = [];
+    points.push(new v3d.Vector3(-10, 0, 0));
+    points.push(new v3d.Vector3( 0, 10, 0));
+    points.push(new v3d.Vector3( 10, 0, 0));
+
+    const geometry = new v3d.BufferGeometry().setFromPoints(points);
+
+    const line = new v3d.MeshLineIndexed();
+    line.fromBufferGeometry(geometry);
+    </code>
+
+    <p>
+      Данная геметория хороша тем, что её можно использовать с обычными объектами класса [page:Mesh]:
+    </p>
+
+    <code>
+    const mesh = new v3d.Mesh(line.geometry, material);
+    </code>
+
+    <p>
+      Добавив этот меш в сцену, вы получите ту же стрелку, но гораздо толще:
+    </p>
+
+    <code>
+    app.scene.add(mesh);
+    </code>
+
+    <img src="files/api/thick-line.webp" alt="Рисование толстой линии с помощью Ява Скрипта" style="max-width: 775px">
+
+
+    <h2>Дальнейшие шаги</h2>
+
+    <p>Класс [page:LineHTML] можно использовать для рисования линий между 3Д-объектами и HTML-элементами.</p>
+
   </article></body>
 </html>

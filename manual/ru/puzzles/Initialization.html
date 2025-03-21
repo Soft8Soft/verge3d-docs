@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Пазлы Инициализации - Soft8Soft</title>
+    <title>Пазлы инициализации «Вердж3Д»-приложений (Initialization) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как выполнять задачи инициализации приложения с помощью Пазлов Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Как выполнять задачи инициализации приложения с помощью пазлов Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
-    <h1>Пазлы Инициализации</h1>
+    <h1>Пазлы инициализации (Initialization)</h1>
 
     <p>
-    Эти пазлы находятся во вкладке <strong>init</strong> и интерпретируются перед инициализацией приложения Verge3D.
+      Эти пазлы интерпретируются перед инициализацией «Вердж3Д»-приложения и должны располагаться во вкладке <strong><em>Init</em></strong>.
     </p>
 
-    <img src="files/puzzles/puzzles-init.jpg">
+    <img src="files/puzzles/puzzles-init.webp">
 
     <h2>Содержание</h2>
 
@@ -24,7 +24,7 @@
 
     [anchor:puzzles_reference]
 
-    <h2>Перечень Пазлов</h2>
+    <h2>Перечень пазлов</h2>
 
     [anchor:configure_application]
 
@@ -34,26 +34,25 @@
       Позволяет задать параметры инициализации приложения, включая некоторые параметры создания контекста WebGL.
     </p>
 
+    <img src="files/puzzles/puzzles-init-configure-app.jpg">
+
     <dl>
       <dt>compressed assets</dt>
-      <dd>заставляет приложение загружать сжатую сцену в формате <strong>.xz</strong> вместо обычного <strong>.gltf</strong> (см. <a href="manual/ru/introduction/Asset-compression.html">Asset Compression</a> для большей информации).</dd>
+      <dd>Заставляет приложение загружать сжатую сцену в формате <strong>.xz</strong> вместо обычного <strong>.gltf</strong> (см. <a href="manual/ru/introduction/Asset-compression.html">Asset Compression</a> для большей информации).</dd>
 
       <dt>default fullscreen button</dt>
-      <dd>включает стандартную кнопку полноэкранного режима, расположенную в правом верхнем углу.</dd>
+      <dd>Включает стандартную кнопку полноэкранного режима, расположенную в правом верхнем углу.</dd>
 
       <dt>transparent background</dt>
       <!-- enabling transparency for AR is a hack for WebXR Viewer -->
-      <dd>делает фон прозрачным, чтобы основные части веб-страницы были видны через canvas WebGL. Включите этот параметр, чтобы встроить 3D-контент на веб-страницу или использовать функцию дополненной реальности.</dd>
+      <dd>Делает фон прозрачным, чтобы основные части веб-страницы были видны через канвас WebGL. Включите этот параметр, чтобы встроить 3Д-контент на веб-страницу или использовать функцию дополненной реальности.</dd>
 
       <dt>enable screenshots</dt>
-      <dd>позволяет правильно снимать скриншоты с WebGL canvas (устанавливает свойство <strong>preserveDrawingBuffer</strong> контекста WebGL в *true*).</dd>
+      <dd>Позволяет снимать скриншоты окна рендеринга (устанавливает свойство `preserveDrawingBuffer` контекста WebGL в `true`). Включите этот параметр, если собираетесь использовать пазл <a href="manual/ru/puzzles/HTML.html#take_screenshot">take screenshot</a>.</dd>
 
       <dt>fade annotations</dt>
-      <dd>делает аннотации тусклыми, когда они блокируются объектами сцены.</dd>
+      <dd>Делает аннотации полупрозрачными, когда они загораживаются объектами сцены.</dd>
     </dl>
-
-    <img src="files/puzzles/puzzles-init-configure-app.jpg">
-
 
 
     [anchor:setup_preloader]
@@ -61,17 +60,16 @@
     <h3>setup preloader + percentage</h3>
 
     <p>
-    Удаляет прелоадер по умолчанию и передает обратные вызовы событий для обработки событий прогресса прелоадера.
+      Удаляет прелоадер по умолчанию и передает обратные вызовы событий для обработки событий прогресса прелоадера.
     </p>
 
     <img src="files/puzzles/puzzles-init-setup-preloader.jpg">
 
     <p>
-      В следующем примере пользовательский прелоадер представлен с контейнером HTML-элементом (например, &lt;div&gt;) с id "preloader". Внутри него находится другой элемент с id "loading progress" (например, &lt;span&gt;), в котором выводится % загрузки с помощью пазла *persentage*. Кроме того, ширина третьего элемента (например, &lt;div&gt;) динамически изменяется для графической визуализации прогресса загрузки.
+      В следующем примере пользовательский прелоадер представлен с контейнером HTML-элементом (например, &lt;div&gt;) с идентификатором "preloader". Внутри него находится другой элемент с идентификатором "loading progress" (например, &lt;span&gt;), в котором выводится процент загрузки с помощью пазла *percentage*. Кроме того, ширина третьего элемента (например, &lt;div&gt;) динамически изменяется для графической визуализации прогресса загрузки.
     </p>
 
     <img src="files/puzzles/puzzles-init-setup-preloader-example.jpg">
-
 
 
     [anchor:load_font]
@@ -79,15 +77,19 @@
     <h3>load font</h3>
 
     <p>
-    Загружает шрифт из указанного URL и делает его доступным через CSS-правило *font-family*.
+      Загружает шрифт по указанному <a href="manual/ru/puzzles/HTML.html#url_paths">УРЛ-адресу</a> и делает его доступным через CSS-правило *font-family*.
     </p>
 
     <img src="files/puzzles/puzzles-init-load-font.jpg">
 
+    <p>
+      Вы можете использовать этот шрифт в <a href="manual/ru/puzzles/HTML.html">HTML пазлах</a> и генерировать <a href="manual/ru/puzzles/Materials.html#texture_from_text">текстовые текстуры</a> на его основе.
+    </p>
 
-    <h2>Проблема с Пазлами?</h2>
 
-    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
+    <h2>Проблемы с пазлами?</h2>
+
+    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

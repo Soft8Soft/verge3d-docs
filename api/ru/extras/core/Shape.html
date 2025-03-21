@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../../" />
+    <meta charset="utf-8">
+    <base href="../../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Curve] &rarr; [page:CurvePath] &rarr; [page:Path] &rarr;
@@ -12,10 +12,10 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Определяет плоскость произвольной двумерной формы, используя пути с необязательными отверстиями. Может использоваться с [page:ExtrudeGeometry], [page:ShapeGeometry], для получения точек или для получения триангулированных граней. 
+      Определяет плоскость произвольной двумерной формы, используя пути с необязательными отверстиями. Может использоваться с [page:ExtrudeGeometry], [page:ShapeGeometry], для получения точек или для получения триангулированных граней.
     </p>
 
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
 
     <code>
     const heartShape = new v3d.Shape();
@@ -30,18 +30,11 @@
 
     const extrudeSettings = { amount: 8, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
 
-    const geometry = new v3d.ExtrudeBufferGeometry(heartShape, extrudeSettings);
+    const geometry = new v3d.ExtrudeGeometry(heartShape, extrudeSettings);
 
-    const mesh = new v3d.Mesh(geometry, new v3d.MeshPhongMaterial());
+    const mesh = new v3d.Mesh(geometry, new v3d.MeshLambertMaterial());
     </code>
 
-    <h2>Примеры</h2>
-
-    <p>
-    [example:webgl_geometry_shapes geometry / shapes]<br/>
-    [example:webgl_geometry_extrude_shapes geometry / extrude / shapes]<br/>
-    [example:webgl_geometry_extrude_shapes2 geometry / extrude / shapes2]<br/>
-    </p>
 
 
     <h2>Конструктор</h2>
@@ -49,9 +42,9 @@
 
     <h3>[name]([param:Array points])</h3>
     <p>
-    points -- (необязательный) массив [page:Vector2 Vector2s].<br /><br />
+    points — (необязательный) массив [page:Vector2 Vector2s].<br><br>
 
-    Создает фигуру из точек. Первая точка определяет смещение, затем последующие точки добавляются в массив [page:CurvePath.curves curves] как [page:LineCurve LineCurves].<br /><br />
+    Создает фигуру из точек. Первая точка определяет смещение, затем последующие точки добавляются в массив [page:CurvePath.curves curves] как [page:LineCurve LineCurves].<br><br>
 
     Если точки не указаны, создается пустая фигура, а [page:.currentPoint] устанавливается в начало координат.
     </p>
@@ -73,7 +66,7 @@
 
     <h3>[method:Array extractPoints]([param:Integer divisions])</h3>
     <p>
-    divisions -- Точность результата.<br /><br />
+    divisions — Точность результата.<br><br>
 
     Вызовите [page:Curve.getPoints getPoints] на форме и массиве [page:.holes], и верните объект формы:
     <code>
@@ -87,7 +80,7 @@
 
     <h3>[method:Array getPointsHoles]([param:Integer divisions])</h3>
     <p>
-    divisions -- Точность результата.<br /><br />
+    divisions — Точность результата.<br><br>
 
     Получите массив [page:Vector2 Vector2s], представляющий отверстия(holes) в фигуре.
     </p>

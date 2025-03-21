@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Плагин для электронного обучения / SCORM — Софт Эйт Софт</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Пазлы этого плагина используются для создания SCORM-совместимых приложений для электронного обучения.">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body><article>
+
+    <h1>Плагин для электронного обучения / SCORM</h1>
+
+    <p>
+      Этот <a href="manual/ru/puzzles/Plugins.html">плагин</a> поставляется вместе с «Вердж3Д» и содержит пазлы, использующиеся для создания 3Д-веб-приложений, работающих в системах электронного обучения, совместимых со стандартом SCORM. Плагин поддерживает <a href="https://scorm.com/scorm-explained/technical-scorm/run-time/run-time-reference/#section-2" target="_blank">версию 1.2</a> этого стандарта.
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm.jpg" alt="Блоки визуального программирования для электронного обучения">
+
+    <p>
+      Чтобы узнать основы создания курсов электронного обучения, читайте <a href="manual/ru/introduction/Creating-SCORM-Courses.html">соответствующий раздел</a> руководства.
+    </p>
+
+
+    <h2>Содержание</h2>
+
+    [contents]
+
+
+    [anchor:puzzles_reference]
+
+    <h2>Перечень пазлов</h2>
+
+
+    [anchor:lms_initialize]
+
+    <h3>lms initialize</h3>
+
+    <p>
+      Начать сессию коммуникации с системой электронного обучения (LMS).
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-initialize.jpg" alt="Визуальный логический блок для связи со SCORM">
+
+
+    [anchor:lms_finish]
+
+    <h3>lms finish</h3>
+
+    <p>
+      Завершить сессию коммуникации с системой электронного обучения. Вы можете вызывать этот пазл в любой момент по завершению работы с системой SCORM, однако лучше всего включить его в обработчик события страницы "beforeunload".
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-finish.jpg" alt="Блок визуального программирования для окончания работы со SCORM">
+
+
+    [anchor:lms_set_value]
+
+    <h3>lms set value</h3>
+
+    <p>Записать данные в систему электронного обучения посредством использования <a href="manual/ru/puzzles/SCORM.html#data_model_elements">элемента SCORM</a>.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-set-value.jpg" alt="Блок визуального программирования для записи данных в систему электронного обучения">
+
+
+    [anchor:lms_get_value]
+
+    <h3>lms get value</h3>
+
+    <p>Вернуть данные из системы электронного обучения посредством чтения <a href="manual/ru/puzzles/SCORM.html#data_model_elements">элемента SCORM</a>.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-value.jpg" alt="Блок визуального программирования для чтения данных из системы электронного обучения">
+
+
+    [anchor:lms_commit]
+
+    <h3>lms commit</h3>
+
+    <p>Указать системе электронного обучения, что она должна синхронизировать данные, полученные с помощью пазла <a href="manual/ru/puzzles/SCORM.html#lms_set_value">lms set value</a>. Вызов этого пазла не является обязательным, однако он может существенно улучшить отзывчивость системы. В частности в ПО Модл (Moodle) интерфейс обновляется без задержек только в момент коммита.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-commit.jpg" alt="Визуальный блок для синхронизации данных с системой электронного обучения">
+
+
+    [anchor:lms_get_last_error]
+
+    <h3>lms get last error</h3>
+
+    <p>Вернуть код ошибки (закодирован в виде строкового типа) являющейся результатом предыдущей команды SCORM. Значение "0" означает отсутствие ошибки.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-last-error.jpg" alt="Блок визуального программирования для возврата ошибки из системы электронного обучения">
+
+
+    [anchor:lms_get_error_string]
+
+    <h3>lms get error string</h3>
+
+    <p>Вернуть строку, описывающую код ошибки SCORM.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-error-string.jpg" alt="Блок описывающий ошибки SCORM">
+
+
+    [anchor:lms_get_diagnostic]
+
+    <h3>lms get diagnostic</h3>
+
+    <p>Вернуть детальную информацию об ошибке, произошедшей на этапе выполнения команды SCORM.</p>
+
+    <img src="files/puzzles/puzzles-scorm-lms-get-diagnostic.jpg" alt="Вернуть диагностику SCORM с помощью визуального программирования">
+
+
+    [anchor:data_model_elements]
+
+    <h3>data model elements</h3>
+
+    <p>Селектор элементов SCORM, которые могут использоваться в пакете электронного обучения.</p>
+
+    <img src="files/puzzles/puzzles-scorm-data-model-elements.jpg" alt="Блок визуального программирования - селектор элементов системы электронного обучения">
+
+    <p class="note">
+      В терминологии SCORM "элемент" это просто параметр, передаваемый/получаемый из системы электронного обучения. Этот термин не имеет ничего общего с элементами, используемыми в веб-страницах.
+    </p>
+
+    <table>
+      <tr>
+        <th>Элемент</th>
+        <th>Чтение&nbsp;/&nbsp;Запись</th>
+        <th>Описание</th>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_status</td>
+        <td>Чтение&nbsp;и&nbsp;запись</td>
+        <td>Служит для указания статуса прохождения курса. Один из "passed", "completed", "failed", "incomplete", "browsed", "not attempted".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.student_id</td>
+        <td>Только чтение</td>
+        <td>Идентификатор ученика, запустившего курс.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.student_name</td>
+        <td>Только чтение</td>
+        <td>Имя ученика.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_location</td>
+        <td>Чтение и запись</td>
+        <td>Указатель на текущее место из курса, в котором в данный момент происходит обучение.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.credit</td>
+        <td>Только чтение</td>
+        <td>Служит для указания о том, будет ли зачёт в данном уроке. Один из "credit", "no-credit".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.entry</td>
+        <td>Только чтение</td>
+        <td>Asserts whether the learner has previously accessed the lesson. Один из "ab-initio", "resume", "".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score_children</td>
+        <td>Только чтение</td>
+        <td>Список поддерживаемых элементов SCORM.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.raw</td>
+        <td>Чтение и запись</td>
+        <td>Число указывающее на оценку ученика относительно интервала, ограниченного значениями min и max.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.max</td>
+        <td>Чтение и запись</td>
+        <td>Максимальное значение оценки.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.score.min</td>
+        <td>Чтение и запись</td>
+        <td>Минимальное значение оценки.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.total_time</td>
+        <td>Только чтение</td>
+        <td>Суммарное время потраченное на изучение курса.</td>
+      </tr>
+      <tr>
+        <td>cmi.core.lesson_mode</td>
+        <td>Только чтение</td>
+        <td>Указывает на режим прохождения урока. Один из "browse", "normal", "review".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.exit</td>
+        <td>Только запись</td>
+        <td>Указание на причину отказа от урока. Один из "time-out", "suspend", "logout", "".</td>
+      </tr>
+      <tr>
+        <td>cmi.core.session_time</td>
+        <td>Только запись</td>
+        <td>Время потраченное учеником на текущую сессию обучения.</td>
+      </tr>
+      <tr>
+        <td>cmi.core._children</td>
+        <td>Только чтение</td>
+        <td>Список поддерживаемых элементов SCORM.</td>
+      </tr>
+    </table>
+
+    <p>
+      Для простоты пазл поддерживает лишь базовые элементы SCORM ("core"). Если вам нужно использовать другие элементы (включая нестандартные) в пазлах <a href="manual/ru/puzzles/SCORM.html#lms_set_value">lms set value</a>/<a href="manual/ru/puzzles/SCORM.html#lms_get_value">lms get value</a>, используйте пазл <a href="manual/ru/puzzles/Text.html#text">text</a>:
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm-data-model-elements-custom.jpg" alt="Визуальные блоки программирования для выставления нестандартных значений в SCORM">
+
+
+    [anchor:pack_add_item]
+
+    <h3>pack add item</h3>
+
+    <p>Добавить подраздел в SCORM пакет.</p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-add-item.jpg" alt="Визуальный блок программирования для добавления подразделов в курс SCORM">
+
+    <p>
+      Этот пазл служит для определения многостраничных курсов, которые запускают разный контент в зависимости от выбора пользователя.
+    </p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-add-item-example.jpg" alt="Пример блоков мультистраничного курса">
+
+    <p>
+      Чтобы узнать какой подраздел выбран в настоящий момент используйте пазл <a href="manual/ru/puzzles/SCORM.html#pack_get_item_id">pack get item ID</a>.
+    </p>
+
+
+    [anchor:pack_get_item_id]
+
+    <h3>pack get item ID</h3>
+
+    <p>Узнать идентификатор выбранного подраздела SCORM-курса.</p>
+
+    <img src="files/puzzles/puzzles-scorm-pack-get-item-id.jpg" alt="Получение текущего подраздела SCORM с помощью визуального программирования">
+
+    <p>
+      Галочка "in parent doc" должна быть указана, если текущее приложение включено в другую <strong>.html</strong>-страницу посредством использования HTML-тега <strong>iframe</strong>.
+    </p>
+
+
+    <h2>Проблемы с пазлами?</h2>
+
+    <p>Спрашивайте <a href="https://www.soft8soft.com/forums/" target="_blank">на форуме</a>!</p>
+
+  </article></body>
+</html>

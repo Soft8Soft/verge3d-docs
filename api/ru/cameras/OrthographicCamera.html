@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Object3D] &rarr; [page:Camera] &rarr;
@@ -12,103 +12,119 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Камера, использующая  [link:https://en.wikipedia.org/wiki/Orthographic_projection orthographic projection].<br /><br />
-
-      В этом режиме проекции размер объекта на отрендеренном изображении остается постоянным независимо от расстояния до камеры.<br /><br />
-
-      Это может быть полезно, в частности, для рендеринга 2D-сцен и элементов пользовательского интерфейса.
+      Камера, использующая <a href="https://ru.wikipedia.org/wiki/%D0%9E%D1%80%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%86%D0%B8%D1%8F" target="_blank">ортографическую проекцию</a>.
+    </p>
+    <p>
+      В этом режиме проекции размер объекта на отрендеренном изображении остается постоянным независимо от расстояния до камеры.
+    </p>
+    <p>
+      Это может быть полезно, в частности, для рендеринга 2Д-сцен и элементов пользовательского интерфейса.
     </p>
 
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
 
     <code>
-    const camera = new v3d.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);
-    scene.add(camera);
+    const aspect = app.getWidth() / app.getHeight();
+    const height = 3;
+    const width = height * aspect;
+
+    const camera = new v3d.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 1, 1000);
+    camera.position.z = 10;
+
+    app.scene.add(camera);
+    app.setCamera(camera);
     </code>
 
-    <h2>Примеры</h2>
-
-    <p>
-      [example:webgl_camera camera]<br />
-      [example:webgl_interactive_cubes_ortho interactive / cubes / ortho]<br />
-      [example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic]<br />
-      [example:webgl_postprocessing_advanced postprocessing / advanced]<br />
-      [example:webgl_postprocessing_dof2 postprocessing / dof2]<br />
-      [example:webgl_postprocessing_godrays postprocessing / godrays]<br />
-      [example:webgl_rtt rtt]<br />
-      [example:webgl_shaders_tonemapping shaders / tonemapping]<br />
-      [example:webgl_shadowmap shadowmap]
-    </p>
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]([param:Number left], [param:Number right], [param:Number top], [param:Number bottom], [param:Number near], [param:Number far])</h3>
+    <ul class="params">
+      <li>[page:Float left] — левая плоскость пирамиды обзора камеры.</li>
+      <li>[page:Float right] — правая плоскость пирамиды обзора камеры.</li>
+      <li>[page:Float top] — верхняя плоскость пирамиды обзора камеры.</li>
+      <li>[page:Float bottom] — нижняя плоскость пирамиды обзора камеры.</li>
+      <li>[page:Float near] — ближняя плоскость пирамиды обзора камеры.</li>
+      <li>[page:Float far] — дальняя плоскость пирамиды обзора камеры.</li>
+    </ul>
     <p>
-    left — Левая плоскость фрустума камеры.<br />
-    right — Правая плоскость фрустума камеры.<br />
-    top — Верхняя плоскость фрустума камеры.<br />
-    bottom — Нижняя плоскость фрустума камеры.<br />
-    near — Ближняя плоскость фрустума камеры.<br />
-    far — Дальняя плоскость фрустума камеры.<br /><br />
-
-    Вместе они определяют [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum].
+      Вместе они определяют [link:https://en.wikipedia.org/wiki/Viewing_frustum усечённую пирамиду обзора] камеры.
     </p>
 
 
     <h2>Свойства</h2>
     <p>
-      Общие свойства смотрите в базовом классе [page:Camera].<br>
-      Обратите внимание, чтобы изменения, в большинстве из этих свойств, вступили в силу после внесения, вам нужно будет вызвать
-      [page:OrthographicCamera.updateProjectionMatrix .updateProjectionMatrix], 
+      Смотрите свойства базового класса [page:Camera]. Обратите внимание, что после изменения большинства описанных ниже свойств, вам потребуется вызывать метод [page:OrthographicCamera.updateProjectionMatrix .updateProjectionMatrix], чтобы они вступили в силу.
     </p>
 
     <h3>[property:Float bottom]</h3>
-    <p>Нижняя плоскость фрустума камеры.</p>
+    <p>
+      Нижняя плоскость пирамиды обзора камеры.
+    </p>
 
     <h3>[property:Float far]</h3>
     <p>
-      Дальняя плоскость фрустума камеры. По умолчанию *2000*.<br /><br />
+      Дальняя плоскость пирамиды обзора камеры. По умолчанию `2000`.
+    </p>
+    <p>
+      Значение должно быть больше, чем текущее значение плоскости [page:.near near].
+    </p>
 
-      Должно быть больше, чем текущее значение плоскости [page:.near near].
+    <h3>[property:Boolean isOrthographicCamera]</h3>
+    <p>
+      Указывает, что объект является экземпляром класса [name]. Только для чтения.
     </p>
 
     <h3>[property:Float left]</h3>
-    <p>Левая плоскость фрустума камеры.</p>
+    <p>
+      Левая плоскость пирамиды обзора камеры.
+    </p>
 
     <h3>[property:Float near]</h3>
     <p>
-      Ближняя плоскость фрустума камеры. По умолчанию *0.1*.<br /><br />
-
-      Диапазон допустимых значений - от 0 до текущего значения плоскости [page:.far far]. Обратите внимание, что, в отличие от [page:PerspectiveCamera], *0* является допустимым значением для ближней плоскости ортографической камеры.
+      Ближняя плоскость пирамиды обзора камеры. По умолчанию `0.1`.
+    </p>
+    <p>
+      Диапазон допустимых значений: от `0` до текущего значения плоскости [page:.far far]. Обратите внимание, что, в отличие от [page:PerspectiveCamera перспективной камеры], `0` является допустимым значением для ближней плоскости ортографической камеры.
     </p>
 
     <h3>[property:Float right]</h3>
-    <p>Правая плоскость фрустума камеры.</p>
+    <p>
+      Правая плоскость пирамиды обзора камеры.
+    </p>
 
     <h3>[property:Float top]</h3>
-    <p>Верхнаяя плоскость фрустума камеры.</p>
+    <p>
+      Верхняя плоскость пирамиды обзора камеры.
+    </p>
 
     <h3>[property:Object view]</h3>
-    <p>Устанавливается [page:OrthographicCamera.setViewOffset setViewOffset]. По умолчанию *null*.</p>
+    <p>
+      Устанавливается методом [page:OrthographicCamera.setViewOffset setViewOffset]. По умолчанию `null`.
+    </p>
 
-    <h3>[property:number zoom]</h3>
-    <p>Получает или устанавливает коэффициент масштабирования камеры. По умолчанию *1*.</p>
+    <h3>[property:Float zoom]</h3>
+    <p>
+      Получает или устанавливает коэффициент масштабирования камеры. По умолчанию `1`.
+    </p>
+
 
     <h2>Методы</h2>
-    <p>Общие методы смотрите в базовом классе [page:Camera].</p>
-
-    <h3>[method:null setViewOffset]([param:Float fullWidth], [param:Float fullHeight], [param:Float x], [param:Float y], [param:Float width], [param:Float height])</h3>
     <p>
-    fullWidth — полная ширина многоракурсной установки<br />
-    fullHeight — полная высота многоракурсной установки<br />
-    x — горизонтальное смещение подкамеры<br />
-    y — вертикальное смещение подкамеры<br />
-    width — ширина подкамеры<br />
-    height — высота подкамеры<br /><br />
+      Смотрите методы базового класса [page:Camera].
+    </p>
 
-    Устанавливает смещение в большем [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum].
-    Это полезно для многооконных или многомониторных настроек. Пример использования смотрите в [page:PerspectiveCamera.setViewOffset PerspectiveCamera].
+    <h3>[method:undefined setViewOffset]([param:Float fullWidth], [param:Float fullHeight], [param:Float x], [param:Float y], [param:Float width], [param:Float height])</h3>
+    <ul class="params">
+      <li>[page:Float fullWidth] — полная ширина многообзорной конфигурации</li>
+      <li>[page:Float fullHeight] — полная высота многообзорной конфигурации</li>
+      <li>[page:Float x] — горизонтальное смещение подкамеры</li>
+      <li>[page:Float y] — вертикальное смещение подкамеры</li>
+      <li>[page:Float width] — ширина подкамеры</li>
+      <li>[page:Float height] — высота подкамеры</li>
+    </ul>
+    <p>
+      Устанавливает смещение в большей [link:https://en.wikipedia.org/wiki/Viewing_frustum пирамиде обзора]. Это полезно для создания многооконных или многомониторных конфигураций. Пример использования смотрите в [page:PerspectiveCamera.setViewOffset PerspectiveCamera].
     </p>
 
     <h3>[method:null clearViewOffset]()</h3>
@@ -121,12 +137,13 @@
       Обновляет матрицу проекции камеры. Должно вызываться после любого изменения параметров.
     </p>
 
-    <h3>[method:Object toJSON]([param:Object meta])</h3>
+
+    <h2>Пазлы</h2>
     <p>
-      meta -- объект, содержащий метаданные, такие как текстуры или изображения в дочерних объектах.<br />
-      Конвертируйте камеру в формат Verge3D [link:https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 JSON Object/Scene format].
+      Смотрите <a href="manual/ru/puzzles/Camera.html">пазлы камеры</a>, позволяющие управлять камерой без необходимости писать код.
     </p>
 
     [sourceHint]
+
   </body>
 </html>

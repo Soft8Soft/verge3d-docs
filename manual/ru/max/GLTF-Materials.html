@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D для 3ds Max: glTF Материалы (PBR совместимый с glTF 2.0) - Soft8Soft</title>
+    <title>Вердж3Д для 3дс Макса: glTF-материалы (PBR-совместимый glTF 2.0) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как настроить glTF-совместимые PBR-материалы в 3ds Max для использования в Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Как настроить glTF-совместимые PBR-материалы в 3дс Макс для использования в Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body><article>
 
-    <h1>glTF Материалы (PBR совместимый с glTF 2.0) / 3ds Max</h1>
+    <h1>glTF-материалы (PBR-совместимый glTF 2.0) / 3дс Макс</h1>
 
     <p>
-    Если вам <a href="manual/ru/introduction/FAQ.html#gltf_materials">по какой-то причине</a> требуется, чтобы материал был совместим с форматом glTF 2.0, вы можете использовать простые настройки на основе шейдерной ноды *Principled BSDF*.
+      Если вам <a href="manual/ru/introduction/FAQ.html#gltf_materials">по какой-то причине</a> требуется, чтобы материал был совместим с форматом glTF 2.0, вы должны использовать упрощённую структуру нод. Эта структура должна состоять из ограниченного числа шейдерных нод «3дс Макса», как это указано ниже.
     </p>
 
-    <img src="files/physical-material/phmat_00.png">
+    <figure>
+      <img src="files/material-system-max/gltf-physical-material-example.jpg" alt="Пример сцены, выполненной с использованием glTF-материалов">
+      <figcaption>Пример сцены, выполненной с использованием glTF-материалов.</figcaption>
+    </figure>
+
+    [demo:gltf_compat Чайник]
+
 
     <h2>Содержание</h2>
 
@@ -28,110 +41,214 @@
     <h2>Настройки</h2>
 
     <p>
-    Добавьте шейдерную ноду <b>Physical Material</b> следующим образом: перейдите в раздел <b>Materials/Map Browser</b> и выберите <b>Physical Material</b> из списка материалов <b>General</b>.
+      Добавьте шейдерную ноду <strong>Physical Material</strong> следующим образом: перейдите в раздел <strong>Materials/Map Browser</strong> и выберите <strong>Physical Material</strong> из списка материалов <strong>General</strong>.
     </p>
 
     <img src="files/physical-material/phmat_02.png">
 
     <p>
-    Затем вы можете подключить к <b>Physical Material</b> текстурную ноду, как показано ниже. Обратите внимание, что все текстуры являются необязательными, и любую из них можно смело опустить. 
+      Затем вы можете подключить к <strong>Physical Material</strong> текстурную ноду, как показано ниже. Обратите внимание, что все текстуры являются необязательными, и любую из них можно смело опустить.
     </p>
 
     <img src="files/physical-material/phmat_01.png">
 
     <ul>
       <li>
-        Подключите текстуру <b>Ambient Occlusion</b> ко входу <b>Base Weight Map</b>. Для лучшей согласованности между вьюпортом 3ds Max и Verge3D текстуру <b>Ambient Occlusion</b> можно также подключить ко входу <b>Refl Color Map</b>, но это не обязательно.
+        Подключите текстуру <strong>Ambient Occlusion</strong> ко входу <strong>Base Weight Map</strong>. Для лучшей согласованности между вьюпортом 3дс Макс и «Вердж3Д» текстуру <strong>Ambient Occlusion</strong> можно также подключить ко входу <strong>Refl Color Map</strong>, но это не обязательно.
       </li>
       <li>
-      Подлючите текстуру <b>Base Color</b> ко входу <b>Base Color Map</b>.
+        Подключите текстуру <strong>Base Color</strong> ко входу <strong>Base Color Map</strong>.
       </li>
       <li>
-      Подлючите текстуру <b>Roughness</b> ко входу <b>Roughness Map</b>.
+        Подключите текстуру <strong>Roughness</strong> ко входу <strong>Roughness Map</strong>.
       </li>
       <li>
-      Подлючите текстуру <b>Metallic</b> ко входу <b>Metalness Map</b>.
+        Подключите текстуру <strong>Metallic</strong> ко входу <strong>Metalness Map</strong>.
       </li>
       <li>
-      Подлючите текстуру <b>Normal</b> к ноде <b>Normal Map</b>, а затем к ноде <b>Physical Material</b> ко входу <b>Bump Map</b>. После чего, вам следует установить значение <b>Bump Map Amount</b> в панели <b>Special Map</b> настроек <b>Physical Material</b> равным 1.0.
+        Подключите текстуру <strong>Normal</strong> к ноде <strong>Normal Map</strong>, а затем к ноде <strong>Physical Material</strong> ко входу <strong>Bump Map</strong>. После чего, вам следует установить значение <strong>Bump Map Amount</strong> в панели <strong>Special Map</strong> настроек <strong>Physical Material</strong> равным 1.0.
       </li>
       <li>
-      Подключите текстуру <b>Emission</b> ко входу <b>Emission Color Map</b>. После чего, вам следует установить значение emission равным 1.0 в панели <b>Basic Parameters</b> настроек <b>Physical Material</b>.
+        Подключите текстуру <strong>Emission</strong> ко входу <strong>Emission Color Map</strong>. После чего, вам следует установить значение emission равным 1.0 в панели <strong>Basic Parameters</strong> настроек <strong>Physical Material</strong>.
       </li>
       <li>
-      Карта <b>Transparency</b> будет взята из Альфа-канала текстуры <b>Base Color</b>.
+        Карта <strong>Transparency</strong> будет взята из Альфа-канала текстуры <strong>Base Color</strong>.
       </li>
     </ul>
 
     <img src="files/physical-material/phmat_03.png">
 
-
-    [anchor:color_space]
-
-    <h2>Коррекция Цветового Пространства и Гаммы</h2>
+    <h3>Текстура прозрачности</h3>
 
     <p>
-      Для правильной визуализации необходимо учитывать цветовое пространство для изображений. Все изображения, кроме текстур <b>Base Color</b> и <b>Emission</b>, должны быть представлены в линейном цветовом пространстве. Для этого выберите <b>Override Gamma</b> со значением 1.0 в <b>Gamma Preferences</b>, затем откройте изображение в диалоговом окне <b>Open Image</b> (как показано ниже).
-    </p>
-
-    <img src="files/physical-material/phmat_04.png">
-
-    <p>
-    Текстуры <b>Base Color</b> и <b>Emission</b> должны быть открыты в цветовом пространстве sRGB color space (с Gamma 2.2). Для этого оставьте значение <b>Automatic</b> в настройках gamma preferences диалогового окна <b>Open Image</b>.
-    </p>
-
-    <img src="files/physical-material/phmat_05.png">
-
-
-    [anchor:transparency_texture]
-
-    <h2>Текстура Прозрачности</h2>
-
-    <p>
-    Движок будет автоматическии использовать <b>Alpha</b> канал (если он есть) из текстуры <b>Base Color</b> в качестве карты прозрачности. Чтобы сделать прозрачность видимой во вьюпорте 3ds Max, подключите <b>Alpha</b> канал текстуры <b>Base Color</b> ко входу <b>Transparency Color Map</b>.
+      Движок будет автоматическии использовать <strong>Alpha</strong> канал (если он есть) из текстуры <strong>Base Color</strong> в качестве карты прозрачности. Чтобы сделать прозрачность видимой во вьюпорте 3дс Макс, подключите <strong>Alpha</strong> канал текстуры <strong>Base Color</strong> ко входу <strong>Transparency Color Map</strong>.
     </p>
 
     <img src="files/physical-material/phmat_06.png">
 
     <p>
-    Также в <b>Preferences</b> текстуры, в панели <b>Bitmap Parameters</b> следует установить <b>Mono Chanel Output</b> в <b>Alpha</b> и <b>RGB Channel Output</b> в <b>Alpha as Gray</b>.
+      Также в <strong>Preferences</strong> текстуры, в панели <strong>Bitmap Parameters</strong> следует установить <strong>Mono Chanel Output</strong> в <strong>Alpha</strong> и <strong>RGB Channel Output</strong> в <strong>Alpha as Gray</strong>.
     </p>
 
     <img src="files/physical-material/phmat_07.png">
 
 
-    [anchor:exporting_substance]
+    [anchor:color_space]
 
-    <h2>Экспорт Текстур из Substance Painter</h2>
-
-    <p>Модели, вместе с запечёнными картами нормалей и окклюзии (если они есть), могут быть открыты в Substance Painter через формат OBJ.</p>
-
-    <img src="files/physical-material/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
-
-    <p>На выходе в этой программе создаются три карты: base color/transparency, occlusion/roughness/metallic и normal.</p>
-
-    <img src="files/physical-material/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
+    <h2>Цветокоррекция и гамма</h2>
 
     <p>
-      Для упрощения экспорта текстур из Substance Painter и достижения максимального потенциала при использовании движка Verge3D, мы рекомендуем использовать <a href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D export preset</a>. Поместите этот файл с пресетом в папку *export-presets*, которую можно найти, используя следующий путь <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> (если папки нет, создайте её самостоятельно).
+      Для правильной визуализации необходимо учитывать цветовое пространство для изображений. Все изображения, кроме текстур <strong>Base Color</strong> и <strong>Emission</strong>, должны быть представлены в линейном цветовом пространстве. Для этого выберите <strong>Override Gamma</strong> со значением 1.0 в <strong>Gamma Preferences</strong>, затем откройте изображение в диалоговом окне <strong>Open Image</strong> (как показано ниже).
+    </p>
+
+    <img src="files/physical-material/phmat_04.png">
+
+    <p>
+      Текстуры <strong>Base Color</strong> и <strong>Emission</strong> должны быть открыты в цветовом пространстве sRGB color space (с Gamma 2.2). Для этого оставьте значение <strong>Automatic</strong> в настройках gamma preferences диалогового окна <strong>Open Image</strong>.
+    </p>
+
+    <img src="files/physical-material/phmat_05.png">
+
+
+    [anchor:exporting_substance]
+
+    <h2>Экспорт текстур из «Сабстанс Пейнтера»</h2>
+
+    <p>
+      Модели, вместе с запечёнными картами нормалей и окклюзии (если они есть), могут быть открыты в ПО «Сабстанс Пейнтер» через формат OBJ.
+    </p>
+
+    <img src="files/physical-material/substance_screenshot.jpg" style="max-width: 819px;">
+
+    <p>
+      На выходе в этой программе создаются три карты: base color/transparency, occlusion/roughness/metallic и normal.
+    </p>
+
+    <img src="files/physical-material/pbr_texture_set_preview.jpg" style="max-width: 819px;">
+
+    <p>
+      Для упрощения экспорта текстур из «Сабстанс Пейнтер» и достижения максимального потенциала при использовании движка «Вердж3Д», мы рекомендуем использовать <a href="files/physical-material/Verge3D_for_3ds_Max.spexp" target="_blank">Verge3D export preset</a>. Поместите этот файл с пресетом в папку *export-presets*, которую можно найти, используя следующий путь <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> (если папки нет, создайте её самостоятельно).
     </p>
 
     <img src="files/physical-material/phmat_09.png">
 
-    <p>При экспорте текстур из Substance Painter, в диалоговом окне эксопрта выберете *Verge3d for Blender*, чтобы он сгенерировал текстуры совместимые с форматом glTF 2.0 standard, на котором основан Verge3D.</p>
+    <p>
+      При экспорте текстур из «Сабстанс Пейнтера», в диалоговом окне эксопрта выберите *Verge3D for 3ds Max*, чтобы он сгенерировал текстуры совместимые с форматом glTF 2.0.
+    </p>
+
+
+    [anchor:gltf_material]
+
+    <h2>Другой способ, основанный на материале glTF Material</h2>
+
+    <p>
+      «Вердж3Д» также поддерживает материалы *glTF Material*, конвертируя их сразу в glTF 2.0-совместимую PBR модель.
+    </p>
+
+    <p>
+      Чтобы добавить материал <strong>glTF Material</strong> перейдите в раздел <strong>Materials/Map Browser</strong> и выберете <strong>glTF Material</strong> из списка материалов <strong>General</strong>.
+    </p>
+
+    <img src="files/gltf-materials-max/gltf_mat_in_map_browser.jpg" style="max-width: 540px;">
+
+    <p>
+      Затем подключайте текстурные ноды как показано ниже, учитывая что любая из нижеперечисленных текстур может отсутствовать.
+    </p>
+
+    <img src="files/gltf-materials-max/gltf_mat_example_00.jpg" style="max-width: 713px;">
+
+    <ol>
+      <li>
+        Текстура <strong>Base Color</strong> подключается ко входу <strong>Base Color Map</strong>.
+      </li>
+      <li>
+        Текстура <strong>Transparency</strong> подключается ко входу <strong>Alpha Map</strong>. Если же нет, значение альфа-канала материла берётся из текстуры, подключённой к входу <strong>Base Color Map</strong>.
+      </li>
+      <li>
+        Текстура <strong>Metallic</strong> подключается ко входу <strong>Metalness Map</strong>.
+      </li>
+      <li>
+        Текстура <strong>Roughness</strong> подключается ко входу <strong>Roughness Map</strong>.
+      </li>
+      <li>
+        Текстура <strong>Normal</strong> подключается ко входу <strong>Normal Map</strong>.
+      </li>
+      <li>
+        Текстура <strong>Occlusion</strong> подключается ко входу <strong>Occlusion (AO) Map</strong>.
+      </li>
+    </ol>
+
+    <p>
+      Вы также можете использовать расширения glTF 2.0, включая соответствующий переключатель:
+    </p>
+
+    <img src="files/gltf-materials-max/gltf_mat_extension_settings.jpg">
+
+    <p>
+      Вы можете экспортировать любое из них, однако «Вердж3Д» поддерживает только *Unlit Material* (материал, цвет которого не зависит от освещения).
+    </p>
+
+
+    [anchor:using_usd_preview_material]
+
+    <h2>Другой способ, основанный на материале Usd Preview Surface</h2>
+
+    <p>
+      Вы можете использовать эти материалы, чтобы сделать «3дс Макс»-сцену совместимой одновременно с форматами glTF 2.0 и USD. Вам может потребоваться установить плагин "USD for 3ds Max", доступный в разделе "Product Updates" аккаунта на сайте «Автодеска».
+    </p>
+
+    <p>
+      Назначьте материал <strong>Usd Preview Surface</strong>. «Вердж3Д» поддерживает следующие его настройки:
+    </p>
+
+    <ul>
+      <li>Diffuse Color </li>
+      <li>Metallic </li>
+      <li>Roughness</li>
+      <li>Occlusion</li>
+      <li>Normal Map</li>
+      <li>Emissive Color</li>
+      <li>Opacity</li>
+      <li>Opacity Threshold</li>
+    </ul>
+
+    <p>
+      Затем подключайте текстурные ноды как показано ниже, учитывая что любая из нижеперечисленных текстур может отсутствовать.
+    </p>
+
+    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" style="max-width: 750px;">
+
+    <ol>
+      <li>
+        Текстура <strong>Diffuse Color</strong> подключается ко входу <strong>Diffuse Color Map</strong>.
+      </li>
+      <li>
+        Текстура <strong>Metallic</strong> подключается ко входу <strong>Metallic Map</strong>.
+      </li>
+      <li>
+        Текстура <strong>Roughness</strong> подключается ко входу <strong>Roughness Map</strong>.
+      </li>
+      <li>
+        Текстура  <strong>Occlusion</strong> подключается ко входу <strong>Occlusion Map</strong>.
+      </li>
+      <li>
+        Текстура  <strong>Normal</strong> подключается ко входу <strong>Normal Map</strong>.
+      </li>
+    </ol>
 
 
     [anchor:export_to_gltf_in_runtime]
 
-    <h2>Экспортируйте в glTF во время запуска</h2>
+    <h2>Экспорт в glTF во время выполнения</h2>
 
-    <p>С пазлом *export to gltf* вы можете экспортировать свои модели или целую сцену в реальном времени. Затем вы можете скачать экспортированную модель или загрузить на сервер для постоянного хранения. Ознакомьтесь с данным пазлом подробнее по <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">ссылке</a>.</p>
-
+    <p>
+      С пазлом *export to gltf* вы можете экспортировать свои модели или целую сцену в реальном времени. Затем вы можете скачать экспортированную модель или загрузить на сервер для постоянного хранения. Ознакомьтесь с данным пазлом подробнее по <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">ссылке</a>.
+    </p>
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

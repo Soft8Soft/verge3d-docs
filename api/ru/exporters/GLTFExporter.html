@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p class="desc">
+      Экпортирует ресурсы в формате glTF 2.0.
+    </p>
+
+    <h2>Расширения</h2>
+
+    <p>
+      GLTFExporter поддерживает следующее расширение glTF 2.0:
+    </p>
+
+    <ul>
+      <li>KHR_materials_unlit</li>
+    </ul>
+
+    <h2>Пример</h2>
+
+    <code>
+    const exporter = new v3d.GLTFExporter();
+
+    exporter.parse(
+        app.scene,
+        function(gltf) {
+            console.log(gltf);
+        },
+        function(error) {
+            console.log('Ошибка экспорта в glTF!');
+        },
+        options
+    );
+    </code>
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]()</h3>
+
+    <p>
+      Создаёт новый [name].
+    </p>
+
+    <h2>Методы</h2>
+
+    <h3>[method:undefined parse]([param:Object3D|Array input], [param:Function onCompleted], [param:Function onError], [param:Object options])</h3>
+
+    <dl class="params">
+      <dt>[page:Object input]</dt>
+      <dd>Сцена или объекты для экспорта.</dd>
+
+      <dt>[page:Function onCompleted]</dt>
+      <dd>Обработчик, который будет вызван по окончанию экспорта. На вход обработчика подаётся сгенерированный JSON-файл glTF, либо двоичный [page:ArrayBuffer].</dd>
+
+      <dt>[page:Function onError]</dt>
+      <dd>Обработчик, который будет вызван в случае ошибок генерации glTF-ресурса.</dd>
+
+      <dt>[page:Options options]</dt>
+      <dd>
+        Опции экспорта:
+        <ul>
+          <li>[page:Boolean trs] — экспортировать позицию/поворот/масштабирование вместо матрицы объекта. По умолчанию `false`.</li>
+          <li>[page:Boolean onlyVisible] — экспортировать только видимые объекты. По умолчанию `true`.</li>
+          <li>[page:Boolean binary] — экспортировать в двоичный формат (.glb), возвращает [page:ArrayBuffer]. По умолчанию `false`.</li>
+          <li>[page:Integer maxTextureSize] — ограничивает максимальный размер изображений (используется одновременно для ширины и высоты). По умолчанию `Infinity`.</li>
+          <li>[page:Array animations] — массив [page:AnimationClip AnimationClip]. Список анимаций, включаемых в экспортированный ресурс.</li>
+          <li>[page:Boolean includeCustomExtensions] — экспортировать пользовательские glTF-расширения, находящиеся в свойстве `userData.gltfExtensions` объектов. По умолчанию `false`.</li>
+        </ul>
+      </dd>
+    </dl>
+
+    <p>
+      Экспортирует сцену/объекты в формат glTF 2.0.
+    </p>
+
+    <h3>[method:Promise parseAsync]([param:Object3D|Array input], [param:Object options])</h3>
+
+    <p>
+      Экспортирует сцену/объекты в формат glTF 2.0.
+    </p>
+    <p>
+      Аналогичен методу [page:.parse](), но возвращает объект-промис вместо вызова обработчиков.
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>

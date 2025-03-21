@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>[name]</h1>
 
     <p class="desc">
-      Этот класс предназначен для помощи в работе с [link:https://en.wikipedia.org/wiki/Ray_casting raycasting]. Raycasting используется для для захвата мыши (определение объектов в 3d пространстве, над которыми находится мышь) среди прочего. 
+      Этот класс предназначен для помощи в работе с [link:https://en.wikipedia.org/wiki/Ray_casting raycasting]. Raycasting используется для для захвата мыши (определение объектов в 3d пространстве, над которыми находится мышь) среди прочего.
     </p>
 
-    <h2>Пример Кода</h2>
+    <h2>Пример</h2>
     <code>
     const raycaster = new v3d.Raycaster();
     const mouse = new v3d.Vector2();
@@ -52,31 +52,18 @@
 
     </code>
 
-    <h2>Примеры</h2>
-
-    <p>
-      [example:webgl_interactive_cubes Raycasting to a Mesh]<br />
-      [example:webgl_interactive_cubes_ortho Raycasting to a Mesh in using an OrthographicCamera]<br />
-      [example:webgl_interactive_buffergeometry Raycasting to a Mesh with BufferGeometry]<br />
-      [example:webgl_instancing_raycast Raycasting to a InstancedMesh]<br />
-      [example:webgl_interactive_lines Raycasting to a Line]<br />
-      [example:webgl_interactive_raycasting_points Raycasting to Points]<br />
-      [example:webgl_geometry_terrain_raycast Terrain raycasting]<br />
-      [example:webgl_interactive_voxelpainter Raycasting to paint voxels]<br />
-      [example:webgl_raycast_texture Raycast to a Texture]
-    </p>
 
     <h2>Конструктор</h2>
 
     <h3>[name]([param:Vector3 origin], [param:Vector3 direction], [param:Float near], [param:Float far]) {</h3>
     <p>
-    [page:Vector3 origin] — Вектор начала координат, из которого отбрасывается луч.<br />
-    [page:Vector3 direction] — Вектор направления, задающий направление луча. Должен быть нормализован.<br />
-    [page:Float near] — Все возвращенные результаты находятся дальше, чем near. Near не может быть отрицательным. Значение по умолчанию 0.<br />
+    [page:Vector3 origin] — Вектор начала координат, из которого отбрасывается луч.<br>
+    [page:Vector3 direction] — Вектор направления, задающий направление луча. Должен быть нормализован.<br>
+    [page:Float near] — Все возвращенные результаты находятся дальше, чем near. Near не может быть отрицательным. Значение по умолчанию 0.<br>
     [page:Float far] — Все возвращенные результаты ближе, чем far. Far не может быть меньше, чем near. Значение по умолчанию - Infinity(Бесконечность).
     </p>
     <p>
-      Это создает новый объект raycaster.<br />
+      Это создает новый объект raycaster.<br>
     </p>
 
 
@@ -84,7 +71,7 @@
 
     <h3>[property:Float far]</h3>
     <p>
-      Коэффициент дальности луча. Это значение указывает, какие объекты могут быть отброшены на основании расстояния. Это значение не должно быть отрицательным и должно быть больше, чем свойство near. 
+      Коэффициент дальности луча. Это значение указывает, какие объекты могут быть отброшены на основании расстояния. Это значение не должно быть отрицательным и должно быть больше, чем свойство near.
     </p>
 
     <h3>[property:Float near]</h3>
@@ -135,7 +122,7 @@
 
     <h3>[method:null set]([param:Vector3 origin], [param:Vector3 direction])</h3>
     <p>
-    [page:Vector3 origin] — Вектор начала координат, из которого отбрасывается луч.<br />
+    [page:Vector3 origin] — Вектор начала координат, из которого отбрасывается луч.<br>
     [page:Vector3 direction] — Нормализованный вектор направления, задающий направление луча.
     </p>
     <p>
@@ -144,7 +131,7 @@
 
     <h3>[method:null setFromCamera]([param:Vector2 coords], [param:Camera camera])</h3>
     <p>
-    [page:Vector2 coords] — 2D координаты мыши в нормализованных координатах устройства (NDC) --- компоненты X и Y должны быть в пределах от -1 до 1.<br />
+    [page:Vector2 coords] — 2D координаты мыши в нормализованных координатах устройства (NDC) --- компоненты X и Y должны быть в пределах от -1 до 1.<br>
     [page:Camera camera] — камера, из которой должен исходить луч
     </p>
     <p>
@@ -153,8 +140,8 @@
 
     <h3>[method:Array intersectObject]([param:Object3D object], [param:Boolean recursive], [param:Array optionalTarget])</h3>
     <p>
-    [page:Object3D object] — Объект, который нужно проверить на пересечение с лучом.<br />
-    [page:Boolean recursive] — Если true, то проверяются также все потомки. В противном случае проверяется только пересечение с объектом. По умолчанию - false.<br />
+    [page:Object3D object] — Объект, который нужно проверить на пересечение с лучом.<br>
+    [page:Boolean recursive] — Если true, то проверяются также все потомки. В противном случае проверяется только пересечение с объектом. По умолчанию - false.<br>
     [page:Array optionalTarget] — (необязательно) цель для установки результата. В противном случае создается новый [page:Array]. Если задан, то перед каждым вызовом необходимо очищать этот массив (т.е. array.length = 0;).
     </p>
     <p>
@@ -164,13 +151,13 @@
         [{ distance, point, face, faceIndex, object }, ...]
     </code>
     <p>
-      [page:Float distance] – расстояние между началом луча и точкой пересечения<br />
-      [page:Vector3 point] – точка пересечения, в мировых координатах<br />
-      [page:Face3 face] – пересекаемая поверхность<br />
-      [page:Integer faceIndex] – индекс пересекаемой грани<br />
-      [page:Object3D object] – пересекаемый объект<br />
-      [page:Vector2 uv] - U,V координаты в точке пересечения<br />
-      [page:Vector2 uv2] - Второй набор координат U,V в точке пересечения<br />
+      [page:Float distance] – расстояние между началом луча и точкой пересечения<br>
+      [page:Vector3 point] – точка пересечения, в мировых координатах<br>
+      [page:Face3 face] – пересекаемая поверхность<br>
+      [page:Integer faceIndex] – индекс пересекаемой грани<br>
+      [page:Object3D object] – пересекаемый объект<br>
+      [page:Vector2 uv] — U,V координаты в точке пересечения<br>
+      [page:Vector2 uv2] — Второй набор координат U,V в точке пересечения<br>
       [page:Integer instanceId] – Индексный номер экземпляра, в котором луч пересекает InstancedMesh
     </p>
     <p>
@@ -182,8 +169,8 @@
 
     <h3>[method:Array intersectObjects]([param:Array objects], [param:Boolean recursive], [param:Array optionalTarget])</h3>
     <p>
-    [page:Array objects] — Объекты для проверки пересечения с лучом.<br />
-    [page:Boolean recursive] — Если true, то также проверяются все потомки объектов. В противном случае проверяется только пересечение с объектами. По умолчанию false.<br />
+    [page:Array objects] — Объекты для проверки пересечения с лучом.<br>
+    [page:Boolean recursive] — Если true, то также проверяются все потомки объектов. В противном случае проверяется только пересечение с объектами. По умолчанию false.<br>
     [page:Array optionalTarget] — (необязательно) цель для установки результата. В противном случае создается новый [page:Array]. Если задан, то перед каждым вызовом необходимо очищать этот массив (т.е. array.length = 0;).
     </p>
     <p>

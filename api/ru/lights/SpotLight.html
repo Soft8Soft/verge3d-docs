@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Object3D] &rarr; [page:Light] &rarr;
@@ -12,7 +12,7 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Этот свет излучается из одной точки в одном направлении, вдоль конуса, размер которого увеличивается тем больше, чем дальше от света он находится. <br /><br />
+      Этот свет излучается из одной точки в одном направлении, вдоль конуса, размер которого увеличивается тем больше, чем дальше от света он находится. <br><br>
 
       Этот свет может отбрасывать тени - подробности смотрите на странице [page:SpotLightShadow].
     </p>
@@ -33,27 +33,21 @@
     spotLight.shadow.camera.far = 4000;
     spotLight.shadow.camera.fov = 30;
 
-    scene.add(spotLight);
+    app.scene.add(spotLight);
     </code>
 
-    <h2>Примеры</h2>
-
-    <p>
-      [example:webgl_lights_spotlight lights / spotlight]<br />
-      [example:webgl_lights_spotlights lights / spotlights]
-    </p>
 
     <h2>Конструктор</h2>
 
 
     <h3>[name]([param:Integer color], [param:Float intensity], [param:Float distance], [param:Radians angle], [param:Float penumbra], [param:Float decay])</h3>
     <p>
-      [page:Integer color] - (необязательно) шестнадцатеричный цвет света. По умолчанию 0xffffffff (белый).<br />
-      [page:Float intensity] - (необязательно) числовое значение силы/интенсивности света. По умолчанию - 1.<br /><br />
-      [page:Float distance] - Максимальная дальность действия света. По умолчанию 0 (без ограничения).<br />
-      [page:Radians angle] - Максимальный угол рассеивания света от его направления, верхняя граница которого равна Math.PI/2.<br />
-      [page:Float penumbra] - Процент конуса прожектора, который ослаблен из-за полутени. Принимает значения от нуля до 1. По умолчанию - ноль.<br />
-      [page:Float decay] - Величина ослабления света в зависимости от расстояния до него.<br /><br />
+      [page:Integer color] — (необязательно) шестнадцатеричный цвет света. По умолчанию 0xffffffff (белый).<br>
+      [page:Float intensity] — (необязательно) числовое значение силы/интенсивности света. По умолчанию - 1.<br><br>
+      [page:Float distance] — Максимальная дальность действия света. По умолчанию 0 (без ограничения).<br>
+      [page:Radians angle] — Максимальный угол рассеивания света от его направления, верхняя граница которого равна Math.PI/2.<br>
+      [page:Float penumbra] — Процент конуса прожектора, который ослаблен из-за полутени. Принимает значения от нуля до 1. По умолчанию - ноль.<br>
+      [page:Float decay] — Величина ослабления света в зависимости от расстояния до него.<br><br>
 
       Создает новый [name].
     </p>
@@ -75,7 +69,7 @@
 
     <h3>[property:Float decay]</h3>
     <p>
-      Величина ослабления света в зависимости от расстояния до него.<br />
+      Величина ослабления света в зависимости от расстояния до него.<br>
       В режиме [page:WebGLRenderer.physicallyCorrectLights physically correct] затухание = 2 приводит к физически реалистичному падению света. По умолчанию используется значение *1*.
     </p>
 
@@ -102,14 +96,14 @@
 
     <h3>[property:Float power]</h3>
     <p>
-      Сила света.<br />
-      В режиме [page:WebGLRenderer.physicallyCorrectLights physically correct] световая мощность света, измеряемая в люменах. По умолчанию *4Math.PI*. <br /><br />
+      Сила света.<br>
+      В режиме [page:WebGLRenderer.physicallyCorrectLights physically correct] световая мощность света, измеряемая в люменах. По умолчанию *4Math.PI*. <br><br>
 
       Это напрямую связано с  [page:.intensity intensity] в соотношении
       <code>
         power = intensity * &pi;
       </code>
-      и изменение этого параметра также изменит интенсивность. 
+      и изменение этого параметра также изменит интенсивность.
     </p>
 
     <h3>[property:SpotLightShadow shadow]</h3>
@@ -120,14 +114,14 @@
 
     <h3>[property:Object3D target]</h3>
     <p>
-      Прожектор указывает из своего положения [page:.position position] на target.position. Позиция цели по умолчанию *(0, 0, 0)*..<br />
+      Прожектор указывает из своего положения [page:.position position] на target.position. Позиция цели по умолчанию *(0, 0, 0)*..<br>
 
       *Примечание*: Чтобы изменить положение цели на любое, отличное от значения по умолчанию, необходимо добавить t в [page:Scene scene], используя
       <code>
-        scene.add(light.target);
+        app.scene.add(light.target);
       </code>
 
-      Это делается для того, чтобы [page:Object3D.matrixWorld matrixWorld] цели автоматически обновлялся каждый кадр.<br /><br />
+      Это делается для того, чтобы [page:Object3D.matrixWorld matrixWorld] цели автоматически обновлялся каждый кадр.<br><br>
 
       Также можно установить цель на другой объект в сцене (все, что имеет свойство [page:Object3D.position position]), например:
       <code>
@@ -149,8 +143,5 @@ light.target = targetObject;
       Копирует значения всех свойств из [page:SpotLight source] в данный SpotLight.
     </p>
 
-    <p>
-      [link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
-    </p>
   </body>
 </html>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Пазлы Камеры и Света - Soft8Soft</title>
+    <title>Пазлы камер и света (Cameras/Lights) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как управлять камерами и светом в Verge3D Puzzles."/>
-    <base href="../../../" />
+    <meta name="description" content="Как управлять камерами и светом с помощью пазлов Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>Пазлы Камеры и Света</h1>
+    <h1>Пазлы для управления камерами и источниками освещения (Cameras/Lights)</h1>
 
     <p>
       Пазлы из этой категории выполняют операции с камерами или источниками света.
@@ -26,7 +26,7 @@
 
     [anchor:puzzles_reference]
 
-    <h2>Перечень Пазлов Камеры</h2>
+    <h2>Пазлы камеры</h2>
 
 
     [anchor:look_at]
@@ -40,33 +40,27 @@
     <img src="files/puzzles/puzzles-camera-lookat.jpg">
 
 
-
     [anchor:tween_camera]
 
     <h3>tween camera</h3>
 
     <p>
-      Плавно анимирует активную камеру так, чтобы ее положение окончательно изменилось на положение указанного объекта / 3D-точки, и камера нацеливается на другой указанный объект / 3D-точку.
+      Плавно анимирует активную камеру так, чтобы ее положение окончательно изменилось на положение указанного объекта / 3Д-точки, и камера нацеливается на другой указанный объект / 3Д-точку.
     </p>
-
     <p>
       Параметры позиции и цели могут быть заданы либо объектами сцены, либо массивами координат X, Y и Z.
     </p>
-
     <p>
       Числовой параметр задает период времени, в течение которого выполняется анимация (в секундах).
     </p>
-
     <p>
       Параметр *move* задает интерполяцию между начальной и конечной точками: линейная или сферическая.
     </p>
-
     <p>
       Дополнительный слот *when finished do* может быть использован для определения момента завершения твининга.
     </p>
 
     <img src="files/puzzles/puzzles-camera-tween-camera.jpg">
-
 
 
     [anchor:zoom_camera_to_object]
@@ -84,13 +78,12 @@
     <img src="files/puzzles/puzzles-camera-zoom-camera.jpg">
 
 
-
     [anchor:set_active_camera]
 
     <h3>set active camera</h3>
 
     <p>
-      Делает указанную камеру активной. Можно использовать для изменения режима управления камерой ("orbit", "flying", "no controls"), поля зрения и других настроек. 
+      Делает указанную камеру активной. Можно использовать для изменения режима управления камерой ("orbit", "flying", "no controls"), поля зрения и других настроек.
     </p>
 
     <img src="files/puzzles/puzzles-camera-set-active.jpg">
@@ -100,7 +93,9 @@
 
     <h3>active camera</h3>
 
-    <p>Извлекает активную камеру.</p>
+    <p>
+      Возвращает активную камеру.
+    </p>
 
     <img src="files/puzzles/puzzles-camera-active-camera.jpg" style="max-width: 732px">
 
@@ -121,8 +116,9 @@
 
     <img src="files/puzzles/puzzles-camera-autorotate-camera-example.jpg">
 
-    <p class="note">Для поворота камеры в обратном направлении установите отрицательное значение *speed*, например, *-2*.</p>
-
+    <p class="note">
+      Для поворота камеры в обратном направлении установите отрицательное значение *speed*, например, `-2`.
+    </p>
 
 
     [anchor:get_camera_direction]
@@ -142,54 +138,153 @@
     <img src="files/puzzles/puzzles-camera-get-camera-direction-example2.jpg">
 
     <p>
-      Чтобы настроить такое поведение в 3ds Max, заставьте ваш объект следовать за фиктивным объектом, используя *Rotation Controllers / LookAt Constraint*. В Blender это соответствует ограничению *TrackTo*.
+      Чтобы настроить такое поведение в 3дс Макс, заставьте ваш объект следовать за фиктивным объектом, используя *Rotation Controllers / LookAt Constraint*. В Блендер это соответствует ограничению *TrackTo*.
     </p>
+
+
+    [anchor:set_camera_param]
+
+    <h3>set camera param</h3>
+
+    <p>
+      Устанавливает выбранный параметр камеры.
+    </p>
+
+    <img src="files/puzzles/puzzles-camera-set-camera-param.jpg" alt="Visual programming block to set camera params">
+
+    <dl>
+      <dt>field of view<dt>
+      <dd>Устанавливает вертикальное поле зрения камеры, в градусах.</dd>
+      <dt>ortho scale<dt>
+      <dd>Устанавливает фактор масштабирования ортографической камеры.</dd>
+      <dt>movement speed<dt>
+      <dd>Устанавливает скорость движения камеры.</dd>
+      <dt>rotation speed<dt>
+      <dd>Устанавливает скорость поворота камеры.</dd>
+      <dt>allow panning<dt>
+      <dd>Включает/выключает панорамирование камеры (движение в перпендикулярном направлении).</dd>
+      <dt>allow zoom<dt>
+      <dd>Включает/выключает масштабирование камеры.</dd>
+      <dt>zoom on ctrl key<dt>
+      <dd>Позволяет камере двигаться только при нажатой клавише Ctrl.</dd>
+      <dt>keyboard controls<dt>
+      <dd>Включает/выключает управление с клавиатуры.</dd>
+      <dt>orbit min distance (persp)<dt>
+      <dd>Указывает как близко может приблизиться камера (только для перспективных камер).</dd>
+      <dt>orbit max distance (persp)<dt>
+      <dd>Указывает как далеко может отдалиться камера (только для перспективных камер).</dd>
+      <dt>orbit min zoom (ortho)<dt>
+      <dd>Указывает как сильно можно увеличить изображение (только для ортографических камер).</dd>
+      <dt>orbit max zoom (ortho)<dt>
+      <dd>Указывает как сильно можно уменьшить изображение (только для ортографических камер).</dd>
+      <dt>orbit min vertical angle<dt>
+      <dd>Указывает как сильно можно крутить орбитальную камеру по вертикали, нижний лимит. От `0` до `180` градусов.</dd>
+      <dt>orbit max vertical angle<dt>
+      <dd>Указывает как сильно можно крутить орбитальную камеру по вертикали, верхний лимит. От `0` до `180` градусов.</dd>
+      <dt>orbit min horizontal angle<dt>
+      <dd>Указывает как сильно можно крутить горизонтальную камеру по вертикали, нижний лимит. От `-180` до `180` градусов (или `-Infinity` чтобы убрать ограничение).</dd>
+      <dt>orbit max horizontal angle<dt>
+      <dd>Указывает как сильно можно крутить горизонтальную камеру по вертикали, верхний лимит. От `-180` до `180` градусов (или `Infinity` чтобы убрать ограничение).</dd>
+      <dt>enable collisions<dt>
+      <dd>Включает / выключает определение препятствий для камеры от первого лица.</dd>
+      <dt>clip start<dt>
+      <dd>Определяет начало отсечения камеры (ближнее). Допустимые значения: от `0` до конца отсечения.</dd>
+      <dt>clip end<dt>
+      <dd>Определяет конец отсечения камеры (дальнее). Должен быть больше чем значение, указываемое для начала отсечения.</dd>
+
+    <p>
+      Этот пазл также поддерживает списки камер, группы (списки групп), а также пазл <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
+    </p>
+
+
+    [anchor:get_camera_param]
+
+    <h3>get camera param</h3>
+
+    <p>
+      Возвращает выбранный параметр камеры. Смотрите описание пазла <a href="manual/ru/puzzles/Camera.html#set_camera_param">set camera param</a> выше.
+    </p>
+
+    <img src="files/puzzles/puzzles-camera-get-camera-param.jpg" alt="Visual logic block to get camera params">
 
 
     [anchor:light_puzzles_reference]
 
-    <h2>Перечень Пазлов Освещения</h2>
+    <h2>Пазлы источников освещения</h2>
 
 
     [anchor:set_light_param]
 
     <h3>set light param</h3>
 
-    <p>Установите параметр освещения:</p>
+    <p>
+      Устанавливает параметр источника света:
+    </p>
+
+    <img src="files/puzzles/puzzles-camera-set-light-param.jpg">
 
     <dl>
       <dt>color (vector)<dt>
-      <dd>Установите цвет света с помощью вектора, где X, Y, Z представляют R, G или B компонент цвета соответственно. Например, вектор <strong>[0, 1, 0]</strong> представляет чистый зеленый цвет.</dd>
+      <dd>Устанавливает цвет света с помощью вектора, где X, Y, Z представляют R, G или B компонент цвета соответственно. Например, вектор <strong>[0, 1, 0]</strong> представляет чистый зеленый цвет.</dd>
 
       <dt>color (css/rgb)<dt>
-      <dd>Установите цвет света, используя строку стиля CSS, например <strong>rgb(255, 0, 0)</strong> или *magenta*.</dd>
+      <dd>Устанавливает цвет света, используя строку CSS-стиля, например <strong>rgb(255, 0, 0)</strong> или *magenta*.</dd>
 
       <dt>color (css/hex)<dt>
-      <dd>Установите цвет освещения с помощью шестнадцатеричной строки CSS, например <strong>#FF0000</strong>.</dd>
+      <dd>Устанавливает цвет освещения с помощью шестнадцатеричной строки CSS, например <strong>#FF0000</strong>.</dd>
 
       <dt>intensity<dt>
-      <dd>Установите интенсивность освещения.</dd>
+      <dd>Устанавливает интенсивность освещения.</dd>
+
+      <dt>use shadow<dt>
+      <dd>Включает / выключает тени, отбрасываемые источником освещения.</dd>
+
+      <dt>shadow map size <dt>
+      <dd>Размер карты теней.</dd>
+
+      <dt>shadow map filtering<dt>
+      <dd>
+        <p>
+          Алгоритм фильтрации теней:
+        <p>
+        <dl>
+          <dt>basic<dt>
+          <dd>Базовые, без фильтрации.</dd>
+
+          <dt>bilinear<dt>
+          <dd>Используют билинейную фильтрацию для более мягких теней.</dd>
+
+          <dt>pcf<dt>
+          <dd>Используют алгоритм PCF.</dd>
+
+          <dt>esm<dt>
+          <dd>Используют алгоритм ESM.</dd>
+        </dl>
+        <p>
+          Подробности о настройке теней читайте в соответствующем разделе для <a href="manual/ru/blender/Shadows.html#shadow_filtering">«Блендера»</a>, для <a href="manual/ru/max/Shadows.html#shadow_filtering">«3дс Макса»</a>, для <a href="manual/ru/maya/Shadows.html#shadow_filtering">«Майи»</a>.
+        </p>
+      </dd>
     </dl>
 
-    <p>Этот пазл также подходит для списка объектов, группы (или списка групп) или для пазла <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
+    <p>
+      Этот пазл также подходит для списка объектов, группы (или списка групп) или для пазла <a href="manual/ru/puzzles/Selectors.html#all_objects">all objects</a>.
     </p>
-
-    <img src="files/puzzles/puzzles-object-set-light-param.jpg">
 
 
     [anchor:get_light_param]
 
     <h3>get light param</h3>
 
-    <p>Получить параметр освещения. Список параметров смотрите в описании пазла <a href="manual/ru/puzzles/Objects.html#set_light_param">set light param</a>.</p>
+    <p>
+      Возвращает выбранный параметр источника света. Список параметров смотрите в описании пазла <a href="manual/ru/puzzles/Camera.html#set_light_param">set light param</a>.
+    </p>
 
-    <img src="files/puzzles/puzzles-object-get-light-param.jpg">
+    <img src="files/puzzles/puzzles-camera-get-light-param.jpg" >
 
 
-    <h2>Проблемы с Пазлами?</h2>
+    <h2>Проблемы с пазлами?</h2>
 
-    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/forums/" target="_blank">форум</a>!</p>
-
+    <p>Обращайтесь за помощью на наш <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форум</a>!</p>
 
   </article></body>
 </html>

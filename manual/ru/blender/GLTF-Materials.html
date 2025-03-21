@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Verge3D для Blender: glTF материалы (PBR совместимый с glTF 2.0) - Soft8Soft</title>
+    <title>Вердж3Д для Блендера: glTF-материалы (PBR-совместимый glTF 2.0) — Софт Эйт Софт</title>
     <meta charset="utf-8">
-    <meta name="description" content="Как настроить glTF-совместимые PBR-материалы в Blender для использования в Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Как настроить glTF-совместимые PBR-материалы в Блендер для использования в Вердж3Д.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
-    <h1>glTF Материалы (PBR совместимый с glTF 2.0) / Blender</h1>
+    <h1>glTF-материалы (PBR-совместимый glTF 2.0) / Блендер</h1>
 
     <p>
-    Если вам <a href="manual/ru/introduction/FAQ.html#gltf_materials">по какой-то причине</a> требуется, чтобы материал был совместим с форматом glTF 2.0, вы можете использовать простые настройки на основе шейдерной ноды *Principled BSDF*.
+      Если вам <a href="manual/ru/introduction/FAQ.html#gltf_materials">по какой-то причине</a> требуется, чтобы материал был совместим с форматом glTF 2.0, вы должны использовать упрощённую структуру нод. Эта структура должна состоять из ограниченного числа блендеровских шейдерных нод, как это указано ниже.
     </p>
+
+    <figure>
+      <img src="files/material-system-blender/gltf-pbr.jpg" style="max-width: 1129px;">
+      <figcaption>Пример сцены, использующей glTF-совместимые материалы.</figcaption>
+    </figure>
+
+    [demo:gltf_compat Сюзанна]
 
     [contents]
 
 
-
     [anchor:texture_packing]
 
-    <h2>Упаковка Текстур</h2>
+    <h2>Упаковка текстур</h2>
 
-    <p>Стандарты glTF 2.0 требуют, чтобы определённые компоненты PBR материала были упакованы в одно изображение (также известное, как ORM текстура):</p>
+    <p>
+      Стандарт glTF 2.0 требуют, чтобы определённые компоненты PBR-материала были упакованы в одно изображение (также известное, как ORM текстура):
+    </p>
 
     <ul>
-      <li>Фактор Occlusion упаковывается в R канал. Также есть возможность упаковать текстуру окклюзии отдельно, но упаковка позволяет использовать меньше текстур и благодаря этому оптимизировать сцену.</li>
-      <li>Фактор Roughness упаковывается в G канал.</li>
-      <li>Фактор Metalness (metallic) упаковывается в B канал.</li>
+      <li>Фактор Occlusion упаковывается в красный (R) канал. Также есть возможность упаковать текстуру окклюзии отдельно, но упаковка позволяет использовать меньше текстур и благодаря этому оптимизировать сцену.</li>
+      <li>Фактор Roughness упаковывается в зелёный (G) канал.</li>
+      <li>Фактор Metalness (metallic) упаковывается в синий (B) канал.</li>
     </ul>
 
 
@@ -38,23 +46,17 @@
     <h2>Настройки</h2>
 
     <p>
-      Добавьте шейдерную ноду *Princlipled BSDF* в ваш материал и включите функцю *glTF 2.0 compatible* в панели настроек *Verge3D Settings*.
+      Добавьте шейдерную ноду *Princlipled BSDF* в ваш материал и подключите текстурные ноды как описано ниже. В случае необходимости, любая из текстур может быть опущена.
     </p>
 
-    <img src="files/physical-material-blender/phmat_00.png" class="centered" style="max-width: 661px;">
-
-    <p>
-      Вы можете подключить текстурные ноды к *Princlipled BSDF*, как описано ниже. Обращаем ваше внимание, что необязательно подключать все текстуры, как на изображении, вы можете обойтись только теми, которые необходимы именно в вашем проекте.
-    </p>
-
-    <img src="files/physical-material-blender/gltf-material-example.jpg" class="centered" style="max-width: 820px;">
+    <img src="files/physical-material-blender/gltf-material-example.jpg" style="max-width: 820px">
 
     <ul>
       <li>
-        Подключите ноду *Image Texture* во вход *Base Color* ноды *Principled BSDF*. В настройках текстуры *Color Space* должно быть выставлено значение *sRGB*.
+        Подключите ноду *Image Texture* на вход *Base Color* ноды *Principled BSDF*. В настройках текстуры *Color Space* должно быть выставлено значение *sRGB*.
       </li>
       <li>
-        Подключите ноду *Separate RGB* к *Image Texture* и выведете соответствующие цветовые каналы во входы *Metallic* и *Roughness* ноды *Principled BSDF*.  Для оптимальной загрузки рендера PBR шейдера следует упаковать текстуры occlusion, roughness и metallic в R, G и B каналы одной единственной текстуры соответственно. Чтобы корректно настроить отображение окклюзии, R канал текстуры следует подключить как фактор в ноду Mix Shader для смешивания с шейдерной нодой Diffuse черного цвета. В настройках текстуры *Color Space* должно быть выставлено значение *Non-Color*.
+        Подключите ноду *Separate RGB* к *Image Texture* и выведете соответствующие цветовые каналы во входы *Metallic* и *Roughness* ноды *Principled BSDF*.  Для оптимальной загрузки рендера PBR-шейдера следует упаковать текстуры occlusion, roughness и metallic в R, G и B каналы одной единственной текстуры соответственно. Чтобы корректно настроить отображение окклюзии, R канал текстуры следует подключить как фактор в ноду Mix Shader для смешивания с шейдерной нодой Diffuse черного цвета. В настройках текстуры *Color Space* должно быть выставлено значение *Non-Color*.
       </li>
       <li>
         Подключите ноду *Image Texture* с текстурой нормалей в ноду *Normal Map*, а ноду *Normal Map* во вход *Normal* ноды *Principled BSDF*. В настройках текстуры *Color Space* должно быть выставлено значение *Non-Color*. Также вы можете настроить фактор силы для normal map, используя ползунок *Strength*.
@@ -64,50 +66,60 @@
       </li>
     </ul>
 
-    <p>Если вам нужно настроить текстуру *Base Color*, например сделать её темнее или смешать с другим цветом, используйте ноду *Multiply*, как показано на изображении ниже:</p>
+    <p>
+      Если вам нужно настроить текстуру *Base Color*, например сделать её темнее или смешать с другим цветом, используйте ноду *Multiply*, как показано на изображении ниже:
+    </p>
 
-    <img src="files/physical-material-blender/gltf-material-color-factor.jpg" class="centered" style="max-width: 844px;">
-
-    <p>Вы также можете использовать вход *Alpha*, чтобы настроить прозрачность своего материала.</p>
+    <img src="files/physical-material-blender/gltf-material-color-factor.jpg" style="max-width: 844px;">
 
     <p>
-      Чтобы узнать как выглядит *Principled BSDF* в окне просмотра Blender, вы можете переключить режим отображения *3D View* на *Rendering* или открыть сцену в Verge3D с помощью кнопки *Sneak Peak*, расположенной на той же панели.
+      Вы также можете использовать вход *Alpha*, чтобы настроить прозрачность своего материала.
+    </p>
+
+    <p>
+      Чтобы узнать как выглядит *Principled BSDF* в окне просмотра Блендер, вы можете переключить режим отображения *3D View* на *Rendering* или открыть сцену в «Вердж3Д» с помощью кнопки *Sneak Peak*, расположенной на той же панели.
     </p>
 
 
     [anchor:exporting_substance]
 
-    <h2>Экспорт Текстур из Substance Painter</h2>
-
-    <p>Модели, запечённые карты нормалей и окклюзии (если они есть) могут быть открыты в Substance Painter через формат OBJ.</p>
-
-    <img src="files/physical-material-blender/substance_screenshot.jpg" class="centered" style="max-width: 819px;">
-
-    <p>На выходе в этой программе создаются три карты: base color/transparency, occlusion/roughness/metallic и normal.</p>
-
-    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" class="centered" style="max-width: 819px;">
+    <h2>Экспорт текстур из «Сабстанс Пейнтера»</h2>
 
     <p>
-      Для упрощения экспорта текстур из Substance Painter и достижения максимального потенциала при использовании движка Verge3D, мы рекомендуем использовать <a href="files/physical-material-blender/Verge3D_for_Blender.spexp" target="_blank">Verge3D export preset</a>. Поместите этот файл с пресетом в папку *export-presets*, которую можно найти, используя следующий путь <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> (если папки нет, создайте её самостоятельно).
+      Модели, запечённые карты нормалей и окклюзии (если они есть) могут быть открыты в ПО «Сабстанс Пейнтер» через формат OBJ.
     </p>
 
-    <img src="files/physical-material-blender/phmat_08.png">
+    <img src="files/physical-material-blender/substance_screenshot.jpg" style="max-width: 819px;">
 
     <p>
-      При экспорте текстур из Substance Painter, в диалоговом окне эксопрта выберете *Verge3d for Blender*, чтобы он сгенерировал текстуры совместимые с форматом glTF 2.0 standard, на котором основан Verge3D.
+      На выходе в этой программе создаются три карты: base color/transparency, occlusion/roughness/metallic и normal.
+    </p>
+
+    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" style="max-width: 819px;">
+
+    <p>
+      Для упрощения экспорта текстур из «Сабстанс Пейнтера» и достижения максимального потенциала при использовании движка «Вердж3Д», мы рекомендуем использовать <a href="files/physical-material-blender/Verge3D_for_Blender.spexp" target="_blank">Verge3D export preset</a>. Поместите этот файл с пресетом в папку *export-presets*, которую можно найти, используя следующий путь <strong>My Documents\Allegorithmic\Substance Painter\shelf\</strong> (если папки нет, создайте её самостоятельно).
+    </p>
+
+    <img src="files/physical-material-blender/phmat_08.png" alt="Экспорт материала из Сабстанс Пейнтера">
+
+    <p>
+      При экспорте текстур из «Сабстанс Пейнтера», в диалоговом окне эксопрта выберите *Verge3D for Blender*, чтобы он сгенерировал текстуры совместимые с форматом glTF 2.0.
     </p>
 
 
     [anchor:export_to_gltf_in_runtime]
 
-    <h2>Экспортируйте в glTF во время запуска</h2>
+    <h2>Экспорт в glTF в процессе работы приложения</h2>
 
-    <p>С пазлом *export to gltf* вы можете экспортировать свои модели или целую сцену в реальном времени. Затем вы можете скачать экспортированную модель или загрузить на сервер для постоянного хранения. Ознакомьтесь с данным пазлом подробнее по <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">ссылке</a>.</p>
+    <p>
+      С пазлом *export to gltf* вы можете экспортировать свои модели или целую сцену в реальном времени. Затем вы можете скачать экспортированную модель или загрузить на сервер для постоянного хранения. Ознакомьтесь с данным пазлом подробнее по <a href="manual/ru/puzzles/Scenes.html#export_to_gltf">ссылке</a>.
+    </p>
 
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/forums/" target="_blank">форуме</a>!</p>
+    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
 
   </article></body>
 </html>

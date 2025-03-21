@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Object3D] &rarr;
@@ -12,78 +12,89 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Класс, представляющий триангулированные объекты [link:https://en.wikipedia.org/wiki/Polygon_mesh polygon mesh].
-      Также служит базой для других классов, таких как [page:SkinnedMesh]..
+      Класс, представляющий триангулированные <a href="https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D0%BB%D0%B8%D0%B3%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D0%BA%D0%B0" target="_blank">полигональные меши</a>. Также служит базой для других классов, таких как [page:SkinnedMesh].
     </p>
 
-    <h2>Пример Кода</h2>
+
+    <h2>Пример</h2>
 
     <code>
     const geometry = new v3d.BoxBufferGeometry(1, 1, 1);
     const material = new v3d.MeshBasicMaterial({ color: 0xffff00 });
     const mesh = new v3d.Mesh(geometry, material);
-    scene.add(mesh);
+    app.scene.add(mesh);
     </code>
+
 
     <h2>Конструктор</h2>
 
-    <h3>[name]([param:Geometry geometry], [param:Material material])</h3>
-    <p>
-    [page:Geometry geometry] — (необязательно) экземпляр [page:Geometry] или [page:BufferGeometry]. По умолчанию это новый [page:BufferGeometry].<br />
-    [page:Material material] — (опциональный) один или массив [page:Material]. По умолчанию это новый [page:MeshBasicMaterial]
-    </p>
+    <h3>[name]([param:BufferGeometry geometry], [param:Material material])</h3>
+    <ul class=params>
+      <li>[page:BufferGeometry geometry] — (необ.) экземпляр [page:BufferGeometry]. По умолчанию это новый экземпляр класса [page:BufferGeometry].</li>
+      <li>[page:Material material] — (необ.) один или массив [page:Material]. По умолчанию это новый экземпляр класса [page:MeshBasicMaterial].</li>
+    </ul>
 
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Object3D].</p>
 
-    <h3>[property:Geometry geometry]</h3>
     <p>
-      Экземпляр [page:Geometry] или [page:BufferGeometry] (или производных классов),
-      определяющий структуру объекта.<br /><br />
+      См. свойства базового класса [page:Object3D].
+    </p>
 
-      Рекомендуется всегда использовать [page:BufferGeometry], если это возможно, для лучшей производительности.
+    <h3>[property:BufferGeometry geometry]</h3>
+    <p>
+      Экземпляр [page:BufferGeometry] (или производных классов), определяющий структуру объекта.
+    </p>
+
+    <h3>[property:Boolean isMesh]</h3>
+    <p>
+      Указывает, что данный объект является экземпляром класса [name].
     </p>
 
     <h3>[property:Material material]</h3>
     <p>
-      Экземпляр материала, полученный из базового класса [page:Material] или массив материалов, определяющий
-      внешний вид объекта. По умолчанию это [page:MeshBasicMaterial].
+      Экземпляр материала, полученный из базового класса [page:Material] или массив материалов, определяющий внешний вид объекта. По умолчанию это [page:MeshBasicMaterial].
     </p>
 
     <h3>[property:Array morphTargetInfluences]</h3>
     <p>
-      Массив весов, обычно от 0 до 1, который определяет, насколько сильно применяется морфинг.
-      По умолчанию не определен, но сбрасывается в пустой массив командой [page:Mesh.updateMorphTargets updateMorphTargets].
+      Массив весов, обычно от 0 до 1, который определяет, насколько сильно применяется морфинг. По умолчанию не определен, но сбрасывается в пустой массив командой [page:Mesh.updateMorphTargets updateMorphTargets].
     </p>
 
     <h3>[property:Object morphTargetDictionary]</h3>
     <p>
-    Список morphTargets основанный на свойстве morphTarget.name.
-    По умолчанию не определен, но перестраивается [page:Mesh.updateMorphTargets updateMorphTargets].
+      Список morphTargets основанный на свойстве morphTarget.name. По умолчанию не определен, но перестраивается [page:Mesh.updateMorphTargets updateMorphTargets].
     </p>
 
 
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:Object3D].</p>
+
+    <p>
+      См. методы базового класса [page:Object3D].
+    </p>
 
     <h3>[method:Mesh clone]()</h3>
-    <p>Возвращает клон данного объекта [name] и его преемников.</p>
+    <p>
+      Возвращает клон данного объекта [name] и его потомков.
+    </p>
+
+    <h3>[method:Vector3 getVertexPosition]([param:Integer vert], [param:Vector3 target])</h3>
+    <p>
+      Получает позицию вертекса по указанному индексу в локальной системе координат. Учитывает состояние анимации морфинга и скиннинга.
+    </p>
 
     <h3>[method:null raycast]([param:Raycaster raycaster], [param:Array intersects])</h3>
     <p>
-      Получить пересечения между отбрасываемым лучом и этим мешем.
-    [page:Raycaster.intersectObject] вызовет этот метод, но результаты не будут упорядочены.
+      Получить пересечения между отбрасываемым лучом и этим мешем. [page:Raycaster.intersectObject] вызовет этот метод, но результаты не будут упорядочены.
     </p>
 
     <h3>[method:null updateMorphTargets]()</h3>
     <p>
-      Обновляет morphTargets так, чтобы они не оказывали влияния на объект. Сбрасывает свойства
-    [page:Mesh.morphTargetInfluences morphTargetInfluences] и
-    [page:Mesh.morphTargetDictionary morphTargetDictionary].
+      Обновляет morphTargets так, чтобы они не оказывали влияния на объект. Сбрасывает свойства [page:Mesh.morphTargetInfluences morphTargetInfluences] и [page:Mesh.morphTargetDictionary morphTargetDictionary].
     </p>
 
 
     [sourceHint]
+
   </body>
 </html>
