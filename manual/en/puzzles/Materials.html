@@ -3,20 +3,20 @@
   <head>
     <title>Materials Puzzles Reference — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to manage materials and textures with Verge3D Puzzles."/>
-    <base href="../../../" />
+    <meta name="description" content="How to manage materials and textures with Verge3D Puzzles.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
     <h1>Materials</h1>
 
     <p>
-    The puzzles from this category perform various operations with materials and textures.
+      The puzzles from this category perform various operations with materials and textures.
     </p>
 
-    <img src="files/puzzles/puzzles-materials.jpg" alt="Materials visual programming blocks">
+    <img src="files/puzzles/puzzles-materials.webp" alt="Materials visual programming blocks">
 
     <h2>Contents</h2>
 
@@ -48,7 +48,13 @@
       Also, the source and destination meshes should have the same layout for UVs and color attributes, e.g in Blender:
     </p>
 
-    <img src="files/puzzles/puzzles-materials-assign-material-uvs.webp" alt="UVs in Blender" style="max-width: 565px;">
+    <img src="files/puzzles/puzzles-materials-assign-material-uvs.webp" alt="UVs in Blender" style="max-width: 565px">
+
+    <p>
+      By default the "assign material" puzzle does not support multi-material meshes and replaces the first one found. Enable *multi-material index* and specify the *index* input (e.g. material slot number from Blender) to assign material to proper polygons.
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-assign-material-multi.webp" alt="Set multi-material in Blender">
 
     <p>
       In some situations, namely when a normal-mapped material is assigned to an object without normal mapping, this puzzle might render your material completely black. If this happens, <em>disable</em> mesh attributes optimization in the export settings:
@@ -57,15 +63,15 @@
     <v3d-tabs>
       <label>Blender</label>
       <div>
-        <img src="files/puzzles/mesh-attributes-not-optimize-blender.jpg" alt="Disabling geometry optimization in Blender" style="max-width: 331px;">
+        <img src="files/puzzles/mesh-attributes-not-optimize-blender.webp" alt="Disabling geometry optimization in Blender" style="max-width: 324px">
       </div>
       <label>3ds Max</label>
       <div>
-        <img src="files/puzzles/mesh-attributes-not-optimize-max.jpg" alt="Disabling geometry optimization in 3ds Max" style="max-width: 252px;">
+        <img src="files/puzzles/mesh-attributes-not-optimize-max.webp" alt="Disabling geometry optimization in 3ds Max" style="max-width: 272px">
       </div>
       <label>Maya</label>
       <div>
-        <img src="files/puzzles/mesh-attributes-not-optimize-maya.jpg" alt="Disabling geometry optimization in Maya" style="max-width: 416px;">
+        <img src="files/puzzles/mesh-attributes-not-optimize-maya.webp" alt="Disabling geometry optimization in Maya" style="max-width: 432px">
       </div>
     </v3d-tabs>
 
@@ -74,13 +80,17 @@
 
     <h3>replace texture</h3>
 
-    <p>Replaces a texture found for a specified material with the one loaded from the provided image URI, <a href="manual/en/puzzles/Sound.html#load_video">video asset</a>, or <a href="manual/en/puzzles/HTML.html#create_canvas_elem">canvas</a>.</p>
+    <p>
+      Replaces a texture found for a specified material with the one loaded from the provided image <a href="manual/en/puzzles/HTML.html#url_paths">URL</a>, <a href="manual/en/puzzles/Sound.html#load_video">video asset</a>, or <a href="manual/en/puzzles/HTML.html#create_canvas_elem">canvas</a>.
+    </p>
 
-    <img src="files/puzzles/puzzles-materials-replace-texture.jpg" alt="Visual programming block to replace textures">
+    <img src="files/puzzles/puzzles-materials-replace-texture.webp" alt="Visual programming block to replace textures">
 
     <p>
-      Puzzle options:
+      This puzzles supports advanced options which can be activated via the gear icon:
     </p>
+
+    <img src="files/puzzles/puzzles-materials-replace-texture-advanced.webp" alt="Advanced replace texture params">
 
     <dl>
       <dt>enable "once ready do" slot</dt>
@@ -88,6 +98,9 @@
 
       <dt>flexible texture input</dt>
       <dd>Allow using <a href="manual/en/puzzles/Text.html#text">text puzzles</a> inside the "texture" input instead of the default dropdown selector.</dd>
+
+      <dt>prevent texture sharing</dt>
+      <dd>Always make a copy of the source texture before assigning a new image. This prevents assigning the same image on textures which are shared between different materials.</dd>
     </dl>
 
     [demo:custom_image]
@@ -116,7 +129,7 @@
     <h3>set color</h3>
 
     <p>
-    Set R, G and B components of a color parameter found for a specified material.
+      Set R, G and B components of a color parameter found for a specified material.
     </p>
 
     <img src="files/puzzles/puzzles-materials-set-color.jpg" alt="Visual programming block to set material color">
@@ -161,7 +174,7 @@
     </v3d-tabs>
 
     <p>
-    This puzzle can also be used to modify the environment shader. In the drop-down, the name of the environment shader starts with "Verge3D_Environment".
+      This puzzle can also be used to modify the environment shader. In the drop-down, the name of the environment shader starts with "Verge3D_Environment".
     </p>
 
     <p>
@@ -184,10 +197,11 @@
       <li>*css (rgb)* - CSS style string, such as rgb(127, 0, 255).</li>
     </ul>
 
-    <p>Specify *flexible color input* parameter to assign custom material parameter as string value.</p>
+    <p>
+      Specify *flexible color input* parameter to assign custom material parameter as string value.
+    </p>
 
     <img src="files/puzzles/puzzles-materials-get-color.jpg" alt="Visual programming block to get material color">
-
 
 
     [anchor:materials_set_value]
@@ -258,14 +272,30 @@
 
     [anchor:get_material]
 
-    <h3>get material</h3>
+    <h3>material from</h3>
 
     <p>
-    Retrieves the name of a material assigned to an object. If multiple materials are assigned to the same object, returns the first one.
+      Retrieves the name of a material assigned to an object. By default, if multiple materials are assigned to the same object, returns the first one.
     </p>
 
-    <img src="files/puzzles/puzzles-object-get-material.jpg" alt="Visual programming block to get object material">
+    <img src="files/puzzles/puzzles-materials-material-from.webp" alt="Visual programming block to get object material">
 
+    <p>
+      This puzzles supports additional options which can be activated via the gear icon:
+    </p>
+
+    <img src="files/puzzles/puzzles-materials-material-from-advanced.webp" alt="Advanced material from puzzle params">
+
+    <dl>
+      <dt>multi-material index</dt>
+      <dd>
+        By default the "material from" puzzle does not support multi-material meshes and returns the first one found. Enable *multi-material index* and specify the *index* input (e.g. material slot number from Blender) to get the required material from a multi-material mesh.
+      </dd>
+      <dt>return unique material id</dt>
+      <dd>
+        By default the "material from" puzzle returns a human-readable material name. However in some situations, such as similar-named and/or shared materials, you may want to pick the material of a single object, rather than update them all at once. For that you can enable the *return unique material id* checkbox so that this puzzle returns a unique material identifier, instead of its name. You can use this ID (which looks like this: 5c464bf0-043a-40ee-b864-5c026436d7de) to pass it into other material puzzles.
+      </dd>
+    </dl>
 
 
     [anchor:texture_from_text]
@@ -283,13 +313,13 @@
     <dl>
       <dt>text</dt>
       <dd>
-        input text.
+        Input text.
       </dd>
       <dt>
         width, height
       </dt>
       <dd>
-        dimensions of the generated image (in pixels). Power-of-two values are recommended (256, 512, 1024 etc).
+        Dimensions of the generated image (in pixels). Power-of-two values are recommended (256, 512, 1024 etc).
       </dd>
       <dt>font family</dt>
       <dd>
@@ -297,23 +327,23 @@
       </dd>
       <dt>size</dt>
       <dd>
-        size of the text drawn on the generated image (in pixels).
+        Size of the text drawn on the generated image (in pixels).
       </dd>
       <dt>horizontal align</dt>
       <dd>
-        how the text is horizontally aligned on the generated image: *center*, *left*, *right*.
+        How the text is horizontally aligned on the generated image: *center*, *left*, *right*.
       </dd>
       <dt>vertical align</dt>
       <dd>
-        how the text is vertically aligned on the generated image: *middle*, *top*, *bottom*.
+        How the text is vertically aligned on the generated image: *middle*, *top*, *bottom*.
       </dd>
       <dt>line height</dt>
       <dd>
-        line height of the text (in pixels). If set to *0*, it is auto-detected.
+        Line height of the text (in pixels). If set to *0*, it is auto-detected.
       </dd>
       <dt>justify</dt>
       <dd>
-        justify the text if enabled, inserts spaces between words when necessary.
+        Justify the text if enabled, inserts spaces between words when necessary.
       </dd>
     </dl>
 
@@ -348,11 +378,11 @@
     <dl>
       <dt>text color</dt>
       <dd>
-        the color of the text.
+        The color of the text.
       </dd>
       <dt>background color</dt>
       <dd>
-        the color of the background.
+        The color of the background.
       </dd>
     </dl>
 
@@ -396,7 +426,7 @@
     <img src="files/puzzles/puzzles-materials-generate-normalmap.jpg" alt="Visual logic block to generate normal maps">
 
     <p>
-    Parameters:
+      Parameters:
     </p>
 
     <dl>
@@ -445,7 +475,6 @@
     <h2>Having Troubles with Puzzles?</h2>
 
     <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
 
   </article></body>
 </html>

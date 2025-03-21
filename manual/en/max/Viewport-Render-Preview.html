@@ -3,10 +3,10 @@
   <head>
     <title>Verge3D for 3ds Max: Viewport and Render Preview — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Learn how to configure 3ds Max viewport to match Verge3D look and feel, and how to use Arnold rendering and the ActiveShade feature to obtain a reference image."/>
-    <base href="../../../" />
+    <meta name="description" content="Learn how to configure 3ds Max viewport to match Verge3D look and feel, and how to use Arnold rendering and the ActiveShade feature to obtain a reference image.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
@@ -47,6 +47,47 @@
 
     <p>
       Viewport shading, however, does not always appear to provide an accurate approximation of the in-browser rendering - for instance, environment reflections ignore normal maps in the viewport, etc.
+    </p>
+
+
+    [anchor:color_management]
+
+    <h2>Color Management</h2>
+
+    <p>
+      As of version 2025, 3ds Max uses the OCIO color management mode by default (with ACEScg color space):
+    </p>
+
+    <img src="files/viewport-render-preview/color-management-ocio.webp" alt="3ds Max OCIO color management" style="max-width: 725px">
+
+    <p>
+      This system is not supported in Verge3D, since it requires more powerful GPUs and not quite feasible for the real-time browser rendering.
+    </p>
+
+    <p>
+      The OCIO will make your scenes look darker in 3ds Max viewport compared to Verge3D:
+    </p>
+
+    <img src="files/viewport-render-preview/max-vs-verge3d.webp" alt="OCIO 3ds Max viewport vs Verge3D">
+
+    <p>
+      To switch back to the regular gamma (sRGB-based) color management, open the 3ds Max *Color Management Settings* dialog using the *Rendering* → <strong>Color Management...</strong> menu option:
+    </p>
+
+    <img src="files/viewport-render-preview/color-management-settings.webp" alt="3ds Max color management settings">
+
+    <p>
+      In the *Color Management Mode* drop-down select *Gamma Workflow*:
+    </p>
+
+    <img src="files/viewport-render-preview/color-management-gamma.webp" alt="3ds Max gamma color management" style="max-width: 725px">
+
+    <p>
+      If the *Apply Color Management Settings automatically* checker is set, the new mode will be applied automatically. So it's save to just close the *Color Management Settings* dialog.
+    </p>
+
+    <p class="note">
+      The Gamma Workflow is pre-enabled for the default cube project.
     </p>
 
 

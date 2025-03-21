@@ -3,10 +3,10 @@
   <head>
     <title>Verge3D for Maya: glTF PBR Materials — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to setup glTF-compliant PBR materials in Maya to be used with Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="How to setup glTF-compliant PBR materials in Maya to be used with Verge3D.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
@@ -37,7 +37,9 @@
 
     <img src="files/gltf-materials-maya/standard-surface-overview.webp" alt="Enabling glTF 2.0 compatible material for Standard Surface shader">
 
-    <p>The following Standard Surface settings are supported in Verge3D:</p>
+    <p>
+      The following Standard Surface settings are supported in Verge3D:
+    </p>
 
     <h3>Base Panel</h3>
     <ul>
@@ -63,12 +65,16 @@
       <li>Bump Mapping (Normal Camera input in Hypershade)</li>
     </ul>
 
-    <p>In addition, when dealing with Ambient Occlusion, you might also want to use *Weight* value from the *Specular* panel to make you Maya viewport look consistent with Verge3D rendering.</p>
+    <p>
+      In addition, when dealing with Ambient Occlusion, you might also want to use *Weight* value from the *Specular* panel to make you Maya viewport look consistent with Verge3D rendering.
+    </p>
 
 
     <h3>Creating PBR material for general use</h3>
 
-    <p>Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
+    <p>
+      Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:
+    </p>
 
     <ol>
       <li>Assign *Standard Surface* to your model.</li>
@@ -83,7 +89,9 @@
       <li>Connect *file* to *bump2d* node and *bump2d* node to *Normal Camera* input of the *Standard Surface* node.
     </ol>
 
-    <p>This is how the material should look in the Hypershade editor:</p>
+    <p>
+      This is how the material should look in the Hypershade editor:
+    </p>
 
     <img src="files/materials-maya/pbr-example.jpg" alt="Typical glTF 2.0 material setup in Maya">
 
@@ -92,13 +100,17 @@
 
     <h2>Exporting Textures from Substance Painter</h2>
 
-    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
+    <p>
+      The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.
+    </p>
 
-    <img src="files/physical-material-blender/substance_screenshot.jpg" alt="Using Substance Painter to create glTF-compatible materials" style="max-width: 819px;">
+    <img src="files/physical-material-blender/substance_screenshot.jpg" alt="Using Substance Painter to create glTF-compatible materials" style="max-width: 819px">
 
-    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
+    <p>
+      Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.
+    </p>
 
-    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" alt="Occlusion roughness metallness texture atlas" style="max-width: 819px;">
+    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" alt="Occlusion roughness metallness texture atlas" style="max-width: 819px">
 
 
     [anchor:using_usd_preview_material]
@@ -109,7 +121,9 @@
       You can use these materials for both glTF and USD formats.
     </p>
 
-    <p>Assign the usdPreviewSufrace shader node to your material, the following settings are supported in Verge3D:</p>
+    <p>
+      Assign the usdPreviewSufrace shader node to your material, the following settings are supported in Verge3D:
+    </p>
 
     <ul>
       <li>Color or (Diffuse Color input in Hypershade)</li>
@@ -132,11 +146,11 @@
 
     <h3>Creating USD material</h3>
 
-    <p>Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:</p>
+    <p>
+      Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:
+    </p>
 
     <ol>
-      <li>Assign *usdPreviewSurface* to your model.</li>
-      <li>Open the Hypershade editor, find and select this material in the *Browser* panel.</li>
       <li>Create a *file* node with Diffuse Color texture. Make sure that the *Color Space* setting of this node is set to *sRGB*.</li>
       <li>Connect *Out Color* output of this texture to *Diffuse Color* input of *usdPreviewSurface* node.</li>
       <li>Create a *file* node with ORM texture. This texture should contain 3 channels with AO (red), Roughness (green) and Metalness (blue) info. Make sure that the *Color Space* setting of this node is set to *Raw*.</li>
@@ -148,9 +162,11 @@
       <li>Connect *file* node to *Normal* input of the *usdPreviewSurface* node.
     </ol>
 
-    <p>This is how the material should look in the Hypershade editor:</p>
+    <p>
+      This is how the material should look in the Hypershade editor:
+    </p>
 
-    <img src="files/materials-maya/pbr-usd-surface-example.jpg" alt="Creating glTF material with USD Preview Surface shader node" style="max-width: 819px;">
+    <img src="files/materials-maya/pbr-usd-surface-example.jpg" alt="Creating glTF material with USD Preview Surface shader node" style="max-width: 819px">
 
 
     [anchor:export_to_gltf_in_runtime]

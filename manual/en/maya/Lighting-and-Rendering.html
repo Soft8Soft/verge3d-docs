@@ -3,10 +3,10 @@
   <head>
     <title>Verge3D for Maya: Lighting and Rendering — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to configure environment lighting, lights and rendering settings in Verge3D for Maya."/>
-    <base href="../../../" />
+    <meta name="description" content="How to configure environment lighting, lights and rendering settings in Verge3D for Maya.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
@@ -38,11 +38,15 @@
 
     <iframe class="video-480p" src="https://www.youtube.com/embed/9BzE98XIOnI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-    <p>The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. To do so, simply append Arnold's *aiSkyDomeLight* object to your scene and assign some texture to it as *Color*.</p>
+    <p>
+      The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. To do so, simply append Arnold's *aiSkyDomeLight* object to your scene and assign some texture to it as *Color*.
+    </p>
 
     <img src="files/lighting-maya/ai-sky-dome-light.jpg" alt="Using Maya's aiSkyDomeLight object" style="max-width: 892px">
 
-    <p>In addition, you may use the *Intensity* attribute to tweak intensity of your environment lighting and *Texture Resolution* to configure its quality:</p>
+    <p>
+      In addition, you may use the *Intensity* attribute to tweak intensity of your environment lighting and *Texture Resolution* to configure its quality:
+    </p>
 
     <ul>
       <li><strong>Low (64x64)</strong> and <strong>Medium (128x128)</strong> - values are not supported, Verge3D will use <strong>High (256x256)</strong> setting instead of these.</li>
@@ -67,7 +71,7 @@
     <h2>Lights</h2>
 
     <p>
-      In some cases, using just image-based lighting to illuminate your scene is not enough. If you'd like to simulate some additional light source, need dynamic shadows, or if you need to move your lights (as with car lights), you may use <a href="https://help.autodesk.com/view/MAYAUL/2024/ENU/?guid=GUID-3B4D131E-D001-4415-8BF9-250612C3A81D" target="_blank">direct light sources</a>.
+      In some cases, using just image-based lighting to illuminate your scene is not enough. If you'd like to simulate some additional light source, need dynamic shadows, or if you need to move your lights (as with car lights), you may use <a href="https://help.autodesk.com/view/MAYAUL/2025/ENU/?guid=GUID-3B4D131E-D001-4415-8BF9-250612C3A81D" target="_blank">direct light sources</a>.
     </p>
 
     <p>
@@ -75,10 +79,10 @@
     </p>
 
     <ul>
-      <li>*Ambient Lights* - *Color* and *Intensity* attributes are supported in Verge3D.</li>
-      <li>*Directional Lights* - *Color* and *Intensity* attributes are supported in Verge3D.</li>
-      <li>*Point Lights* - *Color*, *Intensity* and *Decay Rate* attributes are supported in Verge3D.</li>
-      <li>*Spot Lights* - *Color*, *Intensity*, *Decay Rate*, *Cone Angle* and *Penumbra Angle* attributes are supported in Verge3D.</li>
+      <li>*Ambient Lights* — *Color* and *Intensity* attributes are supported in Verge3D.</li>
+      <li>*Directional Lights* — *Color* and *Intensity* attributes are supported in Verge3D.</li>
+      <li>*Point Lights* — *Color*, *Intensity* and *Decay Rate* attributes are supported in Verge3D.</li>
+      <li>*Spot Lights* — *Color*, *Intensity*, *Decay Rate*, *Cone Angle* and *Penumbra Angle* attributes are supported in Verge3D.</li>
       <li>*Area Lights* — *Color*, *Intensity* attributes are supported in Verge3D. Light transform scaling controls the emissive area.</li>
     </ul>
 
@@ -92,9 +96,11 @@
     <h2>Reflection Cubemap Light Probes</h2>
 
     <p>
-      Verge3D add-on adds a custom light probe object called *v3dReflectionCubemap*,
-      which can be used to apply indirect lighting to objects via a local
-      reflection cubemap.
+      Spherical reflection light probes are objects intended for adding indirect lighting locally by generating a local reflection cubemap. This type of light probe objects add specular indirect lighting to a scene.
+    </p>
+
+    <p>
+      Verge3D add-on adds a custom light probe object called *v3dReflectionCubemap*, which can be used to apply indirect lighting to objects via a local reflection cubemap.
     </p>
 
     <iframe class="video-480p" src="https://www.youtube.com/embed/KVSB3vFmv8M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -108,26 +114,16 @@
     <img src="files/lighting-maya/light-probe-reflection-cubemap-create.jpg" alt="Creating reflection cubemap light probe in Maya">
 
     <p>
-      This object defines a volume of influence represented by a box or a sphere.
-      All objects contained inside that volume will use a local reflection
-      cubemap generated in runtime instead of the scene's global environment
-      texture/color.<br/><br/>
-
-      The advantage of using a local reflection map is that it has surrounding
-      objects baked in it, while the scene's global map only contains the
-      background texture/color that can be specified via Arnold's
-      <a href="manual/en/maya/Lighting-and-Rendering.html#environment_lighting">aiSkyDomeLight</a>
-      object. Local reflection maps also have a parallax effect depending on the
-      geometry of the <a href="manual/en/maya/Lighting-and-Rendering.html#influence_volume">influence</a>
-      or <a href="manual/en/maya/Lighting-and-Rendering.html#parallax_volume">parallax</a>
-      volume.
+      This object defines a volume of influence represented by a box or a sphere.  All objects contained inside that volume will use a local reflection cubemap generated in runtime instead of the scene's global environment texture/color.
+    </p>
+    <p>
+      The advantage of using a local reflection map is that it has surrounding objects baked in it, while the scene's global map only contains the background texture/color that can be specified via Arnold's <a href="manual/en/maya/Lighting-and-Rendering.html#environment_lighting">aiSkyDomeLight</a> object. Local reflection maps also have a parallax effect depending on the geometry of the <a href="manual/en/maya/Lighting-and-Rendering.html#influence_volume">influence</a> or <a href="manual/en/maya/Lighting-and-Rendering.html#parallax_volume">parallax</a> volume.
     </p>
 
     <figure style="max-width: 1005px">
       <img src="files/lighting-maya/light-probe-reflection-cubemap-effect.png" alt="Reflection cubemap in Maya viewport and Verge3D">
       <figcaption>
-        Left - reflection cubemap object in Maya viewport, right - effect it adds
-        to a reflective material in Verge3D.
+        Left - reflection cubemap object in Maya viewport, right - effect it adds to a reflective material in Verge3D.
       </figcaption>
     </figure>
 
@@ -135,7 +131,7 @@
       v3dReflectionCubemap objects have the following parameters:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-cubemap-params.png" alt="Reflection cubemap params" style="max-width: 481px">
+    <img src="files/lighting-maya/light-probe-reflection-cubemap-params.webp" alt="Reflection cubemap params" style="max-width: 447px">
 
     <dl>
       <dt>General Settings</dt>
@@ -145,55 +141,44 @@
         <dl>
           <dt id="influence_volume">Influence Type</dt>
           <dd>
-            Type of the influence volume: *Sphere* or *Box*. Only objects
-            located inside this volume are affected by the probe's lighting.
-            Default is *Sphere*.
+            Type of the influence volume: *Sphere* or *Box*. Only objects located inside this volume are affected by the probe's lighting.  Default is *Sphere*.
           </dd>
 
           <dt>Influence Distance</dt>
           <dd>
-            The size of the influence volume. You can also change object scaling
-            and make the shape of the influence volume non-uniform. Default is
-            1.0.
+            The size of the influence volume. You can also change object scaling and make the shape of the influence volume non-uniform. Default is 1.0.
           </dd>
 
           <dt>Intensity</dt>
           <dd>
-            The intensity of the indirect lighting. Any value different from 1.0
-            is not physically correct. Default is 1.0.
+            The intensity of the indirect lighting. Any value different from 1.0 is not physically correct. Default is 1.0.
           </dd>
 
           <dt>Clipping Start</dt>
           <dd>
-            Near clip distance. Objects located closer than this value won't be
-            rendered into the reflection cubemap. Default is 0.1.
+            Near clip distance. Objects located closer than this value won't be rendered into the reflection cubemap. Default is 0.1.
           </dd>
 
           <dt>Clipping End</dt>
           <dd>
-            Far clip distance. Objects located further than this value won't be
-            rendered into the reflection cubemap. Default is 100.0.
+            Far clip distance. Objects located further than this value won't be rendered into the reflection cubemap. Default is 100.0.
           </dd>
         </dl>
       </dd>
 
-      <dt>Visibility Selection Set</dt>
+      <dt>Visibility Set</dt>
       <dd>
         Object visibility settings:
 
         <dl>
-          <dt>Selection Set</dt>
+          <dt>Visibility Set</dt>
           <dd>
-            Limit objects that should appear on the reflection cubemap to those
-            belonging to this selection set. Choose empty in
-            order to not specify any set of objects - that way all scene objects
-            will be used for generating the reflection cubemap.
+            Limit objects that should appear on the reflection cubemap to those belonging to this object set. Choose empty in order to not specify any set of objects - that way all scene objects will be used for generating the reflection cubemap.
           </dd>
 
           <dt>Invert Visibility</dt>
           <dd>
-            Invert the selection of objects visible to this light probe if
-            *Selection Set* is specified. Disabled by default.
+            Invert the selection of objects visible to this light probe if *Visibility Set* is specified. Disabled by default.
           </dd>
         </dl>
       </dd>
@@ -205,16 +190,12 @@
         <dl>
           <dt>Use Custom Parallax</dt>
           <dd>
-            Enable custom settings for the parallax correction. This group of
-            settings defines a parallax volume, which is used to project the
-            lighting captured by the probe. If *Custom Parallax* is not enabled
-            the parallax effect is calculated based on *Influence Type* and
-            *Influence Distance*. Disabled by default.
+            Enable custom settings for the parallax correction. This group of settings defines a parallax volume, which is used to project the lighting captured by the probe. If *Custom Parallax* is not enabled the parallax effect is calculated based on *Influence Type* and *Influence Distance*. Disabled by default.
           </dd>
 
           <dt>Parallax Type</dt>
           <dd>
-            Type of the parallax volume: *Sphere* or *Box*. Default is *Sphere*
+            Type of the parallax volume: *Sphere* or *Box*. Default is *Sphere*.
           </dd>
 
           <dt>Parallax Distance</dt>
@@ -231,23 +212,17 @@
         <dl>
           <dt>Use Custom Influence</dt>
           <dd>
-            Enable custom influence settings. This group of settings allows
-            defining a selection set of objects that will be affected by this
-            light probe. *Selection Set* (if specified) will be used instead of
-            the *Influence Type* and *Influence Distance* general probe settings.
+            Enable custom influence settings. This group of settings allows defining a set of objects that will be affected by this light probe. *Influence Set* (if specified) will be used instead of the *Influence Type* and *Influence Distance* general probe settings.
           </dd>
 
-          <dt>Selection Set</dt>
+          <dt>Influence Set</dt>
           <dd>
-            Limit objects that should be affected by this light probe to this
-            selection set. If specified it is used instead of the
-            *Influence Type* and *Influence Distance* general probe settings.
+            Limit objects that should be affected by this light probe to this selection set. If specified it is used instead of the *Influence Type* and *Influence Distance* general probe settings.
           </dd>
 
           <dt>Invert Influence</dt>
           <dd>
-            Invert the selection of objects affected by this probe if
-            *Selection Set* is specified.
+            Invert the selection of objects affected by this probe if *Influence Set* is specified.
           </dd>
         </dl>
       </dd>
@@ -276,7 +251,7 @@
       Reflection plane objects have the following parameters:
     </p>
 
-    <img src="files/lighting-maya/light-probe-reflection-plane-params.png" alt="Reflection plane params panel" style="max-width: 462px">
+    <img src="files/lighting-maya/light-probe-reflection-plane-params.webp" alt="Reflection plane params panel" style="max-width: 447px">
 
     <dl>
       <dt>Influence Distance</dt>
@@ -291,13 +266,13 @@
       <dd>
         Near camera clipping for objects rendered in the light probe.
       </dd>
-      <dt>Selection Set</dt>
+      <dt>Visibility Set</dt>
       <dd>
-        Selection set of the objects visible for the probe. Specify empty value to make all scene objects visible for the probe.
+        Visibility set of the objects visible for the probe. Specify empty value to make all scene objects visible for the probe.
       </dd>
       <dt>Invert Visibility</dt>
       <dd>
-        Invert the selection of objects visible to this light probe if *Selection Set* is specified. Disabled by default.
+        Invert the selection of objects visible to this light probe if *Visibility Set* is specified. Disabled by default.
       </dd>
     </dl>
 
@@ -308,7 +283,7 @@
     <img src="files/lighting-maya/light-probe-reflection-plane-note.png" alt="Specifying maximum metalness for reflective surfaces in Maya">
 
     <p class="note">
-      Planar reflection probes can greatly reduce performance of your scene, since they multiply the number of draw calls by a factor <strong>N+1</strong>. To make rendering faster, specify a limited set of reflected objects as the *Visibility Selection Set* property.
+      Planar reflection probes can greatly reduce performance of your scene, since they multiply the number of draw calls by a factor <strong>N+1</strong>. To make rendering faster, specify a limited set of reflected objects as the *Visibility Set* property.
     </p>
 
 
@@ -319,8 +294,6 @@
     <p>
       By default Verge3D renders the same background you see in Maya's Viewport (grey in most cases). When using image-based lighting (provided by *aiSkyDomeLight* objects) you see the environment texture instead.
     </p>
-
-
     <p>
       To change your background to some other color, do not edit Viewport settings in Maya, simply assign *Background Color* and enable the *Render Background* attribute on your main camera:
     </p>
@@ -336,7 +309,9 @@
 
     <h2>Global Rendering Settings</h2>
 
-    <p>Global rendering settings accessible from the *Verge3D Export Settings* dialog window (*Verge3D* → <strong>Export Settings...</strong> in Maya menu).</p>
+    <p>
+      Global rendering settings accessible from the *Verge3D Export Settings* dialog window (*Verge3D* → <strong>Export Settings...</strong> in Maya menu).
+    </p>
 
     <img src="files/lighting-maya/rendering-settings-global.jpg" alt="Verge3D Export Settings window in Maya" style="max-width: 631px">
 
@@ -346,31 +321,41 @@
         Select what anti-aliasing algorithm to use for the scene:
         <dl>
           <dt>Auto</dt>
-          <dd>use system default method.</dd>
+          <dd>Use system default method. In most cases this would be MSAA 4x.</dd>
+
           <dt>MSAA 4x</dt>
-          <dd>prefer multisample anti-aliasing with 4x samples if the target hardware supports it.</dd>
+          <dd>Prefer multisample anti-aliasing with 4x samples if the target hardware supports it. Provides decent quality and performance.</dd>
+
           <dt>MSAA 8x</dt>
-          <dd>prefer multisample anti-aliasing with 8x samples if the target hardware supports it.</dd>
+          <dd>Prefer multisample anti-aliasing with 8x samples if the target hardware supports it. This algorithm provides better AA quality at the expense of reduced performance.</dd>
+
           <dt>MSAA 16x</dt>
-          <dd>prefer multisample anti-aliasing with 16x samples if the target hardware supports it.</dd>
+          <dd>prefer multisample anti-aliasing with 16x samples if the target hardware supports it. This algorithm provides way better AA quality compared to MSAA 4x/8x but has the worst performance.</dd>
+
           <dt>FXAA</dt>
-          <dd>force fast approximate anti-aliasing (FXAA).</dd>
+          <dd>Force fast approximate anti-aliasing (FXAA). Enable this algorithm if you experience <a href="manual/en/introduction/Hardware-Related-Issues.html#aa_issues">aliasing issues with procedural textures</a>.</dd>
+
           <dt>None</dt>
-          <dd>disable anti-aliasing.</dd>
+          <dd>Disable anti-aliasing. Use this option as an aggressive performance optimization when quality does not matter.</dd>
         </dl>
       </dd>
 
       <dt>Use HDR Rendering</dt>
       <dd>
-        <p>Enable high-dynamic-range rendering.</p>
-        <p>If activated, Verge3D will use 16-bit float textures as rendering buffers. This feature can significantly improve rendering of the Bloom post-processing as well as smoothness of node-based gradient textures. The downside of this — increased GPU memory consumption and reduced performance.</p>
-
-        <p class="note">This feature is not related to HDR textures which are commonly used to produce image-based lighting, thus activating it won't improve rendering of such textures.</p>
+        <p>
+          Enable high-dynamic-range rendering.
+        </p>
+        <p>
+          If activated, Verge3D will use 16-bit float textures as rendering buffers. This feature can significantly improve rendering of the Bloom post-processing as well as smoothness of node-based gradient textures. The downside of this — increased GPU memory consumption and reduced performance.
+        </p>
+        <p class="note">
+          This feature is not related to HDR textures which are commonly used to produce image-based lighting, thus activating it won't improve rendering of such textures.
+        </p>
       </dd>
 
-      <dt>Order-Indep. Transparency</dt>
+      <dt>Order-Independent Transparency</dt>
       <dd>
-        <p>Enable Order-Independent Transparency (OIT) rendering technique, which solves most transparency issues. Read more about this <a href="manual/en/maya/Transparency.html#oit_rendering">here</a>.</p>
+        Enable Order-Independent Transparency (OIT) rendering technique, which solves most transparency issues. Read more about this <a href="manual/en/maya/Transparency.html#oit_rendering">here</a>.
       </dd>
 
       <dt>IBL Environment Mode</dt>
@@ -394,25 +379,17 @@
     <h2>Ambient Occlusion</h2>
 
     <p>
-      Ambient Occlusion is a rendering technique that improves a scene's realism
-      by adding soft shadows from indirect (ambient) lighting based on how much
-      the point is exposed to the light sources.
+      Ambient Occlusion is a rendering technique that improves a scene's realism by adding soft shadows from indirect (ambient) lighting based on how much the point is exposed to the light sources.
     </p>
 
     <p>
-      Verge3D implements Ground Truth Ambient Occlusion (GTAO), which settings
-      you can find in the *AO* section of *Verge3D Export Settings* (accessible
-      through *Verge3D* → <strong>Export Settings...</strong> in Maya menu):
+      Verge3D implements Ground Truth Ambient Occlusion (GTAO), which settings you can find in the *AO* section of *Verge3D Export Settings* (accessible through *Verge3D* → <strong>Export Settings...</strong> in Maya menu):
     </p>
 
     <img src="files/lighting-maya/ambient-occlusion-properties.png" alt="Ambient occlusion settings tab in Maya" style="max-width: 422px">
 
     <p class="note">
-      Verge3D adds the ambient occlusion effect only for
-      <a href="manual/en/maya/Materials.html#standardSurface">Standard Sufrace</a>
-      and <a href="manual/en/maya/Materials.html#aiStandardSurface">aiStandardSufrace</a>
-      materials and only if the scene has environment lighting (via Arnold's
-      <a href="manual/en/maya/Lighting-and-Rendering.html#environment_lighting">aiSkyDomeLight</a> object).
+      Verge3D adds the ambient occlusion effect only for <a href="manual/en/maya/Materials.html#standardSurface">Standard Sufrace</a> and <a href="manual/en/maya/Materials.html#aiStandardSurface">aiStandardSufrace</a> materials and only if the scene has environment lighting (via Arnold's <a href="manual/en/maya/Lighting-and-Rendering.html#environment_lighting">aiSkyDomeLight</a> object).
     </p>
 
     <dl>
@@ -422,10 +399,7 @@
       </dd>
       <dt>Distance</dt>
       <dd>
-        The radius (in system units) within which to calculate ambient occlusion.
-        Higher values make the effect more noticeable by over-darkening and
-        expanding the area of it, but also can decrease performance. Lower
-        values make occlusion less noticeable.
+        The radius (in system units) within which to calculate ambient occlusion.  Higher values make the effect more noticeable by over-darkening and expanding the area of it, but also can decrease performance. Lower values make occlusion less noticeable.
       </dd>
       <dt>Factor</dt>
       <dd>
@@ -433,15 +407,11 @@
       </dd>
       <dt>Trace Precision</dt>
       <dd>
-        Higher precision means more accurate occlusion at increased performance
-        cost. Lower precision means better performance but the effect appears
-        less prominent.
+        Higher precision means more accurate occlusion at increased performance cost. Lower precision means better performance but the effect appears less prominent.
       </dd>
       <dt>Bent Normals</dt>
       <dd>
-        Use modified (or "bent") normals to sample the environment instead of
-        the original ones. The modified normals represent the least occluded
-        direction and make environment lighting a bit more realistic.
+        Use modified (or "bent") normals to sample the environment instead of the original ones. The modified normals represent the least occluded direction and make environment lighting a bit more realistic.
       </dd>
     </dl>
 
@@ -472,7 +442,9 @@
       The outline rendering does not work inside AR/VR sessions. Use other methods to highlight your objects, such as animation or changing material's color.
     </p>
 
-    <p>You can tweak outlining using the following properties:</p>
+    <p>
+      You can tweak outlining using the following properties:
+    </p>
 
     <dl>
       <dt>Enabled</dt>
@@ -533,7 +505,6 @@
 
     <img src="files/lighting-maya/rendering-settings-transform.jpg" alt="Advanced rendering settings panel" style="max-width: 423px">
 
-
     <dl>
       <dt>HiDPI Compositing</dt>
       <dd>
@@ -579,6 +550,24 @@
     </p>
 
     <img src="files/lighting-maya/hidpi-compositing.jpg" alt="HiDPI compositing setting in Maya" style="max-width: 423px">
+
+    <figure>
+      <img src="files/lighting-maya/hidpi-compositing-example.webp" alt="Example of HiDPI rendering in Maya">
+      <figcaption>HiDPI compositing is used to display the UI controls and text in the [demoLink:e-learning] demo.</figcaption>
+    </figure>
+
+    <p>
+      However, rendering HiDPI content in a separate pass has some limitations:
+    </p>
+
+    <ul>
+      <li>You can't apply any post-processing effects to the objects rendered in HiDPI pass.</li>
+      <li>Objects are not affected by the depth of the objects rendered before them. This may produce artifacts like on the screenshot below (green — regular object, blue — HiDPI object, but in reality the green one is nearest to the viewer):<br><img src="files/lighting-maya/hidpi-compositing-depth-issue.webp" alt="Verge3D HiDPI compositing depth issue" style="max-width: 600px"></li>
+    </ul>
+
+    <p>
+      This basically means that the HiDPI Compositing should be used primarily for UI elements or camera-parented objects.
+    </p>
 
     [demo:ring]
 
@@ -719,7 +708,6 @@
     <h2>Got Questions?</h2>
 
     <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
 
   </article></body>
 </html>

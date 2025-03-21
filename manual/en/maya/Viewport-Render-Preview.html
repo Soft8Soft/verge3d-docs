@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Verge3D for Maya: Viewport and Render Preview — Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Learn how to configure Maya viewport to match Verge3D look and feel, and how to use Arnold rendering to obtain a reference image.">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body><article>
+
+    <h1>Viewport and Render Preview / Maya</h1>
+
+    <p>
+      From this guide you can learn how to configure Maya viewport to match Verge3D look and feel and how to use the Arnold rendering to obtain a reference image.
+    </p>
+
+    [contents]
+
+
+    [anchor:viewport_settings]
+
+    <h2>Viewport Settings</h2>
+
+    <p>
+      To enable better viewport preview in Maya, enable *Hardware Texturing* in the viewport settings:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/hardware-texturing.webp" alt="Enable hardware texturing in Maya viewport" style="max-width: 500px">
+
+    <p>
+      Also switch lighting from *Use Default Lighting* to *Use All Lights* (or press *7* shortcut):
+    </p>
+
+    <img src="files/viewport-render-preview-maya/use-all-lights.webp" alt="Use all lights in Maya viewport" style="max-width: 500px">
+
+    <p class="note">
+      The above-mentioned settings are pre-enabled for the default cube project.
+    </p>
+
+    <p>
+      Viewport shading, however, does not always appear to provide an accurate approximation of the in-browser rendering. Hence, you might use the Arnold renderer (see <a href="manual/en/maya/Viewport-Render-Preview.html#arnold_rendering">below</a>) or Verge3D's *Sneak Peek* feature to preview your scenes.
+    </p>
+
+
+    [anchor:color_management]
+
+    <h2>Color Management</h2>
+
+    <p>
+      By default Maya uses the ACES color encoding system (with ACEScg color space).
+    </p>
+
+    <img src="files/viewport-render-preview-maya/view-transform-aces.webp" alt="Maya ACES view transform" style="max-width: 750px">
+
+    <p>
+      This system is not supported in Verge3D, since it requires more powerful GPUs and not quite feasible for the real-time browser rendering.
+    </p>
+
+    <p>
+      The ACES will make your scenes look darker in Maya viewport compared to Verge3D:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/maya-vs-verge3d.webp" alt="ACES Maya viewport vs Verge3D">
+
+    <p>
+      To switch back to the regular sRGB-based color encoding, open the Maya preferences:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/maya-preferences.webp" alt="Maya preferences">
+
+    <p>
+      Go to the *Color Management* preferences, then click on the small arrow (▼) on the right side of the *OCIO Config Path*. Select *Reset to Legacy*, then click *Save* button to close the Maya preferences dialog.
+    </p>
+
+    <img src="files/viewport-render-preview-maya/maya-color-management.webp" alt="Maya color management preferences" style="max-width: 864px">
+
+    <p>
+      Make sure that now Maya viewport is set to <strong>sRGB gamma (legacy)</strong> view transform:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/view-transform-srgb.webp" alt="Maya sRGB view transform" style="max-width: 750px">
+
+    <p class="note">
+      The sRGB-based color encoding is pre-enabled for the default cube project.
+    </p>
+
+
+    [anchor:arnold_rendering]
+
+    <h2>Arnold Rendering</h2>
+
+    <p>
+      Verge3D rendering strives to be as close as possible to Arnold render if <em>Standard Surface</em> or <em>Open PBR</em> materials are used. So you can preview your scenes in Maya without exporting for quicker tweaking.
+    </p>
+    <p>
+      To select the renderer, switch to *Arnold* in the *Renderer* menu:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/arnold-renderer-viewport.webp" alt="Use Arnold renderer in Maya viewport" style="max-width: 600px">
+
+    <p>
+      Then wait until the renderer produces some feasible results:
+    </p>
+
+    <img src="files/viewport-render-preview-maya/arnold-renderer-viewport-complete.webp" alt="Arnold render result in Maya viewport" style="max-width: 750px">
+
+    <p>
+      Once something changed in your scene, Maya automatically updates the renderer results in the viewport. This way you can achieve a better approximation of what you get in the browser, at a near real-time speed.
+    </p>
+
+
+    <h2>Got Questions?</h2>
+
+    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+
+  </article></body>
+</html>

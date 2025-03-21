@@ -1,13 +1,11 @@
 #!/usr/bin/node
 
-const program = require('commander');
-const puppeteer = require('puppeteer');
+import { program } from 'commander';
+import puppeteer from 'puppeteer';
 
 program
     .option('-u, --url [url]', 'URL to open', 'http://localhost:8668/')
     .option('-s, --screenshot-path [path]', 'A path where to save the screenshot', './screenshot.png')
-    .option('-t, --timeout [ms]', 'Timeout after page loading before taking the screenshot',
-            function(val) { return parseInt(val); }, 1000)
     .option('-W, --viewport-width [px]', 'The width of the viewport',
             function(val) { return parseInt(val); }, 1920)
     .option('-H, --viewport-height [px]', 'The height of the viewport',
@@ -60,9 +58,4 @@ async function run() {
     await browser.close();
 }
 
-function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-};
-
 run();
-

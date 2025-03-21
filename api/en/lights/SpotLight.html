@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Object3D] &rarr; [page:Light] &rarr;
@@ -34,7 +34,6 @@
     // white spotlight shining from the side, modulated by a texture, casting a shadow
     const spotLight = new v3d.SpotLight(0xffffff);
     spotLight.position.set(100, 1000, 100);
-    spotLight.map = new v3d.TextureLoader().load(url);
 
     spotLight.castShadow = true;
 
@@ -45,7 +44,7 @@
     spotLight.shadow.camera.far = 4000;
     spotLight.shadow.camera.fov = 30;
 
-    scene.add(spotLight);
+    app.scene.add(spotLight);
     </code>
 
 
@@ -153,7 +152,7 @@
     </p>
 
     <code>
-    scene.add(light.target);
+    app.scene.add(light.target);
     </code>
 
     <p>
@@ -167,21 +166,13 @@
 
     <code>
     const targetObject = new v3d.Object3D();
-    scene.add(targetObject);
+    app.scene.add(targetObject);
 
     light.target = targetObject;
     </code>
 
     <p>
       The spotlight will now track the target object.
-    </p>
-
-    <h3>[property:Texture map]</h3>
-    <p>
-      A [page:Texture] used to modulate the color of the light. The spot light color is mixed
-      with the RGB value of this texture, with a ratio corresponding to its
-      alpha value. The cookie-like masking effect is reproduced using pixel values (0, 0, 0, 1-cookie_value).
-      *Warning*: [page:.map] is disabled if [page:.castShadow] is `false`.
     </p>
 
     <h2>Methods</h2>

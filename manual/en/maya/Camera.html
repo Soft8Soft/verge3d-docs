@@ -3,10 +3,10 @@
   <head>
     <title>Verge3D for Maya: Working with Camera — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Find out how to create and control Maya cameras to be used with Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Find out how to create and control Maya cameras to be used with Verge3D.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
@@ -28,7 +28,7 @@
     </p>
 
     <ul>
-      <li>*Camera* - since this camera has not explicit target, you should use Maya's *Look at Selection* to set camera's center of interest point.</li>
+      <li>*Camera* — since this camera has not explicit target, you should use Maya's *Look at Selection* to set camera's center of interest point.</li>
       <li>*Camera and Aim*</li>
       <li>*Camera, Aim and Up*</li>
     </ul>
@@ -37,27 +37,78 @@
       Alternatively, you can configure Maya's default camera such as *persp*.
     </p>
 
+    <p class="note">
+      Camera scaling values &gt; 1 or &lt; 1 are not recommended to use with Verge3D. Be sure to set the scaling factor for your cameras to 1.
+    </p>
 
-    [anchor:Verge3D_Per_Object_Settings]
 
-    <h2>Verge3D Per-Object Camera Settings</h2>
+    [anchor:object_settings]
+
+    <h2>Camera Settings</h2>
 
     <p>
-      Each camera in Maya is assigned with Verge3D settings:
+      Verge3D supports the following camera settings:
+    </p>
+
+    <img src="files/camera-maya/camera-settings.webp" alt="Camera settings in Maya" style="max-width: 424px">
+
+    <dl>
+      <dt>Controls</dt>
+      <dd>See <a href="manual/en/maya/Camera.html#Setting_Up">above</a>.</dd>
+      <dt>Angle of View / Focal Length</dt>
+      <dd>Field-of-view for perspective cameras.</dd>
+      <dt>Near Clip Plane / Far Clip Plane</dt>
+      <dd>Near and far clipping plane distance. To eliminate <a href="manual/en/introduction/Hardware-Related-Issues.html#z_fighting">z-fighting artifacts</a> set *Near Clip Plane* value as high as possible and *Far Clip Plane* value as low as possible.</dd>
+      <dt>Fit Resolution Gate</dt>
+      <dd>
+        How the viewport will react to changing its dimensions (or device orientation). This setting has somewhat different meaning in Verge3D.
+        <dl>
+          <dt>Fill</dt>
+          <dd>Fits the resolution gate within the film gate.</dd>
+          <dt>Horizontal</dt>
+          <dd>Fit horizontal field of view. This mode is good for <em>wide</em> scenes. By fixing horizontal field of view you will be ensured that your object will fit into the camera in both landscape (desktops/laptops) and portrait (phones) modes.</dd>
+          <dt>Vertical</dt>
+          <dd>Fit vertical field of view. Contrary to *Horizontal*, this mode is good for <em>tall</em> scenes.</dd>
+          <dt>Overscan</dt>
+          <dd>Fits the film gate within the resolution gate.</dd>
+        </dl>
+      </dd>
+    </dl>
+
+    <img src="files/camera-maya/camera-settings-next.webp" alt="Camera settings in Maya" style="max-width: 410px">
+
+    <dl>
+      <dt>Background Color</dt>
+      <dd>Background color used when *Render Background* setting is on. See more information about this feature <a href="manual/en/maya/Lighting-and-Rendering.html#background">here</a>.</dd>
+      <dt>Orthographic</dt>
+      <dd>Switch camera to orthographic mode.</dd>
+      <dt>Orthographic Width</dt>
+      <dd>Camera scaling in orthographic mode.</dd>
+    </dl>
+
+
+    [anchor:verge3d_camera_settings]
+
+    <h3>Common Verge3D Settings</h3>
+
+    <p>
+      Each camera in Maya is assigned with additional Verge3D settings:
     </p>
 
     <img src="files/camera-maya/camera-settings.jpg" alt="Verge3D camera settings in Maya" style="max-width: 405px">
 
     <dl>
       <dt>Controls</dt>
-      <dd>Specify what type of controls will be assigned to the camera in Verge3D:</dd>
+      <dd>
+        Specify what type of controls will be assigned to the camera in Verge3D:
 
-      <ul>
-        <li>*Orbit* — targeted (aka pivoted, orbited) camera view. See <a href="manual/en/maya/Camera.html#orbit_camera_settings">below</a>.</li>
-        <li>*Flying* — free-flight view.</li>
-        <li>*First-Person* — first-person view with familiar character controls (WASD).</li>
-        <li>*Disable* — disable any controls. Specify if you're going to move your camera with animations, Puzzles, or JavaScript.</li>
-      </ul>
+        <ul>
+          <li>*Orbit* — targeted (aka pivoted, orbited) camera view. See <a href="manual/en/maya/Camera.html#orbit_camera_settings">below</a>.</li>
+          <li>*Flying* — free-flight view.</li>
+          <li>*First-Person* — first-person view with familiar character controls (WASD).</li>
+          <li>*Disable* — disable any controls. Specify if you're going to move your camera with animations, Puzzles, or JavaScript.</li>
+        </ul>
+      </dd>
 
       <dt>Panning Enabled</dt>
       <dd>Enable/disable camera panning.</dd>
@@ -69,17 +120,18 @@
       <dd>Camera movement speed factor.</dd>
     </dl>
 
+
     [anchor:orbit_camera_settings]
 
     <h3>Orbit Camera Settings</h3>
 
-    <img src="files/camera-maya/orbit-camera-settings.jpg" alt="Orbin camera settings in Maya" style="max-width: 445px">
+    <img src="files/camera-maya/orbit-camera-settings.jpg" alt="Orbit camera settings in Maya" style="max-width: 445px">
 
     <dl>
       <dt>Perspective Distance Limits</dt>
       <dd>
         <p>
-          Distance limits for the perspective camera. In Verge3D realm, "zooming" for the perspective orbit camera means "moving forward/backwards", thus distance limits assigned to such a camera indirectly affect the min/max limits of zooming.
+          Distance limits for the <em>perspective</em> camera. In Verge3D realm, "zooming" for the perspective orbit camera means "moving forward/backwards", thus distance limits assigned to such a camera indirectly affect the min/max limits of zooming.
         </p>
         <p class="note">
           If you need to perform zooming by changing the camera field-of-view (FOV), while keeping the camera in place, use the <a href="manual/en/puzzles/Camera.html#set_camera_param">set camera param</a> puzzle.
@@ -87,7 +139,7 @@
       </dd>
 
       <dt>Orthographic Zoom Limits</dt>
-      <dd>Zoom limits for the orthographic camera. In Verge3D realm, "zooming" for the orthographic orbit camera means "making camera volume larger/smaller". The camera itself don't move.</dd>
+      <dd>Zoom limits for the <em>orthographic</em> camera. In Verge3D realm, "zooming" for the orthographic orbit camera means "making camera volume larger/smaller". The camera itself don't move.</dd>
 
       <dt>Vertical Angle Limits</dt>
       <dd>These values limit the vertical (up-down) camera rotation.</dd>
@@ -96,11 +148,14 @@
       <dd>These values limit the horizontal (left-right) camera rotation.</dd>
     </dl>
 
+
     [anchor:firstperson_camera_settings]
 
     <h3>First-Person Settings</h3>
 
-    <p>The following settings allow you to setup first-person camera controls without using Puzzles or JavaScript.</p>
+    <p>
+      The following settings allow you to setup first-person camera controls without using Puzzles or JavaScript.
+    </p>
 
     <img src="files/camera-maya/firstperson-camera-settings.jpg" alt="Firstperson camera settings in Maya" style="max-width: 446px">
 
@@ -111,7 +166,7 @@
           Collision material which will be used to control the zone the camera can move within. Basically, the zone above this material is allowed, all other places including empty is forbidden. If you don't specify this value, the camera will operate in free-flight mode — *Flying*.
         </p>
         <p>
-          If you don't want the collision object to be visible to the user, just hide it in Maya (use the render switcher with camera icon on it).
+          If you don't want the collision object to be visible to the user, just hide it in Maya.
         </p>
         <img src="files/camera-maya/firstperson-hide-render.jpg" alt="Hide firstperson collision object in Maya">
       </dd>
@@ -126,7 +181,7 @@
       <dd>Enable the pointer lock feature to capture the mouse pointer upon app start. The user should click somewhere on the screen to lock up the cursor and move in 3D space without the need to click/drag with the mouse buttons.</dd>
     </dl>
 
-    <!-- [demo:firstperson_camera] -->
+    [demo:firstperson_camera]
 
 
     [anchor:rendering_camera_settings]
@@ -164,7 +219,7 @@
       </dd>
       <dt>Shape</dt>
       <dd>
-        Canvas fit shape. *Box* — use object's bounding box, *Sphere* — use object's bounding sphere to fit the object on the screen.
+        Canvas fit shape. *Box* — use object's bounding box, *Sphere* — use object's bounding sphere to fit the object on the screen, *Point* — ignore object boundings and use its center to fit the object on the screen.
       </dd>
       <dt>Fit Offset</dt>
       <dd>

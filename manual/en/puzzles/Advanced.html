@@ -3,16 +3,18 @@
   <head>
     <title>Advanced Puzzles Reference — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to use puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more."/>
-    <base href="../../../" />
+    <meta name="description" content="How to use puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
     <h1>Advanced Puzzles</h1>
 
-    <p>Use these puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more.</p>
+    <p>
+      Use these puzzles to implement advanced features in your apps, such as networking, interation with JavaScript code, data conversion, state saving/restoring and more.
+    </p>
 
     <img src="files/puzzles/puzzles-advanced.webp" alt="Advanced visual programming blocks">
 
@@ -43,36 +45,28 @@
     <h3>exec script</h3>
 
     <p>
-        This puzzle executes the specified javascript code. The puzzle uses
-        <a href='https://ace.c9.io/'>Ace Editor</a> for displaying and editing
-        the content. See the relevant keyboard shortcuts here:
-        <a href='https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts'>Default Keyboard Shortcuts</a>.
-        The puzzle can be resized to change the editor's width and height.
+      This puzzle executes the specified JavaScript code. The puzzle uses <a href="https://ace.c9.io/" target="_blank">Ace Editor</a> for displaying and editing the content. See the relevant keyboard shortcuts here: <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank">Default Keyboard Shortcuts</a>. The puzzle can be resized to change the editor's width and height.
     </p>
 
     <p>You can use the following built-in variables:</p>
     <ul>
-        <li><b>app</b> - the application instance, see <a href="api/en/extras/App.html">App</a> for more details</li>
-        <li><b>v3d</b> - the v3d namespace which contains all the engine modules</li>
-        <li><b>puzzles</b> - the "Puzzles Logic" object containing procedures defined in puzzles, API for physics puzzles, etc...</li>
-        <li><b>VARS</b> - variable puzzles can be accessed through this object</li>
-        <li><b>PROC</b> - procedure puzzles can be accessed through this object</li>
+      <li>*app* — the application instance, see <a href="api/en/extras/App.html">App</a> for more details</li>
+      <li>*v3d* — the v3d namespace which contains all the engine modules</li>
+      <li>*puzzles* — the "Puzzles Logic" object containing procedures defined in puzzles, API for physics puzzles, etc...</li>
+      <li>*VARS* — variable puzzles can be accessed through this object</li>
+      <li>*PROC* — procedure puzzles can be accessed through this object</li>
     </ul>
 
     <img src="files/puzzles/puzzles-advanced-exec-script.png" alt="Visual programming block to exec JavaScript">
 
-    <p><b>Specifics of using built-ins regarding to "Init" and other tabs</b></p>
+    <h4>Specifics of using built-ins regarding to "Init" and other tabs</h4>
     <ul>
-        <li>
-            The <b>app</b> built-in variable is not available for this puzzle if
-            it's used inside the <b>Init</b> tab, since at that stage the
-            application is not properly initialized yet.
-        </li>
-        <li>
-            Variables and procedures declared in the <b>Init</b> tab can not be
-            accessed from other tabs via <b>VARS</b> and <b>PROC</b> and vice
-            versa.
-        </li>
+      <li>
+        The *app* built-in variable is not available for this puzzle if it's used inside the *Init* tab, since at that stage the application is not properly initialized yet.
+      </li>
+      <li>
+        Variables and procedures declared in the *Init* tab can not be accessed from other tabs via *VARS* and *PROC* and vice versa.
+      </li>
     </ul>
 
 
@@ -81,21 +75,21 @@
     <h3>call external function</h3>
 
     <p>
-    Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
+      Executes a function specified in the JavaScript code of the application. Optionally passes parameters to be used as function arguments.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-call-js-function.jpg" alt="Call external function visual programming block">
 
     <p>
-      In order to add a function to JavaScript code, open the application <strong>.js</strong> file (for example, <strong>my_awesome_app.js</strong> located in the <strong>my_awesome_app</strong> folder in the <em>applications</em> folder) with any text editor. Search for "prepareExternalInterface" and add your function inside that declaration (between the curly brackets), so that it looks like this:
+      In order to add a function to JavaScript code, open the application *.js* file (for example, *my_awesome_app.js* located in the *my_awesome_app* folder in the <em>applications</em> folder) with any text editor. Search for `prepareExternalInterface` and add your function inside that declaration (between the curly brackets), so that it looks like this:
     </p>
 
     <code>
-function prepareExternalInterface(app) {
+    function prepareExternalInterface(app) {
         app.ExternalInterface.myJSFunction = function(numericArg, textArg) {
             alert('Got some params from Puzzles: ' + numericArg + ' and ' + textArg);
         }
-}
+    }
     </code>
 
 
@@ -104,17 +98,16 @@ function prepareExternalInterface(app) {
     <h3>load data</h3>
 
     <p>
-    Attempts to load data from a specified location. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. The retrieved data can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
+      Load data from a specified location. The retrieved data can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle. JSON objects are automatically converted to <a href="manual/en/puzzles/Dictionaries.html#introduction">dictionaries</a>, all other data types are returned as text values.
     </p>
 
-    <p>In the case the request should not be cached, click on the gear icon and activate "disable caching" checkbox. Caching logic in puzzles: when an url is used for the first time with caching - it will be cached and all subsequent uses of the url with caching will use the saved cache, if url used with disabled caching - it will neither create cache nor use the saved cache.</p>
+    <img src="files/puzzles/puzzles-advanced-load-data.webp" alt="Visual programming block to get data over network">
 
-    <img src="files/puzzles/puzzles-advanced-load-data.jpg" alt="Visual programming block to get data over network">
+    <p>
+      By default, the results retrieved by this puzzles are cached, so the subsequent calls return the same value. To disable caching, click on the gear icon and activate the *disable caching* checkbox. The <strong>enable "on error" slot</strong> setting is used to handle errors via additional *on error do* slot.
+    </p>
 
-    <p>Browsers attempt to keep local copies of assets for optimization purposes. *To avoid browser caching*, an additional parameter can be used to change the URL each time you make a request. To add this parameter, use the <a href="manual/en/puzzles/HTML.html#set_url_param">set URL param</a> and <a href="manual/en/puzzles/Time.html#elapsed_total">elapsed total</a> puzzles:</p>
-
-    <img src="files/puzzles/puzzles-advanced-load-data-tip-browser-cache.jpg" alt="Fixing issue with browser cache">
-
+    <img src="files/puzzles/puzzles-advanced-load-data-params.webp" alt="Params of load data puzzle">
 
 
     [anchor:send_data]
@@ -122,15 +115,22 @@ function prepareExternalInterface(app) {
     <h3>send data</h3>
 
     <p>
-    Attempts to send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The puzzles in the "once ready do" slot are interpreted regardless of whether the attempt was a success. If there is any response data, it can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle.
+      Send a specified data to a remote location using an asynchronous <a href="https://en.wikipedia.org/wiki/POST_(HTTP)" target="_blank">POST HTTP</a> request. The retrieved data can be accessed via the <a href="manual/en/puzzles/Advanced.html#loaded_data">loaded data</a> puzzle. JSON objects (both sent or received) are automatically converted to <a href="manual/en/puzzles/Dictionaries.html#introduction">dictionaries</a>, <a href="manual/en/puzzles/Advanced.html#javascript_object">form data</a> values are sent as is, while all other data types are sent/received as text values.
     </p>
 
-    <img src="files/puzzles/puzzles-advanced-send-data.jpg" alt="Visual programming block to send data over network">
+    <img src="files/puzzles/puzzles-advanced-send-data.webp" alt="Visual programming block to send data over network">
 
-    <p>Browsers attempt to keep local copies of assets for optimization purposes. *To avoid browser caching*, an additional parameter can be used to change the URL each time you make a request. To add this parameter, use the <a href="manual/en/puzzles/HTML.html#set_url_param">set URL param</a> and <a href="manual/en/puzzles/Time.html#elapsed_total">elapsed total</a> puzzles:</p>
+    <p>
+      The <strong>enable "with headers " slot</strong> is used to provide additional request headers via the <a href="manual/en/puzzles/Dictionaries.html#introduction">dictionary</a> object. The <strong>enable "on error" slot</strong> setting is used to handle errors via additional *on error do* slot.
+    </p>
+
+    <img src="files/puzzles/puzzles-advanced-send-data-params.webp" alt="Params of send data puzzle">
+
+    <p>
+      Keep in mind, that browsers might keep local copies of retrieved assets for optimization purposes. To avoid browser caching, an additional parameter can be used to change the URL each time you make a request. To add this parameter, use the <a href="manual/en/puzzles/HTML.html#set_url_param">set URL param</a> and <a href="manual/en/puzzles/Time.html#elapsed_total">elapsed total</a> puzzles:
+    </p>
 
     <img src="files/puzzles/puzzles-advanced-send-data-tip-browser-cache.jpg" alt="Fixing issue with browser cache">
-
 
 
     [anchor:loaded_data]
@@ -138,11 +138,10 @@ function prepareExternalInterface(app) {
     <h3>loaded data</h3>
 
     <p>
-    Returns data retrieved by the <a href="manual/en/puzzles/Advanced.html#load_data">load data</a> or <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzles.
+      Returns data retrieved by the <a href="manual/en/puzzles/Advanced.html#load_data">load data</a> or <a href="manual/en/puzzles/Advanced.html#send_data">send data</a> puzzles.
     </p>
 
-    <img src="files/puzzles/puzzles-advanced-loaded-data.jpg" alt="Loaded data visual programming block">
-
+    <img src="files/puzzles/puzzles-advanced-loaded-data.webp" alt="Loaded data visual programming block">
 
 
     [anchor:read_JSON]
@@ -150,11 +149,10 @@ function prepareExternalInterface(app) {
     <h3>read JSON</h3>
 
     <p>
-      Interprets text (or <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a>) as <a href="https://en.wikipedia.org/wiki/JSON#Example" target="_blank">JavaScript Object Notation</a> data which is returned in a dictionary.
+      Interprets text (or <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a>) as <a href="https://en.wikipedia.org/wiki/JSON" target="_blank">JavaScript Object Notation</a> data which is returned in a <a href="manual/en/puzzles/Dictionaries.html#introduction">dictionary</a>.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-JSON.jpg" alt="Read JSON visual programming block">
-
 
 
     [anchor:read_CSV]
@@ -162,13 +160,13 @@ function prepareExternalInterface(app) {
     <h3>read CSV</h3>
 
     <p>
-      Interprets text (or <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a>) as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. "From row" value denotes how many rows will be skipped starting from the top.
+      Interprets text (or <a href="manual/en/puzzles/HTML.html#data_url">Data URL</a>) as <a href="https://en.wikipedia.org/wiki/Comma-separated_values#Example" target="_blank">comma-separated values</a>. Returns a list of table rows, with each row represented as a list of values. The delimiter can be selected with the drop-down to correspond a CSV file's export settings. *from row* value denotes how many rows will be skipped starting from the top.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-read-CSV.jpg" alt="Read CSV visual programming block">
 
     <p>
-      Table rows and values are accessed by their numeric indices starting from 0.
+      Table rows and values are accessed by their numeric indices starting from `0`.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-csv-example.jpg" alt="Read CSV example">
@@ -179,12 +177,7 @@ function prepareExternalInterface(app) {
     <h3>connector</h3>
 
     <p>
-        This puzzle facilitates connecting other puzzles with each other, to
-        make it more convenient to move, delete and use them in other puzzles.
-        The most notable application is to join <a href="manual/en/puzzles/Sound.html#load_sound">load sound</a>
-        or <a href="manual/en/puzzles/Sound.html#load_video">load video</a>
-        puzzles into a single group to organize preloading of media resources
-        in your application.
+      This puzzle facilitates connecting other puzzles with each other, to make it more convenient to move, delete and use them in other puzzles. The most notable application is to join <a href="manual/en/puzzles/Sound.html#load_sound">load sound</a> or <a href="manual/en/puzzles/Sound.html#load_video">load video</a> puzzles into a single group to organize preloading of media resources in your application.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-connector.jpg" alt="Connector visual programming block">
@@ -195,11 +188,10 @@ function prepareExternalInterface(app) {
     <h3>connector (slot-based)</h3>
 
     <p>
-      This puzzle facilitates connecting other puzzles with each other, to make them more convenient to move, delete, comment, and use in the Library.
+      This puzzle facilitates connecting other puzzles with each other, to make them more convenient to move, delete, comment, and use in the <a href="manual/en/puzzles/Library.html">library</a>.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-connector-slot.jpg" alt="Connector (slot-based) visual programming block">
-
 
 
     [anchor:save_state]
@@ -207,15 +199,14 @@ function prepareExternalInterface(app) {
     <h3>save state</h3>
 
     <p>
-    Saves the state of specified objects and/or the values of variables specified by their names. The objects are cloned and stored in memory. The values of the variables are retrieved and stored in memory for each specified variable name.
+      Saves the state of specified objects and/or the values of variables specified by their names. The objects are cloned and stored in memory. The values of the variables are retrieved and stored in memory for each specified variable name.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-save-state.jpg" alt="Save state visual programming block">
 
     <p>
-    If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/en/puzzles/Advanced.html#undo_state">undo state</a> puzzle.
+      If this puzzle is called several times, the states are saved in sequence so that it is possible to return to any previous state with the <a href="manual/en/puzzles/Advanced.html#undo_state">undo state</a> puzzle.
     </p>
-
 
 
     [anchor:undo_state]
@@ -223,17 +214,16 @@ function prepareExternalInterface(app) {
     <h3>undo state</h3>
 
     <p>
-    Restores the state of objects and/or variables saved with the <a href="manual/en/puzzles/Advanced.html#save_state">save state</a> puzzle.
+      Restores the state of objects and/or variables saved with the <a href="manual/en/puzzles/Advanced.html#save_state">save state</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-undo-state.jpg" alt="Undo state visual programming block">
 
     <p>
-    If this puzzle is called several times, the states are restored from the saved sequence (if any) which makes it possible to return to any previously saved state from the stack. Sometimes you need to catch the situation when there is no saved state present in the undo history, e.g to make changes in the UI. For that, use the state counter variable:
+      If this puzzle is called several times, the states are restored from the saved sequence (if any) which makes it possible to return to any previously saved state from the stack. Sometimes you need to catch the situation when there is no saved state present in the undo history, e.g to make changes in the UI. For that, use the state counter variable:
     </p>
 
     <img src="files/puzzles/puzzles-advanced-save-state-and-undo-state-example.jpg" alt="Save/undo state example">
-
 
 
     [anchor:all_variable_names]
@@ -241,11 +231,10 @@ function prepareExternalInterface(app) {
     <h3>all variable names</h3>
 
     <p>
-    Returns a list with the names of all variables used in Puzzles.
+      Returns a list with the names of all variables used in Puzzles.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-all-variable-names.jpg" alt="Visual programming block to get all variables">
-
 
 
     [anchor:variable_value_by_name]
@@ -253,7 +242,7 @@ function prepareExternalInterface(app) {
     <h3>variable value by name</h3>
 
     <p>
-    Returns the value of a variable specified by its name. This puzzle works similarly to the standard variable value puzzle, yet does not require to select a variable from the predefined dropdown menu.
+      Returns the value of a variable specified by its name. This puzzle works similarly to the standard variable value puzzle, yet does not require to select a variable from the predefined dropdown menu.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-variable-value-by-name.jpg" alt="Visual programming block to get variable by name">
@@ -286,8 +275,8 @@ function prepareExternalInterface(app) {
         <p>The following puzzles support advanced options:</p>
 
         <ul>
-          <li><a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/en/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/en/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent">touch</a> event which triggers puzzles in the <em>do</em> slots.</li>
-          <li><a href="manual/en/puzzles/Time.html#after">after</a>, <a href="manual/en/puzzles/Time.html#set_timer">set timer</a> — timer ID returned by the puzzles' <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval()</a> call.</li>
+          <li><a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/en/puzzles/Events.html#when_hovered">when hovered</a>, <a href="manual/en/puzzles/Events.html#when_dragged">when dragged</a> — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank">mouse</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent" target="_blank">touch</a> event which triggers puzzles in the <em>do</em> slots.</li>
+          <li><a href="manual/en/puzzles/Time.html#after">after</a>, <a href="manual/en/puzzles/Time.html#set_timer">set timer</a> — timer ID returned by the puzzles' <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval" target="_blank">setInterval()</a> call.</li>
           <li><a href="manual/en/puzzles/Time.html#every_frame">every frame</a> — delta time and total elapsed time.</li>
           <li><a href="manual/en/puzzles/HTML.html#event">event</a> — event object.</li>
           <li><a href="manual/en/puzzles/AR_VR.html#session_event">on session event</a> — WebXR event object.</li>
@@ -297,15 +286,14 @@ function prepareExternalInterface(app) {
       <dt>html element</dt>
       <dd>
         <p>
-          Returns a <a href="manual/en/puzzles/Dictionaries.html">dictionary</a> which represents a DOM object for the specified HTML element. This is useful to access HTML element properies which are not yet supported by the <a href="manual/en/puzzles/HTML.html#set_property">set property</a> or <a href="manual/en/puzzles/HTML.html#get_property">get property</a> puzzles.
+          Returns a <a href="manual/en/puzzles/Dictionaries.html#introduction">dictionary</a> which represents a DOM object for the specified HTML element. This is useful to access HTML element properies which are not yet supported by the <a href="manual/en/puzzles/HTML.html#set_property">set property</a> or <a href="manual/en/puzzles/HTML.html#get_property">get property</a> puzzles.
         </p>
-
         <img src="files/puzzles/puzzles-advanced-javascript-object-html-element.webp" alt="Working with JavaScript window object" style="max-width: 885px;">
       </dd>
 
       <dt>form data</dt>
       <dd>
-        Get FormData object for the `&lt;form&gt;` element.
+        Get FormData object for the `&lt;form&gt;` element. You might use it for e.g. <a href="manual/en/puzzles/Library.html#inquiry_form">sending custom forms to email</a>.
       </dd>
 
       <dt>this</dt>
@@ -313,7 +301,7 @@ function prepareExternalInterface(app) {
 
       <dt>window</dt>
       <dd>
-        <p>Return the top-level *window* object as dictionary value.</p>
+        <p>Return the top-level `window` object as dictionary value.</p>
         <img src="files/puzzles/puzzles-advanced-javascript-object-window.webp" alt="Working with JavaScript window object" style="max-width: 950px;">
       </dd>
     </dl>
@@ -324,19 +312,23 @@ function prepareExternalInterface(app) {
     <h3>wait promise</h3>
 
     <p>
-    Wait for the promise to be resolved or rejected and return its value (or rejection reason) in the <a href="manual/en/puzzles/Advanced.html#promise_value">promise value</a> puzzle.
+      Wait for the promise to be <em>resolved</em> or <em>rejected</em> and return its value (or rejection reason) in the <a href="manual/en/puzzles/Advanced.html#promise_value">promise value</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-wait-promise.jpg" alt="Wait promise visual programming block">
 
-    <p>This puzzle may be required to get value of the <a href="manual/en/puzzles/Scenes.html#export_to_gltf">export to gltf</a> and <a href="manual/en/puzzles/Materials.html#generate_normal_map">generate normal map</a> puzzles. Being async puzzles by their nature, these puzzle do not return resolved values immediately. Instead, they return <em>promise</em> values which are resolved in the puzzles they are used as inputs. In some rare cases, however, this resolving does not happen. In these cases you should use *wait promise* to resolve promise values.</p>
+    <p>
+      This puzzle may be required to get value of the <a href="manual/en/puzzles/Scenes.html#export_to_gltf">export to gltf</a> and <a href="manual/en/puzzles/Materials.html#generate_normal_map">generate normal map</a> puzzles. Being async puzzles by their nature, these puzzle do not return resolved values immediately. Instead, they return <em>promise</em> values which are implicitly resolved in the puzzles they are used as inputs. In some rare cases, however, this resolving does not happen. In these cases you should use *wait promise* to resolve promise values.
+    </p>
 
 
     [anchor:promise_value]
 
     <h3>promise value</h3>
 
-    <p>Resolved promise value (in case of resolved promise) or error string (in case of rejected promise).</p>
+    <p>
+      Resolved promise value (in case of resolved promise) or error string (in case of rejected promise).
+    </p>
 
 
     [anchor:get_procedure]
@@ -344,11 +336,7 @@ function prepareExternalInterface(app) {
     <h3>get procedure</h3>
 
     <p>
-      This puzzle can be used to obtain a <a href="manual/en/puzzles/Procedures.html">procedure</a>
-      defined in Puzzles. The returned value can be assigned to a variable or
-      passed into another procedure as a parameter and then executed later via
-      the <a href="manual/en/puzzles/Advanced.html#call_procedure">call procedure</a>
-      puzzle.
+      This puzzle can be used to obtain a <a href="manual/en/puzzles/Procedures.html">procedure</a> defined in Puzzles. The returned value can be assigned to a variable or passed into another procedure as a parameter and then executed later via the <a href="manual/en/puzzles/Advanced.html#call_procedure">call procedure</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-get-procedure.png" alt="Get procedure visual programming block" style="max-width: 818px">
@@ -359,11 +347,7 @@ function prepareExternalInterface(app) {
     <h3>call procedure</h3>
 
     <p>
-      Executes Puzzles' procedure obtained through the
-      <a href="manual/en/puzzles/Advanced.html#get_procedure">get procedure</a>
-      puzzle. Optionally passes parameters to be used as procedure arguments.
-      There are 2 variants of the "call procedure" puzzle - with and without a
-      return value.
+      Executes Puzzles' procedure obtained through the <a href="manual/en/puzzles/Advanced.html#get_procedure">get procedure</a> puzzle. Optionally passes parameters to be used as procedure arguments. There are 2 variants of the "call procedure" puzzle — with and without a return value.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-call-procedure.png" alt="Call procedure visual programming block" style="max-width: 820px">
@@ -374,8 +358,7 @@ function prepareExternalInterface(app) {
     <h3>add event listener</h3>
 
     <p>
-      Adds a listener to the specified event type, i.e. executes Puzzles' procedure obtained through the <a href="manual/en/puzzles/Advanced.html#get_procedure">get procedure</a>
-      puzzle when the specified event type is raised.
+      Adds a listener to the specified event type, i.e. executes Puzzles' procedure obtained through the <a href="manual/en/puzzles/Advanced.html#get_procedure">get procedure</a> puzzle when the specified event type is raised.
     </p>
 
     <img src="files/puzzles/puzzles-advanced-add-event-listener.jpg" alt="Visual programming block to add event listeners">

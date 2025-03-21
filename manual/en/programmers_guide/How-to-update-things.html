@@ -3,10 +3,10 @@
   <head>
     <title>How to Update Things in Verge3D — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Using JavaScript to update Verge3D entities such as geometries, materials, textures, or cameras."/>
-    <base href="../../../" />
+    <meta name="description" content="Using JavaScript to update Verge3D entities such as geometries, materials, textures, or cameras.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
     <h1>How to update Verge3D objects with JavaScript</h1>
@@ -38,26 +38,16 @@
     <h2>BufferGeometry</h2>
 
     <p>
-      BufferGeometries store information (such as vertex positions, face indices, normals, colors,
-      UVs, and any custom attributes) in [page:BufferAttribute buffers] — that is,
-      [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays typed arrays].
-      This makes them generally faster than standard Geometries, at the cost of being somewhat harder to
-      work with.
+      BufferGeometries store information (such as vertex positions, face indices, normals, colors, UVs, and any custom attributes) in [page:BufferAttribute buffers] — that is, [link:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays typed arrays]. This makes them generally faster than standard Geometries, at the cost of being somewhat harder to work with.
     </p>
     <p>
-      With regards to updating BufferGeometries, the most important thing to understand is that
-      you cannot resize buffers (this is very costly,  basically the equivalent to creating a new geometry).
-      You can however update the content of buffers.
+      With regards to updating BufferGeometries, the most important thing to understand is that you cannot resize buffers (this is very costly,  basically the equivalent to creating a new geometry).  You can however update the content of buffers.
     </p>
     <p>
-      This means that if you know an attribute of your BufferGeometry will grow, say the number of vertices,
-      you must pre-allocate a buffer large enough to hold any new vertices that may be created. Of
-      course, this also means that there will be a maximum size for your BufferGeometry - there is
-      no way to create a BufferGeometry that can efficiently be extended indefinitely.
+      This means that if you know an attribute of your BufferGeometry will grow, say the number of vertices, you must pre-allocate a buffer large enough to hold any new vertices that may be created. Of course, this also means that there will be a maximum size for your BufferGeometry - there is no way to create a BufferGeometry that can efficiently be extended indefinitely.
     </p>
     <p>
-      We'll use the example of a line that gets extended at render time. We'll allocate space
-      in the buffer for 500 vertices but draw only two at first, using [page:BufferGeometry.drawRange].
+      We'll use the example of a line that gets extended at render time. We'll allocate space in the buffer for 500 vertices but draw only two at first, using [page:BufferGeometry.drawRange].
     </p>
 
     <code>
@@ -106,21 +96,23 @@
     <p>
       If you want to change the <em>number of points</em> rendered after the first render, do this:
     </p>
+
     <code>
     line.geometry.setDrawRange(0, newValue);
     </code>
+
     <p>
-      If you want to change the position data values after the first render, you need to
-      set the needsUpdate flag like so:
+      If you want to change the position data values after the first render, you need to set the needsUpdate flag like so:
     </p>
+
     <code>
     line.geometry.attributes.position.needsUpdate = true; // required after the first render
     </code>
 
     <p>
-      If you change the position data values after the initial render, you may need to recompute
-      bounding volumes so other features of the engine like view frustum culling or helpers properly work.
+      If you change the position data values after the initial render, you may need to recompute bounding volumes so other features of the engine like view frustum culling or helpers properly work.
     </p>
+
     <code>
     line.geometry.computeBoundingBox();
     line.geometry.computeBoundingSphere();
@@ -159,6 +151,7 @@
     <p>You can freely change the material used for geometry chunks, however you cannot change how an object is divided into chunks (according to face materials). </p>
 
     <h3>If you need to have different configurations of materials during runtime:</h3>
+
     <p>If the number of materials / chunks is small, you could pre-divide the object beforehand (e.g. hair / face / body / upper clothes / trousers for a human, front / sides / top / glass / tire / interior for a car). </p>
 
     <p>If the number is large (e.g. each face could be potentially different), consider a different solution, such as using attributes / textures to drive different per-face look.</p>

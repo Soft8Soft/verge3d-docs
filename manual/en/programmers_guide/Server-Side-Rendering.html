@@ -3,10 +3,10 @@
   <head>
     <title>How to perform server-side rendering in Verge3D — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="With Verge3D you can do both client-side (in the web browser) or server-side rendering. The latter can be employed if the user has low-end hardware or slow network, or to provide the best quality possible, yet still having configurable content."/>
-    <base href="../../../" />
+    <meta name="description" content="With Verge3D you can do both client-side (in the web browser) or server-side rendering. The latter can be employed if the user has low-end hardware or slow network, or to provide the best quality possible, yet still having configurable content.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
 
     <meta property="og:image" content="https://cdn.soft8soft.com/images/server_social.jpg">
     <meta property="article:tag" content="server-side">
@@ -74,7 +74,7 @@
     </code>
 
     <p>
-      Check out the official <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" target="_blank">documentation</a> from Google for more info about Chrome Headless.
+      Check out the official <a href="https://developer.chrome.com/blog/headless-chrome/" target="_blank">documentation</a> from Google for more info about Chrome Headless.
     </p>
 
 
@@ -87,7 +87,7 @@
     </p>
 
     <p>
-      To install it, simply add the following script to any directory and name it <strong>package.json</strong> (<a href="files/server-side-rendering/package.json" download>download</a>):
+      To install it, simply create the file with the following contents inside some folder and name it <strong>package.json</strong> (or simply download it <a href="files/server-side-rendering/package.json" download>from here</a>):
     </p>
 
     <code>
@@ -105,7 +105,7 @@
     </p>
 
     <code>
-      npm install
+    npm install
     </code>
 
     <p>
@@ -119,14 +119,14 @@
     <code>
     #!/usr/bin/node
 
-    const program = require('commander');
-    const puppeteer = require('puppeteer');
+    import { program } from 'commander';
+    import puppeteer from 'puppeteer';
 
     program
         .option('-u, --url [url]', 'URL to open', 'http://localhost:8668/')
         .option('-s, --screenshot-path [path]', 'A path where to save the screenshot', './screenshot.png')
         .option('-t, --timeout [ms]', 'Timeout after page loading before taking the screenshot',
-                function(val) { return parseInt(val); }, 1000)
+                function(val) { return parseInt(val); }, 2000)
         .option('-W, --viewport-width [px]', 'The width of the viewport',
                 function(val) { return parseInt(val); }, 1920)
         .option('-H, --viewport-height [px]', 'The height of the viewport',
@@ -173,7 +173,7 @@
     </p>
 
     <code>
-      node screenshot.js -u https://cdn.soft8soft.com/demo/blender/spinner/spinner.html
+    node screenshot.js -u https://cdn.soft8soft.com/demo/blender/spinner/spinner.html
     </code>
 
     <p>
@@ -187,7 +187,7 @@
     </p>
 
     <code>
-      node screenshot.js -h
+    node screenshot.js -h
     </code>
 
     <p class="note">
@@ -227,14 +227,13 @@
     </code>
 
     <p>
-      Also, we did not cover any client-server interaction. For that you can implement a <a href="https://www.npmjs.com/package/http-server" target="_blank">simple HTTP</a> server or a more advanced <a href="https://www.npmjs.com/package/websocket" target="_blank">WebSocket server</a>.
+      Also, we did not cover any client-server interaction. For that you can implement a simple <a href="https://www.npmjs.com/package/http-server" target="_blank">HTTP server</a> or a more advanced <a href="https://www.npmjs.com/package/websocket" target="_blank">WebSocket server</a>.
     </p>
 
 
     <h2>Got Questions?</h2>
 
     <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
 
   </article></body>
 </html>

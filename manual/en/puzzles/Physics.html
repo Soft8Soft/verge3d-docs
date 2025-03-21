@@ -3,10 +3,10 @@
   <head>
     <title>Physics Puzzles Reference — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Using puzzles to simulate physics behavior."/>
-    <base href="../../../" />
+    <meta name="description" content="Using puzzles to simulate physics behavior.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
@@ -35,7 +35,7 @@
     <h3>create physics world</h3>
 
     <p>
-    Initializes the physics engine using the specified *gravity* and *frames-per-second* parameters. The default *gravity* value of 9.8 corresponds to Earth surface conditions. Zero value means no gravity as in space. The higher *fps* value the better simulation quality at the expense of performance.
+      Initializes the physics engine using the specified *gravity* and *frames-per-second* parameters. The default *gravity* value of 9.8 corresponds to Earth surface conditions. Zero value means no gravity as in space. The higher *fps* value the better simulation quality at the expense of performance.
     </p>
 
     <p>The *soft body* checker activates the soft body simulation capability.</p>
@@ -129,7 +129,8 @@
       </li>
     </ul>
 
-    <p class="note">Don't forget to activate soft body simulation on the <a href="manual/en/puzzles/Physics.html#create_physics_world">physics world</a> before creating soft bodies.</p>
+    <p class="note">Don't forget to activate soft body simulation on the <a href="manual/en/puzzles/Physics.html#create_physics_world">physics world</a> before creating soft bodies.
+    </p>
 
 
     [anchor:remove_physics_body]
@@ -141,7 +142,6 @@
     </p>
 
     <img src="files/puzzles/puzzles-physics-remove-physics-body.jpg" alt="Block to remove physics body">
-
 
 
     [anchor:apply_body_param]
@@ -159,7 +159,7 @@
     <dl>
       <dt>angular damping</dt>
       <dd>
-        Coefficient of resistance that will slow down a rotating object: 0 — no damping, 1 — maximum damping. Input values are clamped to [0, 1] range.
+        Coefficient of resistance that will slow down a rotating object: `0` — no damping, `1` — maximum damping. Input values are clamped to [0, 1] range.
       </dd>
       <dt>angular factor</dt>
       <dd>
@@ -197,7 +197,7 @@
       </dd>
       <dt>linear damping</dt>
       <dd>
-        Coefficient of resistance that will slow down a moving object: 0 - no damping (e.g. free fall), 1 - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
+        Coefficient of resistance that will slow down a moving object: `0` - no damping (e.g. free fall), `1` - maximum damping (e.g. object falls with no acceleration). Input values are clamped to [0, 1] range.
       </dd>
       <dt>linear factor</dt>
       <dd>
@@ -215,13 +215,13 @@
       <dd>
         Set body position (works like the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle).
       </dd>
+      <dt>restitution</dt>
+      <dd>
+        Coefficient of elasticity: `0` — body is not elastic like clay, `1` — body behaves like being made from rubber.
+      </dd>
       <dt>rotation</dt>
       <dd>
         Set body rotation (euler rotation in XYZ order, works like the <a href="manual/en/puzzles/Physics.html#snap_body">snap body</a> puzzle).
-      </dd>
-      <dt>restitution</dt>
-      <dd>
-        Coefficient of elasticity: 0 — body is not elastic like clay, 1 — body behaves like being made from rubber.
       </dd>
       <dt>stiffness</dt>
       <dd>
@@ -257,7 +257,7 @@
     <dl>
       <dt>angular damping</dt>
       <dd>
-        Coefficient of resistance that will slow down a rotating object: 0 — no damping, 1 — maximum damping.
+        Coefficient of resistance that will slow down a rotating object: `0` — no damping, `1` — maximum damping.
       </dd>
       <dt>angular factor</dt>
       <dd>
@@ -289,7 +289,7 @@
       </dd>
       <dt>linear damping</dt>
       <dd>
-        Coefficient of resistance that will slow down a moving object: 0 — no damping (e.g. free fall), 1 — maximum damping (e.g. object falls with no acceleration).
+        Coefficient of resistance that will slow down a moving object: `0` — no damping (e.g. free fall), `1` — maximum damping (e.g. object falls with no acceleration).
       </dd>
       <dt>linear factor</dt>
       <dd>
@@ -307,17 +307,17 @@
       <dd>
         Body XYZ position.
       </dd>
+      <dt>restitution</dt>
+      <dd>
+        Coefficient of elasticity: `0` — body is not elastic like clay, `1` — body behaves like being made from rubber.
+      </dd>
       <dt>rotation</dt>
       <dd>
         Body XYZ euler rotation.
       </dd>
-      <dt>restitution</dt>
-      <dd>
-        Coefficient of elasticity: 0 — body is not elastic like clay, 1 — body behaves like being made from rubber.
-      </dd>
       <dt>stiffness</dt>
       <dd>
-        Stiffness of soft bodies like volumes and ropes. Deprecated, use <a href="manual/en/puzzles/Physics.html#get_soft_body_param">apply soft body param</a> instead.
+        Stiffness of soft bodies like volumes and ropes. Deprecated, use <a href="manual/en/puzzles/Physics.html#get_soft_body_param">get soft body param</a> instead.
       </dd>
       <dt>torque</dt>
       <dd>
@@ -383,7 +383,7 @@
     <h3>on simulation tick</h3>
 
     <p>
-      Trigger puzzles specified in the *do" slot <em>just before</em> or <em>just after</em> the physics simulation tick.
+      Trigger puzzles specified in the *do* slot <em>just before</em> or <em>just after</em> the physics simulation tick.
     </p>
 
     <img src="files/puzzles/puzzles-physics-on-simulation-tick.jpg" alt="On simulation tick visual scripting block" style="max-width: 817px">
@@ -398,12 +398,14 @@
     <h3>snap body</h3>
 
     <p>
-    Moves a physics body associated with a specified object, and the object itself, to the position of another object by copying its transform data. Also copies rotation. Does not work with lists, groups or the "all objects" puzzle.
+      Moves a physics body associated with a specified object, and the object itself, to the position of another object by copying its transform data. Also copies rotation. Does not work with lists, groups or the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
     </p>
 
     <img src="files/puzzles/puzzles-physics-snap-body.jpg" alt="Visual programming block to snap physics bodies">
 
-    <p>Works similar to *apply body param / position* puzzle.</p>
+    <p>
+      Works similar to *apply body param / position* puzzle.
+    </p>
 
 
     [anchor:add_physics_constraint]
@@ -475,21 +477,21 @@
 
     <dl>
       <dt>anchor hardness</dt>
-      <dd>Coefficient of anchor hardness: 0 — no anchor influence, 1 — maximum anchor influence.</dd>
+      <dd>Coefficient of anchor hardness: `0` — no anchor influence, `1` — maximum anchor influence.</dd>
       <dt>angular stiffness</dt>
-      <dd>Angular stiffness: 0 — no angular stiffness, 1 — maximum angular stiffness.</dd>
+      <dd>Angular stiffness: `0` — no angular stiffness, `1` — maximum angular stiffness.</dd>
       <dt>collision flags</dt>
-      <dd>Soft body collision flags: 0 — no collision with other rigid bodies, 1 — simplified collision, 17 — improved collision. Default value is 17.</dd>
+      <dd>Soft body collision flags: `0` — no collision with other rigid bodies, `1` — simplified collision, 17 — improved collision. Default value is 17.</dd>
       <dt>damping coefficient</dt>
-      <dd>Damping coefficient: 0 — no damping, 1 — maximum damping.</dd>
+      <dd>Damping coefficient: `0` — no damping, `1` — maximum damping.</dd>
       <dt>drag coefficient</dt>
       <dd>Drag force coefficient (aka fluid resistance). Must be a positive number.</dd>
       <dt>dynamic friction</dt>
-      <dd>Dynamic friction coefficient. 0 — no friction, 1.0 — maximum friction.</dd>
+      <dd>Dynamic friction coefficient. `0` — no friction, `1.0` — maximum friction.</dd>
       <dt>lift coefficient</dt>
       <dd>Lift force coefficient. Must be a positive number.</dd>
       <dt>linear stiffness</dt>
-      <dd>Linear stiffness: 0 — no linear stiffness, 1 — maximum linear stiffness.</dd>
+      <dd>Linear stiffness: `0` — no linear stiffness, `1` — maximum linear stiffness.</dd>
       <dt>position iterations</dt>
       <dd>Number of positions solver iterations. Higher values give more quality. Must be a positive integer.</dd>
       <dt>pressure coefficient</dt>
@@ -515,27 +517,27 @@
 
     <dl>
       <dt>anchor hardness</dt>
-      <dd>Coefficient of anchor hardness: 0 — no anchor influence, 1 — maximum anchor influence.</dd>
+      <dd>Coefficient of anchor hardness: `0` — no anchor influence, `1` — maximum anchor influence.</dd>
       <dt>angular stiffness</dt>
-      <dd>Angular stiffness: 0 — no angular stiffness, 1 — maximum angular stiffness.</dd>
+      <dd>Angular stiffness: `0` — no angular stiffness, `1` — maximum angular stiffness.</dd>
       <dt>collision flags</dt>
-      <dd>Soft body collision flags: 0 — no collision with other rigid bodies, 1 — simplified collision, 17 — improved collision.</dd>
+      <dd>Soft body collision flags: `0` — no collision with other rigid bodies, `1` — simplified collision, 17 — improved collision.</dd>
       <dt>damping coefficient</dt>
-      <dd>Damping coefficient: 0 — no damping, 1 — maximum damping.</dd>
+      <dd>Damping coefficient: `0` — no damping, `1` — maximum damping.</dd>
       <dt>drag coefficient</dt>
       <dd>Drag force coefficient (aka fluid resistance). Must be a positive number.</dd>
       <dt>dynamic friction</dt>
-      <dd>Dynamic friction coefficient. 0 — no friction, 1.0 — maximum friction.</dd>
+      <dd>Dynamic friction coefficient. `0` — no friction, `1.0` — maximum friction.</dd>
       <dt>lift coefficient</dt>
-      <dd>Lift force coefficient. Must be a positive number.</dd>
+      <dd>Lift force coefficient.</dd>
       <dt>linear stiffness</dt>
-      <dd>Linear stiffness: 0 — no linear stiffness, 1 — maximum linear stiffness.</dd>
+      <dd>Linear stiffness: `0` — no linear stiffness, `1` — maximum linear stiffness.</dd>
       <dt>position iterations</dt>
-      <dd>Number of positions solver iterations. Higher values give more quality. Must be a positive integer.</dd>
+      <dd>Number of positions solver iterations.</dd>
       <dt>pressure coefficient</dt>
       <dd>Pressure coefficient (e.g for balloons).</dd>
       <dt>velocity iterations</dt>
-      <dd>Number of velocity solver iterations. Higher values give move quality. Must be a positive integer.</dd>
+      <dd>Number of velocity solver iterations.</dd>
       <dt>wind velocity</dt>
       <dd>Wind velocity vector.</dd>
     </dl>
@@ -546,17 +548,17 @@
     <h3>detect collisions and collision info</h3>
 
     <p>
-    Detects if there is a collision at the moment of a specified body with another body (or any body from a list or a group). If there is a collision, the puzzles in the "if touching do" slot are triggered, otherwise - in the "if not touching do".
+      Detects if there is a collision at the moment of a specified body with another body (or any body from a list or a group). If there is a collision, the puzzles in the *if touching do* slot are triggered, otherwise - in the *if not touching do*.
     </p>
 
     <p>
-    The "detect collisions" puzzle triggers either of its callback slots every rendering frame.
+      The "detect collisions" puzzle triggers either of its callback slots every rendering frame.
     </p>
 
     <img src="files/puzzles/puzzles-physics-detect-collisions.jpg" alt="Visual programming block for collision detection">
 
     <p>
-    The *collision info* puzzle outputs a <a href="manual/en/puzzles/Dictionaries.html">dictionary</a> with the following fields:
+      The *collision info* puzzle outputs a <a href="manual/en/puzzles/Dictionaries.html">dictionary</a> with the following fields:
     </p>
 
     <ul>
@@ -587,70 +589,83 @@
 
     <h2>Extending with JavaScript</h2>
 
-    <p class="note">Before you start reading, please get familiar with the <a href="manual/en/introduction/Using-JavaScript.html">Using JavaScript</a> section of this User Manual</a>.</p>
-
-    <p>To build physics puzzles we use a JavaScript library called Ammo.js. This library is basically the popular Bullet physics engine compiled to be used in the browser.</p>
-
-    <p>To get familiar with Bullet, check out the <a href="https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf" target="_blank">Bullet Physics SDK Manual</a> available on GitHub as well as official <a href="https://pybullet.org/Bullet/BulletFull/index.html" target="_blank">Bullet API Reference</a>.</p>
-
-    <p>In Verge3D you can execute Bullet/Ammo.js APIs directly by using the Ammo namespace:</p>
+    <p class="note">
+      Before you start reading, please get familiar with the <a href="manual/en/introduction/Using-JavaScript.html">Using JavaScript</a> section of this User Manual</a>.
+    </p>
+    <p>
+      To build physics puzzles we use a JavaScript library called Ammo.js. This library is basically the popular Bullet physics engine compiled to be used in the browser.
+    </p>
+    <p>
+      To get familiar with Bullet, check out the <a href="https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf" target="_blank">Bullet Physics SDK Manual</a> available on GitHub as well as official <a href="https://pybullet.org/Bullet/BulletFull/index.html" target="_blank">Bullet API Reference</a>.
+    </p>
+    <p>
+      In Verge3D you can execute Bullet/Ammo.js APIs directly by using the Ammo namespace:
+    </p>
 
     <code>
-var myVector = new Ammo.btVector3(1.0, 0.0, 0.0);
-console.log('My physics vector is:', myVector.x(), myVector.y(), myVector.z());
+    const myVector = new Ammo.btVector3(1.0, 0.0, 0.0);
+    console.log('My physics vector is:', myVector.x(), myVector.y(), myVector.z());
     </code>
 
     <p>
-      Also you can get access to the following data structures we use in Puzzles
-      via the *puzzles* argument of the *runCode()* function of *your_app_name.js*
-      module or the built-in *puzzles* variable inside the
-      <a href="manual/en/puzzles/Advanced.html#exec_script">exec script</a> puzzle:
+      Also you can get access to the following data structures we use in Puzzles via the `puzzles` argument of the `runCode()` function of *your_app_name.js* module or the built-in `puzzles` variable inside the <a href="manual/en/puzzles/Advanced.html#exec_script">exec script</a> puzzle:
     </p>
 
     <h3>World</h3>
 
-    <p>Depending on the initialized physics world it can be an instance to <a href="https://pybullet.org/Bullet/BulletFull/classbtDiscreteDynamicsWorld.html">btDiscreteDynamicsWorld</a> or <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftRigidDynamicsWorld.html" target="_blank">btSoftRigidDynamicsWorld</a> class:</p>
+    <p>
+      Depending on the initialized physics world it can be an instance to <a href="https://pybullet.org/Bullet/BulletFull/classbtDiscreteDynamicsWorld.html">btDiscreteDynamicsWorld</a> or <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftRigidDynamicsWorld.html" target="_blank">btSoftRigidDynamicsWorld</a> class:
+    </p>
 
     <code>
-var gravity = puzzles.physics.world.getGravity();
-console.log('World gravity:', gravity.y());
+    const gravity = puzzles.physics.world.getGravity();
+    console.log('World gravity:', gravity.y());
     </code>
 
     <h3>Physics Bodies</h3>
 
-    <p>Physics bodies are stored as key-value data inside the <strong>puzzles.physics.bodies</strong> object:</p>
+    <p>
+      Physics bodies are stored as key-value data inside the <strong>puzzles.physics.bodies</strong> object:
+    </p>
 
     <code>
-var body = puzzles.physics.bodies['Whirligig'];
-console.log('Body mass:', 1.0 / body.getInvMass());
+    const body = puzzles.physics.bodies['Whirligig'];
+    console.log('Body mass:', 1.0 / body.getInvMass());
     </code>
 
-    <p>Rigid bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtRigidBody.html" target="_blank">btRigidBody</a> class, while soft bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftBody.html" target="_blank">btSoftBody</a> class.
+    <p>
+      Rigid bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtRigidBody.html" target="_blank">btRigidBody</a> class, while soft bodies are instances of the <a href="https://pybullet.org/Bullet/BulletFull/classbtSoftBody.html" target="_blank">btSoftBody</a> class.
+    </p>
 
     <h3>Physics Constraints</h3>
 
-    <p>Bullet/Ammo constraints are stored as key-value data inside the two-dimensional <strong>puzzles.physics.constraints</strong> object:</p>
+    <p>
+      Bullet/Ammo constraints are stored as key-value data inside the two-dimensional <strong>puzzles.physics.constraints</strong> object:
+    </p>
 
     <code>
-var hingeConstraint = puzzles.physics.constraints['Suzanne']['Axis'];
-hingeConstraint.enableAngularMotor(true, 10, 10);
+    const hingeConstraint = puzzles.physics.constraints['Suzanne']['Axis'];
+    hingeConstraint.enableAngularMotor(true, 10, 10);
     </code>
 
-    <p>The names represent the constraint's first and second bodies respectively.</p>
+    <p>
+      The names represent the constraint's first and second bodies respectively.
+    </p>
 
     <h3>Physics Sync List</h3>
 
-    <p>Verge3D puzzles use the so-called synchronization list to move objects represented by physics bodies in space. Sync list is not directly accessible, so you need to use the following API methods to add/remove your bodies to/from that list.</p>
+    <p>
+      Verge3D puzzles use the so-called synchronization list to move objects represented by physics bodies in space. Sync list is not directly accessible, so you need to use the following API methods to add/remove your bodies to/from that list.
+    </p>
 
     <code>
-// add obj / body to the sync list
-// the type can be 'DYNAMIC', 'KINEMATIC', 'STATIC', 'GHOST', or 'SOFT_BODY'
-puzzles.physics.addToSyncList(obj, body, 'DYNAMIC');
+    // add obj / body to the sync list
+    // the type can be 'DYNAMIC', 'KINEMATIC', 'STATIC', 'GHOST', or 'SOFT_BODY'
+    puzzles.physics.addToSyncList(obj, body, 'DYNAMIC');
 
-// remove obj / body from the sync list
-puzzles.physics.removeFromSyncList(obj, body);
+    // remove obj / body from the sync list
+    puzzles.physics.removeFromSyncList(obj, body);
     </code>
-
 
 
     <h2>Having Troubles with Puzzles?</h2>

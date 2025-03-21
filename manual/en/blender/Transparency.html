@@ -3,10 +3,10 @@
   <head>
     <title>Verge3D for Blender: Transparency — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Learn what kinds of transparency can be enabled for Blender materials and used in Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="Learn what kinds of transparency can be enabled for Blender materials and used in Verge3D.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
@@ -29,39 +29,47 @@
       Transparency for Eevee materials can be enabled by using a combination of the *Transparent BSDF* and the *Mix Shader* nodes. The factor in the *Mix Shader* node can be used to define the alpha value — you can directly specify a value or create a dependency from some other nodes such as *Fresnel* for more realistic look.
     </p>
 
-    <img src="files/transparency-blender/eevee-ztransparency.jpg" alt="Blender Blend mode setting">
+    <img src="files/transparency-blender/transparent-bsdf.webp" alt="Transparent BSDF node setup">
 
     <p>Alternatively, you can use *Alpha* input of the Principled BSDF node.</p>
 
-    <img src="files/transparency-blender/eevee-ztransparency-principled.jpg" alt="Principled BSDF shader with transparency">
+    <img src="files/transparency-blender/principled-bsdf-alpha.webp" alt="Alpha input of Principled BSDF node">
 
     <p>Use the *Blend Mode* dropdown to choose between transparency modes:</p>
 
     <dl>
+      <dt>Auto</dt>
+      <dd>Look into material to resolve possible transparency method: *Opaque* or *Alpha Blend*.</dd>
       <dt>Opaque</dt>
       <dd>Render material with no transparency.</dd>
       <dt>Alpha Clip</dt>
-      <dd>Masked transparency (see <a href="manual/en/max/Transparency.html#blended_vs_masked">below</a>).</dd>
+      <dd>Masked transparency (see <a href="manual/en/blender/Transparency.html#blended_vs_masked">below</a>).</dd>
       <dt>Alpha Hashed</dt>
       <dd>Hashed transparency, aka alpha to coverage. This method takes an intermediate position between masked and blended transparency. It uses MSAA rendering to improve the quality of alpha clipping.</dd>
       <dt>Alpha Blend</dt>
-      <dd>Blended transparency (see <a href="manual/en/max/Transparency.html#blended_vs_masked">below</a>).</dd>
+      <dd>Blended transparency (see <a href="manual/en/blender/Transparency.html#blended_vs_masked">below</a>).</dd>
     </dl>
 
+    <p>
+      To tweak your the material's transparency there are other options available on the *Verge3D Settings* panel:
+    </p>
 
-    <p>To tweak your the material's transparency there are other options available on the *Settings* panel:</p>
-
-    <img src="files/transparency-blender/material-settings.webp" alt="Blender transparency settings" style="max-width: 345px">
+    <img src="files/transparency-blender/material-settings.webp" alt="Blender transparency settings" style="max-width: 328px">
 
     <dl>
-      <dt>Backface Culling</dt>
-      <dd>This checker works only for *Alpha Blend* materials with the *Show Backface* option enabled (effectively replacing Verge3D-specific <a href="manual/en/blender/Lighting-and-Rendering.html#material_verge3d_panel">Render Side</a> property). When checked, the back side of tranparent polygons won't be rendered.
-      <dt>Shadow Mode</dt>
-      <dd>Transparency mode for the shadow casters. For now only *Opaque* and *None* modes are supported in Verge3D.</dd>
       <dt>Clip Threshold</dt>
-      <dd>Threshold for alpha clipped (masked) materials.</dd>
-      <dt>Show Backface</dt>
-      <dd>Render multiple layers of transparent geometry. If turned off, the objects will be rendered by using the special technique called "Depth Prepass" which renders only one (nearest to the viewer) transparency layer.</dd>
+      <dd>Threshold for alpha clipped (masked) materials. For pixels with alpha below the clip threshold, the surface will be culled and won't be rendered.</dd>
+      <dt>Transparency Hack</dt>
+      <dd>
+        Enable one of the two non-standard rendering methods to eliminate transparency artifacts:
+        <dl>
+          <dt>Nearest Layer</dt>
+          <dd>Render only the closest-to-the-camera transparency layer by using a separate depth buffer for culling (aka "depth prepass").</dd>
+          <dt>Two-Pass</dt>
+          <dd>Render back-face surfaces first followed by front-face surfaces. This method works only for double-sided materials, i.e. the *Render Side* property should be set to *Double-sided*.</dd>
+        </dl>
+        Both transparency hacks reduce performance, so use them only when it's really necessary.
+      </dd>
     </dl>
 
     [demo:transparency]
@@ -136,7 +144,9 @@
 
     <img src="files/transparency-common/oit-example.jpg" alt="Order-Independent Transparency example">
 
-    <p>OIT can be enabled though the <a href="manual/en/blender/Lighting-and-Rendering.html#global_rendering_properties_verge3d">Verge3D Settings panel</a>.</p>
+    <p>
+      OIT can be enabled though the <a href="manual/en/blender/Lighting-and-Rendering.html#global_rendering_properties_verge3d">Verge3D Settings panel</a>.
+    </p>
 
     <img src="files/transparency-blender/oit.jpg" alt="Order-Independent Transparency setting in Blender" style="max-width: 449px;">
 
@@ -171,6 +181,7 @@
     <p>
       Use the <strong>Blend Mode</strong> dropdown to choose between the supported transparency modes: *Opaque*, *Alpha Clip*, or *Alpha Blend*.
     </p>
+
 
     <h2>Got Questions?</h2>
 

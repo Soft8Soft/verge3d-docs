@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../../" />
+    <meta charset="utf-8">
+    <base href="../../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:LightShadow] &rarr;
@@ -30,13 +30,13 @@
     // create a WebGLRenderer and turn on shadows in the renderer
     const renderer = new v3d.WebGLRenderer();
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = v3d.PCFSoftShadowMap; // default v3d.PCFShadowMap
+    renderer.shadowMap.type = v3d.PCFShadowMap; // default
 
     // create a DirectionalLight and turn on shadows for the light
     const light = new v3d.DirectionalLight(0xffffff, 1);
     light.position.set(0, 1, 0); //default; light shining from top
     light.castShadow = true; // default false
-    scene.add(light);
+    app.scene.add(light);
 
     // set up shadow properties for the light
     light.shadow.mapSize.width = 512; // default
@@ -50,18 +50,18 @@
     const sphere = new v3d.Mesh(sphereGeometry, sphereMaterial);
     sphere.castShadow = true; //default is false
     sphere.receiveShadow = false; //default
-    scene.add(sphere);
+    app.scene.add(sphere);
 
     // create a plane that receives shadows (but does not cast them)
     const planeGeometry = new v3d.PlaneGeometry(20, 20, 32, 32);
     const planeMaterial = new v3d.MeshStandardMaterial({ color: 0x00ff00 })
     const plane = new v3d.Mesh(planeGeometry, planeMaterial);
     plane.receiveShadow = true;
-    scene.add(plane);
+    app.scene.add(plane);
 
     // create a helper for the shadow camera (optional)
     const helper = new v3d.CameraHelper(light.shadow.camera);
-    scene.add(helper);
+    app.scene.add(helper);
     </code>
 
     <h2>Constructor</h2>

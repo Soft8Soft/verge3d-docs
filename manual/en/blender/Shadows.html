@@ -3,10 +3,10 @@
   <head>
     <title>Verge3D for Blender: Shadows — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Learn how to setup beautiful shadows in Verge3D for Blender."/>
-    <base href="../../../" />
+    <meta name="description" content="Learn how to setup beautiful shadows in Verge3D for Blender.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
@@ -22,6 +22,7 @@
 
     [contents]
 
+
     [anchor:prepare_viewport]
 
     <h2>Preparing Blender Viewport</h2>
@@ -29,39 +30,42 @@
     <p class="note">
       It's recommended to set up Blender's viewport as described in this section to make configuring shadows easier.
     </p>
-
     <p>
       Verge3D aims to resemble Blender's Eevee renderer. Follow these instructions to enable it:
     </p>
 
     <ul>
       <li>
-        Ensure that the *Render Properties* → *Render Engine* option is set to *Eevee*. Eevee is enabled in Blender 2.8+ by default, but for a particular .blend file some other render engine could be used. In such case it's recommended to switch it back to Eevee.
+        <p>
+          Ensure that the *Render Properties* → *Render Engine* option is set to *EEVEE*:
+        </p>
+        <img src="files/shadows-blender/render-engine.webp" alt="Choosing Eevee" style="max-width: 375px">
+        <p>
+          Eevee is enabled in Blender 2.8+ by default, but for a particular <strong>.blend</strong> file some other render engine could be used. In such case it's recommended to switch it back to Eevee.
+        </p>
       </li>
-    </ul>
-
-    <img src="files/shadows-blender/render-engine.jpg" alt="Choosing Eevee" style="max-width: 467px;">
-
-    <ul>
       <li>
-        Set the *Viewport Shading* option to *Rendered*.
+        <p>
+          Set the *Viewport Shading* option to *Rendered*:
+        </p>
+        <img src="files/shadows-blender/viewport-shading.webp" alt="Choosing viewport rendering in Blender" style="max-width: 493px">
       </li>
     </ul>
-
-    <img src="files/shadows-blender/viewport-shading.jpg" alt="Choosing viewport rendering in Blender" style="max-width: 369px;">
 
     <p>
-      It's also worth noting that Verge3D doesn't support soft shadows the same way Blender supports them. Blender's *Soft Shadows* option enables gradual shadow rendering, but Verge3D relies on more real-time techniques.  Given the above, it might be better to disable the *Soft Shadows* option.  Also, in order to achieve soft shadows in Verge3D one can try different <a href="manual/en/blender/Shadows.html#shadow_filtering"> shadow filtering methods</a> and adjust the <a href="manual/en/blender/Shadows.html#blur-radius">shadow blur radius</a> setting.
+      It's also worth noting that Verge3D doesn't support shadows the same way Blender supports them. In order to achieve soft shadows in Verge3D one can try different <a href="manual/en/blender/Shadows.html#shadow_filtering">shadow filtering methods</a> and adjust the <a href="manual/en/blender/Shadows.html#blur-radius">shadow blur radius</a> setting.
     </p>
-    <img src="files/shadows-blender/soft-shadows-not-supported.jpg" alt="Disabling soft shadows in Blender" style="max-width: 381px;">
+
 
     [anchor:shadow_filtering]
 
     <h2>Shadow Filtering Types</h2>
 
-    <p>Shadows in Verge3D look very differently depending on what shadow map filtering algorithm is in use. The *Shadow Map Filtering* property located on the *Render Properties* tab is used to specify the algorithm.</p>
+    <p>
+      Shadows in Verge3D look very differently depending on what shadow map filtering algorithm is in use. The *Shadow Filtering* property located on the *Render Properties* tab is used to specify the algorithm.
+    </p>
 
-    <img src="files/shadows-blender/shadow-filtering-settings.jpg" alt="Choosing shadow filtering type in Blender" style="max-width: 425px">
+    <img src="files/shadows-blender/shadow-filtering-settings.webp" alt="Choosing shadow filtering type in Blender" style="max-width: 325px">
 
     [demo:tea_ceremony]
 
@@ -70,7 +74,9 @@
 
     <h3>Basic</h3>
 
-    <p>Disable filtering, render shadow map as is. This is the fastest method to render shadows.</p>
+    <p>
+      Disable filtering, render shadow map as is. This is the fastest method to render shadows.
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-basic.jpg" alt="Example of basic shadows">
 
@@ -79,7 +85,9 @@
 
     <h3>Bilinear</h3>
 
-    <p>Use bilinear filtering to smooth adjacent shadow map pixels.</p>
+    <p>
+      Use bilinear filtering to smooth adjacent shadow map pixels.
+    </p>
 
     <img src="files/shadows-blender/shadow-filtering-bilinear.jpg" alt="Example of bilinear shadows">
 
@@ -100,7 +108,10 @@
     <h3>ESM</h3>
 
     <p>
-      Stands for Exponential Shadow Maps. Shadows are smoothest but light leaks are possible. Use <a href="manual/en/blender/Shadows.html#esm-bias">ESM Bias</a> setting on lights to remove light leaks artefacts. The performance is comparable to *PCF* algorithm. ESM shadows can be particularly tricky to set up, therefore see ESM-related issues in the <a href="manual/en/blender/Shadows.html#troubleshooting">Troubleshooting</a> section.
+      Stands for Exponential Shadow Maps. Shadows are smoothest but light leaks are possible. Use <a href="manual/en/blender/Shadows.html#esm-bias">ESM Bias</a> setting on lights to remove light leaks artifacts. The performance is comparable to *PCF* algorithm.
+    </p>
+    <p>
+      ESM shadows can be particularly tricky to set up, therefore see ESM-related issues in the <a href="manual/en/blender/Shadows.html#troubleshooting">Troubleshooting</a> section.
     </p>
 
     <img src="files/shadows-blender/shadow-filtering-esm.jpg" alt="Example of ESM shadows">
@@ -109,8 +120,9 @@
     [anchor:shadow_filtering_choose]
 
     <h3>Which filtering type to choose?</h3>
+
     <p>
-      It's recommended to try the default <a href="manual/en/blender/Shadows.html#shadow_filtering_pcf">PCF)</a> shadows first, because they offer good quality and performance. If you need faster but less quality shadows then try <a href="manual/en/blender/Shadows.html#shadow_filtering_basic">Basic</a> or <a href="manual/en/blender/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Try <a href="manual/en/blender/Shadows.html#shadow_filtering_esm">ESM</a> if you want more quality, soft shadows, but the drawback is that they can be tricky to set up (artefact-wise) for a particular scene.
+      It's recommended to try the default <a href="manual/en/blender/Shadows.html#shadow_filtering_pcf">PCF</a> shadows first, because they offer good quality and performance. If you need faster but less quality shadows then try <a href="manual/en/blender/Shadows.html#shadow_filtering_basic">Basic</a> or <a href="manual/en/blender/Shadows.html#shadow_filtering_bilinear">Bilinear</a>. Try <a href="manual/en/blender/Shadows.html#shadow_filtering_esm">ESM</a> if you want more quality, soft shadows, but the drawback is that they can be tricky to set up (artifact-wise) for a particular scene.
     </p>
 
 
@@ -122,31 +134,39 @@
       The rendering of the shadows is tuned using the *Shadows* and *Verge3D Settings* panels located on the *Render* tab in Blender.
     </p>
 
-    <img src="files/shadows-blender/shadow-settings-global-blender.jpg" alt="Shadow settings in Blender" style="max-width: 603px">
+    <img src="files/shadows-blender/shadow-settings-global.webp" alt="Shadow settings in Blender" style="max-width: 650px">
 
     <dl>
-      <dt id="cube-size">Cube Size</dt>
-      <dd>Shadow map size for shadows casted from <em>Point</em>, <em>Spot</em>, and <em>Area</em> lights. The higher values gives better quality but reduces performance.</dd>
-      <dt id="cascade-size">Cascade Size</dt>
-      <dd>Shadow map size for shadows casted from <em>Sun</em> lights. The higher values gives better quality but reduce performance.</dd>
+      <dt id="enable-shadows">Shadows</dt>
+      <dd>
+        Enable/disable shadows for the scene.
+      </dd>
       <dt>Light Threshold</dt>
-      <dd>Light intensity threshold used to calculate shadow volume distance.</dd>
-      <dt id="enable-shadows">Enable Shadows</dt>
-      <dd>Enable/disable shadows in Verge3D.</dd>
-      <dt>Shadow Map Filtering</dt>
-      <dd>Shadow map filtering algorithm. See <a href="manual/en/blender/Shadows.html#shadow_filtering">above</a>.</dd>
-      <dt>Shadow Map Side</dt>
-      <dd>Denotes which side of polygons is rendered during the shadow pass. Tweak this value to eliminate self-shadowing artefacts or if you render the plain models (such as leaves or papers).</dd>
+      <dd>
+        Light intensity threshold used to calculate shadow volume distance.
+      </dd>
+      <dt>Shadow Filtering</dt>
+      <dd>
+        Shadow map filtering algorithm. See <a href="manual/en/blender/Shadows.html#shadow_filtering">above</a>.
+      </dd>
+      <dt>Map Side</dt>
+      <dd>
+        Denotes which side of polygons is rendered during the shadow pass. Tweak this value to eliminate self-shadowing artifacts or if you render the plain models (such as leaves or papers).
+      </dd>
       <dt id="esm-distance-scale">ESM Distance Scale</dt>
       <dd>
-        ESM shadows scaling factor. Since the ESM filtering algorithm uses
-        absolute distance values, decrease the scale value if you're working
-        on a scene which is much bigger than the default cube, and increase
-        it if your scene is much smaller. Default value is 1. Works only for
-        <a href="manual/en/blender/Shadows.html#shadow_filtering_esm">ESM</a>
-        shadows.
+        ESM shadows scaling factor. Since the ESM filtering algorithm uses absolute distance values, decrease the scale value if you're working on a scene which is much bigger than the default cube, and increase it if your scene is much smaller. Default value is `1`. Works only for <a href="manual/en/blender/Shadows.html#shadow_filtering_esm">ESM</a> shadows.
+      </dd>
+      <dt id="cube-size">Cube Size</dt>
+      <dd>
+        Shadow map size for shadows casted from <em>Point</em>, <em>Spot</em>, and <em>Area</em> lights. The higher values give better rendering quality but reduce performance.
+      </dd>
+      <dt id="cascade-size">Cascade Size</dt>
+      <dd>
+        Shadow map size for shadows casted from <em>Sun</em> lights. The higher values give better rendering quality but reduce performance.
       </dd>
     </dl>
+
 
     [anchor:per_light_settings]
 
@@ -156,25 +176,48 @@
       Shadows can be enabled/disabled/tweaked for each individual light using the *Shadow* and *Verge3D Settings* panels.
     </p>
 
-    <img src="files/shadows-blender/shadow-settings-perlight-blender.jpg" alt="Per-light shadow settings in Blender" style="max-width: 352px">
+    <img src="files/shadows-blender/shadow-settings-perlight.webp" alt="Per-light shadow settings in Blender" style="max-width: 343px">
 
     <dl>
-      <dt>Clip Start</dt>
-      <dd>Near clipping distance, higher values may slightly improve shadow quality.</dd>
-      <dt id="bias">Bias</dt>
-      <dd>Main parameter you should tweak to get rid of self-shadow artefacts and/or the "peter-panning" effect.</dd>
+      <dt>Shadows</dt>
+      <dd>
+        Enable/disable shadows casted from the light.
+      </dd>
       <dt id="blur-radius">Blur Radius</dt>
       <dd>
         Specify value higher `1` to make your shadows smoother (increase shadow blurriness). This parameter works only for <a href="manual/en/blender/Shadows.html#shadow_filtering_pcf">PCF</a> and <a href="manual/en/blender/Shadows.html#shadow_filtering_esm">ESM</a> shadows.
       </dd>
-      <dt id="csm-light-margin">Cascade Margin</Dt>
+      <dt>Clip Start</dt>
       <dd>
-        For Sun shadows only. Increase the default value if the shadows from tall or large objects appear truncated.
+        Near clipping distance, higher values may slightly improve shadow quality.
+      </dd>
+      <dt id="bias">Bias</dt>
+      <dd>
+        Main parameter you should tweak to get rid of self-shadow artifacts and/or the "peter-panning" effect.
       </dd>
       <dt id="esm-bias">ESM Bias</dt>
       <dd>
-        Bias to reduce ESM <em>light leaking</em> artefacts. Works only for <a href="manual/en/blender/Shadows.html#shadow_filtering_esm">ESM</a> shadows.
+        Bias to reduce ESM <em>light leaking</em> artifacts. Works only for <a href="manual/en/blender/Shadows.html#shadow_filtering_esm">ESM</a> shadows.
       </dd>
+    </dl>
+
+    <p>
+      For Sun lights there are additional parameters to configure shadow cascades:
+    </p>
+
+    <img src="files/shadows-blender/shadow-settings-cascades.webp" alt="Cascade shadow settings in Blender" style="max-width: 340px">
+
+    <dl>
+      <dt>Count</dt>
+      <dd>Number of maps used to render shadow cascades.</dd>
+      <dt>Fade</dt>
+      <dd>Smoothness factor for transition between cascades.</dd>
+      <dt id="max-distance">Max Distance</dt>
+      <dd>End distance (measured from the camera) of the last cascade.</dd>
+      <dt>Distribution</dt>
+      <dd>Higher value increase distribution toward the viewpoint.</dd>
+      <dt id="csm-light-margin">Cascade Margin</dt>
+      <dd>Increase the default value if the shadows from tall or large objects appear truncated.</dd>
     </dl>
 
 
@@ -188,12 +231,10 @@
 
     <ol>
       <li>Go to active camera view using the *View*→*Cameras*→*Active Camera* menu or *Numpad 0* key.</li>
-      <li id="max-distance">Tweak the *Cascaded Shadow Map* parameters.</li>
+      <li>Tweak the *Cascaded Shadow Map* parameters.</li>
       <li>Check the shadows in Verge3D.</li>
       <li>Increase the *Cascade Margin* parameter if the shadows from tall or large objects appear truncated.</li>
     </ol>
-
-    <img src="files/shadows-blender/shadow-settings-cascades.jpeg" alt="Cascade shadow settings in Blender" style="max-width: 748px">
 
     <p class="note">
       For better rendering performance, try to keep the number of cascades (as well as their resolution) low.
@@ -202,31 +243,22 @@
 
     [anchor:per_object_material_settings]
 
-    <h2>Per-object/Material Settings</h2>
+    <h2>Per-object Settings</h2>
 
     <p>
-      Shadow casting can be enabled/disabled for each individual material through the *Settings* panel.
+      Shadows can be enabled/disabled for each individual object through the *Visibility* and *Verge3D Settings* panels.
     </p>
 
-    <img src="files/shadows-blender/shadow-settings-permaterial.jpg" alt="Material shadow settings in Blender" style="max-width: 433px">
+    <img src="files/shadows-blender/shadow-settings-perobject.webp" alt="Object shadow settings in Blender" style="max-width: 344px">
 
     <dl>
-      <dt id="shadow-mode">Shadow Mode</dt>
+      <dt id="shadow-mode">Ray Visibility → Shadow</dt>
       <dd>
-        Shadow casting mode for the material. Only *None* and *Opaque* are currently supported.
+        Enable/disable shadow casting for the object.
       </dd>
-    </dl>
-
-    <p>
-      Shadow receiving can be enabled/disabled for each individual object through the *Verge3D Settings* panel.
-    </p>
-
-    <img src="files/shadows-blender/shadow-settings-perobject.jpg" alt="Object shadow settings in Blender" style="max-width: 432px;">
-
-    <dl>
       <dt id="receive-shadows">Receive Shadows</dt>
       <dd>
-        Render shadows on the given object or not.
+        Receive (render shadows) on the given object.
       </dd>
     </dl>
 
@@ -251,15 +283,10 @@
     <h3>Shadows look too pixelated</h3>
     <ul>
       <li>
-        Use higher <a href="manual/en/blender/Shadows.html#cube-size">Cube Size</a>
-        values for *Point*, *Spot*, and *Area* lights. Use higher
-        <a href="manual/en/blender/Shadows.html#cascade-size">Cascade Size</a>
-        values for *Sun* lights.
+        Use higher <a href="manual/en/blender/Shadows.html#cube-size">Cube Size</a> values for *Point*, *Spot*, and *Area* lights. Use higher <a href="manual/en/blender/Shadows.html#cascade-size">Cascade Size</a> values for *Sun* lights.
       </li>
       <li>
-        If using *Sun* light sources, try to decrease the
-        <a href="manual/en/blender/Shadows.html#max-distance">Max Distance</a>
-        value as much as possible as long as it fits your scene.
+        If using *Sun* light sources, try to decrease the <a href="manual/en/blender/Shadows.html#max-distance">Max Distance</a> value as much as possible as long as it fits your scene.
       </li>
       <li>
         Try to mask low resolution with soft penumbra. Such shadow filtering techniques as <a href="manual/en/blender/Shadows.html#shadow_filtering_pcf">PCF</a> and <a href="manual/en/blender/Shadows.html#shadow_filtering_esm">ESM</a> along with properly adjusted <a href="manual/en/blender/Shadows.html#blur-radius">Blur Radius</a> can make pixelization less prominent.
@@ -269,18 +296,18 @@
     <h3>Shadows are visible in the Blender viewport but not in Verge3D</h3>
     <ul>
       <li>
-        Shadows are enabled by default, but they could be disabled manually. Make sure that the <a href="manual/en/blender/Shadows.html#enable-shadows">Enable Shadows</a> option is active. Also, make sure that the <a href="manual/en/blender/Shadows.html#receive-shadows">Receive Shadows</a> option was not disabled for objects that should receive shadows.
+        Shadows are enabled by default, but they could be disabled manually. Make sure that the <a href="manual/en/blender/Shadows.html#enable-shadows">Shadows</a> option is active. Also, make sure that the <a href="manual/en/blender/Shadows.html#receive-shadows">Receive Shadows</a> option was not disabled for objects that should receive shadows.
       </li>
       <li>
         Very high <a href="manual/en/blender/Shadows.html#bias">Bias</a> and sometimes <a href="manual/en/blender/Shadows.html#blur-radius">Blur Radius</a> can partially or completely remove shadows. If that's the case try to lower those values.
       </li>
     </ul>
 
-    <h3>Shadows have artefacts</h3>
-    <img src="files/shadows-blender/self-shadow-artefacts.jpg" alt="Self-shadowing artifacts" style="max-width: 485px">
+    <h3>Shadows have artifacts</h3>
+    <img src="files/shadows-blender/self-shadow-artifacts.jpg" alt="Self-shadowing artifacts" style="max-width: 485px">
     <ul>
       <li>
-        Such artefacts are called "shadow acne" or "self-shadow artefacts".  Increase the <a href="manual/en/blender/Shadows.html#bias">Bias</a> value to get rid of them.
+        Such artifacts are called "shadow acne" or "self-shadow artifacts". Increase the <a href="manual/en/blender/Shadows.html#bias">Bias</a> value to get rid of them.
       </li>
     </ul>
 
@@ -295,7 +322,7 @@
     </ul>
 
     <h3>ESM shadows look faded</h3>
-    <img src="files/shadows-blender/esm-artefacts-light-leaking.jpg" alt="Light leaking shadow artifacts" style="max-width: 500px">
+    <img src="files/shadows-blender/esm-artifacts-light-leaking.jpg" alt="Light leaking shadow artifacts" style="max-width: 500px">
     <ul>
       <li>
         Increase the <a href="manual/en/blender/Shadows.html#esm-bias">ESM Bias</a> value.
@@ -318,9 +345,10 @@
         Decrease the <a href="manual/en/blender/Shadows.html#esm-distance-scale">ESM Distance Scale</a> value.
       </li>
       <li>
-        Such artefacts can appear on a receiver object's edge.
+        Such artifacts can appear on a receiver object's edge.
 
-        <img src="files/shadows-blender/esm-artefacts-receiver-edge.jpg" alt="ESM shadows edge artifacts" style="display: block; max-width: 500px">
+        <img src="files/shadows-blender/esm-artifacts-receiver-edge.jpg" alt="ESM shadows edge artifacts" style="display: block; max-width: 500px">
+
         It's one of ESM drawbacks. The solution is to avoid such situations.
       </li>
       <li>
@@ -328,9 +356,9 @@
       </li>
     </ul>
 
-    <h3>ESM Shadows have artefacts</h3>
+    <h3>ESM Shadows have artifacts</h3>
 
-    <img src="files/shadows-blender/esm-artefacts-self-shadow.jpg" alt="ESM shadows self-shadow artifacts" style="max-width: 500px">
+    <img src="files/shadows-blender/esm-artifacts-self-shadow.jpg" alt="ESM shadows self-shadow artifacts" style="max-width: 500px">
     <ul>
       <li>
         Decrease the <a href="manual/en/blender/Shadows.html#esm-bias">ESM Bias</a> value.
@@ -342,7 +370,7 @@
 
     <h3>Cascaded shadow maps, shadows are clipped at a certain angle</h3>
 
-    <img src="files/shadows-blender/csm-artefacts-clipped-shadow.jpg" style="max-width: 500px">
+    <img src="files/shadows-blender/csm-artifacts-clipped-shadow.jpg" style="max-width: 500px">
     <ul>
       <li>
         Increase the <a href="manual/en/blender/Shadows.html#csm-light-margin">Cascade Margin</a>.
@@ -350,7 +378,7 @@
     </ul>
 
     <h3>Cascaded shadow maps and ESM shadows, shadows look faded at the intersection of cascades</h3>
-    <img src="files/shadows-blender/esm-csm-artefacts-light-leaking.jpg" style="max-width: 500px">
+    <img src="files/shadows-blender/esm-csm-artifacts-light-leaking.jpg" style="max-width: 500px">
     <ul>
       <li>
         Increase the <a href="manual/en/blender/Shadows.html#csm-light-margin">Cascade Margin</a>.

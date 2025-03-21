@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Loader] &rarr;
@@ -14,15 +14,13 @@
     <p class="desc"> A loader for glTF 2.0 resources.</p>
 
     <p>
-      [link:https://www.khronos.org/gltf glTF] (GL Transmission Format) is an [link:https://github.com/KhronosGroup/glTF/tree/master/specification/2.0 open format specification] for efficient delivery and loading of 3D content. Assets may be provided either in JSON (.gltf) or binary (.glb) format (with optional LZMA compression). External files store textures (.jpg, .png, .webp, .hdr) and additional binary data (.bin). A glTF asset may deliver one or more scenes, including meshes, materials, textures, skins, skeletons, morph targets, animations, lights, light probes, fonts, and/or cameras.
+      [link:https://www.khronos.org/gltf glTF] (GL Transmission Format) is an [link:https://github.com/KhronosGroup/glTF/tree/master/specification/2.0 open format specification] for efficient delivery and loading of 3D content. Assets may be provided either in JSON (*.gltf*) or binary (*.glb*) format (with optional LZMA compression). External files store textures (*.jpg*, *.png*, *.webp*, *.hdr*) and additional binary data (*.bin*). A glTF asset may deliver one or more scenes, including meshes, materials, textures, skins, skeletons, morph targets, animations, lights, light probes, fonts, or cameras.
     </p>
-
     <p>
       [name] uses [page:ImageBitmapLoader] whenever possible. Be advised that image bitmaps are not automatically GC-collected when they are no longer referenced and they require special handling during the disposal process.
     </p>
-
     <p class="note">
-      You rarely need to use this class since there are convenient [page:App.loadScene] and [page:App.appendScene] methods which hide all the complexity of loading/appending glTF 2.0 assets.
+      You rarely need to use [name] since there are convenient [page:App.loadScene] and [page:App.appendScene] methods which hide all the complexity of loading/appending glTF 2.0 assets.
     </p>
 
     <h2>Extensions</h2>
@@ -69,7 +67,7 @@
 
         // called when the resource is loaded
         function(gltf) {
-            scene.add(gltf.scene);
+            app.scene.add(gltf.scene);
 
             gltf.animations; // array of v3d.AnimationClip
             gltf.scene; // v3d.Scene
@@ -95,7 +93,7 @@
     <h2>Textures</h2>
 
     <p>
-      Textures containing color information (.map, .emissiveMap, and .specularMap) always use sRGB colorspace in glTF, while vertex colors and material properties (.color, .emissive, .specular) use linear colorspace. In a typical rendering workflow, textures are converted to linear colorspace by the renderer, lighting calculations are made, then final output is converted back to sRGB and displayed on screen. Unless you need post-processing in linear colorspace, always configure [page:WebGLRenderer] as follows when using glTF:
+      Textures containing color information (e.g. [page:MeshStandardMaterial.map]) always use sRGB colorspace in glTF, while vertex colors and material properties (e.g. [page:MeshStandardMaterial.color]) use linear colorspace. In a typical rendering workflow, textures are converted to linear colorspace by the renderer, lighting calculations are made, then final output is converted back to sRGB and displayed on screen. Unless you need post-processing in linear colorspace, always configure [page:WebGLRenderer] as follows when using glTF:
     </p>
 
     <code>
@@ -103,7 +101,7 @@
     </code>
 
     <p>
-      GLTFLoader will automatically configure textures referenced from a .gltf or .glb file correctly, with the assumption that the renderer is set up as shown above. When loading textures externally (e.g., using [page:TextureLoader]) and applying them to a glTF model, colorspace and orientation must be given:
+      GLTFLoader will automatically configure textures referenced from a *.gltf* or *.glb* file correctly, with the assumption that the renderer is set up as shown above. When loading textures externally (e.g., using [page:TextureLoader]) and applying them to a glTF model, colorspace and orientation must be given:
     </p>
 
     <code>
@@ -114,11 +112,11 @@
     texture.flipY = false;
     </code>
 
-    <h2>Custom extensions</h2>
+
+    <h2>Unknown extensions</h2>
 
     <p>
-      Metadata from unknown extensions is preserved as “.userData.gltfExtensions” on Object3D, Scene, and Material instances,
-      or attached to the response “gltf” object. Example:
+      Metadata from unknown extensions is preserved as `.userData.gltfExtensions` on Object3D, Scene, and Material instances, or attached to the response `gltf` object. Example:
     </p>
 
     <code>
@@ -131,6 +129,7 @@
     });
     </code>
 
+
     <h2>Constructor</h2>
 
     <h3>[name]([param:LoadingManager manager])</h3>
@@ -141,37 +140,42 @@
       Creates a new [name].
     </p>
 
+
     <h2>Properties</h2>
+
     <p>See the base [page:Loader] class for common properties.</p>
 
+
     <h2>Methods</h2>
+
     <p>See the base [page:Loader] class for common methods.</p>
 
+
     <h3>[method:undefined load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
-    <p class="params">
-      [page:String url] — a string containing the path/URL of the `.gltf` or `.glb` file.<br>
-      [page:Function onLoad] — a function to be called after the loading is successfully completed. The function receives the loaded JSON response returned from [page:Function parse].<br>
-      [page:Function onProgress] — (optional) a function to be called while the loading is in progress. The argument will be the XMLHttpRequest instance, that contains .[page:Integer total] and .[page:Integer loaded] bytes. If the server does not set the Content-Length header; .[page:Integer total] will be 0.<br>
-      [page:Function onError] — (optional) a function to be called if an error occurs during loading. The function receives error as an argument.
-    </p>
+    <ul class="params">
+      <li>[page:String url] — a string containing the path/URL of the *.gltf* or *.glb* file.</li>
+      <li>[page:Function onLoad] — a function to be called after the loading is successfully completed. The function receives the loaded JSON response returned from [page:.parse].</li>
+      <li>[page:Function onProgress] — (optional) a function to be called while the loading is in progress. The argument will be the XMLHttpRequest instance, that contains .[page:Integer total] and .[page:Integer loaded] bytes. If the server does not set the Content-Length header, .[page:Integer total] will be `0`.</li>
+      <li>[page:Function onError] — (optional) a function to be called if an error occurs during loading. The function receives error as an argument.</li>
+    </ul>
     <p>
       Begin loading from url and call the callback function with the parsed response content.
     </p>
 
     <h3>[method:this setKTX2Loader]([param:KTX2Loader ktx2Loader])</h3>
     <p class="params">
-      [page:KTX2Loader ktx2Loader] — Instance of v3d.KTX2Loader, to be used for loading KTX2 compressed textures.
+      [page:KTX2Loader ktx2Loader] — instance of v3d.KTX2Loader, to be used for loading KTX2 compressed textures.
     </p>
 
     <h3>[method:undefined parse]([param:ArrayBuffer data], [param:String path], [param:Function onLoad], [param:Function onError])</h3>
-    <p class="params">
-      [page:ArrayBuffer data] — glTF asset to parse, as an ArrayBuffer, JSON string, or object.<br>
-      [page:String path] — the base path from which to find subsequent glTF resources such as textures and .bin data files.<br>
-      [page:Function onLoad] — A function to be called when parse completes.<br>
-      [page:Function onError] — (optional) A function to be called if an error occurs during parsing. The function receives error as an argument.
-    </p>
+    <ul class="params">
+      <li>[page:ArrayBuffer data] — glTF asset to parse, as an ArrayBuffer, JSON string, or object.</li>
+      <li>[page:String path] — the base path from which to find subsequent glTF resources such as textures and .bin data files.</li>
+      <li>[page:Function onLoad] — a function to be called when parse completes.</li>
+      <li>[page:Function onError] — (optional) A function to be called if an error occurs during parsing. The function receives error as an argument.</li>
+    </ul>
     <p>
-      Parse a glTF-based [page:ArrayBuffer]`, JSON string, or object and fire [page:Function onLoad] callback when complete. The argument to [page:Function onLoad] will be an [page:Object] that contains loaded parts: .[page:Group scene], .[page:Array scenes], .[page:Array cameras], .[page:Array animations], and .[page:Object asset].
+      Parse a glTF-based [page:ArrayBuffer], JSON string, or an object and fire [page:Function onLoad] callback when complete. The argument to [page:Function onLoad] will be an [page:Object] that contains loaded parts: .[page:Scene scene], .[page:Array scenes], .[page:Array cameras], .[page:Array animations], and .[page:Object asset].
     </p>
 
     <h2>Puzzles</h2>

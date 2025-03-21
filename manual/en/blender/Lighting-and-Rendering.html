@@ -3,10 +3,10 @@
   <head>
     <title>Verge3D for Blender: Lighting and Rendering — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to configure environment lighting, lights and rendering properties in Verge3D for Blender."/>
-    <base href="../../../" />
+    <meta name="description" content="How to configure environment lighting, lights and rendering properties in Verge3D for Blender.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
 
@@ -42,11 +42,18 @@
       The default cube template provides an HDR texture for image-based lighting. You can replace this texture with your own file, or setup environment lighting from scratch. Here is the basic <em>World nodes</em> setup which uses the same texture for both environment lighting and background:
     </p>
 
-    <img src="files/lighting-blender/world-nodes.jpg" alt="Blender basic world shader setup" style="max-width: 852px">
+    <img src="files/lighting-blender/world-nodes.webp" alt="Blender basic world shader setup">
 
-    <p class="note">
-      When using HDR textures, make sure you set the *Color Space* setting to *Linear*.
+    <p>
+      When using HDR textures, make sure you set the *Color Space* property to *Linear Rec.709*.
     </p>
+
+    <p>
+      Also, to prevent excessive lighting coming from a fake sun light implicitly created by Blender Eevee, you should set the *Sun* →*Threshold* setting to `0`:
+    </p>
+
+    <img src="files/lighting-blender/world-sun-threshold.webp" alt="Blender sun threshold setting" style="max-width: 478px">
+
 
     [anchor:lights]
 
@@ -64,47 +71,58 @@
 
     <h3>Point Lights</h3>
 
-    <img src="files/lighting-blender/light-properties-point.jpg" alt="Blender point light properties" style="max-width: 320px">
+    <img src="files/lighting-blender/light-properties-point.webp" alt="Blender point light properties" style="max-width: 325px">
 
-    <p>*Color*, *Power*, and *Custom Distance* properties are supported in Verge3D. You can also animate the *Power* property.</p>
+    <p>
+      *Color*, *Power*, *Shadow* (on/off only), and *Custom Distance* properties are supported in Verge3D. The *Power* property of point lights can be animated.
+    </p>
 
     [anchor:sun_lights]
 
     <h3>Sun Lights</h3>
 
-    <img src="files/lighting-blender/light-properties-sun.jpg" alt="Blender sun light properties" style="max-width: 325px">
+    <img src="files/lighting-blender/light-properties-sun.webp" alt="Blender sun light properties" style="max-width: 325px">
 
-    <p>*Color* and *Strength* properties are supported in Verge3D. You can also animate the *Strength* property.</p>
+    <p>
+      *Color*, *Strength*, *Shadow* (on/off only) properties are supported in Verge3D. The *Strength* property of sun lights can be animated.
+    </p>
 
     [anchor:spot_lights]
 
     <h3>Spot Lights</h3>
 
-    <img src="files/lighting-blender/light-properties-spot.jpg" alt="Blender spot light properties" style="max-width: 325px">
+    <img src="files/lighting-blender/light-properties-spot.webp" alt="Blender spot light properties" style="max-width: 324px">
 
-    <p>*Color*, *Power*, *Custom Distance*, *Spot Shape*: *Size* and *Blend* properties are supported in Verge3D. You can also animate the *Power* property.</p>
+    <p>
+      *Color*, *Power*, *Beam Shape*: *Size* and *Blend*, *Shadow* (on/off only), *Custom Distance* properties are supported in Verge3D. The *Power* property of spot lights can be animated.
+    </p>
 
     [anchor:area_lights]
 
     <h3>Area Lights</h3>
 
-    <img src="files/lighting-blender/light-properties-area.jpg" alt="Blender area light properties" style="max-width: 325px">
+    <img src="files/lighting-blender/light-properties-area.webp" alt="Blender area light properties" style="max-width: 325px">
 
-    <p>*Color*, *Power*, *Custom Distance*, as well *Size* for *Square*-shaped and *Size X*/*Size Y* for *Rectangular*-shaped lights are supported in Verge3D. *Disk* and *Ellipse* shapes are not supported. The *Power* property of area lights can be animated.</p>
-
+    <p>
+      *Color*, *Power*, *Shadow* (on/off only), *Custom Distance*, as well *Size* for *Square*-shaped and *Size X*/*Size Y* for *Rectangular*-shaped lights are supported in Verge3D. *Disk* and *Ellipse* shapes are not supported. The *Power* property of area lights can be animated.
+    </p>
     <p class="note">
-      In addition, you can assign shadow properties on your lights. See the <a href="manual/en/blender/Shadows.html#per_light_settings">corresponding section</a> for more info.
+      In Verge3D, shadows casted from area lights look the same as from point lights.
+    </p>
+
+    <h3>Shadow Properties</h3>
+
+    <p>
+      Since Blender's native shadows properties (except on/off checkbox) are not supported in Verge3D, you should assign shadow properties on the *Verge3D Settings* panel. See the <a href="manual/en/blender/Shadows.html#per_light_settings">corresponding section</a> for more info.
     </p>
 
 
     [anchor:light_probes]
 
-    <h2>Reflection Cubemap Light Probes</h2>
+    <h2>Spherical Light Probes</h2>
 
     <p>
-      Reflection Cubemap Light Probes are objects intended for adding indirect lighting locally by
-      generating a local reflection cubemap. This type of light probe objects add
-      specular indirect lighting to a scene.
+      Spherical reflection light probes are objects intended for adding indirect lighting locally by generating a local reflection cubemap. This type of light probe objects add specular indirect lighting to a scene.
     </p>
 
     <iframe class="video-480p" src="https://www.youtube.com/embed/V39heuWD_vo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -112,77 +130,47 @@
     [demo:light_probe]
 
     <p>
-      The following properties are supported:
+      All properties except *Falloff* are supported in Verge3D.
     </p>
 
-    <img src="files/lighting-blender/light-probe-reflection-cubemap.png" alt="Blender light probe properties" style="max-width: 453px">
+    <img src="files/lighting-blender/light-probe-sphere.webp" alt="Blender sphere light probe properties" style="max-width: 370px">
 
     <dl>
       <dt>Probe</dt>
       <dd>
         General probe settings:
-
         <dl>
           <dt>Type</dt>
           <dd>
-            Type of the influence volume: *Sphere* or *Box*. Only objects
-            located inside this volume are affected by the probe's lighting.
+            Type of the influence volume: *Sphere* or *Box*. Only objects located inside this volume are affected by the probe's lighting.
           </dd>
 
           <dt>Radius/Size</dt>
           <dd>
-            Controls the size of the influence volume. You can also change
-            object scaling and make the shape of the influence volume
-            non-uniform.
-          </dd>
-
-          <dt>Intensity</dt>
-          <dd>
-            The intensity of the indirect lighting. Any value different from 1.0
-            is not physically correct.
-          </dd>
-
-          <dt>Clipping Start</dt>
-          <dd>
-            Near clip distance. Objects located closer than this value won't be
-            rendered into the reflection cubemap.
-          </dd>
-
-          <dt>Clipping End</dt>
-          <dd>
-            Far clip distance. Objects located further than this value won't be
-            rendered into the reflection cubemap.
+            Controls the size of the influence volume. You can also change object scaling and make the shape of the influence volume non-uniform.
           </dd>
         </dl>
       </dd>
 
-      <dt>Visibility</dt>
+      <dt>Capture</dt>
       <dd>
-        Object visibility settings:
-
+        Capture probe settings:
         <dl>
-          <dt>Visibility Collection</dt>
+          <dt>Clipping Start</dt>
           <dd>
-            Limit objects that should appear on the reflection cubemap to this
-            collection. If not specified all scene objects are used.
+            Near clip distance. Objects located closer than this value won't be rendered into the reflection cubemap.
           </dd>
 
-          <dt>Invert Visibility Collection</dt>
+          <dt>Clipping End</dt>
           <dd>
-            Invert the selection of objects visible to this probe if
-            *Visibility Collection* is specified.
+            Far clip distance. Objects located further than this value won't be rendered into the reflection cubemap.
           </dd>
         </dl>
       </dd>
 
       <dt>Custom Parallax</dt>
       <dd>
-        Enable custom settings for the parallax correction. This group of settings
-        defines a parallax volume, which is used to project the lighting
-        captured by the probe. If *Custom Parallax* not enabled the parallax
-        effect is calculated based on *Type* and *Radius/Size* of the influence
-        volume.
-
+        Enable custom settings for the parallax correction. This group of settings defines a parallax volume, which is used to project the lighting captured by the probe. If *Custom Parallax* not enabled the parallax effect is calculated based on *Type* and *Radius/Size* of the influence volume.
         <dl>
           <dt>Type</dt>
           <dd>
@@ -196,89 +184,77 @@
         </dl>
       </dd>
 
-      <dt>Custom Influence</dt>
+      <dt>Verge3D Settings</dt>
       <dd>
-        Enable custom influence settings. This group of settings allows defining
-        a collection of objects that will be affected by this light probe.
-        *Influence Collection* (if specified) will be used instead of the
-        *Type* and *Radius/Distance* general probe settings.
+        Verge3D-specific settings:
 
         <dl>
-          <dt>Influence Collection</dt>
+          <dt>Intensity</dt>
           <dd>
-            Limit objects that should be affected by this light probe to this
-            collection. If specified it is used instead of the *Type* and
-            *Radius/Distance* general probe settings.
+            The intensity of the indirect lighting. Any value different from `1.0` is not physically correct.
           </dd>
 
-          <dt>Invert Influence Collection</dt>
+          <dt>Visibility Collection</dt>
           <dd>
-            Invert the selection of objects affected by this probe if
-            *Influence Collection* is specified.
+            Limit objects that should appear in the light probe cubemap to this collection. If not specified all scene objects are used.
+          </dd>
+
+          <dt>Invert Visibility Collection</dt>
+          <dd>
+            Invert the selection of objects visible to this probe if *Visibility Collection* is specified.
+          </dd>
+
+          <dt>Custom Influence</dt>
+          <dd>
+            Enable custom influence settings. This group of settings allows defining a collection of objects that will be affected by this light probe. *Influence Collection* (if specified) will be used instead of the *Type* and *Radius/Distance* general probe settings.
+            <dl>
+              <dt>Influence Collection</dt>
+              <dd>
+                Limit objects that should be affected by this light probe to this collection. If specified it is used instead of the *Type* and *Radius/Distance* general probe settings.
+              </dd>
+
+              <dt>Invert Influence Collection</dt>
+              <dd>
+                Invert the selection of objects affected by this probe if *Influence Collection* is specified.
+              </dd>
+            </dl>
           </dd>
         </dl>
       </dd>
     </dl>
 
     <p>
-      In order to see in Blender's viewport the results of using
-      *Reflection Cubemap* objects you need to bake their cubemaps first via the
-      *Bake Cubemap Only* or *Bake Indirect Lighting* buttons both located in
-      the *Indirect Lighting* panel, which is in the *Render Properties* tab.<br/><br/>
-
-      Also the <a href="manual/en/blender/Lighting-and-Rendering.html#cubemap_size">Cubemap Size</a>
-      property controls the size of the cubemap texture used by *Reflection Cubemap*
-      objects.<br/><br/>
-
-      The <a href="manual/en/blender/Lighting-and-Rendering.html#ibl_environment_mode">IBL Env. Mode</a>
-      setting also affects cubemaps generated by *Reflection Cubemap* objects.
+      Similarly to global environment lighting, the <a href="manual/en/blender/Lighting-and-Rendering.html#cubemap_size">Env. Map Size</a> property controls the size of the cubemap texture used by spherical light probes.
     </p>
-
     <p>
-      Due to implementation specifics there are differences of how
-      *Reflection Cubemap* light probes behave in Blender and in Verge3D:
-      <ul>
-        <li>
-          Blender supports multiple light probes per object while Verge3D only
-          a single one. That's why objects in Verge3D use a single cubemap
-          either from a *Reflection Cubemap* object or from the world environment.
-          *Falloff* is not supported.
-        </li>
-
-        <li>
-          Blender doesn't use Backface Culling for meshes by default while
-          Verge3D does. Hence in Blender objects placed inside the probe's
-          influence volume can appear on the reflection cubemap as black spots
-          due to back faces being rendered if the *Clipping Start*/*Clipping End*
-          settings are not properly adjusted. This doesn't happen in Verge3D by
-          default.
-        </li>
-
-        <li>
-          When rendering objects into a light probe's cubemap (baking) Blender
-          considers only the diffuse component of an object's material, while
-          Verge3D renders them no different from how they are rendered on the
-          main scene. That's why for example fully metallic objects are rendered
-          black in Blender, but in Verge3D they still reflect the world
-          environment.
-        </li>
-
-        <li>
-          For the *Visibility Collection* property to work in Blender it's
-          required that the specified collection is also linked to the scene.
-          It's not needed in Verge3D and it's enough to just assign an object
-          to a collection.
-        </li>
-      </ul>
+      The <a href="manual/en/blender/Lighting-and-Rendering.html#ibl_environment_mode">IBL Env. Mode</a> setting also affects cubemaps generated by *Reflection Cubemap* objects.
     </p>
+    <p>
+      Due to implementation specifics there are differences of how *Sphere* light probes behave in Blender and in Verge3D:
+    </p>
+
+    <ul>
+      <li>
+        Blender supports multiple light probes per object while Verge3D only a single one. That's why objects in Verge3D use a single cubemap either from a *Reflection Cubemap* object or from the world environment. *Falloff* is not supported.
+      </li>
+      <li>
+        Blender doesn't use Backface Culling for meshes by default while Verge3D does. Hence in Blender objects placed inside the probe's influence volume can appear on the reflection cubemap as black spots due to back faces being rendered if the *Clipping Start*/*Clipping End* settings are not properly adjusted. This doesn't happen in Verge3D by default.
+      </li>
+      <li>
+        When rendering objects into a light probe's cubemap (baking) Blender considers only the diffuse component of an object's material, while Verge3D renders them no different from how they are rendered on the main scene. That's why for example fully metallic objects are rendered black in Blender, but in Verge3D they still reflect the world environment.
+      </li>
+      <li>
+        For the *Visibility Collection* property to work in Blender it's required that the specified collection is also linked to the scene. It's not needed in Verge3D and it's enough to just assign an object to a collection.
+      </li>
+    </ul>
 
 
     [anchor:reflection_plane_light_probes]
 
-    <h2>Reflection Plane Light Probes</h2>
+    <h2>Planar Light Probes</h2>
 
     <p>
-      Reflection Plane light probes is an effective way to apply real-time reflections (indirect lighting) to planar objects, such as mirrors, floors, walls, etc.
+      Planar reflection light probes is an effective way to apply real-time reflections (indirect lighting) to planar objects, such as mirrors, floors, walls, etc.
     </p>
 
     <figure style="max-width: 776px">
@@ -292,20 +268,20 @@
       The following properties are supported:
     </p>
 
-    <img src="files/lighting-blender/light-probe-reflection-plane.jpg" alt="Blender reflection plane properties" style="max-width: 368px">
+    <img src="files/lighting-blender/light-probe-plane.webp" alt="Blender plane light probe properties" style="max-width: 370px">
 
     <dl>
       <dt>Distance</dt>
       <dd>
         Influence distance of the probe.
       </dd>
-      <dt>Falloff</dt>
-      <dd>
-        Controls how fast the probe influence decreases.
-      </dd>
       <dt>Clipping Offset</dt>
       <dd>
         Near camera clipping for objects rendered in the light probe.
+      </dd>
+      <dt>Falloff</dt>
+      <dd>
+        Controls how fast the probe influence decreases.
       </dd>
       <dt>Visibility Collection</dt>
       <dd>
@@ -326,63 +302,20 @@
       By default Blender and Verge3D render the same image for background and environment lighting. To render them separate, use the advanced World nodes setup based on *Is Camera Ray* output of the <a href="manual/en/blender/Shader-Nodes-Reference.html#Light_Path">Light Path</a> node. For example, to set the background color to solid grey and continue using the HDR map for environment lighting:
     </p>
 
-    <img src="files/lighting-blender/world-nodes-advanced.jpg" alt="Blender advanced world shader setup" style="max-width: 886px">
+    <img src="files/lighting-blender/world-nodes-advanced.webp" alt="Blender advanced world shader setup">
 
 
     [anchor:global_rendering_properties]
 
     <h2>Global Rendering Properties</h2>
 
-    <p>Verge3D supports the following properties accessible on the Blender's *Render Properties* panel.</p>
-
-    [anchor:global_rendering_properties_ao]
-
-    <h3>Ambient Occlusion panel</h3>
-
-    <img src="files/lighting-blender/ambient-occlusion-properties.jpg" alt="Blender Ambient Occlusion properties" style="max-width: 323px">
-
-    <p>Most ambient occlusion properties are supported in Verge3D. See the detailed info <a href="manual/en/blender/Lighting-and-Rendering.html#ambient_occlusion">below</a>.</p>
-
-    [anchor:global_rendering_properties_shadows]
-
-    <h3>Shadows panel</h3>
-
-    <img src="files/lighting-blender/rendering-properties-shadow.jpg" alt="Blender Shadows properties" style="max-width: 327px">
-
-    <p>See the detailed description in the <a href="manual/en/blender/Shadows.html#global_settings">Shadows</a> section of this manual.</p>
-
-    [anchor:global_rendering_properties_indirect]
-
-    <h3>Indirect Lighting panel</h3>
-
-    <img src="files/lighting-blender/rendering-properties-indirect.jpg" alt="Blender Indirect Ligthing properties" style="max-width: 320px">
-
-    <dl>
-      <dt id="cubemap_size">Cubemap Size</dt>
-      <dd>
-        Texture size to use for environment lighting:
-        <dl>
-          <dt>64, 128</dt>
-          <dd>Do not use, *256* is the minimum value supported by Verge3D.</dd>
-
-          <dt>256</dt>
-          <dd>Optimum quality with low memory consumption (recommended).</dd>
-
-          <dt>512</dt>
-          <dd>Better quality with moderate memory consumption and reduced performance. Use it to render high quality reflections e.g for rendering jewelry.</dd>
-
-          <dt>1024</dt>
-          <dd>Best quality with high memory consumption and low performance (generally not recommended).</dd>
-
-          <dt>2048, 4096</dt>
-          <dd>Do not use, *1024* is the maximum value supported in Verge3D.</dd>
-        </dl>
-      </dd>
-    </dl>
+    <p>
+      Verge3D supports the following properties accessible on the Blender's *Render Properties* panel.
+    </p>
 
     [anchor:global_rendering_properties_color_management]
 
-    <h3>Color Management panel</h3>
+    <h3>Color Management Panel</h3>
 
     <img src="files/lighting-blender/rendering-properties-color-management.jpg" alt="Blender Color Management properties" style="max-width: 327px">
 
@@ -392,10 +325,13 @@
 
         <dl>
           <dt>Standard</dt>
-          <dd>No additional color correction applied. Switch to this method if you don't need color correction as it works slightly faster than *Filmic* or *AgX*.</dd>
+          <dd>No additional color correction applied. Switch to this method if you don't need color correction as it works faster than *AgX* or *Filmic*.</dd>
+
+          <dt>Khronos PBR Neutral</dt>
+          <dd>Uses quite efficient algorithm in terms of performance. First appeared in Blender 4.2.
 
           <dt>AgX</dt>
-          <dd>Blender's default method in version 4.0 and above</dd>
+          <dd>Blender's default method in version 4.0 and above.</dd>
 
           <dt>Filmic</dt>
           <dd>This was Blender's default method before version 4.0.</dd>
@@ -403,21 +339,21 @@
           <dt>Filmic Log, Raw, False Color</dt>
           <dd>Unsupported, if specified Verge3D will fall back to the *Standard* method.</dd>
         </dl>
-
       </dd>
 
       <dt>Look</dt>
       <dd>Only *None* and *Punchy* (for *AgX* view transform) values supported by Verge3D.</dd>
-
     </dl>
 
     [anchor:global_rendering_properties_verge3d]
 
-    <h3>Verge3D Settings panel</h3>
+    <h3>Verge3D Settings Panel</h3>
 
-    <p>In addition, there is a panel with Verge3D-specific rendering/export properties:</p>
+    <p>
+      In addition, there is a panel with Verge3D-specific rendering/export properties:
+    </p>
 
-    <img src="files/lighting-blender/rendering-properties-global.jpg" alt="Verge3D global rendering properties" style="max-width: 372px">
+    <img src="files/lighting-blender/rendering-properties-verge3d.webp" alt="Verge3D global rendering properties" style="max-width: 370px">
 
     <dl>
       <dt>Copyright</dt>
@@ -470,16 +406,41 @@
 
       <dt>Use HDR Rendering</dt>
       <dd>
-        <p>Enable high-dynamic-range rendering.</p>
-
-        <p>If activated, Verge3D will use 16-bit float textures as rendering buffers. This feature can significantly improve rendering of the Bloom post-processing as well as smoothness of node-based gradient textures. The downside of this — increased GPU memory consumption and reduced performance.</p>
-
-        <p class="note">This feature is not related to <strong>.hdr</strong> textures which are commonly used to produce image-based lighting, thus activating it won't improve rendering of such textures.</p>
+        <p>
+          Enable high-dynamic-range rendering.
+        </p>
+        <p>
+          If activated, Verge3D will use 16-bit float textures as rendering buffers. This feature can significantly improve rendering of the Bloom post-processing as well as smoothness of node-based gradient textures. The downside of this — increased GPU memory consumption and reduced performance.
+        </p>
+        <p class="note">
+          This feature is not related to <strong>.hdr</strong> textures which are commonly used to produce image-based lighting, thus activating it won't improve rendering of such textures.
+        </p>
       </dd>
 
       <dt>Order-Indep. Transparency</dt>
       <dd>
-        <p>Enable Order-Independent Transparency (OIT) rendering technique, which solves most transparency issues. Read more about this <a href="manual/en/blender/Transparency.html#oit_rendering">here</a>.</p>
+        Enable Order-Independent Transparency (OIT) rendering technique, which solves most transparency issues. Read more about this <a href="manual/en/blender/Transparency.html#oit_rendering">here</a>.
+      </dd>
+
+      <dt id="cubemap_size">Env. Map Size</dt>
+      <dd>
+        Texture size to use for environment lighting:
+        <dl>
+          <dt>64, 128</dt>
+          <dd>Do not use, *256* is the minimum value supported by Verge3D.</dd>
+
+          <dt>256</dt>
+          <dd>Optimum quality with low memory consumption (recommended).</dd>
+
+          <dt>512</dt>
+          <dd>Better quality with moderate memory consumption and reduced performance. Use it to render high quality reflections e.g for rendering jewelry.</dd>
+
+          <dt>1024</dt>
+          <dd>Best quality with high memory consumption and low performance (generally not recommended).</dd>
+
+          <dt>2048, 4096</dt>
+          <dd>Do not use, *1024* is the maximum value supported in Verge3D.</dd>
+        </dl>
       </dd>
 
       <dt id="ibl_environment_mode">IBL Env. Mode</dt>
@@ -504,6 +465,9 @@
       <dt>Shadows</dt>
       <dd>Shadow properties. Read more about these <a href="manual/en/blender/Shadows.html#global_settings">here</a>.</dd>
 
+      <dt>Ambient Occlusion</dt>
+      <dd>Ambient occlusion properties. See <a href="manual/en/blender/Lighting-and-Rendering.html#ambient_occlusion">below</a>.</dd>
+
       <dt>Outline Effect</dt>
       <dd>Outline effect properties. See <a href="manual/en/blender/Lighting-and-Rendering.html#outline_rendering">below</a>.</dd>
 
@@ -517,23 +481,16 @@
     <h2>Ambient Occlusion</h2>
 
     <p>
-      Ambient Occlusion is a rendering technique that improves a scene's realism
-      by adding soft shadows from indirect (ambient) lighting based on how much
-      the point is exposed to the light sources.
+      Ambient Occlusion is a rendering technique that improves a scene's realism by adding soft shadows from indirect (ambient) lighting based on how much the point is exposed to the light sources.
     </p>
-
     <p>
-      Blender uses Ground Truth Ambient Occlusion (GTAO)
-      (<a href="https://docs.blender.org/manual/en/latest/render/eevee/render_settings/ambient_occlusion.html">link</a>)
-      and Verge3D Implements the same technique under the hood.
+      Blender uses Ground Truth Ambient Occlusion (GTAO) and Verge3D Implements the same technique under the hood.
     </p>
-
     <p>
-      Verge3D supports the following AO settings which can be found in the
-      *Ambient Occlusion* section on the *Render Properties* panel:
+      Verge3D supports the following AO settings which can be found in the *Ambient Occlusion* section on the *Verge3D Settings* panel:
     </p>
 
-    <img src="files/lighting-blender/ambient-occlusion-properties.jpg" alt="Blender Ambient Occlusion properties" style="max-width: 323px">
+    <img src="files/lighting-blender/ambient-occlusion-properties.webp" alt="Blender Ambient Occlusion properties" style="max-width: 325px">
 
     <dl>
       <dt>Ambient Occlusion</dt>
@@ -542,10 +499,7 @@
       </dd>
       <dt>Distance</dt>
       <dd>
-        The radius (in system units) within which to calculate ambient occlusion.
-        Higher values make the effect more noticeable by over-darkening and
-        expanding the area of it, but also can decrease performance. Lower
-        values make occlusion less noticeable.
+        The radius (in system units) within which to calculate ambient occlusion.  Higher values make the effect more noticeable by over-darkening and expanding the area of it, but also can decrease performance. Lower values make occlusion less noticeable.
       </dd>
       <dt>Factor</dt>
       <dd>
@@ -553,15 +507,11 @@
       </dd>
       <dt>Trace Precision</dt>
       <dd>
-        Higher precision means more accurate occlusion at increased performance
-        cost. Lower precision means better performance but the effect appears
-        less prominent.
+        Higher precision means more accurate occlusion at increased performance cost. Lower precision means better performance but the effect appears less prominent.
       </dd>
       <dt>Bent Normals</dt>
       <dd>
-        Use modified (or "bent") normals to sample the environment instead of
-        the original ones. The modified normals represent the least occluded
-        direction and make environment lighting a bit more realistic.
+        Use modified (or "bent") normals to sample the environment instead of the original ones. The modified normals represent the least occluded direction and make environment lighting a bit more realistic.
       </dd>
     </dl>
 
@@ -620,7 +570,19 @@
       <dd>Enable/disable rendering of the outline edge behind other scene objects.</dd>
     </dl>
 
-    <p class="note">Though it's possible to render glowing objects, in the most cases the outline rendering is used to improve visual clarity of your scene. If you need glowing from lamps or another bright objects, consider using the <a href="manual/en/puzzles/Postprocessing.html#bloom">bloom post-processing</a> instead.</p>
+    <p class="note">
+      Though it's possible to render glowing objects, in the most cases the outline rendering is used to improve visual clarity of your scene. If you need glowing from lamps or another bright objects, consider using the <a href="manual/en/puzzles/Postprocessing.html#bloom">bloom post-processing</a> instead.
+    </p>
+
+
+    [anchor:world_rendering_properties]
+
+    <h2>World Rendering Properties</h2>
+
+    <dl>
+      <dt>Dithering</dt>
+      <dd>Enable dithering to reduce <a href="manual/en/introduction/Hardware-Related-Issues.html#banding_artifacts">banding artifacts</a> when using darker shading or gradients.</dd>
+    </dl>
 
 
     [anchor:per_object_rendering_properties]
@@ -668,7 +630,7 @@
 
     [anchor:hidpi_rendering]
 
-    <h2>Rendering on HiDPI (Retina) Screens</h2>
+    <h2>Rendering on HiDPI (aka Retina) Screens</h2>
 
     <p>
       As of today, most mobile and many desktop screens have high pixel density (so called "Retina" displays). These displays allow you to substantially increase quality of your renderings. The downside of rendering many pixels is reduced performance.
@@ -684,10 +646,28 @@
     </ul>
 
     <p>
-      The latter approach can be easily achieved by enabling the *HiDPI Compositing* property located on the *Object Properties* panel:
+      The latter approach can be easily achieved by enabling the *HiDPI Compositing* property located on the *Verge3D Settings* panel (*Object Properties* tab):
     </p>
 
-    <img src="files/lighting-blender/hidpi-compositing.jpg" alt="Verge3D HiDPI compositing properties" style="max-width: 408px">
+    <img src="files/lighting-blender/hidpi-compositing.webp" alt="Verge3D HiDPI compositing properties" style="max-width: 326px">
+
+    <figure>
+      <img src="files/lighting-blender/hidpi-compositing-example.webp" alt="Example of HiDPI rendering in Blender">
+      <figcaption>HiDPI compositing is used to display the UI controls and text in the [demoLink:e-learning] demo.</figcaption>
+    </figure>
+
+    <p>
+      However, rendering HiDPI content in a separate pass has some limitations:
+    </p>
+
+    <ul>
+      <li>You can't apply any post-processing effects to the objects rendered in HiDPI pass.</li>
+      <li>Objects are not affected by the depth of the objects rendered before them. This may produce artifacts like on the screenshot below (green — regular object, blue — HiDPI object, but in reality the green one is nearest to the viewer):<br><img src="files/lighting-blender/hidpi-compositing-depth-issue.webp" alt="Verge3D HiDPI compositing depth issue" style="max-width: 600px"></li>
+    </ul>
+
+    <p>
+      This basically means that the HiDPI Compositing should be used primarily for UI elements or camera-parented objects.
+    </p>
 
     [demo:ring]
 
@@ -712,7 +692,7 @@
       You can configure the breakpoints on the *Object Properties* panel:
     </p>
 
-    <img src="files/lighting-blender/visibility-breakpoints.jpg" alt="Verge3D visibility breakpoints" style="max-width: 410px">
+    <img src="files/lighting-blender/visibility-breakpoints.webp" alt="Verge3D visibility breakpoints" style="max-width: 325px">
 
     <dl>
       <dt>Min Width</dt>
@@ -748,23 +728,11 @@
 
     [anchor:material_settings_panel]
 
-    <h3>Settings panel</h3>
+    <h3>Settings Panel</h3>
 
-    <img src="files/lighting-blender/material-settings-panel.jpg" alt="Blender material settings panel" style="max-width: 338px">
+    <img src="files/lighting-blender/material-settings-panel.webp" alt="Blender material settings panel" style="max-width: 322px">
 
     <dl>
-      <dt>Blend Mode</dt>
-      <dd>
-        Transparency mode. See more in the <a href="manual/en/blender/Transparency.html">transparency</a> section of this manual.
-      </dd>
-      <dt>Shadow Mode</dt>
-      <dd>
-        Transparency mode for shadows. Verge3D supports only *Opaque* and *None* modes for shadows.
-      </dd>
-      <dt>Clip Threshold</dt>
-      <dd>
-        Clipping threshold for *Alpha Clip* materials.
-      </dd>
       <dt>Pass Index</dt>
       <dd>
         Material pass index. In Verge3D, this value is used exclusively to provide data to the <a href="manual/en/blender/Shader-Nodes-Reference.html#object_info">Object Info</a> node.
@@ -774,14 +742,26 @@
 
     [anchor:material_verge3d_panel]
 
-    <h3>Verge3D Settings panel</h3>
+    <h3>Verge3D Settings Panel</h3>
 
-    <img src="files/lighting-blender/material-verge3d-panel.jpg" alt="Verge3D material settings panel" style="max-width: 336px">
+    <img src="files/lighting-blender/material-verge3d-panel.webp" alt="Verge3D material settings panel" style="max-width: 373px">
 
     <dl>
+      <dt>Blend Mode</dt>
+      <dd>
+        Transparency mode. See more in the <a href="manual/en/blender/Transparency.html">transparency</a> section of this manual.
+      </dd>
+      <dt>Clip Threshold</dt>
+      <dd>
+        Clipping threshold for *Alpha Clip* materials.
+      </dd>
+      <dt>Transparency Hack</dt>
+      <dd>
+        Hack to remove/reduce transparency artifacts. See more <a href="manual/en/blender/Transparency.html">here</a>.
+      </dd>
       <dt>Render Side</dt>
       <dd>
-        Being a real-time engine, Verge3D uses the back-face culling technique to optimize performance. By default, only the front side of the polygons is rendered. If you need it to behave differently, change the *Render Side* property. This option is disabled for transparent objects with both *Alpha Blend* and *Show Backface* options enabled. For such objects you should use the *Backface Culling* and *Show Backface* <a href="manual/en/blender/Transparency.html#setting_up_in_blender">options</a>.
+        Being a real-time engine, Verge3D uses the back-face culling technique to optimize performance. By default, only the front side of the polygons is rendered. If you need it to behave differently, change the *Render Side* property.
       </dd>
       <dt>Depth Write</dt>
       <dd>
@@ -793,7 +773,7 @@
       </dd>
       <dt>Dithering</dt>
       <dd>
-        Enable dithering to reduce <a href="manual/en/introduction/Hardware-Related-Issues.html#banding_artifacts">banding artifacts</a> when using darker shading or gradients.
+        Enable dithering to reduce <a href="manual/en/introduction/Hardware-Related-Issues.html#banding_artifacts">banding artifacts</a> when using darker shading or gradients. Dithering can also be enabled on <a href="manual/en/blender/Lighting-and-Rendering.html#world_rendering_properties">world</a> shader.
       </dd>
       <dt>glTF 2.0 compatible</dt>
       <dd>
@@ -898,7 +878,6 @@
     <h2>Got Questions?</h2>
 
     <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
 
   </article></body>
 </html>

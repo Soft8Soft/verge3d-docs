@@ -3,10 +3,10 @@
   <head>
     <title>Spotting Verge3D performance bottlenecks — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="Find out how to spot and eliminate performance bottlenecks in your Verge3D-based applications."/>
-    <base href="../../../" />
+    <meta name="description" content="Find out how to spot and eliminate performance bottlenecks in your Verge3D-based applications.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
 
     <meta property="og:image" content="https://cdn.soft8soft.com/images/optimizing-webgl-performance.jpg">
     <meta property="article:tag" content="performance">
@@ -22,12 +22,14 @@
 
     <h2>Intro</h2>
 
-    <p>Since a broad internet audience can use your applications, your Verge3D-based apps must show good performance. For example, some classes of WebGL-capable devices may work much worse than you expect:</p>
+    <p>
+      Since a broad internet audience can use your applications, your Verge3D-based apps must show good performance. For example, some classes of WebGL-capable devices may work much worse than you expect:
+    </p>
 
     <ul>
       <li>Typical low-end or middle-end laptops with integrated GPUs (Intel, AMD APU graphics).</li>
       <li>Old smartphones or tablet computers.</li>
-      <li>Mobile VR devices, such as Oculus Go or Oculus Quest. To prevent motion sickness symptoms, it's mandatory that these devices render with appropriate frame rate (60, 72, or even 90 FPS).</li>
+      <li>Mobile VR devices, such as Oculus Quest. To prevent motion sickness symptoms, it's mandatory that these devices render with appropriate frame rate (72, 90, or even 120 FPS).</li>
       <li>Devices with battery. Enormous GPU utilization quickly drains out the battery, powering mobile devices.</li>
     </ul>
 
@@ -38,7 +40,9 @@
 
     <h2>Check your FPS</h2>
 
-    <p>FPS (frames per second, or frame rate) is a crucial quantity representing the rendering time and user experience of your app:</p>
+    <p>
+      FPS (frames per second, or frame rate) is a crucial quantity representing the rendering time and user experience of your app:
+    </p>
 
     <ul>
       <li>&lt; 20 — your app is really slow, almost impossible to use.</li>
@@ -51,7 +55,7 @@
     <p>Verge3D comes with the built-in FPS counter. You can activate it by:</p>
 
     <ul>
-      <li>Quickly pressing *~*, *~*, *~* (triple tilda key), then *F* from the *Service Tools* menu.</li>
+      <li>Quickly pressing <strong>~</strong>, <strong>~</strong>, <strong>~</strong> (triple tilde key), then *F* from the *Service Tools* menu. If you don't have tilde on your keyboard, use the most top-left key instead.</li>
       <li>Using JavaScript's <a href="api/en/extras/App.html#showFPS">showFPS()</a> API method.</li>
     </ul>
 
@@ -69,7 +73,7 @@
     <p>Verge3D comes with a feature to generate performance profiles in real time. You can get a quick insight into what's happening with performance in your application and what you should do to increase it. To produce such profiles, you may use one of the following methods:</p>
 
     <ul>
-      <li>Quickly press *~*, *~*, *~* (triple tilda key), then *P* from the *Service Tools* menu (Verge3D 4.7+).</li>
+      <li>Quickly press <strong>~</strong>, <strong>~</strong>, <strong>~</strong> (triple tilde key), then *P* from the *Service Tools* menu. If you don't have tilde on your keyboard, use the most top-left key instead.</li>
       <li>Use the <a href="manual/en/puzzles/System.html#print_performance_info">print performance info</a> puzzle.</li>
       <li>Use JavaScript's <a href="api/en/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> API method.</li>
     </ul>
@@ -91,6 +95,9 @@
       <dt>Asset Compression</dt>
       <dd>Shows whether asset compression is enabled or not.</dd>
 
+      <dt>Shader Compilations</dt>
+      <dd>Shows the amount of shader compilations required to bring your scene up and running.</dd>
+
       <dt>FPS</dt>
       <dd>Rendering frame rate. This is the same value reported by the FPS counter.</dd>
 
@@ -105,6 +112,9 @@
 
       <dt>HDR Rendering</dt>
       <dd>Whether HDR rendering switched <em>on</em> or <em>off</em>.</dd>
+
+      <dt>Order-Independent Transparency</dt>
+      <dd>Whether order-independent transparency feature switched <em>on</em> or <em>off</em>.</dd>
 
       <dt>Viewport Resolution</dt>
       <dd>Rendering viewport resolution.</dd>
@@ -125,23 +135,23 @@
       <dd>Scene post-processing passes (in rendering order).</dd>
 
       <dt>Shadow Map</dt>
-      <dd>Shadow map parameters: filtering type; the number of rendered shadow maps; shadow map resolution.</dd>
+      <dd>Shadow map parameters: filtering type; shadow map resolution and the number of rendered shadow maps.</dd>
 
       <dt>Materials and Shaders</dt>
-      <dd>The list of rendered materials and shaders. Each list item contains the following info: material name (or names if they share the same shader), shader name, and rendering time per frame (measured in milliseconds).</dd>
+      <dd>The list of rendered materials and shaders. Each list item contains the following info: material name (or names if they share the same shader), shader name, and rendering time per frame (measured in milliseconds). The list is sorted by the rendering time.</dd>
 
       <dt>Total Render Time</dt>
-      <dd>The total amount of time (in milliseconds) it took to render your scene.</dd>
+      <dd>The total amount of time (in milliseconds) it took to render the entire scene.</dd>
 
       <dt>Textures & Render Buffers</dt>
-      <dd>Textures and render buffers stats (resolutions). Textures are printed on the top of the list (prefixed with *Texture*), while render buffers printed at the bottom of the list (prefixed with *RenderTarget*). For textures, there is format info: *RGBA* for uncompressed textures, <strong>RGBA_[METHOD]</strong> for compressed textures.</dd>
+      <dd>Textures and render buffers stats (resolutions). Textures are printed on the top of the list (designated with *Texture*), while render buffers printed at the bottom of the list (designated with *RenderTarget*). For textures, there is format info: *RGBA* for uncompressed textures, <strong>RGBA_[METHOD]</strong> for compressed textures.</dd>
     </dl>
 
     <p>
       To help you spot performance issues, lines which you should pay attention to first, are marked in red. For example, on the screenshot below, the shadow map appears to be too big (4K) which may result in slower rendering.
     </p>
 
-    <img src="files/performance-bottlenecks/performance-profile-red.png" alt="Verge3D performance issues" style="max-width: 622px;">
+    <img src="files/performance-bottlenecks/performance-profile-red.png" alt="Verge3D performance issues" style="max-width: 622px">
 
 
     [anchor:performance_bottlenecks]
@@ -176,13 +186,7 @@
 
     <ul>
       <li>Screen-space refraction and reflection (see <a href="manual/en/puzzles/Postprocessing.html#ssr">puzzle</a>).</li>
-      <li>
-        Ambient occlusion (see
-        <a href="manual/en/blender/Lighting-and-Rendering.html#ambient_occlusion">Blender</a> /
-        <a href="manual/en/max/Lighting-and-Rendering.html#ambient_occlusion">Max</a> /
-        <a href="manual/en/maya/Lighting-and-Rendering.html#ambient_occlusion">Maya</a>
-        manual pages).
-      </li>
+      <li>Ambient occlusion (see <a href="manual/en/blender/Lighting-and-Rendering.html#ambient_occlusion">Blender</a> / <a href="manual/en/max/Lighting-and-Rendering.html#ambient_occlusion">Max</a> / <a href="manual/en/maya/Lighting-and-Rendering.html#ambient_occlusion">Maya</a> manual pages).</li>
       <li>Depth-of-field (see <a href="manual/en/puzzles/Postprocessing.html#dof">puzzle</a>).</li>
     </ul>
 
@@ -322,7 +326,6 @@
     <h3>Large Geometry Buffers</h3>
 
     <p>Meshes with many triangles require large geometry buffers and hence consume a lot of video memory to store them.</p>
-
 
 
     [anchor:see_also]

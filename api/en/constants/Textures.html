@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <title>Texture Constants — Soft8Soft</title>
-    <meta charset="utf-8" />
-    <meta name="description" content="List of texture constants used in Verge3D."/>
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <meta name="description" content="List of texture constants used in Verge3D.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     <h1>Texture Constants</h1>
@@ -16,6 +16,7 @@
     </p>
 
     [contents]
+
 
     [anchor:mapping]
     <h2>Mapping Modes</h2>
@@ -117,7 +118,7 @@
     </p>
 
     [anchor:types]
-    <h2>Types</h2>
+    <h2>Texture Types</h2>
 
     <code>
     v3d.UnsignedByteType
@@ -134,14 +135,15 @@
     </code>
 
     <p>
-      For use with a texture's [page:Texture.type type]  property, which must correspond to the correct format. See below for details.
+      For use with a texture's [page:Texture.type type]  property, which must correspond to the correct format.
     </p>
     <p>
       [page:constant UnsignedByteType] is the default.
     </p>
 
+
     [anchor:formats]
-    <h2>Formats</h2>
+    <h2>Texture Formats</h2>
 
     <code>
     v3d.AlphaFormat
@@ -158,23 +160,22 @@
     </code>
 
     <p>
-      For use with a texture's [page:Texture.format format]  property, these define
-      how elements of a 2d texture, or `texels`, are read by shaders.
+      For use with a texture's [page:Texture.format format]  property, these define how elements of a 2D texture, or "texels", are read by shaders.
     </p>
     <p>
       [page:constant AlphaFormat] discards the red, green and blue components and reads just the alpha component.
     </p>
     <p>
-      [page:constant RedFormat] discards the green and blue components and reads just the red component. (can only be used with a WebGL 2 rendering context).
+      [page:constant RedFormat] discards the green and blue components and reads just the red component (can only be used with a WebGL 2 rendering context).
     </p>
     <p>
-      [page:constant RedIntegerFormat] discards the green and blue components and reads just the red component. The texels are read as integers instead of floating point.  (can only be used with a WebGL 2 rendering context).
+      [page:constant RedIntegerFormat] discards the green and blue components and reads just the red component. The texels are read as integers instead of floating point (can only be used with a WebGL 2 rendering context).
     </p>
     <p>
       [page:constant RGFormat] discards the alpha, and blue components and reads the red, and green components. (can only be used with a WebGL 2 rendering context).
     </p>
     <p>
-      [page:constant RGIntegerFormat] discards the alpha, and blue components and reads the red, and green components. The texels are read as integers instead of floating point.  (can only be used with a WebGL 2 rendering context).
+      [page:constant RGIntegerFormat] discards the alpha, and blue components and reads the red, and green components. The texels are read as integers instead of floating point (can only be used with a WebGL 2 rendering context).
     </p>
     <p>
       [page:constant RGBAFormat] is the default and reads the red, green, blue and alpha components.
@@ -186,7 +187,7 @@
       [page:constant LuminanceFormat] reads each element as a single luminance component.  This is then converted to a floating point, clamped to the range [0,1], and then assembled into an RGBA element by placing the luminance value in the red, green and blue channels, and attaching 1.0 to the alpha channel.
     </p>
     <p>
-      [page:constant LuminanceAlphaFormat] reads each element as a luminance/alpha double.  The same process occurs as for the [page:constant LuminanceFormat], except that the alpha channel may have values other than 1.0.
+      [page:constant LuminanceAlphaFormat] reads each element as a luminance/alpha double.  The same process occurs as for the [page:constant LuminanceFormat], except that the alpha channel may have values other than `1.0`.
     </p>
     <p>
       [page:constant DepthFormat] reads each element as a single depth value, converts it to floating point, and clamps to the range [0,1]. This is the default for [page:DepthTexture DepthTexture].
@@ -197,6 +198,7 @@
     <p>
       Note that the texture must have the correct [page:Texture.type type] set, as described above. See [link:https://developer.mozilla.org/en/docs/Web/API/WebGLRenderingContext/texImage2D WebGLRenderingContext.texImage2D] for details.
     </p>
+
 
     [anchor:dds_formats]
     <h2>DDS / ST3C Compressed Texture Formats</h2>
@@ -212,12 +214,15 @@
       For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format]  property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc/ WEBGL_compressed_texture_s3tc] extension.
     </p>
     <p>
-      There are four [link:https://en.wikipedia.org/wiki/S3_Texture_Compression S3TC] formats available via this extension. These are:<br>
+      There are four [link:https://en.wikipedia.org/wiki/S3_Texture_Compression S3TC] formats available via this extension. These are:
+    </p>
+    <p>
       [page:constant RGB_S3TC_DXT1_Format]: A DXT1-compressed image in an RGB image format.<br>
       [page:constant RGBA_S3TC_DXT1_Format]: A DXT1-compressed image in an RGB image format with a simple on/off alpha value.<br>
       [page:constant RGBA_S3TC_DXT3_Format]: A DXT3-compressed image in an RGBA image format. Compared to a 32-bit RGBA texture, it offers 4:1 compression.<br>
       [page:constant RGBA_S3TC_DXT5_Format]: A DXT5-compressed image in an RGBA image format. It also provides a 4:1 compression, but differs to the DXT3 compression in how the alpha compression is done.
     </p>
+
 
     [anchor:pvrt_formats]
     <h2>PVRTC Compressed Texture Formats</h2>
@@ -233,12 +238,15 @@
       For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format]  property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_pvrtc/ WEBGL_compressed_texture_pvrtc] extension. PVRTC is typically only available on mobile devices with PowerVR chipsets, which are mainly Apple devices.
     </p>
     <p>
-      There are four [link:https://en.wikipedia.org/wiki/PVRTC PVRTC] formats available via this extension. These are:<br>
+      There are four [link:https://en.wikipedia.org/wiki/PVRTC PVRTC] formats available via this extension. These are:
+    </p>
+    <p>
       [page:constant RGB_PVRTC_4BPPV1_Format]: RGB compression in 4-bit mode. One block for each 4×4 pixels.<br>
       [page:constant RGB_PVRTC_2BPPV1_Format]: RGB compression in 2-bit mode. One block for each 8×4 pixels.<br>
       [page:constant RGBA_PVRTC_4BPPV1_Format]: RGBA compression in 4-bit mode. One block for each 4×4 pixels.<br>
       [page:constant RGBA_PVRTC_2BPPV1_Format]: RGBA compression in 2-bit mode. One block for each 8×4 pixels.
     </p>
+
 
     [anchor:etc_formats]
     <h2>ETC Compressed Texture Formats</h2>
@@ -252,6 +260,7 @@
     <p>
       For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format] property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc1/ WEBGL_compressed_texture_etc1] (ETC1) or [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc/ WEBGL_compressed_texture_etc] (ETC2) extensions.
     </p>
+
 
     [anchor:astc_formats]
     <h2>ASTC Compressed Texture Formats</h2>
@@ -277,6 +286,7 @@
       For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format] property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/ WEBGL_compressed_texture_astc] extension.
     </p>
 
+
     [anchor:bptc_formats]
     <h2>BPTC Compressed Texture Formats</h2>
 
@@ -288,10 +298,11 @@
       For use with a [page:CompressedTexture CompressedTexture]'s [page:Texture.format format] property, these require support for the [link:https://www.khronos.org/registry/webgl/extensions/EXT_texture_compression_bptc/ EXT_texture_compression_bptc] extension.
     </p>
 
+
     [anchor:encoding]
     <h2>Encoding</h2>
 
-    <code class="language-html">
+    <code>
     v3d.LinearEncoding
     v3d.sRGBEncoding
     v3d.BasicDepthPacking
@@ -308,10 +319,11 @@
       If the encoding type is changed after the texture has already been used by a material, you will need to set [page:Material.needsUpdate Material.needsUpdate] to `true` to make the material recompile.
     </p>
     <p>
-      [page:constant LinearEncoding] is the default.
-      Values other than this are only valid for a material's `map`, `envMap` and `emissiveMap`.
+      [page:constant LinearEncoding] is the default. Values other than this are only valid for a material's `map`, `envMap` and `emissiveMap`.
     </p>
 
+
     [sourceHint]
+
   </body>
 </html>

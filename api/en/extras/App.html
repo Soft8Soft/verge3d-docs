@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>App - Verge3D User Manual - Soft8Soft</title>
-    <meta name="description" content="App is the main class to create and manage your Verge3D applications using JavaScript."/>
-    <base href="../../../" />
+    <meta name="description" content="App is the main class to create and manage your Verge3D applications using JavaScript.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:EventDispatcher] &rarr;
@@ -14,9 +14,7 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      App class allows you to set up your 3D application more easily. It
-      includes code to init WebGL renderer, load glTF scenes, auto-start
-      animations as well as logic for basic camera controls.
+      [name] class allows you to set up your 3D application more easily. It includes code to init WebGL renderer, load glTF scenes, auto-start animations as well as logic for basic camera controls.
     </p>
 
     <h2>Example</h2>
@@ -39,6 +37,7 @@
         // place your own code here
     }
     </code>
+
 
     <h2>Constructor</h2>
 
@@ -89,6 +88,7 @@
       <li>Initializes methods for accelerated raycasting (BVH).</li>
       <li>Adds an app instance to `v3d.apps` list (in case of non-modularized engine).</li>
     </ol>
+
 
     <h2>Properties</h2>
 
@@ -193,7 +193,7 @@
 
     <h3>[property:Boolean registerServiceKeys]</h3>
 
-    <p>Register the service keys like triple tilda (~~~) which displays service menu. Default is `true`. If you need to disable service keys, set this value to `false` right after making a new App instance.</p>
+    <p>Register the service keys like triple tilda (~~~) which displays service menu. Default is `true`. If you need to disable service keys, set this value to `false` right after making a new [name] instance.</p>
 
     <code>
     const app = new v3d.App(containerId, ctxSettings, preloader);
@@ -204,7 +204,7 @@
 
     <h3>[property:Array renderCallbacks]</h3>
 
-    <p>Array of functions which will be called every time when rendering begins.</p>
+    <p>Array of functions which will be called every time when rendering frame begins.</p>
 
     <h3>[property:WebGLRenderer renderer]</h3>
 
@@ -228,7 +228,7 @@
 
     <h3>[property:Integer worldCubemapRes]</h3>
 
-    <p>Resolution of the cubemap texture representing the world material. Default is 1024.</p>
+    <p>Resolution of the cubemap texture representing the world material. Default is `1024`.</p>
 
     <h3>[property:Object3D xrCameraParent]</h3>
 
@@ -240,8 +240,7 @@
 
     <h3>[property:XRSession xrSession]</h3>
 
-    <p>Active WebXR session.</p>
-
+    <p>Active WebXR session. Never set XR session directly, use [page:.initWebXR] method.</p>
 
 
     <h2>Methods</h2>
@@ -253,18 +252,13 @@
 
     <h3>[method:undefined appendScene]([param:String url], [param:Function loadCb], [param:Function progressCb], [param:Function errorCb], [param:Boolean loadCameras], [param:Boolean loadLights])</h3>
     <p>
-      Append the scene from the specified glTF file to the current scene. The `loadCb`
-      callback will receive the loaded scene as a parameter after the loading is finished
+      Append the scene from the specified glTF file to the current scene. The `loadCb` callback will receive the loaded scene as a parameter after the loading is finished
     </p>
-
     <p>
       If there is no active scene in the application, then nothing will be appended.
     </p>
-
     <p>
-      Parameters `loadCameras` and `loadLights` are used to specify if
-      cameras and lights will be appended from the loaded scene. Both parameters
-      are `true` by default.
+      Parameters `loadCameras` and `loadLights` are used to specify if cameras and lights will be appended from the loaded scene. Both parameters are `true` by default.
     </p>
 
     <h3>[method:undefined assignClippingPlanes]([param:Scene scene])</h3>
@@ -284,14 +278,10 @@
 
     <h3>[method:undefined dispose]()</h3>
     <p>
-      Unloads the scene (by calling [page:.unload unload]) and disposes the
-      whole application, which includes cleaning up the application's
-      [page:WebGLRenderer renderer] and removing the canvas element from the
-      DOM. Emits the [page:.eventDispose dispose] event.</p>
-
+      Unloads the scene (by calling [page:.unload unload]) and disposes the whole application, which includes cleaning up the application's [page:WebGLRenderer renderer] and removing the canvas element from the DOM. Emits the [page:.eventDispose dispose] event.
+    </p>
     <p>
-      The application is no longer usable after disposing. This approach is best
-      suited for cases where the complete clean up is needed.
+      The application is no longer usable after disposing. This approach is best suited for cases where the complete clean up is needed.
     </p>
 
     <h3>[method:undefined disposeEnvironment]()</h3>
@@ -303,7 +293,6 @@
     <p>
       Enable controls for the main app camera. Depending on the control type specified for the camera this method will give you 'ORBIT', 'FLYING', 'FIRST_PERSON', or static camera.
     </p>
-
     <p>
       The optional `element` parameter is used to specify the canvas element to assign mouse/keyboard/touch events. If not specified, controls will be assigned on the [page:WebGLRenderer.domElement .domElement] element of the app's [page:.renderer] instance.
     </p>
@@ -454,31 +443,37 @@
     </ul>
 
     <p>
-      Initialize an AR/VR session.
+      Initialize a WebXR session (AR or VR).
     </p>
 
     <h3>[method:undefined loadScene]([param:String url], [param:Function loadCb], [param:Function progressCb], [param:Function errorCb])</h3>
     <p>
-      Load the glTF scene. The loadCb callback will receive the loaded scene as
-      a parameter after the loading is finished. Emits the
-      [page:.eventSceneLoad sceneLoad] event.
+      Load the glTF scene. The loadCb callback will receive the loaded scene as a parameter after the loading is finished. Emits the [page:.eventSceneLoad sceneLoad] event.
     </p>
-
     <p>
-      If there already is an active scene (e.g. loaded before via the
-      [page:.loadScene] method), then use [page:.unload] first to
-      avoid conflicts between the existed scene and the loaded one.
+      If there already is an active scene (e.g. loaded before via the [page:.loadScene] method), then use [page:.unload] first to avoid conflicts between the existed scene and the loaded one.
     </p>
 
     <h3>[method:undefined onResize]()</h3>
     <p>
-      Handler for canvas resize event. Do not change unless you know what you are doing.
+      Handler for canvas resize event. Do not change unless you know what you are doing. If you just need to add custom logic on app resize, use the following snippet:
     </p>
+
+    <code>
+    const onResizeOld = app.onResize;
+
+    app.onResize = function() {
+        // execute existing resize logic
+        onResizeOld.call(app);
+
+        // place your own code here
+        console.log("Resized!");
+    }
+    </code>
 
     <h3>[method:undefined pause]()</h3>
     <p>
-      Pauses the application: animation, controls, render callbacks and
-      rendering. Emits the [page:.eventPause pause] event.
+      Pauses the application: animation, controls, render callbacks and rendering. Emits the [page:.eventPause pause] event.
     </p>
 
     <h3>[method:undefined printPerformanceInfo]([param:Float delta])</h3>
@@ -488,21 +483,17 @@
 
     <h3>[method:undefined render]()</h3>
     <p>
-      Handler for scene rendering. Do not change unless you know what you are
-      doing. Emits the [page:.eventBeforeRender beforeRender] and
-      [page:.eventAfterRender afterRender] events.
+      Handler for scene rendering. Do not change unless you know what you are doing. Emits the [page:.eventBeforeRender beforeRender] and [page:.eventAfterRender afterRender] events.
     </p>
 
     <h3>[method:undefined resume]()</h3>
     <p>
-      Resumes the application: animation, controls, render callbacks and
-      rendering. Emits the [page:.eventResume resume] event.
+      Resumes the application: animation, controls, render callbacks and rendering. Emits the [page:.eventResume resume] event.
     </p>
 
     <h3>[method:undefined run]()</h3>
     <p>
-      Starts the application by removing the preloader and starting the
-      rendering cycle.
+      Starts the application by removing the preloader and starting the rendering cycle.
     </p>
 
     <h3>[method:Camera setCamera]([param:Camera camera])</h3>
@@ -522,30 +513,16 @@
 
     <h3>[method:undefined unload]([param:Object3D rootObj])</h3>
     <p class="params">
-      [page:Object3D rootObj] — (optional) an object to unload along with its
-      children; if no object is given or the given object is the main application
-      scene then the method performs full scene cleanup.
+      [page:Object3D rootObj] — (optional) an object to unload along with its children; if no object is given or the given object is the main application scene then the method performs full scene cleanup.
     </p>
-
     <p>
       Unloads either a part or the whole scene depending on the parameters.
     </p>
-
     <p>
-      If the given `rootObj` is one of the scene objects, then this method removes
-      the given object and its descendants from the scene and also frees the
-      related resources (geometries, materials, textures, etc...). If the given
-      `rootObj` is the scene instance itself, then this method performs full
-      scene cleanup, which includes disposing all objects, the scene's environment,
-      cameras and camera controls, animations, postprocessing, internal WebGL
-      objects, etc...
+      If the given `rootObj` is one of the scene objects, then this method removes the given object and its descendants from the scene and also frees the related resources (geometries, materials, textures, etc...). If the given `rootObj` is the scene instance itself, then this method performs full scene cleanup, which includes disposing all objects, the scene's environment, cameras and camera controls, animations, postprocessing, internal WebGL objects, etc...
     </p>
-
     <p>
-      After the application's scene was fully unloaded the [page:.loadScene]
-      method can be used to load a completely new scene. This approach is best
-      suited for loading/unloading multiple scenes without disposing the
-      whole application.
+      After the application's scene was fully unloaded the [page:.loadScene] method can be used to load a completely new scene. This approach is best suited for loading/unloading multiple scenes without disposing the whole application.
     </p>
 
     <h3>[method:undefined updateConstraints]([param:Scene scene])</h3>
@@ -555,26 +532,23 @@
 
     <h3>[method:undefined updateEnvironment]([param:Material wMat])</h3>
     <p>
-      Update world environment from the specified material. Such material is
-      usually stored in the [page:Scene.worldMaterial] property.
+      Update world environment from the specified material. Such material is usually stored in the [page:Scene.worldMaterial] property.
     </p>
 
     <h3>[method:undefined updateReflectionProbes]([param:Object3D object3d])</h3>
     <p class="params">
       [page:Object3D object3d] — an object or a scene for searching probe objects among its descendants.
     </p>
-
     <p>
-      Update all [page:CubeReflectionProbe] objects that are descendants of the
-      given `object3d` object.
+      Update all [page:CubeReflectionProbe] objects that are descendants of the given `object3d` object.
     </p>
+
 
     <h2>Events</h2>
 
     <h3>[def:eventAfterFirstRender afterFirstRender]</h3>
     <p>
-      An event emitted right after the first frame rendered. You can
-      subscribe to it as follows:
+      An event emitted right after the first frame rendered. You can subscribe to it as follows:
       <code>
         app.addEventListener('afterFirstRender', e => ...); // properties of e: type ('afterFirstRender'), target (instance of App)
       </code>
@@ -582,8 +556,7 @@
 
     <h3>[def:eventAfterRender afterRender]</h3>
     <p>
-      An event emitted after each frame rendered (in the beginning of the
-      [page:.render render] method). You can subscribe to it as follows:
+      An event emitted after each frame rendered (in the beginning of the [page:.render render] method). You can subscribe to it as follows:
       <code>
         app.addEventListener('afterRender', e => ...); // properties of e: type ('afterRender'), target (instance of App)
       </code>
@@ -591,49 +564,43 @@
 
     <h3>[def:eventBeforeRender beforeRender]</h3>
     <p>
-      An event emitted before each frame rendered (in the end of the
-      [page:.render render] method). You can subscribe to it as follows:
-      <code>
-        app.addEventListener('beforeRender', e => ...); // properties of e: type ('beforeRender'), target (instance of App)
-      </code>
+      An event emitted before each frame rendered (in the end of the [page:.render render] method). You can subscribe to it as follows:
     </p>
+    <code>
+    app.addEventListener('beforeRender', e => ...); // properties of e: type ('beforeRender'), target (instance of App)
+    </code>
 
     <h3>[def:eventDispose dispose]</h3>
     <p>
-      An event emitted right after the application is disposed via the
-      [page:.dispose dispose] method. You can subscribe to it as follows:
-      <code>
-        app.addEventListener('dispose', e => ...); // properties of e: type ('dispose'), target (instance of App)
-      </code>
+      An event emitted right after the application is disposed via the [page:.dispose dispose] method. You can subscribe to it as follows:
     </p>
+    <code>
+    app.addEventListener('dispose', e => ...); // properties of e: type ('dispose'), target (instance of App)
+    </code>
 
     <h3>[def:eventPause pause]</h3>
     <p>
-      An event emitted when the application is paused via the
-      [page:.pause pause] method. You can subscribe to it as follows:
-      <code>
-        app.addEventListener('pause', e => ...); // properties of e: type ('pause'), target (instance of App)
-      </code>
+      An event emitted when the application is paused via the [page:.pause pause] method. You can subscribe to it as follows:
     </p>
+    <code>
+    app.addEventListener('pause', e => ...); // properties of e: type ('pause'), target (instance of App)
+    </code>
 
     <h3>[def:eventResume resume]</h3>
     <p>
-      An event emitted when the application is resumed via the
-      [page:.resume resume] method. You can subscribe to it as follows:
-      <code>
-        app.addEventListener('resume', e => ...); // properties of e: type ('resume'), target (instance of App)
-      </code>
+      An event emitted when the application is resumed via the [page:.resume resume] method. You can subscribe to it as follows:
     </p>
+    <code>
+    app.addEventListener('resume', e => ...); // properties of e: type ('resume'), target (instance of App)
+    </code>
 
     <h3>[def:eventSceneLoad sceneLoad]</h3>
     <p>
-      An event emitted after the app's scene is done loading, parsing and all
-      its shaders are compiled. This event is emitted as a result of calling the
-      [page:.loadScene loadScene] method. You can subscribe to it as follows:
-      <code>
-        app.addEventListener('sceneLoad', e => ...); // properties of e: type ('sceneLoad'), target (instance of App)
-      </code>
+      An event emitted after the app's scene is done loading, parsing and all its shaders are compiled. This event is emitted as a result of calling the [page:.loadScene loadScene] method. You can subscribe to it as follows:
     </p>
+    <code>
+    app.addEventListener('sceneLoad', e => ...); // properties of e: type ('sceneLoad'), target (instance of App)
+    </code>
 
 
     <h2>Puzzles</h2>

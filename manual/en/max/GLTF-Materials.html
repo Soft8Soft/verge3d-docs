@@ -3,10 +3,10 @@
   <head>
     <title>Verge3D for 3ds Max: glTF PBR Materials — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to setup glTF-compliant PBR materials in 3ds Max to be used with Verge3D."/>
-    <base href="../../../" />
+    <meta name="description" content="How to setup glTF-compliant PBR materials in 3ds Max to be used with Verge3D.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
     <style>
       table, th, td {
         border: 1px solid black;
@@ -47,7 +47,7 @@
     <img src="files/physical-material/phmat_02.png" alt="Adding Physical material in 3ds Max">
 
     <p>
-      Then you can connect texture nodes to the <strong>Physical Material</strong> as described below.  Note that all textures are optional and any of them can be safely omitted.
+      Then you can connect texture nodes to the <strong>Physical Material</strong> as described below. Note that all textures are optional and any of them can be safely omitted.
     </p>
 
     <img src="files/physical-material/phmat_01.png" alt="Physial material setup">
@@ -114,11 +114,15 @@
 
     <h2>Exporting Textures from Substance Painter</h2>
 
-    <p>The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.</p>
+    <p>
+      The models and the baked normal and occlusion maps (if any) can be loaded in Substance Painter via OBJ format.
+    </p>
 
     <img src="files/physical-material/substance_screenshot.jpg" alt="Substance painter screen" style="max-width: 819px;">
 
-    <p>Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.</p>
+    <p>
+      Overall 3 maps are produced in this software in the end: base color/transparency, occlusion/roughness/metallic and normal.
+    </p>
 
     <img src="files/physical-material/pbr_texture_set_preview.jpg" alt="Occulsion roughness metallness texture atlas" style="max-width: 819px;">
 
@@ -128,8 +132,9 @@
 
     <img src="files/physical-material/phmat_09.png" alt="Exporting material from Substance painter">
 
-    <p>When exporting textures from Substance Painter, choose *Verge3d for 3ds Max* in the export dialog window so that all generated textures are compatible with the glTF 2.0 standard Verge3D is based on.</p>
-
+    <p>
+      When exporting textures from Substance Painter, choose *Verge3d for 3ds Max* in the export dialog window so that all generated textures are compatible with the glTF 2.0 standard Verge3D is based on.
+    </p>
 
 
     [anchor:gltf_material]
@@ -140,10 +145,6 @@
       Verge3D exporter plugin also supports 3ds Max' *glTF Material* materials by converting them directly into glTF 2.0-compatible PBR model.
     </p>
 
-    <p class="note">
-      This material can only be used with 3ds Max 2023 and later.
-    </p>
-
     <p>
       Add a <strong>glTF Material</strong> shader node as follows: go to <strong>Materials/Map Browser</strong> and choose <strong>glTF Material</strong> from the <strong>General</strong> material list.
     </p>
@@ -151,15 +152,12 @@
     <img src="files/gltf-materials-max/gltf_mat_in_map_browser.jpg" alt="Adding glTF material in 3ds Max" style="max-width: 540px;">
 
     <p>
-      Then you can connect texture nodes, note that all textures are optional and any of them can be safely omitted. For example:
+      Then you can connect texture nodes as follows. Note that all textures are optional and any of them can be safely omitted.
     </p>
 
     <img src="files/gltf-materials-max/gltf_mat_example_00.jpg" alt="glTF material shader" style="max-width: 713px;">
 
     <ol>
-      <li>
-        Assign *glTF Material* to your model.
-      </li>
       <li>
         Connect a <strong>Base Color</strong> texture to the <strong>Base Color Map</strong> input.
       </li>
@@ -181,34 +179,14 @@
     </ol>
 
     <p>
-      All inputs are supported in Verge3D. So you can use extensions too, by enabling corresponding checkers:
+      You can also use glTF 2.0 extensions, by enabling corresponding checkers.
     </p>
 
-    <img src="files/gltf-materials-max/gltf_mat_extension_settings.jpg" alt="3ds Max glTF material settings" style="max-width: 1000px;">
+    <img src="files/gltf-materials-max/gltf_mat_extension_settings.jpg" alt="3ds Max glTF material settings">
 
-    <ol>
-      <li>
-        *Unlit Material* - makes shading independent of lighting, constantly shaded surface.
-      </li>
-      <li>
-        *Clearcoat* - adds a reflective extra layer on top of any another layer that may be irregular or rough.
-      </li>
-      <li>
-        *Sheen Color* - adds a sheen layer (an independent roughness layer).
-      </li>
-      <li>
-        *Specular* - configures specular reflection in the dielectric.
-      </li>
-      <li>
-        *Transmission* - adds advanced transparency rendering, takes into account light reflections. Material's *Alpha Mode* should be *Blend*.
-      </li>
-      <li>
-        *Volume* - used to describe the transmission of light through the object's surface.
-      </li>
-      <li>
-        *IOR* - the index of refraction.
-      </li>
-    </ol>
+    <p>
+      You can export all of them, however Verge3D does support only *Unlit Material* (which used to make shading independent of lighting).
+    </p>
 
 
     [anchor:using_usd_preview_material]
@@ -216,11 +194,11 @@
     <h2>Alternative Setup based on Usd Preview Surface Material</h2>
 
     <p>
-      You can use these materials to make your 3ds Max scenes compatible with both glTF and USD formats. You might need to install "USD for 3ds Max" plugin, which is available from "Product Updates" in your Autodesk account.
+      You can use these materials to make your 3ds Max scenes compatible with both glTF 2.0 and USD formats. You might need to install "USD for 3ds Max" plugin, which is available from "Product Updates" in your Autodesk account.
     </p>
 
     <p>
-      Assign the <strong>Usd Preview Surface</strong> material node. Then you can connect texture nodes, note that all textures are optional and any of them can be safely omitted. The following settings are supported in Verge3D:
+      Assign the <strong>Usd Preview Surface</strong> material node. The following settings are supported in Verge3D:
     </p>
 
     <ul>
@@ -234,18 +212,13 @@
       <li>Opacity Threshold</li>
     </ul>
 
-    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" alt="Using Usd Preview Surface material in 3ds Max" style="max-width: 750px;">
-
-    <h3>Creating USD material</h3>
-
     <p>
-      Follow these steps to configure standard PBR shader which has 3 maps: Base Color, ORM (Occlusion, Roughness, Metalness) and Normal Map:
+      Then you can connect texture nodes as follows. Note that all textures are optional and any of them can be safely omitted.
     </p>
 
+    <img src="files/materials-maps-reference-max/pbr-usd-surface-example.jpg" alt="Using Usd Preview Surface material in 3ds Max" style="max-width: 750px;">
+
     <ol>
-      <li>
-        Assign *Usd Preview Surface* to your model.
-      </li>
       <li>
         Connect a <strong>Diffuse Color</strong> texture to the <strong>Diffuse Color Map</strong> input.
       </li>
@@ -262,7 +235,6 @@
         Connect an <strong>Normal</strong> texture to the <strong>Normal Map</strong> input.
       </li>
     </ol>
-
 
 
     [anchor:export_to_gltf_in_runtime]

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Object3D] &rarr; [page:Camera] &rarr;
@@ -12,11 +12,10 @@
     <h1>[name]</h1>
 
     <p class="desc">
-      Camera that uses [link:https://en.wikipedia.org/wiki/Orthographic_projection orthographic projection].
+      Camera that uses <a href="https://en.wikipedia.org/wiki/Orthographic_projection" target="_blank">orthographic projection</a>.
     </p>
     <p>
-      In this projection mode, an object's size in the rendered image stays constant
-      regardless of its distance from the camera.
+      In this projection mode, an object's size in the rendered image stays constant regardless of its distance from the camera.
     </p>
     <p>
       This can be useful for rendering 2D scenes and UI elements, amongst other things.
@@ -25,8 +24,15 @@
     <h2>Code Example</h2>
 
     <code>
+    const aspect = app.getWidth() / app.getHeight();
+    const height = 3;
+    const width = height * aspect;
+
     const camera = new v3d.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 1, 1000);
-    scene.add(camera);
+    camera.position.z = 10;
+
+    app.scene.add(camera);
+    app.setCamera(camera);
     </code>
 
 
@@ -34,12 +40,12 @@
 
     <h3>[name]([param:Float left], [param:Float right], [param:Float top], [param:Float bottom], [param:Float near], [param:Float far])</h3>
     <ul class="params">
-      <li>[page:Float left] — Camera frustum left plane.</li>
-      <li>[page:Float right] — Camera frustum right plane.</li>
-      <li>[page:Float top] — Camera frustum top plane.</li>
-      <li>[page:Float bottom] — Camera frustum bottom plane.</li>
-      <li>[page:Float near] — Camera frustum near plane.</li>
-      <li>[page:Float far] — Camera frustum far plane.</li>
+      <li>[page:Float left] — camera frustum left plane.</li>
+      <li>[page:Float right] — camera frustum right plane.</li>
+      <li>[page:Float top] — camera frustum top plane.</li>
+      <li>[page:Float bottom] — camera frustum bottom plane.</li>
+      <li>[page:Float near] — camera frustum near plane.</li>
+      <li>[page:Float far] — camera frustum far plane.</li>
     </ul>
     <p>
       Together these define the camera's [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum].
@@ -48,11 +54,13 @@
 
     <h2>Properties</h2>
     <p>
-      See the base [page:Camera] class for common properties.  Note that after making changes to most of these properties you will have to call [page:OrthographicCamera.updateProjectionMatrix .updateProjectionMatrix] for the changes to take effect.
+      See the base [page:Camera] class for common properties. Note that after making changes to most of these properties you will have to call [page:OrthographicCamera.updateProjectionMatrix .updateProjectionMatrix] for the changes to take effect.
     </p>
 
     <h3>[property:Float bottom]</h3>
-    <p>Camera frustum bottom plane.</p>
+    <p>
+      Camera frustum bottom plane.
+    </p>
 
     <h3>[property:Float far]</h3>
     <p>
@@ -68,46 +76,55 @@
     </p>
 
     <h3>[property:Float left]</h3>
-    <p>Camera frustum left plane.</p>
+    <p>
+      Camera frustum left plane.
+    </p>
 
     <h3>[property:Float near]</h3>
     <p>
       Camera frustum near plane. Default is `0.1`.
     </p>
     <p>
-      The valid range is between `0` and the current value of the [page:.far far] plane.
-      Note that, unlike for the [page:PerspectiveCamera], `0` is a valid value for an
-      OrthographicCamera's near plane.
+      The valid range is between `0` and the current value of the [page:.far far] plane.  Note that, unlike for the [page:PerspectiveCamera], `0` is a valid value for an OrthographicCamera's near plane.
     </p>
 
     <h3>[property:Float right]</h3>
-    <p>Camera frustum right plane.</p>
+    <p>
+      Camera frustum right plane.
+    </p>
 
     <h3>[property:Float top]</h3>
-    <p>Camera frustum top plane.</p>
+    <p>
+      Camera frustum top plane.
+    </p>
 
     <h3>[property:Object view]</h3>
-    <p>Set by [page:OrthographicCamera.setViewOffset setViewOffset]. Default is `null`.</p>
+    <p>
+      Set by [page:OrthographicCamera.setViewOffset setViewOffset]. Default is `null`.
+    </p>
 
     <h3>[property:Float zoom]</h3>
-    <p>Gets or sets the zoom factor of the camera. Default is `1`.</p>
+    <p>
+      Gets or sets the zoom factor of the camera. Default is `1`.
+    </p>
+
 
     <h2>Methods</h2>
-    <p>See the base [page:Camera] class for common methods.</p>
+    <p>
+      See the base [page:Camera] class for common methods.
+    </p>
 
     <h3>[method:undefined setViewOffset]([param:Float fullWidth], [param:Float fullHeight], [param:Float x], [param:Float y], [param:Float width], [param:Float height])</h3>
-    <p class="params">
-      fullWidth — full width of multiview setup<br>
-      fullHeight — full height of multiview setup<br>
-      x — horizontal offset of subcamera<br>
-      y — vertical offset of subcamera<br>
-      width — width of subcamera<br>
-      height — height of subcamera
-    </p>
+    <ul class="params">
+      <li>[page:Float fullWidth] — full width of multiview setup</li>
+      <li>[page:Float fullHeight] — full height of multiview setup</li>
+      <li>[page:Float x] — horizontal offset of subcamera</li>
+      <li>[page:Float y] — vertical offset of subcamera</li>
+      <li>[page:Float width] — width of subcamera</li>
+      <li>[page:Float height] — height of subcamera</li>
+    </ul>
     <p>
-      Sets an offset in a larger [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum].
-      This is useful for multi-window or multi-monitor/multi-machine setups.
-      For an example on how to use it see [page:PerspectiveCamera.setViewOffset PerspectiveCamera].
+      Sets an offset in a larger [link:https://en.wikipedia.org/wiki/Viewing_frustum viewing frustum]. This is useful for multi-window or multi-monitor/multi-machine setups. For an example on how to use it see [page:PerspectiveCamera.setViewOffset PerspectiveCamera].
     </p>
 
     <h3>[method:undefined clearViewOffset]()</h3>
@@ -119,6 +136,7 @@
     <p>
       Updates the camera projection matrix. Must be called after any change of parameters.
     </p>
+
 
     <h2>Puzzles</h2>
 

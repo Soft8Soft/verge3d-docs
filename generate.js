@@ -1,19 +1,16 @@
 #!/usr/bin/env node
 
-const fs = require('fs-extra');
-const path = require('path');
-const util = require('util')
+import path from 'path';
+import fs from 'fs';
+import fse from 'fs-extra';
+import { JSDOM } from 'jsdom';
+import { SitemapStream } from 'sitemap';
+import { fileURLToPath } from 'url';
 
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-
-const { SitemapStream } = require('sitemap');
-
-let dom = new JSDOM();
-let document = dom.window.document;
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const HOST = 'https://www.soft8soft.com/docs/';
-const OUTDIR = path.join(__dirname, 'output');
+const OUTDIR = path.join(dirname, 'output');
 const LANGUAGES = ['en', 'ru', 'zh'];
 const LOCALES = {'en': 'en_US', 'ru': 'ru_RU', 'zh': 'zh_CN'};
 const SEARCH_HINT = {
@@ -44,8 +41,12 @@ const GENERIC_TYPES = [
     'undefined'
 ];
 
+
+const dom = new JSDOM();
+const document = dom.window.document;
+
 let list = null;
-let titles = {};
+const titles = {};
 
 generate();
 
@@ -53,13 +54,13 @@ function generate() {
 
     console.log('Generating Documentation (' + LANGUAGES.join(', ') + ')');
 
-    list = JSON.parse(fs.readFileSync(path.join(__dirname, 'list.json')));
+    list = JSON.parse(fs.readFileSync(path.join(dirname, 'list.json')));
 
     if (fs.existsSync(OUTDIR)){
-        fs.removeSync(OUTDIR);
+        fse.removeSync(OUTDIR);
     }
 
-    fs.ensureDirSync(OUTDIR);
+    fse.ensureDirSync(OUTDIR);
 
     copyOutput('index.html');
     copyOutput('page.css');
@@ -68,19 +69,6 @@ function generate() {
 
     copyOutput('files');
     copyOutput('prettify');
-
-    // copy docs scenes and all dependencies
-    copyOutput('scenes');
-    copyOutput('../examples/files', 'files');
-    copyOutput('../build/v3d.module.js', 'files/v3d.module.js');
-    copyOutput('../examples/jsm', 'files/jsm');
-    copyOutput('../examples/textures/cube/SwedishRoyalCastle', 'files/textures/cube/SwedishRoyalCastle');
-    copyOutput('../examples/textures/brick_diffuse.jpg', 'files/textures/brick_diffuse.jpg');
-    copyOutput('../examples/textures/brick_roughness.jpg', 'files/textures/brick_roughness.jpg');
-    copyOutput('../examples/textures/matcaps/matcap-porcelain-white.jpg', 'files/textures/matcaps/matcap-porcelain-white.jpg');
-    copyOutput('../examples/textures/alphaMap.jpg', 'files/textures/alphaMap.jpg');
-    copyOutput('../examples/textures/gradientMaps/threeTone.jpg', 'files/textures/gradientMaps/threeTone.jpg');
-    copyOutput('../examples/textures/gradientMaps/fiveTone.jpg', 'files/textures/gradientMaps/fiveTone.jpg');
 
     const sitemap = new SitemapStream({ hostname: HOST });
     const writeStream = fs.createWriteStream(path.join(OUTDIR, 'sitemap-docs.xml'));
@@ -159,13 +147,13 @@ function getSectionRoot(lang, section) {
 function copyOutput(inFileOrDir, outFileOrDir) {
     outFileOrDir = outFileOrDir || inFileOrDir;
 
-    fs.copySync(path.join(__dirname, inFileOrDir), path.join(OUTDIR, outFileOrDir));
+    fse.copySync(path.join(dirname, inFileOrDir), path.join(OUTDIR, outFileOrDir));
 }
 
 
 function writePage(pageFile, lang, navigation, sitemap) {
 
-    return JSDOM.fromFile(path.join(__dirname, pageFile)).then(function(dom) {
+    return JSDOM.fromFile(path.join(dirname, pageFile)).then(function(dom) {
 
         var url = HOST + pageFile;
 
@@ -297,7 +285,7 @@ function writePage(pageFile, lang, navigation, sitemap) {
 
         var pageFileOut = path.join(OUTDIR, pageFile);
 
-        fs.ensureFileSync(pageFileOut);
+        fse.ensureFileSync(pageFileOut);
         return fs.promises.writeFile(pageFileOut, pageText);
 
     });
@@ -433,7 +421,7 @@ function resolveTemplates(text, name, path, lang) {
 
     var pathOrigRel = path.replace(/^\//,'');
 
-    var sectionTestRes = /(manual|api|examples)\//.exec(path);
+    var sectionTestRes = /(manual|api)\//.exec(path);
 
     if (sectionTestRes) {
         var section = sectionTestRes[1].toString();
@@ -461,7 +449,7 @@ function resolveTemplates(text, name, path, lang) {
     text = text.replace(/\[(member|property|method):([\w]+) ([\w\.\s]+)\]\s*(\(.*\))?/gi, function(match, p1, p2, p3, p4) {
         const urlProp = getPageURL(name + '.' + p3, lang);
         const urlType = getPageURL(p2, lang);
-        const typeSepChar = (p1 == 'method') ? '→' : ':';
+        const typeSepChar = (p1 == 'method') ? '→' : '<span class="param">:</span>';
 
         let outStr = `<a href="${urlProp}" class="permalink">#</a> .<a href="${urlProp}" id="${p3}">${p3}</a>${p4 || ''}`;
         if (p2 !== 'undefined')
@@ -470,7 +458,7 @@ function resolveTemplates(text, name, path, lang) {
     });
 
     text = text.replace(/\[param:([\w\.|]+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
-        let outStr = `${p2} : `;
+        let outStr = `${p2} <span class="param">:</span> `;
         p1.split('|').forEach(p1i => {
             outStr += `<a href=\"${getPageURL(p1i, lang)}\" class="param">${p1i}</a> | `;
         });
@@ -484,7 +472,7 @@ function resolveTemplates(text, name, path, lang) {
 
     text = text.replace(/\[link:([\w|\:|\/|\.|\-|\_]+)\]/gi, "[link:$1 $1]"); // [link:url] to [link:url title]
     text = text.replace(/\[link:([\w|\u0400-\u04ff|\:|\/|\.|\-|\_|\(|\)|\#|\=|\?|\&]+) ([\w|\u0400-\u04ff|\:|\/|\.|\-|\_|\s|\=|\?|\u4e00-\u9fa5|\uff08|\uff09|\u0400-\u04ff]+)\]/gi, "<a href=\"$1\"  target=\"_blank\">$2</a>"); // [link:url title]
-    text = text.replace(/\*([\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\-|\(][\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *text*
+    text = text.replace(/\*([\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\-|\(\.][\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\ |\-|\/|\+|\-|\(|\)|\=|\,|\.\"]*[\u4e00-\u9fa5|\u0400-\u04ff|\w|\d|\"|\)]|\w)\*/gi, "<strong>$1</strong>"); // *text*
 
     /**
      * HACK: Strip code blocks before processing backticks and then insert them
@@ -512,7 +500,7 @@ function resolveTemplates(text, name, path, lang) {
 
         text = text.replace(/\[demo:([\w\_\/\-]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
             const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.split('/')[0].replace('_', ' '));
-            return `<p class="demoNote">Данная функциональность используется в демо-приложении <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a> (качайте в магазине ассетов).</p>`;
+            return `<p class="demoNote">Данная функциональность используется в демо-приложении <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a> (исходные файлы доступны в магазине ассетов).</p>`;
         });
 
         text = text.replace(/\[demoLink:([\w\_\/\-]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
@@ -540,7 +528,7 @@ function resolveTemplates(text, name, path, lang) {
 
         text = text.replace(/\[demo:([\w\_\/\-]+)\]/gi, function(match, p1) {
             const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
-            return `<p class="demoNote">For usage example, check out the <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow" title="Launch the ${demoTitle} demo">${demoTitle}</a> demo (also available in the Asset Store).</p>`;
+            return `<p class="demoNote">For usage example, check out the <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow" title="Launch the ${demoTitle} demo">${demoTitle}</a> demo (source files available in the <a href="manual/en/introduction/App-Manager.html#asset_store" target="_blank">Asset Store</a>).</p>`;
         });
 
         text = text.replace(/\[demoLink:([\w\_\/\-]+)\]/gi, function(match, p1) {

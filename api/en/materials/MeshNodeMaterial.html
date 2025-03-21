@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="Node material API reference including info on how to change material colors, values and textures."/>
-    <base href="../../../" />
+    <meta charset="utf-8">
+    <meta name="description" content="Node material API reference including info on how to change material colors, values and textures.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
     [page:Material] &rarr;
@@ -23,34 +23,35 @@
 
     <h2>Examples</h2>
 
-    <p>Change material color specified in the "RGB.001" node:</p>
+    <p>
+      Change material color specified in the `"RGB"` node:
+    </p>
 
     <code>
-    const object = app.scene.getObjectByName("MyObj");
-    const mat = object.material;
-    const index = mat.nodeRGBMap['RGB.001']; // 'RGB.001' is the name of an RGB node
-    mat.nodeRGB[index] = new v3d.Vector4(1, 0, 0, 1); // new color in RGBA format
-    mat.needsUpdate = true;
+    const obj = app.scene.getObjectByName('MyObj');
+    const mat = obj.material;
+    const index = mat.nodeRGBMap['RGB']; // 'RGB' is the name of an RGB node
+    mat.nodeRGB[index] = new v3d.Vector4(1, 0, 0, 1); // new color in RGBA format (red)
     </code>
 
-    <p>Change value specified in the "Value.001" node:</p>
+    <p>
+      Change value specified in the `"Value"` node:
+    </p>
 
     <code>
-    const object = app.scene.getObjectByName("Circle");
-    const mat = object.material;
-    const index = mat.nodeValueMap['Value.001'];
+    const obj = app.scene.getObjectByName('MyObj');
+    const mat = obj.material;
+    const index = mat.nodeValueMap['Value'];
     mat.nodeValue[index] = 0.5; // new value
-    mat.needsUpdate = true;
     </code>
+
 
     <h2>Constructor</h2>
 
     <h3>[name]([param:Object parameters])</h3>
     <p class="params">
-      [page:Object parameters] — (optional) an object with one or more properties defining the material's appearance.
-      Any property of the material (including any property inherited from [page:Material]) can be passed in here.
+      [page:Object parameters] — (optional) an object with one or more properties defining the material's appearance. Any property of the material (including any property inherited from [page:Material]) can be passed in here.
     </p>
-
     <p>
       The exception is the property [page:Color color] which is `0xffffff` (white) by default. In case if no [page:.nodeGraph nodeGraph] parameter passed to the constructor, this value will be used to generate a fallback node graph which in turn will render that color.
     </p>
@@ -64,9 +65,12 @@
       Designing node-based materials with JavaScript can be a cumbersome task. It is more efficient to use the modelling suite for that, which conveniently provides real-time preview in viewport.
     </p>
 
+
     <h2>Properties</h2>
 
-    <p>See the base [page:Material] class for common properties.</p>
+    <p>
+      See the base [page:Material] class for common properties.
+    </p>
 
     <h3>[property:Object additionalNodeGraphs]</h3>
     <p>
@@ -75,43 +79,27 @@
 
     <h3>[property:Texture envMap]</h3>
     <p>
-      The environment map. To ensure a physically correct rendering, you should
-      only add environment maps which were preprocessed by [page:PMREMGenerator].
-      Assigned automatically from a corresponding [page:CubeReflectionProbe]
-      object if [page:Material.envMapAutoAssign] is *true*. Default is null.
+      The environment map. To ensure a physically correct rendering, you should only add environment maps which were preprocessed by [page:PMREMGenerator]. Assigned automatically from a corresponding [page:CubeReflectionProbe] object if [page:Material.envMapAutoAssign] is `true`. Default is `null`.
     </p>
 
     <h3>[property:Float envMapIntensity]</h3>
     <p>
-      Scales the effect of the environment map by multiplying its color. Default
-      is 1.
+      Scales the effect of the environment map by multiplying its color. Default is `1`.
     </p>
 
     <h3>[property:Matrix4 envMapParallaxMatrix]</h3>
     <p>
-      A [page:Matrix4] used for applying the parallax effect to the material's
-      [page:.envMap]. This matrix carries the transformation from the world space
-      to the space of a particular [page:CubeReflectionProbe reflection probe],
-      which environment map this material uses for rendering. Calculated
-      automatically if [page:Material.envMapAutoAssign] is *true*. Default is
-      the identity matrix.
+      A [page:Matrix4] used for applying the parallax effect to the material's [page:.envMap]. This matrix carries the transformation from the world space to the space of a particular [page:CubeReflectionProbe reflection probe], which environment map this material uses for rendering. Calculated automatically if [page:Material.envMapAutoAssign] is *true*. Default is the identity matrix.
     </p>
 
     <h3>[property:Matrix4 envMapParallaxMatrixInv]</h3>
     <p>
-      A [page:Matrix4] inverse to [page:.envMapParallaxMatrix]. Used for
-      applying the parallax effect to the material's [page:.envMap]. Calculated
-      automatically if [page:Material.envMapAutoAssign] is *true*. Default is
-      the identity matrix.
+      A [page:Matrix4] inverse to [page:.envMapParallaxMatrix]. Used for applying the parallax effect to the material's [page:.envMap]. Calculated automatically if [page:Material.envMapAutoAssign] is `true`. Default is the identity matrix.
     </p>
 
     <h3>[property:Constant envMapParallaxType]</h3>
     <p>
-      Defines the type of the parallax volume. The same as
-      [page:CubeReflectionProbe.parallaxType]. Assigned automatically from the
-      corresponding [page:CubeReflectionProbe] if
-      [page:Material.envMapAutoAssign] is *true*. Default is
-      [page:Lights ReflectionProbeTypeInfinite].
+      Defines the type of the parallax volume. The same as [page:CubeReflectionProbe.parallaxType]. Assigned automatically from the corresponding [page:CubeReflectionProbe] if [page:Material.envMapAutoAssign] is `true`. Default is [page:Lights ReflectionProbeTypeInfinite].
     </p>
 
     <h3>[property:Boolean flatShading]</h3>
@@ -126,7 +114,7 @@
 
     <h3>[property:Boolean isMeshNodeMaterial]</h3>
     <p>
-      Used to check whether this class represent node material. You should not change this, as it is used internally for optimization.
+      Used to check whether this instance represents node material. You should not change this, as it is used internally for optimization.
     </p>
 
     <h3>[property:Integer materialIndex]</h3>
@@ -172,7 +160,9 @@
 
     <h2>Methods</h2>
 
-    <p>See the base [page:Material] class for common methods.</p>
+    <p>
+      See the base [page:Material] class for common methods.
+    </p>
 
     <h3>[method:Boolean canUseGTAO]()</h3>
     <p>
@@ -281,7 +271,7 @@
 
     <h3>[method:Color worldMaterialColor]()</h3>
     <p>
-      Check if the world material can be simplified to a solid color and return that color.
+      Check if the world material can be simplified to a solid color and return that color. This method is used internally for optimization.
     </p>
 
 
@@ -301,6 +291,7 @@
     <p>
       Traverse the graph and execute the given callback function per each node in the graph.
     </p>
+
 
     <h2>Puzzles</h2>
 

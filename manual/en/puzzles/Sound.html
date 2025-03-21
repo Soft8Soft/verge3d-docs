@@ -3,10 +3,10 @@
   <head>
     <title>Audio and Video Puzzles Reference — Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="How to load, play and manage audio and video using Verge3D Puzzles."/>
-    <base href="../../../" />
+    <meta name="description" content="How to load, play and manage audio and video using Verge3D Puzzles.">
+    <base href="../../../">
     <script src="page.js"></script>
-    <link type="text/css" rel="stylesheet" href="page.css" />
+    <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body><article>
     <h1>Audio and Video Puzzles</h1>
@@ -33,116 +33,80 @@
     <h3>load sound</h3>
 
     <p>
-      Loads an audio file using a specified URL. The audio is played via the HTML5
-      Audio tag or WebAudio API depending on the chosen type: *sound* or
-      *music*/*midi* respectively. This puzzle also adds the loaded audio to a
-      memory cache so that any subsequent uses of this puzzle with the same URL
-      do not load the same sound file again. Using <strong>.mp3</strong> format
-      is recommended as it is supported by most web browsers.
+      Loads an audio file using a specified <a href="manual/en/puzzles/HTML.html#url_paths">URL</a>. The audio is played via the WebAudio API or HTML `&lt;audio&gt;` tag depending on the chosen type: *sound*/*midi* or *music* respectively. This puzzle also adds the loaded audio to a memory cache so that any subsequent uses of this puzzle with the same URL do not load the same sound file again. Using <strong>.mp3</strong> format is recommended as it is supported by most web browsers.
     </p>
 
-    <img src="files/puzzles/puzzles-sound-load-sound.jpg" alt="Visual programming block to load sounds">
+    <img src="files/puzzles/puzzles-sound-load-sound.webp" alt="Visual programming block to load sounds">
 
     [demo:farmers_journey]
 
-    <p id="load_sound_preloading"><b>preloading audio</b></p>
-    <p>
-      Audio files take some time to load, so they are not available immediately.
-      That's why simply using this puzzle inside the
-      <a href="manual/en/puzzles/Sound.html#play">play</a> puzzle may not work
-      and the audio may not start playing.
-    </p>
+    <h4 id="load_sound_preloading">preloading audio</h4>
 
     <p>
-      In order to be sure that audio in your application works properly it's
-      recommended to load audio files beforehand, for example, in the
-      <a href="manual/en/introduction/Puzzles-Visual-Logic-Editor.html#Tabs">init</a>
-      tab which is executed before a Verge3D application is initialized. You can
-      also use the <a href="manual/en/puzzles/Advanced.html#connector">connector</a>
-      puzzle to organize a bunch of "load sound" puzzles in a bit more
-      convenient way:
+      Audio files take some time to load, so they are not available immediately. That's why simply using this puzzle inside the <a href="manual/en/puzzles/Sound.html#play">play</a> puzzle may not work and the audio may not start playing.
+    </p>
+    <p>
+      In order to be sure that audio in your application works properly it's recommended to load audio files beforehand, for example, in the <a href="manual/en/introduction/Puzzles-Visual-Logic-Editor.html#Tabs">initialization</a> tab which is executed before a Verge3D application is initialized. You can also use the <a href="manual/en/puzzles/Advanced.html#connector">connector</a> puzzle to organize a bunch of "load sound" puzzles in a bit more convenient way:
     </p>
 
     <figure>
-      <img src="files/puzzles/puzzles-sound-preload-init.jpg" alt="Preloading audio in the init tab">
-      <figcaption>Preloading audio in the "init" tab.</figcaption>
+      <img src="files/puzzles/puzzles-sound-preload-init.webp" alt="Preloading audio in the init tab">
+      <figcaption>Preloading audio in the init tab.</figcaption>
     </figure>
 
     <p>
-      After that using the preloaded audio files either in the
-      <a href="manual/en/introduction/Puzzles-Visual-Logic-Editor.html#Tabs">main</a>
-      or user-created tabs won't cause any issues, since the audio is already
-      cached after the first use of the "load sound" puzzle, hence it doesn't
-      need to be downloaded again:
+      After that using the preloaded audio files either in the <a href="manual/en/introduction/Puzzles-Visual-Logic-Editor.html#Tabs">main</a> tab (called "New Tab" initially) or user-created tabs won't cause any issues, since the audio is already cached after the first use of the "load sound" puzzle, hence it doesn't need to be downloaded again:
     </p>
 
     <figure>
-      <img src="files/puzzles/puzzles-sound-preload-usage.jpg" alt="Using the preloaded audio in the main tab">
-      <figcaption>Using the preloaded audio in the "main" tab.</figcaption>
+      <img src="files/puzzles/puzzles-sound-preload-usage.webp" alt="Using the preloaded audio in the main tab">
+      <figcaption>Using the preloaded audio in the main tab.</figcaption>
     </figure>
 
-    <p><b>autoplay restrictions</b></p>
-    <p>
-      In general, audio playback initiated programmatically (as in the case of
-      puzzles) will most likely be blocked by a browser. This happens due to
-      autoplay policies that restrict how audio can be played automatically on
-      a web page. The purpose of such restrictions is to stop web pages from
-      making spontaneous noises or playing audio when it's not desired, thus
-      improving overall user experience.
-    </p>
+    <h4>autoplay restrictions</h4>
 
     <p>
-      Although, such policies can be implemented differently in various browsers
-      and also can have various conditions for allowing / not allowing autoplay, the general
-      rule for playing audio is to wait for the user to interact with your web
-      page.
+      In general, audio playback initiated programmatically (as in the case of puzzles) will most likely be blocked by a browser. This happens due to autoplay policies that restrict how audio can be played automatically on a web page. The purpose of such restrictions is to stop web pages from making spontaneous noises or playing audio when it's not desired, thus improving overall user experience.
     </p>
+    <p>
+      Although, such policies can be implemented differently in various browsers and also can have various conditions for allowing / not allowing autoplay, the general rule for playing audio is to wait for the user to interact with your web page.
+    </p>
+    <p>
+      In cases where such interaction is already implied by the application's logic, for example, playing a sound on click (be it either a 3D-object or an HTML button), those restrictions are not what you should worry about.  But, let's say that you want your application to have some background music that starts playing when the app is loaded. Since that can not always be done in an automatic way, a good solution would be to make a "launch" button for starting the app when it's loaded and ready. Clicking it counts as a user interaction and allows to start audio playback.
+    </p>
+
+    <h4>"sound" vs "music" vs "midi" audio type</h4>
 
     <p>
-      In cases where such interaction is already implied by the application's
-      logic, for example, playing a sound on click (be it either a 3d-object or
-      an HTML button), those restrictions are not what you should worry about.
-      But, let's say that you want your application to have some background
-      music that starts playing when the app is loaded. Since that can not
-      always be done in an automatic way, a good solution would be to make a
-      "launch" button for starting the app when it's loaded and ready. Clicking
-      it counts as a user interaction and allows to start audio playback.
+      This puzzle allows you to choose which API to use for loading and playing audio files.
     </p>
 
-    <p><b>"sound" vs "music" vs "midi" audio type</b></p>
-    <p>
-      This puzzle allows you to choose which API to use for loading and playing
-      audio files.
-      <ul>
-        <li>
-          *sound* (default, WebAudio API) - suits better for short audio files, e.g.
-          small sound effects; it's recommended to use this type only in the
-          following cases:
-          <ul>
-              <li>
-                short looped (see the <a href="manual/en/puzzles/Sound.html#play">play</a>
-                puzzle and its *loop* option) sound effects - "sound" makes
-                looped audio seamless, while with "music" you have a noticeable
-                delay.
-              </li>
-              <li>
-                sound effects that should be played immediately, e.g. on
-                user interaction, experience a delay on Safari - "sound" fixes
-                this issue.
-              </li>
-          </ul>
-        </li>
-        <li>
-          *music* (HTML5 Audio tag) - should be used most of
-          the time; suits better for long audio files, e.g. background music.
-        </li>
-        <li>
-          *midi* (WebAudio API + GM Synth) - special type of *sound* that used to play Standard MIDI files (with <strong>*.mid</strong> extension). Compared to music stored in <strong>*.mp3</strong>, MIDI files are really lightweight and have minimum impact on app loading time. The downside of using MIDI — somewhat reduced quality of soundtrack.
-        </li>
-      </ul>
-    </p>
+    <img src="files/puzzles/puzzles-sound-load-sound-type.webp" alt="Visual logic blocks for loading sound and music">
 
-    <img src="files/puzzles/puzzles-sound-load-sound-type.jpg" alt="Visual logic blocks for loading sound and music">
+    <dl>
+      <dt>sound (default)</dt>
+      <dd>
+        Suits better for short audio files, e.g. small sound effects; it's recommended to use this type only in the following cases:
+        <ul>
+          <li>
+            Short looped (see the <a href="manual/en/puzzles/Sound.html#play">play</a> puzzle and its *loop* option) sound effects — "sound" makes looped audio seamless, while with "music" you have a noticeable delay.
+          </li>
+          <li>
+            Sound effects that should be played immediately, e.g. on user interaction, experience a delay on Safari — "sound" fixes this issue.
+          </li>
+        </ul>
+      </dd>
+
+      <dt>music</dt>
+      <dd>
+        Should be used in all other cases; suits better for long audio files, e.g. background music.
+      </dd>
+
+      <dt>midi</dt>
+      <dd>
+        Special type of *sound* that used to play Standard MIDI files (with <strong>.mid</strong> extension). Compared to music stored in <strong>.mp3</strong>, MIDI files are really lightweight and have minimum impact on app loading time. The downside of using MIDI — somewhat reduced quality of soundtrack.
+      </dd>
+    </dl>
 
 
     [anchor:load_video]
@@ -150,12 +114,14 @@
     <h3>load video</h3>
 
     <p>
-      Creates an <a href="https://www.w3schools.com/html/html5_video.asp" target="_blank">HTML5 video</a> element and loads a sound file using a specified URL. This puzzle also adds the created video element to a memory cache so that any subsequent uses of this puzzle with the same URL do not load the same sound file again. Using <strong>.mp4</strong> format is recommended as it is supported by most web browsers.
+      Creates a HTML `&lt;video&gt;` element and loads a video file using a specified <a href="manual/en/puzzles/HTML.html#url_paths">URL</a>. This puzzle also adds the created video element to a memory cache so that any subsequent uses of this puzzle with the same URL do not load the same sound file again. Using <strong>.mp4</strong> format is recommended as it is supported by most web browsers.
     </p>
 
     <img src="files/puzzles/puzzles-sound-load-video.jpg" alt="Visual programming block to load HTML 5 videos">
 
-    <p>The *load video* puzzle does not create any visible elements on your scene. To make it visible, assign video texture to your materials using the <a href="manual/en/puzzles/Materials.html#replace_texture">replace texture</a> puzzle.</p>
+    <p>
+      The *load video* puzzle does not create any visible elements on your scene. To make it visible, assign video texture to your materials using the <a href="manual/en/puzzles/Materials.html#replace_texture">replace texture</a> puzzle.
+    </p>
 
     [demo:video_texture]
 
@@ -164,47 +130,60 @@
 
     <h3>play</h3>
 
-    <p>Starts audio or video playback. The *loop* checkbox repeats playback if enabled.</p>
+    <p>
+      Starts audio or video playback. The *loop* checkbox repeats playback if enabled.
+    </p>
 
-    <img src="files/puzzles/puzzles-sound-play.jpg" alt="Visual programming block to play sounds and videos" style="max-width: 722px">
+    <img src="files/puzzles/puzzles-sound-play.webp" alt="Visual programming block to play sounds and videos">
 
-    <p>Due to browser restrictions (preventing malicious websites from playing noisy sounds and videos) you should not execute this puzzle to play your assets automatically (upon scene loading). Instead, you should do this in some user-generated event. Use <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> or <a href="manual/en/puzzles/HTML.html#event">event</a> to handle such events.</p>
-
-    <p class="note">There is one exception to this rule. Browsers allow playing muted videos automatically. See the <a href="manual/en/puzzles/Sound.html#mute">mute</a> puzzle.</p>
+    <p>
+      Due to browser restrictions (preventing malicious websites from playing noisy sounds and videos) you should not execute this puzzle to play your assets automatically (upon scene loading). Instead, you should do this in some user-generated event. Use <a href="manual/en/puzzles/Events.html#when_clicked">when clicked</a> or <a href="manual/en/puzzles/HTML.html#event">event</a> to handle such events.
+    </p>
+    <p class="note">
+      There is one exception to this rule. Browsers allow playing muted videos automatically. See the <a href="manual/en/puzzles/Sound.html#mute">mute</a> puzzle.
+    </p>
 
 
     [anchor:pause]
 
     <h3>pause</h3>
 
-    <p>Pauses audio or video playback.</p>
+    <p>
+      Pauses audio or video playback.
+    </p>
 
-    <img src="files/puzzles/puzzles-sound-pause.jpg" alt="Visual logic block to pause audio/video" style="max-width: 459px">
+    <img src="files/puzzles/puzzles-sound-pause.webp" alt="Visual logic block to pause audio/video">
 
 
     [anchor:stop]
 
     <h3>stop</h3>
 
-    <p>Stops audio or video playback. Using this puzzle is equivalent to using the <a href="manual/en/puzzles/Sound.html#pause">pause</a> puzzle, followed by the <a href="manual/en/puzzles/Sound.html#rewind">rewind</a> puzzle.</p>
+    <p>
+      Stops audio or video playback. Using this puzzle is equivalent to using the <a href="manual/en/puzzles/Sound.html#pause">pause</a> puzzle, followed by the <a href="manual/en/puzzles/Sound.html#rewind">rewind</a> puzzle.
+    </p>
 
-    <img src="files/puzzles/puzzles-sound-stop.jpg" alt="Visual logic block to stop audio/video">
+    <img src="files/puzzles/puzzles-sound-stop.webp" alt="Visual logic block to stop audio/video">
 
 
     [anchor:rewind]
 
     <h3>rewind</h3>
 
-    <p>Makes the audio or video asset to play from the start.</p>
+    <p>
+      Makes the audio or video asset to play from the start.
+    </p>
 
-    <img src="files/puzzles/puzzles-sound-rewind.jpg" alt="Visual programming block to rewind audio/video playback" style="max-width: 459px">
+    <img src="files/puzzles/puzzles-sound-rewind.webp" alt="Visual programming block to rewind audio/video playback">
 
 
     [anchor:set_playback_time]
 
     <h3>set playback time</h3>
 
-    <p>Set audio/video current playback time in seconds.</p>
+    <p>
+      Set audio/video current playback time in seconds.
+    </p>
 
     <img src="files/puzzles/puzzles-sound-set-playback-time.jpg" alt="Visual programming block to set playback time">
 
@@ -217,7 +196,9 @@
 
     <h3>get playback time</h3>
 
-    <p>Get audio/video current playback time in seconds.</p>
+    <p>
+      Get audio/video current playback time in seconds.
+    </p>
 
     <img src="files/puzzles/puzzles-sound-get-playback-time.jpg" alt="Visual programming block to get playback time">
 
@@ -230,7 +211,9 @@
 
     <h3>get duration</h3>
 
-    <p>Get audio/video asset duration in seconds.</p>
+    <p>
+      Get audio/video asset duration in seconds.
+    </p>
 
     <img src="files/puzzles/puzzles-sound-get-duration.jpg" alt="Visual programming block to get audio/video duration">
 
@@ -239,7 +222,9 @@
 
     <h3>set playback rate</h3>
 
-    <p>Set audio/video playback rate. Specify value &lt;1 to slow down playback, 1 for normal speed, and &gt;1 to increase playback speed.</p>
+    <p>
+      Set audio/video playback rate. Specify value `&lt;1` to slow down playback, `1` for normal speed, and `&gt;1` to increase playback speed.
+    </p>
 
     <img src="files/puzzles/puzzles-sound-set-playback-rate.jpg" alt="Visual programming block to set audio/video playback rate">
 
@@ -248,31 +233,38 @@
     </p>
 
 
-    [anchor:set_volume]
-
-    <h3>set volume</h3>
-
-    <p>Sets the sound volume. Input volume is clamped to the 0.0-1.0 range. This puzzle also works for videos with embedded audio track.</p>
-
-    <img src="files/puzzles/puzzles-sound-set-volume.jpg" alt="Block to set audio/video volume" style="max-width: 700px">
-
-
     [anchor:is_playing]
 
     <h3>is playing</h3>
 
-    <p>Checks if a sound or video is being played back.</p>
+    <p>
+      Checks if a sound or video is being played back.
+    </p>
 
-    <img src="files/puzzles/puzzles-sound-is-playing.jpg" alt="Block to check if sound/video is playing" style="max-width: 595px">
+    <img src="files/puzzles/puzzles-sound-is-playing.webp" alt="Block to check if sound/video is playing">
+
+
+    [anchor:set_volume]
+
+    <h3>set volume</h3>
+
+    <p>
+      Sets the sound volume. Input volume is clamped to the 0.0-1.0 range. This puzzle also works for videos with embedded audio track.
+    </p>
+
+    <img src="files/puzzles/puzzles-sound-set-volume.webp" alt="Block to set audio/video volume">
 
 
     [anchor:mute]
 
     <h3>mute</h3>
 
-    <p>Mute a sound or video.</p>
-
-    <p>Apart from controlling audio volume, you can use this puzzle to start video playback automatically. This is possible, because web browsers allow playing muted videos without user interaction.</p>
+    <p>
+      Mute a sound or video.
+    </p>
+    <p>
+      Apart from controlling audio volume, you can use this puzzle to start video playback automatically. This is possible, because web browsers allow playing muted videos without user interaction.
+    </p>
 
     <img src="files/puzzles/puzzles-sound-mute.jpg" alt="Visual logic block to mute sound or video" style="max-width: 557px">
 
@@ -281,9 +273,26 @@
 
     <h3>unmute</h3>
 
-    <p>Unmute a sound or video.</p>
+    <p>
+      Unmute a sound or video.
+    </p>
 
     <img src="files/puzzles/puzzles-sound-unmute.jpg" alt="Visual logic block to unmute sound or video" style="max-width: 511px">
+
+
+    [anchor:positional_speaker]
+
+    <h3>positional speaker</h3>
+
+    <p>
+      Make an audio positional by attaching it to some 3D object.
+    </p>
+
+    <img src="files/puzzles/puzzles-sound-positional-speaker.webp" alt="Visual logic block to spacial audio">
+
+    <p>
+      Both <em>sound</em> and <em>music</em> audio assets can be turned to positional speakers. To fine-tune the 3D audio effect you can use the *rolloff from* – the distance from which the sound intensity starts to decrease, and the *factor* – the rate of this decreasing.
+    </p>
 
 
     [anchor:synth_sound]
@@ -353,11 +362,9 @@
     <img src="files/puzzles/puzzles-sound-get-drum-number.jpg" alt="Block which represents MIDI drum notes">
 
 
-
     <h2>Having Troubles with Puzzles?</h2>
 
     <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
-
 
   </article></body>
 </html>
