@@ -13,7 +13,7 @@
     <h1>Transparency / 3ds Max</h1>
 
     <p>
-      Here we show how to enable transparency for Standard, Physical and glTF-compliant PBR materials in 3ds Max.
+      Here we show how to enable and tweak transparency for Physical, OpenPBR, Standard, and glTF-compliant PBR materials in 3ds Max.
     </p>
 
     [demo:transparency]
@@ -72,12 +72,14 @@
     <img src="files/transparency-common/oit-example.jpg" alt="Order-Independent Transparency example">
 
     <p>
-      OIT can be enabled though the <a href="manual/en/max/Lighting-and-Rendering.html#global_rendering_settings">Verge3D Settings panel</a>.
+      OIT can be enabled on the <a href="manual/en/max/Lighting-and-Rendering.html#global_rendering_settings">Verge3D Export Settings</a> dialog.
     </p>
 
-    <img src="files/transparency-max/oit.jpg" alt="Order-Independent Transparency setting in 3ds Max" style="max-width: 340px;">
+    <img src="files/transparency-max/oit.jpg" alt="Order-Independent Transparency setting in 3ds Max" style="max-width: 340px">
 
-    <p>Known limitations:</p>
+    <p>
+      Known limitations:
+    </p>
 
     <ul>
       <li>
@@ -100,22 +102,61 @@
     <h2>Transparency for Physical Materials</h2>
 
     <p>
-    Transparency of physical materials can be tweaked using the material setting of the same name.
+      Transparency of Physical (as well as OpenPBR) materials can be tweaked using the material setting of the same name.
     </p>
 
-    <img src="files/transparency-max/physical-transparency.jpg" alt="Transparency settings of Physical materials" style="max-width: 342px">
+    <img src="files/transparency-max/physical-transparency.webp" alt="Transparency settings of Physical materials" style="max-width: 650px">
 
-    <p>Parameters:</p>
+    <p>
+      Parameters:
+    </p>
 
-    <ul>
-      <li>*Transparency* — transparency amount, color and roughness. The color and roughness parameters supported only for refraction-based transparency (*thin-walled* off).</li>
-      <li>*Thin-walled* — use generic (*thin-walled* on) or refraction-based (*thin-walled* off) transparency.</li>
-      <li>*Alpha Mode* — material transparency mode.</li>
-      <li>*Depth Write* — disable for additive transparency composing (see <a href="manual/en/max/Transparency.html#alpha_add">above</a>).</li>
-    </ul>
+    <dl>
+      <dt>Transparency</dt>
+      <dd>
+        Transparency amount, color and roughness. The color and roughness parameters supported only for refraction-based transparency (*Thin-walled* off).
+      </dd>
+      <dt>Thin-walled</dt>
+      <dd>
+        Use generic (*Thin-walled* on) or refraction-based (*Thin-walled* off) transparency.
+      </dd>
+      <dt>Alpha Mode</dt>
+      <dd>
+        Material transparency mode.
+        <dl>
+          <dt>Auto</dt>
+          <dd>Look into material to resolve possible transparency method: *Opaque* or *Blend*.</dd>
+          <dt>Opaque</dt>
+          <dd>Render material with no transparency.</dd>
+          <dt>Blend</dt>
+          <dd>Blended transparency (see <a href="manual/en/max/Transparency.html#blended_vs_masked">above</a>).</dd>
+          <dt>Add</dt>
+          <dd>Additive transparency compositing (see <a href="manual/en/max/Transparency.html#alpha_add">above</a>).</dd>
+          <dt>Mask</dt>
+          <dd>Masked transparency (see <a href="manual/en/max/Transparency.html#blended_vs_masked">above</a>).</dd>
+          <dt>Coverage</dt>
+          <dd>Hashed transparency, aka alpha to coverage. This method takes an intermediate position between masked and blended transparency. It uses MSAA rendering to improve the quality of alpha clipping.</dd>
+        </dl>
+      </dd>
+      <dt>Transparency Hack</dt>
+      <dd>
+        Enable one of the two non-standard rendering methods to eliminate transparency artifacts:
+        <dl>
+          <dt>Nearest Layer</dt>
+          <dd>Render only the closest-to-the-camera transparency layer by using a separate depth buffer for culling (aka "depth prepass").</dd>
+          <dt>Two-Pass</dt>
+          <dd>Render back-face surfaces first followed by front-face surfaces. This method works only for double-sided materials, i.e. the *2-Sided* property should be set.</dd>
+        </dl>
+        Both transparency hacks reduce performance, so use them only when it's really necessary.
+      </dd>
+      <dt>Depth Write</dt>
+      <dd>
+        Disable for additive transparency compositing (see <a href="manual/en/max/Transparency.html#alpha_add">above</a>).
+      </dd>
+    </dl>
 
     <p class="note">
-      By default in 3ds Max, the *Thin-walled* parameter is unchecked, which disables the most typical transparency rendering you expected to see in your interactive app. Always keep an eye on this setting when you're dealing with the transparent physical materials.
+      By default in 3ds Max, the *Thin-walled* parameter is unchecked, which disables the most typical transparency rendering you expected to see in your interactive app. Always keep an eye on this setting when you're dealing with the transparent materials.
     </p>
 
     <p>
@@ -130,13 +171,13 @@
     <h2>Transparency for Standard Materials</h2>
 
     <p>
-    Transparency in standard materials can be tweaked using <strong>Opacity</strong> in material settings.
+      Transparency in standard materials can be tweaked using <strong>Opacity</strong> in material settings.
     </p>
 
     <img src="files/transparency-max/standard-simple.jpg" alt="Tweaking transparency of Standard materials in 3ds Max">
 
     <p>
-      The <strong>Opacity</strong> input of standard materials can be used to create interesting dependencies for better realism.
+      The *Opacity* input of standard materials can be used to create interesting dependencies for better realism.
     </p>
 
     <img src="files/transparency-max/standard-falloff.jpg" alt="Using falloff map to tweak transparency in 3ds Max">
@@ -151,12 +192,13 @@
       Use the <strong>Alpha Mode</strong> dropdown to choose between transparency modes.
     </p>
 
+
     [anchor:gltf_materials]
 
     <h2>Transparency for glTF-compliant PBR Materials</h2>
 
     <p>
-      In order to enable transparency for such materials, one should use a <i>separate</i> alpha map connected with the <strong>Transparency Map</strong> input of the physical material.
+      In order to enable transparency for such materials, one should use a <em>separate</em> alpha map connected with the <strong>Transparency Map</strong> input of the physical material.
     </p>
 
     <img src="files/transparency-max/gltf-pbr-transparency.jpg" alt="glTF 2.0-compliant material setup in 3ds Max">
@@ -165,9 +207,12 @@
       Use the <strong>Alpha Mode</strong> dropdown to choose between the supported transparency modes: *Auto*, *Opaque*, *Blend*, or *Mask*.
     </p>
 
+
     <h2>Got Questions?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>
+      Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!
+    </p>
 
   </article></body>
 </html>

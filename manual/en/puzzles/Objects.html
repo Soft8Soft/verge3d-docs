@@ -95,17 +95,31 @@
     <h3>create object</h3>
 
     <p>
-      Creates and adds a new object to the scene. This puzzles creates objects without the need in a 3D editor, and as such is useful for learning visual programming as well as designing primitive visuals by users with no or minimal 3D modelling skills. By using this this puzzle in combination with <a href="manual/en/puzzles/Objects.html#make_object_from">make object from</a> you can create really complex geometry.
+      Creates and adds a new object to the scene. This puzzles creates objects without the need in a 3D editor, and as such is useful for learning visual programming as well as designing primitive visuals by users with no or minimal 3D modelling skills. By using this this puzzle in combination with <a href="manual/en/puzzles/Objects.html#make_object_from">make object from</a> you can create rather complex geometry.
     </p>
 
-    <img src="files/puzzles/puzzles-object-create-object.jpg" alt="Visual programming block to create various 3D objects">
+    <img src="files/puzzles/puzzles-object-create-object.jpg" alt="create object puzzle">
 
     <p>
       For geometry objects, such as boxes or teapots, this puzzle also creates white-colored dielectric node-based PBR material (with roughness value set to `1` and metalness set to `0`). Use the <a href="manual/en/puzzles/Materials.html#materials_set_color">set color</a> and <a href="manual/en/puzzles/Materials.html#materials_set_value">set value</a> puzzles to tweak that material.
     </p>
+
     <p>
       For *plane with texture* objects, this puzzle assigns a dummy checker texture to the model. Use the <a href="manual/en/puzzles/Materials.html#replace_texture">replace texture</a> puzzle to change this texture.
     </p>
+
+    <p>
+      The *plane with html* option is used to create planes which render HTML-based resources, such as websites, custom UIs, or YouTube videos.
+    </p>
+
+    <img src="files/puzzles/puzzles-object-create-object-plane-with-html.webp" alt="create object puzzle creating plane with html">
+
+    <p>
+      Internally this feature uses a 3D-transformed `&lt;iframe&gt;` element which has the width (in pixels) specified in the *res* input.
+    </p>
+
+    [demo:htmlmixer]
+
 
     [anchor:remove]
 
@@ -189,11 +203,19 @@
       Set an object's direction to the point/vector with *X*, *Y*, *Z* coordinates. The *point* checkbox specifies whether the *X*, *Y*, *Z* coordinates belong to some point in 3D space or represent a direction vector. The *lock up* checkbox locks the up-down axis of the object so it remains perpendicular to the horizontal surface.
     </p>
 
-    <img src="files/puzzles/puzzles-object-set-object-direction.jpg" alt="Set object direction visual logic block">
+    <img src="files/puzzles/puzzles-object-set-object-direction.webp" alt="Set object direction visual logic block">
 
     <p>
-      Sometimes you need to input a vector (which consists of the given X, Y, Z coordinates). In this case, you can modify the puzzle by clicking on the gear icon and setting on checkbox *use vector*.
+      Sometimes you need to input a <a href="manual/en/puzzles/Numbers.html#create_vector">vector</a> (which consists of the given X, Y, Z coordinates). In this case, you can modify the puzzle by clicking on the gear icon and setting on checkbox *use vector*.
     </p>
+
+    <img src="files/puzzles/puzzles-object-set-object-direction-vector.webp" alt="Set object direction with vector">
+
+    <p>
+      For example, to make some object look at the camera, use the following puzzles:
+    </p>
+
+    <img src="files/puzzles/puzzles-object-set-object-direction-example.webp" alt="Set object direction example">
 
 
     [anchor:get_object_direction]
@@ -217,36 +239,85 @@
       <li>get the list of objects contained in a group thus making it iterable</li>
       <li>convert the output of the *all objects* puzzle to a list thus making it iterable</li>
       <li>get children of some parent object</li>
+      <li>filter objects by their kind (e.g. cameras, lamps, annotations, etc), full name, or partial name</li>
+      <li>convert object names to unique IDs and vice versa</li>
     </ul>
 
-    <img src="files/puzzles/puzzles-object-get-objects.jpg" alt="Get object from... visual programming block">
+    <img src="files/puzzles/puzzles-object-get-objects-from.webp" alt="get objects from puzzle">
 
     <p>
-      By using the dropdown you can also filter off objects of a kind (e.g. cameras, lamps, annotations, etc).
+      By using the dropdown you can filter off objects of a kind:
     </p>
 
-
-    [anchor:get_morph_factor]
-
-    <h3>get morph factor</h3>
+    <ul>
+      <li>*all* — get all objects</li>
+      <li>*annotation* — get only annotation objects</li>
+      <li>*bone* — get only bones</li>
+      <li>*camera* — get only cameras</li>
+      <li>*empty* — get only empty objects</li>
+      <li>*mesh* — get only meshes</li>
+      <li>*light* — get only lights</li>
+      <li>*first* — get the first object found; use this option with the name filter to retrieve the first object matching the name</li>
+    </ul>
 
     <p>
-      Returns an object's morph target factor (aka value or weight). Does not work with lists, groups or the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+      For example, you can use the following puzzles to direct all mesh objects on the scene to look at the camera:
     </p>
 
-    <img src="files/puzzles/puzzles-object-get-morph-factor.webp" alt="Visual programming block to get morph factor">
+    <img src="files/puzzles/puzzles-object-get-objects-from-example-mesh.webp" alt="set object direction puzzle which has get objects from and get transform puzzles connected as inputs">
 
     <p>
-      Example:
+      The *enable name filter* checker in the gear popup activates the name filter input:
     </p>
 
-    <img src="files/puzzles/puzzles-object-get-morph-factor-example.webp" alt="Getting object morphing with visual programming">
+    <img src="files/puzzles/puzzles-object-get-objects-from-name.webp" alt="get objects from puzzle with name filter">
+
+    <ul>
+      <li>*equal to* — match the full name</li>
+      <li>*starting with* — match the names starting with the specified text, e.g. "Cube" will match "Cube", "Cube.001", "CubeGold", etc.</li>
+      <li>*ending with* — match the names ending with the specified text, e.g. "Cube" will match "Cube", "MyCube", "Green_Cube", but not "Cube.001"</li>
+      <li>*including* — match the names including the specified text, e.g. "Cube" will match "Cube", "MyCubeIsAwesome", "Cube2", etc.</li>
+    </ul>
+
+    <p class="note">
+      Name filter works in a case-sensitive manner, e.g. "Cube", "cube", "CUBE" will match different objects.
+    </p>
 
     <p>
-      You can set a morph target by passing the name as a text. In this case, you need to modify the puzzle by clicking on the gear icon and setting on the checkbox *flexible target input*:
+      The *return unique object ids* checker in the gear popup can be used to retrieve unique object IDs instead of names:
     </p>
 
-    <img src="files/puzzles/puzzles-object-get-morph-factor-advanced.webp" alt="Visual programming block to get morph factor">
+    <img src="files/puzzles/puzzles-object-get-objects-from-ids.webp" alt="get objects from puzzle returning object ids">
+
+    <p>
+      This option is very important in the case when having just the name is not sufficient – this is when objects are appended dynamically from another glTF file and happen to have same names. Another use-case is when you copy a parent object, which won't stop all the children from keeping their original names.
+    <p>
+
+    <p>
+      You can use the IDs obtained by this puzzle (which look like this: 5c464bf0-043a-40ee-b864-5c026436d7de) to pass them into other object puzzles.
+    </p>
+
+    <p>
+      Say you just loaded a scene named "NewCarScene" dynamically, which happen to contain a "Car" model. However, say there is another "Car" model already present in the main scene. To change the material on the newly added car, you need to use the following setup:
+    </p>
+
+    <img src="files/puzzles/puzzles-object-get-objects-from-example-loaded.webp" alt="assign material puzzle which has get objects from puzzle connected as input">
+
+    <p>
+      If you simply pass "Car" to the "assign material" puzzle, it won't work, because "FancyMaterial" will be incorrectly assigned on the first model found, which may be not what you wanted.
+    </p>
+
+    <p>
+      The "get objects from" puzzle can also be used to transform the object name to its ID (or IDs in case there are multiple objects sharing the same object name):
+    </p>
+
+    <img src="files/puzzles/puzzles-object-get-objects-from-example-name-to-id.webp" alt="get objects from puzzles used to convert from object name to IDs">
+
+    <p>
+      Other way around, in order to obtain the object name by the corresponding object ID you can do the following:
+    </p>
+
+    <img src="files/puzzles/puzzles-object-get-objects-from-example-id-to-name.webp" alt="get objects from puzzles used to convert from object ID to name">
 
 
     [anchor:set_morph_factor]
@@ -276,12 +347,35 @@
     </p>
 
 
+    [anchor:get_morph_factor]
+
+    <h3>get morph factor</h3>
+
+    <p>
+      Returns an object's morph target factor (aka value or weight). Does not work with lists, groups or the <a href="manual/en/puzzles/Selectors.html#all_objects">all objects</a> puzzle.
+    </p>
+
+    <img src="files/puzzles/puzzles-object-get-morph-factor.webp" alt="Visual programming block to get morph factor">
+
+    <p>
+      Example:
+    </p>
+
+    <img src="files/puzzles/puzzles-object-get-morph-factor-example.webp" alt="Getting object morphing with visual programming">
+
+    <p>
+      You can set a morph target by passing the name as a text. In this case, you need to modify the puzzle by clicking on the gear icon and setting on the checkbox *flexible target input*:
+    </p>
+
+    <img src="files/puzzles/puzzles-object-get-morph-factor-advanced.webp" alt="Visual programming block to get morph factor">
+
+
     [anchor:make_object_from]
 
     <h3>make object from</h3>
 
     <p>
-      Create a new object by applying boolean (also called CSG or constructive solid geometry) operation on two input objects. The input objects are not affected and should be hidden/removed explicitly.
+      Create a new object by applying boolean (also called CSG or constructive solid geometry) operation on two input objects. If the *clean* checkbox is not set, the input objects are not affected and should be hidden/removed explicitly.
     </p>
 
     <img src="files/puzzles/puzzles-object-make-object-from.webp" alt="Using visual programming to perform CSG operations">
@@ -290,11 +384,14 @@
 
     <img src="files/puzzles/puzzles-object-make-object-from-example.webp" alt="Performing CSG operations without coding">
 
+    <p>
+      You can also pass a clipping plane as one of the input objects (with *intersect* operation). In this case, another object will be clipped.
+    </p>
+
     <p>Limitations:</p>
 
     <ol>
-      <li>Both objects should be parented to the same object or have no parent.</li>
-      <li>Multi-material objects are not supported.</li>
+      <li>Geometry of morphed or skinned object will be baked.</li>
       <li>Objects with normal mapped materials are not not supported.</li>
     </ol>
 

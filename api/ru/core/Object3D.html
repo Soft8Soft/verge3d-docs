@@ -9,9 +9,10 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      Это базовый класс для большинства объектов в Verge3D, предоставляющий набор свойств и методов для манипулирования объектами в трехмерном пространстве.
+    <p>
+      Это базовый класс для большинства объектов в «Вердж3Д», предоставляющий набор свойств и методов для манипулирования объектами в трехмерном пространстве.
     </p>
+
     <p>
       Обратите внимание, что его можно использовать для группировки объектов с помощью метода [page:.add](object), который добавляет объект в качестве дочернего, однако для этого лучше использовать [page:Group].
     </p>
@@ -91,6 +92,9 @@
     <p>
       Принадлежность объекта к слою. Объект виден, только если у него есть хотя бы один общий слой с [page:Camera камерой]. Это свойство также можно использовать для отсеивания нежелательных объектов в тестах пересечения лучей при использовании [page:Raycaster].
     </p>
+    <p>
+      Это свойство не влияет на рендеринг дочерних объектов (за исключением мешей, входящих в мульти-материальный объект).
+    </p>
 
     <h3>[property:Matrix4 matrix]</h3>
     <p>
@@ -99,7 +103,7 @@
 
     <h3>[property:Boolean matrixAutoUpdate]</h3>
     <p>
-      Если этот параметр установлен, рендер вычисляет матрицу положения (вращения или кватерниона) и масштаба каждый кадр, а также пересчитывает свойство matrixWorld. По умолчанию [page:Object3D.DefaultMatrixAutoUpdate] (true).
+      Если этот параметр установлен, рендер вычисляет матрицу положения (вращения или кватерниона) и масштаба каждый кадр, а также пересчитывает свойство matrixWorld. По умолчанию [page:Object3D.DefaultMatrixAutoUpdate] (`true`).
     </p>
 
     <h3>[property:Matrix4 matrixWorld]</h3>
@@ -191,7 +195,7 @@
 
     <h3>[property:Float renderOrder]</h3>
     <p>
-      Это значение позволяет переопределить порядок рендеринга объектов <a href="https://ru.wikipedia.org/wiki/%D0%93%D1%80%D0%B0%D1%84_%D1%81%D1%86%D0%B5%D0%BD%D1%8B" target="_blank">графа сцены</a> по умолчанию, хотя непрозрачные и прозрачные объекты остаются отсортированными независимо. Когда это свойство установлено для экземпляра [page:Group Group], все объекты-потомки будут отсортированы и отрисованы вместе. Сортировка производится от низшего к высшему порядку рендеринга. Значение по умолчанию - `0`.
+      Это значение позволяет переопределить порядок рендеринга объектов <a href="https://ru.wikipedia.org/wiki/%D0%93%D1%80%D0%B0%D1%84_%D1%81%D1%86%D0%B5%D0%BD%D1%8B" target="_blank">графа сцены</a> по умолчанию, хотя непрозрачные и прозрачные объекты остаются отсортированными независимо. Когда это свойство установлено для экземпляра [page:Group Group], все объекты-потомки будут отсортированы и отрисованы вместе. Сортировка производится от низшего к высшему порядку рендеринга. Значение по умолчанию — `0`.
     </p>
 
     <h3>[property:Euler rotation]</h3>
@@ -201,7 +205,7 @@
 
     <h3>[property:Vector3 scale]</h3>
     <p>
-      Локальный масштаб объекта. По умолчанию [page:Vector3](1, 1, 1).
+      Локальный масштаб объекта. По умолчанию `(1, 1, 1)`.
     </p>
 
     <h3>[property:Vector3 up]</h3>
@@ -223,9 +227,13 @@
     <p>
       Объект отображается, если `true`. По умолчанию `true`.
     </p>
+    <p>
+      Это свойство не влияет на рендеринг дочерних объектов (за исключением мешей, входящих в мульти-материальный объект). Чтобы запретить их рендеринг, используйте свойство [page:.disableChildRendering].
+    </p>
 
 
-    <h2>Статические Свойства</h2>
+    <h2>Статические свойства</h2>
+
     <p>
       Статические свойства и методы определяются для каждого класса, а не для каждого экземпляра этого класса.  Это означает, что изменение [page:Object3D.DefaultUp] или [page:Object3D.DefaultMatrixAutoUpdate] изменит значения [page:.up up] и [page:.matrixAutoUpdate matrixAutoUpdate] для <em>каждого</em> экземпляра Object3D (или производных классов), созданный после внесения изменения (уже созданные Object3D не будут затронуты).
     </p>
@@ -255,7 +263,7 @@
       Информацию о ручном группировании объектов см. в [page:Group].
     </p>
 
-    <h3>[method:null applyMatrix4]([param:Matrix4 matrix])</h3>
+    <h3>[method:undefined applyMatrix4]([param:Matrix4 matrix])</h3>
     <p>
       Применяет матричное преобразование к объекту и обновляет положение, поворот и масштаб объекта.
     </p>
@@ -372,11 +380,11 @@
       Преобразует вектор из локального пространства этого объекта в мировое пространство.
     </p>
 
-    <h3>[method:null lookAt]([param:Vector3 vector])<br>
-        [method:null lookAt]([param:Float x], [param:Float y], [param:Float z])</h3>
+    <h3>[method:undefined lookAt]([param:Vector3 vector])<br>
+        [method:undefined lookAt]([param:Float x], [param:Float y], [param:Float z])</h3>
     <ul class="params">
       <li>vector — вектор, представляющий позицию в мировом пространстве.</li>
-      <li>Опционально, компоненты [page:.x x], [page:.y y] и [page:.z z] положения в мировом пространстве.</li>
+      <li>необ. компоненты [page:.x x], [page:.y y] и [page:.z z] положения в мировом пространстве.</li>
     </ul>
     <p>
       Поворачивает объект лицом к точке в мировом пространстве.
@@ -408,7 +416,7 @@
     <h3>[method:this rotateOnAxis]([param:Vector3 axis], [param:Float angle])</h3>
     <ul class="params">
       <li>axis — нормированный вектор в пространстве объекта.</li>
-      <li>angle — Угол в радианах.</li>
+      <li>angle — угол в радианах.</li>
     </ul>
     <p>
       Осуществляет поворот объекта вдоль оси в пространстве объекта. Предполагается, что ось нормализована.
@@ -416,8 +424,8 @@
 
     <h3>[method:this rotateOnWorldAxis]([param:Vector3 axis], [param:Float angle])</h3>
     <ul class="params">
-      <li>axis — Нормированный вектор в мировом пространстве.</li>
-      <li>angle — Угол в радианах.</li>
+      <li>axis — нормированный вектор в мировом пространстве.</li>
+      <li>angle — угол в радианах.</li>
     </ul>
     <p>
       Осуществляет поворот объекта вдоль оси в мировом пространстве. Предполагается, что ось нормализована. Метод предполагает отсутствие поворота родителя.
@@ -447,7 +455,7 @@
       Поворачивает объект вокруг оси Z в локальном пространстве.
     </p>
 
-    <h3>[method:null setRotationFromAxisAngle]([param:Vector3 axis], [param:Float angle])</h3>
+    <h3>[method:undefined setRotationFromAxisAngle]([param:Vector3 axis], [param:Float angle])</h3>
     <ul class="params">
       <li>axis — нормированный вектор в пространстве объекта.</li>
       <li>angle — угол в радианах.</li>
@@ -456,7 +464,7 @@
       Вызывает [page:Quaternion.setFromAxisAngle setFromAxisAngle]([page:Float axis], [page:Float angle]) на [page:.quaternion].
     </p>
 
-    <h3>[method:null setRotationFromEuler]([param:Euler euler])</h3>
+    <h3>[method:undefined setRotationFromEuler]([param:Euler euler])</h3>
     <p class="params">
       euler — угол Эйлера, определяющий величину поворота.
     </p>
@@ -464,7 +472,7 @@
       Вызывает [page:Quaternion.setRotationFromEuler setRotationFromEuler]([page:Euler euler]) на [page:.quaternion].
     </p>
 
-    <h3>[method:null setRotationFromMatrix]([param:Matrix4 m])</h3>
+    <h3>[method:undefined setRotationFromMatrix]([param:Matrix4 m])</h3>
     <p class="params">
       m — повернуть кватернион по компоненту вращения матрицы.
     </p>
@@ -472,7 +480,7 @@
       Вызывает [page:Quaternion.setFromRotationMatrix setFromRotationMatrix]([page:Matrix4 m]) на [page:.quaternion]. Обратите внимание, что это предполагает, что верхние 3x3 из `m` являются чистой матрицей вращения (т.е. немасштабированной).
     </p>
 
-    <h3>[method:null setRotationFromQuaternion]([param:Quaternion q])</h3>
+    <h3>[method:undefined setRotationFromQuaternion]([param:Quaternion q])</h3>
     <p class="params">
       q — нормализованный кватернион.
     </p>
@@ -504,7 +512,7 @@
       Перемещает объект вдоль оси Z в пространстве объекта на `distance` единиц.
     </p>
 
-    <h3>[method:null traverse]([param:Function callback])</h3>
+    <h3>[method:undefined traverse]([param:Function callback])</h3>
     <p class="params">
       callback — функция обратного вызова, первым аргументом которой является объект [name].
     </p>
@@ -512,7 +520,7 @@
       Выполняет функцию для этого объекта и всех потомков. Примечание: не рекомендуется изменять граф сцены внутри обратного вызова.
     </p>
 
-    <h3>[method:null traverseVisible]([param:Function callback])</h3>
+    <h3>[method:undefined traverseVisible]([param:Function callback])</h3>
     <p class="params">
       callback — функция, первым аргументом которой является объект [name].
     </p>
@@ -520,7 +528,7 @@
       Аналогично traverse, но функция будет выполняться только для видимых объектов. Потомки невидимых объектов не обходятся. Примечание: Не рекомендуется изменять граф сцены внутри обратного вызова.
     </p>
 
-    <h3>[method:null traverseAncestors]([param:Function callback])</h3>
+    <h3>[method:undefined traverseAncestors]([param:Function callback])</h3>
     <p class="params">
       callback — функция обратного вызова, первым аргументом которой является объект [name].
     </p>
@@ -528,12 +536,12 @@
       Выполняет функцию для всех родителей объекта. Примечание: не рекомендуется изменять граф сцены внутри обратного вызова.
     </p>
 
-    <h3>[method:null updateMatrix]()</h3>
+    <h3>[method:undefined updateMatrix]()</h3>
     <p>
       Обновляет матрицу локального положения объекта.
     </p>
 
-    <h3>[method:null updateMatrixWorld]([param:Boolean force])</h3>
+    <h3>[method:undefined updateMatrixWorld]([param:Boolean force])</h3>
     <p class="params">
       force — логическое значение, используемое чтобы пропустить требование флага [page:.matrixWorldAutoUpdate] и принудительно обновить матрицу. Полезно указывать, если вы не хотите ждать одного кадра для обновления матрицы (предполагая что [page:.matrixWorldAutoUpdate] установлен в `true`).
     </p>
@@ -541,7 +549,7 @@
       Обновляет матрицу мирового положения объекта и его потомков если [page:.matrixWorldNeedsUpdate] установлен в `true` или если флаг `force` также установлен в `true`.
     </p>
 
-    <h3>[method:null updateWorldMatrix]([param:Boolean updateParents], [param:Boolean updateChildren])</h3>
+    <h3>[method:undefined updateWorldMatrix]([param:Boolean updateParents], [param:Boolean updateChildren])</h3>
     <ul class="params">
       <li>updateParents — рекурсивно обновляет мировое положение родителей.</li>
       <li>updateChildren — рекурсивно обновляет мировое положение потомков.</li>
@@ -560,6 +568,7 @@
 
 
     <h2>Пазлы</h2>
+
     <p>
       «Вердж3Д» поддерживает <a href="manual/ru/puzzles/Objects.html">множество пазлов</a>, упрощающих работу с 3Д-объектами.
     </p>

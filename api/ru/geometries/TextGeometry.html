@@ -11,31 +11,35 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Класс для генерации текста в виде единой геометрии. Он создается путем предоставления строки текста и хэша из
-      параметров, состоящих из загружаемого [page:Font] и настроек для родительской геометрии [page:ExtrudeGeometry].
-      Дополнительные сведения см. на страницах [page:Font], [page:FontLoader] и [page:Creating-Text].
+    <p>
+      Класс для генерации текста в виде единой геометрии. Он создается из строки текста и параметров, состоящих из загружаемого [page:Font шрифта] и настроек для класса [page:ExtrudeGeometry]. Смотрите страницы [page:Font] и [page:TTFLoader] для получения дополнительной информации.
     </p>
 
 
     <h2>Пример</h2>
 
     <code>
-    const loader = new v3d.FontLoader();
+    v3d.loadModule('opentype.js', () => {
+        const loader = new v3d.TTFLoader();
 
-    loader.load('fonts/helvetiker_regular.typeface.json', function(font) {
+        loader.load('my_font.woff', function(fontInfo) {
+            const geometry = new v3d.TextGeometry('Привет, «Вердж3Д»!', {
+                font: new v3d.Font(fontInfo),
+                size: 1,
+                height: 0.1,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.1,
+                bevelSize: 0.1,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
 
-      const geometry = new v3d.TextGeometry('Hello Verge3D!', {
-        font: font,
-        size: 80,
-        height: 5,
-        curveSegments: 12,
-        bevelEnabled: true,
-        bevelThickness: 10,
-        bevelSize: 8,
-        bevelOffset: 0,
-        bevelSegments: 5
-      });
+            const material = v3d.MaterialUtils.createDiffuseMaterial('MyMaterial', new v3d.Color('red'), 1);
+            const mesh = new v3d.Mesh(geometry, material);
+
+            app.scene.add(mesh);
+        });
     });
     </code>
 
@@ -43,107 +47,50 @@
     <h2>Конструктор</h2>
 
     <h3>[name]([param:String text], [param:Object parameters])</h3>
-    <p>
-    text — Текст, который должен быть показан. <br>
-    parameters — Объект, который может содержать следующие параметры.
-    <ul>
-      <li>font — экземпляр v3d.Font.</li>
-      <li>size — Float. Размер текста. По умолчанию равен 100.</li>
-      <li>height — Float. Толщина для экструзии текста.  По умолчанию - 50.</li>
-      <li>curveSegments — Integer. Количество точек на кривых. По умолчанию - 12.</li>
-      <li>bevelEnabled — Boolean. Включает фаску. По умолчанию - False.</li>
-      <li>bevelThickness — Float. Глубина фаски текста. По умолчанию - 10.</li>
-      <li>bevelSize — Float. На каком расстоянии от контура текста находится фаска. По умолчанию - 8.</li>
-      <li>bevelOffset — Float. На каком расстоянии от контура текста начинается фаска. По умолчанию 0.</li>
-      <li>bevelSegments — Integer. Количество сегментов фаски. По умолчанию - 3.</li>
+    <ul class="params">
+      <li>[page:String text] — текст, который должен быть показан.</li>
+      <li>[page:String parameters] — объект, который может содержать следующие параметры:</li>
     </ul>
+    <ul class="params">
+      <li>[page:Font font] — экземпляр [page:Font].</li>
+      <li>[page:Float size] — размер текста. По умолчанию `100`.</li>
+      <li>[page:Float height] — толщина для экструзии текста. По умолчанию `50`.</li>
+      <li>[page:Integer curveSegments] — количество точек на кривых. По умолчанию `12`.</li>
+      <li>[page:Boolean bevelEnabled] — включает фаску. По умолчанию `false`.</li>
+      <li>[page:Float bevelThickness] — глубина фаски текста. По умолчанию `10`.</li>
+      <li>[page:Float bevelSize] — на каком расстоянии от контура текста находится фаска. По умолчанию `8`.</li>
+      <li>[page:Float bevelOffset] — на каком расстоянии от контура текста начинается фаска. По умолчанию `0`.</li>
+      <li>[page:Integer bevelSegments] — количество сегментов фаски. По умолчанию `3`.</li>
+    </ul>
+    <p class="note">
+      Процедурная геометрия может использоваться для обучения основам программирования, однако в реальной жизни используется редко. В большинстве случаев имеет смысл сделать геометрию текста в пакете моделирования и загрузить в «Вердж3Д» с помощью glTF.
     </p>
 
-    <h2>Доступные Шрифты</h2>
-
-    <p>
-    TextGeometry использует сгенерированные шрифты <a href='http://gero3.github.io/facetype.js/' target="_top">typeface.json</a> .
-    Некоторые существующие шрифты находятся в <b>/examples/fonts</b> и должны быть добавлены в страницу.
-    </p>
-    <table>
-      <tr>
-        <th>Font</th>
-        <th>Weight</th>
-        <th>Style</th>
-        <th>File Path</th>
-      </tr>
-      <tr>
-        <td>helvetiker</td>
-        <td>normal</td>
-        <td>normal</td>
-        <td>/examples/fonts/helvetiker_regular.typeface.json</td>
-      </tr>
-      <tr>
-        <td>helvetiker</td>
-        <td>bold</td>
-        <td>normal</td>
-        <td>/examples/fonts/helvetiker_bold.typeface.json</td>
-      </tr>
-      <tr>
-        <td>optimer</td>
-        <td>normal</td>
-        <td>normal</td>
-        <td>/examples/fonts/optimer_regular.typeface.json</td>
-      </tr>
-      <tr>
-        <td>optimer</td>
-        <td>bold</td>
-        <td>normal</td>
-        <td>/examples/fonts/optimer_bold.typeface.json</td>
-      </tr>
-      <tr>
-        <td>gentilis</td>
-        <td>normal</td>
-        <td>normal</td>
-        <td>/examples/fonts/gentilis_regular.typeface.json</td>
-      </tr>
-      <tr>
-        <td>gentilis</td>
-        <td>bold</td>
-        <td>normal</td>
-        <td>/examples/fonts/gentilis_bold.typeface.json</td>
-      </tr>
-      <tr>
-        <td>droid sans</td>
-        <td>normal</td>
-        <td>normal</td>
-        <td>/examples/fonts/droid/droid_sans_regular.typeface.json</td>
-      </tr>
-      <tr>
-        <td>droid sans</td>
-        <td>bold</td>
-        <td>normal</td>
-        <td>/examples/fonts/droid/droid_sans_bold.typeface.json</td>
-      </tr>
-      <tr>
-        <td>droid serif</td>
-        <td>normal</td>
-        <td>normal</td>
-        <td>/examples/fonts/droid/droid_serif_regular.typeface.json</td>
-      </tr>
-      <tr>
-        <td>droid serif</td>
-        <td>bold</td>
-        <td>normal</td>
-        <td>/examples/fonts/droid/droid_serif_bold.typeface.json</td>
-      </tr>
-    </table>
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:ExtrudeGeometry].</p>
+
+    <p>
+      Смотрите свойства базового класса [page:ExtrudeGeometry].
+    </p>
 
     <h3>[property:Object parameters]</h3>
     <p>
-      Объект со свойством для каждого из параметров конструктора. Любая модификация после построения не изменяет геометрию.
+      Объект с параметрами, указанными в конструкторе. Модификация свойств этого объекта после вызова конструктора не изменяет получившуюся геометрию.
     </p>
 
+
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:ExtrudeGeometry].</p>
+
+    <p>
+      Смотрите методы базового класса [page:ExtrudeGeometry].
+    </p>
+
+
+    <h2>Смотрите также</h2>
+
+    <p>
+      Дополнительная информация о создании текстовых объектов в «Вердж3Д» находится в разделе <a href="manual/ru/introduction/Text-Rendering.html">рендеринг текста</a> руководства пользователя.
+    </p>
 
     [sourceHint]
   </body>

@@ -29,6 +29,10 @@
     </p>
 
 
+
+
+
+
     <h2>Contents</h2>
 
     [contents]
@@ -181,7 +185,7 @@
     <img src="files/wordpress/button-class-block-editor.webp" class="with-border" alt="Assigning custom button class in WordPress editor">
 
     <p>
-      Then use the <a href="manual/en/puzzles/HTML.html#event">event</a> Puzzle to assign event listener on the button element. The element itself is retrieved with the <a href="manual/en/puzzles/HTML.html#query_selector">query selector</a> Puzzle:
+      Then use the <a href="manual/en/puzzles/HTML.html#on_event_of">on event of</a> Puzzle to assign event listener on the button element. The element itself is retrieved with the <a href="manual/en/puzzles/HTML.html#query_selector">query selector</a> Puzzle:
     </p>
 
     <img src="files/wordpress/button-class-click.webp" alt="Clicking on the button with custom CSS class">
@@ -190,7 +194,7 @@
       Specify the CSS class assigned on the button as the first term of the selector (the dot prefix means "get element by a CSS class"), followed by the *a* for anchor tag:
     </p>
 
-    <code class="language-html">
+    <code class="lang-html">
     .my-button a
     </code>
 
@@ -207,7 +211,7 @@
     <img src="files/wordpress/button-id-elementor.webp" class="with-border" alt="Assigning custom button ID in Elementor">
 
     <p>
-      Then use the <a href="manual/en/puzzles/HTML.html#event">event</a> Puzzle to assign event listener on the button element. The element itself is retrieved with the <a href="manual/en/puzzles/HTML.html#query_selector">query selector</a> Puzzle:
+      Then use the <a href="manual/en/puzzles/HTML.html#on_event_of">on event of</a> Puzzle to assign event listener on the button element. The element itself is retrieved with the <a href="manual/en/puzzles/HTML.html#query_selector">query selector</a> Puzzle:
     </p>
 
     <img src="files/wordpress/button-id-click.webp" alt="Clicking on the button with custom ID">
@@ -216,7 +220,7 @@
       Specify the element ID assigned on the button as the first term of the selector (the hash tag means "get element by ID"), followed by the *a* for anchor tag:
     </p>
 
-    <code class="language-html">
+    <code class="lang-html">
     #my-button a
     </code>
 
@@ -301,12 +305,18 @@
     </dl>
 
     <h3>Using Puzzles</h3>
-
     <p>
       With <a href="manual/en/puzzles/ECommerce.html#woo_connect">connect to WooCommerce</a> and <a href="manual/en/puzzles/ECommerce.html#woo_product_info">product info</a> puzzles you can implement quite advanced applications (such as 3D configurators) by retrieving the data on the products or selected configurations from WooCommerce product page.
     </p>
-
     [demo:spinner]
+
+    <h3>Prevent reloading when adding product to the cart</h3>
+    <p>
+      There is a minor gotcha when using the standard WooCommerce setup with Verge3D. Each time the customer adds some item to the product cart, the entire page is forced to reload causing the Verge3D application to reload as well, thus disrupting customer experience.
+    </p>
+    <p>
+      To overcome this, you can augment WooCommerce with a plugin to add products on a fly, such as <a href="https://wordpress.org/plugins/wpc-ajax-add-to-cart/" target="blank">AJAX Add to Cart</a>.
+    </p>
 
 
     [anchor:e_commerce_system]
@@ -407,7 +417,7 @@
       To use it, execute the following REST API method:
     </p>
 
-    <code class="language-html">
+    <code class="lang-html">
     https://WP_HOST/wp-json/verge3d/v1/get_product_info/SKU
     </code>
 
@@ -419,7 +429,7 @@
       Upon success, this method returns the following JSON file with the product info:
     </p>
 
-    <code>
+    <code class="raw">
     {
         "status": "ok",
         "title": "Product Title",
@@ -450,7 +460,9 @@
       To upload your file on the server use the following REST API method:
     </p>
 
-    <code class="language-html">https://WP_HOST/wp-json/verge3d/v1/upload_file/</code>
+    <code class="raw">
+    https://WP_HOST/wp-json/verge3d/v1/upload_file/
+    </code>
 
     <p>
       Where WP_HOST is the host name of your WordPress server, such as <em>sandbox.soft8soft.com</em>
@@ -460,7 +472,7 @@
       Upon success this method returns the following JSON file with the info on the uploaded file:
     </p>
 
-    <code>
+    <code class="raw">
     {
         "status": "ok",
         "statusText": "Yay! File uploaded successfully.",
@@ -474,7 +486,7 @@
       Use the link provided in the request to retrieve your file or use the ID and <em>get_file</em> REST API method:
     </p>
 
-    <code class="language-html">https://WP_HOST/wp-json/verge3d/v1/get_file/ID</code>
+    <code class="lang-html">https://WP_HOST/wp-json/verge3d/v1/get_file/ID</code>
 
     <h3>Using Puzzles</h3>
 
@@ -597,7 +609,9 @@
 
     <h2>Got Questions?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>
+      Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!
+    </p>
 
   </article></body>
 </html>

@@ -11,53 +11,68 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Создаёт гладкую двухмерную <a href="http://en.wikipedia.org/wiki/B%C3%A9zier_curve#mediaviewer/File:B%C3%A9zier_2_big.gif" target="_blank">квадратичную кривую безье</a>, заданную начальной точкой, конечной точкой и одной контрольной точкой.
+    <p>
+      Создаёт гладкую двухмерную <a href="https://ru.wikipedia.org/wiki/Кривая_Безье#/media/Файл:TrueType_2_Arc.PNG" target="_blank">квадратичную кривую Безье</a>, заданную начальной точкой, конечной точкой и одной контрольной точкой.
     </p>
 
-    <h2>Пример кода</h2>
+
+    <h2>Пример</h2>
 
     <code>
     const curve = new v3d.QuadraticBezierCurve(
-      new v3d.Vector2(-10, 0),
-      new v3d.Vector2(20, 15),
-      new v3d.Vector2(10, 0)
+        new v3d.Vector2(-10, 0),
+        new v3d.Vector2(20, 15),
+        new v3d.Vector2(10, 0)
     );
 
     const points = curve.getPoints(50);
     const geometry = new v3d.BufferGeometry().setFromPoints(points);
 
-    const material = new v3d.LineBasicMaterial({ color : 0xff0000 });
+    const material = new v3d.LineBasicMaterial({ color: 0xff0000 });
 
-    // Create the final object to add to the scene
+    // создаём объект кривой и добавляем его на сцену
     const curveObject = new v3d.Line(geometry, material);
+    app.scene.add(curveObject);
     </code>
+
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]([param:Vector2 v0], [param:Vector2 v1], [param:Vector2 v2])</h3>
-    <p>
-      [page:Vector2 v0] – Начальная точка.<br/>
-      [page:Vector2 v1] – Контрольная точка.<br/>
-      [page:Vector2 v2] – Конечная точка.
-    </p>
+    <ul class="params">
+      <li>[page:Vector2 v0] – начальная точка.</li>
+      <li>[page:Vector2 v1] – контрольная точка.</li>
+      <li>[page:Vector2 v2] – конечная точка.</li>
+    </ul>
 
 
     <h2>Свойства</h2>
-    <p>Общие свойства смотрите в базовом классе [page:Curve].</p>
+
+    <p>
+      Общие свойства смотрите в базовом классе [page:Curve].
+    </p>
 
     <h3>[property:Vector2 v0]</h3>
-    <p>Начальная точка.</p>
+    <p>
+      Начальная точка.
+    </p>
 
     <h3>[property:Vector2 v1]</h3>
-    <p>Контрольная точка.</p>
+    <p>
+      Контрольная точка.
+    </p>
 
     <h3>[property:Vector2 v2]</h3>
-    <p>Конечная точка.</p>
+    <p>
+      Конечная точка.
+    </p>
+
 
     <h2>Методы</h2>
-    <p>Общие методы смотрите в базовом классе [page:Curve].</p>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:Curve].
+    </p>
 
     [sourceHint]
   </body>

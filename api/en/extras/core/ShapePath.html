@@ -9,12 +9,11 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      This class is used to convert a series of shapes to an array of [page:Path]s, for example an SVG shape to a path.
+    <p>
+      This class is used to convert a series of shapes to an array of [page:Path]s, for example an SVG shape to a path. It is used internally by [page:Font] to convert a font in JSON format to a series of paths.
     </p>
 
     <h2>Constructor</h2>
-
 
     <h3>[name]()</h3>
     <p>
@@ -36,15 +35,15 @@
 
     <h3>[property:Color color]</h3>
     <p>
-      [page:Color] of the shape, by default set to white (0xffffff).
+      [page:Color] of the shape, by default set to white (`0xffffff`).
     </p>
+
 
     <h2>Methods</h2>
 
     <h3>[method:this moveTo]([param:Float x], [param:Float y])</h3>
     <p>
-      Starts a new [page:Path] and calls [page:Path.moveTo](x, y) on that [page:Path].
-      Also points [page:ShapePath.currentPath currentPath] to that [page:Path].
+      Starts a new [page:Path] and calls [page:Path.moveTo](x, y) on that [page:Path]. Also points [page:ShapePath.currentPath currentPath] to that [page:Path].
     </p>
 
     <h3>[method:this lineTo]([param:Float x], [param:Float y])</h3>
@@ -64,7 +63,7 @@
 
     <h3>[method:this splineThru] ([param:Array points]) </h3>
     <p class="params">
-      points — An array of [page:Vector2]s
+      points — an array of [page:Vector2]s
     </p>
     <p>
       Connects a new [page:SplineCurve] onto the [page:ShapePath.currentPath currentPath].
@@ -72,7 +71,7 @@
 
     <h3>[method:Array toShapes]([param:Boolean isCCW])</h3>
     <p class="params">
-      isCCW — Changes how solids and holes are generated
+      isCCW — changes how solids and holes are generated.
     </p>
     <p>
       Converts the [page:ShapePath.subPaths subPaths] array into an array of Shapes. By default solid shapes are defined clockwise (CW) and holes are defined counterclockwise (CCW). If isCCW is set to true, then those are flipped.

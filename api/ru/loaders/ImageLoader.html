@@ -11,36 +11,37 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       Загрузчик для загрузки [page:Image]. Используется модулями [page:CubeTextureLoader] и [page:TextureLoader].
     </p>
+
 
     <h2>Пример</h2>
 
     <code>
-    // instantiate a loader
+    // создаём загрузчик
     const loader = new v3d.ImageLoader();
 
-    // load a image resource
+    // загружаем изображение
     loader.load(
-      // resource URL
-      'textures/skyboxsun25degtest.png',
+        // URL ресурса
+        'mytexture.png',
 
-      // onLoad callback
-      function(image) {
-        // use the image, e.g. draw part of it on a canvas
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        context.drawImage(image, 100, 100);
-      },
+        // обработчик onLoad
+        function(image) {
+            // используем изображение, напр. отображаем его на холсте
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.drawImage(image, 100, 100);
+        },
 
-      // onProgress callback currently not supported
-      undefined,
+        // обработчик onProgress не поддерживается
+        undefined,
 
-      // onError callback
-      function() {
-        console.error('An error happened.');
-      }
+        // обработчик onError
+        function() {
+            console.error('Произошла ошибка.');
+        }
     );
     </code>
 
@@ -48,28 +49,36 @@
     <h2>Конструктор</h2>
 
     <h3>[name]([param:LoadingManager manager])</h3>
-    <p>
-    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].<br><br>
-
-    Создает новый [name].
+    <p class="params">
+      [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].
     </p>
+    <p>
+      Создает новый [name].
+    </p>
+
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Loader].</p>
+
+    <p>
+      Общие свойства см. в базовом классе [page:Loader].
+    </p>
+
 
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:Loader].</p>
+
+    <p>
+      Общие методы см. в базовом классе [page:Loader].
+    </p>
 
     <h3>[method:HTMLImageElement load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
+    <ul class="params">
+      <li>[page:String url] — путь или URL-адрес к файлу. Это также может быть [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].</li>
+      <li>[page:Function onLoad] — будет вызван после завершения загрузки. Аргументом будет загруженный [page:Image image].</li>
+      <li>[page:Function onProgress] — эта функция обратного вызова в настоящее время не поддерживается.</li>
+      <li>[page:Function onError] — вызывается при ошибках загрузки.</li>
+    </ul>
     <p>
-    [page:String url] — путь или URL-адрес к файлу. Это также может быть
-      [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br>
-    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженный [page:Image image].<br>
-    [page:Function onProgress] — Эта функция обратного вызова в настоящее время не поддерживается.<br>
-    [page:Function onError] — Вызывается при ошибках загрузки.<br>
-    </p>
-    <p>
-      Начните загрузку из url и верните объект [page:Image image], который будет содержать данные.
+      Начинает загрузку `url` и возвращает объект [page:Image image], который будет содержать данные.
     </p>
 
     [sourceHint]

@@ -1,23 +1,86 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <base href="../../../">
-        <script src="page.js"></script>
-        <link type="text/css" rel="stylesheet" href="page.css">
-    </head>
-    <body>
-        <h1>[name]</h1>
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
 
-        <div class="desc">
-            Класс, содержащий полезные методы материалов.
-        </div>
+    <p>
+      Класс, содержащий полезные методы для работы с материалами.
+    </p>
 
-        <h2>Методы</h2>
+    <h2>Методы</h2>
 
-        <h3>[method:null disposeTextures]([page:Material mat])</h3>
-        <div>
-            Удаляет все [page:Texture textures], найденные в данном [page:Material material]. 
-        </div>
-    </body>
+    <h3>[method:undefined replaceTexture]([param:Material mat], [param:Texture oldTex], [param:Texture newTex])</h3>
+    <ul class="params">
+      <li>[page:Material mat] — материал.</li>
+      <li>[page:Texture oldTex] — заменяемая текстура.</li>
+      <li>[page:Texture newTex] — новая текстура.</li>
+    </ul>
+    <p>
+      Заменяет текстуру на указанном материале. Метод поддерживается только для материалов [page:MeshNodeMaterial] и [page:MeshStandardMaterial].
+    </p>
+
+    <h3>[method:undefined disposeTextures]([page:Material mat])</h3>
+    <ul class="params">
+      <li>[page:Material mat] — материал.</li>
+    </ul>
+    <p>
+      Удаляет все [page:Texture textures], найденные в данном [page:Material материале]. Метод поддерживается только для материалов [page:MeshNodeMaterial] и [page:MeshStandardMaterial].
+    </p>
+
+    <h3>[method:MeshNodeMaterial createDiffuseMaterial]([param:String name], [param:Color color], [param:Float opacity], [param:String profile])</h3>
+    <ul class="params">
+      <li>[page:String name] — имя материала.</li>
+      <li>[page:Color color] — диффузный цвет материала.</li>
+      <li>[page:Float opacity] — прозрачность материала.</li>
+      <li>[page:String profile] — (необ.) профиль материала, определяет из каких нод будет составлен граф материала. Один из `"blender"`, `"max"`, `"maya"`. По умолчанию `"blender"`.</li>
+    </ul>
+
+    <p>
+      Создаёт диффузный нодовый материал («ламберт») с указанными параметрами `color` и `opacity`.
+    </p>
+
+    <h3>[method:MeshNodeMaterial createEnvironmentMaterial]([param:String name], [param:Texture envTex], [param:Texture|Color bkgTexOrColor])</h3>
+    <ul class="params">
+      <li>[page:String name] — имя материала.</li>
+      <li>[page:Texture envTex] — текстура используемая для освещения.</li>
+      <li>bkgTexOrColor — [page:Texture текстура] или [page:Color цвет] фона.</li>
+    </ul>
+    <p>
+      Создаёт нодовый материал, который используется для рендеринга освещения от окружения и фона.
+    </p>
+
+    <h3>[method:MeshNodeMaterial createStandardPBRMaterial]([param:String profile], [param:Object params])</h3>
+    <ul class="params">
+      <li>[page:String profile] — (необ.) профиль материала, определяет из каких нод будет составлен граф материала. Один из `"blender"`, `"max"`, `"maya"`. По умолчанию `"blender"`.</li>
+      <li>[page:Object params] — (необ.) объект с параметрами материала.</li>
+    </ul>
+
+    <p>
+      Создаёт нодовый PBR-материал с указанными параметрами:
+    </p>
+
+    <dl class="params">
+      <dt>[page:Color color]</dt>
+      <dd>Базовый цвет материала. По умолчанию `'white'`.</dd>
+      <dt>[page:Float opacity]</dt>
+      <dd>Прозрачность материала. По умолчанию `1.0` (непрозрачный).</dd>
+      <dt>[page:Float metalness]</dt>
+      <dd>Металличность материала. По умолчанию `0` (не металл).</dd>
+      <dt>[page:Float roughness]</dt>
+      <dd>Шероховатость материала. По умолчанию `1` (максимальная шероховатость).</dd>
+      <dt>[page:Color emissive]</dt>
+      <dd>Эмиссивный цвет материала. По умолчанию `'black'`.</dd>
+      <dt>[page:Float emissiveIntensity]</dt>
+      <dd>Интенсивность эмиссивного цвета. По умолчанию `1`.</dd>
+    </dl>
+
+    [sourceHint]
+
+  </body>
 </html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      Парсер для CSV-данных (значений, разделённых запятой). Этот формат широко используется для получения данных для 3Д-визуализации в электронной коммерции и аналитике.
+    </p>
+
+
+    <h2>Пример</h2>
+
+    <code>
+    fetch('mydata.csv').then(response => {
+        if (!response.ok) {
+            throw new Error(response.status);
+        }
+        return response.text();
+    }).then(data => {
+        const rows = v3d.CSVParser.parse(data);
+        rows.forEach(row => {
+            console.log(row);
+        });
+    }).catch(error => {
+        console.error(`Ошибка получения CSV-данных: ${error}`);
+    });
+    </code>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:Array parse]([param:String s], [param:Object dialect])</h3>
+    <ul class="params">
+      <li>[page:String s] — входные данные в текстовой форме.</li>
+      <li>[page:Object dialect] — (необ.) объект, определяющий используемый CSV-диалект.</li>
+    </ul>
+    <p>
+      `dialect` это объект «Ява Скрипта», имеющий следующую структуру:
+    </p>
+
+    <code>
+    const dialect = {
+        delimiter: ",",         // разделитель колонок
+        doublequote: true,      // разрешить двойную кавычку
+        lineterminator: "\n",   // разделитель строк
+        quotechar: '"',         // символ экранирования
+        skipinitialspace: true, // пропустить начальные пробелы в строке
+        skipinitialrows: 0      // пропустить начальные строки (напр. названия колонок)
+    };
+    </code>
+
+    <p>
+      Парсит CSV-строку и возвращает массив строк. Каждая строка представляет собой массив с колонками входных данных.
+    </p>
+
+
+    <h2>Пазлы</h2>
+    <p>
+      Используется пазл <a href="manual/ru/puzzles/Advanced.html#read_CSV">read CSV</a>, чтобы парсить CSV-данные без программирования.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

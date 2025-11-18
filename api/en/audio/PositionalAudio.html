@@ -11,12 +11,14 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       Create a positional audio object.
     </p>
+
     <p>
       This uses the [link:https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API Web Audio API].
     </p>
+
 
     <h2>Code Example</h2>
 
@@ -30,7 +32,7 @@
 
     // load a sound and set it as the PositionalAudio object's buffer
     const audioLoader = new v3d.AudioLoader();
-    audioLoader.load('sounds/song.ogg', function(buffer) {
+    audioLoader.load('mysong.mp3', function(buffer) {
         sound.setBuffer(buffer);
         sound.setRefDistance(20);
         sound.play();
@@ -38,7 +40,7 @@
 
     // create an object for the sound to play from
     const sphere = new v3d.SphereGeometry(20, 32, 16);
-    const material = new v3d.MeshLambertMaterial({ color: 0xff2200 });
+    const material = new v3d.MeshStandardMaterial({ color: 0xff2200 });
     const mesh = new v3d.Mesh(sphere, material);
     app.scene.add(mesh);
 
@@ -121,6 +123,13 @@
     <h3>[method:this setDirectionalCone]([param:Float coneInnerAngle], [param:Float coneOuterAngle], [param:Float coneOuterGain])</h3>
     <p>
       This method can be used in order to transform an omnidirectional sound into a [link:https://developer.mozilla.org/en-US/docs/Web/API/PannerNode directional sound].
+    </p>
+
+
+    <h2>Puzzles</h2>
+
+    <p>
+      Verge3D offers the <a href="manual/en/puzzles/Sound.html#positional_speaker">positional speaker</a> puzzle to simplify work with positional audio.
     </p>
 
     [sourceHint]

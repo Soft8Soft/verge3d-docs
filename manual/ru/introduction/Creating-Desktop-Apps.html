@@ -45,17 +45,17 @@
       <dt>None</dt>
       <dd>Собрать npm-пакет вместо готовой к использованию сборки. Для опытных пользователей, знакомых с NPM. Следуйте инструкциям <a href="manual/ru/introduction/Creating-Desktop-Apps.html#using_npm">ниже</a>, чтобы продолжить создание приложения.</dd>
       <dt>Windows (64-bit)</dt>
-      <dd>«Виндоус» 7 или более поздняя версия, 64 бит.</dd>
+      <dd>«Виндоус» 10 или более поздняя версия, 64 бит.</dd>
       <dt>Windows (ARM)</dt>
       <dd>«Виндоус» 10 на устройствах с 64-разрядными процессорами АРМ.</dd>
       <dt>Windows (32-bit)</dt>
-      <dd>«Виндоус» 7 или более поздняя версия, 32 бит.</dd>
+      <dd>«Виндоус» 10 или более поздняя версия, 32 бит.</dd>
       <dt>macOS (64-bit)</dt>
-      <dd>«Мак ОС» 10.13 («Хай Сиерра») или более поздняя версия на платформе «Интел».</dd>
+      <dd>«Мак ОС» 11 («Биг Сур») или более поздняя версия на платформе «Интел».</dd>
       <dt>macOS (Apple Silicon)</dt>
       <dd>«Мак ОС» 11 («Биг Сур») или более поздняя версия, компьютеры «Эпл Силикон» (также известные как M1-M4).</dd>
       <dt>Linux (64-bit)</dt>
-      <dd>«Линукс», 64 бит, такие как «Убунту», «Федора», «ОпенСусе», или «Арч».</dd>
+      <dd>«Линукс», 64 бит, такие как «Убунту», «Федора» или «Ред Хет».</dd>
       <dt>Linux (ARM)</dt>
       <dd>«Линукс» на 64-битных устройствах АРМ.
     </dl>
@@ -90,13 +90,13 @@
     </p>
 
     <p>
-      В «Мак ОС» (в версии для «Эпл Силикон») вы можете получить сообщение, что приложение повреждено (хотя это не так):
+      В «Мак ОС» вы можете получить сообщение, что приложение повреждено (хотя это не так):
     </p>
 
     <img src="files/creating-desktop-apps/macos-app-is-demaged.webp" style="max-width: 378px">
 
     <p>
-      В этом случае вам потребуется очистить атрибут нахождения *.zip*-архива на карантине (с помощью приложения Terminal):
+      В этом случае вам потребуется очистить атрибут нахождения ZIP-архива на карантине (с помощью приложения Terminal):
     </p>
 
     <code>
@@ -127,35 +127,35 @@
     <h3>Настройка меню</h3>
 
     <p>
-      Чтобы полностью отключить меню приложения, вставьте следующую строку в *main.js* сразу после метода *loadFile()*:
+      Чтобы полностью отключить меню приложения, вставьте следующую строку в ``main.js`` сразу после метода `loadFile()`:
     </p>
 
     <code>
-      win.removeMenu();
+    win.removeMenu();
     </code>
 
     <p>
-      Чтобы создать собственное меню, сначала подключите модуль *Menu* к вашему приложению:
+      Чтобы создать собственное меню, сначала подключите модуль `Menu` к вашему приложению:
     </p>
 
     <code>
-      const { Menu } = require('electron');
+    const { Menu } = require('electron');
     </code>
 
     <p>
-      Мы будем использовать модуль *shell* для открытия внешнего сайта при нажатии на меню. Поэтому добавьте модуль *shell* и сюда:
+      Мы будем использовать модуль *shell* для открытия внешнего сайта при нажатии на меню. Поэтому добавьте модуль `shell` и сюда:
     </p>
 
     <code>
-      const { shell } = require('electron');
+    const { shell } = require('electron');
     </code>
 
     <p>
-      Затем добавьте следующий код в *main.js* сразу после метода *loadFile()*:
+      Затем добавьте следующий код в ``main.js`` сразу после метода `loadFile()`:
     </p>
 
     <code>
-    var menu = Menu.buildFromTemplate([{
+    const menu = Menu.buildFromTemplate([{
         label: 'Menu',
         submenu: [
             {
@@ -176,11 +176,11 @@
     </code>
 
     <p>
-      Пример измененного файла *main.js* можно скачать <a href="files/creating-desktop-apps/menu-template/main.js" download>здесь</a>.
+      Пример измененного файла ``main.js`` можно скачать <a href="files/creating-desktop-apps/menu-template/main.js" download>здесь</a>.
     </p>
 
     <p>
-      Поместите модифицированный файл *main.js* в папку с приложение и снова его запустите. Вы должны получить следующее:
+      Поместите модифицированный файл ``main.js`` в папку с приложение и снова его запустите. Вы должны получить следующее:
     </p>
 
     <img src="files/creating-desktop-apps/electron-app-with-menu.jpg" style="max-width: 800px">
@@ -223,13 +223,13 @@
     </p>
 
     <ul>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-x64.zip">«Виндоус» (64 бит)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-arm64.zip">«Виндоус» (АРМ)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-ia32.zip">«Виндоус» (32 бит)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-darwin-x64.zip">«Мак ОС» (64 бит)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-darwin-arm64.zip">«Мак ОС» («Эпл Силикон»)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-linux-x64.zip">«Линукс» (64 бит)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-linux-arm64.zip">«Линукс» (АРМ)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-x64.zip">«Виндоус» (64 бит)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-arm64.zip">«Виндоус» (АРМ)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-ia32.zip">«Виндоус» (32 бит)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-darwin-x64.zip">«Мак ОС» (64 бит)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-darwin-arm64.zip">«Мак ОС» («Эпл Силикон»)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-linux-x64.zip">«Линукс» (64 бит)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-linux-arm64.zip">«Линукс» (АРМ)</a></li>
     </ul>
 
     <p>
@@ -237,9 +237,9 @@
     </p>
 
     <ul>
-      <li>«Виндоус» — <i>AppData\Roaming\Soft8Soft\Имя Продукта</i></li>
-      <li>«Мак ОС» — <i>Library/Application Support/Имя Продукта</i></li>
-      <li>«Линукс» — <i>.config/имя_продукта</i></li>
+      <li>«Виндоус» — ``AppData\Roaming\Soft8Soft\Имя Продукта``</li>
+      <li>«Мак ОС» — ``Library/Application Support/Имя Продукта``</li>
+      <li>«Линукс» — ``.config/имя_продукта``</li>
     </ul>
 
     <p>
@@ -248,7 +248,9 @@
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
+    <p>
+      Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!
+    </p>
 
   </article></body>
 </html>

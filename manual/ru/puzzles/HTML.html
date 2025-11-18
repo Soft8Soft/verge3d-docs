@@ -11,7 +11,9 @@
   <body><article>
     <h1>Пазлы HTML</h1>
 
-    <p>Эти пазлы управляют HTML-элементами.</p>
+    <p>
+      Эти пазлы используются для создания и изменения HTML-элементов, настройки внешнего вида, или для выполнения любых других задач на веб-странице вашего 3Д-веб-приложения (таких как обработка пользовательских событий, создание снимков экрана, загрузка файлов и т.д.).
+    </p>
 
     <img src="files/puzzles/puzzles-html.webp">
 
@@ -25,7 +27,7 @@
     <h2>Что такое HTML DOM?</h2>
 
     <p>
-      HTML DOM (HyperText Markup Language Document Object Model, смотрите техническую документацию <a href="https://ru.wikipedia.org/wiki/Document_Object_Model" target="_blank">здесь</a>) — это программный интерфейс к HTML-странице. Он позволяет вам изменять свое приложение не только путем редактирования его кода, но и путем выполнения различных пазлов. Например, вы можете добавлять новые элементы HTML, настраивать внешний вид страницы, рисовать что-то поверх ваших моделей, делать снимки экрана, загружать файлы и т.д.
+      HTML DOM (HyperText Markup Language Document Object Model, смотрите техническую документацию <a href="https://ru.wikipedia.org/wiki/Document_Object_Model" target="_blank">здесь</a>) — это программный интерфейс к HTML-странице. Это означает, что вы можете изменять страницу приложения не только путем её редактирования в момент создания, но и после её загрузки в браузере. DOM представляет контент страницы в виде объектов-элементов, которыми легко манипулировать с помощью пазлов (либо с использованием «Ява Скрипта»).
     </p>
 
     [anchor:puzzles_reference]
@@ -221,6 +223,10 @@
         <td>Устанавливает атрибут элемента *class*.</td>
       </tr>
       <tr>
+        <td>cols</td>
+        <td>Устанавливает ширину элемента `&lt;textarea&gt;` (в символах).</td>
+      </tr>
+      <tr>
         <td>disabled</td>
         <td>Указывает что данный элемент или группа элементов должна быть выключена.</td>
       </tr>
@@ -287,6 +293,10 @@
       <tr>
         <td>returnValue</td>
         <td>Значение возвращаемое после закрытия диалога `&lt;dialog&gt;`.</td>
+      </tr>
+      <tr>
+        <td>rows</td>
+        <td>Устанавливает число строк элемента `&lt;textarea&gt;`.</td>
       </tr>
       <tr>
         <td>scrollLeft</td>
@@ -383,6 +393,10 @@
         <td>Получает ширину элемента, включая заполнение, но исключая рамку, прокрутку и надбавку.</td>
       </tr>
       <tr>
+        <td>cols</td>
+        <td>Получает ширину элемента `&lt;textarea&gt;` (в символах).</td>
+      </tr>
+      <tr>
         <td>disabled</td>
         <td>Указывает что данный элемент или группа элементов должна быть выключена.</td>
       </tr>
@@ -477,6 +491,10 @@
       <tr>
         <td>returnValue</td>
         <td>Значение возвращаемое после закрытия диалога `&lt;dialog&gt;`.</td>
+      </tr>
+      <tr>
+        <td>rows</td>
+        <td>Получает число строк элемента `&lt;textarea&gt;`.</td>
       </tr>
       <tr>
         <td>scrollHeight</td>
@@ -616,9 +634,11 @@
     <img src="files/puzzles/puzzles-html-set-css-rule.jpg">
 
 
-    [anchor:event]
+    <!-- COMPAT: < 4.10 -->
+    <a href="#" id="event"></a>
+    [anchor:on_event_of]
 
-    <h3>event</h3>
+    <h3>on event of</h3>
 
     <p>
       Регистрирует обработчик события для HTML-элемента с указанным *id*. Переключатель *in parent doc* должен быть установлен, если HTML-элемент находится во внешнем HTML-документе (в который <strong>.html</strong>-файл 3Д-приложения подключается с помощью элемента `&lt;iframe&gt;`). Как только происходит событие, срабатывают пазлы, помещенные в слот *do*. Также работает со списками идентификаторов элементов.
@@ -646,6 +666,10 @@
       <tr>
         <td>click</td>
         <td>Вызывается по нажатию на элемент. Это событие используется наиболее часто.</td>
+      </tr>
+      <tr>
+        <td>contextmenu</td>
+        <td>Происходит при появлении стандартного меню браузера, вызываемого по правой кнопке мыши. Событие используется для переопределения или отключения данного меню.</td>
       </tr>
       <tr>
         <td>dblclick</td>
@@ -768,6 +792,10 @@
         <td>Происходит в момент прокрутки.</td>
       </tr>
       <tr>
+        <td>submit</td>
+        <td>Происходит при отправке формы (`&lt;form&gt;`).</td>
+      </tr>
+      <tr>
         <td>touchend</td>
         <td>Происходит когда палец отпускается от экрана.</td>
       </tr>
@@ -791,7 +819,7 @@
     <h3>get event property</h3>
 
     <p>
-      Выводит значение свойства события, сгенерированного пазлом <a href="manual/ru/puzzles/HTML.html#event">event</a>.
+      Выводит значение свойства события, сгенерированного пазлом <a href="manual/ru/puzzles/HTML.html#on_event_of">on event of</a>. Также поддерживается внутри пазлов <a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a>, <a href="manual/ru/puzzles/Events.html#when_hovered">when hovered</a>, and <a href="manual/ru/puzzles/Events.html#when_dragged">when dragged</a> puzzles.
     </p>
 
     <img src="files/puzzles/puzzles-html-get-event-property.jpg">
@@ -814,12 +842,16 @@
         <td>Данные события. Устанавливается для событий `input` и `message`.</td>
       </tr>
       <tr>
+        <td>deltaY</td>
+        <td>На сколько пикселей производится прокрутка. Устанавливается для события `wheel`.</td>
+      </tr>
+      <tr>
         <td>isPrimary</td>
         <td>Указывает на первичный указатель. Устанавливается для событий указателей, например `pointerdown`.</td>
       </tr>
       <tr>
         <td>pageX, pageY</td>
-        <td>Координаты указателя мыши или пальца. Работает с событиями `click`, `dblclick`, `mouse...` и  `pointer...`.</td>
+        <td>Координаты указателя мыши или пальца. Работает с событиями `click`, `dblclick`, `mouse...` и `pointer...`. Не работает с событиями `touch...` (вместо этого используйте свойства touches[].pageX/pageY и targetTouches[].pageX/pageY).</td>
       </tr>
       <tr>
         <td>key</td>
@@ -827,7 +859,11 @@
       </tr>
       <tr>
         <td>offsetX, offsetY</td>
-        <td>Координаты указателя мыши или пальца. Работает с событиями `click`, `dblclick`, `mouse...` и  `pointer...`.</td>
+        <td>Координаты указателя мыши или пальца. Работает с событиями `click`, `dblclick`, `mouse...` и  `pointer...`. Не работает с событиями `touch...`.</td>
+      </tr>
+      <tr>
+        <td>pointerId</td>
+        <td>Идентификатор указателя. Используется для обработки мультитач-взаимодействий.</td>
       </tr>
       <tr>
         <td>pointerType</td>
@@ -929,7 +965,7 @@
       <dt>preventDefault</dt>
       <dd>
         <p>
-          Должен вызываться внутри пазла <a href="manual/ru/puzzles/HTML.html#event">event handler</a>. Вызов метода означает, что браузер не будет реагировать на данное событие. Например, если вы назначили обработчик события `click` на каком-нибудь переключателе, `preventDefault` будет блокировать его переключение.
+          Должен вызываться внутри пазла <a href="manual/ru/puzzles/HTML.html#on_event_of">event handler</a>. Вызов метода означает, что браузер не будет реагировать на данное событие. Например, если вы назначили обработчик события `click` на каком-нибудь переключателе, `preventDefault` будет блокировать его переключение.
         </p>
 
         <img src="files/puzzles/puzzles-html-dom-object-call-prevent-default.webp" style="max-width: 500px;">
@@ -941,7 +977,7 @@
       <dt>stopPropagation</dt>
       <dd>
         <p>
-          Должен вызываться внутри пазла <a href="manual/ru/puzzles/HTML.html#event">event handler</a>. Вызов метода означает, что браузер заблокирует распространение текущего события (т.е. вызов обработчиков других элементов). Например, если вы назначили обработчик события `keydown` на документе `document` и вызывали `stopPropagation`, клавиатура перестанет работать (в частности клавиши ЦФЫВ больше не будут перемещать камеру).
+          Должен вызываться внутри пазла <a href="manual/ru/puzzles/HTML.html#on_event_of">event handler</a>. Вызов метода означает, что браузер заблокирует распространение текущего события (т.е. вызов обработчиков других элементов). Например, если вы назначили обработчик события `keydown` на документе `document` и вызывали `stopPropagation`, клавиатура перестанет работать (в частности клавиши ЦФЫВ больше не будут перемещать камеру).
         </p>
         <img src="files/puzzles/puzzles-html-dom-object-call-stop-propagation.webp" style="max-width: 500px;">
       </dd>
@@ -1098,7 +1134,7 @@
 
     <dl>
       <dt>a new tab</dt>
-      <dd>Открыть в новой вкладке. Чтобы преодолеть ограничение браузера на открытие вкладок, пазл с такой настройкой должен вызываться внутри пазлов <a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a> или <a href="manual/ru/puzzles/HTML.html#event">event</a>.</dd>
+      <dd>Открыть в новой вкладке. Чтобы преодолеть ограничение браузера на открытие вкладок, пазл с такой настройкой должен вызываться внутри пазлов <a href="manual/ru/puzzles/Events.html#when_clicked">when clicked</a> или <a href="manual/ru/puzzles/HTML.html#on_event_of">on event of</a>.</dd>
       <dt>the same tab</dt>
       <dd>Открыть в той же вкладке.</dd>
       <dt>the same tab (ignore frames)</dt>
@@ -1120,6 +1156,10 @@
 
     <img src="files/puzzles/puzzles-html-social-share-link.jpg">
 
+    <p>
+      В большинстве случаев это пазл используется для подачи ссылки на вход пазла <a href="manual/ru/puzzles/HTML.html#open_web_page">open web page</a> или для указания <a href="manual/ru/puzzles/HTML.html#set_property">свойства</a> `href` элемента `&lt;a&gt;`.
+    </p>
+
 
     [anchor:set_url_param]
 
@@ -1135,7 +1175,7 @@
       Этот пазл может быть полезен в ситуациях, когда данные конфигурации приложения хранятся в его УРЛ. Например, вы можете указать изображение, которое будет использоваться в качестве текстуры, следующим образом:
     </p>
 
-    <code class="language-html">
+    <code class="lang-html">
     https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
     </code>
 
@@ -1153,10 +1193,16 @@
     <h3>take screenshot</h3>
 
     <p>
-      Делает снимок экрана области просмотра и выводит его в формате <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>.
+      Делает снимок экрана области просмотра и выводит его в формате <a href="manual/ru/puzzles/HTML.html#data_url">Data URL</a>. В выпадающем списке вы можете выбрать формат изображения, которое хотите получить.
     </p>
 
-    <img src="files/puzzles/puzzles-html-take-screenshot.jpg">
+    <img src="files/puzzles/puzzles-html-take-screenshot.webp">
+
+    <p>
+      В частности, вы можете предложить пользователю сохранить «фото» продукта:
+    </p>
+
+    <img src="files/puzzles/puzzles-html-take-screenshot-example.webp" alt="Taking screenshots example usage">
 
     <p class="note">
       Вы также должны включить скриншоты для вашего приложения с помощью пазла <a href="manual/ru/puzzles/Initialization.html#configure_application">configure application</a>, иначе создаваемые изображения будут совершенно черными.
@@ -1192,7 +1238,7 @@
       Этот пазл может быть полезен в ситуациях, когда данные конфигурации приложения хранятся в его УРЛ. Например, вы можете указать изображение, которое будет использоваться в качестве текстуры, следующим образом:
     </p>
 
-    <code class="language-html">
+    <code class="lang-html">
     https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
     </code>
 
@@ -1275,6 +1321,10 @@
           <tr>
             <td>application/octet-stream</td>
             <td>Двоичный (бинарный) файл (.bin).</td>
+          </tr>
+          <tr>
+            <td>application/pdf</td>
+            <td>Документ в формате PDF.</td>
           </tr>
           <tr>
             <td>audio/mpeg</td>
@@ -1421,7 +1471,7 @@
       Например, следующая ссылка представляет собой маленький логотип «Вердж3Д»:
     </p>
 
-    <code class="language-html">
+    <code class="lang-html">
 data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
 AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABvFBMVEUAAAAASKUAAFsAvukA

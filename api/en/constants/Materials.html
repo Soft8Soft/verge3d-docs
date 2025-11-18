@@ -11,10 +11,14 @@
   <body>
     <h1>Material Constants</h1>
 
-    <p class="desc">
-      These constants define properties common to all material types, with the exception of Texture Combine Operations which only apply to [page:MeshBasicMaterial.combine MeshBasicMaterial] and [page:MeshLambertMaterial.combine MeshLambertMaterial].
+    <p>
+      These constants define properties common to all material types.
     </p>
 
+    [contents]
+
+
+    [anchor:side]
     <h2>Side</h2>
 
     <code>
@@ -31,6 +35,8 @@
       [page:Materials TwoPassDoubleSide] will renderer double-sided transparent materials in two passes in back-front order to mitigate transparency artifacts.
     </p>
 
+
+    [anchor:blending_mode]
     <h2>Blending Mode</h2>
 
     <code>
@@ -46,6 +52,7 @@
       These control the source and destination blending equations for the material's RGB and Alpha sent to the WebGLRenderer for use by WebGL. [page:Constant NormalBlending] is the default. Note that [page:Constant CustomBlending] must be set to use custom blending equations (see below).
     </p>
 
+    [anchor:depth_mode]
     <h2>Depth Mode</h2>
 
     <code>
@@ -74,25 +81,9 @@
       <li>[page:Materials NotEqualDepth] will return true if the incoming pixel Z-depth is not equal to the current buffer Z-depth.</li>
     </ul>
 
-    <h2>Texture Combine Operations</h2>
 
-    <code>
-    v3d.MultiplyOperation
-    v3d.MixOperation
-    v3d.AddOperation
-    </code>
-
-    <p>
-      These define how the result of the surface's color is combined with the environment map (if present), for [page:MeshBasicMaterial.combine MeshBasicMaterial] and [page:MeshLambertMaterial.combine MeshLambertMaterial].
-    </p>
-
-    <ul>
-      <li>[page:Constant MultiplyOperation] is the default and multiplies the environment map color with the surface color.</li>
-      <li>[page:Constant MixOperation] uses reflectivity to blend between the two colors.</li>
-      <li>[page:Constant AddOperation] adds the two colors.</li>
-    </ul>
-
-    <h2>Stencil Functions</h2>
+    [anchor:stencil_function]
+    <h2>Stencil Function</h2>
 
     <code>
     v3d.NeverStencilFunc
@@ -120,7 +111,9 @@
       <li>[page:Materials AlwaysStencilFunc] will always return true.</li>
     </ul>
 
-    <h2>Stencil Operations</h2>
+
+    [anchor:stencil_operation]
+    <h2>Stencil Operation</h2>
 
     <code>
     v3d.ZeroStencilOp
@@ -148,17 +141,8 @@
       <li>[page:Materials InvertStencilOp] will perform a bitwise inversion of the current stencil value.</li>
     </ul>
 
-    <h2>Normal map type</h2>
 
-    <code>
-    v3d.TangentSpaceNormalMap
-    v3d.ObjectSpaceNormalMap
-    </code>
-
-    <p>
-      Defines the type of the normal map. For TangentSpaceNormalMap, the information is relative to the underlying surface. For ObjectSpaceNormalMap, the information is relative to the object orientation. Default is [page:Constant TangentSpaceNormalMap].
-    </p>
-
+    [anchor:glsl_version]
     <h2>GLSL Version</h2>
 
     <code>
@@ -166,7 +150,9 @@
     v3d.GLSL3
     </code>
 
-    <h2>Custom Blending Equation Constants</h2>
+
+    [anchor:custom_blending]
+    <h2>Custom Blending Equation</h2>
 
     <p>
       These work with all material types. First set the material's blending mode to `v3d.CustomBlending`, then set the desired Blending Equation, Source Factor and Destination Factor.
@@ -216,6 +202,5 @@
     </p>
 
     [sourceHint]
-
   </body>
 </html>

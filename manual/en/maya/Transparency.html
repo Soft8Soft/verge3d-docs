@@ -13,7 +13,7 @@
     <h1>Transparency / Maya</h1>
 
     <p>
-      Here we show how to enable transparency for Standard Surface, Lambert, and glTF-compliant PBR materials in Maya.
+      Here we show how to enable transparency for Standard Surface, OpenPBR, and glTF-compliant PBR materials in Maya.
     </p>
 
     [demo:transparency]
@@ -58,7 +58,7 @@
     <img src="files/transparency-common/no-depth-writes.jpg" alt="Alpha blend vs additive compositing">
 
     <p>
-      To enable this mode select *Add* in the *Alpha Mode* dropdown and uncheck the *Depth Write* option in material settings to enable this mode. In addition, you'll need to increase the *Rendering Order* value in <a href="manual/en/maya/Lighting-and-Rendering.html#per_object_rendering_settings">object settings</a> to make your transparent object rendered above all.
+      To enable this mode select *Add* in the *Alpha Mode* dropdown and uncheck the *Depth Write* option in material settings to enable this mode. In addition, you'll need to increase the *Render Order* value in <a href="manual/en/maya/Lighting-and-Rendering.html#per_object_rendering_settings">object settings</a> to make your transparent object rendered above all.
     </p>
 
 
@@ -73,12 +73,14 @@
     <img src="files/transparency-common/oit-example.jpg" alt="Order-Independent Transparency example">
 
     <p>
-      OIT can be enabled though the <a href="manual/en/maya/Lighting-and-Rendering.html#global_rendering_settings">Verge3D Settings panel</a>.
+      OIT can be enabled on the <a href="manual/en/maya/Lighting-and-Rendering.html#global_rendering_settings">Verge3D Export Settings</a> dialog.
     </p>
 
-    <img src="files/transparency-maya/oit.jpg" alt="Order-Independent Transparency setting in Maya" style="max-width: 631px;">
+    <img src="files/transparency-maya/oit.webp" alt="Order-Independent Transparency setting in Maya" style="max-width: 434px">
 
-    <p>Known limitations:</p>
+    <p>
+      Known limitations:
+    </p>
 
     <ul>
       <li>
@@ -101,35 +103,69 @@
     <h2>Transparency for Standard Surface Materials</h2>
 
     <p>
-      Transparency of Standard Surface (or aiStandardSurface) materials can be tweaked using the following material settings:
+      Transparency of Standard Surface, aiStandardSurface, as well as OpenPBR Surface materials can be tweaked using the following material settings:
     </p>
 
     <img src="files/transparency-maya/standard-surface-transparency.jpg" alt="Setting transparency for Standard Surface materials" style="max-width: 422px">
 
-    <p>Parameters:</p>
+    <p>
+      Parameters:
+    </p>
 
     <dl>
       <dt>Transmission Weight</dt>
-      <dd>Transmission factor of thin-walled and refractive materials.</dd>
-
+      <dd>
+        Transmission factor of thin-walled and refractive materials.
+      </dd>
       <dt>Transmission Color</dt>
-      <dd>Color of refractive (*Thin Walled* off) material.</dd>
-
+      <dd>
+        Color of refractive (*Thin Walled* off) material.
+      </dd>
       <dt>Thin Walled</dt>
-      <dd>Use generic thin-walled or refraction-based transparency.</dd>
-
+      <dd>
+        Use generic thin-walled or refraction-based transparency.
+      </dd>
       <dt>Opacity</dt>
-      <dd>Opacity factor for thin-walled materials.</dd>
-
+      <dd>
+        Opacity factor for thin-walled materials.
+      </dd>
       <dt>Alpha Mode</dt>
-      <dd>Material transparency mode.</dd>
-
+      <dd>
+        Material transparency mode.
+        <dl>
+          <dt>Auto</dt>
+          <dd>Look into material to resolve possible transparency method: *Opaque* or *Blend*.</dd>
+          <dt>Opaque</dt>
+          <dd>Render material with no transparency.</dd>
+          <dt>Blend</dt>
+          <dd>Blended transparency (see <a href="manual/en/maya/Transparency.html#blended_vs_masked">above</a>).</dd>
+          <dt>Mask</dt>
+          <dd>Masked transparency (see <a href="manual/en/maya/Transparency.html#blended_vs_masked">above</a>).</dd>
+          <dt>Coverage</dt>
+          <dd>Hashed transparency, aka alpha to coverage. This method takes an intermediate position between masked and blended transparency. It uses MSAA rendering to improve the quality of alpha clipping.</dd>
+          <dt>Add</dt>
+          <dd>Additive transparency compositing (see <a href="manual/en/maya/Transparency.html#alpha_add">above</a>).</dd>
+        </dl>
+      </dd>
+      <dt>Transparency Hack</dt>
+      <dd>
+        Enable one of the two non-standard rendering methods to eliminate transparency artifacts:
+        <dl>
+          <dt>Nearest Layer</dt>
+          <dd>Render only the closest-to-the-camera transparency layer by using a separate depth buffer for culling (aka "depth prepass").</dd>
+          <dt>Two-Pass</dt>
+          <dd>Render back-face surfaces first followed by front-face surfaces. This method works only for double-sided materials, i.e. the *Two Sided* property should be set.</dd>
+        </dl>
+        Both transparency hacks reduce performance, so use them only when it's really necessary.
+      </dd>
       <dt>Depth Write</dt>
-      <dd>Disable for additive transparency composing (see <a href="manual/en/maya/Transparency.html#alpha_add">above</a>).</dd>
+      <dd>
+        Disable for additive transparency composing (see <a href="manual/en/maya/Transparency.html#alpha_add">above</a>).
+      </dd>
     </dl>
 
     <p class="note">
-      By default in Maya, the *Thin Walled* parameter is unchecked, which disables the most typical transparency rendering you expected to see in your interactive app. Always keep an eye on this setting when you're dealing with the transparent Standard Surface materials.
+      By default in Maya, the *Thin Walled* parameter is unchecked, which disables the most typical transparency rendering you expected to see in your interactive app. Always keep an eye on this setting when you're dealing with the transparent materials.
     </p>
 
 
@@ -154,7 +190,9 @@
 
     <h2>Got Questions?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>
+      Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!
+    </p>
 
   </article></body>
 </html>

@@ -11,33 +11,35 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">Creates extruded geometry from a path shape.</p>
+    <p>
+      Creates extruded geometry from a path shape.
+    </p>
 
 
     <h2>Code Example</h2>
 
     <code>
-    const length = 12, width = 8;
+    const length = 3, width = 2;
 
     const shape = new v3d.Shape();
-    shape.moveTo(0,0);
-    shape.lineTo(0, width);
-    shape.lineTo(length, width);
-    shape.lineTo(length, 0);
-    shape.lineTo(0, 0);
+    shape.moveTo(-length/2, -width/2);
+    shape.lineTo(-length/2, width/2);
+    shape.lineTo(length/2, width/2);
+    shape.lineTo(length/2, -width/2);
+    shape.lineTo(-length/2, -width/2);
 
     const extrudeSettings = {
         steps: 2,
-        depth: 16,
+        depth: 2,
         bevelEnabled: true,
-        bevelThickness: 1,
-        bevelSize: 1,
+        bevelThickness: 0.5,
+        bevelSize: 0.5,
         bevelOffset: 0,
         bevelSegments: 1
     };
 
     const geometry = new v3d.ExtrudeGeometry(shape, extrudeSettings);
-    const material = new v3d.MeshBasicMaterial({ color: 0x00ff00 });
+    const material = new v3d.MeshStandardMaterial({ color: 0x8458b3 });
     const mesh = new v3d.Mesh(geometry, material) ;
     app.scene.add(mesh);
     </code>
@@ -45,14 +47,12 @@
 
     <h2>Constructor</h2>
 
-
     <h3>[name]([param:Array shapes], [param:Object options])</h3>
-    <p class="params">
-      shapes — shape or an array of shapes.<br>
-      options — object that can contain the following parameters:
-    </p>
-
-    <ul>
+    <ul class="params">
+      <li>shapes — shape or an array of shapes.</li>
+      <li>options — object that can contain the following parameters:</li>
+    </ul>
+    <ul class="params">
       <li>[page:Integer curveSegments] — number of points on the curves. Default is `12`.</li>
       <li>[page:Integer steps] — number of points used for subdividing segments along the depth of the extruded spline. Default is `1`.</li>
       <li>[page:Float depth] — depth to extrude the shape. Default is `1`.</li>
@@ -64,27 +64,31 @@
       <li>[page:Curve extrudePath] — a 3D spline path along which the shape should be extruded. Bevels not supported for path extrusion.</li>
       <li>[page:Object UVGenerator] — object that provides UV generator functions.</li>
     </ul>
-
     <p>
       This object extrudes a 2D shape to a 3D geometry.
     </p>
-
     <p>
-      When creating a mesh with this geometry, if you'd like to have a separate material used for its face
-      and its extruded sides, you can use an array of materials. The first material will be
-      applied to the face; the second material will be applied to the sides.
+      When creating a mesh with this geometry, if you'd like to have a separate material used for its face and its extruded sides, you can use an array of materials. The first material will be applied to the face; the second material will be applied to the sides.
     </p>
 
+
     <h2>Properties</h2>
-    <p>See the base [page:BufferGeometry] class for common properties.</p>
+
+    <p>
+      See the base [page:BufferGeometry] class for common properties.
+    </p>
 
     <h3>[property:Object parameters]</h3>
     <p>
       An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.
     </p>
 
+
     <h2>Methods</h2>
-    <p>See the base [page:BufferGeometry] class for common methods.</p>
+
+    <p>
+      See the base [page:BufferGeometry] class for common methods.
+    </p>
 
     [sourceHint]
   </body>

@@ -11,24 +11,28 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       A constraint which makes the constrained object move along the curve path.
     </p>
 
     <p>
-      Constraints are used to set up various relations between objects by
-      affecting their position, rotation and scale. Can be used with the
-      [page:Object3D.constraints Object3D.constraints] property.
+      To influence some object, push a [name] instance into the [page:Object3D.constraints] array.
     </p>
+
 
     <h2>Constructor</h2>
 
     <h3>[name]()</h3>
+    <p>
+      The constructor takes no arguments.
+    </p>
 
 
     <h2>Properties</h2>
 
-    <p>See the base [page:Constraint] class for common properties.</p>
+    <p>
+      See the base [page:Constraint] class for common properties.
+    </p>
 
     <h3>[property:Boolean bank]</h3>
     <p>
@@ -49,7 +53,9 @@
     <p>
       The [page:Array array] of sums of chord lengths. Chord lengths are stored like this:
     </p>
-    <p>`[lengthOfChord1, lengthOfChord1 + lengthOfChord2, ...]`</p>
+    <code>
+    [lengthOfChord1, lengthOfChord1 + lengthOfChord2, ...]
+    </code>
     <p>
       The last element equals to approximated curve length. Note: does not work when [page:.useChordLength useChordLength] is disabled. Default is `[]`.
     </p>
@@ -63,7 +69,9 @@
     <p>
       The packed [page:Array array] of NURBS curve's control points. "Packed" means that the control points stored like this:
     </p>
-    <p>`[point_1.x, point_1.y, point_1.z, point_2.x, point_2.y, point_2.z, ...]`</p>
+    <code>
+    [point_1.x, point_1.y, point_1.z, point_2.x, point_2.y, point_2.z, ...]
+    </code>
     <p>
       Note: always call [page:.init init] method to apply changes. Default is `[]`.
     </p>
@@ -100,20 +108,19 @@
 
     <h3>[property:Boolean isMotionPathConstraint]</h3>
     <p>
-      Used to check whether this or derived classes are Motion Path constraints. Default is `true`.
+      Read-only flag to check if a given object is of type [name].
     </p>
 
     <h3>[property:Array knots]</h3>
     <p>
-      The [page:Array array] of NURBS curve knots. Note: it's length always have to be
-      `number of control points + degree + 1`. Note: always call [page:.init init] method to apply changes. Default is `[]`.
+      The [page:Array array] of NURBS curve knots. Note: it's length always have to be `number of control points + degree + 1`. Note: always call [page:.init init] method to apply changes. Default is `[]`.
     </p>
 
     <h3>[property:Integer objOffsetMode]</h3>
     <p>
       Set how the offset transformation will be applied to current constraint transformation:<br>
       `0` — the position and rotation transformations will be applied separately (3ds Max behavior).<br>
-      `1` — the transformation will be applied as an matrix multiplication (Blender behavior).
+      `1` — the transformation will be applied as an matrix multiplication (Blender behavior).</br>
       Default is `0`.
     </p>
 
@@ -121,7 +128,7 @@
     <p>
       Set how the offset rotation will be applied to current constraint rotation:<br>
       `0` — only constraint rotation will be applied (3ds Max, Maya behavior).<br>
-      `1` — the constraint rotation will be applied first, then offset rotation (Blender).
+      `1` — the constraint rotation will be applied first, then offset rotation (Blender).<br>
       Default is `0`.
     </p>
 
@@ -132,21 +139,23 @@
 
     <h3>[property:Array pointsTilt]</h3>
     <p>
-      The [page:Array array] of tilt angles (bank angles, roll angles) in randians at each curve control point. This is an alternative for [page:.bank bank]. The values are stored like this:
+      The [page:Array array] of tilt angles (bank angles, roll angles) in radians at each curve control point. This is an alternative for [page:.bank bank]. The values are stored like this:
     </p>
-    <p>`[tiltAngleForFirstPoint, tiltAngleForSecondPoint, ...]`</p>
+    <code>
+    [tiltAngleForFirstPoint, tiltAngleForSecondPoint, ...]
+    </code>
     <p>
       Note: does not work when [page:.usePointsTilt usePointsTilt] is disabled. Note: always call [page:.init init] method to apply changes. Default is `[]`.
     </p>
 
     <h3>[property:String type]</h3>
     <p>
-      The constraint's type. Equals to `'MotionPathConstraint'`.
+      The constraint's type. Equals to `"MotionPathConstraint"`.
     </p>
 
     <h3>[property:String upAxis]</h3>
     <p>
-      The axis of the constrained object that's always aligned with the [page:.worldUpVector worldUpVector] as much as possible. Can be one of the `'X'`, `'-X'`, `'Y'`, `'-Y'`, `'Z'`, `'-Z'`. Default is `'Y'`.
+      The axis of the constrained object that's always aligned with the [page:.worldUpVector worldUpVector] as much as possible. Can be one of the `"X"`, `"-X"`, `"Y"`, `"-Y"`, `"Z"`, `"-Z"`. Default is `"Y"`.
     </p>
 
     <h3>[property:Boolean useChordLength]</h3>
@@ -181,12 +190,12 @@
 
     <h3>[property:Boolean usePosOffset]</h3>
     <p>
-      Enable or disable object's position offset. Note: Works only if [page:.useObjOffset useObjOffset] enabled. Default is `true`.
+      Enable or disable object's position offset. Note: works only if [page:.useObjOffset useObjOffset] enabled. Default is `true`.
     </p>
 
     <h3>[property:Boolean useRelative]</h3>
     <p>
-      If enabled the object will follow the path with an offset distance based on its original world space position which was saved at first call of [page:.update update] function. Note: Works only if [page:.useObjOffset useObjOffset] enabled. Default is `false`.
+      If enabled the object will follow the path with an offset distance based on its original world space position which was saved at first call of [page:.update update] function. Note: works only if [page:.useObjOffset useObjOffset] enabled. Default is `false`.
     </p>
 
     <h3>[property:Float value]</h3>
@@ -204,17 +213,18 @@
       A [page:Vector3] in world space that the [page:.upAxis upAxis] tries to align with as closely as possible. Default is `(0, 1, 0)`.
     </p>
 
+
     <h2>Methods</h2>
+
+    <p>
+      See the base [page:Constraint] class for common methods.
+    </p>
 
     <h3>[method:this init]()</h3>
     <p>
-      Initialize constraint path curve.
-      Note: always call this function after changing path curve parameters.
+      Initialize constraint path curve. Note: always call this function after changing path curve parameters.
     </p>
 
-    <p>See the base [page:Constraint] class for common methods.</p>
-
     [sourceHint]
-
   </body>
 </html>

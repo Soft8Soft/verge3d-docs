@@ -9,9 +9,10 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       This is the base class for most objects in Verge3D and provides a set of properties and methods for manipulating objects in 3D space.
     </p>
+
     <p>
       Note that this can be used for grouping objects via the [page:.add](object) method which adds the object as a child, however it is better to use [page:Group] for this.
     </p>
@@ -91,6 +92,9 @@
     <p>
       The layer membership of the object. The object is only visible if it has at least one layer in common with the [page:Camera] in use. This property can also be used to filter out unwanted objects in ray-intersection tests when using [page:Raycaster].
     </p>
+    <p>
+      This property does not affect rendering of the object's children (except meshes inside multi-material objects).
+    </p>
 
     <h3>[property:Matrix4 matrix]</h3>
     <p>
@@ -99,7 +103,7 @@
 
     <h3>[property:Boolean matrixAutoUpdate]</h3>
     <p>
-      When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (true).
+      When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also recalculates the matrixWorld property. Default is [page:Object3D.DefaultMatrixAutoUpdate] (`true`).
     </p>
 
     <h3>[property:Matrix4 matrixWorld]</h3>
@@ -158,7 +162,7 @@
       An optional callback that is executed immediately after a 3D object is rendered. This function is called with the following parameters: renderer, scene, camera, geometry, material, group.
     </p>
     <p>
-      Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh], [page:Line], [page:Points] or [page:Sprite]. Instances of [page:Object3D], [page:Group] or [page:Bone] are not renderable and thus this callback is not executed for such objects.
+      Please notice that this callback is only executed for <em>renderable</em> 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh], [page:Line], [page:Points] or [page:Sprite]. Instances of [page:Object3D], [page:Group] or [page:Bone] are not renderable and thus this callback is not executed for such objects.
     </p>
 
     <h3>[property:Function onBeforeRender]</h3>
@@ -166,7 +170,7 @@
       An optional callback that is executed immediately before a 3D object is rendered. This function is called with the following parameters: renderer, scene, camera, geometry, material, group.
     </p>
     <p>
-      Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh], [page:Line], [page:Points] or [page:Sprite]. Instances of [page:Object3D], [page:Group] or [page:Bone] are not renderable and thus this callback is not executed for such objects.
+      Please notice that this callback is only executed for <em>renderable</em> 3D objects. Meaning 3D objects which define their visual appearance with geometries and materials like instances of [page:Mesh], [page:Line], [page:Points] or [page:Sprite]. Instances of [page:Object3D], [page:Group] or [page:Bone] are not renderable and thus this callback is not executed for such objects.
     </p>
 
     <h3>[property:Object3D parent]</h3>
@@ -201,7 +205,7 @@
 
     <h3>[property:Vector3 scale]</h3>
     <p>
-      The object's local scale. Default is [page:Vector3](1, 1, 1).
+      The object's local scale. Default is `(1, 1, 1)`.
     </p>
 
     <h3>[property:Vector3 up]</h3>
@@ -223,11 +227,15 @@
     <p>
       Object gets rendered if `true`. Default is `true`.
     </p>
+    <p>
+      This property does not affect rendering of the object's children (except meshes inside multi-material objects). To disable child rendering use the [page:.disableChildRendering] property.
+    </p>
 
 
     <h2>Static Properties</h2>
+
     <p>
-      Static properties and methods are defined per class rather than per instance of that class.  This means that changing [page:Object3D.DefaultUp] or [page:Object3D.DefaultMatrixAutoUpdate] will change the values of [page:.up up] and [page:.matrixAutoUpdate matrixAutoUpdate] for `every`  instance of Object3D (or derived classes) created after the change has been made (already created Object3Ds will not be affected).
+      Static properties and methods are defined per class rather than per instance of that class.  This means that changing [page:Object3D.DefaultUp] or [page:Object3D.DefaultMatrixAutoUpdate] will change the values of [page:.up up] and [page:.matrixAutoUpdate matrixAutoUpdate] for <em>every</em> instance of Object3D (or derived classes) created after the change has been made (already created Object3Ds will not be affected).
     </p>
 
     <h3>[property:Vector3 DefaultUp]</h3>
@@ -408,7 +416,7 @@
     <h3>[method:this rotateOnAxis]([param:Vector3 axis], [param:Float angle])</h3>
     <ul class="params">
       <li>axis — a normalized vector in object space.</li>
-      <li>angle — The angle in radians.</li>
+      <li>angle — the angle in radians.</li>
     </ul>
     <p>
       Rotate an object along an axis in object space. The axis is assumed to be normalized.
@@ -552,7 +560,7 @@
 
     <h3>[method:Vector3 worldToLocal]([param:Vector3 vector])</h3>
     <p class="params">
-      vector — A vector representing a position in world space.
+      vector — a vector representing a position in world space.
     </p>
     <p>
       Converts the vector from world space to this object's local space.
@@ -560,6 +568,7 @@
 
 
     <h2>Puzzles</h2>
+
     <p>
       There are numerous <a href="manual/en/puzzles/Objects.html">object puzzles</a> which simplify working with 3D objects.
     </p>

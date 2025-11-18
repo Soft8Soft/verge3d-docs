@@ -11,12 +11,12 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Отображается вспомогательный объект, состоящий из сферического [page:Mesh] для визуализации
-      [page:PointLight].
-     </p>
+    <p>
+      Отображает вспомогательный объект, состоящий из сферического [page:Mesh меша] для визуализации [page:PointLight].
+    </p>
 
-     <h2>Пример</h2>
+
+    <h2>Пример</h2>
 
     <code>
     const pointLight = new v3d.PointLight(0xff0000, 1, 100);
@@ -31,45 +31,56 @@
 
     <h2>Конструктор</h2>
 
-    <h3>[name]([param:PointLight light], [param:Float sphereSize], [param:Hex color])</h3>
-    <p>
-    [page:PointLight light] — Свет, который необходимо визуализировать. <br><br>
+    <h3>[name]([param:PointLight light], [param:Float sphereSize], [param:Color|Integer|String color])</h3>
+    <ul class="params">
+      <li>[page:PointLight light] — источник освещения, который необходимо визуализировать.</li>
+      <li>[page:Float sphereSize] — (необ.) размер сферы помощника. По умолчанию `1`.</li>
+      <li>[page:Color color] — (необ.) если не задан, помощник возьмёт цвет источника освещения.</li>
+    </ul>
 
-    [page:Float sphereSize] — (необ.) Размер сферы помощника. По умолчанию *1*.<br><br>
-
-    [page:Hex color] — (необ.) если это не задано, помощник примет цвет освещения.
-    </p>
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Mesh].</p>
+
+    <p>
+      Общие свойства см. в базовом классе [page:Mesh].
+    </p>
 
     <h3>[property:PointLight light]</h3>
-    <p>[page:PointLight], который визуализируется.</p>
+    <p>
+      [page:PointLight], который визуализируется.
+    </p>
 
     <h3>[property:Object matrix]</h3>
-    <p>Референс на pointLight's [page:Object3D.matrixWorld matrixWorld].</p>
+    <p>
+      Ссылка на [page:Object3D.matrixWorld matrixWorld] точечного источника.
+    </p>
 
     <h3>[property:Object matrixAutoUpdate]</h3>
     <p>
-      См. [page:Object3D.matrixAutoUpdate]. Здесь установлено значение *false*, так как помощник использует
-      pointLight's [page:Object3D.matrixWorld matrixWorld].
+      См. [page:Object3D.matrixAutoUpdate]. Установлено значение `false`, так как помощник использует [page:Object3D.matrixWorld matrixWorld] точечного источника.
     </p>
 
     <h3>[property:hex color]</h3>
     <p>
-      Параметр цвета, передаваемый в конструкторе. По умолчанию *undefined*. Если этот параметр изменить, цвет помощника будет обновлен
-      при следующем вызове [page:.update update].
+      Параметр цвета, передаваемый в конструкторе. По умолчанию `undefined`. Если этот параметр изменить, цвет помощника будет обновлен при следующем вызове [page:.update update].
     </p>
 
+
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:Mesh].</p>
 
-    <h3>[method:null dispose]()</h3>
-    <p>Утилизация помощника pointLightHelper.</p>
+    <p>
+      Общие методы см. в базовом классе [page:Mesh].
+    </p>
 
+    <h3>[method:undefined dispose]()</h3>
+    <p>
+      Освобождает все связанные с GPU ресурсы, используемые экземпляром [name]. Этот метод следует вызвать, если [name] больше не используется в приложении.
+    </p>
 
-    <h3>[method:null update]()</h3>
-    <p>Обновление помощника в соответствии с позицией [page:.light].</p>
+    <h3>[method:undefined update]()</h3>
+    <p>
+      Обновляет помощника в соответствии с позицией [page:.light].
+    </p>
 
     [sourceHint]
   </body>

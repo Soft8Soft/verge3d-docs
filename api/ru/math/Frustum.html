@@ -9,25 +9,26 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      Фрустумы [link:http://en.wikipedia.org/wiki/Frustum Frustums] используются для определения того, что находится в поле зрения камеры. Они помогают ускорить процесс рендеринга - объекты, находящиеся за пределами фрустума камеры, могут быть исключены из рендеринга.<br><br>
-
-      Этот класс в основном предназначен для внутреннего использования рендерером для вычисления фрустума [page:Camera camera camera] или [page:LightShadow.camera shadowCamera].
+    <p>
+      Усечённые пирамиды видимости («[link:https://en.wikipedia.org/wiki/Frustum фрустумы]») используются для определения того, что находится в поле зрения камеры. Они помогают ускорить процесс рендеринга - объекты, находящиеся за пределами пирамиды видимости камеры, могут быть исключены из рендеринга.
+    </p>
+    <p>
+      Этот класс в основном предназначен для внутреннего использования рендерером для вычисления пирамиды видимости [page:Camera камеры] или [page:LightShadow.camera теневой камеры].
     </p>
 
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]([param:Plane p0], [param:Plane p1], [param:Plane p2], [param:Plane p3], [param:Plane p4], [param:Plane p5])</h3>
+    <ul class="params">
+      <li>[page:Plane p0] — (необ.) по умолчанию используется новая [page:Plane плоскость].</li>
+      <li>[page:Plane p1] — (необ.) по умолчанию используется новая [page:Plane плоскость].</li>
+      <li>[page:Plane p2] — (необ.) по умолчанию используется новая [page:Plane плоскость].</li>
+      <li>[page:Plane p3] — (необ.) по умолчанию используется новая [page:Plane плоскость].</li>
+      <li>[page:Plane p4] — (необ.) по умолчанию используется новая [page:Plane плоскость].</li>
+      <li>[page:Plane p5] — (необ.) по умолчанию используется новая [page:Plane плоскость].</li>
+    </ul>
     <p>
-      [page:Plane p0] — (необязательно) по умолчанию используется новый [page:Plane].<br>
-      [page:Plane p1] — (необязательно) по умолчанию используется новый [page:Plane].<br>
-      [page:Plane p2] — (необязательно) по умолчанию используется новый [page:Plane].<br>
-      [page:Plane p3] — (необязательно) по умолчанию используется новый [page:Plane].<br>
-      [page:Plane p4] — (необязательно) по умолчанию используется новый [page:Plane].<br>
-      [page:Plane p5] — (необязательно) по умолчанию используется новый [page:Plane].<br><br>
-
       Создает новый [name].
     </p>
 
@@ -35,68 +36,75 @@
     <h2>Свойства</h2>
 
     <h3>[property:Array planes]</h3>
-    <p>Массив из 6 [page:Plane planes].</p>
+    <p>
+      Массив из 6 [page:Plane плоскостей].
+    </p>
 
 
     <h2>Методы</h2>
 
     <h3>[method:Frustum clone]()</h3>
-    <p>Возвращает новый Frustum с теми же параметрами, что и этот.</p>
-
+    <p>
+      Возвращает новую пирамиду видимости с теми же параметрами, что и текущая.
+    </p>
 
     <h3>[method:Boolean containsPoint]([param:Vector3 point])</h3>
+    <p class="params">
+      [page:Vector3 point] — [page:Vector3] для проверки.
+    </p>
     <p>
-    [page:Vector3 point] - [page:Vector3] для проверки.<br><br>
-
-    Проверяет, содержит ли фрустум точку [page:Vector3 point].
+      Проверяет, содержит ли пирамида видимости точку [page:Vector3 point].
     </p>
 
     <h3>[method:Frustum copy]([param:Frustum frustum])</h3>
+    <p class="params">
+      [page:Frustum frustum] — пирамида видимости для копирования.
+    </p>
     <p>
-    [page:Frustum frustum] — Фрустум для копирования.<br><br>
-
-    Копирует свойства переданного [page:Frustum frustum] в этот.
+      Копирует свойства указанной [page:Frustum пирамиды видимости] в текущую.
     </p>
 
     <h3>[method:Boolean intersectsBox]([param:Box3 box])</h3>
+    <p class="params">
+      [page:Box3 box] — [page:Box3] для проверки пересечения.
+    </p>
     <p>
-    [page:Box3 box] - [page:Box3] для проверки пересечения.<br><br>
-
-    Возвращает true, если [page:Box3 box] пересекается с этим фрустом.
+      Возвращает `true`, если [page:Box3 box] пересекается с данной пирамидой видимости.
     </p>
 
     <h3>[method:Boolean intersectsObject]([param:Object3D object])</h3>
     <p>
-      Проверяет, пересекает ли фрустум [page:BufferGeometry.boundingSphere охватывающая сфера] [page:Object3D объекта].
+      Проверяет, пересекает ли пирамиду видимости [page:BufferGeometry.boundingSphere ограничивающая сфера] [page:Object3D объекта].
     </p>
     <p>
       Обратите внимание, что объект должен иметь [page:BufferGeometry геометрию], чтобы можно было рассчитать ограничительную сферу.
     </p>
 
     <h3>[method:Boolean intersectsSphere]([param:Sphere sphere])</h3>
+    <p class="params">
+      [page:Sphere sphere] — [page:Sphere сфера] для проверки пересечения.
+    </p>
     <p>
-    [page:Sphere sphere] - [page:Sphere] для проверки пересечения.<br><br>
-
-    Возвращает true, если [page:Sphere sphere] пересекается с этим фрустом.
+      Возвращает `true`, если [page:Sphere сфера] пересекается с данной пирамидой видимости.
     </p>
 
     <h3>[method:Boolean intersectsSprite]([param:Sprite sprite])</h3>
     <p>
-      Проверяет, пересекает ли [page:Sprite sprite] фрустум.<br><br>
+      Проверяет, пересекает ли [page:Sprite спрайт] текущую пирамиду видимости.
     </p>
 
     <h3>[method:this set]([param:Plane p0], [param:Plane p1], [param:Plane p2], [param:Plane p3], [param:Plane p4], [param:Plane p5])</h3>
     <p>
-      Устанавливает фрустум из переданных плоскостей. Порядок следования плоскостей не подразумевается.<br>
-      Обратите внимание, что этот метод копирует только значения из заданных объектов.
+      Устанавливает пирамиду видимости из переданных плоскостей. Порядок следования плоскостей не подразумевается. Обратите внимание, что этот метод копирует значения из заданных объектов.
     </p>
 
     <h3>[method:this setFromProjectionMatrix]([param:Matrix4 matrix])</h3>
-    <p>
-    [page:Matrix4 matrix] — Проекция [page:Matrix4] используемая для установки [page:.planes planes]<br><br>
-    Устанавливает плоскости фрустума из матрицы проекции.
+    <p class="params">
+      [page:Matrix4 matrix] — [page:Matrix4 матрица] проекции, используемая для установки [page:.planes плоскостей].
     </p>
-
+    <p>
+      Устанавливает плоскости пирамиды видимости из матрицы проекции.
+    </p>
 
     [sourceHint]
   </body>

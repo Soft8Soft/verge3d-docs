@@ -9,25 +9,26 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       Abstract base class of interpolants over parametric samples.
     </p>
     <p>
       The parameter domain is one dimensional, typically the time or a path along a curve defined by the data. The sample values can have any dimensionality and derived classes may apply special interpretations to the data.
     </p>
     <p>
-      This class provides the interval seek in a [link:https://www.oodesign.com/template-method-pattern Template Method], deferring the actual interpolation to derived classes. Time complexity is `O(1)` for linear access crossing at most two points and `O(log N)` for random access, where *N* is the number of positions.
+      This class provides the interval seek in a [link:https://www.oodesign.com/template-method-pattern Template Method], deferring the actual interpolation to derived classes. Time complexity is `O(1)` for linear access crossing at most two points and `O(log N)` for random access, where `N` is the number of positions.
     </p>
+
 
     <h2>Constructor</h2>
 
     <h3>[name]([param:Array|TypedArray parameterPositions], [param:Array|TypedArray sampleValues], [param:Integer sampleSize], [param:Array|TypedArray resultBuffer])</h3>
-    <p class="params">
-      parameterPositions — array of positions.<br>
-      sampleValues — array of samples.<br>
-      sampleSize — number of samples.<br>
-      resultBuffer — buffer to store the interpolation results.
-    </p>
+    <ul class="params">
+      <li>parameterPositions — array of positions.</li>
+      <li>sampleValues — array of samples.</li>
+      <li>sampleSize — number of samples.</li>
+      <li>resultBuffer — buffer to store the interpolation results.</li>
+    </ul>
     <p>
       This constructor is designed to be called via subclass, not directly.
     </p>

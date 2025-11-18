@@ -11,57 +11,37 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Создает текстуру на основе данных в сжатом виде, например, из файла [link:https://en.wikipedia.org/wiki/DirectDraw_Surface DDS] file.<br><br>
-
-
-    Для использования с [page:CompressedTextureLoader CompressedTextureLoader].
+    <p>
+      Создает текстуру на основе данных в сжатом виде, например, из файла [link:https://www.khronos.org/ktx/ KTX].
+    </p>
+    <p>
+      Для использования с [page:CompressedTextureLoader CompressedTextureLoader].
     </p>
 
 
     <h2>Конструктор</h2>
 
-
-    <h3>[name]([param:Array mipmaps], [param:Number width], [param:Number height], [param:Constant format], [param:Constant type], [param:Constant mapping], [param:Constant wrapS], [param:Constant wrapT], [param:Constant magFilter], [param:Constant minFilter], [param:Number anisotropy])</h3>
-    <p>
-    [page:Array mipmaps] — Массив mipmaps должен содержать объекты с данными, шириной и высотой. Мипмапы должны иметь правильный формат и тип.<br>
-
-    [page:Number width] — Ширина самого большого мипмапа.<br>
-
-    [page:Number height] — Высота самого большого мипмапа.<br>
-
-    [page:Constant format] — Формат, используемый в мипмапах.
-    См. [page:Textures ST3C Compressed Texture Formats],
-    [page:Textures PVRTC Compressed Texture Formats] и
-    [page:Textures ETC Compressed Texture Format] для других вариантов.<br>
-
-    [page:Constant type] — По умолчанию [page:Textures v3d.UnsignedByteType].
-    См. [page:Textures type constants] для других вариантов.<br>
-
-    [page:Constant mapping] —  Способ нанесения изображения на объект. Тип объекта [page:Textures v3d.UVMapping].
-    См. [page:Textures mapping constants] для других вариантов.<br>
-
-    [page:Constant wrapS] — По умолчанию [page:Textures v3d.ClampToEdgeWrapping].
-    См. [page:Textures wrap mode constants] для других вариантов.<br>
-
-    [page:Constant wrapT] — По умолчанию [page:Textures v3d.ClampToEdgeWrapping].
-    См. [page:Textures wrap mode constants] для других вариантов.<br>
-
-    [page:Constant magFilter] — Как сэмплируется текстура, если тексель занимает более одного пикселя.
-    По умолчанию [page:Textures v3d.LinearFilter]. См. [page:Textures magnification filter constants] для других вариантов.<br>
-
-    [page:Constant minFilter] — Как сэмплируется текстура, если тексель занимает менее одного пикселя.
-    По умолчанию [page:Textures v3d.LinearMipmapLinearFilter]. См. [page:Textures minification filter constants] для других вариантов.<br>
-
-    [page:Number anisotropy] — Количество семплов, взятых вдоль оси, проходящей через пиксель, имеющий наибольшую плотность текселей.
-    По умолчанию это значение равно 1. Большее значение дает менее размытый результат, чем базовый мипмап, ценой использования большего количества сэмплов текстуры.
-    Используйте renderer.getMaxAnisotropy(), чтобы найти максимальное допустимое значение анизотропии для GPU; это значение обычно равно 2.<br><br>
-    </p>
+    <h3>[name]([param:Array mipmaps], [param:Integer width], [param:Integer height], [param:Constant format], [param:Constant type], [param:Constant mapping], [param:Constant wrapS], [param:Constant wrapT], [param:Constant magFilter], [param:Constant minFilter], [param:Integer anisotropy], [param:Constant encoding])</h3>
+    <ul class="params">
+      <li>[page:Array mipmaps] — массив mipmaps должен содержать объекты с данными, шириной и высотой. Мипмапы должны иметь правильный формат и тип.</li>
+      <li>[page:Integer width] — ширина самого большого мипмапа.</li>
+      <li>[page:Integer height] — высота самого большого мипмапа.</li>
+      <li>[page:Constant format] — формат, используемый в мипмапах. Варианты см. [page:Textures ST3C Compressed Texture Formats], [page:Textures PVRTC Compressed Texture Formats] и [page:Textures ETC Compressed Texture Format].</li>
+      <li>[page:Constant type] — по умолчанию [page:Textures v3d.UnsignedByteType]. См. [page:Textures type constants] для других вариантов.</li>
+      <li>[page:Constant mapping] — способ нанесения изображения на объект. Тип объекта [page:Textures v3d.UVMapping].  См. [page:Textures mapping constants] для других вариантов.</li>
+      <li>[page:Constant wrapS] — по умолчанию [page:Textures v3d.ClampToEdgeWrapping]. См. раздел [page:Textures текстурные константы] с описанием вариантов.</li>
+      <li>[page:Constant wrapT] — по умолчанию [page:Textures v3d.ClampToEdgeWrapping]. См. раздел [page:Textures текстурные константы] с описанием других вариантов.</li>
+      <li>[page:Constant magFilter] — как сэмплируется текстура, если тексель занимает более одного пикселя. По умолчанию [page:Textures v3d.LinearFilter]. См. раздел [page:Textures текстурные константы] для других вариантов.</li>
+      <li>[page:Constant minFilter] — как сэмплируется текстура, если тексель занимает менее одного пикселя. По умолчанию [page:Textures v3d.LinearMipmapLinearFilter]. См. [page:Textures minification filter constants] для других вариантов.</li>
+      <li>[page:Integer anisotropy] — количество семплов, взятых вдоль оси, проходящей через пиксель, имеющий наибольшую плотность текселей.  По умолчанию это значение равно 1. Большее значение дает менее размытый результат, чем базовый мипмап, ценой использования большего количества сэмплов текстуры. Используйте renderer.getMaxAnisotropy(), чтобы найти максимальное допустимое значение анизотропии для GPU; это значение обычно равно 2.</li>
+    </ul>
 
 
     <h2>Свойства</h2>
 
-    Общие свойства см. в базовом классе [page:Texture Texture].
+    <p>
+      Унаследованные свойства см. в базовом классе [page:Texture Texture].
+    </p>
 
     <h3>[property:Boolean flipY]</h3>
 
@@ -76,9 +56,11 @@
     </p>
 
 
-    <h2>Methods</h2>
+    <h2>Методы</h2>
 
-
+    <p>
+      Унаследованные методы см. в базовом классе [page:Texture Texture].
+    </p>
 
     [sourceHint]
   </body>

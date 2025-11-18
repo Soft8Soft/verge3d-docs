@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      Класс с утилитами для работы с экземплярами [page:BufferGeometry BufferGeometry].
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:undefined batchMeshes]([param:Array meshObjs], [param:Object3D batchParent])</h3>
+    <ul class="params">
+      <li>[page:Array meshObjs] — массив объединяемых [page:Mesh мешей].</li>
+      <li>[page:Object3D batchParent] — контейнер (родительский объект) для сохранения сгруппированного меша.</li>
+    </ul>
+    <p>
+      Объединяет меши вместе. Эта техника используется для сокращения количества вызовов отрисовки WebGL, что способствует увеличению производительности.
+    </p>
+
+    <p>
+      Группировка производится среди мешей, для которых совпадают значения свойств:
+    </p>
+
+    <ul>
+      <li>`material.name`</li>
+      <li>`visible`</li>
+      <li>`disableChildRendering`</li>
+      <li>`castShadow`</li>
+      <li>`receiveShadow`</li>
+      <li>`renderOrder`</li>
+      <li>`groupNames`</li>
+      <li>`geometry.attributes` (keys only)</li>
+      <li>`geometry.morphAttributes` (keys only)</li>
+    </ul>
+
+    <h3>[method:Object computeMorphedAttributes]([param:Mesh|Line|Points object])</h3>
+    <p class="params">
+      object — экземпляр [page:Mesh Mesh], [page:Line Line], [page:Points Points].
+    </p>
+    <p>
+      Возвращает атрибуты (позицию и нормаль) с применённым морфингом/скиннингом и исходные. Возвращаемый объект содержит 4 свойства: `positionAttribute`, `normalAttribute`, `morphedPositionAttribute` и `morphedNormalAttribute`. Метод используется для трассировки лучей и рендеринга декалей.
+    </p>
+
+    <h3>[method:BufferAttribute deepCloneAttribute]([param:BufferAttribute attribute])</h3>
+    <p class="params">
+      attribute — экземпляр [page:BufferAttribute BufferAttribute] для копирования в глубину.</li>
+    </p>
+    <p>
+      Возвращает клон атрибута, полученного с использованием глубокого копирования.
+    </p>
+
+    <h3>[method:Float estimateBytesUsed]([param:BufferGeometry geometry])</h3>
+    <p class="params">
+      geometry — экземпляр [page:BufferGeometry BufferGeometry] для анализа потребления памяти.
+    </p>
+
+    <p>
+      Возвращает количество байт, используемых всеми атрибутами в указанной геометрии.
+    </p>
+
+    <h3>[method:BufferAttribute mergeBufferAttributes]([param:Array attributes])</h3>
+    <p class="params">
+      attributes — массив экземпляров [page:BufferAttribute BufferAttribute].
+    </p>
+    <p>
+      Объединяет массив атрибутов в один атрибут. Все подданные атрибуты должны иметь одинаковые свойства и типы. Если объединение невозможно, метод возвращает `null`.
+    </p>
+
+    <h3>[method:BufferGeometry mergeBufferGeometries]([param:Array geometries], [param:Boolean useGroups])</h3>
+    <ul class="params">
+      <li>geometries — массив экземпляров [page:BufferGeometry BufferGeometry].</li>
+      <li>useGroups — нужно ли создавать группы в объединённой геометрии или нет.</li>
+    </ul>
+    <p>
+      Объединяет массив геометрий в одну геометрию. Все подданные геометрии должны иметь одинаковые свойства и типы. Если объединение невозможно, метод возвращает `null`.
+    </p>
+
+    <h3>[method:BufferGeometry mergeGroups]([param:BufferGeometry geometry])</h3>
+    <p class="params">
+      geometry — экземпляр [page:BufferGeometry BufferGeometry] для объединения групп.
+    </p>
+    <p>
+      Объединяет [page:BufferGeometry.groups группы] внутри данной геометрии.
+    </p>
+
+    <h3>[method:BufferGeometry mergeVertices]([param:BufferGeometry geometry], [param:Float tolerance])</h3>
+    <ul class="params">
+      <li>geometry — экземпляр [page:BufferGeometry BufferGeometry] для объединения вертексов.</li>
+      <li>tolerance — максимально возможная разница между вертексными атрибутами. По умолчанию `1e-4`.</li>
+    </ul>
+    <p>
+      Возвращает новый [page:BufferGeometry BufferGeometry] с объединёнными вертексами. Объединение вертексов происходит, если значения их атрибутов примерно одинаковы (в пределах указанной разницы).
+    </p>
+
+    <h3>[method:BufferGeometry toCreasedNormals]([param:BufferGeometry geometry], [param:Float creaseAngle])</h3>
+    <ul class="params">
+      <li>geometry — входная геометрия.</li>
+      <li>creaseAngle — угол сгиба.</li>
+    </ul>
+    <p>
+      Создаёт новую неиндексированную геометрию со сглаженными нормалями. Сглаживание производится для всех граней, угол между которыми меньше указанного угла сгиба.
+    </p>
+
+    <h3>[method:BufferGeometry toTrianglesDrawMode]([param:BufferGeometry geometry], [param:TrianglesDrawMode drawMode])</h3>
+    <ul class="params">
+      <li>geometry — экземпляр [page:BufferGeometry BufferGeometry].</li>
+      <li>drawMode — режим отрисовки геометрии. Допустимые значения: `v3d.TriangleStripDrawMode` и `v3d.TriangleFanDrawMode`.</li>
+    </ul>
+    <p>
+      Возвращает новую индексированную геометрию с режимом отрисовки `v3d.TrianglesDrawMode`. Этот режим отрисовки соответствует WeBGL-примитивам типа `gl.TRIANGLES`.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

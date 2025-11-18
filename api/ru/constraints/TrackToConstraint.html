@@ -1,53 +1,71 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <base href="../../../">
-        <script src="page.js"></script>
-        <link type="text/css" rel="stylesheet" href="page.css">
-    </head>
-    <body>
-        [page:TargetConstraint] &rarr;
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:TargetConstraint] &rarr;
 
-        <h1>[name]</h1>
+    <h1>[name]</h1>
 
-        <div class="desc">
-            Ограничение, которое заставляет ограниченный объект отслеживать цель.<br><br>
+    <p>
+      Ограничитель, который заставляет объект отслеживать цель.
+    </p>
 
-            Ограничения используются для установления различных отношений между объектами, влияя на их положение, вращение и масштаб. Могут использоваться со свойством [page:Object3D.constraints Object3D.constraints].
-        </div>
-
-        <h2>Конструктор</h2>
-
-        <h3>[name]([page:Object3D target])</h3>
+    <p>
+      Чтобы повлиять на какой-либо объект, экземпляр [name] должен быть добавлен к массиву [page:Object3D.constraints].
+    </p>
 
 
-        <h2>Свойства</h2>
-        <div>Общие свойства смотрите в базовом классе [page:TargetConstraint].</div>
+    <h2>Конструктор</h2>
 
-        <h3>[property:Boolean isTrackToConstraint]</h3>
-        <div>
-            Используется для проверки того, являются ли данный или производные классы ограничениями TrackTo. По умолчанию *true*.
-        </div>
-
-        <h3>[property:String trackAxis]</h3>
-        <div>
-            Ось ограниченного объекта, по которой отслеживается цель. Может быть одной из "X", "-X", "Y", "-Y", "Z", "-Z". По умолчанию - "X".
-        </div>
-
-        <h3>[property:String type]</h3>
-        <div>
-            Тип ограничения. Равен "TrackToConstraint".
-        </div>
-        
-        <h3>[property:String upAxis]</h3>
-        <div>
-            Ось ограниченного объекта, которая всегда максимально выровнена с осью Y мирового пространства. Может быть одной из "X", "-X", "Y", "-Y", "Z", "-Z". По умолчанию - "Y".
-        </div>
+    <h3>[name]([page:Object3D target])</h3>
+    <p class="params">
+      [page:Object3D target] — целевой объект ограничителя.
+    </p>
 
 
-        <h2>Методы</h2>
-        <div>Общие методы смотрите в базовом классе [page:TargetConstraint].</div>
+    <h2>Свойства</h2>
 
-    </body>
+    <p>
+      Общие свойства смотрите в базовом классе [page:TargetConstraint].
+    </p>
+
+    <h3>[property:Boolean fixCameraLightRotation]</h3>
+    <p>
+      В «Вердж3Д» используется правосторонняя систему координат с осью Y, направленной вверх, но в «Блендере» и «3дс Максе» используется правосторонняя система координат с осью Z, направленной вверх (см. <a href="https://www.soft8soft.com /wiki/index.php/Coordinate_Systems">«Вердж3Д Вики»</a>). Поэтому, чтобы исправить вращение для камер и света, необходимо устанавливать флаг `fixCameraLightRotation = true`. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Boolean isTrackToConstraint]</h3>
+    <p>
+      Указывает, что данный объект является экземпляром класса [name]. Только для чтения.
+    </p>
+
+    <h3>[property:String trackAxis]</h3>
+    <p>
+      Ось ограничиваемого объекта, вдоль которой отслеживается цель. Может быть одной из `"X"`, `"-X"`, `"Y"`, `"-Y"`, `"Z"`, `"-Z"`. По умолчанию "X".
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+      Тип ограничителя. Равен `"TrackToConstraint"`.
+    </p>
+
+    <h3>[property:String upAxis]</h3>
+    <p>
+      Ось ограниченного объекта, которая всегда максимально выровнена с осью Y мировой системы координат. Может быть одной из "X", "-X", "Y", "-Y", "Z", "-Z". По умолчанию - "Y".
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:TargetConstraint].
+    </p>
+
+    [sourceHint]
+  </body>
 </html>

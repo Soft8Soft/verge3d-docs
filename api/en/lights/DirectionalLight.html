@@ -11,20 +11,25 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       A light that gets emitted in a specific direction. This light will behave as though it is infinitely far away and the rays produced from it are all parallel. The common use case for this is to simulate daylight; the sun is far enough away that its position can be considered to be infinite, and all light rays coming from it are parallel.
     </p>
+
     <p>
       This light can cast shadows — see the [page:DirectionalLightShadowCSM] page for details.
     </p>
 
+
     <h2>Target and Free Directional Lights</h2>
+
     <p>
       In Verge3D, directional lights can operate in two different modes depending on the value of the [page:.isFreeLight] flag. If `isFreeLight=true` [name] is the equivalent to what is often called a "Target Directional Light" in 3ds Max. When `isFreeLight=true` the light is equivalent to "Free Directional Light" in 3ds Max, "Sun" in Blender, or just "Directional Light" in Maya.
     </p>
+
     <p>
       In any case, the light direction is calculated as pointing from the light's [page:Object3D.position position] to the [page:.target target]'s position. In the first mode, `target` is specified explicitly, while in the second mode, `target` is calculated by the engine from the light object [page:Object3D.quaternion rotation].
     </p>
+
 
     <h2>Code Example</h2>
 
@@ -38,17 +43,20 @@
     <h2>Constructor</h2>
 
     <h3>[name]([param:Integer color], [param:Float intensity])</h3>
-    <p class="params">
-      [page:Integer color] — (optional) hexadecimal color of the light. Default is `0xffffff` (white).<br>
-      [page:Float intensity] — (optional) numeric value of the light's strength/intensity. Default is `1`.
-    </p>
+    <ul class="params">
+      <li>[page:Integer color] — (optional) hexadecimal color of the light. Default is `0xffffff` (white).</li>
+      <li>[page:Float intensity] — (optional) numeric value of the light's strength/intensity. Default is `1`.</li>
+    </ul>
     <p>
       Creates a new [name].
     </p>
 
+
     <h2>Properties</h2>
 
-    <p>See the base [page:Light Light] class for common properties.</p>
+    <p>
+      See the base [page:Light Light] class for common properties.
+    </p>
 
     <h3>[property:Boolean castShadow]</h3>
     <p>
@@ -89,17 +97,14 @@
       This is so that the target's [page:Object3D.matrixWorld matrixWorld] gets automatically updated each frame.
     </p>
     <p>
-      If `isFreeLight=false` is also possible to set the target to be another object in the scene (anything with a
-      [page:Object3D.position position] property), like so:
+      If `isFreeLight=false` is also possible to set the target to be another object in the scene (anything with a [page:Object3D.position position] property), like so:
     </p>
-
     <code>
     const targetObject = new v3d.Object3D();
     app.scene.add(targetObject);
 
     light.target = targetObject;
     </code>
-
     <p>
       The directionalLight will now track the target object.
     </p>
@@ -107,11 +112,8 @@
 
     <h2>Methods</h2>
 
-    <p>See the base [page:Light Light] class for common methods.</p>
-
-    <h3>[method:undefined dispose]()</h3>
     <p>
-      Frees the GPU-related resources allocated by this instance. Call this method whenever this instance is no longer used in your app.
+      See the base [page:Light Light] class for common methods.
     </p>
 
     <h3>[method:this copy]([param:DirectionalLight source])</h3>
@@ -119,10 +121,17 @@
       Copies value of all the properties from the [page:DirectionalLight source] to this [name].
     </p>
 
+    <h3>[method:undefined dispose]()</h3>
+    <p>
+      Frees the GPU-related resources allocated by this instance. Call this method whenever this instance is no longer used in your app.
+    </p>
+
 
     <h2>Puzzles</h2>
 
-    <p>The following puzzles work with the directional lights:</p>
+    <p>
+      The following puzzles work with the directional lights:
+    </p>
 
     <ul>
       <li><a href="manual/en/puzzles/Objects.html#create_object">create object</a> — select *light*, then *directional*.</li>
@@ -131,6 +140,5 @@
     </ul>
 
     [sourceHint]
-
   </body>
 </html>

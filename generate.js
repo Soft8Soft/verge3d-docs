@@ -12,12 +12,6 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 const HOST = 'https://www.soft8soft.com/docs/';
 const OUTDIR = path.join(dirname, 'output');
 const LANGUAGES = ['en', 'ru', 'zh'];
-const LOCALES = {'en': 'en_US', 'ru': 'ru_RU', 'zh': 'zh_CN'};
-const SEARCH_HINT = {
-    'en': 'Type to filter',
-    'ru': 'Поиск',
-    'zh': '寻找'
-};
 
 const GENERIC_TYPES = [
     'Any',
@@ -46,15 +40,46 @@ const dom = new JSDOM();
 const document = dom.window.document;
 
 let list = null;
+let translations = null;
 const titles = {};
 
 generate();
+
+// generate common fragments to improve performance
+function genCommonJsdomFragments() {
+
+    const viewport = JSDOM.fragment(`
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    `);
+
+    const favicons = JSDOM.fragment(`
+        <link rel="apple-touch-icon" sizes="180x180" href="${HOST}files/icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="48x48" href="${HOST}files/icons/favicon-48x48.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="${HOST}files/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="${HOST}files/icons/favicon-16x16.png">
+        <link rel="manifest" href="${HOST}files/icons/manifest.json">
+        <link rel="mask-icon" href="${HOST}files/icons/safari-pinned-tab.svg" color="#0048a5">
+    `);
+
+    const metrika = JSDOM.fragment(`
+        <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(46001298, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); ym(46001298, 'addFileExtension', 'xz');</script> <noscript><div><img src="https://mc.yandex.ru/watch/46001298" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+    `);
+
+
+    return {
+        viewport,
+        favicons,
+        metrika,
+    }
+
+}
 
 function generate() {
 
     console.log('Generating Documentation (' + LANGUAGES.join(', ') + ')');
 
     list = JSON.parse(fs.readFileSync(path.join(dirname, 'list.json')));
+    translations = JSON.parse(fs.readFileSync(path.join(dirname, 'translations.json')));
 
     if (fs.existsSync(OUTDIR)){
         fse.removeSync(OUTDIR);
@@ -74,31 +99,39 @@ function generate() {
     const writeStream = fs.createWriteStream(path.join(OUTDIR, 'sitemap-docs.xml'));
     sitemap.pipe(writeStream);
 
-    var pagePromises = [];
+    const commonFragments = genCommonJsdomFragments();
 
+    const pagePromises = [];
+
+    // lang → section → category → page
     LANGUAGES.forEach(function(lang) {
 
-        var localeList = list[lang];
+        const now = new Date();
+        commonFragments.footer = JSDOM.fragment(`
+            <footer class="copyright">© <a href="${i18n(lang, 'https://www.soft8soft.com/')}" target="_blank">${i18n(lang, 'Soft8Soft – 3D Solutions for the Web')}</a><div>${i18n(lang, 'Last updated on')} ${now.toLocaleDateString(i18n(lang, 'en-US'), { month: 'long', day: 'numeric', year: 'numeric'})}</div></footer>
+        `);
 
-        for (var section in localeList) {
+        const localeList = list[lang];
 
-            var index = getSectionRoot(lang, section) + 'index.html';
+        for (const section in localeList) {
+
+            const index = getSectionRoot(lang, section) + 'index.html';
 
             if (process.argv[2] == 'manual' && index.indexOf('manual') == -1)
                 continue;
 
-            var navigation = createNavigation(list, lang, section, index);
+            commonFragments.navigation = createNavigation(list, lang, section, index);
 
-            pagePromises.push(writePage(index, lang, navigation, sitemap));
+            pagePromises.push(writePage(index, lang, sitemap, commonFragments));
 
-            var categories = localeList[section];
+            const categories = localeList[section];
 
-            for (var category in categories) {
-                var pages = categories[category];
+            for (const category in categories) {
+                const pages = categories[category];
 
-                for (var pageName in pages) {
-                    var pageFile = pages[pageName] + '.html';
-                    pagePromises.push(writePage(pageFile, lang, navigation, sitemap));
+                for (const pageName in pages) {
+                    const pageFile = pages[pageName] + '.html';
+                    pagePromises.push(writePage(pageFile, lang, sitemap, commonFragments));
                 }
             }
         }
@@ -110,31 +143,53 @@ function generate() {
 
 }
 
+function i18n(lang, text, placeholder='', placeholder2='', placeholder3='') {
+    const idx = translations.indexOf(text);
+    if (idx == -1) {
+        console.error('Translation not found: ' + text);
+        return text;
+    }
+
+    let translated;
+    if (lang == 'ru')
+        translated = translations[idx + 1];
+    else if (lang == 'zh')
+        translated = translations[idx + 2];
+    else
+        translated = text;
+
+    translated = translated.replaceAll('XXX', placeholder);
+    translated = translated.replaceAll('YYY', placeholder2);
+    translated = translated.replaceAll('ZZZ', placeholder3);
+
+    return translated;
+}
+
 /**
  * E.g manual/en/
  */
 function getSectionRoot(lang, section) {
 
-    var categories = list[lang][section];
+    const categories = list[lang][section];
 
-    var roots = {};
+    const roots = {};
 
-    for (var category in categories) {
-        var pages = categories[category];
+    for (const category in categories) {
+        const pages = categories[category];
 
-        for (var pageName in pages) {
+        for (const pageName in pages) {
 
-            var urlSplit = pages[pageName].split('/');
-            var root = urlSplit[0] + '/' + urlSplit[1] + '/';
+            const urlSplit = pages[pageName].split('/');
+            const root = urlSplit[0] + '/' + urlSplit[1] + '/';
 
             roots[root] = (roots[root] || 0) + 1;
         }
     }
 
-    var maxRoot = '';
-    var maxRootCounter = 0;
+    let maxRoot = '';
+    let maxRootCounter = 0;
 
-    for (var root in roots) {
+    for (const root in roots) {
         if (roots[root] > maxRootCounter) {
             maxRoot = root;
             maxRootCounter = roots[root];
@@ -150,69 +205,48 @@ function copyOutput(inFileOrDir, outFileOrDir) {
     fse.copySync(path.join(dirname, inFileOrDir), path.join(OUTDIR, outFileOrDir));
 }
 
-
-function writePage(pageFile, lang, navigation, sitemap) {
+function writePage(pageFile, lang, sitemap, commonFragmentsShared) {
+    // make a clone to prevent race condition in promise callback
+    const commonFragments = { ...commonFragmentsShared };
 
     return JSDOM.fromFile(path.join(dirname, pageFile)).then(function(dom) {
+        const url = HOST + pageFile;
 
-        var url = HOST + pageFile;
-
-        var head = dom.window.document.head;
-        var pageTitle = titles[pageFile];
+        const head = dom.window.document.head;
+        const pageTitle = titles[pageFile];
 
         // add missing title and description
         if (!dom.window.document.getElementsByTagName('title').length) {
-            let titleDesc = '';
-            switch (lang) {
-            case 'ru':
-                titleDesc = JSDOM.fragment(`
-                    <title>${pageTitle} — Руководство по Вердж3Д — Софт Эйт Софт</title>
-                    <meta name="description" content="Узнайте как использовать ${pageTitle} в интерактивных 3Д-веб-приложениях сделанных на Вердж3Д">
-                `);
-                break;
-            case 'zh':
-                titleDesc = JSDOM.fragment(`
-                    <title>${pageTitle} - Verge3D 用户手册 - Soft8Soft</title>
-                    <meta name="description" content="了解如何在使用 Verge3D 制作的交互式 3D 应用程序中使用 ${pageTitle}">
-                `);
-                break;
-            default:
-                titleDesc = JSDOM.fragment(`
-                    <title>${pageTitle} - Verge3D User Manual - Soft8Soft</title>
-                    <meta name="description" content="Learn how to use ${pageTitle} in your interactive 3D apps made with Verge3D">
-                `);
-                break;
-            }
+            let titleDesc = JSDOM.fragment(`
+                <title>${pageTitle} - ${i18n(lang, 'Verge3D User Manual')} - ${i18n(lang, 'Soft8Soft')}</title>
+                <meta name="description" content="${i18n(lang, 'Learn how to use XXX in your interactive 3D apps made with Verge3D', pageTitle)}">
+            `);
             head.insertBefore(titleDesc, head.firstChild);
         }
 
-        var title = dom.window.document.getElementsByTagName('title')[0].textContent;
-        var description = getMeta(dom.window.document, 'description', false);
-        var image = getMeta(dom.window.document, 'og:image', true) ||
+        // to prevent fragment discards
+        for (const name in commonFragments)
+            commonFragments[name] = commonFragments[name].cloneNode(true);
+
+        head.appendChild(commonFragments.viewport);
+
+        const title = dom.window.document.getElementsByTagName('title')[0].textContent;
+        const description = getMeta(dom.window.document, 'description', false);
+        const image = getMeta(dom.window.document, 'og:image', true) ||
                 `https://www.soft8soft.com/docs/files/blank/manual_social_${lang}.png`;
 
         head.appendChild(JSDOM.fragment(`
             <link rel="canonical" href="${url}">
 
-            <meta property="og:type" content="article">
+            <meta property="og:type" content="website">
             <meta property="og:title" content="${title}">
             <meta property="og:description" content="${description}">
             <meta property="og:image" content="${image}">
             <meta property="og:image:width" content="1200">
             <meta property="og:image:height" content="630">
             <meta property="og:url" content="${url}">
-            <meta property="og:site_name" content="${lang == 'ru' ? 'Софт Эйт Софт' : 'Soft8Soft'}">
-            <meta property="og:locale" content="${LOCALES[lang] || 'en_US'}">
-
-            <meta property="article:author" content="https://www.facebook.com/soft8soft">
-
-            <meta property="article:tag" content="Verge3D">
-            <meta property="article:tag" content="WebGL">
-            <meta property="article:tag" content="3D">
-            <meta property="article:tag" content="interactive">
-            <meta property="article:tag" content="realtime">
-            <meta property="article:tag" content="3dweb">
-            <meta property="article:tag" content="web3d">
+            <meta property="og:site_name" content="${i18n(lang, 'Soft8Soft')}">
+            <meta property="og:locale" content="${i18n(lang, 'en_US')}">
 
             <meta name="twitter:card" content="summary_large_image">
             <meta name="twitter:title" content="${title}">
@@ -220,19 +254,9 @@ function writePage(pageFile, lang, navigation, sitemap) {
             <meta name="twitter:image" content="${image}">
             <meta name="twitter:creator" content="@soft8soft">
         `));
+        head.appendChild(commonFragments.favicons);
 
-        head.appendChild(JSDOM.fragment(`
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-
-            <link rel="apple-touch-icon" sizes="180x180" href="${HOST}files/icons/apple-touch-icon.png">
-            <link rel="icon" type="image/png" sizes="48x48" href="${HOST}files/icons/favicon-48x48.png">
-            <link rel="icon" type="image/png" sizes="32x32" href="${HOST}files/icons/favicon-32x32.png">
-            <link rel="icon" type="image/png" sizes="16x16" href="${HOST}files/icons/favicon-16x16.png">
-            <link rel="manifest" href="${HOST}files/icons/manifest.json">
-            <link rel="mask-icon" href="${HOST}files/icons/safari-pinned-tab.svg" color="#0048a5">
-        `));
-
-        var imgLicenseData = createImgLicenseData(dom);
+        const imgLicenseData = createImgLicenseData(dom);
         if (imgLicenseData)
             head.appendChild(JSDOM.fragment(imgLicenseData));
 
@@ -241,41 +265,20 @@ function writePage(pageFile, lang, navigation, sitemap) {
             head.appendChild(JSDOM.fragment(faqData));
         }
 
-        var body = dom.window.document.body;
+        const body = dom.window.document.body;
 
-        if (navigation) {
-            var panel = JSDOM.fragment(`${navigation.firstChild.outerHTML}`);
-            body.insertBefore(panel, body.firstChild);
-        }
+        const panel = commonFragments.navigation;
+        body.insertBefore(panel, body.firstChild);
 
-        var metrika = JSDOM.fragment(`
-<!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(46001298, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, ecommerce:"dataLayer" }); ym(46001298, 'addFileExtension', 'xz');</script> <noscript><div><img src="https://mc.yandex.ru/watch/46001298" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
-        `);
-        body.appendChild(metrika);
+        body.appendChild(commonFragments.metrika);
+        body.appendChild(commonFragments.footer);
 
-        var now = new Date();
-
-        let footerText = ''
-        switch (lang) {
-        case 'ru':
-            footerText = `<footer class="copyright">© <a href="https://www.soft8soft.com/ru" target="_blank">«Софт Эйт Софт» – трёхмерные решения для веба</a><div>Последнее обновление: ${now.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', year: 'numeric'})}</div></footer>`;
-            break;
-        case 'zh':
-            footerText = `<footer class="copyright">© <a href="https://www.soft8soft.com/cn" target="_blank">Soft8Soft – Web的3D解决方案</a><div>最后更新于 ${now.toLocaleDateString('zh-CN', { month: 'long', day: 'numeric', year: 'numeric'})}</div></footer>`;
-            break;
-        default:
-            footerText = `<footer class="copyright">© <a href="https://www.soft8soft.com/" target="_blank">Soft8Soft – 3D Solutions for the Web</a><div>Last updated on ${now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric'})}</div></footer>`;
-            break;
-        }
-        body.appendChild(JSDOM.fragment(footerText));
-
-        Array.from(body.getElementsByTagName('v3d-tabs'))
-        .forEach(function(v3dTabsElem) {
+        Array.from(body.getElementsByTagName('v3d-tabs')).forEach(function(v3dTabsElem) {
             v3dTabsElem.parentNode.insertBefore(createTabs(v3dTabsElem), v3dTabsElem);
             v3dTabsElem.parentNode.removeChild(v3dTabsElem);
         });
 
-        var pageText = resolveTemplates(dom.serialize(), pageTitle, pageFile, lang);
+        const pageText = resolveTemplates(dom.serialize(), pageTitle, pageFile, lang);
 
         if (sitemap) {
             // changefreq and priority ignored by Google
@@ -283,14 +286,12 @@ function writePage(pageFile, lang, navigation, sitemap) {
             sitemap.write({ url: url, lastmodISO: new Date().toISOString().split('.')[0] + 'Z' });
         }
 
-        var pageFileOut = path.join(OUTDIR, pageFile);
+        const pageFileOut = path.join(OUTDIR, pageFile);
 
         fse.ensureFileSync(pageFileOut);
         return fs.promises.writeFile(pageFileOut, pageText);
 
     });
-
-    return pagePromise;
 }
 
 /**
@@ -298,14 +299,14 @@ function writePage(pageFile, lang, navigation, sitemap) {
  */
 function createImgLicenseData(dom) {
 
-    var imgData = [];
+    const imgData = [];
 
-    var imgs = dom.window.document.getElementsByTagName('img');
+    const imgs = dom.window.document.getElementsByTagName('img');
 
-    for (var i = 0; i < imgs.length; i++) {
-        var img = imgs[i];
+    for (let i = 0; i < imgs.length; i++) {
+        const img = imgs[i];
 
-        var src = img.getAttribute('src');
+        const src = img.getAttribute('src');
         if (src) {
             imgData.push(`
                 {
@@ -314,12 +315,12 @@ function createImgLicenseData(dom) {
                     "contentUrl": "${HOST + src}",
                     "license": "https://creativecommons.org/licenses/by/4.0/",
                     "acquireLicensePage": "https://www.soft8soft.com/contact/",
-                    "creditText": "Verge3D developers",
+                    "creditText": "Made by Verge3D developers",
                     "creator": {
                         "@type": "Organization",
                         "name": "Soft8Soft"
                     },
-                    "copyrightNotice": "Soft8Soft"
+                    "copyrightNotice": "© ${new Date().getFullYear()} Soft8Soft. All rights reserved."
                 }
             `);
         }
@@ -339,7 +340,7 @@ function collectFaqAnswer(elem) {
                                     replaceAll('<dt>', '<p>').
                                     replaceAll('<dd>', '<p>').
                                     replaceAll('<code>', '<p>').
-                                    replaceAll('<code class="language-html">', '<p>').
+                                    replaceAll('<code class="lang-html">', '<p>').
                                     replaceAll('</dl>', '</p>').
                                     replaceAll('</dt>', '</p>').
                                     replaceAll('</dd>', '</p>').
@@ -419,12 +420,12 @@ function toTitleCase(str) {
 
 function resolveTemplates(text, name, path, lang) {
 
-    var pathOrigRel = path.replace(/^\//,'');
+    const pathOrigRel = path.replace(/^\//,'');
 
-    var sectionTestRes = /(manual|api)\//.exec(path);
+    const sectionTestRes = /(manual|api)\//.exec(path);
 
     if (sectionTestRes) {
-        var section = sectionTestRes[1].toString();
+        const section = sectionTestRes[1].toString();
 
         path = path.split('.html')[0];
         path = path.split(section + '/')[1];
@@ -437,10 +438,10 @@ function resolveTemplates(text, name, path, lang) {
     text = text.replace(/\[name\]/gi, name);
     text = text.replace(/\[path\]/gi, path);
     text = text.replace(/\[page:([\w\u0400-\u04ff\.]+)\]/gi, "[page:$1 $1]"); // [page:name] to [page:name title]
-    text = text.replace(/\[page:\.([\w\u0400-\u04ff\.]+) ([\w\u0400-\u04ff\.\s]+)\]/gi, "[page:" + name + ".$1 $2]"); // [page:.member title] to [page:name.member title]
+    text = text.replace(/\[page:\.([\w\u0400-\u04ff\.]+) ([\w\u0400-\u04ff\.\s\-]+)\]/gi, "[page:" + name + ".$1 $2]"); // [page:.member title] to [page:name.member title]
 
     // resolve [page:name title]
-    text = text.replace(/\[page:([\w\u0400-\u04ff\.]+) ([\w\u0400-\u04ff\.\s]+)\]/gi, function(match, p1, p2) {
+    text = text.replace(/\[page:([\w\u0400-\u04ff\.]+) ([\w\u0400-\u04ff\.\s\-]+)\]/gi, function(match, p1, p2) {
         return `<a href=\"${getPageURL(p1, lang)}\">${p2}</a>`;
     });
 
@@ -466,7 +467,7 @@ function resolveTemplates(text, name, path, lang) {
     });
 
     text = text.replace(/\[def:(\w+) ([\w\.\s]+)\]/gi, function(match, p1, p2) {
-        var urlProp = getPageURL(name + '.' + p1, lang);
+        const urlProp = getPageURL(name + '.' + p1, lang);
         return `<a href="${urlProp}" class="permalink">#</a><a href="${urlProp}" id="${p1}">${p2}</a>`;
     });
 
@@ -482,63 +483,27 @@ function resolveTemplates(text, name, path, lang) {
      * code markup and it would render code inside code blocks incorrect.
      */
     const codeBlocks = [];
-    text = text.replace(/<code.*>[\s\S]*?<\/code>/gim, match => {
+    text = text.replace(/<code[^>]*>[\s\S]*?<\/code>/gim, match => {
         codeBlocks.push(match);
         return `$CODE_BLOCK_${codeBlocks.length - 1}_BACKTICK_HACK_MARKER`;
     });
 
+    text = text.replace(/\`\`(.*?)\`\`/gi, '<code class="inline raw">$1</code>'); // ``code``
     text = text.replace(/\`(.*?)\`/gi, '<code class="inline">$1</code>'); // `code`
     text = text.replace(/\$CODE_BLOCK_(\d+)_BACKTICK_HACK_MARKER/gi,
             (match, p1) => codeBlocks[p1]);
 
-    text = text.replace(/\[example:([\w\_]+)\]/gi, "[example:$1 $1]"); // [example:name] to [example:name title]
-    text = text.replace(/\[example:([\w\_]+) ([\w\:\/\.\-\_ \s]+)\]/gi, "<a href=\"https://cdn.soft8soft.com/demo/examples/index.html#$1\"  target=\"_blank\">$2</a>"); // [example:name title]
+    text = text.replace(/\[sourceHint\]/gi, `<h2>${i18n(lang, 'Source')}</h2><p>${i18n(lang, 'For more info on how to obtain the source code of this module see <a href="manual/en/programmers_guide/How-to-obtain-Verge3D-sources.html">this page</a>.')}</p>`);
 
-    switch (lang) {
-    case 'ru':
-        text = text.replace(/\[sourceHint\]/gi, "<h2>Исходный файл</h2><p>О том как получить исходный код этого модуля читайте <a href=\"manual/ru/programmers_guide/How-to-obtain-Verge3D-sources.html\">тут</a>.</p>");
+    text = text.replace(/\[demo:([\w\_\/\-]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
+        const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.split('/')[0].replace('_', ' '));
+        return `<p class="demoNote">${i18n(lang, 'For usage example, check out the <a href="XXX" target="_blank" rel="nofollow" title="Launch the YYY demo">YYY</a> demo (source files available in the <a href="manual/en/introduction/App-Manager.html#asset_store" target="_blank">Asset Store</a>).', demoURL(p1, path), demoTitle)}</p>`;
+    });
 
-        text = text.replace(/\[demo:([\w\_\/\-]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
-            const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.split('/')[0].replace('_', ' '));
-            return `<p class="demoNote">Данная функциональность используется в демо-приложении <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a> (исходные файлы доступны в магазине ассетов).</p>`;
-        });
-
-        text = text.replace(/\[demoLink:([\w\_\/\-]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
-            const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.split('/')[0].replace('_', ' '));
-            return `<a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a>`;
-        });
-
-        break;
-    case 'zh':
-        text = text.replace(/\[sourceHint\]/gi, "<h2>源代码</h2><p>关于如何获取此模块的源代码，请查看 <a href=\"manual/zh/programmers_guide/How-to-obtain-Verge3D-sources.html\">本页</a>。</p>");
-
-        text = text.replace(/\[demo:([\w\_\/\-]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
-            return `<p class="demoNote">有关使用示例，请查看 <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a> 演示（也可在资源商店中找到）。</p>`;
-        });
-
-        text = text.replace(/\[demoLink:([\w\_\/\-]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
-            return `<a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow">${demoTitle}</a>`;
-        });
-
-        break;
-    default:
-        text = text.replace(/\[sourceHint\]/gi, "<h2>Source</h2><p>For more info on how to obtain the source code of this module see <a href=\"manual/en/programmers_guide/How-to-obtain-Verge3D-sources.html\">this page</a>.</p>");
-
-        text = text.replace(/\[demo:([\w\_\/\-]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
-            return `<p class="demoNote">For usage example, check out the <a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow" title="Launch the ${demoTitle} demo">${demoTitle}</a> demo (source files available in the <a href="manual/en/introduction/App-Manager.html#asset_store" target="_blank">Asset Store</a>).</p>`;
-        });
-
-        text = text.replace(/\[demoLink:([\w\_\/\-]+)\]/gi, function(match, p1) {
-            const demoTitle = toTitleCase(p1.split('/')[0].replace('_', ' '));
-            return `<a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow" title="Launch the ${demoTitle} demo">${demoTitle}</a>`;
-        });
-
-
-        break;
-    }
+    text = text.replace(/\[demoLink:([\w\_\/\-]+) *([\w\u0400-\u04ff- ]*)\]/gi, function(match, p1, p2) {
+        const demoTitle = p2 ? '«'+p2+'»' : toTitleCase(p1.split('/')[0].replace('_', ' '));
+        return `<a href=\"${demoURL(p1, path)}\" target=\"_blank\" rel="nofollow" title="${i18n(lang, 'Launch the XXX demo', demoTitle)}">${demoTitle}</a>`;
+    });
 
     text = text.replace(/\[contents\]/g, function() { return createTOC(text, pathOrigRel) });
 
@@ -560,17 +525,17 @@ function resolveTemplates(text, name, path, lang) {
  * [anchor:d] <h2>D</h2> - this line wouldn't be on the same level as "A" if not for the hack
  */
 function createTOC(text, path) {
-    var contents = '<!-- TOC -->\n';
+    let contents = '<!-- TOC -->\n';
 
-    var anchors = text.matchAll(/\[anchor:([\w|\u4e00-\u9fa5|\u0400-\u04ff]+|%TOC_DECLEVEL_HACK)\][\n ]*<h(\d)[\w"= ]*>(.*)<\/h\d>/g);
+    const anchors = text.matchAll(/\[anchor:([\w|\u4e00-\u9fa5|\u0400-\u04ff]+|%TOC_DECLEVEL_HACK)\][\n ]*<h(\d)[\w"= ]*>(.*)<\/h\d>/g);
 
-    var listLevel = 0;
-    var listLevelDepth = 0;
+    let listLevel = 0;
+    let listLevelDepth = 0;
 
-    for (var anchor of anchors) {
-        var id = anchor[1];
-        var itemLevel = Number(anchor[2]);
-        var title = anchor[3];
+    for (const anchor of anchors) {
+        const id = anchor[1];
+        const itemLevel = Number(anchor[2]);
+        const title = anchor[3];
 
         if (id === '%TOC_DECLEVEL_HACK') {
             listLevelDepth--;
@@ -604,7 +569,7 @@ function createTOC(text, path) {
 
     }
 
-    for (var i = 0; i < listLevelDepth; i++)
+    for (let i = 0; i < listLevelDepth; i++)
         contents += '</li></ul>'
 
     contents += '<!-- /TOC -->';
@@ -612,12 +577,13 @@ function createTOC(text, path) {
     return contents;
 }
 
-function createNavigation(list, language, section, indexLink) {
+// create navigation panel using data from list.json
+function createNavigation(list, lang, section, indexLink) {
 
-    // Create the navigation panel using data from list.js
+    const isManual = indexLink.startsWith('manual/');
 
-    var content = JSDOM.fragment(
-       `<nav id="panel" class="collapsed">
+    const content = JSDOM.fragment(`
+       <nav id="panel" class="collapsed">
           <div class="h1-like"><a href="${indexLink}">${section}</a></div>
 
           <a id="expandButton" href="#">
@@ -626,50 +592,56 @@ function createNavigation(list, language, section, indexLink) {
             <span></span>
           </a>
 
-          <div class="filterBlock" >
-            <input type="text" id="filterInput" placeholder="${SEARCH_HINT[language]}" autocapitalize="off" spellcheck="false">
-            <a href="#" id="clearFilterButton">x</a>
+          <div>
+            <input type="text" id="filterInput" placeholder="${i18n(lang, 'Type to filter')}" autocapitalize="off" spellcheck="false">
+            <div id="clearFilterButton">×</div>
+
+            <div class="filter-flavor${isManual ? '' : ' hidden'}">
+              <label class="filter-flavor-item" title="${i18n(lang, 'Show / hide Verge3D for Blender sections')}"><input type="checkbox" data-flavor="blender" checked>${i18n(lang, 'Blender')}</label>
+              <label class="filter-flavor-item" title="${i18n(lang, 'Show / hide Verge3D for 3ds Max sections')}"><input type="checkbox" data-flavor="max" checked>${i18n(lang, '3ds Max')}</label>
+              <label class="filter-flavor-item" title="${i18n(lang, 'Show / hide Verge3D for Maya sections')}"><input type="checkbox" data-flavor="maya" checked>${i18n(lang, 'Maya')}</label>
+            </div>
           </div>
 
           <div id="content"></div>
-        </nav>`
-    );
+        </nav>
+    `);
 
-    var navigation = content.getElementById('content');
+    const navigation = content.getElementById('content');
 
-    var localeList = list[language];
-    var categories = localeList[section];
+    const localeList = list[lang];
+    const categories = localeList[section];
 
-    for (var category in categories) {
+    for (const category in categories) {
 
         // Create categories
 
-        var pages = categories[category];
+        const pages = categories[category];
 
-        var categoryContainer = document.createElement('div');
+        const categoryContainer = document.createElement('div');
         navigation.appendChild(categoryContainer);
 
-        var categoryHead = document.createElement('div');
+        const categoryHead = document.createElement('div');
         categoryHead.textContent = category;
         categoryHead.className = 'h2-like';
         categoryContainer.appendChild(categoryHead);
 
-        var categoryContent = document.createElement('ul');
+        const categoryContent = document.createElement('ul');
         categoryContainer.appendChild(categoryContent);
         categoryContent.id = category.replace(/[' ]/g, '_');
 
-        for (var pageName in pages) {
+        for (const pageName in pages) {
 
-            // Create page links
+            // create page links
 
-            var pageURL = pages[pageName] + '.html';
+            const pageURL = pages[pageName] + '.html';
 
-            // Localisation
+            // localization
 
-            var listElement = document.createElement('li');
+            const listElement = document.createElement('li');
             categoryContent.appendChild(listElement);
 
-            var linkElement = createLink(category, pageName, pageURL)
+            const linkElement = createLink(category, pageName, pageURL)
             listElement.appendChild(linkElement);
 
             titles[pageURL] = pageName;
@@ -681,8 +653,7 @@ function createNavigation(list, language, section, indexLink) {
 }
 
 function createLink(category, pageName, pageURL) {
-
-    var link = document.createElement('a');
+    const link = document.createElement('a');
     link.href = pageURL;
     link.textContent = pageName;
     link.id = (category+'_'+pageName).replace(/[' ]/g, '_');
@@ -691,9 +662,9 @@ function createLink(category, pageName, pageURL) {
 }
 
 function getMeta(document, metaName, usePropertyName) {
-    var metas = document.getElementsByTagName('meta');
+    const metas = document.getElementsByTagName('meta');
 
-    for (var i = 0; i < metas.length; i++) {
+    for (let i = 0; i < metas.length; i++) {
         if (metas[i].getAttribute(usePropertyName ? 'property' : 'name') === metaName) {
             return metas[i].getAttribute('content');
         }
@@ -752,9 +723,9 @@ function decomposePageName(pageName, oldDelimiter, newDelimiter) {
     // ['Geometry', '.morphTarget'] or ['Geometry', '#morphTarget']
     // Note: According RFC 3986 no '#' allowed inside of an URL fragment!
 
-    var parts = [];
+    let parts = [];
 
-    var dotIndex = pageName.indexOf(oldDelimiter);
+    const dotIndex = pageName.indexOf(oldDelimiter);
 
     if (dotIndex !== -1) {
 
@@ -788,7 +759,7 @@ function decomposePageName(pageName, oldDelimiter, newDelimiter) {
  * element
  */
 function createTabs(v3dTabsElem) {
-    var tabNodes = Array.from(v3dTabsElem.childNodes).filter(function(node) {
+    const tabNodes = Array.from(v3dTabsElem.childNodes).filter(function(node) {
         return node.tagName !== undefined;
     });
 
@@ -797,17 +768,17 @@ function createTabs(v3dTabsElem) {
         tabNodes.push(document.createElement('div'));
     }
 
-    var tabsContainer = createElementFromString('<div class="v3d-tabs"></div>');
+    const tabsContainer = createElementFromString('<div class="v3d-tabs"></div>');
     tabsContainer.setAttribute('style', v3dTabsElem.getAttribute('style'));
 
-    var radioGrpName = Math.random();
-    var checkedInput = Number(v3dTabsElem.getAttribute('active')) || 0;
-    for (var i = 0; i < tabNodes.length; i+=2) {
-        var tabIndex = i / 2;
-        var checkedAttr = tabIndex === checkedInput ? 'checked' : '';
-        var tabId = `${radioGrpName}-${tabIndex}`;
+    const radioGrpName = Math.random();
+    const checkedInput = Number(v3dTabsElem.getAttribute('active')) || 0;
+    for (let i = 0; i < tabNodes.length; i+=2) {
+        const tabIndex = i / 2;
+        const checkedAttr = tabIndex === checkedInput ? 'checked' : '';
+        const tabId = `${radioGrpName}-${tabIndex}`;
 
-        var radioInput = createElementFromString(`
+        const radioInput = createElementFromString(`
             <input
                 type="radio"
                 name="${radioGrpName}"
@@ -817,14 +788,14 @@ function createTabs(v3dTabsElem) {
             ></input>
         `);
 
-        var tabLabel = tabNodes[i];
+        const tabLabel = tabNodes[i];
         tabLabel.classList.add('v3d-tab-label');
         tabLabel.setAttribute('for', tabId);
 
         // fix styling issue with empty label being a bit out of place
         tabLabel.innerHTML = tabLabel.innerHTML || '&nbsp;';
 
-        var tabContent = tabNodes[i + 1];
+        const tabContent = tabNodes[i + 1];
         tabContent.classList.add('v3d-tab-content');
 
         tabsContainer.appendChild(radioInput);
@@ -842,7 +813,7 @@ function createTabs(v3dTabsElem) {
  * the given string.
  */
 function createElementFromString(str) {
-    var template = document.createElement('template');
+    const template = document.createElement('template');
     template.innerHTML = str.trim(); // avoiding text nodes
     return template.content.firstChild;
 }

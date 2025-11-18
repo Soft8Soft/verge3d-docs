@@ -11,14 +11,12 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      A constraint allows to show/hide object depending on 3D viewport width/height or orientation settings.
+    <p>
+      A constraint which shows/hides the object depending on 3D viewport width/height or orientation settings (implements the so called visibility breakpoints).
     </p>
 
     <p>
-      Constraints are used to set up various relations between objects by
-      affecting their position, rotation and scale. Can be used with the
-      [page:Object3D.constraints Object3D.constraints] property.
+      To influence some object, push a [name] instance into the [page:Object3D.constraints] array.
     </p>
 
     <h2>Constructor</h2>
@@ -30,11 +28,13 @@
 
 
     <h2>Properties</h2>
-    <p>See the base [page:Constraint] class for common properties.</p>
+    <p>
+      See the base [page:Constraint] class for common properties.
+    </p>
 
     <h3>[property:App appInstance]</h3>
     <p>
-      The current <a href="api/en/extras/App.html">application</a>. Default is `undefined`.
+      The current [page:App application]. Default is `undefined`.
     </p>
 
     <h3>[property:Boolean isCanvasBreakpointsConstraint]</h3>
@@ -64,37 +64,40 @@
 
     <h3>[property:String orientation]</h3>
     <p>
-      Screen orientation the object stays visible. Default is `'ALL'`.
+      Screen orientation the object stays visible.
     </p>
-
     <ul>
-      <li>`'ALL'`</li>
-      <li>`'LANDSCAPE'`</li>
-      <li>`'PORTRAIT'`</li>
+      <li>`"ALL"` — object stays visible for any screen orientation</li>
+      <li>`"LANDSCAPE"` — object stays visible only for landscape (horizontal) screen orientation</li>
+      <li>`"PORTRAIT"` — object stays visible only for portrait (vertical) screen orientation</li>
     </ul>
+    <p>
+      Default is `"ALL"`.
+    </p>
 
     <h3>[property:String type]</h3>
     <p>
-      The constraint's type. Equals to `'CanvasBreakpointsConstraint'`.
+      The constraint's type. Equals to `"CanvasBreakpointsConstraint"`.
     </p>
+
 
     <h2>Methods</h2>
 
-    <h3>[method:Camera findAlternativeCamera]([param:Camera camera], [param:Scene scene], [param:Integer width], [param:Integer height])</h3>
-    <p class="params">
-      camera — the current camera in scene. <br>
-      scene — the scene in which we are looking for the camera. <br>
-      width — the canvas width. <br>
-      height — the canvas height.
-    </p>
-
     <p>
-      Returns an alternative camera (with acceptable visibility breakpoints) in the scene, if no alternative camera is found, returns `null`.
+      See the base [page:Constraint] class for common methods.
     </p>
 
-    <p>See the base [page:Constraint] class for common methods.</p>
+    <h3>[method:Camera findAlternativeCamera]([param:Camera camera], [param:Scene scene], [param:Integer width], [param:Integer height])</h3>
+    <ul class="params">
+      <li>camera — the current camera in scene.</li>
+      <li>scene — the scene in which we are looking for the camera.</li>
+      <li>width — the canvas width.</li>
+      <li>height — the canvas height.</li>
+    </ul>
+    <p>
+      Find and return an alternative camera (with acceptable visibility breakpoints) located on the specified scene. If no alternative camera is found, returns `null`.
+    </p>
 
     [sourceHint]
-
   </body>
 </html>

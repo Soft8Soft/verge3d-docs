@@ -12,7 +12,9 @@
 
     <h1>Post-processing Puzzles</h1>
 
-    <p>These puzzles are used to setup various post-processing effects.</p>
+    <p>
+      These puzzles are used to setup various post-processing effects.
+    </p>
 
     <img src="files/puzzles/puzzles-postprocessing.png" alt="Post-processing visual programming blocks">
 
@@ -35,6 +37,7 @@
     <p>
       The post-processing puzzles support the <em>live preview</em> feature. With live preview enabled, you can tweak the post-processing effects and get the result in the Puzzles viewport without the need to run or save/reload your puzzles.
     </p>
+
     <p>
       Live preview feature is enabled by default and supported when there are no inputs connected to your puzzle:
     </p>
@@ -126,11 +129,15 @@
 
     <h3>simple refraction</h3>
 
-    <p>Enables an easy refraction effect for a specified material.</p>
+    <p>
+      Enables a simple refraction effect for a specified material.
+    </p>
 
     <img src="files/puzzles/puzzles-postprocessing-simple-refraction.jpg" alt="Visual logic block to render simple refraction">
 
-    <p>Parameters:</p>
+    <p>
+      Parameters:
+    </p>
 
     <ul>
       <li>*material* — material used to assign the effect to.</li>
@@ -138,30 +145,48 @@
       <li>*render after refraction* — object(s) to be excluded from the normal rendering queue and to be rendered after the refraction effect is applied.</li>
     </ul>
 
+    [demo:ring]
+
 
     [anchor:ssr]
 
     <h3>screen space reflection/refraction</h3>
 
-    <p>Enables screen space reflection/refraction (SSR) effect.</p>
+    <p>
+      Enables screen space reflection/refraction (SSR) effect.
+    </p>
 
-    <img src="files/puzzles/puzzles-postprocessing-ssr.jpg" alt="Visual programming block to setup SSR effect">
+    <img src="files/puzzles/puzzles-postprocessing-ssr.webp" alt="Visual programming block to setup SSR effect">
 
-    <p>Parameters:</p>
+    <p>
+      Parameters:
+    </p>
 
     <ul>
-      <li>*for material* — material used to assign the effect to.</li>
+      <li>*for material(s)* — material used to assign the effect to.</li>
       <li>*steps* — number of depth search steps along the reflected/refracted ray (higher value = better quality, lower performance).</li>
-      <li>*stride* — stride of search steps (in pixels) (higher value = lower quality, better performance, 1 pixel = max quality).</li>
-      <li>*binary search steps* — number of binary search iterations (higher value = better quality, lower performance).</li>
-      <li>*thickness* — factor to eliminate SSR artifacts (refraction only).</li>
       <li>*max distance* — maximum length of the reflected/refracted ray.</li>
       <li>*resolution* — resolution multiplier for the depth buffer (from 0 to 1; 1 = best quality).</li>
+      <li>*stride* — stride of search steps (in pixels) (higher value = lower quality, better performance, 1 pixel = max quality).</li>
+      <li>*binary search steps* — number of binary search iterations (higher value = better quality, lower performance).</li>
       <li>*jitter* — noise factor to improve depth search (from 0 to 1).</li>
-      <li>*render after* — objects to be rendered after SSR applied.</li>
+      <li>*render after ssr* — objects to be rendered after SSR applied.</li>
     </ul>
 
-    <img src="files/puzzles/puzzles-postprocessing-ssr-example.jpg" alt="SSR example script" style="max-width: 819px">
+    <img src="files/puzzles/puzzles-postprocessing-ssr-example.webp" alt="SSR example script">
+
+    <p>
+      Setting up the params for this puzzle's refraction mode can be tricky. When configuring it, make sure:
+    </p>
+
+    <ol>
+      <li>the *steps* and *max distance* params are high enough</li>
+      <li>the *stride* param is quite low (preferably set to 1)</li>
+      <li>materials you configure the refraction effect for are transmissive</li>
+      <li>these materials have a quite low IOR ratio (&lt;1.5)</li>
+    </ol>
+
+    [demo:jewelry_configurator/index]
 
 
     [anchor:remove_postprocessing]
@@ -177,7 +202,9 @@
 
     <h2>Having Troubles with Puzzles?</h2>
 
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>
+      Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!
+    </p>
 
   </article></body>
 </html>

@@ -11,75 +11,100 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Создает двухмерную кривую в форме эллипса. При установке [page:Number xRadius] равным [page:Number yRadius] получится круг.
+    <p>
+      Создает двухмерную кривую в форме эллипса. При установке [page:Float xRadius] равным [page:Float yRadius] получится круг.
     </p>
+
 
     <h2>Пример</h2>
 
     <code>
     const curve = new v3d.EllipseCurve(
-      0,  0,            // ax, aY
-      10, 10,           // xRadius, yRadius
-      0,  2 * Math.PI,  // aStartAngle, aEndAngle
-      false,            // aClockwise
-      0                 // aRotation
+        0,  0,            // ax, aY
+        10, 10,           // xRadius, yRadius
+        0,  2 * Math.PI,  // aStartAngle, aEndAngle
+        false,            // aClockwise
+        0                 // aRotation
     );
 
     const points = curve.getPoints(50);
     const geometry = new v3d.BufferGeometry().setFromPoints(points);
 
-    const material = new v3d.LineBasicMaterial({ color : 0xff0000 });
+    const material = new v3d.LineBasicMaterial({ color: 0xff0000 });
 
-    // Create the final object to add to the scene
+    // создаём объект и добавляем его на сцену
     const ellipse = new v3d.Line(geometry, material);
+    app.scene.add(ellipse);
     </code>
+
 
     <h2>Конструктор</h2>
 
+    <h3>[name]([param:Float aX], [param:Float aY], [param:Float xRadius], [param:Float yRadius], [param:Float aStartAngle], [param:Float aEndAngle], [param:Boolean aClockwise], [param:Float aRotation])</h3>
+    <ul>
+      <li>[page:Float aX] – X координата центра эллипса. По умолчанию `0`.</li>
+      <li>[page:Float aY] – Y координата центра эллипса.  По умолчанию `0`.</li>
+      <li>[page:Float xRadius] – радиус эллипса в направлении x. По умолчанию `1`.</li>
+      <li>[page:Float yRadius] – радиус эллипса в направлении y. По умолчанию `1`.</li>
+      <li>[page:Float aStartAngle] – начальный угол кривой в радианах, начиная с положительной оси X. По умолчанию `0`.</li>
+      <li>[page:Float aEndAngle] – конечный угол кривой в радианах, начиная с положительной оси X. По умолчанию `2 x Math.PI`.</li>
+      <li>[page:Boolean aClockwise] – будет ли эллипс рисоваться по часовой стрелке. По умолчанию `false`.</li>
+      <li>[page:Float aRotation] – угол поворота эллипса в радианах, против часовой стрелки от положительной оси X (необ.). По умолчанию `0`.</li>
+    </ul>
 
-    <h3>[name]([param:Float aX], [param:Float aY], [param:Float xRadius], [param:Float yRadius], [param:Radians aStartAngle], [param:Radians aEndAngle], [param:Boolean aClockwise], [param:Radians aRotation])</h3>
-    <p>
-      [page:Float aX] – X центр  эллипса. По умолчанию *0*.<br/>
-      [page:Float aY] – Y центр эллипса.  По умолчанию *0*.<br/>
-      [page:Float xRadius] – Радиус эллипса в направлении x. По умолчанию *1*.<br/>
-      [page:Float yRadius] – Радиус эллипса в направлении y. По умолчанию *1*.<br/>
-      [page:Radians aStartAngle] – Начальный угол кривой в радианах, начиная с положительной оси X. По умолчанию *0*.<br/>
-      [page:Radians aEndAngle] – Конечный угол кривой в радианах, начиная с положительной оси X. По умолчанию *2 x Math.PI*.<br/>
-      [page:Boolean aClockwise] – Будет ли эллипс рисоваться по часовой стрелке. По умолчанию *false*.<br/>
-      [page:Radians aRotation]  – Угол поворота эллипса в радианах, против часовой стрелки от положительной оси X (необязательно). По умолчанию *0*.<br/><br/>
-    </p>
 
     <h2>Свойства</h2>
-    <p>Общие свойства смотрите в базовом классе [page:Curve].</p>
+
+    <p>
+      Общие свойства смотрите в базовом классе [page:Curve].
+    </p>
 
     <h3>[property:Float aX]</h3>
-    <p>X центр  эллипса.</p>
+    <p>
+      X координата центра эллипса.
+    </p>
 
     <h3>[property:Float aY]</h3>
-    <p>Y центр  эллипса.</p>
+    <p>
+      Y координата центра эллипса.
+    </p>
 
-    <h3>[property:Radians xRadius]</h3>
-    <p>Радиус эллипса в направлении x.</p>
+    <h3>[property:Float xRadius]</h3>
+    <p>
+      Радиус эллипса в направлении X.
+    </p>
 
-    <h3>[property:Radians yRadius]</h3>
-    <p>Радиус эллипса в направлении y.</p>
+    <h3>[property:Float yRadius]</h3>
+    <p>
+      Радиус эллипса в направлении Y.
+    </p>
 
     <h3>[property:Float aStartAngle]</h3>
-    <p>Начальный угол кривой в радианах, начиная со средней правой стороны.</p>
+    <p>
+      Начальный угол кривой в радианах, начиная со средней правой стороны.
+    </p>
 
     <h3>[property:Float aEndAngle]</h3>
-    <p>Конечный угол кривой в радианах, начиная со средней правой стороны.</p>
+    <p>
+      Конечный угол кривой в радианах, начиная со средней правой стороны.
+    </p>
 
     <h3>[property:Boolean aClockwise]</h3>
-    <p>Будет ли эллипс рисоваться по часовой стрелке.</p>
+    <p>
+      Будет ли эллипс рисоваться по часовой стрелке.
+    </p>
 
     <h3>[property:Float aRotation]</h3>
-    <p>Угол поворота эллипса в радианах, против часовой стрелки от положительной оси X (необязательно). По умолчанию *0*.</p>
+    <p>
+      Угол поворота эллипса в радианах, против часовой стрелки от положительной оси X (необ.). По умолчанию `0`.
+    </p>
 
 
     <h2>Методы</h2>
-    <p>Общие методы смотрите в базовом классе [page:Curve].</p>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:Curve].
+    </p>
 
     [sourceHint]
   </body>

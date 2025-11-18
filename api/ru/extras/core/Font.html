@@ -9,36 +9,50 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      Создаёт набор [page:Shape Shapes], представляющий шрифт, загруженный в формате JSON.
-    </p>
     <p>
-      Используется внутри [page:FontLoader].
+      Создаёт набор [page:Shape Shapes], представляющий шрифт, загруженный в формате JSON.
     </p>
 
 
     <h2>Конструктор</h2>
 
-    <h3>[name](data)</h3>
+    <h3>[name]([param:Object data])</h3>
     <p class="params">
-      data — Данные JSON, представляющие шрифт.
+      data — данные JSON, представляющие шрифт.
+    </p>
+    <p>
+      Этот конструктор создает новый [name], который представляет собой массив [page:Shape Shapes].
     </p>
 
-    <p>Этот конструктор создает новый [name], который представляет собой массив [page:Shape Shapes].</p>
 
     <h2>Свойства</h2>
 
     <h3>[property:Array data]</h3>
-    <p>Данные JSON, переданные в конструкторе.</p>
+    <p>
+      Данные JSON, переданные в конструкторе.
+    </p>
+
 
     <h2>Методы</h2>
 
-    <h3>[method:null generateShapes]([param:String text], [param:Float size])</h3>
+    <h3>[method:Array generateShapes]([param:String text], [param:Float size], [param:String alignX], [param:String alignY], [param:Float lineHeight], [param:Boolean scaledEmSize])</h3>
+    <ul class="params">
+      <li>[page:String text] — строка текста.</li>
+      <li>[page:Float size] — (необ.) масштабирование для [page:Shape Shapes]. По умолчанию `100`.</li>
+      <li>[page:String alignX] — (необ.) горизонтальное выравнивание текста. По умолчанию `"left"`.</li>
+      <li>[page:String alignY] — (необ.) вертикальное выравнивание текста. По умолчанию `"topBaseline"`.</li>
+      <li>[page:Float lineHeight] — (необ.) высота строки. По умолчанию `-1` for auto.</li>
+      <li>[page:Boolean scaledEmSize] — (необ.) уменьшать размер шрифта, чтобы соответствовать границам шрифта, а не вернему и нижнему выносным элементам. По умолчанию `false`.</li>
+    </ul>
     <p>
-      [page:String text] — строка текста.<br>
-      [page:Float size] — (необязательно) масштаб для [page:Shape Shapes]. По умолчанию *100*.<br>
+      Создает массив [page:Shape фигур], представляющий собой текст, отрисованный с использованием текущего шрифта. Внутри данный метод использует [page:ShapePath] для генерации фигур.
+    </p>
 
-      Создает массив [page:Shape Shapes], представляющий текст в шрифте.
+
+    <h2>Смотрите также</h2>
+
+    <p>
+      Дополнительная информация о создании текстовых объектов в «Вердж3Д» находится в разделе <a href="manual/ru/introduction/Text-Rendering.html">рендеринг текста</a> руководства пользователя.
     </p>
 
     [sourceHint]

@@ -9,25 +9,21 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      Модуль для проверки доступности определенных функций, а также для получения параметров контекста WebGL. 
+    <p>
+      Модуль для проверки доступности определенных функций, а также для получения параметров контекста WebGL.
     </p>
+
 
     <h2>Методы</h2>
 
     <h3>[method:Boolean checkWebGL]()</h3>
     <p>
-      Проверяет, можно ли получить контекст WebGL.
+      Проверяет, можно ли получить контекст WebGL 1.0.
     </p>
 
-    <h3>[method:Boolean checkWorkers]()</h3>
+    <h3>[method:Boolean checkWebGL]()</h3>
     <p>
-      Проверяет, доступен ли API Worker.
-    </p>
-
-    <h3>[method:Object checkFileAPI]()</h3>
-    <p>
-      Возвращает последнее пространство имен API, найденное в списке: File, FileReader, FileList, Blob.
+      Проверяет, можно ли получить контекст WebGL 2.0.
     </p>
 
     <h3>[method:HTMLElement genWebGLErrorMessage]()</h3>
@@ -50,9 +46,39 @@
       Получает информацию об агенте пользователя и определяет, запущен ли он на Android.
     </p>
 
-    <h3>[method:Boolean checkHDR]([param:Object renderer])</h3>
+    <h3>[method:Boolean checkFloatTex]([param:WebGLRenderer renderer], [param:Boolean requireLinear])</h3>
     <p>
-      Проверяет, предлагаются ли контекстом WebGL расширения OES_texture_half_float и OES_texture_half_float_linear.
+      Проверяет, доступны ли для рендеринга числовые текстуры одинарной точности.
+    </p>
+
+    <h3>[method:Boolean checkHalfFloatTex]([param:WebGLRenderer renderer], [param:Boolean requireLinear])</h3>
+    <p>
+      Проверяет, доступны ли для рендеринга числовые текстуры половинной точности.
+    </p>
+
+    <h3>[method:Boolean checkHalfFloatReadPixels]([param:WebGLRenderer renderer])</h3>
+    <p>
+      Проверяет, можно ли читать пиксели из рендер таргетов половинной точности.
+    </p>
+
+    <h3>[method:Boolean checkFloatReadPixels]([param:WebGLRenderer renderer])</h3>
+    <p>
+      Проверяет, можно ли читать пиксели из рендер таргетов одинарной точности.
+    </p>
+
+    <h3>[method:Boolean checkDepthTex]([param:WebGLRenderer renderer])</h3>
+    <p>
+      Проверяет, доступны ли текстуры глубины для рендеринга.
+    </p>
+
+    <h3>[method:Boolean checkWebXR]()</h3>
+    <p>
+      Проверяет, доступен ли WebXR API (VR).
+    </p>
+
+    <h3>[method:Boolean checkSwiftShader]([param:WebGLRenderer renderer])</h3>
+    <p>
+      Является ли программный растеризатор Swift Shader единственно доступным для.
     </p>
 
     <h3>[method:Boolean checkWebAudio]()</h3>
@@ -68,6 +94,17 @@
     <h3>[method:String getGPUModel]([param:Object renderer])</h3>
     <p>
       Возвращает параметр UNMASKED_RENDERER_WEBGL расширения WEBGL_debug_renderer_info. Если последний отсутствует, возвращается пустое строковое значение.
+    </p>
+
+    <h3>[method:Boolean isTouchDevice]()</h3>
+    <p>
+      Проверят, имеется ли тачскин.
+    </p>
+
+
+    <h2>Пазлы</h2>
+    <p>
+      Пазлы <a href="manual/ru/puzzles/System.html#feature_available">feature available</a> и <a href="manual/ru/puzzles/System.html#get_GPU">get GPU</a> позволяют получить доступ к большинству вышестоящих методов без программирования.
     </p>
 
     [sourceHint]

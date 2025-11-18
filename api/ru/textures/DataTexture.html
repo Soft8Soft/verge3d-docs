@@ -11,36 +11,37 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">Создает текстуру непосредственно из исходных данных, ширины и высоты.</p>
+    <p>
+      Создает текстуру непосредственно из исходных данных, ширины и высоты.
+    </p>
 
 
     <h2>Конструктор</h2>
 
-    <h3>[name](data, width, height, format, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, encoding)</h3>
+    <h3>[name]([param:TypedArray data], [param:Integer width], [param:Integer height], [param:Constant format], [param:Constant type], [param:Constant mapping], [param:Constant wrapS], [param:Constant wrapT], [param:Constant magFilter], [param:Constant minFilter], [param:Integer anisotropy], [param:Constant encoding])</h3>
     <p>
-      Аргумент данных должен быть [link:https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView ArrayBufferView].
-      Дальнейшие параметры соответствуют свойствам, унаследованным от [page:Texture], где magFilter и minFilter по умолчанию v3d.NearestFilter. Свойства flipY и generateMipmaps изначально имеют значение false.
+      Аргумент `data` должен быть типа [page:TypedArray]. Свойства, унаследованные от [page:Texture] используются по умолчанию, кроме `magFilter` и `minFilter`, значения которых равны `v3d.NearestFilter`. Свойства `flipY` и `generateMipmaps` первоначально установлены в `false`.
     </p>
     <p>
-      Интерпретация данных зависит от типа и формата:
-      Если тип - v3d.UnsignedByteType, то для адресации данных текселя пригодится Uint8Array.
-      Если формат v3d.RGBAFormat, то для одного текселя требуется четыре значения: Red, Green, Blue и Alpha (обычно прозрачность). Аналогично, v3d.RGBFormat определяет формат, в котором для каждого текселя используется только три значения.<br>
-
-      Для упакованных типов, v3d.UnsignedShort4444Type, v3d.UnsignedShort5551Type или v3d.UnsignedShort565Type, все цветовые компоненты одного текселя могут быть адресованы как битовые поля внутри целочисленного элемента Uint16Array.<br>
-
-      Для использования типов v3d.FloatType и v3d.HalfFloatType реализация WebGL должна поддерживать соответствующие расширения OES_texture_float и OES_texture_half_float. Чтобы использовать v3d.LinearFilter для билинейной покомпонентной интерполяции текселей на основе этих типов, расширения WebGL OES_texture_float_linear или OES_texture_half_float_linear также должны присутствовать.
+      Интерпретация данных зависит от типа и формата текстуры: для типа `v3d.UnsignedByteType`, будут использоваться данные Uint8Array. Если используется формат `v3d.RGBAFormat`, в данных должны располагаться 4 значения для одного текселя: для красного, зелёного, синего и альфа-канала (прозрачности).
+    </p>
+    <p>
+      Для упакованных типов `v3d.UnsignedShort4444Type` и `v3d.UnsignedShort5551Type` цветовые компоненты текселя адресуются как битовые поля целых элементов массива Uint16Array.
+    </p>
+    <p>
+      Для использования типов `v3d.FloatType` и `v3d.HalfFloatType`, WebGL реализация должна поддерживать расширения OES_texture_float и OES_texture_half_float. Для использования фильтра билинейной интерполяции текселей `v3d.LinearFilter` вам также потребуется иметь поддержку WebGL-расширений OES_texture_float_linear и OES_texture_half_float_linear.
     </p>
 
-    <h2>Пример кода</h2>
+
+    <h2>Пример</h2>
 
     <code>
-    // create a buffer with color data
-
+    // создаём буфер с цветами
     const width = 512;
     const height = 512;
 
     const size = width * height;
-    const data = new Uint8Array(3 * size);
+    const data = new Uint8Array(4 * size);
     const color = new v3d.Color(0xffffff);
 
     const r = Math.floor(color.r * 255);
@@ -48,19 +49,20 @@
     const b = Math.floor(color.b * 255);
 
     for (let i = 0; i < size; i++) {
+        const stride = i * 4;
 
-      const stride = i * 3;
-
-      data[stride] = r;
-      data[stride + 1] = g;
-      data[stride + 2] = b;
-
+        data[stride] = r;
+        data[stride + 1] = g;
+        data[stride + 2] = b;
+        data[stride + 3] = 255;
     }
 
-    // использован буфер для создания [name]
+    // используем буфер для создания [name]
 
-    const texture = new v3d.DataTexture(data, width, height, v3d.RGBFormat);
+    const texture = new v3d.DataTexture(data, width, height);
+    texture.needsUpdate = true;
     </code>
+
 
     <h2>Свойства</h2>
 
@@ -68,10 +70,31 @@
       Общие свойства смотрите в базовом классе [page:Texture Texture].
     </p>
 
+    <h3>[property:Boolean flipY]</h3>
+    <p>
+      Если установлено значение `true`, текстура переворачивается вдоль вертикальной оси при загрузке на GPU. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Boolean generateMipmaps]</h3>
+    <p>
+      Нужно ли генерировать мипмапы (если это возможно) для текстуры. По умолчанию `false`.
+    </p>
+
     <h3>[property:Image image]</h3>
     <p>
-      Переопределяется с помощью типа записи, содержащего данные, ширину и высоту.
+      Переопределяется объектом, содержащим данные, ширину и высоту.
     </p>
+
+    <h3>[property:Boolean isDataTexture]</h3>
+    <p>
+      Флаг, указывающий что данный объект является экземпляром [name]. Только для чтения.
+    </p>
+
+    <h3>[property:Integer unpackAlignment]</h3>
+    <p>
+      1 по умолчанию. Определяет требования к выравниванию начала каждой строки пикселей в памяти.  Допустимые значения: 1 (выравнивание по байтам), 2 (строки выравниваются по четным байтам), 4 (выравнивание по словам) и 8 (строки начинаются на границах двойных слов). Смотрите [link:https://registry.khronos.org/OpenGL-Refpages/es2.0/xhtml/glPixelStorei.xml glPixelStorei] для получения дополнительной информации.
+    </p>
+
 
     <h2>Методы</h2>
 

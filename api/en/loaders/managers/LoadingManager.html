@@ -9,19 +9,19 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      Handles and keeps track of loaded and pending data. A default global instance of this class
-      is created and used by loaders if not supplied manually — see [page:DefaultLoadingManager].
-    </p>
     <p>
-      In general that should be sufficient, however there are times when it can be useful to have separate loaders —
-      for example if you want to show separate loading bars for objects and textures.
+      Handles and keeps track of loaded and pending data. A default global instance of this class is created and used by loaders if not supplied manually — see [page:DefaultLoadingManager].
     </p>
+
+    <p>
+      In general that should be sufficient, however there are times when it can be useful to have separate loaders — for example if you want to show separate loading bars for objects and textures.
+    </p>
+
 
     <h2>Code Example</h2>
 
     <p>
-      This example shows how to use LoadingManager to track the progress of [page:OBJLoader].
+      This example shows how to use LoadingManager to track the progress of [page:GLTFLoader].
     </p>
 
     <code>
@@ -42,26 +42,23 @@
         console.log('There was an error loading ' + url);
     };
 
-    const loader = new v3d.OBJLoader(manager);
-    loader.load('file.obj', function(object) {
+    const loader = new v3d.GLTFLoader(manager);
+    loader.load('file.gltf', function(gltf) {
         // your code goes here
     });
     </code>
 
     <p>
-      In addition to observing progress, a LoadingManager can be used to
-      override resource URLs during loading. This may be helpful for assets
-      coming from drag-and-drop events, WebSockets, WebRTC, or other APIs. An
-      example showing how to load an in-memory model using Blob URLs is below.
+      In addition to observing progress, a LoadingManager can be used to override resource URLs during loading. This may be helpful for assets coming from drag-and-drop events, WebSockets, WebRTC, or other APIs. An example showing how to load an in-memory model using Blob URLs is below.
     </p>
 
     <code>
-    // Blob or File objects created when dragging files into the webpage.
+    // Blob or File objects created when dragging files into the webpage
     const blobs = {'fish.gltf': blob1, 'diffuse.png': blob2, 'normal.png': blob3};
 
     const manager = new v3d.LoadingManager();
 
-    // Initialize loading manager with URL callback.
+    // initialize loading manager with URL callback
     const objectURLs = [];
     manager.setURLModifier((url) => {
         url = URL.createObjectURL(blobs[url]);
@@ -70,7 +67,7 @@
         return url;
     });
 
-    // Load as usual, then revoke the blob URLs.
+    // load as usual, then revoke the blob URLs
     const loader = new v3d.GLTFLoader(manager);
     loader.load('fish.gltf', (gltf) => {
         app.scene.add(gltf.scene);
@@ -82,11 +79,11 @@
     <h2>Constructor</h2>
 
     <h3>[name]([param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
-    <p class="params">
-      [page:Function onLoad] — (optional) this function will be called when all loaders are done.<br>
-      [page:Function onProgress] — (optional) this function will be called when an item is complete.<br>
-      [page:Function onError] — (optional) this function will be called a loader encounters errors.
-    </p>
+    <ul class="params">
+      <li>[page:Function onLoad] — (optional) this function will be called when all loaders are done.</li>
+      <li>[page:Function onProgress] — (optional) this function will be called when an item is complete.</li>
+      <li>[page:Function onError] — (optional) this function will be called a loader encounters errors.</li>
+    </ul>
     <p>
       Creates a new [name].
     </p>
@@ -96,38 +93,41 @@
 
     <h3>[property:Function onStart]</h3>
     <p class="params">
-      This function will be called when loading starts.
-      The arguments are:<br>
-      [page:String url] — The url of the item just loaded.<br>
-      [page:Integer itemsLoaded] — the number of items already loaded so far.<br>
-      [page:Integer itemsTotal] — the total amount of items to be loaded.
+      This function will be called when loading starts. The arguments are:
     </p>
+    <ul>
+      <li>[page:String url] — the URL of the item just loaded.</li>
+      <li>[page:Integer itemsLoaded] — the number of items already loaded so far.</li>
+      <li>[page:Integer itemsTotal] — the total amount of items to be loaded.</li>
+    </ul>
     <p>
-      By default this is undefined.
+      By default this is `undefined`.
     </p>
 
     <h3>[property:Function onLoad]</h3>
     <p>
-      This function will be called when all loading is completed. By default this is undefined,
-      unless passed in the constructor.
+      This function will be called when all loading is completed. By default this is undefined, unless passed in the constructor.
     </p>
 
     <h3>[property:Function onProgress]</h3>
     <p class="params">
-      This function will be called when an item is complete.
-      The arguments are:<br>
-      [page:String url] — The url of the item just loaded.<br>
-      [page:Integer itemsLoaded] — the number of items already loaded so far.<br>
-      [page:Integer itemsTotal] — the total amount of items to be loaded.
+      This function will be called when an item is complete. The arguments are:
     </p>
+    <ul class="params">
+      <li>[page:String url] — the URL of the item just loaded.</li>
+      <li>[page:Integer itemsLoaded] — the number of items already loaded so far.</li>
+      <li>[page:Integer itemsTotal] — the total amount of items to be loaded.</li>
+    </ul>
     <p>
       By default this is `undefined`, unless passed in the constructor.
     </p>
 
     <h3>[property:Function onError]</h3>
     <p class="params">
-      This function will be called when any item errors, with the argument:<br>
-      [page:String url] — The url of the item that errored.
+      This function will be called when any item errors, with the argument:
+    </p>
+    <p>
+      [page:String url] — the URL of the item that errored.
     </p>
     <p>
       By default this is undefined, unless passed in the constructor.
@@ -137,16 +137,13 @@
     <h2>Methods</h2>
 
     <h3>[method:this addHandler]([param:Object regex], [param:Loader loader])</h3>
-    <p class="params">
-      [page:Object regex] — A regular expression.<br>
-      [page:Loader loader] — The loader.
-    </p>
-
+    <ul class="params">
+      <li>[page:Object regex] — a regular expression.</li>
+      <li>[page:Loader loader] — the loader.</li>
+    </ul>
     <p>
-    Registers a loader with the given regular expression. Can be used to define what loader should be used in
-    order to load specific files. A typical use case is to overwrite the default loader for textures.
+      Registers a loader with the given regular expression. Can be used to define what loader should be used in order to load specific files. A typical use case is to overwrite the default loader for textures.
     </p>
-
     <code>
     // add handler for TGA textures
     manager.addHandler(/\.tga$/i, new TGALoader());
@@ -154,7 +151,7 @@
 
     <h3>[method:Loader getHandler]([param:String file])</h3>
     <p class="params">
-      [page:String file] — The file path.
+      [page:String file] — the file path.
     </p>
     <p>
       Can be used to retrieve the registered loader for the given file path.
@@ -162,7 +159,7 @@
 
     <h3>[method:this removeHandler]([param:Object regex])</h3>
     <p class="params">
-      [page:Object regex] — A regular expression.
+      [page:Object regex] — a regular expression.
     </p>
     <p>
       Removes the loader for the given regular expression.
@@ -170,22 +167,18 @@
 
     <h3>[method:String resolveURL]([param:String url])</h3>
     <p class="params">
-      [page:String url] — the url to load.
+      [page:String url] — the URL to load.
     </p>
     <p>
-      Given a URL, uses the URL modifier callback (if any) and returns a resolved URL. If no
-      URL modifier is set, returns the original URL.
+      Given a URL, uses the URL modifier callback (if any) and returns a resolved URL. If no URL modifier is set, returns the original URL.
     </p>
 
     <h3>[method:this setURLModifier]([param:Function callback])</h3>
     <p class="params">
-      [page:Function callback] — URL modifier callback. Called with [page:String url] argument, and
-      must return [page:String resolvedURL].
+      [page:Function callback] — URL modifier callback. Called with [page:String url] argument, and must return [page:String resolvedURL].
     </p>
     <p>
-      If provided, the callback will be passed each resource URL before a request is sent. The
-      callback may return the original URL, or a new URL to override loading behavior. This
-      behavior can be used to load assets from .ZIP files, drag-and-drop APIs, and Data URLs.
+      If provided, the callback will be passed each resource URL before a request is sent. The callback may return the original URL, or a new URL to override loading behavior. This behavior can be used to load assets from .ZIP files, drag-and-drop APIs, and Data URLs.
     </p>
 
     <p class="note">
@@ -194,26 +187,26 @@
 
     <h3>[method:undefined itemStart]([param:String url])</h3>
     <p class="params">
-      [page:String url] — the url to load.
+      [page:String url] — the URL to load.
     </p>
     <p>
-      This should be called by any loader using the manager when the loader starts loading an url.
+      This should be called by any loader using the manager when the loader starts loading an URL.
     </p>
 
     <h3>[method:undefined itemEnd]([param:String url])</h3>
     <p class="params">
-      [page:String url] — the loaded url.
+      [page:String url] — the loaded URL.
     </p>
     <p>
-      This should be called by any loader using the manager when the loader ended loading an url.
+      This should be called by any loader using the manager when the loader ended loading an URL.
     </p>
 
     <h3>[method:undefined itemError]([param:String url])</h3>
     <p class="params">
-      [page:String url] — the loaded url.
+      [page:String url] — the loaded URL.
     </p>
     <p>
-      This should be called by any loader using the manager when the loader errors loading an url.
+      This should be called by any loader using the manager when the loader errors loading an URL.
     </p>
 
     [sourceHint]

@@ -1,43 +1,103 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <base href="../../../">
-        <script src="page.js"></script>
-        <link type="text/css" rel="stylesheet" href="page.css">
-    </head>
-    <body>
-        [page:TargetConstraint] &rarr;
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:TargetConstraint] &rarr;
 
-        <h1>[name]</h1>
+    <h1>[name]</h1>
 
-        <div class="desc">
-            Ограничение, которое заставляет ограниченный объект наследовать масштаб цели.<br><br>
-            
-            Ограничения используются для установления различных отношений между объектами, влияя на их положение, вращение и масштаб. Могут использоваться со свойством [page:Object3D.constraints Object3D.constraints].
-        </div>
+    <p>
+      Ограничитель, который заставляет объект наследовать масштаб целевого объекта.
+    </p>
 
-        <h2>Конструктор</h2>
-
-        <h3>[name]([page:Object3D target])</h3>
+    <p>
+      Чтобы повлиять на какой-либо объект, экземпляр [name] должен быть добавлен к массиву [page:Object3D.constraints].
+    </p>
 
 
-        <h2>Свойства</h2>
-        <div>Общие свойства смотрите в базовом классе [page:TargetConstraint].</div>
+    <h2>Конструктор</h2>
 
-        <h3>[property:Boolean isCopyScaleConstraint]</h3>
-        <div>
-            Используется для проверки того, являются ли данный или производные классы ограничениями копирующими масштаб. По умолчанию *true*.
-        </div>
-        
-        <h3>[property:String type]</h3>
-        <div>
-            Тип ограничения. Равен "CopyScaleConstraint".
-        </div>
+    <h3>[name]([page:Object3D target])</h3>
+    <p class="params">
+      [page:Object3D target] — целевой объект ограничителя.
+    </p>
 
 
-        <h2>Методы</h2>
-        <div>Общие методы смотрите в базовом классе [page:TargetConstraint].</div>
+    <h2>Свойства</h2>
 
-    </body>
+    <p>
+      Общие свойства смотрите в базовом классе [page:TargetConstraint].
+    </p>
+
+    <h3>[property:Float influence]</h3>
+    <p>
+      Процент влияния, которое ограничитель оказывает на ограничиваемый объект. По умолчанию `1.0` (100%).
+    </p>
+
+    <h3>[property:Boolean isCopyScaleConstraint]</h3>
+    <p>
+      Указывает, что данный объект является экземпляром класса [name]. Только для чтения.
+    </p>
+
+    <h3>[property:Float power]</h3>
+    <p>
+      Возводит масштабирование объекта в указанную степень. По умолчанию `1.0`.
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+      Тип ограничителя. Равен `"CopyScaleConstraint"`.
+    </p>
+
+    <h3>[property:Boolean useAdd]</h3>
+    <p>
+      Использовать сложение вместо умножения при реализации поведения свойства `useOffset`. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Boolean useMakeUniform]</h3>
+    <p>
+      Применяет однородное по всем осям масштабирование к ограничиваемому объекту, которое сохраняет неизменным его объём. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Boolean useOffset]</h3>
+    <p>
+      Если `true`, ограничитель складывает (умножает) масштаб объекта, а не заменяет его полностью. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Boolean useX]</h3>
+    <p>
+      Действует ли ограничитель вдоль оси X. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean useY]</h3>
+    <p>
+      Действует ли ограничитель вдоль оси Y. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean useZ]</h3>
+    <p>
+      Действует ли ограничитель вдоль оси Z. По умолчанию `true`.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:TargetConstraint].
+    </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Используйте пазл <a href="manual/ru/puzzles/Animation.html#copy_transform">copy transform</a>, чтобы применять [name] без необходимости писать код.
+    </p>
+
+    [sourceHint]
+  </body>
 </html>

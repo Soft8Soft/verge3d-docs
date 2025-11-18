@@ -11,25 +11,32 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      The [name] represents a virtual [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioListener listener] of the all positional and non-positional audio effects in the scene.<br>
-      A Verge3D application usually creates a single instance of [name]. It is a mandatory construtor parameter for audios entities like [page:Audio Audio] and [page:PositionalAudio PositionalAudio].<br>
+    <p>
+      The [name] represents a virtual [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioListener listener] of the all positional and non-positional audio effects in the scene.
+    </p>
+
+    <p>
+      A Verge3D application usually creates a single instance of [name]. It is a mandatory construtor parameter for audios entities like [page:Audio Audio] and [page:PositionalAudio PositionalAudio].
+    </p>
+
+    <p>
       In most cases, the listener object is a child of the camera. So the 3D transformation of the camera represents the 3D transformation of the listener.
     </p>
+
 
     <h2>Code Example</h2>
 
     <code>
     // create an AudioListener and add it to the camera
     const listener = new v3d.AudioListener();
-    camera.add(listener);
+    app.camera.add(listener);
 
     // create a global audio source
     const sound = new v3d.Audio(listener);
 
     // load a sound and set it as the Audio object's buffer
     const audioLoader = new v3d.AudioLoader();
-    audioLoader.load('sounds/ambient.ogg', function(buffer) {
+    audioLoader.load('myaudio.mp3', function(buffer) {
         sound.setBuffer(buffer);
         sound.setLoop(true);
         sound.setVolume(0.5);
@@ -59,13 +66,17 @@
     </p>
 
     <h3>[property:AudioNode filter]</h3>
-    <p>Default is `null`.</p>
+    <p>
+      Default is `null`.
+    </p>
 
     <h3>[property:Float timeDelta]</h3>
-    <p>Time delta value for audio entities. Use in context of [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime AudioParam.linearRampToValueAtTimeDefault](). Default is `0`.</p>
+    <p>
+      Time delta value for audio entities. Use in context of [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime AudioParam.linearRampToValueAtTimeDefault](). Default is `0`.
+    </p>
+
 
     <h2>Methods</h2>
-
 
     <h3>[method:GainNode getInput]()</h3>
     <p>
@@ -97,9 +108,12 @@
       Set the volume.
     </p>
 
+
     <h2>Puzzles</h2>
 
-    <p>Verge3D offers <a href="manual/en/puzzles/Sound.html">audio</a> puzzles to simplify work with sounds and music.</p>
+    <p>
+      Verge3D offers <a href="manual/en/puzzles/Sound.html">audio</a> puzzles to simplify work with sounds and music.
+    </p>
 
     [sourceHint]
   </body>

@@ -11,19 +11,20 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Class for loading a [page:Texture texture].
-      This uses the [page:ImageLoader] internally for loading files.
+    <p>
+      Class for loading a [page:Texture texture]. This uses the [page:ImageLoader] internally for loading files.
     </p>
+
 
     <h2>Code Example</h2>
 
     <code>
-    const texture = new v3d.TextureLoader().load('textures/land_ocean_ice_cloud_2048.jpg');
+    const texture = new v3d.TextureLoader().load('mytexture.jpg');
 
     // immediately use the texture for material creation
     const material = new v3d.MeshBasicMaterial({ map: texture });
     </code>
+
 
     <h2>Code Example with Callbacks</h2>
 
@@ -34,7 +35,7 @@
     // load a resource
     loader.load(
         // resource URL
-        'textures/land_ocean_ice_cloud_2048.jpg',
+        'mytexture.webp',
 
         // onLoad callback
         function(texture) {
@@ -54,6 +55,7 @@
     );
     </code>
 
+
     <h2>Constructor</h2>
 
     <h3>[name]([param:LoadingManager manager])</h3>
@@ -66,18 +68,23 @@
 
 
     <h2>Properties</h2>
-    <p>See the base [page:Loader] class for common properties.</p>
+    <p>
+      See the base [page:Loader] class for common properties.
+    </p>
+
 
     <h2>Methods</h2>
-    <p>See the base [page:Loader] class for common methods.</p>
+    <p>
+      See the base [page:Loader] class for common methods.
+    </p>
 
     <h3>[method:Texture load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
-    <p class="params">
-      [page:String url] — the path or URL to the file. This can also be a [link:manual/en/puzzles/HTML.html#data_url Data URL].<br>
-      [page:Function onLoad] (optional) — Will be called when load completes. The argument will be the loaded [page:Texture texture].<br>
-      [page:Function onProgress] (optional) — This callback function is currently not supported.<br>
-      [page:Function onError] (optional) — Will be called when load errors.
-    </p>
+    <ul class="params">
+      <li>[page:String url] — the path or URL to the file. This can also be a [link:manual/en/puzzles/HTML.html#data_url Data URL].</li>
+      <li>[page:Function onLoad] (optional) — will be called when load completes. The argument will be the loaded [page:Texture texture].</li>
+      <li>[page:Function onProgress] (optional) — this callback function is currently not supported.</li>
+      <li>[page:Function onError] (optional) — will be called when load errors.</li>
+    </ul>
     <p>
       Begin loading from the given URL and pass the fully loaded [page:Texture texture] to onLoad. The method also returns a new texture object which can directly be used for material creation. If you do it this way, the texture may pop up in your scene once the respective loading process is finished.
     </p>

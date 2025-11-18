@@ -11,32 +11,32 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">Создает текстуру куба, состоящую из шести изображений.</p>
+    <p>
+      Создает кубическую текстуру, состоящую из шести изображений.
+    </p>
 
-    <h2>Пример кода</h2>
+
+    <h2>Пример</h2>
 
     <code>
     const loader = new v3d.CubeTextureLoader();
-    loader.setPath('textures/cube/pisa/');
+    loader.setPath('textures/');
 
     const textureCube = loader.load([
-      'px.png', 'nx.png',
-      'py.png', 'ny.png',
-      'pz.png', 'nz.png'
+        'px.png', 'nx.png',
+        'py.png', 'ny.png',
+        'pz.png', 'nz.png'
     ]);
 
     const material = new v3d.MeshBasicMaterial({ color: 0xffffff, envMap: textureCube });
     </code>
 
+
     <h2>Конструктор</h2>
 
-
-    <h3>[name](images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy)</h3>
-
+    <h3>[name]([param:Array images], [param:Constant mapping], [param:Constant wrapS], [param:Constant wrapT], [param:Constant magFilter], [param:Constant minFilter], [param:Constant format], [param:Constant type], [param:Integer anisotropy], [param:Constant encoding])</h3>
     <p>
-      CubeTexture почти эквивалентен по функциональности и использованию [page:Texture]. Единственные различия заключаются в том, что
-      изображения представляют собой массив из 6 изображений, а не одно изображение, и опциями отображения являются
-      [page:Textures v3d.CubeReflectionMapping] (по умолчанию) или [page:Textures v3d.CubeRefractionMapping].
+      CubeTexture почти эквивалентен по функциональности и использованию [page:Texture]. Единственные различия заключаются в том, что изображения представляют собой массив из 6 изображений, а не одно изображение, а типом маппинга является [page:Textures v3d.CubeReflectionMapping].
     </p>
 
 
@@ -45,6 +45,17 @@
     <p>
       Общие свойства смотрите в базовом классе [page:Texture Texture].
     </p>
+
+    <h3>[property:Boolean flipY]</h3>
+    <p>
+      Если установлено значение `true`, текстура переворачивается вдоль вертикальной оси при загрузке на GPU. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Boolean isCubeTexture]</h3>
+    <p>
+      Указывает, что объект является экземпляром класса [name]. Только для чтения.
+    </p>
+
 
     <h2>Методы</h2>
 

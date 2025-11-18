@@ -13,9 +13,10 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       [name] class allows you to set up your 3D application more easily. It includes code to init WebGL renderer, load glTF scenes, auto-start animations as well as logic for basic camera controls.
     </p>
+
 
     <h2>Example</h2>
 
@@ -42,7 +43,6 @@
     <h2>Constructor</h2>
 
     <h3>[name]([param:String|HTMLElement container], [param:Object ctxSettings], [param:Preloader preloader])</h3>
-
     <dl class="params">
       <dt>[page:String container]</dt>
       <dd>The ID of an HTML-element or the HTML-element itself to contain the canvas.</dd>
@@ -68,16 +68,14 @@
           <dd>Preserve content of the 3D canvas between frames. Default is `false`.</dd>
           <dt>[page:Boolean stencil]</dt>
           <dd>Allow stencil buffer to be used for rendering. Default is `true`.</dd>
-          <dt>[page:Boolean xrCompatible]</dt>
-          <dd>Make context compatible with WebXR (AR/VR). Default is `false`.</dd>
         </dl>
       </dd>
       <dt>[page:Preloader preloader]</dt>
       <dd>The instance of application's [page:Preloader Preloader] class.</dd>
     </dl>
-
-    <p>Verge3D application constructor. This constructor does the following:</p>
-
+    <p>
+      Verge3D application constructor. This constructor does the following:
+    </p>
     <ol>
       <li>Creates a new container element (if necessary).</li>
       <li>Checks whether WebGL technology is supported, if not displays an error dialog.</li>
@@ -93,9 +91,9 @@
     <h2>Properties</h2>
 
     <h3>[property:String aaMethod]</h3>
-
-    <p>Anti-aliasing method used to improve the visual quality of the rendered scene, one of:</p>
-
+    <p>
+      Anti-aliasing method used to improve the visual quality of the rendered scene, one of:
+    </p>
     <ul>
       <li>'AUTO'</li>
       <li>'MSAA4'</li>
@@ -103,37 +101,42 @@
       <li>'MSAA16'</li>
       <li>'FXAA'</li>
     </ul>
-
-    <p>This value is set by [page:.loadScene] so consider it read-only.</p>
+    <p>
+      This value is set by [page:.loadScene] so consider it read-only.
+    </p>
 
     <h3>[property:Array actions]</h3>
-
-    <p>Array of [page:AnimationAction animation actions] used to schedule app animations. Instead of accessing this list directly, you should use the [page:SceneUtils.getAnimationActionByName] method to search for an action by its clip name.</p>
+    <p>
+      Array of [page:AnimationAction animation actions] used to schedule app animations. Instead of accessing this list directly, you should use the [page:SceneUtils.getAnimationActionByName] method to search for an action by its clip name.
+    </p>
 
     <h3>[property:Camera camera]</h3>
-
-    <p>Application main camera. Do not replace this value directly if you need to change the main camera. Instead use the [page:App.setCamera .setCamera] method.</p>
+    <p>
+      Application main camera. Do not replace this property directly if you need to change the main camera. Instead use the [page:App.setCamera .setCamera] method.
+    </p>
 
     <h3>[property:Boolean clearBkgOnLoad]</h3>
 
     <p>Set the scene background to `null` after loading a glTF scene. Default is `false`.</p>
 
     <h3>[property:Clock clock]</h3>
-
-    <p>Application [page:Clock] object.</p>
+    <p>
+      Application [page:Clock] object.
+    </p>
 
     <h3>[property:HTMLElement container]</h3>
-
-    <p>A container element. This is a parent element for 3D Canvas used for rendering operations.</p>
+    <p>
+      A container element. This is a parent element for 3D canvas used for rendering operations.
+    </p>
 
     <h3>[property:Array compileCallbacks]</h3>
-
-    <p>Array of functions which will be called just before shader compilation. Shader compilation occurs during scene loading right after all assets (glTF metadata, binary, textures) has been fetched.</p>
-
-    <p>Use compile callback to enable post-processing or add fog, since adding these effects in runtime can negatively affect performance.</p>
-
+    <p>
+      Array of functions which will be called just before shader compilation. Shader compilation occurs during scene loading right after all assets (glTF metadata, binary, textures) has been fetched.
+    </p>
+    <p>
+      Use compile callback to enable post-processing or add fog, since adding these effects in runtime can negatively affect performance.
+    </p>
     <code>
-
     function initFog(appInstance) {
         appInstance.scene.fog = new v3d.FogExp2('green', 0.01);
     }
@@ -152,95 +155,124 @@
         app.enableControls();
         app.run();
     });
-
     </code>
 
     <h3>[property:Object controls]</h3>
+    <p>
+      Application camera controls. Use [page:.enableControls] to assign this value.
+    </p>
 
-    <p>Application camera controls. Use [page:.enableControls] to assign this value.</p>
+    <h3>[property:CSS3DRenderer cssRenderer]</h3>
+    <p>
+      Application's [page:CSS3DRenderer CSS renderer] class instance. Default is `null`, meaning no CSS-transformed objects are present in the app. This property should never be assigned directly, instead use the [page:.enableCSSRenderer] method.
+    </p>
+
+    <h3>[property:Scene cssScene]</h3>
+    <p>
+      Scene which contains CSS-transformed objects. Default is `null`, meaning no CSS-transformed objects are present in the app. This property should never be assigned directly, instead use the [page:.enableCSSRenderer] method.
+    </p>
 
     <h3>[property:Integer disableRenderTrigger]</h3>
-
-    <p>Used to implement delay when using [page:.disableRendering] with non-zero parameter `after`. Do not modify.</p>
+    <p>
+      Used to implement delay when using [page:.disableRendering] with non-zero parameter `after`. Do not modify.
+    </p>
 
     <h3>[property:Float elapsed]</h3>
-
-    <p>Time in seconds passed since the last frame.</p>
+    <p>
+      Time in seconds passed since the last frame.
+    </p>
 
     <h3>[property:Boolean enableRender]</h3>
-
-    <p>Read only, `true` if the rendering is enabled, otherwise `false`. To enable/disable the actual rendering use the [page:.enableRendering] and [page:.disableRendering] methods.</p>
+    <p>
+      Read only, `true` if the rendering is enabled, otherwise `false`. To enable/disable the actual rendering use the [page:.enableRendering] and [page:.disableRendering] methods.
+    </p>
 
     <h3>[property:Integer frame]</h3>
-
-    <p>Current rendering frame of the application.</p>
+    <p>
+      Current rendering frame of the application.
+    </p>
 
     <h3>[property:Float frameRateDivider]</h3>
-
-    <p>Application FPS divider. Use [page:.setFrameRateDivider] to set this value.</p>
+    <p>
+      Application FPS divider. Use [page:.setFrameRateDivider] to set this value.
+    </p>
 
     <h3>[property:GLTFLoader loader]</h3>
-
-    <p>Application's [page:GLTFLoader glTF loader] instance.</p>
+    <p>
+      Application's [page:GLTFLoader glTF loader] instance.
+    </p>
 
     <h3>[property:AnimationMixer mixer]</h3>
-
-    <p>Mixer used to play animations loaded from glTF data.</p>
+    <p>
+      Mixer used to play animations loaded from glTF data.
+    </p>
 
     <h3>[property:Preloader preloader]</h3>
-
-    <p>App [page:Preloader preloader] instance (exists only during the scene loading).</p>
+    <p>
+      App [page:Preloader preloader] instance (exists only during the scene loading).
+    </p>
 
     <h3>[property:Boolean registerServiceKeys]</h3>
-
-    <p>Register the service keys like triple tilda (~~~) which displays service menu. Default is `true`. If you need to disable service keys, set this value to `false` right after making a new [name] instance.</p>
-
+    <p>
+      Register the service keys like triple tilda (~~~) which displays service menu. Default is `true`. If you need to disable service keys, set this value to `false` right after making a new [name] instance.
+    </p>
     <code>
     const app = new v3d.App(containerId, ctxSettings, preloader);
     app.registerServiceKeys = false;
     </code>
-
-    <p>If you need to disable the service keys for the running application, use the [page:AppUtils.unregisterServiceKeys] method.</p>
+    <p>
+      If you need to disable the service keys for the running application, use the [page:AppUtils.unregisterServiceKeys] method.
+    </p>
 
     <h3>[property:Array renderCallbacks]</h3>
-
-    <p>Array of functions which will be called every time when rendering frame begins.</p>
+    <p>
+      Array of functions which will be called every time when rendering frame begins.
+    </p>
 
     <h3>[property:WebGLRenderer renderer]</h3>
-
-    <p>Application's [page:WebGLRenderer WebGL renderer] class instance.</p>
+    <p>
+      Application's [page:WebGLRenderer WebGL renderer] class instance.
+    </p>
 
     <h3>[property:Scene scene]</h3>
-
-    <p>Application main scene.</p>
+    <p>
+      Application main scene.
+    </p>
 
     <h3>[property:Boolean ssaaOnPause]</h3>
-
-    <p>Trigger SSAA (supersample anti-aliasing) upon [page:.disableRendering rendering pause]. Default is `false`.</p>
+    <p>
+      Trigger SSAA (supersample anti-aliasing) upon [page:.disableRendering rendering pause]. Default is `false`.
+    </p>
 
     <h3>[property:Stats stats]</h3>
-
-    <p>Instance of the [page:Stats] class used to display FPS counter element. Created and destroyed with [page:.showFPS] and [page:.hideFPS] methods.</p>
+    <p>
+      Instance of the [page:Stats] class used to display FPS counter element. Created and destroyed with [page:.showFPS] and [page:.hideFPS] methods.
+    </p>
 
     <h3>[property:Boolean useHDR]</h3>
-
-    <p>Whether HDR rendering is enabled for the app or not. HDR rendering is enabled when a) it is requested by the main glTF scene and b) it is supported by the target hardware.</p>
+    <p>
+      Whether HDR rendering is enabled for the app or not. HDR rendering is enabled when a) it is requested by the main glTF scene and b) it is supported by the target hardware.
+    </p>
 
     <h3>[property:Integer worldCubemapRes]</h3>
-
-    <p>Resolution of the cubemap texture representing the world material. Default is `1024`.</p>
+    <p>
+      Resolution of the cubemap texture representing the world material. Default is `1024`.
+    </p>
 
     <h3>[property:Object3D xrCameraParent]</h3>
-
-    <p>AR/VR camera parent used to move the camera in WebXR session.</p>
+    <p>
+      AR/VR camera parent used to move the camera in WebXR session.
+    </p>
 
     <h3>[property:Array xrControllers]</h3>
-
-    <p>Array of controller objects for the active WebXR session.</p>
+    <p>
+      Array of controller objects for the active WebXR session.
+    </p>
 
     <h3>[property:XRSession xrSession]</h3>
-
-    <p>Active WebXR session. Never set XR session directly, use [page:.initWebXR] method.</p>
+    <p>
+      Active WebXR session. Never set XR session directly, use [page:.initWebXR] method.
+    </p>
 
 
     <h2>Methods</h2>
@@ -264,6 +296,11 @@
     <h3>[method:undefined assignClippingPlanes]([param:Scene scene])</h3>
     <p>
       Prepare clipping planes for the given scene.
+    </p>
+
+    <h3>[method:undefined disableCSSRenderer]()</h3>
+    <p>
+      Disposes [page:.cssRenderer] and [page:.cssScene] instances and reinitialize application controls back to normal operation.
     </p>
 
     <h3>[method:undefined disablePostprocessing]([param:Boolean keepOutline], [param:Boolean keepGTAO])</h3>
@@ -295,6 +332,14 @@
     </p>
     <p>
       The optional `element` parameter is used to specify the canvas element to assign mouse/keyboard/touch events. If not specified, controls will be assigned on the [page:WebGLRenderer.domElement .domElement] element of the app's [page:.renderer] instance.
+    </p>
+
+    <h3>[method:undefined enableCSSRenderer]()</h3>
+    <p>
+      Create new [page:.cssRenderer] and [page:.cssScene] instances and reinitialize application controls to operate with CSS transformed objects.
+    </p>
+    <p>
+      This method is usually executed by the <a href="manual/en/puzzles/Objects.html#create_object">create object → plane with html</a> puzzle.
     </p>
 
     <h3>[method:undefined enablePostprocessing]([param:Array effects])</h3>
@@ -621,7 +666,7 @@
     <h2>Source</h2>
 
     <p>
-      The source code for this module is available in the `src/extras/App.js` file inside the Verge3D's *installation folder*.
+      The source code for this module is freely available in the ``src/extras/App.js`` file inside the Verge3D's <em>installation folder</em>.
     </p>
 
   </body>

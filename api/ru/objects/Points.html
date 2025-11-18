@@ -11,10 +11,8 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Класс для отображения точек.
-      Точки отображаются с помощью [page:WebGLRenderer], с использованием
-      [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements gl.POINTS].
+    <p>
+      Класс для отображения точек. Точки отображаются с помощью [page:WebGLRenderer], с использованием [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements gl.POINTS].
     </p>
 
 
@@ -22,44 +20,52 @@
 
     <h3>[name]([param:BufferGeometry geometry], [param:Material material])</h3>
     <ul class="params">
-      <li>[page:BufferGeometry geometry] — (необязательный) экземпляр [page:BufferGeometry].</li>
-      <li>[page:Material material] — (необязательный) [page:Material]. По умолчанию это новый [page:PointsMaterial].</li>
+      <li>[page:BufferGeometry geometry] — (необ.) экземпляр [page:BufferGeometry].</li>
+      <li>[page:Material material] — (необ.) [page:Material]. По умолчанию используется новый [page:PointsMaterial].</li>
     </ul>
 
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Object3D].</p>
 
-    <h3>[property:Geometry geometry]</h3>
+    <p>
+      Общие свойства см. в базовом классе [page:Object3D].
+    </p>
+
+    <h3>[property:BufferGeometry geometry]</h3>
     <p>
       Экземпляр [page:BufferGeometry] (или производных классов), определяющий структуру объекта.
     </p>
 
+    <h3>[property:Boolean isPoints]</h3>
+    <p>
+      Указывает, что данный объект является экземпляром класса [name]. Только для чтения.
+    </p>
+
     <h3>[property:Material material]</h3>
     <p>
-      Экземпляр [page:Material], определяющий внешний вид объекта.
-      По умолчанию это [page:PointsMaterial].
+      Экземпляр [page:Material], определяющий внешний вид объекта. По умолчанию это [page:PointsMaterial].
     </p>
 
     <h3>[property:Array morphTargetInfluences]</h3>
     <p>
-      Массив весов, обычно от 0 до 1, который определяет, насколько сильно применяется морфинг.
-      По умолчанию не определен, но сбрасывается в пустой массив командой [page:Points.updateMorphTargets updateMorphTargets].
+      Массив весов, обычно от 0 до 1, который определяет, насколько сильно применяется морфинг. По умолчанию не определен, но сбрасывается в пустой массив методом [page:Points.updateMorphTargets updateMorphTargets].
     </p>
 
     <h3>[property:Object morphTargetDictionary]</h3>
     <p>
-      Список morphTargets, основанный на свойстве morphTarget.name.
-      По умолчанию не определена, но перестраивается [page:Points.updateMorphTargets updateMorphTargets].
+      Список морф таргетов, основанный на свойстве morphTarget.name. По умолчанию не определена, но перестраивается [page:Points.updateMorphTargets updateMorphTargets].
     </p>
 
-    <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:Object3D]..</p>
 
-    <h3>[method:null raycast]([param:Raycaster raycaster], [param:Array intersects])</h3>
+    <h2>Методы</h2>
+
     <p>
-      Получить пересечения между отбрасываемым лучом и данными точками.
-      [page:Raycaster.intersectObject] вызовет этот метод.
+      Общие методы см. в базовом классе [page:Object3D].
+    </p>
+
+    <h3>[method:undefined raycast]([param:Raycaster raycaster], [param:Array intersects])</h3>
+    <p>
+      Получить пересечения между отбрасываемым лучом и данными точками. [page:Raycaster.intersectObject] вызывает этот метод.
     </p>
 
     <h3>[method:Points clone]()</h3>
@@ -67,14 +73,11 @@
       Возвращает клон этого Points-объекта и его преемников.
     </p>
 
-    <h3>[method:null updateMorphTargets]()</h3>
+    <h3>[method:undefined updateMorphTargets]()</h3>
     <p>
-    Обновляет morphTargets так, чтобы они не оказывали влияния на объект. Сбрасывает свойства
-    [page:Points.morphTargetInfluences morphTargetInfluences] и
-    [page:Points.morphTargetDictionary morphTargetDictionary].
+      Обновляет морф таргеты так, чтобы они не оказывали влияния на объект. Сбрасывает свойства [page:Points.morphTargetInfluences morphTargetInfluences] и [page:Points.morphTargetDictionary morphTargetDictionary].
     </p>
 
     [sourceHint]
-
   </body>
 </html>

@@ -20,20 +20,20 @@
     <h1>Verge3D Developer Kit</h1>
 
     <p>
-    Verge3D Developer Kit (DevKit) is a collection of examples, tools and source code which comes with <a href="https://www.soft8soft.com/product-category/enterprise-licenses/" target="_blank">Verge3D Enterprise</a> package. This collection will help you to perform various developer tasks such as:
+      Verge3D Developer Kit (DevKit) is a collection of examples, tools and source code which comes with <a href="https://www.soft8soft.com/product-category/enterprise-licenses/" target="_blank">Verge3D Enterprise</a> package. This collection will help you to perform various developer tasks such as:
     </p>
 
     <ul>
-      <li>Learn and review Verge3D toolkit internals.</li>
-      <li>Modify Verge3D and use modified versions in your own 3D apps.</li>
-      <li>Extend Verge3D API with your own classes and methods.</li>
-      <li>Add new Puzzles blocks.</li>
-      <li>Enhance Verge3D glTF exporter by adding your own data or parameters.</li>
-      <li>Develop your own product configurator or e-commerce system for WordPress by using the <em>Verge3D for WordPress</em> plugin as reference.</li>
+      <li>Switching to unminified version of Verge3D runtime which simplifies debugging your own apps.</li>
+      <li>Learning and reviewing Verge3D toolkit internals.</li>
+      <li>Modifying Verge3D and using the modified versions in the apps you develop.</li>
+      <li>Extending Verge3D API with your own classes and methods.</li>
+      <li>Adding new Puzzles blocks.</li>
+      <li>Developing your own product configurator or e-commerce system for WordPress by using the <em>Verge3D for WordPress</em> plugin as reference.</li>
     </ul>
 
     <p class="note">
-      Developer Kit is intended for seasoned programmers who wish to explore or modify the engine. You don't need it for creating Verge3D applications with the standard set of functionality.
+      Developer Kit is intended for seasoned JavaScript programmers who wish to explore or tweak the engine (and Puzzles). It is not required (though might be useful) for creating Verge3D applications with the standard set of functionality.
     </p>
 
     [contents]
@@ -51,53 +51,27 @@
       If you're going to build Verge3D engine or Puzzles from source code, you'll need the *npm* utility which is part of the *Node.js* runtime. You can install it by following <a href="https://nodejs.org/en/download/package-manager/" target="_blank">these instructions</a>.
     </p>
 
-    <p>
-      Finally, go to the unpacked directory of DevKit and execute the following command to install the dependencies:
-    </p>
-
-    <code>npm install</code>
-
 
     [anchor:Structure]
 
     <h2>DevKit Structure</h2>
 
     <p>
-      Freshly installed DevKit includes the following directories:
+      Freshly installed DevKit includes the following folders:
     </p>
 
     <table>
       <tr>
-        <th>Directory</th>
+        <th>DevKit Folder</th>
         <th>Description</th>
-      </tr>
-      <tr>
-        <td>addons/verge3d</td>
-        <td>Source code of Blender add-on (Verge3D for Blender or Verge3D Ultimate).</td>
       </tr>
       <tr>
         <td>build</td>
         <td>Pre-built Verge3D engine scripts and additional modules (ammo.js, etc).</td>
       </tr>
       <tr>
-        <td>ktx</td>
-        <td>Binaries for texture compression module.</td>
-      </tr>
-      <tr>
-        <td>max_plugin</td>
-        <td>Source code of 3ds Max plugin (Verge3D for 3ds Max or Verge3D Ultimate).</td>
-      </tr>
-      <tr>
-        <td>maya_plugin</td>
-        <td>Source code of Maya plugin (Verge3D for Maya or Verge3D Ultimate).</td>
-      </tr>
-      <tr>
         <td>puzzles</td>
         <td>Pre-built scripts and source code of the Puzzles editor.</td>
-      </tr>
-      <tr>
-        <td>python</td>
-        <td>Python 3 runtime and utility modules.</td>
       </tr>
       <tr>
         <td>src</td>
@@ -109,11 +83,11 @@
       </tr>
       <tr>
         <td>utils</td>
-        <td>Various utility scripts.</td>
+        <td>Various utility scripts and build dependencies.</td>
       </tr>
       <tr>
         <td>wordpress</td>
-        <td><em>Verge3D for WordPress</em> plugin source code.</td>
+        <td><em>Verge3D for WordPress</em> plugin source code (written in PHP).</td>
       </tr>
       <tr>
         <td>xz</td>
@@ -121,14 +95,41 @@
       </tr>
     </table>
 
+    <p>
+      In the ``build`` folder of the DevKit there are 4 variants of the <em>Verge3D runtime</em>:
+    </p>
+
+    <dl>
+      <dt>v3d.js</dt>
+      <dd>Minified (optimized) version suitable for most applications. It provides all Verge3D classes/functions/constants via the global `v3d` namespace. This version is used by the App Manager and the most demos you can find in the Asset Store.</dd>
+      <dt>v3d.unminified.js</dt>
+      <dd>This is the unminified (unoptimized) version of the above. In order to use it, copy this file to the app folder and rename as ``v3d.js``, replacing the original file.</dd>
+      <dt>v3d.module.js</dt>
+      <dd>Minified (optimized) runtime that provides ES6 modules instead of the global `v3d` namespace.</dd>
+      <dt>v3d.module.unminified.js</dt>
+      <dd>This is the unminified (unoptimized) version of the above.</dd>
+    </dl>
+
 
     [anchor:Building_Verge3D]
 
     <h2>Building Verge3D</h2>
 
     <p>
-      Before compiling Verge3D, please make sure you installed *npm* and all required dependencies as described above.
+      Before compiling Verge3D, please make sure you installed *npm* as described above.
     </p>
+
+    <p>
+      Once *npm* installed, go to the unpacked folder of DevKit and execute the following command to install the dependencies:
+    </p>
+
+    <code>npm install</code>
+
+    <p>
+      In case you need to rebuild the Puzzles editor, additional dependencies should be installed for the ``puzzles`` and ``puppeteer_testing`` directories:
+    </p>
+
+    <code>npm install --prefix puzzles && npm install --prefix utils/puppeteer_testing</code>
 
     <p>
       To compile an <em>unoptimized</em> build of Verge3D, which suits well for testing and debugging purposes, execute the following command in the DevKit directory:
@@ -137,10 +138,10 @@
     <code>npm run build</code>
 
     <p>
-      You can find the compiled modules inside the *build* directory of your DevKit. To test it, simply copy *v3d.js* engine module to your application inside Verge3D installation, for example:
+      You can find the compiled modules inside the ``build`` directory of your DevKit. To test it, simply copy ``v3d.js`` engine runtime into your application inside the <em>applications folder</em>, for example:
     </p>
 
-    <code>cp build/v3d.js APPS_FOLDER/my_awesome_application/</code>
+    <code class="lang-sh">cp build/v3d.js APPS_FOLDER/my_awesome_application</code>
 
     <p>
       To compile an <em>optimized</em> of Verge3D (aka release version), execute the following command in the DevKit directory:
@@ -161,7 +162,7 @@
     <code>npm run build-puzzles-release</code>
 
     <p>
-      You can find the compiled Puzzles editor script inside the *puzzles* directory of your DevKit. To apply it to Verge3D, copy the entire content of this directory to the *puzzles* directory inside your Verge3D installation (replacing files which already exist there).
+      You can find the compiled Puzzles editor script inside the ``puzzles`` directory of your DevKit. To apply it to Verge3D, copy the entire content of this directory to the ``puzzles`` directory inside your Verge3D installation (replacing files which already exist there).
     </p>
 
 
@@ -170,13 +171,15 @@
     <h2>Activating Engine Module</h2>
 
     <p>
-      To sign the compiled engine module with your license key, use the <strong>keymanager.py</strong> script from the *utils* directory (python required):
+      To sign the compiled engine runtime with your license key, use the <strong>keymanager.py</strong> script from the ``utils`` directory (python required):
     </p>
 
-    <code>./keymanager activate ../build/v3d.js XXXXXXXXXX</code>
+    <code class="lang-sh">
+    ./keymanager activate ../build/v3d.js XXXXXXXXXX
+    </code>
 
     <p>
-      Where XXXXXXXXXX is your license key. Since this command does not print anything, you need to verify if the activation was a success by copying the module to some app folder and checking for the *MADE WITH VERGE3D TRIAL* watermark.
+      Where XXXXXXXXXX is your license key. Since this command does not print anything, you need to verify if the activation was a success by copying the runtime to some app folder and checking for the *MADE WITH VERGE3D TRIAL* watermark.
     </p>
 
 
@@ -185,23 +188,33 @@
     <h2>Adding New Method to JavaScript API</h2>
 
     <p>
-      Say, you want to add another method to the *App* class. For example, a *printHelloWorld()* method should print something to the browser console:
-    </p>
-
-    <code>App.printHelloWorld()</code>
-
-    <p>
-      The *App* class is implemented in the module located at *src/extras/App.js*. Open it and add the following code to the end of the file, just before the closing brackets of the *App* class. Don't forget to add another comma where the previous method ends.
+      Say, you want to add another method to the [page:App] class. For example, a `printHelloWorld()` method should print something to the browser console:
     </p>
 
     <code>
-    printHelloWorld: function() {
+    App.printHelloWorld()
+    </code>
+
+    <p>
+      The [page:App] class is implemented in the runtime located at ``src/extras/App.js`` Open it and add the following code to the end of the file, just before the closing brackets of the `App` class.
+    </p>
+
+    <code>
+    printHelloWorld() {
         console.log('Hello World!');
     }
     </code>
 
     <p>
-      <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Puzzles runtime to your Verge3D installation folder. You can now try the newly added block in the Puzzles editor.
+      <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Verge3D runtime ``v3d.js`` into your app folder. To test the newly added method, open the browser console, then type:
+    </p>
+
+    <code>
+    v3d.apps[0].printHelloWorld()
+    </code>
+
+    <p>
+      It should print the "Hello World!" line below.
     </p>
 
 
@@ -210,13 +223,15 @@
     <h2>Adding New Class to JavaScript API</h2>
 
     <p>
-      To supplement the Verge3D API with some custom class, create a .js file named after your class in a relevant subdirectory of DevKit's *src* folder (e.g. src/extras/MyAwesomeClass.js). In this .js file, implement your class - you can get inspired by already existing classes. Finally, register your class in the global namespace *v3d* by adding the following line in *src/v3d.js* file:
+      To supplement the Verge3D API with some custom class, create a .js file named after your class in a relevant subdirectory of DevKit's ``src`` folder (e.g. ``src/extras/MyAwesomeClass.js``). In this .js file, implement your class - you can get inspired by already existing classes. Finally, register your class in the global namespace `v3d` by adding the following line in ``src/v3d.js`` file:
     </p>
 
-    <code>export { MyAwesomeClass } from './extras/MyAwesomeClass.js';</code>
+    <code>
+    export { MyAwesomeClass } from './extras/MyAwesomeClass.js';
+    </code>
 
     <p>
-      <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Verge3D runtime to your application, and try it out in the browser console.
+      <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Verge3D runtime ``v3d.js`` into your app folder, when try the new class in the browser console.
     </p>
 
     <code>
@@ -230,44 +245,58 @@
     <h2>Adding New Puzzles</h2>
 
     <p>
-      To create a custom Puzzles block, edit the *puzzles/src/puzzles_blocks.js* file. You can get inspired by already existing puzzles. Register it in a relevant toolbox category in the top of the file.
+      To create a custom Puzzles block, edit the ``puzzles/src/puzzles_blocks.js`` file. You can get inspired by already existing puzzles. Register it in a relevant toolbox category in the top of the file.
     </p>
 
     <p>
-      <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Puzzles runtime to your Verge3D installation folder. You should now find your new puzzle in the toolbox of the Puzzles editor.
+      <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Puzzles runtime into the <em>Verge3D installation folder</em>. You should now find your new puzzle in the toolbox of the Puzzles editor.
     </p>
 
     <p class="note">
-      Instead of editing *puzzles_blocks.js*, you can put your custom code in a <a href="manual/en/puzzles/Plugins.html">plugin</a> which makes it more reusable.
+      Instead of editing ``puzzles_blocks.js``, you can put your custom code in a <a href="manual/en/puzzles/Plugins.html">plugin</a> which makes it more reusable.
     </p>
 
 
-    [anchor:supporting_new_platforms_and_architectures]
+    [anchor:removing_verge3d_from_console]
 
-    <h2>Supporting New Platforms and Architectures</h2>
+    <h2>Removing Verge3D Line From the Browser Console</h2>
 
     <p>
-      Verge3D is a cross-platform software, which can be used to develop 3D web applications on any platform capable of running Blender, 3ds Max, or Maya. However, the built-in glTF exporters require the texture compression utility called *toktx* (part of the KTX texture compression tools) to work properly.
+      Every time a Verge3D app is launched, the user can see the following line in the browser console:
     </p>
+
+    <img src="files/updating/chrome-console-verge3d-version.webp" alt="Verge3D version in Chrome console">
+
     <p>
-      Verge3D distributions include this tool for the most commonly used platforms: Windows (Intel 64-bit), macOS (Intel 64-bit and Apple Silicon), Linux (Intel or ARM 64-bit), and ChromeOS (Intel or ARM 64-bit). For others, say Windows ARM, BSD systems, Loongson/LoongArch, Raspberry PI, RISC-V devices, etc, you might need to build the KTX software manually by using the instructions provided <a href="https://github.com/KhronosGroup/KTX-Software/blob/main/BUILDING.md" target="_blank">here</a>.
+      This line tells what version of Verge3D runtime is running, is it licensed or not, and finally what version of WebGL is currently in use.
     </p>
+
     <p>
-      Once you have the *toktx* utility built and tested, place it in the <em>ktx/ARCHITECTURE</em> folder inside the Verge3D's *installation folder* replacing <em>ARCHITECTURE</em> by the new platform name. To obtain this name, execute the basic Python script located inside the *ktx* directory of DevKit:
+      If for some reasons you don't want this line to appear, you can modify the engine source code as follows. Open the file ``src/renderers/WebGLRenderer.js``. Find the line:
     </p>
 
-    <code>./show_arch.py</code>
+    <code>
+    const PRINT_VERGE3D_LINE = true;
+    </code>
 
-    <p>for UNIX-like systems, or</p>
+    <p>
+      and swap this constant to `false`:
+    </p>
 
-    <code>python show_arch.py</code>
+    <code>
+    const PRINT_VERGE3D_LINE = false;
+    </code>
 
-    <p>for Windows systems.</p>
+    <p>
+      <a href="manual/en/programmers_guide/Developer-Kit.html#Building_Verge3D">Build</a> and copy the Verge3D runtime ``v3d.js`` into your app folder. Verify that the line is not printed anymore.
+    </p>
 
 
     <h2>Got Questions?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>
+      Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!
+    </p>
 
   </article></body>
 </html>

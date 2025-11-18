@@ -11,14 +11,14 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      A light that gets emitted from a single point in all directions. A common use case for this
-      is to replicate the light emitted from a bare lightbulb.
+    <p>
+      A light that gets emitted from a single point in all directions. A common use case for this is to replicate the light emitted from a bare lightbulb.
     </p>
 
     <p>
       This light can cast shadows — see [page:PointLightShadow] page for details.
     </p>
+
 
     <h2>Code Example</h2>
 
@@ -32,17 +32,19 @@
     <h2>Constructor</h2>
 
     <h3>[name]([param:Integer color], [param:Float intensity], [param:Float distance], [param:Float decay])</h3>
-    <p class="params">
-      [page:Integer color] — (optional) hexadecimal color of the light. Default is `0xffffff` (white).<br>
-      [page:Float intensity] — (optional) numeric value of the light's strength/intensity. Default is `1`.<br>
-      [page:Float distance] — Maximum range of the light. Default is 0 (no limit).<br>
-      [page:Float decay] — The amount the light dims along the distance of the light. Default is `2`.
-    </p>
+    <ul class="params">
+      <li>[page:Integer color] — (optional) hexadecimal color of the light. Default is `0xffffff` (white).</li>
+      <li>[page:Float intensity] — (optional) numeric value of the light's strength/intensity. Default is `1`.</li>
+      <li>[page:Float distance] — maximum range of the light. Default is `0` (no limit).</li>
+      <li>[page:Float decay] — the amount the light dims along the distance of the light. Default is `2`.</li>
+    </ul>
     <p>
       Creates a new [name].
     </p>
 
+
     <h2>Properties</h2>
+
     <p>
       See the base [page:Light Light] class for common properties.
     </p>
@@ -54,13 +56,12 @@
 
     <h3>[property:Float decay]</h3>
     <p>
-      The amount the light dims along the distance of the light. Default is `2`.<br>
-      In context of physically-correct rendering the default value should not be changed.
+      The amount the light dims along the distance of the light. Default is `2`. In context of physically-correct rendering the default value should not be changed.
     </p>
 
     <h3>[property:Float distance]</h3>
     <p>
-      When distance is zero, light will attenuate according to inverse-square law to infinite distance. When distance is non-zero, light will attenuate according to inverse-square law until near the distance cutoff, where it will then attenuate quickly and smoothly to 0. Inherently, cutoffs are not physically correct.
+      When distance is zero, light will attenuate according to inverse-square law to infinite distance. When distance is non-zero, light will attenuate according to inverse-square law until near the distance cutoff, where it will then attenuate quickly and smoothly to `0`. Inherently, cutoffs are not physically correct.
     </p>
     <p>
       Default is `0.0`.
@@ -68,17 +69,20 @@
 
     <h3>[property:Float intensity]</h3>
     <p>
-      The light's intensity. Default is `1`.<br>
-      Intensity is the luminous intensity of the light measured in candela (cd).
+      The light's intensity. Default is `1`. Intensity is the <em>luminous intensity</em> of the light measured in candela (cd).
     </p>
     <p>
       Changing the intensity will also change the light's power.
     </p>
 
+    <h3>[property:Boolean isPointLight]</h3>
+    <p>
+      Read-only flag to check if a given object is of type [name].
+    </p>
+
     <h3>[property:Float power]</h3>
     <p>
-      The light's power.<br>
-      Power is the luminous power of the light measured in lumens (lm).
+      The light's power. Power is the <em>luminous flux</em> of the light measured in lumens (lm).
     </p>
     <p>
       Changing the power will also change the light's intensity.
@@ -89,13 +93,12 @@
       A [page:PointLightShadow] used to calculate shadows for this light.
     </p>
     <p>
-      The lightShadow's [page:LightShadow.camera camera]
-      is set to a [page:PerspectiveCamera] with [page:PerspectiveCamera.fov fov] of 90,
-      [page:PerspectiveCamera.aspect aspect] of 1, [page:PerspectiveCamera.near near]
-      clipping plane at 0.5 and  [page:PerspectiveCamera.far far] clipping plane at 500.
+      The light shadow's [page:LightShadow.camera camera] is set to a [page:PerspectiveCamera] with [page:PerspectiveCamera.fov fov] of 90, [page:PerspectiveCamera.aspect aspect] of 1, [page:PerspectiveCamera.near near] clipping plane at 0.5 and  [page:PerspectiveCamera.far far] clipping plane at 500.
     </p>
 
+
     <h2>Methods</h2>
+
     <p>
       See the base [page:Light Light] class for common methods.
     </p>
@@ -113,7 +116,9 @@
 
     <h2>Puzzles</h2>
 
-    <p>The following puzzles work with the point lights:</p>
+    <p>
+      The following puzzles work with the point lights:
+    </p>
 
     <ul>
       <li><a href="manual/en/puzzles/Objects.html#create_object">create object</a> — select *light*, then *point*.</li>
@@ -122,6 +127,5 @@
     </ul>
 
     [sourceHint]
-
   </body>
 </html>

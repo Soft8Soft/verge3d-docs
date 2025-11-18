@@ -7,10 +7,12 @@
     <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
+    [page:Controls] &rarr;
+
     <h1>[name]</h1>
 
-    <p class="desc">
-      First person controls allow the camera to move on the scene like a character in the first-person view mode.<br>
+    <p>
+      First person controls allow the camera to move on the scene like a character in the first-person view mode.
     </p>
 
 
@@ -34,7 +36,7 @@
 
     <h3>[property:Array collisionMeshes]</h3>
     <p>
-      Array of collision [page:Object3D objects] used to constraint the movements of the camera.
+      Array of [page:Object3D objects] used to constraint the movements of the camera.
     </p>
 
     <h3>[property:HTMLElement domElement]</h3>
@@ -49,13 +51,17 @@
 
     <h3>[property:Boolean enableCollisions]</h3>
     <p>
-      Whether or not the camera collisions are enabled.
+      Whether or not the camera movements are constrainted. Default is `true`.
+    </p>
+
+    <h3>[property:Boolean enableCtrlZoom]</h3>
+    <p>
+      Set to `true` to zoom upon pressing on ctrl key (like Google Maps). Default is `false`.
     </p>
 
     <h3>[property:Boolean enableDamping]</h3>
     <p>
-      Whether to enable damping (inertia), which is used to give a sense of
-      weight to the controls. Default is `true`.
+      Whether to enable damping (inertia), which is used to give a sense of weight to the controls. Default is `true`.
     </p>
     <p>
       Note that if this is enabled, you must call [page:.update]() in your animation loop.
@@ -159,6 +165,7 @@
       The zoom damping inertia used if [page:.enableDamping] is set to true. Note that for this to work, you must call [page:.update]() in your animation loop. Default is `0.05`.
     </p>
 
+
     <h2>Methods</h2>
 
     <h3>[method:undefined dispose]()</h3>
@@ -171,9 +178,7 @@
       Update the [page:.screen] object by retrieving position and size of the [page:.domElement].
     </p>
 
-
     <h3>[method:undefined tween]([param:Vector3 toPosition], [param:Vector3 toTarget], [param:Float time], [param:Function finishCb], [param:Constant movementType])</h3>
-
     <dl class="params">
       <dt>toPosition</dt>
       <dd>The new position of the camera.</dd>
@@ -186,14 +191,11 @@
       <dt>movementType</dt>
       <dd>The movement interpolation. Can be [page:Controls v3d.TweenLinear] (default) or [page:Controls v3d.TweenSpherical].</dd>
     </dl>
-
     <p>
-      Change the camera's current position and target point to the specified new
-      position and target smoothly over the specified time.
+      Change the camera's current position and target point to the specified new position and target smoothly over the specified time.
     </p>
 
     <h3>[method:undefined tweenZoomTo]([param:Vector3 toTarget], [param:Float toZoom], [param:Float time], [param:Function finishCb])</h3>
-
     <dl class="params">
       <dt>toTarget</dt>
       <dd>The new target point.</dd>
@@ -204,7 +206,6 @@
       <dt>finishCb</dt>
       <dd>A callback to be called after the tween animation ends.</dd>
     </dl>
-
     <p>
       Change the [page:OrthographicCamera orthographic] camera target point and zoom factor smoothly over the specified period of time.
     </p>
@@ -215,6 +216,5 @@
     </p>
 
     [sourceHint]
-
   </body>
 </html>

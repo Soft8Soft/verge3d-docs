@@ -11,43 +11,29 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Создает текстуру из элемента canvas.<br><br>
+    <p>
+      Создает текстуру из элемента `&lt;canvas&gt;`.
+    </p>
 
-      Это почти то же самое, что и базовый класс [page:Texture Texture], за исключением того, что он сразу устанавливает [page:Texture.needsUpdate needsUpdate] в *true*.
+    <p>
+      Данный класс похож на базовый [page:Texture Texture], за исключением того, что он сразу устанавливает [page:Texture.needsUpdate needsUpdate] в `true`.
     </p>
 
 
     <h2>Конструктор</h2>
-    <h3>[name]([param:HTMLElement canvas], [param:Constant mapping], [param:Constant wrapS], [param:Constant wrapT], [param:Constant magFilter], [param:Constant minFilter], [param:Constant format], [param:Constant type], [param:Number anisotropy])</h3>
-    <p>
-    [page:HTMLElement canvas] — Элемент HTML canvas, из которого загружается текстура. <br>
 
-    [page:Constant mapping] —  Способ нанесения изображения на объект. Тип объекта [page:Textures v3d.UVMapping].
-    См. [page:Textures mapping constants] для других вариантов.<br>
-
-    [page:Constant wrapS] — По умолчанию [page:Textures v3d.ClampToEdgeWrapping].
-    См. [page:Textures wrap mode constants] для других вариантов.<br>
-
-    [page:Constant wrapT] — По умолчанию [page:Textures v3d.ClampToEdgeWrapping].
-    См. [page:Textures wrap mode constants] для других вариантов.<br>
-
-    [page:Constant magFilter] — Способ дискретизации текстуры, когда тексель занимает более одного пикселя.
-    По умолчанию [page:Textures v3d.LinearFilter]. См. [page:Textures magnification filter constants] для других вариантов.<br>
-
-    [page:Constant minFilter] — Способ дискретизации текстуры, когда тексель занимает менее одного пикселя.
-    По умолчанию [page:Textures v3d.LinearMipmapLinearFilter]. См. [page:Textures minification filter constants] для других вариантов.<br>
-
-    [page:Constant format] — Формат, используемый в текстуре.
-    См. [page:Textures format constants] для других вариантов.<br>
-
-    [page:Constant type] --По умолчанию [page:Textures v3d.UnsignedByteType].
-    См. [page:Textures type constants] для других вариантов.<br>
-
-    [page:Number anisotropy] — Количество семплов, взятых вдоль оси, проходящей через пиксель, имеющий наибольшую плотность текселей.
-    По умолчанию это значение равно 1. Большее значение дает менее размытый результат, чем базовый мипмап, ценой использования большего количества сэмплов текстуры.
-    Используйте [page:WebGLrenderer.getMaxAnisotropy renderer.getMaxAnisotropy](), чтобы найти максимальное допустимое значение анизотропии для GPU; обычно это значение равно 2.<br><br>
-    </p>
+    <h3>[name]([param:HTMLElement canvas], [param:Constant mapping], [param:Constant wrapS], [param:Constant wrapT], [param:Constant magFilter], [param:Constant minFilter], [param:Constant format], [param:Constant type], [param:Integer anisotropy])</h3>
+    <ul class="params">
+      <li>[page:HTMLElement canvas] — элемент HTML canvas, из которого загружается текстура.</li>
+      <li>[page:Constant mapping] — способ нанесения изображения на объект. Тип объекта [page:Textures v3d.UVMapping]. См. [page:Textures режимы маппинга] для других вариантов.</li>
+      <li>[page:Constant wrapS] — по умолчанию [page:Textures v3d.ClampToEdgeWrapping]. См. [page:Textures режимы развёрток] для других вариантов.</li>
+      <li>[page:Constant wrapT] — по умолчанию [page:Textures v3d.ClampToEdgeWrapping]. См. [page:Textures режимы развёрток] для других вариантов.</li>
+      <li>[page:Constant magFilter] — способ дискретизации текстуры, когда тексель занимает более одного пикселя. По умолчанию [page:Textures v3d.LinearFilter]. См. [page:Textures фильтры увеличения] для других вариантов.</li>
+      <li>[page:Constant minFilter] — способ дискретизации текстуры, когда тексель занимает менее одного пикселя. По умолчанию [page:Textures v3d.LinearMipmapLinearFilter]. См. [page:Textures фильтры уменьшения] для других вариантов.</li>
+      <li>[page:Constant format] — формат, используемый в текстуре. См. [page:Textures форматы текстур] для других вариантов.</li>
+      <li>[page:Constant type] — по умолчанию [page:Textures v3d.UnsignedByteType]. См. [page:Textures типы текстур] для других вариантов.</li>
+      <li>[page:Integer anisotropy] — количество семплов, взятых вдоль оси, проходящей через пиксель, имеющий наибольшую плотность текселей. По умолчанию это значение равно `1`. Большее значение дает менее размытый результат, чем базовый мипмап, ценой использования большего количества сэмплов текстуры. Используйте [page:WebGLRenderer.getMaxAnisotropy renderer.getMaxAnisotropy](), чтобы найти максимальное допустимое значение анизотропии для GPU; обычно это значение равно 2.</li>
+    </ul>
 
 
     <h2>Свойства</h2>
@@ -56,11 +42,17 @@
       Общие свойства см. в базовом классе [page:Texture Texture].
     </p>
 
+    <h3>[property:Boolean isCanvasTexture]</h3>
+    <p>
+      Указывает, что объект является экземпляром класса [name]. Только для чтения.
+    </p>
+
     <h3>[property:Boolean needsUpdate]</h3>
 
     <p>
       True по умолчанию. Это необходимо для того, чтобы данные canvas были загружены.
     </p>
+
 
     <h2>Методы</h2>
 
@@ -68,6 +60,12 @@
       Общие методы см. в базовом классе [page:Texture Texture].
     </p>
 
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Используйте пазлы <a href="manual/ru/puzzles/HTML.html#create_canvas_elem">create canvas elem</a> и <a href="manual/ru/puzzles/Materials.html#replace_texture">replace texture</a>, чтобы создавать и управлять текстурами холста без программирования.
+    </p>
 
     [sourceHint]
   </body>

@@ -11,17 +11,19 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">Creates an array of textures directly from raw data, width and height and depth. This type of texture can only be used with a WebGL 2 rendering context.</p>
+    <p>
+      Creates an array of textures directly from raw data, width and height and depth. This type of texture can only be used with a WebGL 2 rendering context.
+    </p>
 
 
     <h2>Constructor</h2>
 
     <h3>[name]([param:TypedArray data], [param:Integer width], [param:Integer height], [param:Integer depth])</h3>
     <p>
-      The data argument must be a [page:TypedArray]. The properties inherited from [page:Texture] are the default, except `magFilter` and `minFilter` default to `v3d.NearestFilter`. The properties flipY and generateMipmaps are initially set to false.
+      The data argument must be a [page:TypedArray]. The properties inherited from [page:Texture] are the default, except `magFilter` and `minFilter` default to `v3d.NearestFilter`. The properties `flipY` and `generateMipmaps` are initially set to `false`.
     </p>
     <p>
-      The interpretation of the data depends on type and format: If the type is `v3d.UnsignedByteType`, a Uint8Array will be useful for addressing the texel data. If the format is `v3d.RGBAFormat`, data needs four values for one texel: Red, Green, Blue and Alpha (typically the opacity).
+      The interpretation of the data depends on type and format: if the type is `v3d.UnsignedByteType`, a Uint8Array will be useful for addressing the texel data. If the format is `v3d.RGBAFormat`, data needs four values for one texel: Red, Green, Blue and Alpha (typically the opacity).
     </p>
     <p>
       For the packed types, `v3d.UnsignedShort4444Type` and `v3d.UnsignedShort5551Type` all color components of one texel can be addressed as bitfields within an integer element of a Uint16Array.
@@ -30,9 +32,12 @@
       In order to use the types `v3d.FloatType` and `v3d.HalfFloatType`, the WebGL implementation must support the respective extensions OES_texture_float and OES_texture_half_float. In order to use `v3d.LinearFilter` for component-wise, bilinear interpolation of the texels based on these types, the WebGL extensions OES_texture_float_linear or OES_texture_half_float_linear must also be present.
     </p>
 
+
     <h2>Code Example</h2>
 
-    <p>This creates a [name] where each texture has a different color.</p>
+    <p>
+      This creates a [name] where each texture has a different color.
+    </p>
 
     <code>
     // create a buffer with color data
@@ -74,8 +79,9 @@
 
     <h3>[property:Image image]</h3>
     <p>
-      Overridden with a record type holding data, width and height and depth.
+      Overridden with an object holding data, width and height and depth.
     </p>
+
 
     <h2>Methods</h2>
 

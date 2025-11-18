@@ -11,7 +11,7 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       Объект-помощник для визуализации [page:Plane].
     </p>
 
@@ -27,32 +27,48 @@
 
     <h2>Конструктор</h2>
 
-
-    <h3>[name]([param:Plane plane], [param:Float size], [param:Color hex])</h3>
+    <h3>[name]([param:Plane plane], [param:Float size], [param:Color|Integer|String hex])</h3>
+    <ul class="params">
+      <li>[page:Plane plane] —  плоскость для визуализации.</li>
+      <li>[page:Float size] — (необ.) длина стороны вспомогательной плоскости. По умолчанию равна `1`.</li>
+      <li>[page:Color color] —  (необ.) цвет помощника. По умолчанию `0xffff00`.</li>
+    </ul>
     <p>
-    [page:Plane plane] —  плоскость для визуализации.<br>
-    [page:Float size] — (необ.) длина стороны вспомогательной плоскости. По умолчанию равна 1.<br>
-    [page:Color color] —  (необ.) цвет помощника. По умолчанию 0xffff00.<br><br>
-
-    Создает новую репрезентацию сетки переданной плоскости.
+      Создает новую репрезентацию сетки переданной плоскости.
     </p>
 
+
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:LineSegments].</p>
+
+    <p>
+      Общие свойства см. в базовом классе [page:LineSegments].
+    </p>
 
     <h3>[property:Plane plane]</h3>
-    <p>Визуализируемая [page:Plane plane].</p>
+    <p>
+      Визуализируемая [page:Plane плоскость].
+    </p>
 
     <h3>[property:Float size]</h3>
-    <p>Длина стороны плоскости помощника.</p>
+    <p>
+      Длина стороны плоскости помощника.
+    </p>
 
 
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:LineSegments].</p>
+
+    <p>
+      Общие методы см. в базовом классе [page:LineSegments].
+    </p>
 
     <h3>[method:void updateMatrixWorld]([param:Boolean force])</h3>
     <p>
       Этот метод переопределяет метод в базовом классе [page:Object3D], так что он также обновляет объект-помощник в соответствии со свойствами [page:PlaneHelper.plane .plane] и [page:PlaneHelper.size .size].
+    </p>
+
+    <h3>[method:undefined dispose]()</h3>
+    <p>
+      Освобождает все связанные с GPU ресурсы, используемые экземпляром [name]. Этот метод следует вызвать, если [name] больше не используется в приложении.
     </p>
 
     [sourceHint]

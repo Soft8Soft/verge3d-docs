@@ -11,24 +11,24 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Непрерывная линия.<br><br>
-
-      Это почти то же самое, что и [page:LineSegments]; разница лишь в том, что она отрендерена с использованием
-      [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements gl.LINE_STRIP]
-      вместо [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements gl.LINES]
-
+    <p>
+      Непрерывная линия.
     </p>
+
+    <p>
+      Это почти то же самое, что и [page:LineSegments]; разница лишь в том, что для рендеринга используется [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements gl.LINE_STRIP] вместо [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawElements gl.LINES]
+    </p>
+
 
     <h2>Пример</h2>
 
     <code>
     const material = new v3d.LineBasicMaterial({
-      color: 0x0000ff
+        color: 0x0000ff
     });
 
     const points = [];
-    points.push(new v3d.Vector3(- 10, 0, 0));
+    points.push(new v3d.Vector3(-10, 0, 0));
     points.push(new v3d.Vector3(0, 10, 0));
     points.push(new v3d.Vector3(10, 0, 0));
 
@@ -42,46 +42,48 @@
     <h2>Конструктор</h2>
 
     <h3>[name]([param:BufferGeometry geometry], [param:Material material])</h3>
+    <ul class="params">
+      <li>[page:BufferGeometry geometry] — вершины, представляющие сегмент(ы) линии. По умолчанию используется новый [page:BufferGeometry].</li>
+      <li>[page:Material material] — материал для линии. По умолчанию используется новый [page:LineBasicMaterial].</li>
+    </ul>
 
-    <p>
-    [page:BufferGeometry geometry] — вершины, представляющие сегмент(ы) линии. По умолчанию это новый [page:BufferGeometry].<br>
-    [page:Material material] — материал для линии. По умолчанию это новый [page:LineBasicMaterial].<br>
-    </p>
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Object3D]..</p>
 
+    <p>
+      Общие свойства см. в базовом классе [page:Object3D].
+    </p>
 
-    <h3>[property:Geometry geometry]</h3>
-    <p>Вершины, представляющие сегмент(ы) линии.</p>
+    <h3>[property:BufferGeometry geometry]</h3>
+    <p>
+      Вершины, представляющие сегмент(ы) линии.
+    </p>
+
+    <h3>[property:Boolean isLine]</h3>
+    <p>
+      Указывает, что объект является экземпляром класса [name]. Только для чтения.
+    </p>
 
     <h3>[property:Material material]</h3>
-    <p>Материал для линии.</p>
+    <p>
+      Материал для линии.
+    </p>
 
     <h3>[property:Array morphTargetInfluences]</h3>
     <p>
-      Массив весов, обычно от 0 до 1, которые определяют, насколько сильно применяется морфинг.
-      По умолчанию не определен, но сбрасывается в пустой массив с помощью [page:.updateMorphTargets]().
+      Массив весов, обычно от 0 до 1, которые определяют, насколько сильно применяется морфинг. По умолчанию не определен, но сбрасывается в пустой массив с помощью [page:.updateMorphTargets]().
     </p>
 
     <h3>[property:Object morphTargetDictionary]</h3>
     <p>
-      Список morphTargets, основанный на свойстве morphTarget.name.
-      По умолчанию не определен, но перестраивается [page:.updateMorphTargets]().
+      Список morphTargets, основанный на свойстве morphTarget.name. По умолчанию не определен, но перестраивается [page:.updateMorphTargets]().
     </p>
+
 
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:Object3D].</p>
 
-    <h3>[method:Line computeLineDistances]()</h3>
     <p>
-      Вычисляет массив значений расстояний, которые необходимы для [page:LineDashedMaterial]. Для каждой вершины в геометрии метод вычисляет суммарную длину от текущей точки до самого начала линии.
-    </p>
-
-    <h3>[method:null raycast]([param:Raycaster raycaster], [param:Array intersects])</h3>
-    <p>
-    Получить пересечения между отбрасываемым [page:Ray] и этой линией.
-    [page:Raycaster.intersectObject] вызовет этот метод.
+      Общие методы см. в базовом классе [page:Object3D].
     </p>
 
     <h3>[method:Line clone]()</h3>
@@ -89,10 +91,19 @@
       Возвращает клон данного Line-объекта и его преемников.
     </p>
 
-    <h3>[method:null updateMorphTargets]()</h3>
+    <h3>[method:this computeLineDistances]()</h3>
     <p>
-      Обновляет morphTargets так, чтобы они не оказывали влияния на объект. Сбрасывает
-      [page:.morphTargetInfluences] и [page:.morphTargetDictionary].
+      Вычисляет массив значений расстояний, которые необходимы для [page:LineDashedMaterial]. Для каждой вершины в геометрии метод вычисляет суммарную длину от текущей точки до самого начала линии.
+    </p>
+
+    <h3>[method:undefined raycast]([param:Raycaster raycaster], [param:Array intersects])</h3>
+    <p>
+      Получить пересечения между отбрасываемым [page:Ray] и этой линией. [page:Raycaster.intersectObject] вызовет этот метод.
+    </p>
+
+    <h3>[method:undefined updateMorphTargets]()</h3>
+    <p>
+      Обновляет morphTargets так, чтобы они не оказывали влияния на объект. Сбрасывает [page:.morphTargetInfluences] и [page:.morphTargetDictionary].
     </p>
 
     [sourceHint]

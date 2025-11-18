@@ -7,13 +7,16 @@
     <link type="text/css" rel="stylesheet" href="page.css">
   </head>
   <body>
+    [page:Controls] &rarr;
+
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       Orbit controls allow the camera to orbit around a target object.
     </p>
 
-    <h2>Example</h2>
+
+    <h2>Code Example</h2>
 
     <code>
     const renderer = new v3d.WebGLRenderer();
@@ -24,7 +27,7 @@
     const camera = new v3d.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
     const controls = new v3d.OrbitControls(camera);
 
-    //controls.update() must be called after any manual changes to the camera's transform
+    // controls.update() must be called after any manual changes to the camera's transform
     camera.position.set(0, 20, 100);
     controls.update();
 
@@ -38,10 +41,10 @@
     }
     </code>
 
+
     <h2>Constructor</h2>
 
     <h3>[name]([param:Camera object], [param:HTMLElement domElement])</h3>
-
     <dl class="params">
       <dt>[page:Camera object]</dt>
       <dd>
@@ -58,7 +61,7 @@
 
     <h3>[property:Boolean autoRotate]</h3>
     <p>
-      Set to true to automatically rotate around the target object.
+      Set to `true` to automatically rotate around the target object.
     </p>
     <p>
       Note that if this is enabled, you must call [page:.update]() in your animation loop.
@@ -66,7 +69,7 @@
 
     <h3>[property:Float autoRotateSpeed]</h3>
     <p>
-      How fast to rotate around the target object if [page:.autoRotate] is true. Default is `2.0`, which equates to 30 seconds per rotation at 60fps.
+      How fast to rotate around the target object if [page:.autoRotate] is true. Default is `2.0`, which equates to 30 seconds per rotation.
     </p>
     <p>
       Note that if [page:.autoRotate] is enabled, you must call [page:.update]() in your animation loop.
@@ -74,7 +77,7 @@
 
     <h3>[property:HTMLElement domElement]</h3>
     <p>
-      The HTMLElement used to listen for mouse / touch events. This must be passed in the constructor; changing it here will not set up new event listeners. Default is the whole document.
+      The HTML element used to listen for mouse / touch events. This must be passed in the constructor; changing it here will not set up new event listeners. Default is the whole document.
     </p>
 
     <h3>[property:Boolean enabled]</h3>
@@ -82,10 +85,14 @@
       Whether or not the controls are enabled.
     </p>
 
+    <h3>[property:Boolean enableCtrlZoom]</h3>
+    <p>
+      Set to `true` to zoom upon pressing on ctrl key (like Google Maps). Default is `false`.
+    </p>
+
     <h3>[property:Boolean enableDamping]</h3>
     <p>
-      Whether to enable damping (inertia), which is used to give a sense of
-      weight to the controls. Default is `true`.
+      Whether to enable damping (inertia), which is used to give a sense of weight to the controls. Default is `true`.
     </p>
     <p>
       Note that if this is enabled, you must call [page:.update]() in your animation loop.
@@ -116,7 +123,7 @@
 
     <h3>[property:Boolean enableZoom]</h3>
     <p>
-      Enable or disable zooming (dollying) of the camera.
+      Enable or disable zooming (dollying) of the camera. Default is `true`.
     </p>
 
     <h3>[property:Boolean inTween]</h3>
@@ -124,29 +131,9 @@
       Flag which says whether the camera is currently in the state of tweening.
     </p>
 
-    <!--
-    <h3>[property:Object keys]</h3>
-    <p>
-      This object contains references to the keycodes for controlling camera panning. Default is the 4 arrow keys.
-    </p>
-
-    <code>
-    controls.keys = {
-        LEFT: 37,  // left arrow
-        UP: 38,    // up arrow
-        RIGHT: 39, // right arrow
-        BOTTOM: 40 // down arrow
-    }
-    </code>
-
-    <p>
-      See [link:https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode this page] for a full list of keycodes.
-    </p>
-    -->
-
     <h3>[property:Float maxAzimuthAngle]</h3>
     <p>
-      How far you can orbit horizontally, upper limit. Range is `-Math.PI` to `Math.PI` (or `Infinity` for no limit) and default is `Infinity`;
+      How far you can orbit horizontally, upper limit. Range is `-Math.PI` to `Math.PI` (or `Infinity` for no limit). Default is `Infinity`.
     </p>
 
     <h3>[property:Float maxDistance]</h3>
@@ -161,12 +148,12 @@
 
     <h3>[property:Float maxZoom]</h3>
     <p>
-      How far you can zoom out ([page:OrthographicCamera] only). Default is Infinity.
+      How far you can zoom out ([page:OrthographicCamera] only). Default is `Infinity`.
     </p>
 
     <h3>[property:Float minAzimuthAngle]</h3>
     <p>
-      How far you can orbit horizontally, lower limit. Range is `-Math.PI` to `Math.PI` (or `-Infinity` for no limit) and default is `-Infinity`;
+      How far you can orbit horizontally, lower limit. Range is `-Math.PI` to `Math.PI` (or `-Infinity` for no limit). Default is `-Infinity`.
     </p>
 
     <h3>[property:Float minDistance]</h3>
@@ -176,7 +163,7 @@
 
     <h3>[property:Float minPolarAngle]</h3>
     <p>
-      How far you can orbit vertically, lower limit. Range is `0` to `Math.PI` radians, and default is `0`.
+      How far you can orbit vertically, lower limit. Range is `0` to `Math.PI` radians. Default is `0`.
     </p>
 
     <h3>[property:Float minZoom]</h3>
@@ -188,7 +175,6 @@
     <p>
       This object contains references to the mouse buttons used for the controls.
     </p>
-
     <code>
     controls.mouseButtons = {
         ROTATE: v3d.MOUSE.LEFT,
@@ -199,7 +185,7 @@
 
     <h3>[property:Camera object]</h3>
     <p>
-      The camera (or other object) that is being controlled.
+      The camera that is being controlled.
     </p>
 
     <h3>[property:Float panInertia]</h3>
@@ -224,7 +210,7 @@
 
     <h3>[property:Float rotateInertia]</h3>
     <p>
-      The rotation damping inertia used if [page:.enableDamping] is set to true. Note that for this to work, you must call [page:.update]() in your animation loop. Default is `0.05`.
+      The rotation damping inertia used if [page:.enableDamping] is set to `true`. Note that for this to work, you must call [page:.update]() in your animation loop. Default is `0.05`.
     </p>
 
     <h3>[property:Float rotateInertiaTouch]</h3>
@@ -244,9 +230,7 @@
 
     <h3>[property:Boolean screenSpacePanning]</h3>
     <p>
-      Defines how the camera's position is translated when panning. If `true`, the
-      camera pans in screen space. Otherwise, the camera pans in the plane
-      orthogonal to the camera's up direction. Default is `true`.
+      Defines how the camera's position is translated when panning. If `true`, the camera pans in screen space. Otherwise, the camera pans in the plane orthogonal to the camera's [page:Object3D.up up] direction. Default is `true`.
     </p>
 
     <h3>[property:Vector3 target0]</h3>
@@ -271,7 +255,7 @@
 
     <h3>[property:Float zoomSpeedTouch]</h3>
     <p>
-      Speed of rotation on touch-based devices. Default is `1.0`.
+      Speed of zooming on touch-based devices. Default is `1.0`.
     </p>
 
     <h3>[property:Float zoomInertia]</h3>
@@ -318,7 +302,6 @@
     </p>
 
     <h3>[method:undefined tween]([param:Vector3 toPosition], [param:Vector3 toTarget], [param:Float time], [param:Function finishCb], [param:Constant movementType])</h3>
-
     <dl class="params">
       <dt>toPosition</dt>
       <dd>The new position of the camera.</dd>
@@ -331,14 +314,11 @@
       <dt>movementType</dt>
       <dd>The movement interpolation. Can be [page:Controls v3d.TweenLinear] (default) or [page:Controls v3d.TweenSpherical].</dd>
     </dl>
-
     <p>
-      Change the camera's current position and target point to the specified new
-      position and target smoothly over the specified time.
+      Change the camera's current position and target point to the specified new position and target smoothly over the specified time.
     </p>
 
     <h3>[method:undefined tweenZoomTo]([param:Vector3 toTarget], [param:Float toZoom], [param:Float time], [param:Function finishCb])</h3>
-
     <dl class="params">
       <dt>toTarget</dt>
       <dd>The new target point.</dd>
@@ -349,7 +329,6 @@
       <dt>finishCb</dt>
       <dd>A callback to be called after the tween animation ends.</dd>
     </dl>
-
     <p>
       Change the [page:OrthographicCamera orthographic] camera target point and zoom factor smoothly over the specified period of time.
     </p>
@@ -360,6 +339,5 @@
     </p>
 
     [sourceHint]
-
   </body>
 </html>

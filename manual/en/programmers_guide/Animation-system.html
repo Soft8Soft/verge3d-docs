@@ -21,6 +21,7 @@
       This page gives a short overview of the main components of the system and how they work together.
     </p>
 
+
     <h3>Animation Clips</h3>
 
     <p>
@@ -43,11 +44,13 @@
       Assuming the model has morph targets (for example one morph target showing a friendly face and another showing an angry face), each track holds the information as to how the [page:Mesh.morphTargetInfluences influence] of a certain morph target changes during the performance of the clip.
     </p>
 
+
     <h3>Animation Mixer</h3>
 
     <p>
       The stored data forms only the basis for the animations — actual playback is controlled by the [page:AnimationMixer]. You can imagine this not only as a player for animations, but as a simulation of a hardware like a real mixer console, which can control several animations simultaneously, blending and merging them.
     </p>
+
 
     <h3>Animation Actions</h3>
 
@@ -55,36 +58,17 @@
       The AnimationMixer itself has only very few (general) properties and methods, because it can be controlled by the [page:AnimationAction AnimationActions]. By configuring an AnimationAction you can determine when a certain AnimationClip shall be played, paused or stopped on one of the mixers, if and how often the clip has to be repeated, whether it shall be performed with a fade or a time scaling, and some additional things, such crossfading or synchronizing.
     </p>
 
-    <h3>Animation Object Groups</h3>
-
-    <p>
-      If you want a group of objects to receive a shared animation state, you can use an [page:AnimationObjectGroup].
-    </p>
 
     <h2>Example</h2>
 
     <code>
-    let mesh;
-
-    // create an AnimationMixer, and get the list of AnimationClip instances
-    const mixer = new v3d.AnimationMixer(mesh);
-    const clips = mesh.animations;
-
-    // update the mixer on each frame
-    function update() {
-        mixer.update(deltaSeconds);
+    const action = v3d.SceneUtils.getAnimationActionByName(app, "AnimatedObjectName");
+    if (action) {
+        action.reset();
+        action.play();
     }
-
-    // play a specific animation
-    const clip = v3d.AnimationClip.findByName(clips, 'dance');
-    const action = mixer.clipAction(clip);
-    action.play();
-
-    // play all animations
-    clips.forEach(function(clip) {
-        mixer.clipAction(clip).play();
-    });
     </code>
+
 
     <h2>Puzzles</h2>
 

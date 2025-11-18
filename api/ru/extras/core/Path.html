@@ -11,9 +11,10 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       Двумерное представление пути. Класс предоставляет методы для создания путей и контуров двумерных фигур, аналогичные API 2D Canvas.
     </p>
+
 
     <h2>Пример</h2>
 
@@ -36,101 +37,121 @@
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]([param:Array points])</h3>
+    <p class="params">
+      points — (необ.) массив [page:Vector2 Vector2].
+    </p>
     <p>
-    points — (необязательный) массив [page:Vector2 Vector2s].<br><br>
-
-    Создает контур из точек. Первая точка определяет смещение, затем последующие точки добавляются в массив [page:CurvePath.curves curves] как [page:LineCurve LineCurves].<br><br>
-
-    Если точки не указаны, создается пустой контур, а [page:.currentPoint] устанавливается в начало координат.
+      Создает контур из точек. Первая точка определяет смещение, затем последующие точки добавляются в массив [page:CurvePath.curves curves] как [page:LineCurve LineCurves].
+    </p>
+    <p>
+      Если точки не указаны, создается пустой контур, а [page:.currentPoint] устанавливается в начало координат.
     </p>
 
 
     <h2>Свойства</h2>
-    <p>Общие свойства смотрите в базовом классе [page:CurvePath].</p>
+
+    <p>
+      Общие свойства смотрите в базовом классе [page:CurvePath].
+    </p>
 
     <h3>[property:Array currentPoint]</h3>
-    <p>Текущее смещение контура. Любая новая добавленная [page:Curve] будет начинаться здесь.</p>
+    <p>
+      Текущее смещение контура. Любая новая добавленная [page:Curve] будет начинаться здесь.
+    </p>
 
 
     <h2>Методы</h2>
-    <p>Общие методы смотрите в базовом классе [page:CurvePath].</p>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:CurvePath].
+    </p>
 
     <h3>[method:this absarc]([param:Float x], [param:Float y], [param:Float radius], [param:Float startAngle], [param:Float endAngle], [param:Boolean clockwise])</h3>
+    <ul class="params">
+      <li>x, y — абсолютный центр дуги.</li>
+      <li>radius — радиус дуги.</li>
+      <li>startAngle — начальный угол в радианах.</li>
+      <li>endAngle — конечный угол в радианах.</li>
+      <li>clockwise — развернуть дугу по часовой стрелке. По умолчанию `false`.</li>
+    </ul>
     <p>
-      x, y — Абсолютный центр дуги.<br>
-      radius — Радиус дуги.<br>
-      startAngle — Начальный угол в радианах.<br>
-      endAngle — Конечный угол в радианах.<br>
-      clockwise — Развернуть дугу по часовой стрелке. По умолчанию *false*.<br><br>
-
       Добавляет абсолютно позиционированную [page:EllipseCurve EllipseCurve] к пути.
     </p>
 
     <h3>[method:this absellipse]([param:Float x], [param:Float y], [param:Float xRadius], [param:Float yRadius], [param:Float startAngle], [param:Float endAngle], [param:Boolean clockwise], [param:Float rotation])</h3>
+    <ul class="params">
+      <li>x, y — абсолютный центр эллипса.</li>
+      <li>xRadius — радиус эллипса по оси x.</li>
+      <li>yRadius — радиус эллипса по оси y.</li>
+      <li>startAngle — начальный угол в радианах.</li>
+      <li>endAngle — конечный угол в радианах.</li>
+      <li>clockwise — развернуть эллипс по часовой стрелке. По умолчанию имеет значение `false`.</li>
+      <li>rotation — угол поворота эллипса в радианах, против часовой стрелки от положительной оси X. Необязателен, по умолчанию равен 0.</li>
+    </ul>
     <p>
-      x, y — Абсолютный центр эллипса.<br>
-      xRadius — Радиус эллипса по оси x.<br>
-      yRadius — Радиус эллипса по оси y.<br>
-      startAngle — Начальный угол в радианах.<br>
-      endAngle — Конечный угол в радианах.<br>
-      clockwise — Развернуть эллипс по часовой стрелке. По умолчанию имеет значение false.<br>
-      rotation — Угол поворота эллипса в радианах, против часовой стрелки от положительной оси X. Необязателен, по умолчанию равен 0.<br><br>
-
       Добавляет абсолютно позиционированную [page:EllipseCurve EllipseCurve] к пути.
     </p>
 
     <h3>[method:this arc]([param:Float x], [param:Float y], [param:Float radius], [param:Float startAngle], [param:Float endAngle], [param:Boolean clockwise])</h3>
+    <ul class="params">
+      <li>x, y — центр дуги, смещенный относительно последнего вызова.</li>
+      <li>radius — радиус дуги.</li>
+      <li>startAngle — начальный угол в радианах.</li>
+      <li>endAngle — конечный угол в радианах.</li>
+      <li>clockwise — развернуть дугу по часовой стрелке. По умолчанию `false`.</li>
+    </ul>
     <p>
-    x, y — Центр дуги, смещенный относительно последнего вызова.<br>
-    radius — Радиус дуги.<br>
-    startAngle — Начальный угол в радианах.<br>
-    endAngle — Конечный угол в радианах.<br>
-    clockwise —  Развернуть дугу по часовой стрелке. По умолчанию *false*.<br><br>
-
-    Добавляет [page:EllipseCurve EllipseCurve] в контур, позиционированный относительно [page:.currentPoint].
-  </p>
-
+      Добавляет [page:EllipseCurve EllipseCurve] в контур, позиционированный относительно [page:.currentPoint].
+    </p>
 
     <h3>[method:this bezierCurveTo]([param:Float cp1X], [param:Float cp1Y], [param:Float cp2X], [param:Float cp2Y], [param:Float x], [param:Float y])</h3>
-    <p>Это создает кривую безье из [page:.currentPoint] с (cp1X, cp1Y) и (cp2X, cp2Y) в качестве контрольных точек и обновляет [page:.currentPoint] до x и y.</p>
+    <p>
+      Создает кривую Безье из [page:.currentPoint] с (cp1X, cp1Y) и (cp2X, cp2Y) в качестве контрольных точек и обновляет [page:.currentPoint] до x и y.
+    </p>
 
     <h3>[method:this ellipse]([param:Float x], [param:Float y], [param:Float xRadius], [param:Float yRadius], [param:Float startAngle], [param:Float endAngle], [param:Boolean clockwise], [param:Float rotation])</h3>
+    <ul class="params">
+      <li>x, y — центр эллипса, смещенный относительно последнего вызова.</li>
+      <li>xRadius — радиус эллипса по оси x.</li>
+      <li>yRadius — радиус эллипса по оси y.</li>
+      <li>startAngle — начальный угол в радианах.</li>
+      <li>endAngle — конечный угол в радианах.</li>
+      <li>clockwise — развернуть эллипс по часовой стрелке. По умолчанию `false`.</li>
+      <li>rotation — угол поворота эллипса в радианах, против часовой стрелки от положительной оси X. Необязательно, по умолчанию `0`.</li>
+    </ul>
     <p>
-      x, y — Центр эллипса, смещенный относительно последнего вызова.<br>
-      xRadius — Радиус эллипса по оси x.<br>
-      yRadius — Радиус эллипса по оси y.<br>
-      startAngle — Начальный угол в радианах.<br>
-      endAngle — Конечный угол в радианах.<br>
-      clockwise — Развернуть эллипс по часовой стрелке. По умолчанию *false*.<br>
-      rotation — Угол поворота эллипса в радианах, против часовой стрелки от положительной оси X. Необязательно, по умолчанию *0*.<br><br>
-
       Добавляет [page:EllipseCurve EllipseCurve] в контур, позиционированный относительно [page:.currentPoint].
     </p>
 
     <h3>[method:this lineTo]([param:Float x], [param:Float y])</h3>
-    <p>Соединяет [page:LineCurve] из [page:.currentPoint] с x, y на пути.</p>
-
+    <p>
+      Соединяет [page:LineCurve] из [page:.currentPoint] с x, y на пути.
+    </p>
 
     <h3>[method:this moveTo]([param:Float x], [param:Float y])</h3>
-    <p>Переместите [page:.currentPoint] к x, y.</p>
-
+    <p>
+      Перемещает [page:.currentPoint] к x, y.
+    </p>
 
     <h3>[method:this quadraticCurveTo]([param:Float cpX], [param:Float cpY], [param:Float x], [param:Float y])</h3>
-    <p>Создает квадратичную кривую из [page:.currentPoint] с cpX и cpY в качестве контрольных точек и обновляет [page:.currentPoint] до x и y.</p>
+    <p>
+      Создает квадратичную кривую из [page:.currentPoint] с cpX и cpY в качестве контрольных точек и обновляет [page:.currentPoint] до x и y.
+    </p>
 
     <h3>[method:this setFromPoints]([param:Array vector2s])</h3>
+    <p class="params">
+      points — массив[page:Vector2 Vector2].
+    </p>
     <p>
-      points — массив[page:Vector2 Vector2s].<br><br>
-
       Точки добавляются в массив [page:CurvePath.curves curves] как [page:LineCurve LineCurve].
     </p>
 
     <h3>[method:this splineThru] ([param:Array points]) </h3>
+    <p class="params">
+      points - массив [page:Vector2 Vector2].
+    </p>
     <p>
-      points - массив [page:Vector2 Vector2s]<br><br>
-
       Подключает новую [page:SplineCurve] к пути.
     </p>
 

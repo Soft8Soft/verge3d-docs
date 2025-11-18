@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:Object3D] &rarr;
+
+    <h1>[name]</h1>
+
+    <p>
+      Объект, представляющий собой плоскость отсечения.
+    </p>
+
+    <p>
+      Отсечение в «Вердж3Д» является довольно сложным эффектом. Для его реализации требуются:
+    </p>
+
+    <ul>
+      <li>Экземпляр [name].</li>
+      <li>Один или несколько [page:Mesh мешей], которые нужно отсекать.</li>
+      <li>Два меша шаблонов (передний/задний) на каждый отсекаемый меш. Эти меши имеют ту же геометрию, что и оригинальный меш, но имеют специализированные материалы, основанные на [page:MeshBasicMaterial].</li>
+      <li>Опционально может быть задействована геометрия плоскости, которая показывает сечение. В отличие от мешей шаблонов, данная плоскость привязывается к [name] как дочерний объект.</li>
+    </ul>
+
+    <p>
+      Объекты шаблонов и сечений помечаются специальным флагом `.isAuxClippingMesh = true`.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]()</h3>
+    <p>
+      Создаёт новый [name].
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <p>
+      Смотрите свойства базового класса [page:Object3D].
+    </p>
+
+    <h3>[property:Boolean isClippingPlaneObject]</h3>
+    <p>
+      Указывает, что данный объект является экземпляром [name]. Только для чтения.
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+      Всегда `"ClippingPlaneObject"`, может использоваться для поиска всех плоскостей отсечения на сцене.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>
+      Смотрите методы базового класса [page:Object3D].
+    </p>
+
+    <h3>[method:Boolean needsClippingPlane]([param:Object3D objToClip])</h3>
+    <p class="params">
+      objToClip — отсекаемый объект.
+    </p>
+    <p>
+      Проверяет, нужно ли отсекать данный меш.
+    </p>
+
+    <h3>[method:undefined assignToObject]([param:Object3D objToClip], [param:Float renderOrder] = 0)</h3>
+    <ul class="params">
+      <li>objToClip — отсекаемый объект.</li>
+      <li>renderOrder — (необ.) порядок отрисовки, назначаемый дополнительным объектам-шаблонам.</li>
+    </ul>
+    <p>
+      Назначает параметры отсечения и дополнительные меши-шаблоны на данном объекте-меше.
+    </p>
+
+    <h3>[method:undefined createCrossSectionPlane]([param:Array planes], [param:Float renderOrder] = 0)</h3>
+    <ul class="params">
+      <li>planes — массив со всеми плоскостями отсечения, находящимися на сцене.</li>
+      <li>renderOrder — (необ.) порядок отрисовки, назначаемый дополнительным объектам-шаблонам.</li>
+    </ul>
+    <p>
+      Создаёт и назначает дополнительную плоскость-сечение на [name].
+    </p>
+
+    <h3>[method:undefined cleanupAuxMeshes]([param:Object3D objToClip] = null)</h3>
+    <p class="params">
+      objToClip — (необ.) отсекаемый объект.
+    </p>
+    <p>
+      Удаляет все дополнительные меши из `objToClip`, либо саму плоскость отсечения если `objToClip=null`.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

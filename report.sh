@@ -37,7 +37,7 @@ function linediff {
 
         DIFF=`echo "$LINES_TWO - $LINES_ONE" | bc`
         ABSDIFF=`echo "define abs_my(x) { if (x>0) return x; return -x }; abs_my($DIFF)" | bc`
-        MAXDIFF=10
+        MAXDIFF=5
 
         if [ $ABSDIFF -gt $MAXDIFF ]; then
             echo "$TWO: $ABSDIFF"

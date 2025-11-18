@@ -11,62 +11,78 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Используется [page:CubeCamera] в качестве [page:WebGLRenderTarget]..
+    <p>
+      Используется классом [page:CubeCamera] в качестве [page:WebGLRenderTarget рендер таргета].
     </p>
-
-    <h2>Примеры</h2>
-
-    <p>См. [page:CubeCamera] для примеров.</p>
 
 
     <h2>Конструктор</h2>
 
-
-    <h3>[name]([param:Number size], [param:Object options])</h3>
+    <h3>[name]([param:Integer size], [param:Object options])</h3>
+    <dl class="params">
+      <dt>[page:Integer size]</dt>
+      <dd>размер в пикселях. По умолчанию `1`.</dd>
+      <dt>[page:Object options]</dt>
+      <dd>
+        <p>
+          необязательный объект, содержащий параметры текстуры для автогенерируемой целевой текстуры и булевых значений depthBuffer/stencilBuffer. Описание параметров текстуры см. в разделе [page:Texture Texture]. Ниже перечислены допустимые параметры:
+        </p>
+        <dl>
+          <dt>[page:Constant wrapS]</dt>
+          <dd>По умолчанию [page:Textures ClampToEdgeWrapping].</dd>
+          <dt>[page:Constant wrapT]</dt>
+          <dd>По умолчанию [page:Textures ClampToEdgeWrapping].</dd>
+          <dt>[page:Constant magFilter]</dt>
+          <dd>По умолчанию [page:Textures LinearFilter].</dd>
+          <dt>[page:Constant minFilter]</dt>
+          <dd>По умолчанию [page:Textures LinearFilter].</dd>
+          <dt>[page:Boolean generateMipmaps]</dt>
+          <dd>По умолчанию `false`.</dd>
+          <dt>[page:Constant format]</dt>
+          <dd>По умолчанию [page:Textures RGBAFormat].</dd>
+          <dt>[page:Constant type]</dt>
+          <dd>По умолчанию [page:Textures UnsignedByteType].</dd>
+          <dt>[page:Integer anisotropy]</dt>
+          <dd>По умолчанию `1`. See [page:Texture.anisotropy]</dd>
+          <dt>[page:Constant encoding]</dt>
+          <dd>По умолчанию [page:Textures LinearEncoding].</dd>
+          <dt>[page:Boolean depthBuffer]</dt>
+          <dd>По умолчанию `true`.</dd>
+          <dt>[page:Boolean stencilBuffer]</dt>
+          <dd>По умолчанию `false`.</dd>
+        </dl>
+      </dd>
+    </dl>
     <p>
-    [page:Float size] — размер, в пикселях. <br>
-    options - (необязательный) объект, содержащий параметры текстуры для автогенерируемой целевой текстуры и булевых значений depthBuffer/stencilBuffer.
-
-    Описание параметров текстуры см. в [page:Texture Texture]. Ниже перечислены
-    допустимые параметры:<br><br>
-
-    [page:Constant wrapS] — по умолчанию [page:Textures ClampToEdgeWrapping]. <br>
-    [page:Constant wrapT] — по умолчанию [page:Textures ClampToEdgeWrapping]. <br>
-    [page:Constant magFilter] — по умолчанию [page:Textures .LinearFilter]. <br>
-    [page:Constant minFilter] — по умолчанию [page:Textures LinearFilter]. <br>
-    [page:Constant format] — по умолчанию [page:Textures RGBAFormat]. <br>
-    [page:Constant type] — по умолчанию [page:Textures UnsignedByteType]. <br>
-    [page:Number anisotropy] — по умолчанию *1*. См. [page:Texture.anistropy]<br>
-    [page:Constant encoding] — по умолчанию [page:Textures LinearEncoding]. <br>
-    [page:Boolean depthBuffer] — по умолчанию *true*. Установите значение false, если он вам не нужен. <br>
-    [page:Boolean stencilBuffer] — по умолчанию *false*. Установите значение true, если он вам не нужен.<br><br>
-
-    Создает новый [name]
+      Создает новый [name].
     </p>
+
 
     <h2>Свойства</h2>
 
-    <h3>См. [page:WebGLRenderTarget] для наследуемых свойств</h3>
+    <p>
+      Смотрите свойства базового класса [page:WebGLRenderTarget].
+    </p>
 
 
     <h2>Методы</h2>
 
-    <h3>См. [page:WebGLRenderTarget] для наследуемых методов</h3>
+    <p>
+      Смотрите методы базового класса [page:WebGLRenderTarget].
+    </p>
 
     <h3>[method:WebGLCubeRenderTarget fromEquirectangularTexture]([param:WebGLRenderer renderer], [param:Texture texture])</h3>
+    <ul class="params">
+      <li>[page:WebGLRenderer renderer] — рендерер.</li>
+      <li>[page:Texture texture] — текстура с равнопромежуточной проекцией.</li>
+    </ul>
     <p>
-      [page:WebGLRenderer renderer] — рендерер.<br/>
-      [page:Texture texture] — равносторонняя текстура.
-    </p>
-    <p>
-      Используйте этот метод, если вы хотите преобразовать равноугольную панораму в формат cubemap.
+      Используйте этот метод, если вы хотите преобразовать текстуру с равнопромежуточной проекцией в кубическую карту.
     </p>
 
     <h3>[method:undefined clear]([param:WebGLRenderer renderer], [param:Boolean color], [param:Boolean depth], [param:Boolean stencil])</h3>
     <p>
-      Используйте эту функцию, чтобы очистить буферы цвета, глубины и/или стенсила render target.
-      Цветовой буфер устанавливается в текущий чистый цвет рендерера. Аргументы по умолчанию имеют значение *true*.
+      Используйте эту функцию, чтобы очистить буферы цвета, глубины и/или шаблона. Цветовой буфер устанавливается в текущий цвет очистки рендерера. Все аргументы имеют значение `true` по умолчанию.
     </p>
 
     [sourceHint]

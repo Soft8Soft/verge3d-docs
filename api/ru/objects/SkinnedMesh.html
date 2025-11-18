@@ -11,9 +11,11 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Меш, имеющий [page:Skeleton] с [page:Bone bones], которые затем могут быть использованы для анимации геометрических вершин.
-      Материал должен поддерживать скиннинг и он должен быть включен. - см. [page:MeshStandardMaterial.skinning].
+    <p>
+      Меш, имеющий [page:Skeleton скелет] с [page:Bone костями], которые могут использоваться для анимации вертексов геометрии.
+    </p>
+    <p>
+      [name] требует поддержки функций WebGL 2.0. В случае с WebGL 1.0 требуется поддержка расширения `OES_texture_float` и вертексных текстур.
     </p>
 
 
@@ -22,7 +24,8 @@
     <code>
     const geometry = new v3d.CylinderGeometry(5, 5, 5, 5, 15, 5, 30);
 
-    // create the skin indices and skin weights
+    // создаём индексы и веса для скина вручную
+    // (обычно этим занимается загрузчик 3Д-модели)
 
     const position = geometry.attributes.position;
 
@@ -32,113 +35,122 @@
     const skinWeights = [];
 
     for (let i = 0; i < position.count; i++) {
+        vertex.fromBufferAttribute(position, i);
 
-      vertex.fromBufferAttribute(position, i);
+        // вычисляем skinIndex и skinWeight на основе заранее определённой конфигурации
 
-      // compute skinIndex and skinWeight based on some configuration data
+        const y = (vertex.y + sizing.halfHeight);
 
-      const y = (vertex.y + sizing.halfHeight);
+        const skinIndex = Math.floor(y / sizing.segmentHeight);
+        const skinWeight = (y % sizing.segmentHeight) / sizing.segmentHeight;
 
-      const skinIndex = Math.floor(y / sizing.segmentHeight);
-      const skinWeight = (y % sizing.segmentHeight) / sizing.segmentHeight;
-
-      skinIndices.push(skinIndex, skinIndex + 1, 0, 0);
-      skinWeights.push(1 - skinWeight, skinWeight, 0, 0);
-
+        skinIndices.push(skinIndex, skinIndex + 1, 0, 0);
+        skinWeights.push(1 - skinWeight, skinWeight, 0, 0);
     }
 
     geometry.setAttribute('skinIndex', new v3d.Uint16BufferAttribute(skinIndices, 4));
     geometry.setAttribute('skinWeight', new v3d.Float32BufferAttribute(skinWeights, 4));
 
-    // create skinned mesh and skeleton
+    // создаём скин-меш и скелет
 
     const mesh = new v3d.SkinnedMesh(geometry, material);
     const skeleton = new v3d.Skeleton(bones);
 
-    // see example from v3d.Skeleton
+    // см. пример из v3d.Skeleton
 
     const rootBone = skeleton.bones[0];
     mesh.add(rootBone);
 
-    // bind the skeleton to the mesh
+    // привязываем скелет к мешу
 
     mesh.bind(skeleton);
 
-    // move the bones and manipulate the model
+    // двигаем кости чтобы переместить модель
 
     skeleton.bones[0].rotation.x = -0.1;
     skeleton.bones[1].rotation.x = 0.2;
     </code>
 
+
     <h2>Конструктор</h2>
+
     <h3>[name]([param:BufferGeometry geometry], [param:Material material])</h3>
-    <p>
-    [page:BufferGeometry geometry] — экземпляр [page:BufferGeometry].<br>
-    [page:Material material] — (необязательный) экземпляр [page:Material]. По умолчанию это новый [page:MeshBasicMaterial].
-    </p>
-
-
-
+    <ul class="params">
+      <li>[page:BufferGeometry geometry] — экземпляр [page:BufferGeometry].</li>
+      <li>[page:Material material] — (необ.) экземпляр [page:Material]. По умолчанию используется новый [page:MeshBasicMaterial].</li>
+    </ul>
 
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Mesh].</p>
+    <p>
+      Общие свойства см. в базовом классе [page:Mesh].
+    </p>
 
     <h3>[property:String bindMode]</h3>
     <p>
-      Либо "attached", либо "detached". "attached" использует свойство [page:SkinnedMesh.matrixWorld]
-      для базовой матрицы трансформации костей. "detached" использует свойство
-      [page:SkinnedMesh.bindMatrix]. По умолчанию "attached".
+      Либо `"attached"`, либо `"detached"`. `"attached"` использует свойство [page:SkinnedMesh.matrixWorld] для базовой матрицы трансформации костей. "detached" использует свойство [page:SkinnedMesh.bindMatrix]. По умолчанию `"attached"`.
     </p>
 
     <h3>[property:Matrix4 bindMatrix]</h3>
     <p>
-      Базовая матрица, которая используется для преобразования связанных костей.
+      Базовая матрица, которая используется для преобразования привязанных костей.
     </p>
 
     <h3>[property:Matrix4 bindMatrixInverse]</h3>
     <p>
-      Базовая матрица, которая используется для сброса преобразований связанных костей.
+      Базовая матрица, которая используется для сброса преобразований привязанных костей.
+    </p>
+
+    <h3>[property:Boolean isSkinnedMesh]</h3>
+    <p>
+      Является ли объект экземпляром класса [name]. Только для чтения.
     </p>
 
     <h3>[property:Skeleton skeleton]</h3>
     <p>
-    [page:Skeleton] представляет иерархию костей меша со скиннингом.
+      [page:Skeleton] представляет иерархию костей меша со скиннингом.
     </p>
 
 
-
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:Mesh].</p>
 
-    <h3>[method:null bind]([param:Skeleton skeleton], [param:Matrix4 bindMatrix])</h3>
     <p>
-    [page:Skeleton skeleton] - [page:Skeleton] созданный из древа [page:Bone Bones].<br/>
-    [page:Matrix4 bindMatrix] - [page:Matrix4] которая представляет собой базовое преобразование скелета.<br><br>
+      Общие методы см. в базовом классе [page:Mesh].
+    </p>
 
-    Привязка скелета к сетке со скинами. Матрица привязки сохраняется в свойстве .bindMatrix
-    и вычисляется .bindMatrixInverse.
+    <h3>[method:undefined bind]([param:Skeleton skeleton], [param:Matrix4 bindMatrix])</h3>
+    <ul class="params">
+      <li>[page:Skeleton skeleton] — [page:Skeleton] созданный из дерева [page:Bone костей].</li>
+      <li>[page:Matrix4 bindMatrix] — [page:Matrix4] которая представляет собой базовое преобразование скелета.</li>
+    </ul>
+    <p>
+      Привязывает скелет к мешу со скинами. Матрица привязки сохраняется в свойстве .bindMatrix. Также вычисляется матрица .bindMatrixInverse.
     </p>
 
     <h3>[method:SkinnedMesh clone]()</h3>
     <p>
-      Возвращает клон данного объекта SkinnedMesh и всех его преемников.
+      Возвращает клон данного объекта [name]
     </p>
 
-    <h3>[method:null normalizeSkinWeights]()</h3>
+    <h3>[method:undefined normalizeSkinWeights]()</h3>
     <p>
-      Нормализует вес скина.
+      Нормализует веса скина.
     </p>
 
-    <h3>[method:null pose]()</h3>
+    <h3>[method:undefined pose]()</h3>
     <p>
       Этот метод устанавливает меш со скиннингом в исходную позу (сбрасывает позу).
     </p>
 
-    <h3>[method:null updateMatrixWorld]([param:Boolean force])</h3>
+    <h3>[method:Vector3 boneTransform]([param:Integer index], [param:Vector3 target])</h3>
     <p>
-    Обновляет [page:Matrix4 MatrixWorld].
+      Рассчитывает позицию вертекса с указанным индексом с учётом перемещения костей. Вектор назначения должен быть инициализирован координатами вертекса перед преобразованием:
     </p>
+    <code>
+    const target = new v3d.Vector3();
+    target.fromBufferAttribute(mesh.geometry.attributes.position, index);
+    mesh.boneTransform(index, target);
+    </code>
 
     [sourceHint]
   </body>

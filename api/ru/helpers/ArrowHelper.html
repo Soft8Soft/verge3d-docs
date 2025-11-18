@@ -11,14 +11,17 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">3Д-объект стрелки для визуализации направлений.</p>
+    <p>
+      3Д-объект в виде стрелки для визуализации направлений.
+    </p>
+
 
     <h2>Пример</h2>
 
     <code>
     const dir = new v3d.Vector3(1, 2, 0);
 
-    //normalize the direction vector (convert to vector of length 1)
+    // нормализуем вектор направления (делаем его длину равной 1)
     dir.normalize();
 
     const origin = new v3d.Vector3(0, 0, 0);
@@ -32,49 +35,62 @@
 
     <h2>Конструктор</h2>
 
-    <h3>[name]([param:Vector3 dir], [param:Vector3 origin], [param:Number length], [param:Number hex], [param:Number headLength], [param:Number headWidth])</h3>
-    <p>
-    [page:Vector3 dir] — направление от начала координат. Должен быть единичным вектором. <br>
-    [page:Vector3 origin] — точка, в которой начинается стрелка.<br>
-    [page:Number length] — длина стрелки. По умолчанию *1*.<br>
-    [page:Number hex] — шестнадцатеричное значение для определения цвета. По умолчанию 0xffff00.<br>
-    [page:Number headLength] — длина наконечника стрелки. По умолчанию 0,2 * длина.<br>
-    [page:Number headWidth] — ширина наконечника стрелки. По умолчанию 0,2 * headLength.<br>
-    </p>
+    <h3>[name]([param:Vector3 dir], [param:Vector3 origin], [param:Float length], [param:Color|Integer|String color], [param:Float headLength], [param:Float headWidth])</h3>
+    <ul class="params">
+      <li>[page:Vector3 dir] — направление от начала координат. Должен быть единичным вектором.</li>
+      <li>[page:Vector3 origin] — точка, в которой начинается стрелка.</li>
+      <li>[page:Float length] — длина стрелки. По умолчанию `1`.</li>
+      <li>[page:Integer color] — шестнадцатеричное значение для определения цвета. По умолчанию `0xffff00` (жёлтый).</li>
+      <li>[page:Float headLength] — длина наконечника стрелки. По умолчанию 0.2 от длины.</li>
+      <li>[page:Float headWidth] — ширина наконечника стрелки. По умолчанию 0.2 от headLength.</li>
+    </ul>
+
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Object3D].</p>
+    <p>
+      Общие свойства см. в базовом классе [page:Object3D].
+    </p>
 
     <h3>[property:Line line]</h3>
-    <p>Содержит линейную часть стрелки.</p>
+    <p>
+      Содержит линейную часть стрелки.
+    </p>
 
     <h3>[property:Mesh cone]</h3>
-    <p>Содержит конусную часть стрелки.</p>
+    <p>
+      Содержит конусную часть стрелки.
+    </p>
+
 
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:Object3D].</p>
-
-    <h3>[method:null setColor]([param:Color color])</h3>
     <p>
-    color — Желаемый цвет.<br><br>
-
-    Устанавливает цвет стрелки.
+      Общие методы см. в базовом классе [page:Object3D].
     </p>
 
-    <h3>[method:null setLength]([param:Number length], [param:Number headLength], [param:Number headWidth])</h3>
+    <h3>[method:undefined setColor]([param:Color color])</h3>
+    <p class="params">
+      color — цвет.
+    </p>
     <p>
-    length — Желаемая длина.<br>
-    headLength — Длина наконечника стрелки.<br>
-    headWidth — Ширина наконечника стрелки.<br><br>
-
-    Устанавливает длину стрелки.
+      Устанавливает цвет стрелки.
     </p>
 
-    <h3>[method:null setDirection]([param:Vector3 dir])</h3>
+    <h3>[method:undefined setLength]([param:Float length], [param:Float headLength], [param:Float headWidth])</h3>
+    <ul class="params">
+      <li>length — длина.</li>
+      <li>headLength — длина наконечника стрелки.</li>
+      <li>headWidth — ширина наконечника стрелки.</li>
+    </ul>
     <p>
-    dir — Желаемое направление. Должно быть единичным вектором.<br><br>
+      Устанавливает длину стрелки.
+    </p>
 
-    Устанавливает направление стрелки.
+    <h3>[method:undefined setDirection]([param:Vector3 dir])</h3>
+    <p class="params">
+      dir — желаемое направление. Должно быть единичным вектором.
+    </p>
+    <p>
+      Устанавливает направление стрелки.
     </p>
 
     [sourceHint]

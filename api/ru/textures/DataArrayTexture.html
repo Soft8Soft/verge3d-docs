@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:Texture] &rarr;
+
+    <h1>[name]</h1>
+
+    <p>
+      Создаёт массив текстур на основе сырых данных, ширины, высоты и глубины. Может использоваться только с контекстом рендеринга WebGL 2.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:TypedArray data], [param:Integer width], [param:Integer height], [param:Integer depth])</h3>
+    <p>
+      Аргумент `data` должен быть типа [page:TypedArray]. Свойства, унаследованные от [page:Texture] используются по умолчанию, кроме `magFilter` и `minFilter`, значения которых равны `v3d.NearestFilter`. Свойства `flipY` и `generateMipmaps` первоначально установлены в `false`.
+    </p>
+    <p>
+      Интерпретация данных зависит от типа и формата текстуры: для типа `v3d.UnsignedByteType`, будут использоваться данные Uint8Array. Если используется формат `v3d.RGBAFormat`, в данных должны располагаться 4 значения для одного текселя: для красного, зелёного, синего и альфа-канала (прозрачности).
+    </p>
+    <p>
+      Для упакованных типов `v3d.UnsignedShort4444Type` и `v3d.UnsignedShort5551Type` цветовые компоненты текселя адресуются как битовые поля целых элементов массива Uint16Array.
+    </p>
+    <p>
+      Для использования типов `v3d.FloatType` и `v3d.HalfFloatType`, WebGL реализация должна поддерживать расширения OES_texture_float и OES_texture_half_float. Для использования фильтра билинейной интерполяции текселей `v3d.LinearFilter` вам также потребуется иметь поддержку WebGL-расширений OES_texture_float_linear и OES_texture_half_float_linear.
+    </p>
+
+
+    <h2>Пример</h2>
+
+    <p>
+      Создаёт [name], в котором каждой текстуре соответствует свой цвет.
+    </p>
+
+    <code>
+    // создаём буфер с цветовыми данными
+    const width = 512;
+    const height = 512;
+    const depth = 100;
+
+    const size = width * height;
+    const data = new Uint8Array(4 * size * depth);
+
+    for (let i = 0; i < depth; i++) {
+        const color = new v3d.Color(Math.random(), Math.random(), Math.random());
+        const r = Math.floor(color.r * 255);
+        const g = Math.floor(color.g * 255);
+        const b = Math.floor(color.b * 255);
+
+        for (let j = 0; j < size; j ++) {
+            const stride = (i * size + j) * 4;
+
+            data[stride] = r;
+            data[stride + 1] = g;
+            data[stride + 2] = b;
+            data[stride + 3] = 255;
+        }
+    }
+
+    // используем буфер для создания [name]
+
+    const texture = new v3d.DataArrayTexture(data, width, height, depth);
+    texture.needsUpdate = true;
+    </code>
+
+
+    <h2>Свойства</h2>
+
+    <p>
+      Смотрите общие свойства в базовом классе [page:Texture Texture].
+    </p>
+
+    <h3>[property:Image image]</h3>
+    <p>
+      Свойство базового класса переопределяется объектом, содержащим данные для текстуры, её высоту, ширину и глубину.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>
+      Смотрите общие методы в базовом классе [page:Texture Texture].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

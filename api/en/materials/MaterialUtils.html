@@ -9,7 +9,7 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       A module containing useful utility methods to work with Verge3D materials.
     </p>
 
@@ -33,12 +33,12 @@
       Dispose all [page:Texture textures] found in the given material. Currently this method supports only [page:MeshNodeMaterial] and [page:MeshStandardMaterial] materials.
     </p>
 
-    <h3>[method:DiGraph createDiffuseMaterial]([param:String name], [param:Color color], [param:Float opacity], [param:String profile])</h3>
+    <h3>[method:MeshNodeMaterial createDiffuseMaterial]([param:String name], [param:Color color], [param:Float opacity], [param:String profile])</h3>
     <ul class="params">
       <li>[page:String name] — material name.</li>
       <li>[page:Color color] — material diffuse color.</li>
       <li>[page:Float opacity] — material opacity.</li>
-      <li>[page:String profile] — material profile, specifies which nodes will be used to compose the node graph. One of `"blender"`, `"max"`, `"maya"`.</li>
+      <li>[page:String profile] — (optional) material profile, specifies which nodes will be used to compose the node graph. One of `"blender"`, `"max"`, `"maya"`. Default is `"blender"`.</li>
     </ul>
 
     <p>
@@ -55,9 +55,9 @@
       Create node-based material which can be used for environment lighting and scene background.
     </p>
 
-    <h3>[method:DiGraph createStandardPBRMaterial]([param:String profile], [param:Object params])</h3>
+    <h3>[method:MeshNodeMaterial createStandardPBRMaterial]([param:String profile], [param:Object params])</h3>
     <ul class="params">
-      <li>[page:String profile] — material profile, specifies which nodes will be used to compose the node graph. One of `"blender"`, `"max"`, `"maya"`.</li>
+      <li>[page:String profile] — (optional) material profile, specifies which nodes will be used to compose the node graph. One of `"blender"`, `"max"`, `"maya"`. Default is `"blender"`.</li>
       <li>[page:Object params] — (optional) additional material properties.</li>
     </ul>
 
@@ -73,7 +73,7 @@
       <dt>[page:Float metalness]</dt>
       <dd>Material metalness value. Default is `0` (non-metallic).</dd>
       <dt>[page:Float roughness]</dt>
-      <dd>Material roughness value. Default is `1`.</dd>
+      <dd>Material roughness value. Default is `1` (maximum roughness).</dd>
       <dt>[page:Color emissive]</dt>
       <dd>Material emissive color. Default is `'black'`.</dd>
       <dt>[page:Float emissiveIntensity]</dt>

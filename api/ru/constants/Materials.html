@@ -11,10 +11,14 @@
   <body>
     <h1>Константы материалов</h1>
 
-    <p class="desc">
-      Эти константы определяют свойства, общие для всех типов материалов, за исключением операций объединения текстур, которые применяются только к [page:MeshBasicMaterial.combine MeshBasicMaterial] и [page:MeshLambertMaterial.combine MeshLambertMaterial].
+    <p>
+      Эти константы определяют свойства, общие для всех типов материалов.
     </p>
 
+    [contents]
+
+
+    [anchor:side]
     <h2>Сторона</h2>
 
     <code>
@@ -31,6 +35,8 @@
       Константа [page:Materials TwoPassDoubleSide] рендерит двусторонние материалы в двух отдельных стадиях, в порядке задний-передний, что позволяет устранить ряд артефактов прозрачности.
     </p>
 
+
+    [anchor:blending_mode]
     <h2>Режимы смешивания</h2>
 
     <code>
@@ -46,6 +52,8 @@
       Они управляют уравнениями смешивания источника и получателя для RGB и Alpha материала, отправляемыми в WebGLRenderer для использования WebGL. [page:Constant NormalBlending] используется по умолчанию. Обратите внимание, что для использования [page:Constant CustomBlending] необходимо установить пользовательские константы уравнения смешивание (см. ниже).
     </p>
 
+
+    [anchor:depth_mode]
     <h2>Режимы глубины</h2>
 
     <code>
@@ -74,24 +82,8 @@
       <li>[page:Materials NotEqualDepth] вернет true, если Z-глубина входящего пикселя не равна Z-глубине текущего буфера.</li>
     </ul>
 
-    <h2>Операции объединения текстур</h2>
 
-    <code>
-    v3d.MultiplyOperation
-    v3d.MixOperation
-    v3d.AddOperation
-    </code>
-
-    <p>
-      Они определяют, как результат цвета поверхности объединяется с картой окружения (если она присутствует), для [page:MeshBasicMaterial.combine MeshBasicMaterial] и [page:MeshLambertMaterial.combine MeshLambertMaterial].
-    </p>
-
-    <ul>
-      <li>[page:Constant MultiplyOperation] используется по умолчанию и умножает цвет карты окружения на цвет поверхности.</li>
-      <li>[page:Constant MixOperation] использует отражательную способность для смешивания двух цветов.</li>
-      <li>[page:Constant AddOperation] суммирует два цвета.</li>
-    </ul>
-
+    [anchor:stencil_function]
     <h2>Функции шаблонов</h2>
 
     <code>
@@ -120,6 +112,8 @@
       <li>[page:Materials AlwaysStencilFunc] всегда возвращает true.</li>
     </ul>
 
+
+    [anchor:stencil_operation]
     <h2>Операции с шаблонами</h2>
 
     <code>
@@ -148,17 +142,8 @@
       <li>[page:Materials InvertStencilOp] выполнит побитовое преобразование текущего значения шаблона.</li>
     </ul>
 
-    <h2>Тип карты нормалей</h2>
 
-    <code>
-    v3d.TangentSpaceNormalMap
-    v3d.ObjectSpaceNormalMap
-    </code>
-
-    <p>
-      Определяет тип карты нормалей. Для TangentSpaceNormalMap информация о нормалях определяется относительно поверхности. Для ObjectSpaceNormalMap информация о нормалях определяется относительно поворота объекта. По умолчанию используется [page:Constant TangentSpaceNormalMap].
-    </p>
-
+    [anchor:glsl_version]
     <h2>Версия GLSL</h2>
 
     <code>
@@ -166,13 +151,15 @@
     v3d.GLSL3
     </code>
 
-    <h2>Пользовательские константы уравнения смешивания</h2>
+
+    [anchor:custom_blending]
+    <h2>Пользовательские уравнения смешивания</h2>
 
     <p>
       Они работают со всеми типами материалов. Сначала установите режим смешивания материала в `v3d.CustomBlending`, затем задайте нужное уравнение смешивания, фактор источника и фактор назначения.
     </p>
 
-    <h2>Пример</h2>
+    <h3>Пример</h3>
 
     <code>
     const material = new v3d.MeshBasicMaterial({color: 0x00ff00});
@@ -183,7 +170,7 @@
     </code>
 
 
-    <h2>Уравнения смешивания</h2>
+    <h3>Уравнения смешивания</h3>
 
     <code>
     v3d.AddEquation
@@ -193,7 +180,7 @@
     v3d.MaxEquation
     </code>
 
-    <h2>Факторы источника</h2>
+    <h3>Факторы источника</h3>
 
     <code>
     v3d.ZeroFactor
@@ -209,13 +196,12 @@
     v3d.SrcAlphaSaturateFactor
     </code>
 
-    <h2>Факторы назначения</h2>
+    <h3>Факторы назначения</h3>
 
     <p>
       Все коэффициенты источника действительны как коэффициенты назначения, за исключением `v3d.SrcAlphaSaturateFactor`.
     </p>
 
     [sourceHint]
-
   </body>
 </html>

@@ -13,7 +13,7 @@
     <h1>Прозрачность / Майя</h1>
 
     <p>
-      Здесь мы покажем, как включить прозрачность для Standard Surface, Lambert и glTF-совместимых PBR материалов в «Майе».
+      Здесь мы покажем, как включить прозрачность для Standard Surface, OpenPBR и glTF-совместимых PBR материалов в «Майе».
     </p>
 
     [demo:transparency Прозрачность]
@@ -58,7 +58,7 @@
     <img src="files/transparency-common/no-depth-writes.jpg">
 
     <p>
-      Выберите *Blend* в выпадающем списке *Alpha Mode* и снимите флажок *Depth Write* в настройках материала, чтобы включить этот режим. Кроме того, вам нужно увеличить значение *Rendering Order* в параметрах <a href="manual/ru/maya/Lighting-and-Rendering.html#per_object_rendering_settings">объекта</a> чтобы ваш прозрачный объект отрендерился первым.
+      Выберите *Blend* в выпадающем списке *Alpha Mode* и снимите флажок *Depth Write* в настройках материала, чтобы включить этот режим. Кроме того, вам нужно увеличить значение *Render Order* в параметрах <a href="manual/ru/maya/Lighting-and-Rendering.html#per_object_rendering_settings">объекта</a> чтобы ваш прозрачный объект отрендерился первым.
     </p>
 
 
@@ -73,12 +73,14 @@
     <img src="files/transparency-common/oit-example.jpg" alt="Пример порядконезависимой прозрачности">
 
     <p>
-      Данную опцию можно активировать в панели настроек <a href="manual/ru/maya/Lighting-and-Rendering.html#global_rendering_settings">Verge3D Settings</a>.
+      Данную опцию можно активировать в диалоге настроек экспорта <a href="manual/ru/maya/Lighting-and-Rendering.html#global_rendering_settings">Verge3D Export Settings</a>.
     </p>
 
-    <img src="files/transparency-maya/oit.jpg" alt="Настройки Order-Independent Transparency в Майя" style="max-width: 631px;">
+    <img src="files/transparency-maya/oit.webp" style="max-width: 434px">
 
-    <p>Ограничения:</p>
+    <p>
+      Ограничения:
+    </p>
 
     <ul>
       <li>
@@ -101,35 +103,69 @@
     <h2>Прозрачность Standard Surface материалов</h2>
 
     <p>
-      Прозрачность Standard Surface (или aiStandardSurface) материалов может быть настроена с помощью следующих параметров:
+      Прозрачность Standard Surface, aiStandardSurface, а также OpenPBR Surface материалов может быть настроена с помощью следующих параметров:
     </p>
 
     <img src="files/transparency-maya/standard-surface-transparency.jpg" style="max-width: 422px">
 
-    <p>Параметры:</p>
+    <p>
+      Параметры:
+    </p>
 
     <dl>
       <dt>Transmission Weight</dt>
-      <dd>Коэффициент пропускания тонкостенных и преломляющих материалов.</dd>
-
+      <dd>
+        Коэффициент пропускания тонкостенных и преломляющих материалов.
+      </dd>
       <dt>Transmission Color</dt>
-      <dd>Цвет преломления (*Thin Walled* отключен) материала.</dd>
-
+      <dd>
+        Цвет преломления (*Thin Walled* отключен) материала.
+      </dd>
       <dt>Thin Walled</dt>
-      <dd>Использовать общие тонкостенные или основанные на преломлении прозрачности.</dd>
-
+      <dd>
+        Использовать общие тонкостенные или основанные на преломлении прозрачности.
+      </dd>
       <dt>Opacity</dt>
-      <dd>Коэффициент непрозрачности для тонкостенных материалов.</dd>
-
+      <dd>
+        Коэффициент непрозрачности для тонкостенных материалов.
+      </dd>
       <dt>Alpha Mode</dt>
-      <dd>Режим прозрачности материала.</dd>
-
+      <dd>
+        Режим прозрачности материала.
+        <dl>
+          <dt>Auto</dt>
+          <dd>Проанализировать материал и выбрать один из двух методов: *Opaque* (непрозрачный) или *Blend* (альфа-блендинг).</dd>
+          <dt>Opaque</dt>
+          <dd>Не использовать прозрачность.</dd>
+          <dt>Blend</dt>
+          <dd>Альфа-блендинг (см. <a href="manual/ru/maya/Transparency.html#blended_vs_masked">выше</a>).</dd>
+          <dt>Mask</dt>
+          <dd>Прозрачность в виде маски (альфа-клиппинг) (см. <a href="manual/ru/maya/Transparency.html#blended_vs_masked">выше</a>).</dd>
+          <dt>Coverage</dt>
+          <dd>Хеш-прозрачность, или прозрачность частичного перекрытия. Этот метод является промежуточным между клиппингом и блендингом. По сути это расширение метода маски, использующее мульти-самплинг.</dd>
+          <dt>Add</dt>
+          <dd>Прозрачность на основе аддитивиного композитинга (см. <a href="manual/ru/maya/Transparency.html#alpha_add">выше</a>).</dd>
+        </dl>
+      </dd>
+      <dt>Transparency Hack</dt>
+      <dd>
+        Включить один из двух специализированных режимов для борьбы с артефактами прозрачности:
+        <dl>
+          <dt>Nearest Layer</dt>
+          <dd>Рендерить только ближайший к камере слой с помощью вспомогательного буфера глубины (техника "depth prepass").</dd>
+          <dt>Two-Pass</dt>
+          <dd>Рендерить сначала обратную сторону объектов, а потом прямую. Техника работает только для двусторонних материалов (опция *Two Sided* должна быть включена).</dd>
+        </dl>
+        Обе техники уменьшают производительность, поэтому используйте их только когда это реально необходимо.
+      </dd>
       <dt>Depth Write</dt>
-      <dd>Отключение для аддитивного составления прозрачности (смотрите <a href="manual/ru/maya/Transparency.html#alpha_add">выше</a>).</dd>
+      <dd>
+        Отключение для аддитивного составления прозрачности (смотрите <a href="manual/ru/maya/Transparency.html#alpha_add">выше</a>).
+      </dd>
     </dl>
 
     <p class="note">
-      По умолчанию в «Майе» параметр *Thin Walled* не отмечен, что отключает наиболее типичный рендеринг прозрачности, который вы ожидали увидеть в интерактивном приложении. Всегда следите за этим параметром, когда имеете дело с прозрачными материалами Standard Surface.
+      По умолчанию в «Майе» параметр *Thin Walled* не отмечен, что отключает наиболее типичный рендеринг прозрачности, который вы ожидали увидеть в интерактивном приложении. Всегда следите за этим параметром, когда имеете дело с прозрачными материалами.
     </p>
 
 
@@ -148,12 +184,15 @@
     </a>
 
     <p>
-      Используйте выпадающий список *Alpha Mode* для выбора режима прозрачности.
+      Используйте выпадающий список *Alpha Mode* для выбора режима прозрачности из списка поддерживаемых: *Auto*, *Opaque*, *Blend* и *Mask*.
     </p>
+
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
+    <p>
+      Задайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!
+    </p>
 
   </article></body>
 </html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      Направленный ациклический граф (DAG). В «Вердж3Д» данная структура данных используется для определения иерархии в [page:MeshNodeMaterial нодовых материалах].
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Integer V])</h3>
+    <p>
+      Создаёт новый граф с размером (количеством узлов) `V`.
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Integer V]</h3>
+
+    <p>Размер графа.</p>
+
+    <h3>[property:Array adjList]</h3>
+
+    <p>Список связанных узлов графа.</p>
+
+    <h3>[property:Array nodeInfo]</h3>
+
+    <p>Данные привязанные к узлам графа.</p>
+
+    <h3>[property:Object edges]</h3>
+
+    <p>Рёбра графа.</p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:undefined addNode]([param:Object nodeInfo])</h3>
+    <p>
+      Добавляет новый узел к графу и привязывает к нему данные [page:.nodeInfo].
+    </p>
+
+    <h3>[method:undefined removeAll]()</h3>
+    <p>
+      Удаляет все узлы и рёбра из графа.
+    </p>
+
+    <h3>[method:undefined addEdge]([param:Edge edge])</h3>
+    <p>
+      Добавляет ребро к графу.
+    </p>
+
+    <h3>[method:Edge addNewEdge]([param:Integer v], [param:Integer w])</h3>
+    <p>
+      Добавляет ребро к графу, соединяющее узлы `v` и `w`.
+    </p>
+
+    <h3>[method:undefined removeEdge]([param:Integer v], [param:Integer w])</h3>
+    <p>
+      Удаляет ребро, соединяющее узлы `v` и `w`.
+    </p>
+
+    <h3>[method:Edge edge]([param:Integer v], [param:Integer w])</h3>
+    <p>
+      Возвращает ребро, соединяющее узлы `v` и `w`. Возвращает `null` в случае, если ребро не найдено.
+    </p>
+
+    <h3>[method:Integer adj]([param:Integer v])</h3>
+    <p>
+      Возвращает узел, смежный к узлу `v`.
+    </p>
+
+    <h3>[method:Object node]([param:Integer v])</h3>
+    <p>
+      Возвращает данные, привязанные к узлу `v`.
+    </p>
+
+    <h3>[method:Integer nodeINdex]([param:Object nodeInfo])</h3>
+    <p>
+      Возвращает индекс узла, соответствующего данным [page:.nodeInfo].
+    </p>
+
+    <h3>[method:DiGraph reverse]()</h3>
+    <p>
+      Возвращает новый граф с инвертированными рёбрами. Исходный граф не изменяется.
+    </p>
+
+    <h3>[method:DiGraph len]()</h3>
+    <p>
+      Возвращает размер графа.
+    </p>
+
+    <h3>[method:Array findInEdges]([param:Integer v])</h3>
+    <p>
+      Возвращает входящие рёбра узла `v`.
+    </p>
+
+    <h3>[method:Array findOutEdges]([param:Integer v])</h3>
+    <p>
+      Возвращает исходящие рёбра узла `v`.
+    </p>
+
+    <h3>[method:undefined disconnect]([param:Integer v], [param:Boolean removeNode])</h3>
+    <p>
+      Отделяет узел `v` от графа. Если `removeNode=false` (по умолчанию) оставляет данный узел внутри графа. Если `removeNode=true` также удаляет узел (и связанные с ним данные).
+    </p>
+
+    <h3>[method:undefined insert]([param:DiGraph G], [param:Array edgesInG], [param:Array edgesOutG], [param:Function copyNodeCb], [param:Function copyEdgeCb])</h3>
+    <p>
+      Вставляет подграф `G` в граф. Массивы `edgesInG` и `edgesOutG` содержат входящие и исходящие рёбра, которые будут использоваться для присоединения подграфа. Опциональные коллбеки `copyNodeCb` и `copyEdgeCb` вызываются для каждого узла/ребра, вставляемого в граф.
+    </p>
+
+    <h3>[method:undefined vis]([param:Function labelCallback])</h3>
+    <p>
+      Преобразует граф в формат DOT (Graphviz) и выводит соответствующие данные в браузерную консоль. Необязательный параметр `labelCallback` используется для присоединения меток к печатаемым узлам графа. В данный коллбек передаются индекс узла и присоединённые данные в качестве параметров.
+    </p>
+
+    [sourceHint]
+
+  </body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:Controls] &rarr;
+
+    <h1>[name]</h1>
+
+    <p>
+      Контролы полёта позволяют камере двигаться по сцене подобно самолёту.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([page:Camera object], [page:HTMLDOMElement domElement])</h3>
+    <dl class="params">
+      <dt>[page:Camera object]</dt>
+      <dd>
+        Камера, которой необходимо управлять (обязательный).
+      </dd>
+      <dt>[page:HTMLDOMElement domElement]</dt>
+      <dd>
+        Элемент HTML, используемый для прослушивания событий (необ.). По умолчанию это весь документ, однако если вы хотите, чтобы элементы управления работали только над определенным элементом (например, холстом), вы можете указать его здесь.
+      </dd>
+    </dl>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:HTMLElement domElement]</h3>
+    <p>
+      HTML-элемент, используемый для прослушивания событий мыши/тачскрина. Он должен быть передан в конструкторе; изменение его здесь не приведет к установке новых обработчиков событий. По умолчанию используется весь документ.
+    </p>
+
+    <h3>[property:Boolean enabled]</h3>
+    <p>
+      Включены ли элементы управления или нет.
+    </p>
+
+    <h3>[property:Boolean enableCtrlZoom]</h3>
+    <p>
+      Установите в `true`, чтобы осуществлять зум только при нажатой клавише ctrl (подобно тому как это сделано в Google Maps). По умолчанию `false`.
+    </p>
+
+    <h3>[property:Boolean enableDamping]</h3>
+    <p>
+      Установите значение `true`, чтобы включить демпфирование (инерцию), которое можно использовать для придания чувства веса элементам управления. По умолчанию установлено значение `true`.
+    </p>
+    <p>
+      Обратите внимание, что если эта функция включена, необходимо вызвать [page:.update]() в цикле анимации.
+    </p>
+
+    <h3>[property:Boolean enableKeys]</h3>
+    <p>
+      Включает или отключает управление с клавиатуры. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean enablePan]</h3>
+    <p>
+      Включает или отключает панорамирование камеры. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean enableRotate]</h3>
+    <p>
+      Включает или отключает поворот камеры по горизонтали и вертикали. По умолчанию `true`.
+    </p>
+    <p>
+      Обратите внимание, что можно отключить одну ось, установив минимальное и максимальное значение [page:.minPolarAngle полярного] или [page:.minAzimuthAngle азимутального] углов в одно и то же значение, что приведет к фиксации вертикального или горизонтального вращения.
+    </p>
+
+    <h3>[property:Boolean enableZoom]</h3>
+    <p>
+      Включает или отключает зум (dollying) камеры. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean inTween]</h3>
+    <p>
+      Флаг, указывающий, находится ли камера в режиме автоматического наведения (tweening).
+    </p>
+
+    <h3>[property:Float maxAzimuthAngle]</h3>
+    <p>
+      Как далеко вы можете двигаться по горизонтали, верхний предел. Диапазон от `-Math.PI` до `Math.PI` (или `Infinity` для отключения предела). По умолчанию `Infinity` (бесконечность).
+    </p>
+
+    <h3>[property:Float maxDistance]</h3>
+    <p>
+      Как далеко вы можете отдалиться (только для [page:PerspectiveCamera]). По умолчанию `Infinity` (бесконечность).
+    </p>
+
+    <h3>[property:Float maxPolarAngle]</h3>
+    <p>
+      Как далеко вы можете двигаться по вертикали, верхний предел. Диапазон от `0` до `Math.PI` радиан, по умолчанию `Math.PI`.
+    </p>
+
+    <h3>[property:Float maxZoom]</h3>
+    <p>
+      Насколько можно уменьшить масштаб изображения (только для [page:OrthographicCamera]). По умолчанию `Infinity` (бесконечность).
+    </p>
+
+    <h3>[property:Float minAzimuthAngle]</h3>
+    <p>
+      Как далеко вы можете двигаться по горизонтали, нижний предел. Диапазон от `-Math.PI` до `Math.PI` (или `-Infinity` для отключения предела). По умолчанию `-Infinity` (бесконечность).
+    </p>
+
+    <h3>[property:Float minDistance]</h3>
+    <p>
+      Насколько близко вы можете приближаться (только для [page:PerspectiveCamera]). По умолчанию `0`.
+    </p>
+
+    <h3>[property:Float minPolarAngle]</h3>
+    <p>
+      Как далеко вы можете двигаться по вертикали, нижний предел. Диапазон от `0` до `Math.PI` радиан. По умолчанию `0`.
+    </p>
+
+    <h3>[property:Float minZoom]</h3>
+    <p>
+      Насколько сильно можно увеличить масштаб изображения (только для [page:OrthographicCamera]). По умолчанию `0`.
+    </p>
+
+    <h3>[property:Object mouseButtons]</h3>
+    <p>
+      Этот объект содержит ссылки на кнопки мыши, используемые для управления.
+    </p>
+    <code>
+    controls.mouseButtons = {
+        ROTATE: v3d.MOUSE.LEFT,
+        ZOOM: v3d.MOUSE.MIDDLE,
+        PAN: v3d.MOUSE.RIGHT
+    }
+    </code>
+
+    <h3>[property:Camera object]</h3>
+    <p>
+      Управляемая камера.
+    </p>
+
+    <h3>[property:Float panInertia]</h3>
+    <p>
+      Инерция панорамирования, используемая если [page:.enableDamping] установлен в `true`. Обратите внимание, что для работы данной функции необходимо вызвать [page:.update]() в цикле анимации. По умолчанию `0.05`.
+    </p>
+
+    <h3>[property:Float panSpeed]</h3>
+    <p>
+      Скорость панорамирования. По умолчанию `20.0`.
+    </p>
+
+    <h3>[property:Float panSpeedKey]</h3>
+    <p>
+      Скорость панорамирования (количество пикселей) при использовании курсорных клавиш клавиатуры. По умолчанию `0.4`.
+    </p>
+
+    <h3>[property:Float panSpeedTouch]</h3>
+    <p>
+      Скорость панорамирования (количество пикселей) на устройствах с тачскрином. По умолчанию `15.0`.
+    </p>
+
+    <h3>[property:Float rotateInertia]</h3>
+    <p>
+      Инерция вращения, используемая если [page:.enableDamping] установлен в `true`. Обратите внимание, что для работы данной функции необходимо вызвать [page:.update]() в цикле анимации. По умолчанию `0.05`.
+    </p>
+
+    <h3>[property:Float rotateInertiaTouch]</h3>
+    <p>
+      Аналогично [page:.rotateInertia], но используется на устройствах с тачскрином. По умолчанию `0.05`.
+    </p>
+
+    <h3>[property:Float rotateSpeed]</h3>
+    <p>
+      Скорость вращения. По умолчанию `0.9`.
+    </p>
+
+    <h3>[property:Float rotateSpeedTouch]</h3>
+    <p>
+      Скорость вращения при использовании такскринов. По умолчанию `0.75`.
+    </p>
+
+    <h3>[property:Float zoomSpeed]</h3>
+    <p>
+      Скорость зума/приближения. По умолчанию `150.0`.
+    </p>
+
+    <h3>[property:Float zoomSpeedKey]</h3>
+    <p>
+      Скорость зума/приближения при использовании курсорных клавиш клавиатуры. По умолчанию `0.5`.
+    </p>
+
+    <h3>[property:Float zoomSpeedTouch]</h3>
+    <p>
+      Скорость зума/приближения на устройствах с тачскрином. По умолчанию `20.0`.
+    </p>
+
+    <h3>[property:Float zoomInertia]</h3>
+    <p>
+      Инерция зума, используемая если [page:.enableDamping] установлен в `true`. Обратите внимание, что для работы данной функции необходимо вызвать [page:.update]() в цикле анимации. По умолчанию `0.05`.
+    </p>
+
+    <h3>[property:Float zoomInertiaTouch]</h3>
+    <p>
+      Аналогично [page:.zoomInertia], но используется на устройствах с тачскрином. По умолчанию `0.05`.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:undefined dispose] ()</h3>
+    <p>
+      Удаляет все обработчики событий.
+    </p>
+
+    <h3>[method:undefined tween] ([param:Vector3 toPosition], [param:Vector3 toTarget], [param:Float time], [param:Function finishCb], [param:Constant movementType])</h3>
+    <dl class="params">
+      <dt>toPosition</dt>
+      <dd>Новое положение камеры.</dd>
+      <dt>toTarget</dt>
+      <dd>Новая целевая точка.</dd>
+      <dt>time</dt>
+      <dd>Длина анимации перемещения.</dd>
+      <dt>finishCb</dt>
+      <dd>Функция обратного вызова, которая будет вызвана после завершения анимации перемещения.</dd>
+      <dt>movementType</dt>
+      <dd>Интерполяция движения. Может быть [page:Controls v3d.TweenLinear] (по умолчанию) или [page:Controls v3d.TweenSpherical].</dd>
+    </dl>
+    <p>
+      Запускает автоматическое изменение текущего положения камеры и целевой точки на указанное новое положение и цель в течение указанного времени.
+    </p>
+
+    <h3>[method:undefined tweenZoomTo]([param:Vector3 toTarget], [param:Float toZoom], [param:Float time], [param:Function finishCb])</h3>
+    <dl class="params">
+      <dt>toTarget</dt>
+      <dd>Новое положение камеры.</dd>
+      <dt>toZoom</dt>
+      <dd>Новое значение зума.</dd>
+      <dt>time</dt>
+      <dd>Длина анимации перемещения.</dd>
+      <dt>finishCb</dt>
+      <dd>Функция обратного вызова, которая будет вызвана после завершения анимации перемещения.</dd>
+    </dl>
+    <p>
+      Плавно изменяет целевую точку и зум [page:OrthographicCamera ортографической] камеры в течение указанного времени.
+    </p>
+
+    <h3>[method:Boolean update] ()</h3>
+    <p>
+      Обновить элементы управления. Должно вызываться после любого ручного изменения трансформации камеры, или в цикле обновления, если установлены [page:.autoRotate] или [page:.enableDamping].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

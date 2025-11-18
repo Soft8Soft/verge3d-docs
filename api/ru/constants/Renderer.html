@@ -15,6 +15,10 @@
       Эти константы определяют параметры WebGL-рендерера.
     </p>
 
+    [contents]
+
+
+    [anchor:cull_face]
     <h2>Режимы отбраковки граней</h2>
 
     <code>
@@ -31,6 +35,8 @@
       <li>[page:constant CullFaceFrontBack] отбраковывает как передние, так и задние грани.</li>
     </ul>
 
+
+    [anchor:shadow_types]
     <h2>Типы теней</h2>
 
     <code>
@@ -51,29 +57,40 @@
       <li>[page:constant ESMShadowMap] использует алгоритм Exponential Shadow Mapping (ESM) с гауссовым размытием.</li>
     </ul>
 
+
+    [anchor:tone_mapping]
     <h2>Тональный маппинг</h2>
 
     <code>
     v3d.NoToneMapping
     v3d.LinearToneMapping
-    v3d.ReinhardToneMapping
-    v3d.CineonToneMapping
-    v3d.ACESFilmicToneMapping
-    v3d.CustomToneMapping
+    v3d.PbrNeutralToneMapping
+    v3d.AgXBlenderToneMapping
+    v3d.FilmicBlenderToneMapping
     v3d.LogarithmicMaxToneMapping
     v3d.PhysicalMaxToneMapping
-    v3d.FilmicBlenderToneMapping
-    v3d.AgXBlenderToneMapping
-    v3d.PbrNeutralToneMapping
+    v3d.CustomToneMapping
     </code>
 
     <p>
       Они определяют свойство WebGLRenderer [page:WebGLRenderer.toneMapping toneMapping]. Тональных маппинг используется для представления изображения, полученного в режиме высокого динамического диапазона (HDR) на устройстве с низким динамическим диапазоном (мониторе компьютера или экране мобильного устройства).
     </p>
+
     <p>
-      Все типы маппинга, за исключением `v3d.CustomToneMapping` являются встроенными. `v3d.CustomToneMapping` требует ручного изменения GLSL-кода во фрагментном шейдере материала.
+      Все типы маппинга, за исключением `v3d.CustomToneMapping` являются встроенными. `v3d.CustomToneMapping` требует ручного изменения GLSL-кода соответствующего блока фрагментного шейдера:
     </p>
 
+    <code>
+    v3d.ShaderChunk.tonemapping_pars_fragment = v3d.ShaderChunk.tonemapping_pars_fragment.replace(
+        'vec3 CustomToneMapping(vec3 color){return color;}',
+        'vec3 CustomToneMapping(vec3 color){return pow(color, vec3(2.2));}'
+    );
+
+    app.renderer.toneMapping = v3d.CustomToneMapping;
+    </code>
+
+
+    [anchor:oit_algorithms]
     <h2>Алгоритмы порядконезависимой прозрачности</h2>
 
     <code>
@@ -86,6 +103,5 @@
     </p>
 
     [sourceHint]
-
   </body>
 </html>

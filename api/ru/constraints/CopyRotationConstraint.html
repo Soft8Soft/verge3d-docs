@@ -1,43 +1,92 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <base href="../../../">
-        <script src="page.js"></script>
-        <link type="text/css" rel="stylesheet" href="page.css">
-    </head>
-    <body>
-        [page:TargetConstraint] &rarr;
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:TargetConstraint] &rarr;
 
-        <h1>[name]</h1>
+    <h1>[name]</h1>
 
-        <div class="desc">
-            Ограничение, которое заставляет ограниченный объект наследовать вращение цели.<br><br>
-            
-            Ограничения используются для установления различных отношений между объектами, влияя на их положение, вращение и масштаб. Могут использоваться со свойством [page:Object3D.constraints Object3D.constraints].
-        </div>
+    <p>
+      Ограничитель, который заставляет объект наследовать вращение цели.
+    </p>
 
-        <h2>Конструктор</h2>
-
-        <h3>[name]([page:Object3D target])</h3>
+    <p>
+      Чтобы повлиять на какой-либо объект, экземпляр [name] должен быть добавлен к массиву [page:Object3D.constraints].
+    </p>
 
 
-        <h2>Свойства</h2>
-        <div>Общие свойства смотрите в базовом классе [page:TargetConstraint].</div>
+    <h2>Конструктор</h2>
 
-        <h3>[property:Boolean isCopyRotationConstraint]</h3>
-        <div>
-            Используется для проверки того, являются ли данный или производные классы ограничениями копирующими вращение. По умолчанию *true*.
-        </div>
-        
-        <h3>[property:String type]</h3>
-        <div>
-            Тип ограничения. Равен "CopyRotationConstraint".
-        </div>
+    <h3>[name]([page:Object3D target])</h3>
+    <p class="params">
+      [page:Object3D target] — целевой объект ограничителя.
+    </p>
 
 
-        <h2>Методы</h2>
-        <div>Общие методы смотрите в базовом классе [page:TargetConstraint].</div>
+    <h2>Свойства</h2>
 
-    </body>
+    <p>
+      Общие свойства смотрите в базовом классе [page:TargetConstraint].
+    </p>
+
+    <h3>[property:Boolean fixCameraLightRotation]</h3>
+    <p>
+      В «Вердж3Д» используется правосторонняя систему координат с осью Y, направленной вверх, но в «Блендере» и «3дс Максе» используется правосторонняя система координат с осью Z, направленной вверх (см. <a href="https://www.soft8soft.com /wiki/index.php/Coordinate_Systems">«Вердж3Д Вики»</a>). Поэтому, чтобы исправить вращение для камер и света, необходимо устанавливать флаг `fixCameraLightRotation = true`. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Float influence]</h3>
+    <p>
+      Процент влияния, которое ограничитель оказывает на ограничиваемый объект. По умолчанию `1.0` (100%).
+    </p>
+
+    <h3>[property:Boolean isCopyRotationConstraint]</h3>
+    <p>
+      Указывает, что данный объект является экземпляром класса [name]. Только для чтения.
+    </p>
+
+    <h3>[property:String mixMode]</h3>
+    <p>
+      Указывает, каким образом новый поворот сочетается со старым. По умолчанию `"REPLACE"`.
+    </p>
+
+    <dl class="params">
+      <dt>`"AFTER"`</dt>
+      <dd>
+        Новый поворот добавляется к уже существующему.
+      </dd>
+      <dt>`"BEFORE"`</dt>
+      <dd>
+        Новый поворот добавляется перед уже существующим.
+      </dd>
+      <dt>`"REPLACE"`</dt>
+      <dd>
+        Новый поворот полностью заменяет существующий.
+     </dd>
+    </dl>
+
+    <h3>[property:String type]</h3>
+    <p>
+      Тип ограничителя. Равен `"CopyRotationConstraint"`.
+    </p>
+
+
+    <h2>Методы</h2>
+    <p>
+      Общие методы смотрите в базовом классе [page:TargetConstraint].
+    </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Используйте пазл <a href="manual/ru/puzzles/Animation.html#copy_transform">copy transform</a>, чтобы применять [name] без необходимости писать код.
+    </p>
+
+    [sourceHint]
+  </body>
 </html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:Object3D] &rarr;
+
+    <h1>[name]</h1>
+
+    <p>
+      Световой зонд, который отражает ближайшие объекты подобно зеркалу.
+    </p>
+
+
+    <h2>Пример</h2>
+
+    <code>
+    const probe = new v3d.PlaneReflectionProbe();
+    probe.update(scene, camera, renderer);
+    app.scene.add(probe);
+    </code>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]()</h3>
+    <p>
+      Создает новый [name].
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <p>
+      Общие свойства смотрите в базовом классе [page:Object3D Object3D].
+    </p>
+
+    <h3>[property:Float influenceDistance]</h3>
+    <p>
+      Управляет расстоянием влияния зонда. По умолчанию `1`.
+    </p>
+
+    <h3>[property:Float falloff]</h3>
+    <p>
+      Коэффициент затухания зонда. По умолчанию `0.5`.
+    </p>
+
+    <h3>[property:Matrix4 matrixWorldInverse]</h3>
+    <p>
+      Обратное значение [page:Object3D.matrixWorld matrixWorld].
+    </p>
+
+    <h3>[property:Float probeClipStart]</h3>
+    <p>
+      Объекты, расположенные ближе, чем это значение, не будут отображаться на карте окружения. По умолчанию `0.1`.
+    </p>
+
+    <h3>[property:WebGLRenderTarget renderTarget]</h3>
+    <p>
+      Экземпляр [page:WebGLRenderTarget], содержащий карту окружения для рендеринга. По умолчанию равен `null`. Обновляется автоматически после вызова метода [page:.update].
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+      Строка `"PlaneReflectionProbe"`. Она может использоваться для поиска всех объектов PlaneReflectionProbe . Не должно быть изменено.
+    </p>
+
+    <h3>[property:String visibilityGroup]</h3>
+    <p>
+      Если не `null`, то на карту окружения выводятся только объекты из этой группы (смотрите также [page:Object3D.groupNames]). По умолчанию равно null, что означает, что группа видимости не используется и зонд рендерит все объекты сцены.
+    </p>
+
+    <h3>[property:Boolean visibilityGroupInv]</h3>
+    <p>
+      Если [page:.visibilityGroup] не равно `null`, то этот параметр (если он равен `true`) делает так, что на карту окружения выводятся только объекты, не принадлежащие указанной [page:.visibilityGroup]. По умолчанию `false`.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:Object3D Object3D].
+    </p>
+
+    <h3>[method:undefined dispose]()</h3>
+    <p>
+      Удалить из памяти ресурсы, связанные с целями рендеринга, используемыми этим объектом.
+    </p>
+
+    <h3>[method:Boolean intersectsMesh]([param:Mesh mesh])</h3>
+    <p class="params">
+      mesh — объект [page:Mesh] для проверки пересечений.
+    </p>
+    <p>
+      Проверяет, есть ли пересечение между объемом влияния зонда (смотрите [page:.influenceDistance]) и заданным объектом. Возвращает результат проверки.
+    </p>
+
+    <h3>[method:undefined setSize]([param:Integer size])</h3>
+    <p class="params">
+      size — новый размер карты окружения.
+    </p>
+    <p>
+      Устанавливает размер карты окружения.
+    </p>
+
+    <h3>[method:undefined update]([param:Scene scene], [param:Camera camera], [param:WebGLRenderer renderer])</h3>
+    <ul class="params">
+      <li>scene — сцена для рендеринга.</li>
+      <li>camera — камера для рендеринга.</li>
+      <li>renderer — экземпляр [page:WebGLRenderer].</li>
+    </ul>
+    <p>
+      Рендерит заданную сцену в карту окружения зонда. Результат рендеринга будет находиться в свойстве [page:.renderTarget].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

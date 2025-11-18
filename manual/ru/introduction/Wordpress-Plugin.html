@@ -185,7 +185,7 @@
     <img src="files/wordpress/button-class-block-editor.webp" class="with-border">
 
     <p>
-      Далее используйте пазл <a href="manual/ru/puzzles/HTML.html#event">event</a> чтобы добавить обработчик события для элемента кнопки. Сам элемент может быть получен с помощью пазла <a href="manual/ru/puzzles/HTML.html#query_selector">query selector</a>:
+      Далее используйте пазл <a href="manual/ru/puzzles/HTML.html#on_event_of">on event of</a> чтобы добавить обработчик события для элемента кнопки. Сам элемент может быть получен с помощью пазла <a href="manual/ru/puzzles/HTML.html#query_selector">query selector</a>:
     </p>
 
     <img src="files/wordpress/button-class-click.webp">
@@ -194,7 +194,7 @@
       Укажите CSS-класс, назначенный на кнопке в качестве первой части селектора (точка в начале означает «получить элемент по имени класса»), за которой следует название тега *a*:
     </p>
 
-    <code class="language-html">
+    <code class="lang-html">
     .my-button a
     </code>
 
@@ -211,7 +211,7 @@
     <img src="files/wordpress/button-id-elementor.webp" class="with-border">
 
     <p>
-      Далее используйте пазл <a href="manual/ru/puzzles/HTML.html#event">event</a> чтобы добавить обработчик события для элемента кнопки. Сам элемент может быть получен с помощью пазла <a href="manual/ru/puzzles/HTML.html#query_selector">query selector</a>:
+      Далее используйте пазл <a href="manual/ru/puzzles/HTML.html#on_event_of">on event of</a> чтобы добавить обработчик события для элемента кнопки. Сам элемент может быть получен с помощью пазла <a href="manual/ru/puzzles/HTML.html#query_selector">query selector</a>:
     </p>
 
     <img src="files/wordpress/button-id-click.webp">
@@ -220,7 +220,7 @@
       Укажите идентификатор элемента, назначенный на кнопке в качестве первой части селектора (решётка в начале означает «получить элемент по идентификатор»), за которой следует название тега *a*:
     </p>
 
-    <code class="language-html">
+    <code class="lang-html">
     #my-button a
     </code>
 
@@ -305,12 +305,18 @@
     </dl>
 
     <h3>Использование пазлов</h3>
-
     <p>
       С помощью пазлов <a href="manual/ru/puzzles/ECommerce.html#woo_connect">connect to WooCommerce</a> и <a href="manual/ru/puzzles/ECommerce.html#woo_product_info">product info</a> вы можете создавать приложения любой сложности (например полноценные 3Д-конфигураторы) посредством получения данных о выбранных конфигурациях и свойствах товаров из «Ву Коммерц».
     </p>
-
     [demo:spinner Спиннер]
+
+    <h3>Как не перезагружать страницу после добавления товаров в корзину</h3>
+    <p>
+      При использовании штатной конфигурации «Ву Коммерц» с «Вердж3Д» имеется небольшая проблема. Каждый раз, когда покупатель добавляет товар в корзину, вся страница перезагружается, что приводит к перезагрузке «Вердж3Д»-приложения, нарушая процесс покупки.
+    </p>
+    <p>
+      Чтобы обойти эту проблему, используйте плагин WooCommerce для мгновенного добавления товаров, например, <a href="https://wordpress.org/plugins/wpc-ajax-add-to-cart/" target="blank">AJAX Add to Cart</a>.
+    </p>
 
 
     [anchor:e_commerce_system]
@@ -334,6 +340,7 @@
       Система не использует сторонних плагинов и может быть легко доработана с помощью PHP для любых применений.
     </p>
 
+
     [anchor:receiving_orders_with_order_form]
 
     <h2>Получение заказов с помощью формы заказа</h2>
@@ -349,6 +356,8 @@
     </p>
 
     <img src="files/wordpress/order-form.jpg" style="max-width: 867px;">
+
+    [demo:ring Кольцо]
 
 
     [anchor:managing_orders]
@@ -388,7 +397,7 @@
       <dt>Title</dt>
       <dd>Заголовок продукта, например «Вердж3Д для Блендера» или «Спиннер». Это поле является обязательным.</dd>
       <dt>SKU</dt>
-      <dd>Артикул товара. Это значение нужно не только для учёта товара, но прежде всего как идентификатор указываемый в пазлах <strong>place order +</strong> и <strong>send data</strong>.</dd>
+      <dd>Артикул товара. Это значение нужно не только для учёта товара, но прежде всего как идентификатор указываемый в пазлах <strong>place order +</strong> и <strong>send data</strong>. По существу, данное значение используется как уникальный идентификтор продукта.</dd>
       <dt>Price</dt>
       <dd>Цена продукта, может быть нулевой.</dd>
       <dt>Download link</dt>
@@ -408,7 +417,9 @@
       Для её использования вам потребуется следующий метод REST API:
     </p>
 
-    <code class="language-html">https://ИМЯ_ХОСТА/wp-json/verge3d/v1/get_product_info/АРТИКУЛ</code>
+    <code class="lang-html">
+    https://ИМЯ_ХОСТА/wp-json/verge3d/v1/get_product_info/АРТИКУЛ
+    </code>
 
     <p>
       Где ИМЯ_ХОСТА — адрес сервера где размещён «Вордпресс» (например <em>sandbox.soft8soft.com</em>), а АРТИКУЛ — артикул нужного вам продукта.
@@ -418,7 +429,7 @@
       В случае успеха этот метод возвращает структуру в формате JSON с информацией о продукте:
     </p>
 
-    <code>
+    <code class="raw">
     {
         "status": "ok",
         "title": "Имя продукта",
@@ -449,7 +460,9 @@
       Для загрузки файла на сервер используйте следующий метод REST API:
     </p>
 
-    <code class="language-html">https://ИМЯ_ХОСТА/wp-json/verge3d/v1/upload_file/</code>
+    <code class="raw">
+    https://ИМЯ_ХОСТА/wp-json/verge3d/v1/upload_file/
+    </code>
 
     <p>
       Где ИМЯ_ХОСТА — это имя хоста вашего сервера «Вордпресс», например <em>sandbox.soft8soft.com</em>
@@ -459,7 +472,7 @@
       В случае успеха этот метод возвращает следующий JSON-файл с информацией о загруженном файле:
     </p>
 
-    <code>
+    <code class="raw">
     {
         "status": "ok",
         "statusText": "Yay! File uploaded successfully.",
@@ -473,7 +486,7 @@
       Для получения файла воспользуйтесь ссылкой, указанной в запросе, или используйте ID и REST API метод <em>get_file</em>:
     </p>
 
-    <code class="language-html">https://ИМЯ_ХОСТА/wp-json/verge3d/v1/get_file/ID</code>
+    <code class="lang-html">https://ИМЯ_ХОСТА/wp-json/verge3d/v1/get_file/ID</code>
 
     <h3>Использование пазлов</h3>
 
@@ -500,6 +513,10 @@
 
     <p>
       Используйте меню администратора <strong>Settings</strong>, чтобы менять глобальные настройки плагина «Вердж3Д для Вордпресс»:
+    </p>
+
+    <p class="note">
+      Большинство этих настроек используются во встроенной в плагин системе электронной коммерции. Они не потребуются, если вы хотите использовать систему «Ву Комммерц».
     </p>
 
     <img src="files/wordpress/settings.jpg">
@@ -592,7 +609,9 @@
 
     <h2>Остались вопросы?</h2>
 
-    <p>Задавайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!</p>
+    <p>
+      Задавайте их на нашем <a href="https://www.soft8soft.com/ru/форумы/" target="_blank">форуме</a>!
+    </p>
 
   </article></body>
 </html>

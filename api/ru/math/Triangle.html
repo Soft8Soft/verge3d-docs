@@ -9,21 +9,21 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      Геометрический треугольник, определяемый тремя [page:Vector3 Vector3s], представляющими три его угла.
+    <p>
+      Геометрический треугольник, определяемый тремя [page:Vector3 векторами], соответствующие его углам.
     </p>
 
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]([param:Vector3 a], [param:Vector3 b], [param:Vector3 c])</h3>
+    <ul class="params">
+      <li>[page:Vector3 a] — первый угол треугольника. По умолчанию [page:Vector3] с координатами `(0, 0, 0)`.</li>
+      <li>[page:Vector3 b] — второй угол треугольника. По умолчанию [page:Vector3] с координатами `(0, 0, 0)`.</li>
+      <li>[page:Vector3 c] — последний угол треугольника. По умолчанию [page:Vector3] с координатами `(0, 0, 0)`.</li>
+    </ul>
     <p>
-    [page:Vector3 a] — первый угол треугольника. По умолчанию это [page:Vector3] в точке (0, 0, 0).<br>
-    [page:Vector3 b] — второй угол треугольника. По умолчанию это [page:Vector3] в точке (0, 0, 0)..<br>
-    [page:Vector3 c] — последний угол треугольника. По умолчанию это [page:Vector3] в точке (0, 0, 0)..<br><br>
-
-    Создает новый [name].
+      Создает новый [name].
     </p>
 
 
@@ -31,107 +31,146 @@
 
     <h3>[property:Vector3 a]</h3>
     <p>
-      Первый угол треугольника. По умолчанию это [page:Vector3] в точке (0, 0, 0).
+      Первый угол треугольника. По умолчанию [page:Vector3] с координатами `(0, 0, 0)`.
     </p>
 
     <h3>[property:Vector3 b]</h3>
     <p>
-      Второй угол треугольника. По умолчанию это [page:Vector3] в точке (0, 0, 0).
+      Второй угол треугольника. По умолчанию [page:Vector3] с координатами `(0, 0, 0)`.
     </p>
 
     <h3>[property:Vector3 c]</h3>
     <p>
-      Последний угол треугольника. По умолчанию это [page:Vector3] в точке (0, 0, 0).
+      Последний угол треугольника. По умолчанию [page:Vector3] с координатами `(0, 0, 0)`.
     </p>
+
 
     <h2>Методы</h2>
 
     <h3>[method:Triangle clone]()</h3>
     <p>
-      Возвращает новый треугольник с теми же свойствами [page:.a a], [page:.b b] и [page:.c c], что и данный.
+      Возвращает новый треугольник с теми же свойствами [page:.a a], [page:.b b] и [page:.c c], что и текущий.
     </p>
 
     <h3>[method:Vector3 closestPointToPoint]([param:Vector3 point], [param:Vector3 target])</h3>
+    <ul class="params">
+      <li>[page:Vector3 point] — [page:Vector3].</li>
+      <li>[page:Vector3 target] — результат будет скопирован в этот Vector3.</li>
+    </ul>
     <p>
-    [page:Vector3 point] - [page:Vector3] <br>
-    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
-
-    Возвращает ближайшую точку треугольника к [page:Vector3 point].
+      Возвращает точку на треугольнике, ближайшую к указанной точке.
     </p>
 
     <h3>[method:Boolean containsPoint]([param:Vector3 point])</h3>
+    <p class="params">
+      [page:Vector3 point] - [page:Vector3] для проверки.
+    </p>
     <p>
-    [page:Vector3 point] - [page:Vector3] для проверки.<br><br>
-
-    Возвращает true, если переданная точка, спроецированная на плоскость треугольника, лежит внутри треугольника.
+      Возвращает `true`, если переданная точка, спроецированная на плоскость треугольника, лежит внутри треугольника.
     </p>
 
     <h3>[method:Triangle copy]([param:Triangle triangle])</h3>
     <p>
-      Копирует значения свойств [page:.a a], [page:.b b] и [page:.c c] переданного треугольника в данный треугольник.
+      Копирует значения свойств [page:.a a], [page:.b b] и [page:.c c] переданного треугольника в текущий треугольник.
     </p>
 
     <h3>[method:Boolean equals]([param:Triangle triangle])</h3>
     <p>
-      Возвращает true, если два треугольника имеют одинаковые свойства [page:.a a], [page:.b b] и [page:.c c].
+      Возвращает `true`, если два треугольника имеют одинаковые свойства [page:.a a], [page:.b b] и [page:.c c].
     </p>
 
     <h3>[method:Float getArea]()</h3>
-    <p>Возвращает площадь треугольника.</p>
-
-    <h3>[method:Vector3 getBarycoord]([param:Vector3 point], [param:Vector3 target])</h3>
     <p>
-    [page:Vector3 point] - [page:Vector3] <br>
-    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
-
-    Возвращает [link:https://en.wikipedia.org/wiki/Barycentric_coordinate_system barycentric coordinate]
-    из заданного вектора. <br/><br/>
-
-    [link:http://commons.wikimedia.org/wiki/File:Barycentric_coordinates_1.png Picture of barycentric coordinates]
+      Возвращает площадь треугольника.
     </p>
 
-    <h3>[method:Vector3 getMidpoint]([param:Vector3 target])</h3>
+    <h3>[method:Vector3 getBarycoord]([param:Vector3 point], [param:Vector3 target])</h3>
+    <ul class="params">
+      <li>[page:Vector3 point] — [page:Vector3].</li>
+      <li>[page:Vector3 target] — результат будет скопирован в этот Vector3.</li>
+    </ul>
     <p>
-    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
+      Возвращает [link:https://ru.wikipedia.org/wiki/Барицентрические_координаты барицентрические координаты] заданного вектора.
+    </p>
+    <img src="files/api/barycentric-coordinates.webp" style="max-width: 300px">
 
-    Вычислите среднюю точку треугольника.
+    <h3>[method:Vector3 getMidpoint]([param:Vector3 target])</h3>
+    <p class="params">
+      [page:Vector3 target] — результат будет скопирован в этот Vector3.
+    </p>
+    <p>
+      Вычисляет среднюю точку треугольника.
     </p>
 
     <h3>[method:Vector3 getNormal]([param:Vector3 target])</h3>
+    <p class="params">
+      [page:Vector3 target] — результат будет скопирован в этот Vector3.
+    </p>
     <p>
-    [page:Vector3 target] — результат будет скопирован в этот Vector3.<br><br>
-
-    Вычисляет [link:https://en.wikipedia.org/wiki/Normal_(geometry) normal vector] треугольника.
+      Вычисляет вектор нормали треугольника.
     </p>
 
     <h3>[method:Plane getPlane]([param:Plane target])</h3>
+    <p class="params">
+      [page:Plane target] — результат будет скопирован в эту плоскость.
+    </p>
     <p>
-    [page:Plane target] — результат будет скопирован в эту плоскость.<br><br>
+      Вычисляет [page:Plane плоскость] на основе треугольника.
+    </p>
 
-    Вычислите [page:Plane plane] на основе треугольника.
+    <h3>[method:Vector2 getUV]([param:Vector3 point], [param:Vector2 uv1], [param:Vector2 uv2], [param:Vector2 uv3], [param:Vector2 target])</h3>
+    <ul class="params">
+      <li>[page:Vector3 point] — точка на треугольнике.</li>
+      <li>[page:Vector2 uv1] — uv-координата первой точки треугольника.</li>
+      <li>[page:Vector2 uv2] — uv-координата второй точки треугольникаx.</li>
+      <li>[page:Vector2 uv3] — uv-координата третьей точки треугольника.</li>
+      <li>[page:Vector2 target] — вектор для сохранения результата.</li>
+    </ul>
+    <p>
+      Возвращает UV-координаты указанной точки на треугольнике.
     </p>
 
     <h3>[method:Boolean intersectsBox]([param:Box3 box])</h3>
+    <p class="params">
+      [page:Box3 box] — куб для проверки пересечения.
+    </p>
     <p>
-    [page:Box3 box] — Куб для проверки пересечения.<br><br>
+      Определяет, пересекает ли текущий треугольник указанный [page:Box3 кубоид].
+    </p>
 
-    Определяет, пересекает ли данный треугольник [page:Box3 box].
+    <h3>[method:Boolean isFrontFacing]([param:Vector3 direction])</h3>
+    <p class="params">
+      [page:Vector3 direction] — направление для проверки.
+    </p>
+    <p>
+      Проверяет, направлен ли треугольник в указанном направлении.
     </p>
 
     <h3>[method:Triangle set]([param:Vector3 a], [param:Vector3 b], [param:Vector3 c]) [param:Triangle this]</h3>
     <p>
-      Устанавливает свойства [page:.a a], [page:.b b] и [page:.c c] треугольника на переданные [page:Vector3 vector3s].<br>
-      Обратите внимание, что этот метод только копирует значения из заданных объектов.
+      Устанавливает свойства [page:.a a], [page:.b b] и [page:.c c] треугольника из указанных [page:Vector3 векторов]. Обратите внимание, что этот метод только копирует значения из заданных объектов.
+    </p>
+
+    <h3>[method:this setFromAttributeAndIndices]([param:BufferAttribute attribute], [param:Integer i0], [param:Integer i1], [param:Integer i2]) [param:Triangle this]</h3>
+    <ul class="params">
+      <li>attribute — вертексный [page:BufferAttribute атрибут].</li>
+      <li>i0 — [page:Integer] индекс.</li>
+      <li>i1 — [page:Integer] индекс.</li>
+      <li>i2 — [page:Integer] индекс.</li>
+    </ul>
+    <p>
+      Устанавливает углы треугольника на основе данных вертексного атрибута.
     </p>
 
     <h3>[method:Triangle setFromPointsAndIndices]([param:Array points], [param:Integer i0], [param:Integer i1], [param:Integer i2]) [param:Triangle this]</h3>
+    <ul class="params">
+      <li>points — [page:Array массив] [page:Vector3 векторов].</li>
+      <li>i0 — [page:Integer] индекс.</li>
+      <li>i1 — [page:Integer] индекс.</li>
+      <li>i2 — [page:Integer] индекс.</li>
+    </ul>
     <p>
-    точки - [page:Array] of [page:Vector3]s <br>
-    i0 - [page:Integer] индекс <br>
-    i1 - [page:Integer] индекс <br>
-    i2 - [page:Integer] индекс<br><br>
-
-    Устанавливает векторы треугольника в векторы в массиве.
+      Устанавливает углы треугольника на основе векторов из указанного массива.
     </p>
 
     [sourceHint]

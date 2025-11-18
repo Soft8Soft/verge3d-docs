@@ -10,14 +10,15 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Используйте массив [page:Bone bones] для создания скелета, который может быть использован в [page:SkinnedMesh].
+    <p>
+      Представляет массив [page:Bone костей] для создания скелета, который может быть использован в [page:SkinnedMesh].
     </p>
 
-    <h2>Пример</h2>
-    <code>
-    // Create a simple "arm"
 
+    <h2>Пример</h2>
+
+    <code>
+    // создаём простую руку
     const bones = [];
 
     const shoulder = new v3d.Bone();
@@ -40,17 +41,18 @@
 
     <p>
       Пример использования со стандартной [page:BufferGeometry] смотрите на странице [page:SkinnedMesh].
-     </p>
+    </p>
+
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]([param:Array bones], [param:Array boneInverses])</h3>
+    <ul class="params">
+      <li>[page:Array bones] — массив [page:Bone костей]. По умолчанию используется пустой массив.</li>
+      <li>[page:Array boneInverses] — (необ.) массив из [page:Matrix4 Matrix4].</li>
+    </ul>
     <p>
-      [page:Array bones] — Массив [page:Bone bones]. По умолчанию это пустой массив.<br/>
-      [page:Array boneInverses] — (необязательный) массив из [page:Matrix4 Matrix4s].<br><br>
-
-    Создает новый [name].
+      Создает новый [name].
     </p>
 
 
@@ -58,14 +60,12 @@
 
     <h3>[property:Array bones]</h3>
     <p>
-      Массив [page:bone bones]. Обратите внимание, что это копия исходного массива, а не референс,
-      поэтому вы можете изменять исходный массив, не затрагивая этот.
+      Массив [page:Bone костей]. Обратите внимание, что это копия исходного массива, а не референс, поэтому вы можете изменять исходный массив, не затрагивая этот.
     </p>
 
     <h3>[property:Array boneInverses]</h3>
     <p>
-      Массив [page:Matrix4 Matrix4s], представляющий обратную сторону [page:Matrix4 matrixWorld]
-      отдельных костей.
+      Массив [page:Matrix4 Matrix4], представляющий обратную сторону [page:Matrix4 matrixWorld] отдельных костей.
     </p>
 
     <h3>[property:Float32Array boneMatrices]</h3>
@@ -80,41 +80,48 @@
 
     <h3>[property:Integer boneTextureSize]</h3>
     <p>
-    Размер [page:.boneTexture].
+      Размер [page:.boneTexture].
     </p>
+
 
     <h2>Методы</h2>
 
     <h3>[method:Skeleton clone]()</h3>
     <p>
-      Возвращает клон этого Skeleton-объекта.
+      Возвращает клон данного Skeleton-объекта.
     </p>
 
-
-    <h3>[method:null calculateInverses]()</h3>
-    <p>Генерирует массив [page:.boneInverses boneInverses], если он не предоставлен в конструкторе.</p>
-
-
-    <h3>[method:null pose]()</h3>
-    <p>Возвращает скелет к базовой позе.</p>
-
-
-    <h3>[method:null update]()</h3>
+    <h3>[method:undefined calculateInverses]()</h3>
     <p>
-      Обновляет [page:Float32Array boneMatrices] и [page:DataTexture boneTexture] после изменения костей.
-      Это вызывается автоматически [page:WebGLRenderer], если скелет используется с [page:SkinnedMesh].
+      Генерирует массив [page:.boneInverses boneInverses], если он не предоставлен в конструкторе.
+    </p>
+
+    <h3>[method:this computeBoneTexture]()</h3>
+    <p>
+      Вычисляет экземпляр [page:DataTexture], который используется для подачи информации о костях в шейдер. Сама текстура назначается в [page:.boneTexture boneTexture].
+    </p>
+
+    <h3>[method:undefined pose]()</h3>
+    <p>
+      Возвращает скелет к базовой позе.
+    </p>
+
+    <h3>[method:undefined update]()</h3>
+    <p>
+      Обновляет [page:Float32Array boneMatrices] и [page:DataTexture boneTexture] после изменения костей. Это вызывается автоматически [page:WebGLRenderer], если скелет используется с [page:SkinnedMesh].
     </p>
 
     <h3>[method:Bone getBoneByName]([param:String name])</h3>
+    <p class="params">
+      name — строка для сопоставления со свойством `.name` кости.
+    </p>
     <p>
-    name — Строка для сопоставления со свойством .name кости. <br><br>
-
-    Ищет по массиву костей скелета и возвращает первую с совпадающим именем.<br>
+      Ищет по массиву костей скелета и возвращает первую с совпадающим именем.
     </p>
 
-    <h3>[method:null dispose]()</h3>
+    <h3>[method:undefined dispose]()</h3>
     <p>
-      Может использоваться, если экземпляр [name] устаревает в приложении. Метод освободит внутренние ресурсы.
+      Освобождает все связанные с GPU ресурсы, используемые экземпляром [name]. Этот метод следует вызвать, если [name] больше не используется в приложении.
     </p>
 
     [sourceHint]

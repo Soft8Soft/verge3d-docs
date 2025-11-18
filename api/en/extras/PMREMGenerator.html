@@ -9,13 +9,10 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM) from a cubeMap environment texture.
-      This allows different levels of blur to be quickly accessed based on material roughness.
-      Unlike a traditional mipmap chain, it only goes down to the LOD_MIN level (above), and then creates extra even more
-      filtered 'mips' at the same LOD_MIN resolution, associated with higher roughness levels. In this way we maintain
-      resolution to smoothly interpolate diffuse lighting while limiting sampling computation.
+    <p>
+      This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM) from a cube map environment texture. This allows different levels of blur to be quickly accessed based on material roughness. Unlike a traditional mipmap chain, it only goes down to the LOD_MIN level (above), and then creates extra even more filtered 'mips' at the same LOD_MIN resolution, associated with higher roughness levels. In this way we maintain resolution to smoothly interpolate diffuse lighting while limiting sampling computation.
     </p>
+
 
     <h2>Constructor</h2>
 
@@ -23,6 +20,7 @@
     <p>
       This constructor creates a new [name]. The `maxTileSize` specifies maximum tile size for PMREM. Default it `256`.
     </p>
+
 
     <h2>Methods</h2>
 
@@ -33,26 +31,22 @@
       <li>[page:Float near] — (optional) the near plane value. Default is `0.1`.</li>
       <li>[page:Float far] — (optional) the far plane value. Default is `100`.</li>
     </ul>
-
     <p>
-      Generates a PMREM from a supplied Scene, which can be faster than using an image if networking bandwidth is low.
-      Optional near and far planes ensure the scene is rendered in its entirety (the cubeCamera is placed at the origin).
+      Generates a PMREM from a supplied Scene, which can be faster than using an image if networking bandwidth is low. Optional near and far planes ensure the scene is rendered in its entirety (the cube camera is placed at the origin).
     </p>
 
     <h3>[method:WebGLRenderTarget fromEquirectangular]([param:Texture equirectangular])</h3>
     <p class="params">
       [page:Texture equirectangular] — the equirectangular source texture.
     </p>
-
     <p>
       Generates a PMREM from an equirectangular texture.
     </p>
 
     <h3>[method:WebGLRenderTarget fromCubemap]([param:CubeTexture cubemap])</h3>
     <p class="params">
-      [page:CubeTexture cubemap] — the cubemap source exture.
+      [page:CubeTexture cubemap] — the cubemap source texture.
     </p>
-
     <p>
       Generates a PMREM from an cubemap texture.
     </p>
@@ -73,6 +67,5 @@
     </p>
 
     [sourceHint]
-
   </body>
 </html>

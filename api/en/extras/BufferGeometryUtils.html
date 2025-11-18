@@ -9,7 +9,7 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       A class containing utility functions for [page:BufferGeometry BufferGeometry] instances.
     </p>
 
@@ -17,134 +17,107 @@
     <h2>Methods</h2>
 
     <h3>[method:undefined batchMeshes]([param:Array meshObjs], [param:Object3D batchParent])</h3>
-    <dl class="params">
-      <dt>[page:Array meshObjs]</dt>
-      <dd>Array of [page:Mesh] objects to be joined together.</dd>
-      <dt>[page:Object3D batchParent]</dt>
-      <dd>Container (parent) object to store the batched mesh.</dd>
-    </dl>
+    <ul class="params">
+      <li>[page:Array meshObjs] — array of [page:Mesh] objects to be joined together.</li>
+      <li>[page:Object3D batchParent] — container (parent) object to store the batched mesh.</li>
+    </ul>
     <p>
       Merges the meshes together to form a batched mesh. This technique is used to reduce the number WebGL draw calls hence to improve rendering performance.
     </p>
 
-    <h3>[method:Object computeMikkTSpaceTangents]([param:BufferGeometry geometry], [param:Object MikkTSpace], [param:Boolean negateSign] = true)</h3>
-    <dl class="params">
-      <dt>geometry</dt><dd>Instance of [page:BufferGeometry].</dd>
-      <dt>MikkTSpace</dt><dd>Instance of <i>examples/jsm/libs/mikktspace.module.js</i>, or <i>mikktspace</i> npm package. Await <i>MikkTSpace.ready</i> before use.</dd>
-      <dt>negateSign</dt><dd>Whether to negate the sign component (.w) of each tangent. Required for normal map conventions in some formats, including glTF.</dd>
-    </dl>
-
     <p>
-      Computes vertex tangents using the [link:http://www.mikktspace.com/ MikkTSpace] algorithm.
-      MikkTSpace generates the same tangents consistently, and is used in most modelling tools and
-      normal map bakers. Use MikkTSpace for materials with normal maps, because inconsistent
-      tangents may lead to subtle visual issues in the normal map, particularly around mirrored
-      UV seams.
+      The batching will be performed among the meshes which have the same values of the following properties:
     </p>
 
-    <p>
-      In comparison to this method, [page:BufferGeometry.computeTangents] (a
-      custom algorithm) generates tangents that probably will not match the tangents
-      in other software. The custom algorithm is sufficient for general use with a
-      [page:ShaderMaterial], and may be faster than MikkTSpace.
-    </p>
-
-    <p>
-      Returns the original [page:BufferGeometry]. Indexed geometries will be de-indexed.
-      Requires position, normal, and uv attributes.
-    </p>
+    <ul>
+      <li>`material.name`</li>
+      <li>`visible`</li>
+      <li>`disableChildRendering`</li>
+      <li>`castShadow`</li>
+      <li>`receiveShadow`</li>
+      <li>`renderOrder`</li>
+      <li>`groupNames`</li>
+      <li>`geometry.attributes` (keys only)</li>
+      <li>`geometry.morphAttributes` (keys only)</li>
+    </ul>
 
     <h3>[method:Object computeMorphedAttributes]([param:Mesh|Line|Points object])</h3>
     <p class="params">
-      object — Instance of [page:Mesh Mesh], [page:Line Line], [page:Points Points].
+      object — instance of [page:Mesh Mesh], [page:Line Line], [page:Points Points].
     </p>
     <p>
-      Returns the current attributes (Position and Normal) of a morphed/skinned [page:Object3D Object3D] whose geometry is a
-      [page:BufferGeometry BufferGeometry], together with the original ones: An Object with 4 properties:
-      `positionAttribute`, `normalAttribute`, `morphedPositionAttribute` and `morphedNormalAttribute`.
+      Returns the morphed attributes (position and normal) of a morphed/skinned object together with the original ones. The returned object includes 4 properties: `positionAttribute`, `normalAttribute`, `morphedPositionAttribute`, and `morphedNormalAttribute`. Can be helpful for raytracing or applying decals.
+    </p>
+
+    <h3>[method:BufferAttribute deepCloneAttribute]([param:BufferAttribute attribute])</h3>
+    <p class="params">
+      attribute — instance of [page:BufferAttribute BufferAttribute] to perform deep clone.</li>
     </p>
     <p>
-      Helpful for Raytracing or Decals (i.e. a [page:DecalGeometry DecalGeometry] applied to a morphed Object
-      with a [page:BufferGeometry BufferGeometry] will use the original BufferGeometry, not the morphed/skinned one,
-      generating an incorrect result.
-      Using this function to create a shadow Object3D the DecalGeometry can be correctly generated).
+      Returns a deep clone of the given attribute.
     </p>
 
     <h3>[method:Float estimateBytesUsed]([param:BufferGeometry geometry])</h3>
     <p class="params">
-      geometry — Instance of [page:BufferGeometry BufferGeometry] to estimate the memory use of.
+      geometry — instance of [page:BufferGeometry BufferGeometry] to estimate the memory use of.
     </p>
 
     <p>
       Returns the amount of bytes used by all attributes to represent the geometry.
     </p>
 
-    <h3>[method:InterleavedBufferAttribute interleaveAttributes]([param:Array attributes])</h3>
-    <p class="params">
-      attributes — Array of [page:BufferAttribute BufferAttribute] instances.
-    </p>
-    <p>
-      Interleaves a set of attributes and returns a new array of corresponding attributes that share
-      a single InterleavedBuffer instance. All attributes must have compatible types. If merge does not
-      succeed, the method returns `null`.
-    </p>
-
     <h3>[method:BufferAttribute mergeBufferAttributes]([param:Array attributes])</h3>
     <p class="params">
-      attributes — Array of [page:BufferAttribute BufferAttribute] instances.
+      attributes — array of [page:BufferAttribute BufferAttribute] instances.
     </p>
     <p>
-      Merges a set of attributes into a single instance. All attributes must have compatible properties
-      and types, and InterleavedBufferAttributes are not supported. If merge does not succeed, the method returns `null`.
+      Merges a set of attributes into a single instance. All attributes must have compatible properties and types. If merge does not succeed, the method returns `null`.
     </p>
 
     <h3>[method:BufferGeometry mergeBufferGeometries]([param:Array geometries], [param:Boolean useGroups])</h3>
-    <p class="params">
-      geometries — Array of [page:BufferGeometry BufferGeometry] instances.<br>
-      useGroups — Whether groups should be generated for the merged geometry or not.
-    </p>
+    <ul class="params">
+      <li>geometries — array of [page:BufferGeometry BufferGeometry] instances.</li>
+      <li>useGroups — whether groups should be generated for the merged geometry or not.</li>
+    </ul>
     <p>
-      Merges a set of geometries into a single instance. All geometries must have compatible attributes.
-      If merge does not succeed, the method returns null.
+      Merges a set of geometries into a single instance. All geometries must have compatible attributes. If merge does not succeed, the method returns `null`.
     </p>
 
     <h3>[method:BufferGeometry mergeGroups]([param:BufferGeometry geometry])</h3>
     <p class="params">
-      geometry — Instance of [page:BufferGeometry BufferGeometry] to merge the groups of.
+      geometry — instance of [page:BufferGeometry BufferGeometry] to merge the groups of.
     </p>
     <p>
       Merges the [page:BufferGeometry.groups groups] for the given geometry.
     </p>
 
     <h3>[method:BufferGeometry mergeVertices]([param:BufferGeometry geometry], [param:Float tolerance])</h3>
-    <p class="params">
-      geometry — Instance of [page:BufferGeometry BufferGeometry] to merge the vertices of.<br>
-      tolerance — The maximum allowable difference between vertex attributes to merge. Defaults to `1e-4`.
-    </p>
+    <ul class="params">
+      <li>geometry — instance of [page:BufferGeometry BufferGeometry] to merge the vertices of.</li>
+      <li>tolerance — the maximum allowable difference between vertex attributes to merge. Defaults to `1e-4`.</li>
+    </ul>
     <p>
-      Returns a new [page:BufferGeometry BufferGeometry] with vertices for which all similar vertex attributes
-      (within tolerance) are merged.
+      Returns a new [page:BufferGeometry BufferGeometry] with vertices for which all similar vertex attributes (within tolerance) are merged.
     </p>
 
     <h3>[method:BufferGeometry toCreasedNormals]([param:BufferGeometry geometry], [param:Float creaseAngle])</h3>
-    <p class="params">
-      geometry — The input geometry. <br>
-      creaseAngle — The crease angle.
-    </p>
+    <ul class="params">
+      <li>geometry — the input geometry.</li>
+      <li>creaseAngle — the crease angle.</li>
+    </ul>
     <p>
       Creates a new, non-indexed geometry with smooth normals everywhere except faces that meet at an angle greater than the crease angle.
     </p>
 
     <h3>[method:BufferGeometry toTrianglesDrawMode]([param:BufferGeometry geometry], [param:TrianglesDrawMode drawMode])</h3>
-    <p class="params">
-      geometry — Instance of [page:BufferGeometry BufferGeometry].<br>
-      drawMode — The draw mode of the given geometry. Valid inputs are `v3d.TriangleStripDrawMode` and `v3d.TriangleFanDrawMode`.
-    </p>
+    <ul class="params">
+      <li>geometry — instance of [page:BufferGeometry BufferGeometry].</li>
+      <li>drawMode — the draw mode of the given geometry. Valid inputs are `v3d.TriangleStripDrawMode` and `v3d.TriangleFanDrawMode`.</li>
+    </ul>
     <p>
       Returns a new indexed geometry based on `v3d.TrianglesDrawMode` draw mode. This mode corresponds to the `gl.TRIANGLES` WebGL primitive.
     </p>
 
     [sourceHint]
-
   </body>
 </html>

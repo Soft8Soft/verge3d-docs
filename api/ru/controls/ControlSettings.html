@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      Класс для хранения и применения настроек управления камерой («контролов»).
+    </p>
+
+
+    <h2>Пример</h2>
+
+    <code>
+    const aspect = app.container.offsetWidth / app.container.offsetHeight;
+    const camera = new v3d.PerspectiveCamera(45, aspect, 1, 1000);
+    camera.position.z = -5;
+    camera.controlSettings = new v3d.ControlSettings('ORBIT');
+    app.scene.add(camera);
+    // устанавливает активную камеру и назначает контролы в приложении
+    app.setCamera(camera);
+    </code>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:String type], [param:Boolean enablePan], [param:Float rotateSpeed], [param:Float moveSpeed])</h3>
+
+    <ul class="params">
+      <li>[page:String type] — тип контролов: `'ORBIT'`, `'FIRST_PERSON'` или `'FLYING'`. Необязательный, по умолчанию `'ORBIT'`.</li>
+      <li>[page:Boolean enablePan] — create camera controls with panning enabled. Необязательный, по умолчанию `'true'`.</li>
+      <li>[page:Float rotateSpeed] — camera rotation speed. Необязательный, по умолчанию `1`.</li>
+      <li>[page:Float moveSpeed] — camera movement speed. Необязательный, по умолчанию `1`.</li>
+    </ul>
+
+    <p>
+      Создаёт новый объект с настройками управления камерой.
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:Boolean enableKeys]</h3>
+    <p>
+      Включает или выключает возможность управления с клавиатуры. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean enablePan]</h3>
+    <p>
+      Включает или выключает панорамирование камеры. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean enableRotate]</h3>
+    <p>
+      Включает или выключает горизонтальный и вертикальный поворот камеры. По умолчанию `true`.
+    </p>
+
+    <h3>[property:Boolean enableZoom]</h3>
+    <p>
+      Включает или выключает зум (или движение вперёд-назад) камеры.
+    </p>
+
+    <h3>[property:Float moveSpeed]</h3>
+    <p>
+      Фактор скорости перемещения. При [page:.assignToControls назначении] настроек на объекте контролов, будет влиять одновременно на панорамирование и зум. По умолчанию `1`.
+    </p>
+
+    <h3>[property:Boolean orbitEnableTurnover]</h3>
+    <p>
+      Включает или выключает возможность поворота камеры через голову. По умолчанию `false`.
+    </p>
+
+    <h3>[property:Float orbitMaxAzimuthAngle]</h3>
+    <p>
+      Как сильно можно крутить орбитальную камеру по горизонтали (верхний лимит). Допустимый диапазон: от `-Math.PI` до `Math.PI` (или `Infinity` для отключения лимита). По умолчанию `Infinity`;
+    </p>
+
+    <h3>[property:Float orbitMaxDistance]</h3>
+    <p>
+      Как сильно можно отдалять орбитальную камеру (только для [page:PerspectiveCamera перспективных камер]). По умолчанию `Infinity`.
+    </p>
+
+    <h3>[property:Float orbitMaxPolarAngle]</h3>
+    <p>
+      Как сильно можно крутить камеру по вертикали (верхний лимит). Допустимый диапазон: от `0` до `Math.PI` радиан, по умолчанию `Math.PI`.
+    </p>
+
+    <h3>[property:Float orbitMaxZoom]</h3>
+    <p>
+      Максимальный зум (только для [page:OrthographicCamera ортогональных камер]). По умолчанию `Infinity`.
+    </p>
+
+    <h3>[property:Float orbitMinAzimuthAngle]</h3>
+    <p>
+      Как сильно можно крутить орбитальную камеру по горизонтали (нижний лимит). Допустимый диапазон: от `-Math.PI` to `Math.PI` (или `-Infinity` для отключения лимита). По умолчанию `-Infinity`;
+    </p>
+
+    <h3>[property:Float orbitMinDistance]</h3>
+    <p>
+      Как сильно можно приближать орбитальную камеру (только для [page:PerspectiveCamera перспективных камер]). По умолчанию `0`.
+    </p>
+
+    <h3>[property:Float orbitMinPolarAngle]</h3>
+    <p>
+      Как сильно можно крутить камеру по вертикали (нижний лимит). Допустимый диапазон: от `0` до `Math.PI` радиан, по умолчанию `0`.
+    </p>
+
+    <h3>[property:Float orbitMinZoom]</h3>
+    <p>
+      Минимальный зум (только для [page:OrthographicCamera ортогональных камер]). По умолчанию `0`.
+    </p>
+
+    <h3>[property:Float rotateSpeed]</h3>
+    <p>
+      Коэффициент скорости вращения. По умолчанию `1`.
+    </p>
+
+    <h3>[property:Boolean screenSpacePanning]</h3>
+    <p>
+      Определяет, как меняется положение камеры при панорамировании. Если `true`, камера движется в пространстве экрана. В противном случае камера движется в плоскости, ортогональной направлению вектора [page:Object3D.up up] камеры. По умолчанию `true`.
+    </p>
+
+    <h3>[property:String type]</h3>
+    <p>
+      Тип контролов: `"ORBIT"`, `"FIRST_PERSON"` или `"FLYING"`.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:undefined assignToControls]([param:Controls controls], [param:Scene scene])</h3>
+
+    <ul class="params">
+      <li>[page:Controls controls] — объект контролов, например [page:OrbitControls].</li>
+      <li>[page:Scene scene] — сцена, на которой будут применяться настройки контролов, только для [page:FirstPersonControls].</li>
+    </ul>
+
+    <p>
+      Назначает настройки контролов на объект контролов.
+    </p>
+
+    <h3>[method:ControlSettings clone]()</h3>
+    <p>
+      Клонирует настройки контролов.
+    </p>
+
+    <h3>[method:ControlSettings copy]([param:ControlSettings source])</h3>
+    <p>
+      Копирует настройки контролов.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

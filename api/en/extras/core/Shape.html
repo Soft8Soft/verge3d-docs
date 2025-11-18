@@ -11,10 +11,10 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Defines an arbitrary 2D shape plane using paths with optional holes. It can be used with [page:ExtrudeGeometry],
-      [page:ShapeGeometry], to get points, or to get triangulated faces.
+    <p>
+      Defines an arbitrary 2D shape plane using paths with optional holes. It can be used with [page:ExtrudeGeometry], [page:ShapeGeometry], to get points, or to get triangulated faces.
     </p>
+
 
     <h2>Code Example</h2>
 
@@ -32,7 +32,9 @@
     const extrudeSettings = { depth: 8, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
     const geometry = new v3d.ExtrudeGeometry(heartShape, extrudeSettings);
 
-    const mesh = new v3d.Mesh(geometry, new v3d.MeshLambertMaterial());
+    const mesh = new v3d.Mesh(geometry, new v3d.MeshStandardMaterial());
+    mesh.scale.setScalar(0.03)
+    app.scene.add(mesh);
     </code>
 
 
@@ -43,17 +45,17 @@
       points — (optional) array of [page:Vector2 Vector2s].
     </p>
     <p>
-      Creates a Shape from the points. The first point defines the offset, then successive points
-      are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].
+      Creates a Shape from the points. The first point defines the offset, then successive points are added to the [page:CurvePath.curves curves] array as [page:LineCurve LineCurves].
     </p>
     <p>
-      If no points are specified, an empty shape is created and the [page:.currentPoint] is set to
-      the origin.
+      If no points are specified, an empty shape is created and the [page:.currentPoint] is set to the origin.
     </p>
 
 
     <h2>Properties</h2>
-    <p>See the base [page:Path] class for common properties.</p>
+    <p>
+      See the base [page:Path] class for common properties.
+    </p>
 
     <h3>[property:String uuid]</h3>
     <p>
@@ -61,14 +63,19 @@
     </p>
 
     <h3>[property:Array holes]</h3>
-    <p>An array of [page:Path paths] that define the holes in the shape.</p>
+    <p>
+      An array of [page:Path paths] that define the holes in the shape.
+    </p>
+
 
     <h2>Methods</h2>
-    <p>See the base [page:Path] class for common methods.</p>
+    <p>
+      See the base [page:Path] class for common methods.
+    </p>
 
     <h3>[method:Array extractPoints]([param:Integer divisions])</h3>
     <p class="params">
-      divisions — The fineness of the result.
+      divisions — the fineness of the result.
     </p>
     <p>
       Call [page:Curve.getPoints getPoints] on the shape and the [page:.holes] array, and return an object of the form:
@@ -85,7 +92,7 @@
 
     <h3>[method:Array getPointsHoles]([param:Integer divisions])</h3>
     <p class="params">
-      divisions — The fineness of the result.
+      divisions — the fineness of the result.
     </p>
     <p>
       Get an array of [page:Vector2 Vector2s] that represent the holes in the shape.

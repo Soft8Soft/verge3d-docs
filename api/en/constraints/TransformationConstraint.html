@@ -11,25 +11,28 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
+    <p>
       A constraint which allows to connect one type of transform property (location, rotation, or scale) of the target object to the same or a different type of transform property in the owner object, within a given range of values (which might be different for each target and owner property). You can also switch between axes, and use the range values not as limits, but rather as “markers” to define a mapping between input (target) and output (owner) values.
     </p>
 
     <p>
-      Constraints are used to set up various relations between objects by
-      affecting their position, rotation and scale. Can be used with the
-      [page:Object3D.constraints Object3D.constraints] property.
+      To influence some object, push a [name] instance into the [page:Object3D.constraints] array.
     </p>
+
 
     <h2>Constructor</h2>
 
     <h3>[name]([param:Object3D target])</h3>
-
-    <p class="params">[page:Object3D target] — constraint's target object.</p>
+    <p class="params">
+      [page:Object3D target] — constraint's target object.
+    </p>
 
 
     <h2>Properties</h2>
-    <p>See the base [page:TargetConstraint] class for common properties.</p>
+
+    <p>
+      See the base [page:TargetConstraint] class for common properties.
+    </p>
 
     <h3>[property:String coordSystem]</h3>
     <p>
@@ -58,7 +61,7 @@
 
     <h3>[property:Boolean isTransformationConstraint]</h3>
     <p>
-      Used to check whether this or derived classes are transformation constraints. Default is `true`.
+      Read-only flag to check if a given object is of type [name].
     </p>
 
     <h3>[property:String mapFrom]</h3>
@@ -79,31 +82,33 @@
     <h3>[property:String mixMode]</h3>
     <p>
       Specifies how the new transformation is combined with the existing transformation. Depends on [page:.mapTo mapTo]:
-      <ul>
-        <li>
-          `'POSITION'`
-          <ul>
-            <li>`'ADD'` - The new values are added to the existing axis values.</li>
-            <li>`'REPLACE'` - The result of the constraint replaces the existing transformation.</li>
-          </ul>
-        </li>
-        <li>
-          `'ROTATION'`
-          <ul>
-            <li>`'ADD'` - The new values are added to the existing axis values.</li>
-            <li>`'AFTER'` - The new rotation is added after the existing rotation, as if it was applied to a child of the constraint owner.</li>
-            <li>`'BEFORE'` - The new rotation is added before the existing rotation, as if it was applied to a parent of the constraint owner.</li>
-            <li>`'REPLACE'` - The result of the constraint replaces the existing transformation.</li>
-          </ul>
-        </li>
-        <li>
-          `'SCALE'`
-          <ul>
-            <li>`'MULTIPLY'` - The new values are multiplied with the existing axis values.</li>
-            <li>`'REPLACE'` - The result of the constraint replaces the existing transformation.</li>
-          </ul>
-        </li>
-      </ul>
+    </p>
+    <ul>
+      <li>
+        `'POSITION'`
+        <ul>
+          <li>`'ADD'` — the new values are added to the existing axis values.</li>
+          <li>`'REPLACE'` — the result of the constraint replaces the existing transformation.</li>
+        </ul>
+      </li>
+      <li>
+        `'ROTATION'`
+        <ul>
+          <li>`'ADD'` — the new values are added to the existing axis values.</li>
+          <li>`'AFTER'` — the new rotation is added after the existing rotation, as if it was applied to a child of the constraint owner.</li>
+          <li>`'BEFORE'` — the new rotation is added before the existing rotation, as if it was applied to a parent of the constraint owner.</li>
+          <li>`'REPLACE'` — the result of the constraint replaces the existing transformation.</li>
+        </ul>
+      </li>
+      <li>
+        `'SCALE'`
+        <ul>
+          <li>`'MULTIPLY'` — the new values are multiplied with the existing axis values.</li>
+          <li>`'REPLACE'` — the result of the constraint replaces the existing transformation.</li>
+        </ul>
+      </li>
+    </ul>
+    <p>
       Default is `'REPLACE'`.
     </p>
 
@@ -144,22 +149,16 @@
 
     <h3>[property:Boolean useMotionExtrapolate]</h3>
     <p>
-     By default, [page:.fromMin fromMin] and [page:.fromMax fromMax] act as strict boundaries for an input value, any value outside these limits will be "clipped" to the nearest boundary. When [page:.useMotionExtrapolate useMotionExtrapolate] is enabled, the behavior changes - they become "markers" instead of strict limits. This allows for a proportional (linear) mapping between the input value and its corresponding output value. Default is `false`.
+       By default, [page:.fromMin fromMin] and [page:.fromMax fromMax] act as strict boundaries for an input value, any value outside these limits will be "clipped" to the nearest boundary. When [page:.useMotionExtrapolate useMotionExtrapolate] is enabled, the behavior changes - they become "markers" instead of strict limits. This allows for a proportional (linear) mapping between the input value and its corresponding output value. Default is `false`.
     </p>
 
 
     <h2>Methods</h2>
 
-    <p>See the base [page:TargetConstraint] class for common methods.</p>
-
-
-<!--     <h2>Puzzles</h2>
-
     <p>
-      You can use the <a href="manual/en/puzzles/Animation.html#copy_transform">copy transform</a> puzzle to apply [name] in a visual manner.
-    </p> -->
+      See the base [page:TargetConstraint] class for common methods.
+    </p>
 
     [sourceHint]
-
   </body>
 </html>

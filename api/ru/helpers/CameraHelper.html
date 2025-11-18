@@ -11,60 +11,78 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-    Помогает визуализировать то, что камера содержит в фруструме.<br>
-    Он визуализирует фрустум камеры с помощью [page:LineSegments]..
+    <p>
+      Помогает визуализировать содержимое пирамиды видимости камеры. Сама пирамида отображается с помощью [page:LineSegments].
     </p>
 
+
     <h2>Пример</h2>
+
     <code>
-const camera = new v3d.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const helper = new v3d.CameraHelper(camera);
-scene.add(helper);
+    const camera = new v3d.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const helper = new v3d.CameraHelper(camera);
+    app.scene.add(helper);
     </code>
 
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]([param:Camera camera])</h3>
-    <p>
-    [page:Camera camera] — Камера для визуализации.<br><br>
-
-    Это создаст новый [name] для указанной камеры.
+    <p class="params">
+      [page:Camera camera] — камера для визуализации.
     </p>
-
+    <p>
+      Создаст новый [name] для указанной камеры.
+    </p>
 
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:LineSegments].</p>
 
-
+    <p>
+      Общие свойства см. в базовом классе [page:LineSegments].
+    </p>
 
     <h3>[property:Camera camera]</h3>
-    <p>Визуализируемая камера.</p>
+    <p>
+      Визуализируемая камера.
+    </p>
 
     <h3>[property:Object pointMap]</h3>
-    <p>Здесь содержатся точки, используемые для визуализации камеры.</p>
+    <p>
+      Здесь содержатся точки, используемые для визуализации камеры.
+    </p>
 
     <h3>[property:Object matrix]</h3>
-    <p>Референс на [page:Object3D.matrixWorld camera.matrixWorld].</p>
+    <p>
+      Референс на [page:Object3D.matrixWorld camera.matrixWorld].
+    </p>
 
     <h3>[property:Object matrixAutoUpdate]</h3>
     <p>
-      См. [page:Object3D.matrixAutoUpdate]. Здесь установлено значение *false*, так как помощник использует [page:Object3D.matrixWorld matrixWorld] камеры.
+      См. [page:Object3D.matrixAutoUpdate]. Установлено в `false`, так как помощник использует [page:Object3D.matrixWorld matrixWorld] камеры.
     </p>
 
 
-
-
-
     <h2>Методы</h2>
-    <p>Общие методы см. в базовом классе [page:LineSegments].</p>
 
+    <p>
+      Общие методы см. в базовом классе [page:LineSegments].
+    </p>
 
-    <h3>[method:null update]()</h3>
-    <p>Обновляет помощник на основе projectionMatrix камеры.</p>
+    <h3>[method:undefined dispose]()</h3>
+    <p>
+      Освобождает все связанные с GPU ресурсы, используемые экземпляром [name]. Этот метод следует вызвать, если [name] больше не используется в приложении.
+    </p>
+
+    <h3>[method:this setColors]([param:Color xAxisColor], [param:Color yAxisColor], [param:Color zAxisColor])</h3>
+    <p>
+      Устанавливает цвет помощника.
+    </p>
+
+    <h3>[method:undefined update]()</h3>
+    <p>
+      Обновляет помощник на основе projectionMatrix камеры.
+    </p>
 
     [sourceHint]
   </body>

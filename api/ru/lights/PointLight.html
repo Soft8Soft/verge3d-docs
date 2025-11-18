@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -12,85 +11,120 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Свет, который излучается из одной точки во всех направлениях. Чаще всего его используют для воспроизведения света, излучаемого голой лампочкой.<br><br>
+    <p>
+      Свет, который излучается из одной точки во всех направлениях. Чаще всего его используют для воспроизведения света, излучаемого голой лампочкой.
+    </p>
 
+    <p>
       Этот свет может отбрасывать тени - подробности смотрите на странице [page:PointLightShadow].
     </p>
 
-    <h2>Пример кода</h2>
+
+    <h2>Пример</h2>
 
     <code>
-const light = new v3d.PointLight(0xff0000, 1, 100);
-light.position.set(50, 50, 50);
-scene.add(light);
+    const light = new v3d.PointLight(0xff0000, 1, 100);
+    light.position.set(50, 50, 50);
+    app.scene.add(light);
     </code>
 
 
     <h2>Конструктор</h2>
 
-    <h3>[name]([param:Integer color], [param:Float intensity], [param:Number distance], [param:Float decay])</h3>
+    <h3>[name]([param:Integer color], [param:Float intensity], [param:Float distance], [param:Float decay])</h3>
+    <ul class="params">
+      <li>[page:Integer color] — (необ.) шестнадцатеричный цвет света. По умолчанию `0xffffff` (белый).</li>
+      <li>[page:Float intensity] — (необ.) числовое значение силы/интенсивности света. По умолчанию 1.</li>
+      <li>[page:Float distance] — максимальная дальность действия света. По умолчанию `0` (без ограничения).</li>
+      <li>[page:Float decay] — величина затемнения света по расстоянию до него. По умолчанию `2`.</li>
+    </ul>
     <p>
-      [page:Integer color] — (необязательно) шестнадцатеричный цвет света. По умолчанию 0xffffffff (белый).<br>
-      [page:Float intensity] — (необязательно) числовое значение силы/интенсивности света. По умолчанию 1.<br><br>
-      [page:Number distance] — Максимальная дальность действия света. По умолчанию 0 (без ограничения).<br>
-      [page:Float decay] — Величина затемнения света по расстоянию до него. По умолчанию - 1.
-      Для освещения [page:WebGLRenderer.physicallyCorrectLights physically correct], установите значение 2.<br><br>
-
       Создает новый [name].
     </p>
 
+
     <h2>Свойства</h2>
+
     <p>
       Общие свойства смотрите в базовом классе [page:Light Light].
     </p>
 
+    <h3>[property:Boolean castShadow]</h3>
+    <p>
+      Если установлено в `true`, свет будет отбрасывать динамические тени. Возможно вам также потребуется настроить внешний вид этих теней. Смотрите подробности в [page:PointLightShadow]. По умолчанию `false`.
+    </p>
+
     <h3>[property:Float decay]</h3>
     <p>
-      Величина ослабления света в зависимости от расстояния до него<br>
-      В режиме [page:WebGLRenderer.physicallyCorrectLights physically correct] затухание = 2 приводит к физически реалистичному падению света.<br/>
-      По умолчанию *1*.
+      Величина ослабления света в зависимости от расстояния до него. По умолчанию `2`. Для физически корректного освещения вам не следует менять этот параметр.
     </p>
 
     <h3>[property:Float distance]</h3>
     <p>
-      <em>Default mode</em> — Когда расстояние равно нулю, свет не ослабевает. Когда расстояние ненулевое, свет ослабевает линейно от максимальной интенсивности в положении света до нуля на данном расстоянии от света.
+      Когда расстояние равно нулю, свет будет ослабевать по закону обратного квадрата до бесконечного расстояния. Когда расстояние ненулевое, свет будет ослабевать по обратно-квадратичному закону до тех пор, пока не приблизится к отсечке расстояния, где он будет быстро и плавно ослабевать до `0`. Подобная отсечка не является физически корректной.
     </p>
     <p>
-      <em>[page:WebGLRenderer.physicallyCorrectLights Physically correct] режим</em> — Когда расстояние равно нулю, свет будет ослабевать по закону обратного квадрата до бесконечного расстояния. Когда расстояние ненулевое, свет будет ослабевать по обратно-квадратичному закону до тех пор, пока не приблизится к отсечке расстояния, где он будет быстро и плавно ослабевать до 0. По своей сути, отсечки не являются физически корректными.
+      По умолчанию `0.0`.
+    </p>
+
+    <h3>[property:Float intensity]</h3>
+    <p>
+      Интенсивность источника освещения. По умолчанию `1`. Интенсивность это <em>сила света</em>, измеряемая в канделах (кд).
     </p>
     <p>
-      По умолчанию *0.0*.
+      Изменение этого параметра также изменяет мощность.
+    </p>
+
+    <h3>[property:Boolean isPointLight]</h3>
+    <p>
+      Указывает, что данный объект является экземпляром класса [name]. Только для чтения.
     </p>
 
     <h3>[property:Float power]</h3>
     <p>
-      Сила света.<br>
-      В режиме [page:WebGLRenderer.physicallyCorrectLights physically correct] световая мощность света, измеряемая в люменах. По умолчанию *4Math.PI*. <br><br>
-
-      Это напрямую связано с  [page:.intensity intensity] в соотношении
-      <code>
-        power = intensity * 4&pi;
-      </code>
-      и изменение этого параметра также изменит интенсивность.
+      Мощность источника. Мощность это <em>световой поток</em> источника освещения, измеряемый в люменах (лм).
+    </p>
+    <p>
+      Изменение этого параметра также изменяет интенсивность.
     </p>
 
     <h3>[property:PointLightShadow shadow]</h3>
     <p>
-      [page:PointLightShadow], используемый для расчета теней для этого света.<br><br>
-
-      Камера LightShadow [page:LightShadow.camera camera] установлена на [page:PerspectiveCamera] с [page:PerspectiveCamera.fov fov] равным 90, [page:PerspectiveCamera.aspect aspect] равным 1, [page:PerspectiveCamera.near near] плоскостью сечения 0,5 и [page:PerspectiveCamera.far far] плоскостью обрезания 500.
+      [page:PointLightShadow], используемый для расчета теней для этого света.
+    </p>
+    <p>
+      Теневая [page:LightShadow.camera камера] является [page:PerspectiveCamera перспективной] с [page:PerspectiveCamera.fov fov] равным 90, [page:PerspectiveCamera.aspect aspect] равным 1, [page:PerspectiveCamera.near near] плоскостью сечения 0.5 и [page:PerspectiveCamera.far far] плоскостью сечения 500.
     </p>
 
+
     <h2>Методы</h2>
+
     <p>
       Общие методы смотрите в базовом классе [page:Light Light].
+    </p>
+
+    <h3>[method:undefined dispose]()</h3>
+    <p>
+      Освобождает все связанные с GPU ресурсы, используемые экземпляром [name]. Этот метод следует вызвать, если [name] больше не используется в приложении.
     </p>
 
     <h3>[method:PointLight copy]([param:PointLight source])</h3>
     <p>
       Копирует значения всех свойств из [page:PointLight source] в данный PointLight.
     </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Следующие пазлы могут работать с точечными источниками:
+    </p>
+
+    <ul>
+      <li><a href="manual/ru/puzzles/Objects.html#create_object">create object</a> — выберите *light*, затем *point*.</li>
+      <li><a href="manual/ru/puzzles/Camera.html#set_light_param">set light param</a> — для установки различных параметров источника.</li>
+      <li><a href="manual/ru/puzzles/Camera.html#get_light_param">get light param</a> — для получения параметров источника.</li>
+    </ul>
 
     [sourceHint]
   </body>

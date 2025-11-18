@@ -1,26 +1,8 @@
 
-var href = window.location.href;
-
-// COMPAT: redirect older hash links
-if (/#(manual|api|examples)/.test(href)) {
-    var section = /#(manual|api|examples)\//.exec(href)[1].toString();
-
-    href = href.replace('#'+section, section+'/en');
-
-    if (window.location.hash.indexOf('.') > -1) {
-        var href_start = href.substring(0, href.lastIndexOf("."));
-        var href_end = href.substring(href.lastIndexOf(".") + 1, href.length);
-        href = href_start + '.html#' + href_end;
-    } else
-        href += '.html';
-
-    window.location.replace(href);
-}
-
-var list = null;
-var pageProperties = [];
-var titles = {};
-var categoryElements = [];
+let list = null;
+const pageProperties = [];
+const titles = {};
+const categoryElements = [];
 
 function loadJSON(path, callback) {
     var xobj = new XMLHttpRequest();
@@ -37,12 +19,6 @@ function loadJSON(path, callback) {
 
 function onDocumentLoad() {
 
-    var pathname = window.location.pathname;
-
-    var clearFilterButton = document.getElementById('clearFilterButton');
-    var expandButton = document.getElementById('expandButton');
-    var filterInput = document.getElementById('filterInput');
-
     // handle code snippets formatting
 
     var elements = document.getElementsByTagName('code');
@@ -58,31 +34,31 @@ function onDocumentLoad() {
     }
 
 
-    // Syntax highlighting
+    // syntax highlighting
 
-    var styleBase = document.createElement('link');
+    const pathname = window.location.pathname;
+    const styleBase = document.createElement('link');
     styleBase.href = pathname.substring(0, pathname.indexOf('docs') + 4) + '/prettify/prettify.css';
     styleBase.rel = 'stylesheet';
 
-    var styleCustom = document.createElement('link');
-    styleCustom.href = pathname.substring(0, pathname.indexOf('docs') + 4) + '/prettify/threejs.css';
+    const styleCustom = document.createElement('link');
+    styleCustom.href = pathname.substring(0, pathname.indexOf('docs') + 4) + '/prettify/verge3d.css';
     styleCustom.rel = 'stylesheet';
 
     document.head.appendChild(styleBase);
     document.head.appendChild(styleCustom);
 
-    var prettify = document.createElement('script');
+    const prettify = document.createElement('script');
     prettify.src = pathname.substring(0, pathname.indexOf('docs') + 4) + '/prettify/prettify.js';
 
     prettify.onload = function() {
 
-        var elements = document.getElementsByTagName('code');
+        const elements = document.getElementsByTagName('code');
 
-        for (var i = 0; i < elements.length; i++) {
-
-            var e = elements[i];
-            e.className += ' prettyprint';
-
+        for (let i = 0; i < elements.length; i++) {
+            const e = elements[i];
+            if (!e.className.includes('raw'))
+                e.className += ' prettyprint';
         }
 
         prettyPrint();
@@ -91,22 +67,23 @@ function onDocumentLoad() {
 
     document.head.appendChild(prettify);
 
-    var language = document.getElementsByTagName('html')[0].lang;
 
-    var localList = list[language];
+    const language = document.getElementsByTagName('html')[0].lang;
 
-    for (var section in localList) {
+    const localList = list[language];
 
-        var categories = localList[section];
+    for (const section in localList) {
 
-        for (var category in categories) {
+        const categories = localList[section];
 
-            var pages = categories[category];
+        for (const category in categories) {
 
-            for (var pageName in pages) {
+            const pages = categories[category];
 
-                var pageURL = pages[pageName] + '.html';
-                var linkElement = document.querySelector('[href="' + pageURL + '"]');
+            for (const pageName in pages) {
+
+                const pageURL = pages[pageName] + '.html';
+                const linkElement = document.querySelector('nav#panel [href="' + pageURL + '"]');
                 if (!linkElement)
                     continue;
 
@@ -126,41 +103,71 @@ function onDocumentLoad() {
 
             // Gather the category elements for easy access on filtering
 
-            var categoryContent = document.getElementById(category.replace(/[' ]/g, '_'));
+            const categoryContent = document.getElementById(category.replace(/[' ]/g, '_'));
             if (categoryContent)
                 categoryElements.push(categoryContent);
         }
     }
 
 
-    // Functionality for hamburger button (on small devices)
+    // hamburger button (on mobile devices)
 
-    expandButton.onclick = function(event) {
-
+    document.getElementById('expandButton').onclick = function(event) {
         event.preventDefault();
         panel.classList.toggle('collapsed');
-
+        document.body.classList.toggle('unscrollable');
     };
 
 
-    // Functionality for search/filter input field
+    // package flavors checkers
 
-    filterInput.oninput = function(event) {
+    let uncheckedFlavorsSaved = [];
+    if (localStorage.v3dDocUncheckedFlavors)
+        uncheckedFlavorsSaved = JSON.parse(localStorage.v3dDocUncheckedFlavors);
 
+    document.querySelectorAll('label.filter-flavor-item input').forEach(checkbox => {
+        // restore unchecked
+        if (uncheckedFlavorsSaved.includes(checkbox.dataset.flavor))
+            checkbox.checked = false;
+
+        // assign event listener
+        checkbox.addEventListener('change', () => {
+            updateFilter();
+
+            // save unchecked
+            const uncheckedFlavors = getUncheckedFlavors();
+            localStorage.setItem('v3dDocUncheckedFlavors', JSON.stringify(uncheckedFlavors));
+        })
+    });
+
+    updateFilter();
+
+
+    // search/filter input field
+
+    const filterInput = document.getElementById('filterInput');
+
+    filterInput.addEventListener('input', () => {
         updateFilter();
+    });
 
-    };
+    // filter esc
 
-    // Functionality for filter clear button
+    filterInput.addEventListener('keydown', (event) => {
+        if (event.keyCode == 27) {
+            filterInput.value = '';
+            updateFilter();
+        }
+    });
 
-    clearFilterButton.onclick = function(event) {
+    // filter clear button
 
+    document.getElementById('clearFilterButton').addEventListener('click', (event) => {
         event.preventDefault();
 
         filterInput.value = '';
         updateFilter();
-
-    };
+    });
 
 };
 
@@ -172,40 +179,62 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 }, false);
 
-
-document.fonts.addEventListener('loadingdone', () => {
-    if (localStorage.scrollPosition) {
+function restorePanelScroll() {
+    if (localStorage.v3dDocScrollPosition) {
         var panel = document.querySelector('#panel');
 
         if (panel.clientHeight > 100)
-            panel.scrollTop = localStorage.getItem('scrollPosition');
+            panel.scrollTop = localStorage.getItem('v3dDocScrollPosition');
     }
-});
+}
 
-window.addEventListener('unload', function() {
-    var scrollPosition = document.querySelector('#panel').scrollTop;
-    localStorage.setItem('scrollPosition', scrollPosition);
-});
+function savePanelScroll() {
+    const v3dDocScrollPosition = document.querySelector('#panel').scrollTop;
+    localStorage.setItem('v3dDocScrollPosition', v3dDocScrollPosition);
+}
 
 
+if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+    // Safari
+    document.addEventListener('DOMContentLoaded', () => {
+        restorePanelScroll();
+        document.querySelector('#panel').addEventListener('scroll', savePanelScroll);
+    });
+} else {
+    // Chrome etc
+    document.fonts.addEventListener('loadingdone', restorePanelScroll);
+    window.addEventListener('unload', savePanelScroll);
+}
 
-// Filtering
+
+function getUncheckedFlavors() {
+    return Array.from(document.querySelectorAll('label.filter-flavor-item input:not(:checked)'))
+            .map(elem => elem.dataset.flavor);
+}
+
+// filtering
 
 function updateFilter() {
 
-    const regExp = new RegExp(filterInput.value, 'gi');
+    const filterInput = document.getElementById('filterInput');
+    const searchLine = new RegExp(filterInput.value, 'gi');
+    const uncheckedFlavors = getUncheckedFlavors();
 
     pageProperties.forEach(prop => {
 
         let pageName = prop.pageName;
         const linkElement = prop.linkElement;
 
-        const categoryClassList = linkElement.parentElement.classList;
-        const filterResults = pageName.match(regExp);
+        const itemClassList = linkElement.parentElement.classList;
+        // third value from URL, e.g. manual/en/blender/... => blender
+        const pageFlavorMatch = prop.pageURL.match(/^\w+\/\w+\/(\w+)/)[1];
 
-        if (filterResults && filterResults.length > 0) {
+        const showItem = !uncheckedFlavors.includes(pageFlavorMatch);
+        const filterResults = pageName.match(searchLine);
 
-            // Accentuate matching characters
+        if (showItem && filterResults && filterResults.length > 0) {
+
+            // accentuate matching characters
 
             for (let i = 0; i < filterResults.length; i++) {
 
@@ -217,14 +246,14 @@ function updateFilter() {
 
             }
 
-            categoryClassList.remove('hidden');
+            itemClassList.remove('hidden');
             linkElement.innerHTML = pageName;
 
         } else {
 
-            // Hide all non-matching page names
+            // hide all non-matching page names
 
-            categoryClassList.add('hidden');
+            itemClassList.add('hidden');
 
         }
 

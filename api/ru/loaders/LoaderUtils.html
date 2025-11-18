@@ -9,26 +9,37 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">Объект с несколькими полезными функциями загрузчика.</p>
+    <p>
+      Объект с полезными функциями, используемыми загрузчиками.
+    </p>
+
 
     <h2>Функции</h2>
 
     <h3>[method:String decodeText]([param:TypedArray array])</h3>
-    <p>
-    [page:TypedArray array] —  Поток байтов в виде типового массива.
+    <p class="params">
+      [page:TypedArray array] — поток байтов в виде типизированного массива.
     </p>
     <p>
-      Функция принимает на вход поток байтов и возвращает в виде строки.
+      Функция принимает на вход поток байтов и возвращает их в виде Юникод-строки.
     </p>
 
     <h3>[method:String extractUrlBase]([param:String url])</h3>
-    <p>
-    [page:String url] —  url для извлечения базового url.
+    <p class="params">
+      [page:String url] — УРЛ для извлечения базового адреса.
     </p>
     <p>
-    Извлеките базу из URL-адреса.
+      Извлекает базовый адрес из URL-адреса. Например, ``https://example.com/mydata.csv`` становится ``https://example.com/``.
     </p>
 
+    <h3>[method:String resolveURL]([param:String url], [param:String path])</h3>
+    <ul class="params">
+      <li>[page:String url] — абсолютный или относительный УРЛ-адрес.</li>
+      <li>[page:String path] — базовый путь для резолвинга относительных путей.</li>
+    </ul>
+    <p>
+      Резолвит относительный УРЛ-адрес относительно указанного пути. Абсолютные пути, Data URL и Blob URL возвращаются как есть. Неверные пути возвращают пустую строку.
+    </p>
 
     [sourceHint]
   </body>

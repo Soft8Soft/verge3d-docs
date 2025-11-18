@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      [name] используется для применения 3Д-трансформаций к HTML-элементам. Этот рендерер полезен для примешивания HTML-элементов к WebGL-контенту, например для встраивания страниц, видео или пользовательских интерфейсов внутрь 3Д-сцен.
+    </p>
+
+    <p>
+      [name] оперирует с HTML-элементами, а не штатными объектами «Вердж3Д». Эти элементы должны быть обёрнуты в специальные объекты [page:CSS3DObject], а затем добавлены в граф сцены.
+    </p>
+
+
+    <h2>Пример</h2>
+
+    <code>
+    if (!app.cssRenderer)
+        app.enableCSSRenderer();
+
+    // разместить рендерер поверх 3Д-канваса
+    app.cssRenderer.viewElement.style.zIndex = 0;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.soft8soft.com';
+    iframe.style.border = 'none';
+    iframe.width = 800;
+    iframe.height = 600;
+
+    const cssObject = new v3d.CSS3DObject(iframe);
+    // 5 единиц ширины
+    cssObject.scale.setScalar(5/iframe.width);
+
+    app.cssScene.add(cssObject);
+    </code>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:HTMLElement domElement])</h3>
+    <p class="params">
+      [page:HTMLElement element] — HTML-элемент в который рендерер добавляет дочерние элементы.
+    </p>
+    <p>
+      Соответствует свойству [page:CSS3DRenderer.domElement domElement], описанному ниже.
+    </p>
+
+
+    <h2>Свойства</h2>
+
+    <h3>[property:HTMLElement domElement]</h3>
+    <p>
+      [page:HTMLElement] в который рендерер добавляет дочерние элементы.
+    </p>
+
+    <h3>[property:HTMLElement viewElement]</h3>
+    <p>
+      [page:HTMLElement] представляющий плоскость просмотра (создаётся автоматически в конструкторе).
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <h3>[method:Object getSize]()</h3>
+    <p>
+      Возвращает объект, содержащий ширину и высоту рендерера.
+    </p>
+
+    <h3>[method:undefined render]([param:Scene scene], [param:Camera camera])</h3>
+    <p>
+      Рендерит [page:Scene сцену] с использованием [page:PerspectiveCamera перспективной] или [page:OrthographicCamera ортографической] камеры.
+    </p>
+
+    <h3>[method:undefined setSize]([param:Float width], [param:Float height])</h3>
+    <p>
+      Масштабирует рендерер под указанные ширину и высоту.
+    </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      «Вердж3Д» включает пазл <a href="manual/ru/puzzles/Objects.html#create_object">create object / plane with html</a>, который используется для создания плоскостей, отображающих HTML-ресурсы: вебсайтов, пользовательских интерфейсов или роликов с сервисов просмотра видео. Этот пазл основан на [name].
+    </p>
+
+    <img src="files/puzzles/puzzles-object-create-object-plane-with-html.webp">
+
+
+    [sourceHint]
+  </body>
+</html>

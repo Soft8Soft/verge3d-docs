@@ -9,22 +9,21 @@
   <body>
     <h1>[name]</h1>
 
-    <p class="desc">
-      This buffer attribute class does not construct a VBO. Instead, it uses
-      whatever VBO is passed in constructor and can later be altered via the
-      `buffer` property.
-    </p>
     <p>
-      It is required to pass additional params alongside the VBO. Those are:
-      the GL context, the GL data type, the number of components per vertex,
-      the number of bytes per component, and the number of vertices.
-    </p>
-    <p>
-      The most common use case for this class is when some kind of GPGPU
-      calculation interferes or even produces the VBOs in question.
+      This buffer attribute class does not construct a VBO. Instead, it uses whatever VBO is passed in constructor and can later be altered via the `buffer` property.
     </p>
 
+    <p>
+      It is required to pass additional params alongside the VBO. Those are: the GL context, the GL data type, the number of components per vertex, the number of bytes per component, and the number of vertices.
+    </p>
+
+    <p>
+      The most common use case for this class is when some kind of GPGPU calculation interferes or even produces the VBOs in question.
+    </p>
+
+
     <h2>Constructor</h2>
+
     <h3>[name]([param:WebGLBuffer buffer], [param:GLenum type], [param:Integer itemSize], [param:Integer elementSize], [param:Integer count])</h3>
     <dl class="params">
       <dt>`buffer`</dt>
@@ -41,7 +40,7 @@
       </dd>
       <dt>`elementSize`</dt>
       <dd>
-        1, 2 or 4. The corresponding size (in bytes) for the given "type" param.
+        1, 2 or 4. The corresponding size (in bytes) for the given `type` param.
         <ul>
           <li>gl.FLOAT: 4</li>
           <li>gl.UNSIGNED_SHORT: 2</li>
@@ -55,6 +54,7 @@
       <dt>`count`</dt>
       <dd>The expected number of vertices in VBO.</dd>
     </dl>
+
 
     <h2>Properties</h2>
 
@@ -83,12 +83,10 @@
 
     <h3>[property:GLenum type]</h3>
     <p>
-      A [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants#Data_types WebGL Data Type]
-      describing the underlying VBO contents.
+      A [link:https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants#Data_types WebGL Data Type] describing the underlying VBO contents.
     </p>
     <p>
-      Set this property together with `elementSize`. The recommended way is
-      using the `setType` method.
+      Set this property together with `elementSize`. The recommended way is using the `setType` method.
     </p>
 
     <h3>[property:Boolean isGLBufferAttribute]</h3>
@@ -96,28 +94,37 @@
       Read-only. Always `true`.
     </p>
 
+
     <h2>Methods</h2>
 
     <h3>[method:this setBuffer](buffer) </h3>
-    <p>Sets the `buffer` property.</p>
+    <p>
+      Sets the `buffer` property.
+    </p>
 
     <h3>[method:this setType](type, elementSize) </h3>
-    <p>Sets the both `type` and `elementSize` properties.</p>
+    <p>
+      Sets the both `type` and `elementSize` properties.
+    </p>
 
     <h3>[method:this setItemSize](itemSize) </h3>
-    <p>Sets the `itemSize` property.</p>
+    <p>
+      Sets the `itemSize` property.
+    </p>
 
     <h3>[method:this setCount](count) </h3>
-    <p>Sets the `count` property.</p>
+    <p>
+      Sets the `count` property.
+    </p>
 
     <h3>[property:Integer version]</h3>
     <p>
-    A version number, incremented every time the needsUpdate property is set to true.
+      A version number, incremented every time the [page:.needsUpdate] property is set to true.
     </p>
 
     <h3>[property:Boolean needsUpdate]</h3>
     <p>
-    Default is `false`. Setting this to true increments [page:GLBufferAttribute.version version].
+      Default is `false`. Setting this to `true` increments [page:.version version].
     </p>
 
     [sourceHint]

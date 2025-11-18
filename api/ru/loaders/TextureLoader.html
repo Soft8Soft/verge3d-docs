@@ -11,46 +11,47 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      Класс для загрузки текстуры [page:Texture].
-      Для загрузки файлов используется внутренний [page:ImageLoader].
+    <p>
+      Класс для загрузки текстуры [page:Texture]. Внутри этот класс использует [page:ImageLoader] для загрузки файлов.
     </p>
+
 
     <h2>Пример</h2>
 
     <code>
-    const texture = new v3d.TextureLoader().load('textures/land_ocean_ice_cloud_2048.jpg');
+    const texture = new v3d.TextureLoader().load('mytexture.jpg');
 
     // immediately use the texture for material creation
     const material = new v3d.MeshBasicMaterial({ map: texture });
     </code>
 
+
     <h2>Пример кода с обратными вызовами</h2>
 
     <code>
-    // instantiate a loader
+    // создаём экземпляр загрузчика
     const loader = new v3d.TextureLoader();
 
-    // load a resource
+    // загружаем ресурс
     loader.load(
-      // resource URL
-      'textures/land_ocean_ice_cloud_2048.jpg',
+        // resource URL
+        'mytexture.webp',
 
-      // onLoad callback
-      function(texture) {
-        // in this example we create the material when the texture is loaded
-        const material = new v3d.MeshBasicMaterial({
-          map: texture
-         });
-      },
+        // onLoad коллбек
+        function(texture) {
+            // в данном примере создадим материал по окончании загрузки текстуры
+            const material = new v3d.MeshBasicMaterial({
+                map: texture
+            });
+        },
 
-      // onProgress callback currently not supported
-      undefined,
+        // onProgress коллбек не поддерживается
+        undefined,
 
-      // onError callback
-      function(err) {
-        console.error('An error happened.');
-      }
+        // onError коллбек
+        function(err) {
+            console.error('Произошла ошибка.');
+        }
     );
     </code>
 
@@ -59,27 +60,33 @@
 
     <h3>[name]([param:LoadingManager manager])</h3>
     <p>
-    [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].<br><br>
-
-    Создает новый [name].
+      [page:LoadingManager manager] — [page:LoadingManager loadingManager] для использования загрузчиком. По умолчанию [page:LoadingManager v3d.DefaultLoadingManager].
+    </p>
+    <p>
+      Создает новый [name].
     </p>
 
 
     <h2>Свойства</h2>
-    <p>Общие свойства см. в базовом классе [page:Loader].</p>
+    <p>
+      Общие свойства см. в базовом классе [page:Loader].
+    </p>
 
-    <h2>Methods</h2>
-    <p>Общие методы см. в базовом классе [page:Loader].</p>
+
+    <h2>Методы</h2>
+    <p>
+      Общие методы см. в базовом классе [page:Loader].
+    </p>
 
     <h3>[method:Texture load]([param:String url], [param:Function onLoad], [param:Function onProgress], [param:Function onError])</h3>
+    <ul class="params">
+      <li>[page:String url] — путь или URL-адрес к файлу. Также может быть [link:manual/ru/puzzles/HTML.html#data_url Data URL].</li>
+      <li>[page:Function onLoad] — (необ.) будет вызван после завершения загрузки. Аргументом будет загруженная [page:Texture текстура].</li>
+      <li>[page:Function onProgress] — (необ.) в данный момент не поддерживается.</li>
+      <li>[page:Function onError] — (необ.) вызывается при ошибках загрузки.</li>
+    </ul>
     <p>
-    [page:String url] — путь или URL-адрес к файлу. Это также может быть
-      [link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs Data URI].<br>
-    [page:Function onLoad] — Будет вызван после завершения загрузки. Аргументом будет загруженная [page:Texture texture].<br>
-    [page:Function onProgress] — Будет вызываться во время загрузки. Аргументом будет экземпляр XMLHttpRequest, который содержит байты .[page:Integer total] и .[page:Integer loaded] .<br>
-    [page:Function onError] — Вызывается при ошибках загрузки.<br><br>
-
-    Начните загрузку с заданного URL и передайте полностью загруженную [page:Texture текстуру] в onLoad. Метод также возвращает новый объект текстуры, который может быть непосредственно использован для создания материала. Если вы сделаете это таким образом, текстура может появиться в вашей сцене после завершения соответствующего процесса загрузки.
+      Начинает загрузку заданного URL и передаёт полностью загруженную [page:Texture текстуру] в onLoad. Метод также возвращает новый объект текстуры, который может быть непосредственно использован для создания материала. Таким образом, текстура может появиться на сцене после завершения процесса загрузки.
     </p>
 
     [sourceHint]

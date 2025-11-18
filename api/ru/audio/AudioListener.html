@@ -11,89 +11,108 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">
-      [name] представляет собой виртуальный [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioListener listener] из всех позиционных и непозиционных аудиоэффектов в сцене.<br>
-      Приложение Verge3D обычно создает один экземпляр [name]. Это обязательный параметр-конструтор для сущностей аудио, таких как [page:Audio Audio] и [page:PositionalAudio PositionalAudio].<br>
+    <p>
+      [name] представляет собой виртуальный [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioListener listener] из всех позиционных и непозиционных аудиоэффектов в сцене.
+    </p>
+
+    <p>
+      Приложение Verge3D обычно создает один экземпляр [name]. Это обязательный параметр-конструтор для сущностей аудио, таких как [page:Audio Audio] и [page:PositionalAudio PositionalAudio].
+    </p>
+
+    <p>
       В большинстве случаев объект слушателя является дочерним объектом камеры, таким образом их положения в пространстве совпадают.
     </p>
 
     <h2>Пример</h2>
 
     <code>
-    // create an AudioListener and add it to the camera
+    // создаём AudioListener и привязываем его к камере
     const listener = new v3d.AudioListener();
-    camera.add(listener);
+    app.camera.add(listener);
 
-    // create a global audio source
+    // создаём глобальный источник аудио
     const sound = new v3d.Audio(listener);
 
-    // load a sound and set it as the Audio object's buffer
+    // загружаем звук
     const audioLoader = new v3d.AudioLoader();
-    audioLoader.load('sounds/ambient.ogg', function(buffer) {
-      sound.setBuffer(buffer);
-      sound.setLoop(true);
-      sound.setVolume(0.5);
-      sound.play();
+    audioLoader.load('myaudio.mp3', function(buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setVolume(0.5);
+        sound.play();
     });
     </code>
 
 
     <h2>Конструктор</h2>
 
-
     <h3>[name]()</h3>
     <p>
-    Создает новый AudioListener.
+      Создает новый AudioListener.
     </p>
 
 
     <h2>Свойства</h2>
 
     <h3>[property:AudioContext context]</h3>
-    <p>[link:https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext] слушателя  [page:AudioListener listener], заданного в конструкторе.</p>
+    <p>
+      [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioContext AudioContext] слушателя  [page:AudioListener listener], заданного в конструкторе.
+    </p>
 
     <h3>[property:GainNode gain]</h3>
-    <p>Нода [link:https://developer.mozilla.org/en-US/docs/Web/API/GainNode GainNode] созданная с помощью [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createGain AudioContext.createGain]().</p>
+    <p>
+      Нода [link:https://developer.mozilla.org/en-US/docs/Web/API/GainNode GainNode] созданная с помощью [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createGain AudioContext.createGain]().
+    </p>
 
     <h3>[property:AudioNode filter]</h3>
-    <p>По умолчанию *null*.</p>
+    <p>
+      По умолчанию `null`.
+    </p>
 
-    <h3>[property:Number timeDelta]</h3>
-    <p>Значение дельты времени для аудиоэлементов. Используется в контексте  [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime AudioParam.linearRampToValueAtTimeDefault](). По умолчанию *0*.</p>
+    <h3>[property:Float timeDelta]</h3>
+    <p>
+      Значение дельты времени для аудиоэлементов. Используется в контексте  [link:https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime AudioParam.linearRampToValueAtTimeDefault](). По умолчанию `0`.
+    </p>
+
 
     <h2>Методы</h2>
 
-
     <h3>[method:GainNode getInput]()</h3>
     <p>
-    Возвращает [page:AudioListener.gain gainNode].
+      Возвращает [page:AudioListener.gain gainNode].
     </p>
 
-    <h3>[method:AudioListener removeFilter]()</h3>
+    <h3>[method:this removeFilter]()</h3>
     <p>
-    Делает свойство [page:AudioListener.filter filter] равным *null*.
+      Делает свойство [page:AudioListener.filter filter] равным `null`.
     </p>
 
     <h3>[method:AudioNode getFilter]()</h3>
     <p>
-    Возвращает значение свойства [page:AudioListener.filter filter].
+      Возвращает значение свойства [page:AudioListener.filter filter].
     </p>
 
-    <h3>[method:AudioListener setFilter]([param:AudioNode value])</h3>
+    <h3>[method:this setFilter]([param:AudioNode value])</h3>
     <p>
-    Устанавливает свойство [page:AudioListener.filter filter] в *value*.
+      Устанавливает свойство [page:AudioListener.filter filter] в `value`.
     </p>
 
     <h3>[method:Float getMasterVolume]()</h3>
     <p>
-    Возвращает громкость.
+      Возвращает громкость.
     </p>
 
-    <h3>[method:AudioListener setMasterVolume]([param:Number value])</h3>
+    <h3>[method:this setMasterVolume]([param:Float value])</h3>
     <p>
-    Устанавливает громкость.
+      Устанавливает громкость.
     </p>
 
+
+    <h2>Пазлы</h2>
+
+    <p>
+      «Вердж3Д» поддерживает ряд <a href="manual/ru/puzzles/Sound.html">пазлов аудио</a>, упрощающих работу со звуками и музыкой.
+    </p>
 
     [sourceHint]
   </body>

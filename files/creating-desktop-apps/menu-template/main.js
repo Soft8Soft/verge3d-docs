@@ -9,17 +9,13 @@ function createWindow() {
     const win = new BrowserWindow({
         width: 1280,
         height: 800,
-        show: false,
         webPreferences: {
             nodeIntegration: true
         }
     });
 
-    if (SHOW_FULLSCREEN && process.platform !== 'darwin')
-        win.removeMenu();
-
-    win.show();
-    win.setFullScreen(SHOW_FULLSCREEN);
+    if (SHOW_FULLSCREEN)
+        win.setFullScreen(true);
 
     // and load the main file of the app
     win.loadFile('my_awesome_app.html');

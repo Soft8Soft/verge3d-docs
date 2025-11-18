@@ -11,64 +11,74 @@
 
     <h1>[name]</h1>
 
-    <p class="desc">Создает 6 камер, которые рендерят [page:WebGLCubeRenderTarget].</p>
+    <p>
+      Создает 6 камер, которые рендерят в [page:WebGLCubeRenderTarget].
+    </p>
 
-    <h2>Пример кода</h2>
+
+    <h2>Пример</h2>
 
     <code>
-    // Create cube render target
-    const cubeRenderTarget = new v3d.WebGLCubeRenderTarget(128, { format: v3d.RGBFormat, generateMipmaps: true, minFilter: v3d.LinearMipmapLinearFilter });
+    // create cube render target
+    const cubeRenderTarget = new v3d.WebGLCubeRenderTarget(128, { generateMipmaps: true, minFilter: v3d.LinearMipmapLinearFilter });
 
-    // Create cube camera
+    // create cube camera
     const cubeCamera = new v3d.CubeCamera(1, 100000, cubeRenderTarget);
     app.scene.add(cubeCamera);
 
-    // Create car
-    const chromeMaterial = new v3d.MeshLambertMaterial({ color: 0xffffff, envMap: cubeRenderTarget.texture });
-    const car = new Mesh(carGeometry, chromeMaterial);
-    app.scene.add(car);
+    // assign car material
+    const chromeMaterial = new v3d.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0.3, envMap: cubeRenderTarget.texture });
+    chromeMaterial.envMapAutoAssign = false;
+    const car = app.scene.getObjectByName("Car");
+    car.material = chromeMaterial;
 
-    // Update the render target cube
+    // update the render target cube
     car.visible = false;
     cubeCamera.position.copy(car.position);
-    cubeCamera.update(renderer, scene);
+    cubeCamera.update(app.renderer, app.scene);
 
-    // Render the scene
+    // render the scene
     car.visible = true;
-    renderer.render(scene, camera);
+    app.renderer.render(app.scene, app.camera);
     </code>
 
 
     <h2>Конструктор</h2>
 
-
-    <h3>[name]([param:Number near], [param:Number far], [param:WebGLCubeRenderTarget renderTarget])</h3>
+    <h3>[name]([param:Float near], [param:Float far], [param:WebGLCubeRenderTarget renderTarget])</h3>
+    <ul class="params">
+      <li>near — ближнее расстояние отсечения.</li>
+      <li>far — дальнее расстояние отсечения.</li>
+      <li>renderTarget — кубический рендер таргет.</li>
+    </ul>
     <p>
-    near — Ближнее расстояние обрезания. <br>
-    far — Дальнее расстояние обрезания. <br>
-    renderTarget — Назначение цели кубического рендера.
+      Создает CubeCamera, содержащую 6 [page:PerspectiveCamera PerspectiveCamera], которые рендерятся в [page:WebGLCubeRenderTarget].
     </p>
 
-    <p>
-      Создает CubeCamera, содержащую 6 [page:PerspectiveCamera PerspectiveCamera], которые рендерятся на [page:WebGLCubeRenderTarget].
-    </p>
 
     <h2>Свойства</h2>
-    <p>Общие свойства смотрите в базовом классе [page:Object3D].</p>
+
+    <p>
+      Общие свойства смотрите в базовом классе [page:Object3D].
+    </p>
 
     <h3>[property:WebGLCubeRenderTarget renderTarget]</h3>
     <p>
       Назначение цели кубического рендера.
     </p>
 
-    <h2>Методы</h2>
-    <p>Общие методы смотрите в базовом классе [page:Object3D].</p>
 
-    <h3>[method:null update]([param:WebGLRenderer renderer], [param:Scene scene])</h3>
+    <h2>Методы</h2>
+
     <p>
-    renderer — Текущий рендерер WebGL <br>
-    scene — Текущая сцена
+      Общие методы смотрите в базовом классе [page:Object3D].
     </p>
+
+    <h3>[method:undefined update]([param:WebGLRenderer renderer], [param:Scene scene])</h3>
+    <ul class="params">
+      <li>renderer — текущий рендерер WebGL.</li>
+      <li>scene — текущая сцена.</li>
+    </ul>
     <p>
       Вызовите эту функцию для обновления [page:CubeCamera.renderTarget renderTarget].
     </p>

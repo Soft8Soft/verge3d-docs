@@ -45,17 +45,17 @@
       <dt>None (npm package)</dt>
       <dd>Build an npm package instead of the ready-to-use executable. The option is for advanced users who are familiar with the NPM utility. Follow the instructions <a href="manual/en/introduction/Creating-Desktop-Apps.html#using_npm">below</a> to continue building your app.</dd>
       <dt>Windows (64-bit)</dt>
-      <dd>Windows 7 or later, 64 bit.</dd>
+      <dd>Windows 10 or later, 64 bit.</dd>
       <dt>Windows (ARM)</dt>
       <dd>Windows 10+ running on devices with 64-bit ARM processors.</dd>
       <dt>Windows (32-bit)</dt>
-      <dd>Windows 7 or later, 32 bit.</dd>
+      <dd>Windows 10 or later, 32 bit.</dd>
       <dt>macOS (64-bit)</dt>
-      <dd>macOS 10.13 (High Sierra) or later, Intel Macs.</dd>
+      <dd>macOS 11 (Big Sur) or later, Intel Macs.</dd>
       <dt>macOS (Apple Silicon)</dt>
       <dd>macOS 11 (Big Sur) or later, Apple Silicon (aka M1-M4) Macs.</dd>
       <dt>Linux (64-bit)</dt>
-      <dd>Linux, 64 bit, such as Ubuntu, Fedora, OpenSuse, or Arch.</dd>
+      <dd>Linux, 64 bit, such as Ubuntu, Fedora, or Red Hat.</dd>
       <dt>Linux (ARM)</dt>
       <dd>Linux on 64-bit ARM devices.</dd>
     </dl>
@@ -90,7 +90,7 @@
     </p>
 
     <p>
-      On macOS (Apple Silicon version) you might even get the error saying that your app is damaged (which is not case):
+      On macOS you might even get the error saying that your app is damaged (which is not the case):
     </p>
 
     <img src="files/creating-desktop-apps/macos-app-is-demaged.webp" alt="macOS app is demaged dialog" style="max-width: 378px">
@@ -127,35 +127,35 @@
     <h3>Customizing Menu</h3>
 
     <p>
-      To disable application menu altogether, insert the following line in the *main.js* right after *loadFile()* method:
+      To disable application menu altogether, insert the following line in the ``main.js`` right after the `loadFile()` method:
     </p>
 
     <code>
-      win.removeMenu();
+    win.removeMenu();
     </code>
 
     <p>
-      To create your own menu, first connect *Menu* module to your application:
+      To create your own menu, first connect `Menu` module to your application:
     </p>
 
     <code>
-      const { Menu } = require('electron');
+    const { Menu } = require('electron');
     </code>
 
     <p>
-      We're going to use *shell* module to open external website upon menu click. So, add *shell* module here as well:
+      We're going to use *shell* module to open external website upon menu click. So, add `shell` module here as well:
     </p>
 
     <code>
-      const { shell } = require('electron');
+    const { shell } = require('electron');
     </code>
 
     <p>
-      Then add the following code to the *main.js* right after *loadFile()* method:
+      Then add the following code to the ``main.js`` right after the `loadFile()` method:
     </p>
 
     <code>
-    var menu = Menu.buildFromTemplate([{
+    const menu = Menu.buildFromTemplate([{
         label: 'Menu',
         submenu: [
             {
@@ -176,11 +176,11 @@
     </code>
 
     <p>
-      See the example of the modified *main.js* file <a href="files/creating-desktop-apps/menu-template/main.js" download>here</a>.
+      See the example of the modified ``main.js`` file <a href="files/creating-desktop-apps/menu-template/main.js" download>here</a>.
     </p>
 
     <p>
-      Place the modified *main.js* in your application folder, then run the app builder again. You should get the following:
+      Place the modified ``main.js`` in your application folder, then run the app builder again. You should get the following:
     </p>
 
     <img src="files/creating-desktop-apps/electron-app-with-menu.jpg" alt="Verge3D app with menu" style="max-width: 800px">
@@ -223,13 +223,13 @@
     </p>
 
     <ul>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-x64.zip">Windows (64-bit)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-arm64.zip">Windows (ARM)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-win32-ia32.zip">Windows (32-bit)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-darwin-x64.zip">macOS (64-bit)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-darwin-arm64.zip">macOS (Apple Silicon)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-linux-x64.zip">Linux (64-bit)</a></li>
-      <li><a href="https://cdn.soft8soft.com/electron/v22.3.15/electron-v22.3.15-linux-arm64.zip">Linux (ARM)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-x64.zip">Windows (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-arm64.zip">Windows (ARM)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-ia32.zip">Windows (32-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-darwin-x64.zip">macOS (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-darwin-arm64.zip">macOS (Apple Silicon)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-linux-x64.zip">Linux (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-linux-arm64.zip">Linux (ARM)</a></li>
     </ul>
 
     <p>
@@ -237,9 +237,9 @@
     </p>
 
     <ul>
-      <li>Windows — <i>AppData\Roaming\Soft8Soft\Product Name</i></li>
-      <li>macOS — <i>Library/Application Support/Product Name</i></li>
-      <li>Linux — <i>.config/product_name</i></li>
+      <li>Windows — ``AppData\Roaming\Soft8Soft\Product Name``</li>
+      <li>macOS — ``Library/Application Support/Product Name``</li>
+      <li>Linux — ``.config/product_name``</li>
     </ul>
 
     <p>
@@ -249,7 +249,9 @@
 
     <h2>Got Questions?</h2>
 
-    <p>Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>
+      Feel free to ask on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!
+    </p>
 
   </article></body>
 </html>
