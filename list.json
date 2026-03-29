@@ -872,6 +872,7 @@
             "通用专题": {
                 "优化技巧": "manual/zh/introduction/Optimizing-WebGL-performance",
                 "资产压缩": "manual/zh/introduction/Asset-compression",
+                "纹理压缩": "manual/zh/introduction/Texture-Compression",
                 "基于HTML的用户界面": "manual/zh/introduction/HTML-based-user-interfaces",
                 "文本渲染": "manual/zh/introduction/Text-Rendering",
                 "AR/VR开发": "manual/zh/introduction/AR-VR-development",
@@ -884,7 +885,8 @@
                 "创建一个基于SCORM的电子学习应用": "manual/zh/introduction/Creating-SCORM-Courses",
                 "性能瓶颈": "manual/zh/introduction/Performance-Bottlenecks",
                 "硬件相关问题": "manual/zh/introduction/Hardware-Related-Issues",
-                "移动端测试": "manual/zh/introduction/Testing-Mobile-Browsers"
+                "移动端测试": "manual/zh/introduction/Testing-Mobile-Browsers",
+                "Verge3D生命周期": "manual/zh/programmers_guide/Verge3D-Life-Cycle"
             },
     
             "Blender艺术家指南": {
@@ -923,13 +925,14 @@
             "Maya艺术家指南": {
                 "入门指南": "manual/zh/maya/Beginners-Guide",
                 "安装": "manual/zh/maya/Installation",
-                "材质与贴图": "manual/zh/maya/Materials",
+                "视口及渲染预览": "manual/zh/maya/Viewport-Render-Preview",
                 "灯光与渲染": "manual/zh/maya/Lighting-and-Rendering",
                 "摄影机": "manual/zh/maya/Camera",
-                "阴影": "manual/zh/maya/Shadows",
+                "材质与贴图": "manual/zh/maya/Materials",
                 "动画": "manual/zh/maya/Animation",
                 "形态融合（变形）": "manual/zh/maya/Blend-Shapes",
                 "透明度": "manual/zh/maya/Transparency",
+                "阴影": "manual/zh/maya/Shadows",
                 "对象约束": "manual/zh/maya/Object-Constraints",
                 "使用材质库": "manual/zh/maya/Material-Library",
                 "glTF材质": "manual/zh/maya/GLTF-Materials"
@@ -972,9 +975,11 @@
     
             "程序员指南": {     
                 "开发者套件": "manual/zh/programmers_guide/Developer-Kit",
+                "使用Node.js和NPM": "manual/zh/programmers_guide/Using-NodeJS-NPM",
                 "编程基础": "manual/zh/programmers_guide/Programming-basics",
                 "与React.js/Vue.js集成": "manual/zh/programmers_guide/Integration-with-Reactjs-Vuejs",
                 "服务器端渲染": "manual/zh/programmers_guide/Server-Side-Rendering",
+                "WordPress高级指南": "manual/zh/programmers_guide/Wordpress-Advanced-Guide",
                 "动画系统": "manual/zh/programmers_guide/Animation-system",
                 "画线": "manual/zh/programmers_guide/Drawing-lines",
                 "矩阵变换": "manual/zh/programmers_guide/Matrix-transformations",
@@ -1015,9 +1020,8 @@
     
             "常量": {
                 "Animation": "api/zh/constants/Animation",
-                "Controls": "api/zh/constants/Controls",
+                "Cameras": "api/zh/constants/Cameras",
                 "Core": "api/zh/constants/Core",
-                "CustomBlendingEquation": "api/zh/constants/CustomBlendingEquations",
                 "Lights": "api/zh/constants/Lights",
                 "Materials": "api/zh/constants/Materials",
                 "Renderer": "api/zh/constants/Renderer",
@@ -1042,11 +1046,17 @@
                 "LimitScaleConstraint": "api/zh/constraints/LimitScaleConstraint",
                 "LockedTrackConstraint": "api/zh/constraints/LockedTrackConstraint",
                 "TargetConstraint": "api/zh/constraints/TargetConstraint",
-                "TrackToConstraint": "api/zh/constraints/TrackToConstraint"
+                "TrackToConstraint": "api/zh/constraints/TrackToConstraint",
+                "MotionPathConstraint": "api/zh/constraints/MotionPathConstraint",
+                "TransformationConstraint": "api/zh/constraints/TransformationConstraint"
             },
     
             "控制": {
+                "Controls": "api/zh/controls/Controls",
+                "ControlSettings": "api/zh/controls/ControlSettings",
                 "KeyListener": "api/zh/controls/KeyListener",
+                "FirstPersonControls": "api/zh/controls/FirstPersonControls",
+                "FlyingControls": "api/zh/controls/FlyingControls",
                 "OrbitControls": "api/zh/controls/OrbitControls"
             },
     
@@ -1056,16 +1066,17 @@
                 "Clock": "api/zh/core/Clock",
                 "Detector": "api/zh/core/Detector",
                 "EventDispatcher": "api/zh/core/EventDispatcher",
-                "Geometry": "api/zh/core/Geometry",
+                "GLBufferAttribute": "api/zh/core/GLBufferAttribute",
                 "Layers": "api/zh/core/Layers",
                 "Object3D": "api/zh/core/Object3D",
                 "Raycaster": "api/zh/core/Raycaster",
                 "Uniform": "api/zh/core/Uniform"
             },
-    
-            "核心 / BufferAttributes": {
-                "BufferAttribute Types": "api/zh/core/bufferAttributeTypes/BufferAttributeTypes"
-            },
+
+            "导出器": {
+                "GLTFExporter": "api/zh/exporters/GLTFExporter",
+                "USDZExporter": "api/zh/exporters/USDZExporter"
+	    },
     
             "附件": {
                 "CubicBezierCurve": "api/zh/extras/curves/CubicBezierCurve",
@@ -1088,7 +1099,11 @@
                 "ShapePath": "api/zh/extras/core/ShapePath",
                 "ShapeUtils": "api/zh/extras/ShapeUtils",
                 "SimplePreloader": "api/zh/extras/SimplePreloader",
-                "SplineCurve": "api/zh/extras/curves/SplineCurve"
+                "SplineCurve": "api/zh/extras/curves/SplineCurve",
+                "BufferGeometryUtils": "api/zh/extras/BufferGeometryUtils",
+                "CSVParser": "api/zh/extras/CSVParser",
+                "Compat": "api/zh/extras/Compat",
+                "DataUtils": "api/zh/extras/DataUtils"
             },
     
             "几何体": {
@@ -1107,7 +1122,10 @@
                 "TextGeometry": "api/zh/geometries/TextGeometry",
                 "TorusGeometry": "api/zh/geometries/TorusGeometry",
                 "TubeGeometry": "api/zh/geometries/TubeGeometry",
-                "WireframeGeometry": "api/zh/geometries/WireframeGeometry"
+                "WireframeGeometry": "api/zh/geometries/WireframeGeometry",
+                "CapsuleGeometry": "api/zh/geometries/CapsuleGeometry",
+                "LatheGeometry": "api/zh/geometries/LatheGeometry",
+                "TeapotGeometry": "api/zh/geometries/TeapotGeometry"
             },
     
             "辅助对象": {
@@ -1136,7 +1154,13 @@
                 "PointLightShadow": "api/zh/lights/PointLightShadow",
                 "RectAreaLight": "api/zh/lights/RectAreaLight",
                 "SpotLight": "api/zh/lights/SpotLight",
-                "SpotLightShadow": "api/zh/lights/SpotLightShadow"
+                "SpotLightShadow": "api/zh/lights/SpotLightShadow",
+                "DirectionalLightShadowCSM": "api/zh/lights/DirectionalLightShadowCSM",
+                "DirectionalLightShadowCascade": "api/zh/lights/DirectionalLightShadowCascade",
+                "LightProbe": "api/zh/lights/LightProbe",
+                "LightProbeGenerator": "api/zh/lights/LightProbeGenerator",
+                "PlaneReflectionProbe": "api/zh/lights/PlaneReflectionProbe",
+                "RectAreaLightShadow": "api/zh/lights/RectAreaLightShadow"
             },
     
             "加载器": {
@@ -1152,7 +1176,8 @@
                 "Loader": "api/zh/loaders/Loader",
                 "LoaderUtils": "api/zh/loaders/LoaderUtils",
                 "LoadingManager": "api/zh/loaders/managers/LoadingManager",
-                "TextureLoader": "api/zh/loaders/TextureLoader"
+                "TextureLoader": "api/zh/loaders/TextureLoader",
+                "TTFLoader": "api/zh/loaders/TTFLoader"
             },
     
             "材质": {
@@ -1196,7 +1221,10 @@
                 "Triangle": "api/zh/math/Triangle",
                 "Vector2": "api/zh/math/Vector2",
                 "Vector3": "api/zh/math/Vector3",
-                "Vector4": "api/zh/math/Vector4"
+                "Vector4": "api/zh/math/Vector4",
+                "CSMFrustum": "api/zh/math/CSMFrustum",
+                "DiGraph": "api/zh/math/DiGraph",
+                "SphericalHarmonics3": "api/zh/math/SphericalHarmonics3"
             },
     
             "对象": {
@@ -1212,14 +1240,20 @@
                 "Points": "api/zh/objects/Points",
                 "Skeleton": "api/zh/objects/Skeleton",
                 "SkinnedMesh": "api/zh/objects/SkinnedMesh",
-                "Sprite": "api/zh/objects/Sprite"
+                "Sprite": "api/zh/objects/Sprite",
+                "ClippingPlaneObject": "api/zh/objects/ClippingPlaneObject"
             },
     
             "渲染器": {
                 "RenderUtils": "api/zh/renderers/RenderUtils",
                 "WebGLCubeRenderTarget": "api/zh/renderers/WebGLCubeRenderTarget",
                 "WebGLRenderer": "api/zh/renderers/WebGLRenderer",
-                "WebGLRenderTarget": "api/zh/renderers/WebGLRenderTarget"
+                "WebGLRenderTarget": "api/zh/renderers/WebGLRenderTarget",
+                "CSS3DRenderer": "api/zh/renderers/CSS3DRenderer",
+                "WebGL3DRenderTarget": "api/zh/renderers/WebGL3DRenderTarget",
+                "WebGLArrayRenderTarget": "api/zh/renderers/WebGLArrayRenderTarget",
+                "WebGLMultipleRenderTargets": "api/zh/renderers/WebGLMultipleRenderTargets",
+                "WebXRManager": "api/zh/renderers/webxr/WebXRManager"
             },
     
             "场景": {
@@ -1236,7 +1270,16 @@
                 "DataTexture": "api/zh/textures/DataTexture",
                 "DepthTexture": "api/zh/textures/DepthTexture",
                 "Texture": "api/zh/textures/Texture",
-                "VideoTexture": "api/zh/textures/VideoTexture"
+                "VideoTexture": "api/zh/textures/VideoTexture",
+                "Data3DTexture": "api/zh/textures/Data3DTexture",
+                "DataArrayTexture": "api/zh/textures/DataArrayTexture",
+                "FramebufferTexture": "api/zh/textures/FramebufferTexture",
+                "Source": "api/zh/textures/Source"
+            },
+
+            "类型": {
+                "BufferAttribute Types": "api/zh/types/BufferAttributeTypes",
+                "JavaScript Types": "api/zh/types/JavaScriptTypes"
             }
         }
     }
