@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <title>Verge3D for Maya：视口和渲染预览 — Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="了解如何配置 Maya 视口以匹配 Verge3D 的外观和感觉，以及如何使用 Arnold 渲染获取参考图像。">
+  <base href="../../../">
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css">
+</head>
+<body><article>
+
+  <h1>视口和渲染预览 / Maya</h1>
+
+  <p>
+    通过本指南，您可以了解如何配置 Maya 视口以匹配 Verge3D 的外观和感觉，以及如何使用 Arnold 渲染获取参考图像。
+  </p>
+
+  [contents]
+
+
+  [anchor:viewport_settings]
+
+  <h2>视口设置</h2>
+
+  <p>
+    要在 Maya 中启用更好的视口预览，请在视口设置中启用 *Hardware Texturing*：
+  </p>
+
+  <img src="files/viewport-render-preview-maya/hardware-texturing.webp" alt="在 Maya 视口中启用硬件纹理" style="max-width: 500px">
+
+  <p>
+    同时将照明从 *Use Default Lighting* 切换为 *Use All Lights*（或按 *7* 快捷键）：
+  </p>
+
+  <img src="files/viewport-render-preview-maya/use-all-lights.webp" alt="在 Maya 视口中使用所有灯光" style="max-width: 500px">
+
+  <p class="note">
+    上述设置已在默认立方体项目中预先启用。
+  </p>
+
+  <p>
+    然而，视口着色并不总是能提供浏览器内渲染的准确近似。因此，您可以使用 Arnold 渲染器（见<a href="manual/zh/maya/Viewport-Render-Preview.html#arnold_rendering">下文</a>）或 Verge3D 的 *Sneak Peek* 功能来预览场景。
+  </p>
+
+
+  [anchor:color_management]
+
+  <h2>色彩管理</h2>
+
+  <p>
+    Maya 默认使用 ACES 色彩编码系统（使用 ACEScg 色彩空间）。
+  </p>
+
+  <img src="files/viewport-render-preview-maya/view-transform-aces.webp" alt="Maya ACES 视图变换" style="max-width: 750px">
+
+  <p>
+    该系统在 Verge3D 中不受支持，因为它需要更强大的 GPU，且不太适合实时浏览器渲染。
+  </p>
+
+  <p>
+    ACES 会使您的场景在 Maya 视口中看起来比在 Verge3D 中更暗：
+  </p>
+
+  <img src="files/viewport-render-preview-maya/maya-vs-verge3d.webp" alt="ACES Maya 视口与 Verge3D 对比">
+
+  <p>
+    要切换回基于 sRGB 的常规色彩编码，请打开 Maya 首选项：
+  </p>
+
+  <img src="files/viewport-render-preview-maya/maya-preferences.webp" alt="Maya 首选项">
+
+  <p>
+    进入 *Color Management* 首选项，然后点击 *OCIO Config Path* 右侧的小箭头 (▼)。选择 *Reset to Legacy*，然后点击 *Save* 按钮关闭 Maya 首选项对话框。
+  </p>
+
+  <img src="files/viewport-render-preview-maya/maya-color-management.webp" alt="Maya 色彩管理首选项" style="max-width: 864px">
+
+  <p>
+    确保现在 Maya 视口设置为 <strong>sRGB gamma (legacy)</strong> 视图变换：
+  </p>
+
+  <img src="files/viewport-render-preview-maya/view-transform-srgb.webp" alt="Maya sRGB 视图变换" style="max-width: 750px">
+
+  <p class="note">
+    基于 sRGB 的色彩编码已在默认立方体项目中预先启用。
+  </p>
+
+
+  [anchor:arnold_rendering]
+
+  <h2>Arnold 渲染</h2>
+
+  <p>
+    如果使用 <em>Standard Surface</em> 或 <em>Open PBR</em> 材质，Verge3D 渲染会尽可能接近 Arnold 渲染效果。因此，您可以在 Maya 中预览场景，而无需导出，以便更快速地进行调整。
+  </p>
+  <p>
+    要选择渲染器，请在 *Renderer* 菜单中切换到 *Arnold*：
+  </p>
+
+  <img src="files/viewport-render-preview-maya/arnold-renderer-viewport.webp" alt="在 Maya 视口中使用 Arnold 渲染器" style="max-width: 600px">
+
+  <p>
+    然后等待渲染器生成可行的结果：
+  </p>
+
+  <img src="files/viewport-render-preview-maya/arnold-renderer-viewport-complete.webp" alt="Maya 视口中的 Arnold 渲染结果" style="max-width: 750px">
+
+  <p>
+    当场景发生变化时，Maya 会自动更新视口中的渲染器结果。通过这种方式，您可以以接近实时的速度获得浏览器中效果的更好近似。
+  </p>
+
+
+  <h2>有问题？</h2>
+
+  <p>欢迎在<a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！</p>
+
+</article></body>
+</html>

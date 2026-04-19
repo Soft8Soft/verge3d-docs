@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      A class containing utility functions for [page:BufferGeometry BufferGeometry] instances.
+    </p>
+
+
+    <h2>Methods</h2>
+
+    <h3>[method:undefined batchMeshes]([param:Array meshObjs], [param:Object3D batchParent])</h3>
+    <ul class="params">
+      <li>[page:Array meshObjs] — array of [page:Mesh] objects to be joined together.</li>
+      <li>[page:Object3D batchParent] — container (parent) object to store the batched mesh.</li>
+    </ul>
+    <p>
+      Merges the meshes together to form a batched mesh. This technique is used to reduce the number WebGL draw calls hence to improve rendering performance.
+    </p>
+
+    <p>
+      The batching will be performed among the meshes which have the same values of the following properties:
+    </p>
+
+    <ul>
+      <li>`material.name`</li>
+      <li>`visible`</li>
+      <li>`disableChildRendering`</li>
+      <li>`castShadow`</li>
+      <li>`receiveShadow`</li>
+      <li>`renderOrder`</li>
+      <li>`groupNames`</li>
+      <li>`geometry.attributes` (keys only)</li>
+      <li>`geometry.morphAttributes` (keys only)</li>
+    </ul>
+
+    <h3>[method:Object computeMorphedAttributes]([param:Mesh|Line|Points object])</h3>
+    <p class="params">
+      object — instance of [page:Mesh Mesh], [page:Line Line], [page:Points Points].
+    </p>
+    <p>
+      Returns the morphed attributes (position and normal) of a morphed/skinned object together with the original ones. The returned object includes 4 properties: `positionAttribute`, `normalAttribute`, `morphedPositionAttribute`, and `morphedNormalAttribute`. Can be helpful for raytracing or applying decals.
+    </p>
+
+    <h3>[method:BufferAttribute deepCloneAttribute]([param:BufferAttribute attribute])</h3>
+    <p class="params">
+      attribute — instance of [page:BufferAttribute BufferAttribute] to perform deep clone.</li>
+    </p>
+    <p>
+      Returns a deep clone of the given attribute.
+    </p>
+
+    <h3>[method:Float estimateBytesUsed]([param:BufferGeometry geometry])</h3>
+    <p class="params">
+      geometry — instance of [page:BufferGeometry BufferGeometry] to estimate the memory use of.
+    </p>
+
+    <p>
+      Returns the amount of bytes used by all attributes to represent the geometry.
+    </p>
+
+    <h3>[method:BufferAttribute mergeBufferAttributes]([param:Array attributes])</h3>
+    <p class="params">
+      attributes — array of [page:BufferAttribute BufferAttribute] instances.
+    </p>
+    <p>
+      Merges a set of attributes into a single instance. All attributes must have compatible properties and types. If merge does not succeed, the method returns `null`.
+    </p>
+
+    <h3>[method:BufferGeometry mergeBufferGeometries]([param:Array geometries], [param:Boolean useGroups])</h3>
+    <ul class="params">
+      <li>geometries — array of [page:BufferGeometry BufferGeometry] instances.</li>
+      <li>useGroups — whether groups should be generated for the merged geometry or not.</li>
+    </ul>
+    <p>
+      Merges a set of geometries into a single instance. All geometries must have compatible attributes. If merge does not succeed, the method returns `null`.
+    </p>
+
+    <h3>[method:BufferGeometry mergeGroups]([param:BufferGeometry geometry])</h3>
+    <p class="params">
+      geometry — instance of [page:BufferGeometry BufferGeometry] to merge the groups of.
+    </p>
+    <p>
+      Merges the [page:BufferGeometry.groups groups] for the given geometry.
+    </p>
+
+    <h3>[method:BufferGeometry mergeVertices]([param:BufferGeometry geometry], [param:Float tolerance])</h3>
+    <ul class="params">
+      <li>geometry — instance of [page:BufferGeometry BufferGeometry] to merge the vertices of.</li>
+      <li>tolerance — the maximum allowable difference between vertex attributes to merge. Defaults to `1e-4`.</li>
+    </ul>
+    <p>
+      Returns a new [page:BufferGeometry BufferGeometry] with vertices for which all similar vertex attributes (within tolerance) are merged.
+    </p>
+
+    <h3>[method:BufferGeometry toCreasedNormals]([param:BufferGeometry geometry], [param:Float creaseAngle])</h3>
+    <ul class="params">
+      <li>geometry — the input geometry.</li>
+      <li>creaseAngle — the crease angle.</li>
+    </ul>
+    <p>
+      Creates a new, non-indexed geometry with smooth normals everywhere except faces that meet at an angle greater than the crease angle.
+    </p>
+
+    <h3>[method:BufferGeometry toTrianglesDrawMode]([param:BufferGeometry geometry], [param:TrianglesDrawMode drawMode])</h3>
+    <ul class="params">
+      <li>geometry — instance of [page:BufferGeometry BufferGeometry].</li>
+      <li>drawMode — the draw mode of the given geometry. Valid inputs are `v3d.TriangleStripDrawMode` and `v3d.TriangleFanDrawMode`.</li>
+    </ul>
+    <p>
+      Returns a new indexed geometry based on `v3d.TrianglesDrawMode` draw mode. This mode corresponds to the `gl.TRIANGLES` WebGL primitive.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

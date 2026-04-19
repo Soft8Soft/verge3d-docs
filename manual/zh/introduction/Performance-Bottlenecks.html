@@ -51,7 +51,7 @@
     <p>Verge3D自带内置的FPS计数器。您可以通过以下方式启用它：</p>
 
     <ul>
-      <li>在键盘上快速按下 *F*, *F*, *F* （连按3次F键）。</li>
+      <li>快速按下 <strong>~</strong>, <strong>~</strong>, <strong>~</strong>（连按3次波浪键），然后从 *Service Tools* 菜单中选择 *F*。如果您的键盘上没有波浪键，请使用最左上角的键代替。</li>
       <li>使用JavaScript的API方法 <a href="api/zh/extras/App.html#showFPS">showFPS()</a> 。</li>
     </ul>
 
@@ -69,7 +69,7 @@
     <p>Verge3D附带了一个功能，可以实时生成性能概况统计。您可以快速了解应用中的性能发生了什么，以及应该做些什么来提高性能。要生成此类分析报告,可以使用以下方法之一：</p>
 
     <ul>
-      <li>快速按键盘上的*P*,*P*,*P*（连按3次P键）(Verge3D 3.2+）。</li>
+      <li>快速按键盘上的 <strong>~</strong>, <strong>~</strong>, <strong>~</strong>（连按3次波浪键），然后从 *Service Tools* 菜单中选择 *P* (Verge3D 3.2+）。如果您的键盘上没有波浪键，请使用最左上角的键代替。</li>
       <li>使用 <a href="manual/zh/puzzles/System.html#print_performance_info">print performance info（打印性能信息）</a> 拼图。</li>
       <li>使用JavaScript的API方法 <a href="api/zh/extras/App.html#printPerformanceInfo">printPerformanceInfo()</a> 。</li>
     </ul>
@@ -85,56 +85,62 @@
     <p>下面是您可以从生成的性能概况报告中查询的内容：</p>
 
     <dl>
-      <dt>场景加载时间(Scene Loading Time)</dt>
+      <dt>Scene Loading Time</dt>
       <dd>加载应用<em>主</em>场景。参见 <a href="manual/zh/introduction/Performance-Bottlenecks.html#scene_loading_time">下文</a> 了解如何加快加载。</dd>
 
-      <dt>资产压缩(Asset Compression)</dt>
+      <dt>Asset Compression</dt>
       <dd>显示是否启用了资产压缩。</dd>
+
+      <dt>Shader Compilations</dt>
+      <dd>显示启动和运行场景所需的着色器编译次数。</dd>
 
       <dt>FPS</dt>
       <dd>渲染帧速率。这与FPS计数器报告的值相同。</dd>
 
-      <dt>渲染调用(Render Calls)</dt>
+      <dt>Render Calls</dt>
       <dd>每帧的渲染调用数量。这是一个重要数值，显示在一帧期间执行了多少绘制操作，代表了场景中不同材质的数量+各种补充渲染调用（如阴影、后期处理等）之和。</dd>
 
-      <dt>渲染的三角形数量(Triangles Rendered)</dt>
+      <dt>Triangles Rendered</dt>
       <dd>每帧渲染了多少个三角形。请参阅下面有关此值的更多信息。</dd>
 
-      <dt>几何缓存(Geometry Buffers)</dt>
+      <dt>Geometry Buffers</dt>
       <dd>应用使用了多少几何缓存</dd>
 
-      <dt>HDR渲染(HDR Rendering)</dt>
+      <dt>HDR Rendering</dt>
       <dd>HDR渲染是否启用: <em>on</em> 或 <em>off</em>。</dd>
 
-      <dt>视口分辨率(Viewport Resolution)</dt>
+      <dt>Order-Independent Transparency</dt>
+      <dd>顺序无关透明度功能是否开启：<em>on</em> 或 <em>off</em>。</dd>
+
+      <dt>Viewport Resolution</dt>
       <dd>渲染视口的分辨率，即当前网页中3D Canvas的分辨率。</dd>
 
-      <dt>像素比(Pixel Ratio)</dt>
+      <dt>Pixel Ratio</dt>
       <dd>当前（由渲染器使用）和设备（本机）的像素比率。</dd>
 
-      <dt>基于图像的照明(Image-Based Lighting)</dt>
+      <dt>Image-Based Lighting</dt>
       <dd>IBL照明的类型及IBL立方体贴图的切片大小。</dd>
 
-      <dt>灯光(Lights)</dt>
+      <dt>Lights</dt>
       <dd>场景中的灯光数。</dd>
 
-      <dt>反射光照探头(Reflection Probes)</dt>
+      <dt>Reflection Probes</dt>
       <dd>场景中使用的立方体反射与平面反射光照探头的数量。</dd>
 
-      <dt>后期处理(Post-Processing)</dt>
+      <dt>Post-Processing</dt>
       <dd>场景后期处理过程（按渲染顺序）。</dd>
 
-      <dt>阴影贴图(Shadow Map)</dt>
+      <dt>Shadow Map</dt>
       <dd>阴影贴图参数：过滤类型；已渲染阴影贴图的数量；阴影贴图的分辨率。</dd>
 
-      <dt>材质和着色器(Materials and Shaders)</dt>
+      <dt>Materials and Shaders</dt>
       <dd>已渲染材质和着色器的列表。列表各项包含了以下信息：材质名称，着色器名称，和每帧渲染时间（以毫秒为单位）。</dd>
 
-      <dt>总渲染时间(Total Render Time)</dt>
+      <dt>Total Render Time</dt>
       <dd>渲染场景所用的总时间（以毫秒为单位）。</dd>
 
-      <dt>纹理和渲染缓存(Textures & Render Buffers)</dt>
-      <dd>纹理和渲染缓存统计（分辨率）。纹理列印在列表的顶部（前缀为*texture*)，而渲染缓存列印在列表的底部（前缀为*WebGlRenderTarget*)。纹理格式信息： *RGBA* 用于未压缩纹理，使用 <strong>RGBA_[METHOD]</strong> 进行纹理压缩。</dd>
+      <dt>Textures & Render Buffers</dt>
+      <dd>纹理和渲染缓存统计（分辨率）。纹理列印在列表的顶部（前缀为*Texture*)，而渲染缓存列印在列表的底部（前缀为*RenderTarget*)。纹理格式信息： *RGBA* 用于未压缩纹理，使用 <strong>RGBA_[METHOD]</strong> 进行纹理压缩。</dd>
     </dl>
 
     <p>
@@ -262,8 +268,8 @@
     <p>按大小对资源进行排序，找到加载最慢的资源。多数情况下，这些资产可分为两类：</p>
 
     <ol>
-      <li>*Verge3D二进制数据(Binary)*：以 *.bin 或 *.bin.xz 为扩展名——包含了场景中的几何图形、变形和动画。启用资产压缩可以显著减小此文件尺寸，建议在应用中始终 <a href="manual/zh/introduction/Asset-compression.html">启用</a> 此选项。</li>
-      <li>*纹理(Textures)*：以 *.jpg、*.png 或 *.hdr 为扩展名——请参阅 <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">这里</a> 有关如何优化纹理的更多信息。</li>
+      <li>*Verge3D Binary*：以 *.bin 或 *.bin.xz 为扩展名——包含了场景中的几何图形、变形和动画。启用资产压缩可以显著减小此文件尺寸，建议在应用中始终 <a href="manual/zh/introduction/Asset-compression.html">启用</a> 此选项。</li>
+      <li>*Textures*：以 *.jpg、*.png 或 *.hdr 为扩展名——请参阅 <a href="manual/zh/introduction/Optimizing-WebGL-performance.html#Texturing">这里</a> 有关如何优化纹理的更多信息。</li>
     </ol>
 
     <p>还有两种简单粗暴却高效优化纹理方法：</p>

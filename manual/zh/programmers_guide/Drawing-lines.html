@@ -1,64 +1,132 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
-  <meta charset="utf-8">
-  <base href="../../../">
-  <script src="page.js"></script>
-  <link type="text/css" rel="stylesheet" href="page.css">
-</head>
-<body><article>
-    <h1>画线</h1>
-    <div>
-      <p>
-        假设你想画一条线或一个圆，而非一个线框<b>网格([page:Mesh])</b>。
-        首先，我们需要设置 [page:WebGLRenderer renderer] 、 [page:Scene scene] 和摄影机（请参见创建场景页面）。
-      </p>
+  <head>
+    <title>使用JavaScript画线 — Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="如何使用JavaScript代码在Verge3D中创建和渲染线条。">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body><article>
 
-      <p>下面是我们将使用的代码：</p>
-      <code>
-const renderer = new v3d.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+    <h1>使用JavaScript画线 | Drawing Lines with JavaScript</h1>
 
-const camera = new v3d.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-camera.position.set(0, 0, 100);
-camera.lookAt(0, 0, 0);
+    <p>
+      在本指南中，我们将展示如何使用Verge3D API创建和渲染线条。
+    </p>
 
-const scene = new v3d.Scene();
-      </code>
-      <p>接下来我们要做的是定义一个材质。线的材质，我们必须使用 [page:LineBasicMaterial] 或 [page:LineDashedMaterial] 。</p>
-      <code>
-//create a blue LineBasicMaterial
-const material = new v3d.LineBasicMaterial({ color: 0x0000ff });
-      </code>
+    [contents]
 
-      <p>
-        设置材质之后，我们将需要一个带有一些顶点的几何体：
-      </p>
 
-      <code>
-const points = [];
-points.push(new v3d.Vector3(- 10, 0, 0));
-points.push(new v3d.Vector3(0, 10, 0));
-points.push(new v3d.Vector3(10, 0, 0));
+    [anchor:thin_lines]
 
-const geometry = new v3d.BufferGeometry().setFromPoints(points);
-      </code>
+    <h2>Thin Lines</h2>
 
-      <p>注意，在每一个连续的顶点对之间画线，而不是在第一个顶点和最后一个顶点之间画线（这条线不是闭合的。）</p>
+    <p>
+      细线更容易创建，但由于WebGL的限制，线宽不能超过1像素。要绘制此类线条，首先需要定义一个 [page:LineBasicMaterial] 材质。
+    </p>
 
-      <p>现在我们有了两条线的点和一个材质，可以把它们放在一起形成一条线。</p>
-      <code>
-const line = new v3d.Line(geometry, material);
-      </code>
-      <p>剩下的就是将其添加到场景中，并调用 [page:WebGLRenderer.render render] 。</p>
+    <code>
+    // create a blue LineBasicMaterial
+    const material = new v3d.LineBasicMaterial({ color: 0x0000ff });
+    </code>
 
-      <code>
-scene.add(line);
-renderer.render(scene, camera);
-      </code>
+    <p>
+      设置材质之后，我们需要一个带有一些顶点的几何体：
+    </p>
 
-      <p>您现在应该可以看到一个由两条蓝线构成的向上指向的箭头。</p>
-    </div>
+    <code>
+    const points = [];
+    points.push(new v3d.Vector3(-10, 0, 0));
+    points.push(new v3d.Vector3( 0, 10, 0));
+    points.push(new v3d.Vector3( 10, 0, 0));
+
+    const geometry = new v3d.BufferGeometry().setFromPoints(points);
+    </code>
+
+    <p>
+      注意，线条在每对连续的顶点之间绘制，但不会在第一个和最后一个顶点之间绘制（线条不是闭合的）。
+    </p>
+
+    <p>现在我们有了两条线的点和一个材质，可以把它们放在一起形成一条线：</p>
+
+    <code>
+    const line = new v3d.Line(geometry, material);
+    </code>
+
+    <p>
+      剩下的就是将其添加到场景中。
+    </p>
+
+    <code>
+    app.scene.add(line);
+    </code>
+
+    <p>
+      您现在应该可以看到一个由两条蓝线构成的向上指向的箭头。
+    </p>
+
+    <img src="files/api/thin-line.webp" alt="使用JavaScript绘制细线" style="max-width: 775px">
+
+
+    [anchor:thick_lines]
+
+    <h2>Thick Lines</h2>
+
+    <p>
+      粗线由 [page:MeshLine] 或 [page:MeshLineIndexed] 类创建，具体取决于您提供的源数据。与细线类似，它们需要一种特殊的材质，称为 [page:MeshLineMaterial]。
+    </p>
+
+    <code>
+    // create a blue MeshLineMaterial
+    const material = new v3d.MeshLineMaterial({ color: 0x0000ff, lineWidth: 0.3 });
+    </code>
+
+    <p>
+      <code>lineWidth</code> 是线条在世界单位中的绝对宽度，而非像素大小。
+    </p>
+
+    <p>
+      要生成具有三角化几何体的线条，您需要将一些点传递给 [page:MeshLineIndexed]。
+    </p>
+
+    <code>
+    const points = [];
+    points.push(new v3d.Vector3(-10, 0, 0));
+    points.push(new v3d.Vector3( 0, 10, 0));
+    points.push(new v3d.Vector3( 10, 0, 0));
+
+    const geometry = new v3d.BufferGeometry().setFromPoints(points);
+
+    const line = new v3d.MeshLineIndexed();
+    line.fromBufferGeometry(geometry);
+    </code>
+
+    <p>
+      好处是，这种几何体可以与常规的 [page:Mesh] 对象一起使用：
+    </p>
+
+    <code>
+    const mesh = new v3d.Mesh(line.geometry, material);
+    </code>
+
+    <p>
+      将此网格添加到场景中，您将看到相同的箭头，但线条更粗：
+    </p>
+
+    <code>
+    app.scene.add(mesh);
+    </code>
+
+    <img src="files/api/thick-line.webp" alt="使用JavaScript绘制粗线" style="max-width: 775px">
+
+
+    <h2>另请参阅</h2>
+
+    <p>
+      [page:LineHTML] 类可用于在3D对象和HTML元素之间绘制线条。
+    </p>
+
   </article></body>
 </html>

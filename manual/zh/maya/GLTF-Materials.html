@@ -12,7 +12,12 @@
 
     <h1>glTF材质（glTF 2.0兼容性PBR材质） / Maya</h1>
 
-    <p>Verge3D for Maya支持基于aiStandardSurface的<a href="manual/zh/introduction/FAQ.html#gltf_materials">glTF 2.0兼容性PBR材质</a> ，aiStandardSurface是Maya 2020+版本中的标准表面着色器。</p>
+    <p>如果您的内容出于<a href="manual/zh/introduction/FAQ.html#gltf_materials">某些原因</a>需要完全兼容 glTF 2.0 标准，则需要使用简化的材质设置。此设置基于有限的 Maya 节点集，应按以下说明相互连接。</p>
+
+    <figure>
+      <img src="files/gltf-materials-maya/gltf-material-example.jpg" alt="glTF兼容材质示例">
+      <figcaption>使用glTF兼容材质制作的场景示例。</figcaption>
+    </figure>
 
     [demo:gltf_compat]
 
@@ -25,35 +30,35 @@
     <h2>设置glTF材质</h2>
 
     <p>
-      将 *aiStandardSurface* 着色器节点指定到材质中，并启用位于 <b>Verge3D</b> 面板上的<b>GLTF 2.0兼容</b>复选框。
+      将 *Standard Surface* 着色器节点指定到材质中，然后按照以下步骤操作。
     </p>
     
-    <img src="files/gltf-materials-maya/ai-standard-surface-overview.jpg">
+    <img src="files/gltf-materials-maya/standard-surface-overview.webp" alt="为Standard Surface着色器启用glTF 2.0兼容材质">
 
-    <p>以下aiStandardSurface的设置在Verge3D受到支持：</p>
+    <p>以下 Standard Surface 的设置在Verge3D受到支持：</p>
 
-    <h3>Base面板</h3>
+    <h3>Base Panel</h3>
     <ul>
-      <li>权重(Weight) 或（Hypershade中的Base输入）</li>
-      <li>颜色(Color) 或（Hypershade中的Base Color输入）</li>
-      <li>金属度(Metalness)</li>
+      <li>Weight 或（Hypershade中的Base输入）</li>
+      <li>Color 或（Hypershade中的Base Color输入）</li>
+      <li>Metalness</li>
     </ul>
 
-    <h3>Specular面板</h3>
+    <h3>Specular Panel</h3>
     <ul>
-      <li>Roughness - 粗糙度 或 （Hypershad中的Specular Roughness输入）</li>
+      <li>Roughness 或 （Hypershad中的Specular Roughness输入）</li>
     </ul>
 
-    <h3>Emission面板</h3>
+    <h3>Emission Panel</h3>
     <ul>
-      <li>权重(Weight) 或 （Hypershade中的Emission输入）</li>
-      <li>颜色(Color) （Hypershade中的Emission Color输入）</li>
+      <li>Weight 或 （Hypershade中的Emission输入）</li>
+      <li>Color （Hypershade中的Emission Color输入）</li>
     </ul>
 
-    <h3>Geometry面板</h3>
+    <h3>Geometry Panel</h3>
     <ul>
-      <li>不透明度(Opacity)</li>
-      <li>凹凸映射(Bump Mapping)（Hypershade中的Normal Camera输入）。</li>
+      <li>Opacity</li>
+      <li>Bump Mapping（Hypershade中的Normal Camera输入）。</li>
     </ul>
 
     <p>此外，在处理环境遮蔽时，您也可以使用*Specular*面板中的*Weight*值，使Maya视口看起来与Verge3D渲染一致。</p>
@@ -64,21 +69,21 @@
     <p>按以下步骤来配置包含3个贴图的标准PBR着色器。基础颜色、ORM（遮蔽、粗糙度、金属度）和法线贴图。</p>
 
     <ol>
-      <li>将*aiStandardSurface*指定给模型。</li>
-      <li>打开Hypershade编辑器，在<b>材质</b><b>浏览器</b>面板中找到并选择这个材质。</li>
-      <li>创建一个带有基础颜色纹理的<b>文件</b>节点。确保将该节点的<b>色彩空间</b>设置为*sRGB*。</li>
-      <li>将此纹理的*Out Color*输出连接到*aiStandardSurface*节点的*Base Color*输入。</li>
-      <li>创建一个带有ORM纹理的<b>文件</b>节点。该纹理应该包含3个通道的信息：AO（红色）、粗糙度（绿色）和金属度（蓝色）。确保将该节点的<b>色彩空间</b>设置为*Raw*。</li>
-      <li>将ORM纹理的R通道连接到*aiStandardSurface*节点的*Base*和*Specular*输入，以模拟环境光遮蔽效果。</li>
-      <li>将ORM纹理的G通道连接到*aiStandardSurface*节点的*Specular Roughness*输入。</li>
-      <li>将ORM纹理的B通道连接到*aiStandardSurface*节点的*Metalness*输入。</li>
-      <li>用<b>法线贴图</b>纹理创建*file*和*bump2d*节点。确保将该文件节点的*Color Space*设置为*Raw*，凹凸节点的*Use as*设置为*切线空间法线*。</li>
-      <li>将*file*连接到*bump2d*节点，*bump2d*节点连接到*aiStandardSurface*节点的*Normal Camera*输入。
+      <li>将*Standard Surface*指定给模型。</li>
+      <li>打开Hypershade编辑器，在 *Browser* 面板中找到并选择这个材质。</li>
+      <li>创建一个带有基础颜色纹理的 *file* 节点。确保将该节点的 *Color Space* 设置为 *sRGB*。</li>
+      <li>将此纹理的*Out Color*输出连接到*Standard Surface*节点的*Base Color*输入。</li>
+      <li>创建一个带有ORM纹理的 *file* 节点。该纹理应该包含3个通道的信息：AO（红色）、Roughness（绿色）和Metalness（蓝色）。确保将该节点的 *Color Space* 设置为 *Raw*。</li>
+      <li>将ORM纹理的R通道连接到*Standard Surface*节点的*Base*和*Specular*输入，以模拟环境光遮蔽效果。</li>
+      <li>将ORM纹理的G通道连接到*Standard Surface*节点的*Specular Roughness*输入。</li>
+      <li>将ORM纹理的B通道连接到*Standard Surface*节点的*Metalness*输入。</li>
+      <li>用 *Normal Map* 纹理创建 *file* 和 *bump2d* 节点。确保将该文件节点的 *Color Space* 设置为 *Raw*，凹凸节点的 *Use as* 设置为 *Tangent Space Normals*。</li>
+      <li>将*file*连接到*bump2d*节点，*bump2d*节点连接到*Standard Surface*节点的*Normal Camera*输入。
     </ol>
 
     <p>下图是材质在Hypershade编辑器中的示例。</p>
     
-    <img src="files/materials-maya/pbr-example.jpg">
+    <img src="files/materials-maya/pbr-example.jpg" alt="Maya中典型的glTF 2.0材质设置">
 
 
     [anchor:exporting_substance]
@@ -86,24 +91,17 @@
     <h2>从Substance Painter导出纹理</h2>
 
     <p>模型和烘焙的法线贴图及遮蔽贴图（如果有的话）可以通过OBJ格式加载到Substance Painter中。</p>
-    
-    <img src="files/physical-material-blender/substance_screenshot.jpg" style="max-width: 819px;">
 
-    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/透明度/金属度和法线。</p>
-    
-    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" style="max-width: 819px;">
+    <img src="files/physical-material-blender/substance_screenshot.jpg" alt="使用Substance Painter创建glTF兼容材质" style="max-width: 819px">
 
+    <p>在这个软件中，最终产生了3张贴图：底色/透明度、遮蔽/粗糙度/金属度和法线。</p>
 
-    [anchor:export_to_gltf_in_runtime]
-
-    <h2>在运行时中导出到glTF</h2>
-    
-    <p>通过<b>导出到gltf(export to gltf)</b>拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
+    <img src="files/physical-material-blender/pbr_texture_set_preview.jpg" alt="遮蔽/粗糙度/金属度纹理图集" style="max-width: 819px">
 
 
     [anchor:using_usd_preview_material]
 
-    <h2>使用 usdPreviewSurface 材质</h2>
+    <h2>基于 usdPreviewSurface 材质的替代设置</h2>
 
     <p>
       您可以将这些材质同时用于 glTF 和 USD 格式。注意：它们只能在 Maya 2022 及更高版本中使用。  
@@ -112,22 +110,22 @@
     <p>将 usdPreviewSurface 着色器节点分配给材质，Verge3D 支持以下设置：</p>
       
     <ul>
-      <li>Color or (Diffuse Color input in Hypershade) <br> 颜色或(Hypershade里的Diffuse Color输入)</li>
-      <li>Emission Color or (Emissive Color input in Hypershade) <br> 自发光颜色或(Hypershade里的Emissive Color输入)</li>
-      <li>Occlusion - 遮蔽</li>
-      <li>Opacity - 不透明度</li>
-      <li>Alpha Cutoff or (Opacity Threshold input in Hypershade) <br> Alpha修剪或(Hypershade里的Opacity Threshold输入)</li>
+      <li>Color 或 (Diffuse Color input in Hypershade)</li>
+      <li>Emission Color 或 (Emissive Color input in Hypershade)</li>
+      <li>Occlusion</li>
+      <li>Opacity</li>
+      <li>Alpha Cutoff 或 (Opacity Threshold input in Hypershade)</li>
     </ul>
 
-    <h3>Specular Panel(高光面板)</h3>
+    <h3>Specular Panel</h3>
     <ul>
-      <li>Metalness (Metallic input in Hypershade) <br> 金属度(Hypershade里的Metallic输入)</li>
-      <li>Roughness (Roughness input in Hypershade) <br> 粗糙度(Hypershade里的Roughness输入)</li>
+      <li>Metalness (Metallic input in Hypershade)</li>
+      <li>Roughness (Roughness input in Hypershade)</li>
     </ul>
 
-    <h3>Displacement Panel(置换面板)</h3>
+    <h3>Displacement Panel</h3>
     <ul>
-      <li>Normal Map (Normal input in Hypershade) <br> 法线贴图(Hypershade里的Normal输入)</li>
+      <li>Normal Map (Normal input in Hypershade)</li>
     </ul>
 
     <h3>创建 USD 材质</h3>
@@ -136,21 +134,27 @@
 
     <ol>
       <li>指定 *usdPreviewSurface* 给模型。</li>
-      <li>打开Hypershade编辑器，在 *浏览器* 面板中查找并选择此材质。</li>
-      <li>创建一个 *文件* 节点，并给定漫反射颜色纹理。确保此节点的 *色彩空间* 设置设置为 *sRGB* 。</li>
-      <li>将此纹理的 *输出颜色* 输出连接到 *usdPreviewSurface* 节点的 *Diffuse Color* 输入。</li>
-      <li>创建具有 ORM 纹理的 *文件* 节点。此纹理应包含 3 个通道，其中包含 AO（红色）、粗糙度（绿色）和金属性（蓝色）信息。确保此节点的“色彩空间”设置设置为 *Raw* 。</li>
+      <li>打开Hypershade编辑器，在 *Browser* 面板中查找并选择此材质。</li>
+      <li>创建一个 *file* 节点，并给定漫反射颜色纹理。确保此节点的 *Color Space* 设置设置为 *sRGB* 。</li>
+      <li>将此纹理的 *Out Color* 输出连接到 *usdPreviewSurface* 节点的 *Diffuse Color* 输入。</li>
+      <li>创建具有 ORM 纹理的 *file* 节点。此纹理应包含 3 个通道，其中包含 AO（红色）、Roughness（绿色）和Metalness（蓝色）信息。确保此节点的 *Color Space* 设置设置为 *Raw* 。</li>
       <li>将 ORM 纹理的 R 通道连接到 *usdPreviewSurface* 节点的 *Occlusion* 输入，以模拟环境光遮蔽效果。</li>
       <li>将 ORM 纹理的 G 通道连接到 *usdPreviewSurface* 节点的 *Roughness* 输入。</li>
       <li>将 ORM 纹理的 B 通道连接到 *usdPreviewSurface* 节点的 *Metallic* 输入。</li>
-      <li>创建具有法线贴图纹理的 *文件* 节点。确保文件节点的 *色彩空间* 设置设置为  *Raw* 。
-      </li>
-      <li>将 *文件* 节点连接到 *usdPreviewSurface* 节点的 *Normal* 输入。</li>
+      <li>创建具有法线贴图纹理的 *file* 节点。确保文件节点的 *Color Space* 设置设置为 *Raw* 。</li>
+      <li>将 *file* 节点连接到 *usdPreviewSurface* 节点的 *Normal* 输入。</li>
     </ol>
 
     <p>以下是材质在Hypershade编辑器中的外观：</p>
 
-    <img src="files/materials-maya/pbr-usd-surface-example.jpg" style="max-width: 819px;">
+    <img src="files/materials-maya/pbr-usd-surface-example.jpg" alt="使用USD Preview Surface着色器节点创建glTF材质" style="max-width: 819px">
+
+
+    [anchor:export_to_gltf_in_runtime]
+
+    <h2>在运行时中导出到glTF</h2>
+    
+    <p>通过 *export to gltf* 拼图，您可以实时导出模型或整个场景。然后您可以下载导出的模型或上传到服务器进行永久存储。请查阅拼图中的 <a href="manual/zh/puzzles/Scenes.html#export_to_gltf">相关章节</a> 了解详情。</p>
 
 
 

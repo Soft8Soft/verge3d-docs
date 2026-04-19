@@ -16,7 +16,7 @@
       此类目拼图通过Verge3D <a href="manual/zh/puzzles/Plugins.html">插件</a> 功能创建，生成了可用于实现WooCommerce 3D产品视图和配置器的拼图，也可用于创建独立的订单或咨询表单。
     </p>
 
-    <img src="files/puzzles/puzzles-ecommerce.jpg">
+    <img src="files/puzzles/puzzles-ecommerce.jpg" alt="电子商务可视化编程模块">
 
 
     <h2>内容</h2>
@@ -24,10 +24,9 @@
     [contents]
 
 
-    [anchor:puzzles_reference]
+    [anchor:paypal_puzzles]
 
-    <h2>拼图参考</h2>
-
+    <h2>PayPal拼图</h2>
 
     [anchor:paypal_create_order]
 
@@ -37,7 +36,7 @@
       下PayPal订单。此拼图是最简单的电子商务解决方案，因为它无需任何服务器端配置。要使用他，您需要由已通过验证的PayPal企业账号。
     </p>
 
-    <img src="files/puzzles/puzzles-ecommerce-paypal-create-order.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-paypal-create-order.jpg" alt="创建PayPal订单的可视化编程模块">
 
     <dl>
       <dt>client ID</dt>
@@ -56,51 +55,137 @@
       <dd>此插槽中的拼图将在遇到错误时执行（例如资金不足等情况）。</dd>
     </dl>
 
+
+    [anchor:woocommerce_puzzles]
+
+    <h2>WooCommerce拼图</h2>
+
+
     [anchor:woo_connect]
 
     <h3>connect to WooCommerce(连接到WooCommerce)</h3>
 
     <p>连接到WooCommerce系统，开始接收产品信息。</p>
 
-    <img src="files/puzzles/puzzles-ecommerce-connect-to-woocommerce.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-connect-to-woocommerce.jpg" alt="使用WooCommerce可视化逻辑模块">
 
     [demo:drink_shop]
 
     <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">英文版</a> ，<a href="https://mp.weixin.qq.com/s/jbQHzTmPr1V4aH6aAfM8Hw" target="_blank">中文版</a>。</p>
 
-
     [anchor:woo_product_info]
 
     <h3>product info(产品信息)</h3>
 
-    <p>返回一个 <a href="manual/zh/puzzles/Dictionaries.html">dictionary(字典)</a> ，其中包含由 *connect to WooCommerce* 拼图检索的产品信息。这个字典（JavaScript对象）中包含以下字段。</p>
+    <p>
+      返回一个 <a href="manual/zh/puzzles/Dictionaries.html">dictionary(字典)</a> ，其中包含由 <a href="manual/zh/puzzles/ECommerce.html#woo_connect">connect to WooCommerce</a> 拼图检索的产品信息：
+    </p>
 
-    <p><ul>
-      <li>*price* - 客户选择的产品选项的价格，例如：12。</li>
-      <li>*quantity* - 客户选择的产品项目的数量，例如：2。</li>
-      <li>*sku* - 客户选择的产品选项的库存单位。</li>
-      <li>*name* - 产品的名称，因为它将在商店的购物车中看到，例如 "Spinner - Yellow, Large" 。</li>
-      <li>*attributes* - 一个包含客户所选产品选项的属性名称/值对的字典，例如：{color: "Yellow", size: "Large"}.</li>
-      <li>*weight* - 客户选择的产品选项的实际产品重量。</li>
-      <li>*length*, *width*, *height* - 客户选择的产品选项的实际产品尺寸。</li>
-      <li>*type* - 在WooCommerce管理面板中指定的以下产品类型之一： "variable", "simple", "group" 或 "external" 。</li>
-      <li>*children* - 只对 "group" 产品有效。包括每个子产品的信息。</li>
-      <li>*status* - 服务器响应： "ok" 或 "error" 。</li>
-    </ul></p>
+    <img src="files/puzzles/puzzles-ecommerce-product-info.jpg" alt="通过可视化编程获取产品信息">
 
-    <img src="files/puzzles/puzzles-ecommerce-product-info.jpg">
+    <p>
+     该字典包含以下字段：
+    </p>
 
+    <dl>
+      <dt>price</dt>
+      <dd>客户选择的产品选项的价格，例如：12。</dd>
+
+      <dt>quantity</dt>
+      <dd>客户选择的产品项目的数量，例如：2。</dd>
+
+      <dt>sku</dt>
+      <dd>客户选择的产品选项的库存单位。</dd>
+
+      <dt>name</dt>
+      <dd>产品的名称，因为它将在商店的购物车中看到，例如 "Spinner - Yellow, Large"。</dd>
+
+      <dt>attributes</dt>
+      <dd>一个包含客户所选产品选项的属性名称/值对的字典，例如：{color: "Yellow", size: "Large"}。</dd>
+
+      <dt>weight</dt>
+      <dd>客户选择的产品选项的实际产品重量。</dd>
+
+      <dt>length, width, height</dt>
+      <dd>客户选择的产品选项的实际产品尺寸。</dd>
+
+      <dt>type</dt>
+      <dd>在WooCommerce管理面板中指定的以下产品类型之一："variable"、"simple"、"group"、"external" 或 "composite"。</dd>
+
+      <dt>children</dt>
+      <dd>只对 "group" 产品有效。返回包含每个子产品信息的列表。</dd>
+
+      <dt>components</dt>
+      <dd>只对 "composite" 产品有效。返回包含每个组件信息的列表。为方便使用，您可以使用 <a href="manual/zh/puzzles/ECommerce.html#woo_product_component">product component</a> 拼图来获取此信息。</dd>
+
+      <dt>status</dt>
+      <dd>服务器响应："ok" 或 "error"。</dd>
+    </dl>
 
     [anchor:woo_product_attribute]
 
     <h3>product attribute(产品属性)</h3>
 
-    <p>返回客户选择的产品选项属性值，例如： "Yellow" 。</p>
+    <p>
+      返回客户选择的产品选项属性值，例如：对于属性 "color" 返回 "Yellow"。如果该属性不存在，拼图返回 `""` （空字符串）。
+    </p>
 
-    <img src="files/puzzles/puzzles-ecommerce-product-attribute.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-product-attribute.jpg" alt="获取产品属性的可视化编程模块">
+
+    <p>
+      此拼图最常用于获取 "variable" 产品当前选定的变体。传入的属性名称以不区分大小写的方式进行匹配，例如 "Color"、"color" 或 "COLOR" 表示相同的属性。
+    </p>
 
     <p>详情见此教程： <a href="https://www.soft8soft.com/making-3d-product-configurator-for-woocommerce/" target="_blank">英文版</a> ，<a href="https://mp.weixin.qq.com/s/jbQHzTmPr1V4aH6aAfM8Hw" target="_blank">中文版</a>。</p>
 
+
+    [anchor:woo_product_component]
+
+    <h3>product component(产品组件)</h3>
+
+    <p>
+      返回由 <a href="https://woocommerce.com/products/composite-products/" target="_blank">WooCommerce Composite Products</a> 扩展提供的产品组件的值。
+    </p>
+
+    <img src="files/puzzles/puzzles-ecommerce-product-component.webp" alt="获取WooCommerce组合产品组件的可视化编程模块">
+
+    <p>
+      为方便使用，您可以将组件名称（标题）（例如 "Drawer Top"）或组件ID（例如 "1685435951"）作为第一个参数指定。
+    </p>
+
+    <p>
+      您可以从组件中检索以下值之一：
+    </p>
+
+    <dl>
+      <dt>product name</dt>
+      <dd>在组件中选择的产品名称。如果未选择产品，则等于 `""` （空字符串）。</dd>
+      <dt>sku</dt>
+      <dd>在组件中选择的产品SKU。如果未选择产品或产品未分配SKU，则等于 `""` （空字符串）。</dd>
+      <dt>quantity</dt>
+      <dd>产品数量。</dd>
+      <dt>type</dt>
+      <dd>产品类型："simple"、"variable"，或未选择产品时为 "none"。</dd>
+      <dt>weight</dt>
+      <dd>产品重量。如果未指定产品重量，则等于 0（零）。</dd>
+      <dt>width</dt>
+      <dd>产品宽度。如果未指定产品宽度，则等于 0（零）。</dd>
+      <dt>height</dt>
+      <dd>产品高度。如果未指定产品高度，则等于 0（零）。</dd>
+      <dt>length</dt>
+      <dd>产品长度。如果未指定产品长度，则等于 0（零）。</dd>
+      <dt>attributes</dt>
+      <dd>分配给所选产品的属性字典。在大多数情况下，此值用于获取 "variable" 产品当前选定变体的属性。</dd>
+      <dt>component title</dt>
+      <dd>组件名称（标题），例如 "Drawer Top"。不要与产品名称混淆。</dd>
+      <dt>component id</dt>
+      <dd>组件ID，例如 "1685435951"。</dd>
+    </dl>
+
+
+    [anchor:wordpress_order_form_puzzles]
+
+    <h2>WordPress订单表单拼图</h2>
 
     [anchor:place_order]
 
@@ -110,7 +195,7 @@
       编写订单并将其提交到指定的 URL。默认情况下，订购表单会被提交到 <a href="https://sandbox.soft8soft.com/order-form/" target="_blank">sandbox ordering page</a>。
     </p>
 
-    <img src="files/puzzles/puzzles-ecommerce-place-order.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-place-order.jpg" alt="使用可视化编程模块下电子商务订单">
 
     [demo:ring]
 
@@ -120,7 +205,7 @@
 
     <dl>
       <dt>send to</dt>
-      <dd>WordPress 插件提供的订单表单的 URL。请参考本手册的 <a href="manual/zh/introduction/Wordpress-Plugin.html">Wordpress插件</a> 章节，了解设置方法。</dd>
+      <dd>WordPress 插件提供的订单表单的 URL。请参考 <a href="manual/zh/introduction/Wordpress-Plugin.html#receiving_orders_with_order_form">此处指南</a> ，了解设置方法。</dd>
       <dt>content</dt>
       <dd>订单内容（以人类可读的形式呈现）。</dd>
       <dt>item price</dt>
@@ -131,12 +216,11 @@
       <dd>生成应用屏幕截图并将其附加到订单中。请确保在 <a href="manual/zh/puzzles/Initialization.html#configure_application" target="_parent">configure application(配置应用程序)</a> 拼图中启用屏幕截图，否则屏幕截图可能会显示为纯黑色。</dd>
     </dl>
 
-    <img src="files/puzzles/puzzles-ecommerce-place-order-example.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-place-order-example.jpg" alt="用于下电子商务订单的可视化编程模块示例">
 
     <p class="note">
-      由您（或销售经理）来验证订单内容和价格的正确性。尽快可能性很小，但黑客可能会通过篡改拼图提交的数据的方式来以较低的价格购买产品。为防止此类事件，您需要使用 <a href="manual/zh/puzzles/ECommerce.html#place_order_adv">place order +</a> 拼图依赖服务器上分配的产品信息来验证订单。
+      由您（或销售经理）来验证订单内容和价格的正确性。尽管可能性很小，但黑客可能会通过篡改此拼图提交的内容，尝试以较低的价格购买产品。为防止此类事件，您需要使用 <a href="manual/zh/puzzles/ECommerce.html#place_order_adv">place order +</a> 拼图，该拼图依赖于服务器上分配的产品信息来验证订单。
     </p>
-
 
     [anchor:place_order_adv]
 
@@ -146,7 +230,7 @@
       编写订单并将其提交到指定的 URL。此拼图工作方式类似于 <a href="manual/zh/puzzles/ECommerce.html#place_order">place order</a> ，但有更多特性，安全性也更高，并且允许自定义。
     </p>
 
-    <img src="files/puzzles/puzzles-ecommerce-place-order-adv.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-place-order-adv.jpg" alt="下高级订单的可视化编程模块">
 
     [demo:recliner/index]
 
@@ -163,8 +247,7 @@
       示例用法：
     </p>
 
-    <img src="files/puzzles/puzzles-ecommerce-place-order-adv-example.jpg">
-
+    <img src="files/puzzles/puzzles-ecommerce-place-order-adv-example.jpg" alt="用于下电子商务订单的一组可视化编程模块">
 
     [anchor:order_item]
 
@@ -174,13 +257,13 @@
       用在 <a href="manual/zh/puzzles/ECommerce.html#place_order_adv">place order +</a> 拼图中的订单项目。
     </p>
 
-    <img src="files/puzzles/puzzles-ecommerce-order-item.jpg">
+    <img src="files/puzzles/puzzles-ecommerce-order-item.jpg" alt="订单项目可视化编程模块">
 
     <dl>
       <dt>sku</dt>
-      <dd>由 WordPress 插件注册的产品SKU（库存单位）请参阅 <a href="manual/zh/introduction/Wordpress-Plugin.html#managing_products">此处指南</a> 了解如何设置产品。</dd>
+      <dd>由 WordPress 插件注册的产品SKU（库存单位）。请参阅 <a href="manual/zh/introduction/Wordpress-Plugin.html#managing_products">此处指南</a> 了解如何设置产品。</dd>
       <dt>quantity</dt>
-      <dd>产品数量</dd>
+      <dd>产品数量。</dd>
     </dl>
 
 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css" />
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      [name] can be used to apply hierarchical 3D transformations to HTML elements. This renderer is useful to combine HTML elements with WebGL content, e.g. to embed whole websites, YouTube videos, or custom web UI into a 3D scene.
+    </p>
+
+    <p>
+      The [name] operates with HTML elements, not regular Verge3D objects. These elements should be wrapped into special objects [page:CSS3DObject] and then added to the scene graph.
+    </p>
+
+
+    <h2>Example</h2>
+
+    <code>
+    if (!app.cssRenderer)
+        app.enableCSSRenderer();
+
+    // place renderer above 3D canvas
+    app.cssRenderer.viewElement.style.zIndex = 0;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.soft8soft.com';
+    iframe.style.border = 'none';
+    iframe.width = 800;
+    iframe.height = 600;
+
+    const cssObject = new v3d.CSS3DObject(iframe);
+    // 5 units width
+    cssObject.scale.setScalar(5/iframe.width);
+
+    app.cssScene.add(cssObject);
+    </code>
+
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:HTMLElement domElement])</h3>
+    <p class="params">
+      [page:HTMLElement element] — an HTML element where the renderer appends its child-elements.
+    </p>
+    <p>
+      This corresponds to the [page:CSS3DRenderer.domElement domElement] property below.
+    </p>
+
+
+    <h2>Properties</h2>
+
+    <h3>[property:HTMLElement domElement]</h3>
+    <p>
+      An [page:HTMLElement] where the renderer appends its child-elements.
+    </p>
+
+    <h3>[property:HTMLElement viewElement]</h3>
+    <p>
+      An [page:HTMLElement] representing viewing plane (created automatically by constructor).
+    </p>
+
+
+    <h2>Methods</h2>
+
+    <h3>[method:Object getSize]()</h3>
+    <p>
+      Returns an object containing the width and height of the renderer.
+    </p>
+
+    <h3>[method:undefined render]([param:Scene scene], [param:Camera camera])</h3>
+    <p>
+      Renders a [page:Scene scene] using a [page:PerspectiveCamera perspective] or [page:OrthographicCamera orphographic] camera.
+    </p>
+
+    <h3>[method:undefined setSize]([param:Float width], [param:Float height])</h3>
+    <p>
+      Resizes the renderer to specified width and height.
+    </p>
+
+
+    <h2>Puzzles</h2>
+
+    <p>
+      There is a puzzle <a href="manual/en/puzzles/Objects.html#create_object">create object / plane with html</a> to create planes which render HTML-based resources, such as websites, custom UIs, or YouTube videos. This puzzle uses [name] under the hood.
+    </p>
+
+    <img src="files/puzzles/puzzles-object-create-object-plane-with-html.webp">
+
+
+    [sourceHint]
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <title>使用 Node.js 和 NPM — Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="如何使用 Node.js 和 npm 开发 Verge3D 应用。">
+  <base href="../../../">
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css">
+</head>
+<body><article>
+  <h1>使用 Node.js 和 NPM</h1>
+
+  <p>
+    本节介绍如何使用 <strong>Node.js</strong> 和 <strong>npm</strong> 进行 Verge3D 应用开发。
+  </p>
+
+  [contents]
+
+  [anchor:install_nodejs_npm]
+
+  <h2>安装 Node.js 和 npm</h2>
+
+  <p>
+    如果您还没有安装，可以按照<a href="https://nodejs.org/en/download/" target="_blank">此处</a>的提示进行安装。
+  </p>
+
+
+  [anchor:creating_basic_verge3d_app]
+
+  <h2>创建基础 Verge3D 应用</h2>
+
+  <p>
+    为您的新项目创建一个文件夹，例如 <strong>my_app</strong>，进入该文件夹，然后初始化 npm 包：
+  </p>
+
+  <code>npm init</code>
+
+  <p>
+    系统会询问一些问题，您可以随意选择或使用默认值。
+  </p>
+
+  <p>
+    安装 verge3d 包作为依赖项：
+  </p>
+
+  <code>npm install --save verge3d</code>
+
+  <p>
+    创建 <strong>my_app.html</strong> 文件，内容如下：
+  </p>
+
+  <code>
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset="utf-8"&gt;
+      &lt;title&gt;我的第一个 Verge3D 应用&lt;/title&gt;
+      &lt;style&gt;
+        body { margin: 0; }
+        #v3d-container { position: absolute; width: 100%; height: 100% }
+      &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;div id=&quot;v3d-container&quot;&gt;&lt;/div&gt;
+      &lt;script type="module" src="my_app.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </code>
+
+  <p>
+    创建 <strong>my_app.js</strong> 文件，内容如下：
+  </p>
+
+  <code>
+  import * as v3d from './node_modules/verge3d/build/v3d.module.js';
+
+  const app = new v3d.App('v3d-container');
+
+  app.loadScene('cube.glb', () =&gt; {
+      app.enableControls();
+      app.run();
+  });
+  </code>
+
+  <p>
+    下载 <a href="https://cdn.soft8soft.com/demo/blender/cube/cube.glb">cube.glb</a> 文件并将其放在 <strong>my_app.html</strong> 同级目录下。
+  </p>
+
+  <p>
+    启动开发服务器：
+  </p>
+
+  <code>npx http-server</code>
+
+  <p>
+    在浏览器中打开 <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> 链接，然后从列表中启动 <strong>my_app.html</strong>。
+  </p>
+
+
+  [anchor:using_webpack]
+
+  <h2>使用 webpack</h2>
+
+  <p>
+    使用 *webpack* 可以简化 Verge3D 应用的开发，允许您在 JavaScript 代码中使用更简洁的导入方式：
+  </p>
+
+  <code>import * as v3d from 'verge3d';</code>
+
+  <p>
+    同时还可以通过将 Verge3D 模块和代码打包为一个 JavaScript 分发文件来优化您的应用。
+  </p>
+  <p>
+    让我们修改基础应用以适配 webpack。首先删除 <strong>my_app.js</strong> 文件，因为不再需要它了。
+  </p>
+  <p>
+    安装 webpack 依赖：
+  </p>
+
+  <code>npm install --save webpack webpack-cli</code>
+
+  <p>
+    修改 <strong>my_app.html</strong> 文件，将内容替换为以下内容：
+  </p>
+
+  <code>
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset="utf-8"&gt;
+      &lt;title&gt;我的第一个 Verge3D 应用&lt;/title&gt;
+      &lt;style&gt;
+        body { margin: 0; }
+        #v3d-container { position: absolute; width: 100%; height: 100% }
+      &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      &lt;div id=&quot;v3d-container&quot;&gt;&lt;/div&gt;
+      &lt;script src="dist/main.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </code>
+
+  <p>
+    创建 <strong>src</strong> 目录，并在其中创建 <strong>index.js</strong> 文件：
+  </p>
+
+  <code>
+  import * as v3d from 'verge3d';
+
+  const app = new v3d.App('v3d-container');
+
+  app.loadScene('cube.glb', () =&gt; {
+      app.enableControls();
+      app.run();
+  });
+  </code>
+
+  <p>
+    运行 webpack 构建应用：
+  </p>
+
+  <code>npx webpack</code>
+
+  <p>
+    启动开发服务器：
+  </p>
+
+  <code>npx http-server</code>
+
+  <p>
+    在浏览器中打开 <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> 链接，然后从列表中启动 <strong>my_app.html</strong>。
+  </p>
+
+
+  [anchor:activating_license]
+
+  <h2>激活许可证</h2>
+
+  <p>
+    要使用您的许可证密钥签名 Verge3D 引擎模块（v3d.js 和 v3d.module.js），请使用 <strong>keymanager</strong> 命令（需要 Python 3）：
+  </p>
+
+  <code>npx keymanager activate node_modules/verge3d/build/v3d.js XXXXXXXXXX</code>
+
+  <p>或</p>
+
+  <code>npx keymanager activate node_modules/verge3d/build/v3d.module.js XXXXXXXXXX</code>
+
+  <p>
+    其中 XXXXXXXXXX 是您的许可证密钥。请注意，此命令不会输出任何信息。激活后，只需在应用中检查 *MADE WITH VERGE3D TRIAL* 水印是否消失即可。使用 webpack 时，请务必重新构建应用。
+  </p>
+
+
+  [anchor:whats_next]
+
+  <h2>下一步</h2>
+
+  <p>
+    了解如何将 Verge3D 引擎与 <a href="manual/zh/programmers_guide/Integration-with-Reactjs-Vuejs.html">React 和 Vue.js</a> 集成。
+  </p>
+
+</article></body>
+</html>

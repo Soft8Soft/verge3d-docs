@@ -13,7 +13,7 @@
     <h1>透明度 / Maya</h1>
 
     <p>
-      在这里，我们展示了如何在Maya中为标准表面，Lambert 及 glTF兼容性PBR材质启用透明特性。
+      在这里，我们展示了如何在Maya中为 Standard Surface、OpenPBR 及 glTF兼容性PBR材质启用透明特性。
     </p>
 
     [demo:transparency]
@@ -27,7 +27,7 @@
     <h2>混合与蒙版</h2>
 
     <p>
-      作为一个实时渲染3D引擎，Verge3D提供了两种主要的方法来处理透明物体：alpha混合和alpha剪切（通常需要一个图像蒙版）。<b>混合法(blending)</b>可以将一个半透明的前景色与背景色结合起来，使用前景色的alpha作为混合系数。相对而言，<b>剪切法(clipping)</b>只是简单地丢弃所有alpha值小于某个预定义阈值的像素（在Verge3D for Maya中总是等于0.5）。
+      作为一个实时渲染3D引擎，Verge3D提供了两种主要的方法来处理透明物体：alpha混合和alpha剪切（通常需要一个图像蒙版）。混合法（blending）可以将一个半透明的前景色与背景色结合起来，使用前景色的alpha作为混合系数。相对而言，剪切法（clipping）只是简单地丢弃所有alpha值小于某个预定义阈值的像素（在Verge3D for Maya中总是等于0.5）。
     </p>
 
     <img src="files/transparency-common/blending-vs-clipping.jpg">
@@ -37,14 +37,19 @@
     </p>
 
     <p>
-      使用材质设置中的 *Alpha Mode* 下拉菜单，在混合和遮蔽之间进行选择。
+      使用材质设置中的 *Alpha Mode* 下拉菜单，在混合和遮蔽之间进行选择：
     </p>
 
-    <img src="files/transparency-maya/alpha-mode.jpg" style="max-width: 427px">
+    <img src="files/transparency-maya/alpha-mode.jpg" alt="在Maya中设置alpha模式" style="max-width: 480px">
+
+    <p>
+      此外，还有 *Mask* 模式的一个变体叫做 *Coverage*。它使用 MSAA 渲染来改善 alpha 剪切的质量。
+    </p>
+
 
     [anchor:alpha_add]
 
-    <h2>加法合成（又称无深度写入）。</h2>
+    <h2>Additive Compositing（加法合成）</h2>
 
     <p>
       Verge3D还提供了一种特殊的模式，用于在渲染时禁止向深度缓冲区写入数据。这会导致多边形被排除在像素深度比较之外。这样多边形将以加法方式合成，有时会有助于消除混合的伪影。
@@ -53,16 +58,52 @@
       <img src="files/transparency-common/no-depth-writes.jpg">
 
     <p>
-      在 *Alpha Mode* 下拉菜单中选择 *Blend* ，并取消勾选材质设置中的 *Depth Write* 选项以启用该模式。此外，如果您希望透明对象的渲染在所有其他对象之上，请增大 <a href="manual/zh/maya/Lighting-and-Rendering.html#per_object_rendering_settings">对象设置</a> 中的 *Rendering Order* 值。
+      在 *Alpha Mode* 下拉菜单中选择 *Add* ，并取消勾选材质设置中的 *Depth Write* 选项以启用该模式。此外，如果您希望透明对象的渲染在所有其他对象之上，请增大 <a href="manual/zh/maya/Lighting-and-Rendering.html#per_object_rendering_settings">对象设置</a> 中的 *Render Order* 值。
     </p>
+
+
+    [anchor:oit_rendering]
+
+    <h2>Order-Independent Transparency (OIT)</h2>
+
+    <p>
+      Verge3D允许使用近似的顺序无关透明度技术，该技术不需要按排序顺序渲染几何体，因此可以在不考虑上述任何注意事项的情况下解决大多数透明度问题。
+    </p>
+
+    <img src="files/transparency-common/oit-example.jpg" alt="Order-Independent Transparency 示例">
+
+    <p>
+      OIT 可以在 <a href="manual/zh/maya/Lighting-and-Rendering.html#global_rendering_settings">Verge3D Export Settings</a> 对话框中启用。
+    </p>
+
+    <img src="files/transparency-maya/oit.webp" alt="Maya中的Order-Independent Transparency设置" style="max-width: 434px">
+
+    <p>
+      已知限制：
+    </p>
+
+    <ul>
+      <li>
+        OIT 仅兼容 WebGL 2，否则无效。
+      </li>
+      <li>
+        OIT 被 <a href="manual/zh/maya/Lighting-and-Rendering.html#light_probes">Reflection Cubemap Light Probes</a> 和 <a href="manual/zh/maya/Lighting-and-Rendering.html#reflection_plane_light_probes">Reflection Plane Light Probes</a> 忽略。
+      </li>
+      <li>
+        可能对高不透明度对象效果不佳。
+      </li>
+      <li>
+        不应与具有2个或更多不透明对象的场景中的 *MSAA*（多采样抗锯齿）一起使用。取而代之，您可以使用 *FXAA*（快速近似抗锯齿），它与 OIT 完全兼容。
+      </li>
+    </ul>
 
 
     [anchor:standard_surface_materials]
 
-    <h2>标准表面材质的透明度</h2>
+    <h2>Standard Surface 材质的透明度</h2>
 
     <p>
-      标准表面(或aiStandardSurface)材质的透明度可以通过如下材质设置和调整：
+      Standard Surface、aiStandardSurface 以及 OpenPBR Surface 材质的透明度可以通过以下材质设置进行调整：
     </p>
     
     <img src="files/transparency-maya/standard-surface-transparency.jpg" style="max-width: 422px">
@@ -70,21 +111,48 @@
     <p>参数：</p>
 
     <dl>
-      <dt>透射(Transmission)权重</dt>
+      <dt>Transmission Weight</dt>
       <dd>薄壁和折射材质的透射系数。</dd>
-      <dt>透射颜色</dt>
-      <dd>折射材质的颜色（<b>薄壁</b>选项关闭时）</dd>
-      <dt>薄壁(Thin Walled)</dt>
+      <dt>Transmission Color</dt>
+      <dd>折射材质的颜色（*Thin Walled* 选项关闭时）</dd>
+      <dt>Thin Walled</dt>
       <dd>使用通用的薄壁或基于折射的透明度。</dd>
-      <dt>不透明度(Opacity)</dt>
+      <dt>Opacity</dt>
       <dd>薄壁材质的不透明度系数。</dd>
       <dt>Alpha Mode</dt>
-      <dd>材质透明度模式</dd>
-      <dt>深度写入(Depth Write)</dt>
+      <dd>
+        材质透明度模式。
+        <dl>
+          <dt>Auto</dt>
+          <dd>查看材质以确定可能的透明度方式：*Opaque* 或 *Blend*。</dd>
+          <dt>Opaque</dt>
+          <dd>渲染材质不带透明度。</dd>
+          <dt>Blend</dt>
+          <dd>混合透明度（参见 <a href="manual/zh/maya/Transparency.html#blended_vs_masked">上文</a>）。</dd>
+          <dt>Mask</dt>
+          <dd>蒙版透明度（参见 <a href="manual/zh/maya/Transparency.html#blended_vs_masked">上文</a>）。</dd>
+          <dt>Coverage</dt>
+          <dd>哈希透明度，又称 alpha to coverage。此方法介于蒙版和混合透明度之间。它使用 MSAA 渲染来改善 alpha 剪切的质量。</dd>
+          <dt>Add</dt>
+          <dd>加法透明度合成（参见 <a href="manual/zh/maya/Transparency.html#alpha_add">上文</a>）。</dd>
+        </dl>
+      </dd>
+      <dt>Transparency Hack</dt>
+      <dd>
+        启用以下两种非标准渲染方法之一来消除透明度伪影：
+        <dl>
+          <dt>Nearest Layer</dt>
+          <dd>通过使用单独的深度缓冲区进行剔除（又称"深度预处理"），仅渲染最接近摄影机的透明层。</dd>
+          <dt>Two-Pass</dt>
+          <dd>先渲染背面，再渲染正面。此方法仅适用于双面材质，即应设置 *Two Sided* 属性。</dd>
+        </dl>
+        两种透明度破解方法都会降低性能，因此仅在真正需要时使用。
+      </dd>
+      <dt>Depth Write</dt>
       <dd>禁用加法透明度合成（见 <a href="manual/zh/maya/Transparency.html#alpha_add">上文</a>）。</dd>
     </dl>
 
-    <p class="note">在Maya，默认情况下<b>薄壁</b>参数时关闭的，这会使得在网页应用中的渲染与您的预期不同，最典型的透明度渲染会失效。当您处理透明的标准表面材质时，一定要开启这个设置。</p>
+    <p class="note">在Maya，默认情况下 *Thin Walled* 参数是关闭的，这会使得在网页应用中的渲染与您的预期不同，最典型的透明度渲染会失效。当您处理透明的 Standard Surface 材质时，一定要开启这个设置。</p>
 
     
     [anchor:gltf_materials]
@@ -92,7 +160,7 @@
     <h2>glTF兼容的的PBR材质的透明度</h2>
 
     <p>
-      为了使这些材质具有透明度，应该将透明度贴图作为基础颜色纹理的4（alpha）分量进行烘焙，并将该纹理的 *Alpha* 输出连接到标准表面材质的 *Opacity* 输入。
+      为了使这些材质具有透明度，应该将透明度贴图作为基础颜色纹理的4（alpha）分量进行烘焙，并将该纹理的 *Alpha* 输出连接到 Standard Surface 材质的 *Opacity* 输入。
     </p>
       
     <img src="files/transparency-maya/gltf-compat-transparency.jpg">

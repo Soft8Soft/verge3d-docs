@@ -22,20 +22,94 @@
 
     [anchor:surface_shaders]
 
-    <h2>表面着色器</h2>
+    <h2>Surface Shaders</h2>
 
 
     [anchor:standardSurface]
 
-    <h3>标准表面</h3>
+    <h3>Standard Surface</h3>
 
     <p>
-        <b>标准表面</b>着色器是在Maya 2020中引入的。它基于 <a href="manual/zh/maya/Materials.html#aiStandardSurface">aiStandardSurface</a> 并与之非常相似。
+        该着色器可以通过使用基于物理的着色模型来表现许多真实世界的材质（如金属、塑料、玻璃、木材、纺织品等）。
     </p>
 
+    <img src="files/materials-maya/standard-surface-overview.jpg" alt="Maya Standard Surface 着色器">
+
     <p>
-        由于它在Maya Viewport 2.0中得到了更好的支持，并且不需要安装Arnold插件，因此我们推荐在Maya 2020或以上版本中创作Verge3D内容时使用它。
+        Verge3D中支持以下 Standard Surface 设置：
     </p>
+
+    <h4>Base Panel</h4>
+    <ul>
+      <li>Weight 或（Hypershade中的Base输入）</li>
+      <li>Color 或（Hypershade中的Base Color输入）</li>
+      <li>Metalness</li>
+    </ul>
+
+    <h4>Specular Panel</h4>
+    <ul>
+      <li>Weight（Hypershade中的Specular输入）</li>
+      <li>Color（Hypershade中的Specular Color输入）</li>
+      <li>Roughness（Hypershade中的Specular Roughness输入）</li>
+      <li>IOR（Hypershade中的Specular IOR输入）</li>
+    </ul>
+
+    <h4>Transmission Panel</h4>
+    <ul>
+      <li>Weight（Hypershade中的Transmission输入）</li>
+      <li>Color（Hypershade中的Transmission Color输入）</li>
+    </ul>
+
+    <h4>Coat Panel</h4>
+    <ul>
+      <li>Weight（Hypershade中的Coat输入）</li>
+      <li>Roughness（Hypershade中的Coat Roughness输入）</li>
+      <li>Normal（Hypershade中的Coat Normal输入）</li>
+    </ul>
+
+    <h4>Sheen Panel</h4>
+    <ul>
+      <li>Weight（Hypershade中的Sheen输入）</li>
+      <li>Color（Hypershade中的Sheen Color输入）</li>
+      <li>Roughness（Hypershade中的Sheen Roughness输入）</li>
+    </ul>
+
+    <h4>Emission Panel</h4>
+    <ul>
+      <li>Weight（Hypershade中的Emission输入）</li>
+      <li>Color（Hypershade中的Emission Color输入）</li>
+    </ul>
+
+    <h4>Geometry Panel</h4>
+    <ul>
+      <li>Thin Walled</li>
+      <li>Opacity</li>
+      <li>Bump Mapping（Hypershade中的Normal Camera输入）</li>
+    </ul>
+
+
+    <h4>Additional Verge3D Settings</h4>
+
+    <p>
+        您可以通过使用位于 *Verge3D* 面板的以下设置来调整您的 Standard Surface 材质：
+    </p>
+
+    <img src="files/materials-maya/verge3d-settings.jpg" alt="Verge3D自定义材质设置" style="max-width: 427px">
+
+    <dl>
+      <dt>Alpha Mode</dt>
+      <dd>选择透明度模式：*Auto*、*Opaque*、*Blend*、*Mask*、*Coverage* 或 *Add*。更多信息见 <a href="manual/zh/maya/Transparency.html">透明度指南</a>。</dd>
+      <dt>Two Sided</dt>
+      <dd>使您的材质成为双面的。默认情况下，Verge3D只渲染材质的正面，启用这个选项也可以渲染其反面。</dd>
+      <dt>Depth Write</dt>
+      <dd>在深度缓冲区中渲染材质深度。对透明材质禁用此选项，使其以<a href="manual/zh/maya/Transparency.html#alpha_add">加法</a>方式渲染。</dd>
+      <dt>Depth Test</dt>
+      <dd>在渲染材质时进行深度测试的计算。在渲染半透明物体内的物体时，禁用深度测试是非常有用的，可以防止它们被覆盖物体剔除。</dd>
+      <dt>Dithering</dt>
+      <dd>通过使用像素抖动来减少带状伪影。</dd>
+      <dt>glTF 2.0 Compatible</dt>
+      <dd>强制要求材质与glTF 2.0兼容。更多信息请参见 <a href="manual/zh/maya/GLTF-Materials.html">以下指南</a>。</dd>
+    </dl>
 
 
     [anchor:lambert]
@@ -46,19 +120,19 @@
         基本但高效的节点，可用于表现没有镜面反射的材质。
     </p>
     
-    <img src="files/materials-maya/lambert.jpg">
+    <img src="files/materials-maya/lambert.jpg" alt="Maya Lambert 着色器">
 
-    <p>Verge3D中支持以下Lambert设置。</p>
+    <p>Verge3D中支持以下Lambert设置：</p>
 
     <ul>
-      <li>颜色</li>
-      <li>透明度</li>
-      <li>漫反射</li>
-      <li>凹凸/法线映射</li>
+      <li>Color</li>
+      <li>Transparency</li>
+      <li>Diffuse</li>
+      <li>Bump/Normal Mapping</li>
     </ul>
 
     <p>
-        Verge3D设置也支持，更多信息见 <a href="manual/zh/maya/Materials.html#aiStandardSurface">上文</a> 。
+        Verge3D设置也支持，更多信息见 <a href="manual/zh/maya/Materials.html#standardSurface">上文</a> 。
     </p>
 
     [anchor:blinn_phong]
@@ -69,13 +143,17 @@
         在Verge3D中，这些材质将通过PBR着色模型进行近似处理，因此与Maya视口中对比看起来可能有所不同。
     </p>
 
+    <img src="files/materials-maya/blinn-phong-phong-e.jpg" alt="Maya Blinn、Phong 和 Phong E 着色器">
+
     [anchor:surfaceShader]
 
-    <h3>表面着色器</h3>
+    <h3>Surface Shader</h3>
 
     <p>
-        使用这个色器节点来创建完全可定制的材质。基本上，它只是将 *输出颜色(Out Color)* 参数原封不动地传输给渲染器。
+        使用这个着色器节点来创建完全可定制的材质。基本上，它只是将 *Out Color* 参数原封不动地传输给渲染器。
     </p>
+
+    <img src="files/materials-maya/surface-shader.jpg" alt="Maya Surface Shader 节点">
 
 
     [anchor:2d_textures]
@@ -83,65 +161,69 @@
     <h2>2D纹理</h2>
 
     [anchor:bulge]
-    <h3>凸起(Bulge)</h3>
+    <h3>Bulge</h3>
 
     <p>
-        在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-9F9D693A-9049-4FA3-A0A5-D5E50077CDD7" target="_blank">这里</a> 查阅详情。
+        创建凸起图案。在 <a href="https://help.autodesk.com/view/MAYAUL/2026/ENU/?guid=GUID-9F9D693A-9049-4FA3-A0A5-D5E50077CDD7" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:checker]
-    <h3>棋盘格(Checker)</h3>
+    <h3>Checker</h3>
 
     <p>
-        在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-514468B4-60C0-47CE-A865-55B4FFE873C1" target="_blank">这里</a> 查阅详情。
+        创建棋盘格图案。在 <a href="https://help.autodesk.com/view/MAYAUL/2026/ENU/?guid=GUID-514468B4-60C0-47CE-A865-55B4FFE873C1" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:cloth]
-    <h3>布料(Cloth)</h3>
+    <h3>Cloth</h3>
 
     <p>
-        在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-3A307B63-0156-480D-AE18-5115D5FE15DB" target="_blank">这里</a> 查阅详情。
+        创建布料图案。在 <a href="https://help.autodesk.com/view/MAYAUL/2026/ENU/?guid=GUID-3A307B63-0156-480D-AE18-5115D5FE15DB" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:file]
-    <h3>文件(File)纹理节点</h3>
+    <h3>File</h3>
 
     <p>
-        在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-309A77DA-F5ED-4474-8413-317D7AB241E6" target="_blank">这里</a> 查阅详情。
+        从文件读取纹理。在 <a href="https://help.autodesk.com/view/MAYAUL/2026/ENU/?guid=GUID-309A77DA-F5ED-4474-8413-317D7AB241E6" target="_blank">这里</a> 查阅详情。
     </p>
 
+    <img src="files/materials-maya/file.jpg" alt="Maya File 节点">
+
     [anchor:grid]
-    <h3>栅格(Grid)</h3>
+    <h3>Grid</h3>
 
     <p>
-        在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-1302D193-4DEF-4CEF-8E48-E5B7E84909E5" target="_blank">这里</a> 查阅详情。
+        创建网格图案。在 <a href="https://help.autodesk.com/view/MAYAUL/2026/ENU/?guid=GUID-1302D193-4DEF-4CEF-8E48-E5B7E84909E5" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:noise]
-    <h3>噪波(Noise)</h3>
+    <h3>Noise</h3>
 
-    <p>仅支持柏林噪波(Perlin Noise)类型。</p>
+    <p>仅支持 *Perlin Noise* 类型。</p>
 
     [anchor:ramp]
-    <h3>渐变(Ramp)</h3>
+    <h3>Ramp</h3>
 
     <p>
-        在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-F2C97013-5E4C-41AC-9684-E23AC52C51B8" target="_blank">这里</a> 查阅详情。
+        程序化渐变纹理。在 <a href="https://help.autodesk.com/view/MAYAUL/2026/ENU/?guid=GUID-F2C97013-5E4C-41AC-9684-E23AC52C51B8" target="_blank">这里</a> 查阅详情。
     </p>
 
 
 
     [anchor:env_textures]
 
-    <h2>环境纹理(Environment Texture)</h2>
+    <h2>Environment Textures</h2>
 
 
     [anchor:envSphere]
-    <h3>环境球(Env Ball)</h3>
+    <h3>Env Sphere</h3>
 
     <p>
-        在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-1FF8EE4D-DEAF-4E6C-895C-D2E6EB670BAA" target="_blank">这里</a> 查阅详情。
+        使用等距柱状投影映射输入纹理图像。此节点可用于模拟金属表面，而无需使用复杂的（且计算密集的）基于物理的着色算法。例如，您可以将其连接到 Surface Shader 节点：
     </p>
+
+    <img src="files/materials-maya/env-sphere.jpg" alt="Maya Env Sphere 节点">
 
 
     [anchor:other_textures]
@@ -150,7 +232,7 @@
 
 
     [anchor:layeredTexture]
-    <h3>分层纹理(Layered texture)</h3>
+    <h3>Layered Texture</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-770E22B9-E32A-4E14-A4DC-23656D885AEE" target="_blank">这里</a> 查阅详情。
@@ -160,25 +242,25 @@
 
     [anchor:utility_nodes]
 
-    <h2>工具节点(Utility nodes)</h2>
+    <h2>Utility Nodes</h2>
 
 
     [anchor:addDoubleLinear]
-    <h3>两个线性值相加(Add Double Linear)</h3>
+    <h3>Add Double Linear</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-3FF423AA-407D-4D57-9888-FC9A2F350E55" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:addMatrix]
-    <h3>添加矩阵(Add Matrix)工具节点</h3>
+    <h3>Add Matrix</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-C1812049-7EBF-4288-B4C7-A712090866CC" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:blendColors]
-    <h3>融合颜色(Blend Colors)</h3>
+    <h3>Blend Colors</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-25397F02-B0AC-4E6B-849C-462AFE93B0DB" target="_blank">这里</a> 查阅详情。
@@ -186,14 +268,14 @@
 
 
     [anchor:bump2d]
-    <h3>凹凸 2D (Bump 2d)</h3>
+    <h3>Bump 2d</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-0DC10D4E-6DD4-4E48-98A9-113B9757EF96" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:clamp]
-    <h3>钳制(Clamp)</h3>
+    <h3>Clamp</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-75A0D963-24A0-4DAB-8073-903734443E03" target="_blank">这里</a> 查阅详情。
@@ -204,18 +286,18 @@
     <h3>Compose Matrix</h3>
 
     <p>
-        这个节点由给定的平移、旋转和缩放分量组成一个4x4矩阵。不支持斜切(Shear)输入。
+        这个节点由给定的平移、旋转和缩放分量组成一个4x4矩阵。不支持 *Shear* 输入。
     </p>
 
     [anchor:condition]
-    <h3>“条件”(Condition)节点</h3>
+    <h3>Condition</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-57CE3E34-3C8D-4F15-971B-219DA6176836" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:decomposeMatrix]
-    <h3>分解矩阵(Decompose Matrix)</h3>
+    <h3>Decompose Matrix</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-31A82FA7-D887-458B-88A2-C7FF90F84F17" target="_blank">这里</a> 查阅详情。
@@ -229,21 +311,21 @@
     </p>
 
     [anchor:gammaCorrect]
-    <h3>Gamma校正</h3>
+    <h3>Gamma Correct</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-BA5E19E9-3D21-47BE-95D5-903C59936678" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:inverseMatrix]
-    <h3>反转矩阵(Inverse Matrix)</h3>
+    <h3>Inverse Matrix</h3>
 
     <p>
         反转给定的 4x4 矩阵。
     </p>
 
     [anchor:luminance]
-    <h3>亮度(Luminance)</h3>
+    <h3>Luminance</h3>
 
     <p>
         将输入的颜色转化为灰度值。转换公式如下：
@@ -255,14 +337,14 @@
 
 
     [anchor:multiplyDivide]
-    <h3>乘除(Multiply Divide)</h3>
+    <h3>Multiply Divide</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-DBD3F3B4-AE68-49B1-B215-34F74782BA63" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:multDoubleLinear]
-    <h3>两个线性值相乘(Mult Double Linear)工具节点</h3>
+    <h3>Mult Double Linear</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-68236D3D-815B-4F3F-BF60-3D0F1FDFFF87" target="_blank">这里</a> 查阅详情。
@@ -276,56 +358,56 @@
     </p>
 
     [anchor:place2dTexture]
-    <h3>2D 放置(2d Placement)</h3>
+    <h3>2d Placement</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-94070C7E-C550-42FD-AFC9-FBE82B173B1D" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:reverse]
-    <h3>反转(Reverse)</h3>
+    <h3>Reverse</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-EECA80A5-FD6F-4A41-87FF-05461A2BEB2D" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:samplerInfo]
-    <h3>采样器信息(Sampler Info)</h3>
+    <h3>Sampler Info</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-5134339F-6F76-4193-9F94-713D0A88AAC2" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:setRange]
-    <h3>设置范围(Set Range)</h3>
+    <h3>Set Range</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-1C66C39C-4AAA-478B-929E-3F22D8B3B993" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:transposeMatrix]
-    <h3>转置矩阵(Transpose Matrix)</h3>
+    <h3>Transpose Matrix</h3>
 
     <p>
         转置给定的 4x4 矩阵。
     </p>
 
     [anchor:unitConversion]
-    <h3>单位转化(Unit Conversion)工具节点</h3>
+    <h3>Unit Conversion</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-2B3D14DB-2917-426D-AD15-DEDCCF5FF496" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:vectorProduct]
-    <h3>向量积(Vector Product)</h3>
+    <h3>Vector Product</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-C1DEE9BC-375C-404C-ABF7-79E9321BE5F8" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:weightedAddMatrix]
-    <h3>Weighted Add Matrix(wtAddMatrix)</h3>
+    <h3>Weighted Add Matrix</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-B290C3E6-95BC-4299-BC0D-169EADDE6319" target="_blank">这里</a> 查阅详情。
@@ -334,110 +416,112 @@
 
     [anchor:lookdevkit_utility_nodes]
 
-    <h2>LookdevKit工具节点(LookdevKit Utility nodes)</h2>
+    <h2>LookdevKit Utility Nodes</h2>
 
-    <p>在使用这些节点之前，请确保你已经启用了LookdevKit插件。</p>
+    <p>在使用这些节点之前，请确保你已经启用了 LookdevKit 插件。</p>
+
+    <img src="files/materials-maya/enable-lookdevkit.jpg" alt="在Maya中启用LookdevKit插件" style="max-width: 500px">
 
     [anchor:channels]
-    <h3>通道(Channels)</h3>
+    <h3>Channels</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:colorComposite]
-    <h3>颜色合成(Color Composite)</h3>
+    <h3>Color Composite</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:colorCondition]
-    <h3>颜色条件(Color Condition)</h3>
+    <h3>Color Condition</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:colorConstant]
-    <h3>恒定颜色(olor Constant)</h3>
+    <h3>Color Constant</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:colorLogic]
-    <h3>颜色逻辑(Color Logic)</h3>
+    <h3>Color Logic</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:colorMask]
-    <h3>颜色遮罩(Color Mask)</h3>
+    <h3>Color Mask</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:colorMath]
-    <h3>数学颜色(Color Math)</h3>
+    <h3>Color Math</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:floatComposite]
-    <h3>浮点合成(Float Composite)</h3>
+    <h3>Float Composite</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:floatCondition]
-    <h3>浮点条件(Float Condition)</h3>
+    <h3>Float Condition</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:floatConstant]
-    <h3>浮点恒定(Float Constant)</h3>
+    <h3>Float Constant</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
 </p>
 
     [anchor:floatLogic]
-    <h3>浮点逻辑(Float Logic)</h3>
+    <h3>Float Logic</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:floatMask]
-    <h3>浮点遮罩(Float Mask)</h3>
+    <h3>Float Mask</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:floatMath]
-    <h3>浮点数学(Float Math)</h3>
+    <h3>Float Math</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:premultiply]
-    <h3>预乘(Premultiply)</h3>
+    <h3>Premultiply</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
     </p>
 
     [anchor:unpremultiply]
-    <h3>取消预乘(Unpremultiply)</h3>
+    <h3>Unpremultiply</h3>
 
     <p>
         在 <a href="https://help.autodesk.com/view/MAYAUL/2022/CHS/?guid=GUID-ED31708F-8C54-4EB2-981D-4FCAFE8E45C9" target="_blank">这里</a> 查阅详情。
@@ -445,85 +529,89 @@
 
 
     [anchor:arnold_nodes]
-    <h2>Arnold节点</h2>
+    <h2>Arnold Nodes</h2>
 
     
     [anchor:aiStandardSurface]
     <h3>aiStandardSurface</h3>
 
     <p>
-        该着色器随Arnold for Maya（MtoA）一起提供，可以通过使用基于物理的着色模型来表现许多真实世界的材质（例如金属、塑料、玻璃、木材、纺织品等）。
+        该着色器随Arnold for Maya（MtoA）一起提供，与 <a href="manual/zh/maya/Materials.html#standardSurface">Standard Surface</a> 着色器非常相似。
+    </p>
+
+    <p>
+        由于 *Standard Surface* 在Maya视口中得到了更好的支持，并且不需要安装Arnold插件，因此我们推荐使用它而非 *aiStandardSurface*。坚持使用Arnold版本的唯一原因是保持与现有场景的兼容性。
     </p>
     
     <img src="files/materials-maya/ai-standard-surface-overview.jpg">
 
     <p>以下aiStandardSurface的设置在Verge3D受到支持：</p>
 
-    <h4>Base面板</h4>
+    <h4>Base Panel</h4>
     <ul>
-      <li>权重(Weight) 或（Hypershade中的Base输入）</li>
-      <li>颜色(Color) 或（Hypershade中的Base Color输入）</li>
-      <li>金属度(Metalness)</li>
+      <li>Weight 或（Hypershade中的Base输入）</li>
+      <li>Color 或（Hypershade中的Base Color输入）</li>
+      <li>Metalness</li>
     </ul>
 
-    <h4>Specular面板</h4>
+    <h4>Specular Panel</h4>
     <ul>
-      <li>Weight - 权重 (Hypershade中的Specular输入)</li>
-      <li>Color - 颜色 (Hypershade中的Specular Color输入)</li>
-      <li>Roughness - 粗糙度 或 （Hypershad中的Specular Roughness输入）</li>
-      <li>IOR（在Hypershade中输入的Specular IOR）</li>
+      <li>Weight（Hypershade中的Specular输入）</li>
+      <li>Color（Hypershade中的Specular Color输入）</li>
+      <li>Roughness（Hypershade中的Specular Roughness输入）</li>
+      <li>IOR（Hypershade中的Specular IOR输入）</li>
     </ul>
 
-    <h4>Transmission面板</h4>
+    <h4>Transmission Panel</h4>
     <ul>
-      <li>Weight - 权重 (Hypershade中的Transmission输入)</li>
-      <li>Color - 颜色 (Hypershade中的传输颜色输入)</li>
+      <li>Weight（Hypershade中的Transmission输入）</li>
+      <li>Color（Hypershade中的Transmission Color输入）</li>
     </ul>
 
-    <h4>Coat面板</h4>
+    <h4>Coat Panel</h4>
     <ul>
-      <li>Weight - 权重 (Hypershade中的Coat输入)</li>
-      <li>Roughness - 粗糙度 (Hypershade中的Coat Roughness输入)</li>
-      <li>Normal - 法向 （Hypershade中的Coat Normal输入)</li>
+      <li>Weight（Hypershade中的Coat输入）</li>
+      <li>Roughness（Hypershade中的Coat Roughness输入）</li>
+      <li>Normal（Hypershade中的Coat Normal输入）</li>
     </ul>
 
-    <h4>Sheen面板</h4>
+    <h4>Sheen Panel</h4>
     <ul>
-      <li>Weight - 权重 (Hypershade中Sheen输入)</li>
-      <li>Color - 颜色 (Hypershade中的Sheen Color输入)</li>
-      <li>Roughness - 粗糙度 （Hypershade中的Sheen Roughness输入)</li>
+      <li>Weight（Hypershade中的Sheen输入）</li>
+      <li>Color（Hypershade中的Sheen Color输入）</li>
+      <li>Roughness（Hypershade中的Sheen Roughness输入）</li>
     </ul>
 
-    <h4>Emission面板</h4>
+    <h4>Emission Panel</h4>
     <ul>
-      <li>权重(Weight) 或 （Hypershade中的Emission输入）</li>
-      <li>颜色(Color) （Hypershade中的Emission Color输入）</li>
+      <li>Weight（Hypershade中的Emission输入）</li>
+      <li>Color（Hypershade中的Emission Color输入）</li>
     </ul>
 
-    <h4>Geometry面板</h4>
+    <h4>Geometry Panel</h4>
     <ul>
-      <li>薄壁(Thin Walled)</li>
-      <li>不透明度(Opacity)</li>
-      <li>凹凸映射(Bump Mapping)（Hypershade中的Normal Camera输入）。</li>
+      <li>Thin Walled</li>
+      <li>Opacity</li>
+      <li>Bump Mapping（Hypershade中的Normal Camera输入）</li>
     </ul>
 
 
-    <h4>其他Verge3D设置</h4>
+    <h4>Additional Verge3D Settings</h4>
 
-    <p>您可以通过使用位于*Verge3D*面板的以下设置来调整您的aiStandardSurface材质。</p>
+    <p>您可以通过使用位于 *Verge3D* 面板的以下设置来调整您的 aiStandardSurface 材质。</p>
 
     <img src="files/materials-maya/verge3d-settings.jpg" style="max-width: 427px">
 
     <dl>
       <dt>Alpha Mode</dt>
-      <dd>选择透明度模式。<b>Auto(自动)</b>，<b>Opaque(不透明)</b>，<b>Blend(混合)</b>和<b>Mask(蒙版)。</b>更多信息见 <a href="manual/zh/maya/Transparency.html">透明度指南</a> 章节。</dd>
-      <dt>双面(Two Sided)</dt>
+      <dd>选择透明度模式：*Auto*、*Opaque*、*Blend*、*Mask*、*Coverage* 或 *Add*。更多信息见 <a href="manual/zh/maya/Transparency.html">透明度指南</a> 章节。</dd>
+      <dt>Two Sided</dt>
       <dd>使您的材质成为双面的。默认情况下，Verge3D只渲染材质的正面，启用这个选项也可以渲染其反面。</dd>
-      <dt>深度写入(Depth Write)</dt>
+      <dt>Depth Write</dt>
       <dd>在深度缓冲区中渲染材质深度。对透明材质使用该选项，使其以加法方式渲染。</dd>
-      <dt>深度测试(Depth Test)</dt>
+      <dt>Depth Test</dt>
       <dd>在渲染材质时进行深度测试的计算。在渲染半透明物体内的物体时，禁用深度测试是非常有用的，可以防止它们被覆盖物体剔除。</dd>
-      <dt>抖动(Dithering)</dt>
+      <dt>Dithering</dt>
       <dd>通过使用像素抖动来减少带状伪影。</dd>
       <dt>glTF 2.0 Compatible</dt>
       <dd>强制要求材质与glTF 2.0兼容。更多信息请参见 <a href="manual/zh/maya/GLTF-Materials.html">下文指南</a> 。</dd>
@@ -578,6 +666,10 @@
     [anchor:aiFacingRatio]
     <h3>aiFacingRatio</h3>
 
+    <p>
+        计算渲染像素的朝向比率，例如着色法线与摄影机方向之间的点积。不支持 *Bias*、*Gain*、*Linear* 和 *Invert* 参数。
+    </p>
+
     [anchor:aiFlat]
     <h3>aiFlat</h3>
 
@@ -602,6 +694,15 @@
     <h3>aiLog</h3>
 
     <p>在 <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">这里</a>查看详情。</p>
+
+    [anchor:aiMatrixTransform]
+    <h3>aiMatrixTransform</h3>
+
+    <p>
+        使用变换矩阵对纹理坐标应用变换。这对于在不改变底层几何体的情况下调整纹理的位置、旋转和缩放特别有用。
+    </p>
+
+    <img src="files/materials-maya/ai-matrix-transform.webp" alt="Maya aiMatrixTransform">
 
     [anchor:aiMax]
     <h3>aiMax</h3>
@@ -658,6 +759,16 @@
     [anchor:aiRaySwitch]
     <h3>aiRaySwitch</h3>
 
+    <p>
+        当与 *aiSkyDomeLight* 组合使用时，此节点将分离摄影机背景和环境照明的渲染。连接到 *Camera* 输入的节点树将用于背景，而 *Diffuse Reflection* 将用于环境。
+    </p>
+
+    <img src="files/materials-maya/ai-ray-switch.jpg" alt="Maya aiRaySwitch 着色器">
+
+    <p class="note">
+        此节点设置在Maya视口和Arnold渲染器中均不受支持。请在Verge3D中预览场景以查看效果。
+    </p>
+
     [anchor:aiReciprocal]
     <h3>aiReciprocal</h3>
 
@@ -665,6 +776,12 @@
 
     [anchor:aiShadowMatte]
     <h3>aiShadowMatte</h3>
+
+    <p>
+        在Verge3D中，此节点用于裁切3D对象以及在场景背景上应用彩色半透明阴影。
+    </p>
+
+    <img src="files/materials-maya/ai-shadow-matte-example.webp" alt="aiShadowMatte 着色器节点的使用示例">
 
     [anchor:aiSign]
     <h3>aiSign</h3>
@@ -693,15 +810,67 @@
 
     <p>在 <a href="https://docs.arnoldrenderer.com/display/A5AFMUG/Math+Shaders" target="_blank">这里</a>查看详情。</p>
 
+    [anchor:aiTriplanar]
+    <h3>aiTriplanar</h3>
+
+    <p>
+        通过沿三个不同轴同时投影进行纹理映射。
+    </p>
+
+    <img src="files/materials-maya/ai-triplanar.webp" alt="Maya aiTriplanar 节点">
+
+    <p class="note">
+        此节点的纹理输入仅接受 *aiImage* 节点。
+    </p>
+
+    [anchor:aiTwoSided]
+    <h3>aiTwoSided</h3>
+
+    <p>
+        在几何体的正面渲染 *Front* 输入，背面渲染 *Back* 输入。
+    </p>
+
+    <img src="files/materials-maya/ai-two-sided.webp" alt="Maya中的aiTwoSided节点">
+
+    [anchor:aiUserDataColor]
+    <h3>aiUserDataColor</h3>
+
+    <p>
+        用于在Verge3D中渲染顶点颜色。将颜色集名称指定为 *Attribute* 参数。
+    </p>
+
+    <img src="files/materials-maya/ai-user-data-color.webp" alt="Maya中的aiUserDataColor节点">
+
+    <p>
+        您可以在Maya的 *Color Set Editor* 中找到该名称：
+    </p>
+
+    <img src="files/materials-maya/color-set-editor.webp" alt="Maya中的Color Set Editor" style="max-width: 395px">
+
+    [demo:vertex_colors]
+
+    [anchor:aiUvProjection]
+    <h3>aiUvProjection</h3>
+
+    <p>
+        使用多种投影类型（如平面、球面、柱面、立方体等）控制3D模型上纹理的放置。
+    </p>
+
+    <img src="files/materials-maya/ai-uv-projection.webp" alt="Maya中的aiUvProjection节点">
+
+    <p class="note">
+        此节点的纹理输入仅接受 *aiImage* 节点。
+    </p>
+
 
     [anchor:performance_considerations]
 
-    <h2>性能考虑因素</h2>
-    
-    <p><b>标准表面</b>（或*aiStandardSurface*）是在Maya中创建优质真实渲染的唯一选择，但它会消耗更高的GPU算力，并拖慢应用的加载速度。场景中若有大量材质尤其如此。</p>
+    <h2>Performance Considerations</h2>
+
+    <p>*Standard Surface*（或 *aiStandardSurface*）是在Maya中创建优质真实渲染的唯一选择，但它会消耗更高的GPU算力，并拖慢应用的加载速度。场景中若有大量材质尤其如此。</p>
 
     <p>
-        您可以通过调整 <a href="manual/zh/maya/Lighting-and-Rendering.html#environment_lighting">纹理分辨率</a> 或 <a href="manual/zh/maya/Lighting-and-Rendering.html#global_rendering_settings">IBL环境模式</a> 属性来提高应用性能表现。
+        您可以通过调整 <a href="manual/zh/maya/Lighting-and-Rendering.html#environment_lighting">Texture Resolution</a> 或 <a href="manual/zh/maya/Lighting-and-Rendering.html#global_rendering_settings">IBL Environment Mode</a> 属性来提高应用性能表现。
     </p>
 
     <h2>遇到问题？</h2>

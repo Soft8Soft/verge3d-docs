@@ -35,7 +35,7 @@
       这些节点是对物体表面进行着色计算的所有材质的核心。其中，以下节点在 Verge3D 工作流中使用最多：
     </p>
 
-    <img src="files/shader-nodes-reference-blender/shader-nodes.jpg">
+    <img src="files/shader-nodes-reference-blender/shader-nodes.webp" alt="Verge3D中使用的各种着色器节点">
 
 
 
@@ -47,7 +47,7 @@
       这个通用节点实现了基于物理的渲染模型（又名 PBR）。适合为Verge3D创建大多数材质。
     </p>
 
-    <img src="files/shader-nodes-reference-blender/shader-principled-bsdf.jpg">
+    <img src="files/shader-nodes-reference-blender/shader-principled-bsdf.webp" alt="Blender Principled BSDF节点">
     
     <p>
       通过调整*Principled BSDF*节点中的几个选项，您可以快速设置各种好看的材质。为获得最佳效果，您看以使用提供反射和基于图像照明的 <a href="manual/zh/blender/Shader-Nodes-Reference.html#Environment_Texture">环境纹理</a> ，或者仅使用为已经设置好环境的默认立方体模板。
@@ -346,7 +346,7 @@
 
     [anchor:Fresnel]
 
-    <h3>菲涅耳</h3>
+    <h3>菲涅耳(Fresnel)</h3>
 
     <p>
       此节点计算光的反射与折射的比例。
@@ -371,7 +371,7 @@
     <img src="files/shader-nodes-reference-blender/input-layer-weight.jpg">
     
     <p>
-      请参阅《Blender手册》中关于*Texture Coordinate*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/layer_weight.html" target="_blank">链接</a>。
+      请参阅《Blender手册》中关于*Layer Weight*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/layer_weight.html" target="_blank">链接</a>。
     </p>
 
     
@@ -443,18 +443,35 @@
 
 
 
-    [anchor:Vertex_Color]
+    [anchor:color_attribute]
 
-    <h3>顶点颜色(Vertex Color)</h3>
+    <h3>颜色属性(Color Attribute)</h3>
 
     <p>
-      此节点提供顶点颜色值。
+      此节点为着色器提供顶点颜色值。
     </p>
 
-    <img src="files/shader-nodes-reference-blender/input-vertex-color.jpg">
-    
+    <img src="files/shader-nodes-reference-blender/input-color-attribute.webp" alt="Blender颜色属性节点">
+
+    [demo:vertex_colors]
+
     <p>
-      请参阅《Blender手册》中关于*Vertex Color*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/vertex_color.html" target="_blank">链接</a>。
+      请参阅《Blender手册》中关于*Color Attribute*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/vertex_color.html" target="_blank">链接</a>。
+    </p>
+
+
+    [anchor:object_info]
+
+    <h3>Object Info</h3>
+
+    <p>
+      此节点将各种对象参数传递给着色器。
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/input-object-info.jpg" alt="Blender Object Info节点">
+
+    <p>
+      请参阅《Blender手册》中关于*Object Info*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/input/object_info.html" target="_blank">链接</a>。
     </p>
 
 
@@ -496,18 +513,37 @@
       此节点提供了一个图像文件，作为着色器中的纹理。
     </p>
     
-    <img src="files/shader-nodes-reference-blender/texture-image-texture.jpg">
+    <img src="files/shader-nodes-reference-blender/texture-image-texture.webp" alt="Blender图像纹理节点">
     
-    <p class="note">
-      注意：有些选项是部分支持的</br>
-      - 插值模式：*线性*, *最接近*</br>
-      - 图像源：*Single Image*, *Generated*</br>
-      - color space: *线性*，*sRGB*。</br>
+    <p>
+      部分选项仅部分支持：
     </p>
+
+    <ul>
+      <li>插值模式：仅支持*Linear*、*Closest*</li>
+      <li>图像源：仅支持*Single Image*、*Generated*</li>
+      <li>色彩空间：仅支持*sRGB*、*Non-Color*和*Linear Rec.709*</li>
+    </ul>
 
     <p>
     请参阅《Blender手册》中关于*Image Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/image.html" target="_blank">链接</a>。
     </p>
+
+    <h4>Verge3D设置</h4>
+
+    <p>
+      您可以在图像纹理上分配自定义的Verge3D设置：
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/texture-image-texture-ext.jpg" alt="带有自定义Blender设置的WebP纹理" style="max-width: 600px">
+
+    <dl>
+      <dt>*Anisotropic Filtering* - 各向异性过滤</dt>
+      <dd>应用于纹理的各向异性过滤比率。各向异性过滤是一种提高在倾斜视角（如地面、墙壁、家具、包装盒等）下纹理表面质量的技术。更高的值提供更好的质量，但会略微降低渲染性能。</dd>
+
+      <dt>*Texture Compression* - 纹理压缩</dt>
+      <dd>纹理压缩方法。查看<a href="manual/zh/introduction/Texture-Compression.html#tweaking_compression">纹理压缩</a>章节了解更多信息。</dd>
+    </dl>
 
 
 
@@ -565,6 +601,22 @@
       请参阅《Blender手册》中关于*Noise Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/noise.html" target="_blank">链接</a>。
     </p>
 
+    <h4>Verge3D设置</h4>
+
+    <p>
+      您可以在噪波纹理上分配自定义的Verge3D设置：
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/texture-noise-texture-ext.jpg" alt="带有自定义设置的噪波节点" style="max-width: 600px">
+
+    <dl>
+      <dt>*Falloff Factor* - 衰减系数</dt>
+      <dd>噪波随距离和锐角的衰减程度。指定某个 <strong>&gt;0</strong> 的值以减轻噪波锯齿伪影。</dd>
+
+      <dt>*Strength Factor* - 强度系数</dt>
+      <dd>噪波强度因子。指定 <strong>&lt;1</strong> 的值以降低噪波强度。</dd>
+    </dl>
+
 
 
     [anchor:Wave_Texture]
@@ -607,7 +659,7 @@
     <img src="files/shader-nodes-reference-blender/color-bright-contrast.jpg">
     
     <p>
-      请参阅《Blender手册》中关于“Bright/Contrast*”节点的更多信息： 
+      请参阅《Blender手册》中关于*Bright/Contrast*节点的更多信息： 
       <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/bright_contrast.html" target="_blank">链接</a>。
     </p>
 
@@ -689,7 +741,7 @@
     <img src="files/shader-nodes-reference-blender/color-gamma.jpg">
         
     <p>
-      请参阅《Blender手册》中关于*GAMMA*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/gamma.html" target="_blank">链接</a>。
+      请参阅《Blender手册》中关于*Gamma*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/color/gamma.html" target="_blank">链接</a>。
     </p>
 
 
@@ -767,7 +819,7 @@
     <img src="files/shader-nodes-reference-blender/vector-normal-map.jpg">
     
     <p class="note">
-      注意：只支持*切向空间*。</br>
+      注意：只支持*Tangent Space*。</br>
     </p>
 
     <p>
@@ -843,9 +895,8 @@
     <h3>钳制(Clamp)</h3>
 
     <p>
-      该节点将输入值约束在指定范围内。<
-        /p>
-    
+      该节点将输入值约束在指定范围内。
+    </p>
     <img src="files/shader-nodes-reference-blender/converter-clamp.jpg">
     
     <p class="note">
@@ -872,7 +923,7 @@
     <p class="note">
       注意：有些选项是部分支持的</br>
       - 颜色模式：只支持*RGB*</br>
-      - 插值: *线性*，*常值*。</br>
+      - 插值: *Linear*，*Constant*。</br>
     </p>    
 
     <p>
@@ -892,7 +943,7 @@
     <img src="files/shader-nodes-reference-blender/converter-map-range.jpg">
     
     <p class="note">
-      注意：只支持*线性*插值。</br>
+      注意：只支持*Linear*插值。</br>
     </p>
 
     <p>
@@ -1024,6 +1075,198 @@
 
 
 
+    [anchor:script_node]
+
+    <h2>脚本节点</h2>
+
+    <p>
+      此节点允许在材质中使用以OSL编写的自定义着色器。
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/script.webp" alt="Blender脚本着色器节点" style="max-width: 500px">
+
+    <p>
+      例如，要绘制数字材质：
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/script-example-render.webp" alt="绘制数字的OSL着色器节点">
+
+    <p>
+      您可以使用以下节点设置：
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/script-example.webp" alt="Blender中的OSL着色器节点设置">
+
+    <p>
+      此示例展示了OSL着色器的强大功能。您可以在运行时中更改或设置所有参数（*UVW*、*Number*、*Digits*、*Decimals*、*Scale*、*BGColor*、*OnColor*、*OffColor*、*UseOffColor*）的动画！<strong>digits.osl</strong> 着色器如下：
+    </p>
+
+    <code style="max-width: 1000px; max-height:600px" contenteditable>
+    // A shader that emulates a 7-segment numerical display
+    // Digits.osl by Zap Andersson
+    // Modified: 2019-11-25
+    // Copyright 2019 Autodesk Inc, All rights reserved. This file is licensed under Apache 2.0 license
+    //    https://github.com/ADN-DevTech/3dsMax-OSL-Shaders/blob/master/LICENSE.txt
+
+    int inBit(vector pt, point start, point end)
+    {
+        if (pt[0] > start[0] && pt[0] < end[0] &&
+            pt[1] > start[1] && pt[1] < end[1])
+            return 1;
+
+        return 0;
+    }
+
+    int inDigit(vector in, int digit, int dp, int ms)
+    {
+        vector pt = in;
+        pt -= point(0.5, 0.2, 0.0);
+        pt *= 2.5;
+        pt += point(0.5, 0.2, 0.0);
+
+        if (ms && inBit(pt, point(-0.9, 0.9, 0.0), point(-0.2, 1.1, 0.0)))
+            return 1;
+
+        if (pt[0] < -0.1 || pt[1] < -0.1 || pt[0] > 1.3 || pt[1] > 2.1)
+            return -1;
+
+        if (dp && inBit(pt, point(1.15, -0.1, 0.0), point(1.3, 0.1, 0))) {
+            return 1;
+        }
+
+        if (inBit(pt, point(0.1, -0.1, 0.0), point(0.9, 0.1, 0.0))) {
+            if (digit == 2 || digit == 3 || digit == 5 || digit == 6
+                || digit == 8 || digit == 9 || digit == 0)
+                return 1;
+            else
+                return 0;
+        }
+
+        if (inBit(pt, point(0.1, 0.9, 0.0), point(0.9, 1.1, 0.0))) {
+            if (digit == 2 || digit == 3 || digit == 4 || digit == 5
+                || digit == 6 || digit == 8 || digit == 9)
+                return 1;
+            else
+                return 0;
+        }
+
+        if (inBit(pt, point(0.1, 1.9, 0.0), point(0.9, 2.1, 0.0))) {
+            if (digit == 2 || digit == 3 || digit == 5 || digit == 6
+                || digit == 7 || digit == 8 || digit == 9 || digit == 0)
+                return 1;
+            else
+                return 0;
+        }
+
+        if (inBit(pt, point(-0.1, 0.1, 0.0), point(0.1, 0.9, 0.0))) {
+            if (digit == 2 || digit == 6 || digit == 8 || digit == 0)
+                return 1;
+            else
+                return 0;
+        }
+
+        if (inBit(pt, point(-0.1, 1.1, 0.0), point(0.1, 1.9, 0.0))) {
+            if (digit == 4 || digit == 5 || digit == 6 || digit == 8
+                || digit == 9 || digit == 0)
+                return 1;
+            else
+                return 0;
+        }
+
+        if (inBit(pt, point(0.9, 0.1, 0.0), point(1.1, 0.9, 0.0))) {
+            if (digit == 1 || digit == 3 || digit == 4 || digit == 5
+                || digit == 6 || digit == 7 || digit == 8 || digit == 9
+                || digit == 0)
+                return 1;
+            else
+                return 0;
+        }
+
+        if (inBit(pt, point(0.9, 1.1, 0.0), point(1.1, 1.9, 0.0))) {
+            if (digit == 1 || digit == 2 || digit == 3 || digit == 4
+                || digit == 7 || digit == 8 || digit == 9 || digit == 0)
+                return 1;
+            else
+                return 0;
+        }
+
+        return -1;
+    }
+
+    shader Digits
+        [[string help =
+          "A shader that emulates a 7-Segment display of numbers.<br/>Useful for debugging and showing numbers in SME",
+          string category = "Textures"]]
+        (vector UVW = vector(u, v, 0),
+         float Number = 42,
+         int Digits = 2[[int min = 2, int max = 8]],
+         int Decimals = 0[[int min = 0, int max = 6]],
+         float Scale = 1.0,
+         color BGColor = 0.0,
+         color OnColor = color(1, 0, 0),
+         color OffColor = color(0.1, 0.0, 0.0),
+         int UseOffColor = 1
+         [[string widget = "checkBox", string label = "Use OffColor"]],
+         output color Out = BGColor,
+         output float Fac = 0.0,
+         output float NumberOut = Number[[string label = "Number"]]
+        ) {
+        int mult[9] =
+            { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000 };
+
+        point px = UVW / Scale;
+
+        int number = int (Number * mult[Decimals]);
+
+        int minus = 0;
+        if (number < 0) {
+            number = -number;
+            minus = 1;
+        }
+
+        int digits = Digits;
+        // Figure out how many digits we need
+        int leftOfDecimalPoint = (int (floor(log(fabs(Number), 10.0)))) +1;
+        // ...but at least one
+        if (leftOfDecimalPoint <= 0)
+            leftOfDecimalPoint = 1;
+
+        int maxdigi = leftOfDecimalPoint + Decimals;
+
+        if (maxdigi > digits)
+            digits = maxdigi;
+
+        if (px[0] > 0 && px[0] < 1 && px[1] > 0 && px[1] < 1) {
+            px -= point(0.9, 0.5, 0.0);
+            px *= (digits * 0.8);
+            px += point(0.9, 0.5, 0.0);
+
+            for (int i = 0; i < digits; i++) {
+                int x = inDigit(px, int (number) % 10, Decimals == i, minus
+                                && i == digits - 1);
+
+                if (x == 0 && UseOffColor) {
+                    Out = OffColor;
+                    Fac = 1.0;
+                }
+                if (x == 1) {
+                    Out = OnColor;
+                    Fac = 1.0;
+                }
+
+                number /= 10;
+
+                px += point(0.6, 0.0, 0.0);
+            }
+        }
+    }
+    </code>
+
+    <p class="note">
+      *Script*节点不被Blender Eevee支持，您应该使用Blender Cycles或Verge3D来预览它。
+    </p>
+
+
     [anchor:World_Specific_Nodes]
 
     <h2>世界专属节点(World-Specific Nodes)</h2>
@@ -1086,9 +1329,9 @@
     
     <p class="note">
       注意：有些选项仅部分支持</br> 
-      - 插值模式：*线性*, *最接近*<b></br> </b> 
-      - 图像源：*Single Image*, *Generated*</br>
-      - color space: *线性*，*sRGB*。</br>
+      - 插值模式：仅支持*Linear*、*Closest*</br>
+      - 图像源：仅支持*Single Image*、*Generated*</br>
+      - 色彩空间：仅支持*sRGB*、*Non-Color*和*Linear Rec.709*</br>
     </p>
 
     <p>
@@ -1100,6 +1343,19 @@
     <p>
     请看Blender手册中关于*Environment Texture*节点的更多信息： <a href="https://docs.blender.org/manual/zh-hans/latest/render/shader_nodes/textures/environment.html" target="_blank">链接</a>。
     </p>
+
+    <h4>Verge3D设置</h4>
+
+    <p>
+      您可以在环境纹理上分配自定义的Verge3D设置：
+    </p>
+
+    <img src="files/shader-nodes-reference-blender/world-environment-ext.jpg" alt="带有自定义设置的环境节点" style="max-width: 650px">
+
+    <dl>
+      <dt>*Texture Compression* - 纹理压缩</dt>
+      <dd>纹理压缩方法。查看<a href="manual/zh/introduction/Texture-Compression.html#tweaking_compression">纹理压缩</a>章节了解更多信息。</dd>
+    </dl>
 
 
 
@@ -1168,7 +1424,7 @@
       <li>切换到 <a href="manual/zh/blender/GLTF-Materials.html">glTF 2.0模式</a>。</li>
     </ul>
 
-    <p class="note">请记住，后两种方法会使您的材质看起来与Blender视窗中不同。</a></p>
+    <p class="note">请记住，后两种方法会使您的材质看起来与Blender视口中不同。</p>
 
     [anchor:slow_procedural_textures]
 

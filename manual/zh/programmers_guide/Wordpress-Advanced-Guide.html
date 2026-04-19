@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <title>WordPress 高级指南 — Soft8Soft</title>
+  <meta charset="utf-8">
+  <meta name="description" content="如何在后台发送表单和订单，以及通过 JavaScript 自定义 Verge3D for WordPress 插件。">
+  <base href="../../../">
+  <script src="page.js"></script>
+  <link type="text/css" rel="stylesheet" href="page.css">
+</head>
+<body><article>
+  <h1>WordPress 高级指南</h1>
+
+  <p>
+    本指南包含有关如何在 WordPress 中使用 Verge3D 的更多深入主题。介绍了如何在后台发送订单和表单以及如何自定义插件。您还可以在此处找到正式的电子商务协议规范。有关基础主题，请参阅用户手册中的 <a href="manual/zh/introduction/Wordpress-Plugin.html">WordPress 插件</a> 章节。
+  </p>
+
+  <h2>目录</h2>
+
+  [contents]
+
+
+  [anchor:receiving_orders_rest_api]
+
+  <h2>通过 REST API 在后台接收订单</h2>
+
+  <p>在某些情况下，您可能希望创建自定义的下单体验，而不是将用户重定向到订单页面。</p>
+
+  <p>假设您想创建一个基本的桌子定制器。您的数据可能如下所示：</p>
+
+  <code>
+  {
+      "user_name": "张三",
+      "user_email": "zhangsan@example.com",
+      "user_phone": "+8613800138000"
+      "items": [
+          {
+              "sku": "table_top_white",
+              "quantity": 1
+          },
+          {
+              "sku": "table_leg_brown",
+              "quantity": 4
+          },
+      ]
+  }</code>
+
+  <p>
+    您可以通过以下两种方式基于这些数据下单：
+  </p>
+
+  <ol>
+    <li>使用带有常规表单数据的 POST 请求（版本 v1）</li>
+    <li>使用带有 JSON 的 POST 请求（版本 v2）</li>
+  </ol>
+
+
+  [anchor:place_order_form_data]
+
+  <h3>使用表单数据提交订单</h3>
+
+  <p>
+    为此，您可以编写一个包含上述字段的 HTML 表单，然后直接提交或通过 <a href="manual/zh/puzzles/Advanced.html#send_data">发送数据</a> 拼图提交到以下地址：
+  </p>
+
+  <code class="lang-html">https://WP_HOST/wp-json/verge3d/v1/place_order/</code>
+
+  <p>其中 WP_HOST 是您的 WordPress 服务器主机名，例如 <em>sandbox.soft8soft.com</em></p>
+
+  <p>
+    使用拼图时，需要用户输入的表单字段（即 "user_name"、"user_email"、"user_phone"）可以按如下方式创建：
+  </p>
+
+  <img src="files/wordpress-advanced/order-form-text-inputs.webp" alt="指定订单表单文本项">
+
+  <p>
+    而带有产品 SKU 的订单项可以通过隐藏表单输入来组成：
+  </p>
+
+  <img src="files/wordpress-advanced/order-form-hidden-inputs.webp" alt="指定订单表单隐藏项">
+
+  <p>
+    可以在不重新加载整个页面的情况下提交表单，如下所示：
+  </p>
+
+  <img src="files/wordpress-advanced/order-form-submit.webp" alt="使用拼图发送表单数据">
+
+
+  [anchor:place_order_json]
+
+  <h3>使用 JSON 提交订单</h3>
+
+  <p>
+    您可以通过创建 JavaScript 对象来组合此结构，然后通过 JavaScript fetch() 调用将其发送到服务器，但使用 <a href="manual/zh/puzzles/Dictionaries.html">字典</a> 配合 <a href="manual/zh/puzzles/Advanced.html#send_data">发送数据</a> 拼图可能更方便。
+  </p>
+
+  <p>以 JSON 格式提交订单的 URL 地址为：</p>
+
+  <code class="lang-html">https://WP_HOST/wp-json/verge3d/v2/place_order/</code>
+
+  <p>其中 WP_HOST 是您的 WordPress 服务器主机名，例如 <em>sandbox.soft8soft.com</em></p>
+
+  <p>
+    例如，使用以下拼图来组合上面指定的订单：
+  </p>
+
+  <img src="files/wordpress-advanced/order-json-submit.webp" alt="使用拼图发送 JSON">
+
+  <p>
+    电子商务选项卡中的 <a href="manual/zh/puzzles/ECommerce.html#order_item">订单项</a> 拼图可以在组合订单项时为您节省一些时间。
+  </p>
+
+
+  [anchor:sending_forms]
+
+  <h2>将表单发送到电子邮件</h2>
+
+  <p>
+    Verge3D for WordPress 提供了一项功能，允许您将自定义 HTML 表单获取的数据发送到管理设置中指定的电子邮件地址。例如，您可以使用此功能接收产品或服务的咨询或支持问题、实现预订、获取客户联系信息等。
+  </p>
+
+  <p>提交自定义表单的 URL 地址为：</p>
+
+  <code class="lang-html">https://WP_HOST/wp-json/verge3d/v1/send_form/</code>
+
+  <p>其中 WP_HOST 是您的 WordPress 服务器主机名，例如 <em>sandbox.soft8soft.com</em>。</p>
+
+  <p>
+    表单本身可以使用 HTML/CSS、拼图或网站构建器（如 Webflow）来实现。有关创建基于 HTML 的用户界面的更多信息，请参见<a href="manual/zh/introduction/HTML-based-user-interfaces.html">此处</a>。表单提交可以直接通过点击"提交"按钮进行，也可以通过 JavaScript/拼图间接进行（以避免页面重新加载）。
+  </p>
+
+  <p>
+    例如，使用拼图，您可以像这样在不重新加载页面的情况下发送表单（实际表单构建未显示）：
+  </p>
+
+  <img src="files/wordpress-advanced/send-form-custom.webp" alt="使用拼图发送自定义表单">
+
+  <p>
+    <a href="manual/zh/puzzles/Library.html#inquiry_form">咨询表单</a>库可以大大简化操作。以它作为您自己表单解决方案的基础。
+  </p>
+
+  <img src="files/puzzles/puzzles-library-inquiry-form-look.webp" alt="咨询表单外观">
+
+
+  [anchor:customizing_ecommerce_forms]
+
+  <h2>自定义电子商务表单</h2>
+
+  <p>要修改电子商务表单，请将 Verge3D 插件 <em>templates</em> 目录中的表单模板复制到您 WordPress 主题目录下的 <em>verge3d</em> 子目录中。</p>
+
+  <p>例如，如果您需要修改订单电子邮件模板：</p>
+
+  <code class="lang-html">WORDPRESS/wp-content/plugins/verge3d/templates/order_email_body.php → THEME/verge3d</code>
+
+  <p>其中 WORDPRESS 是您 WordPress 安装的根目录，THEME 是您当前主题的目录。</p>
+
+  <p>以下是您可以自定义的模板列表：</p>
+
+  <table>
+    <tr>
+      <th>模板文件</th>
+      <th>描述</th>
+    </tr>
+    <tr>
+      <td>order_email_body.php</td>
+      <td>订单电子邮件正文模板。此模板用于发送给您和您的客户的订单通知。</td>
+    </tr>
+    <tr>
+      <td>order_pdf.php</td>
+      <td>订单电子邮件 PDF 附件模板。此模板用于生成将转换为 PDF 并附加到订单电子邮件中的 HTML 文件（例如报价单和发票）。</td>
+    </tr>
+    <tr>
+      <td>order_form.php</td>
+      <td>订单表单模板。此表单显示在包含 <strong>[verge3d_order]</strong> 简码的页面上。</td>
+    </tr>
+    <tr>
+      <td>order_success.php</td>
+      <td>订单被接受时显示的消息。</td>
+    </tr>
+    <tr>
+      <td>order_failed.php</td>
+      <td>订单被拒绝时显示的消息。</td>
+    </tr>
+    <tr>
+      <td>payment_paypal.php</td>
+      <td>PayPal 支付处理页面。</td>
+    </tr>
+    <tr>
+      <td>send_form_email_body.php</td>
+      <td>通过 REST API 生成的表单的电子邮件模板。</td>
+    </tr>
+  </table>
+
+  <h3>安全措施</h3>
+
+  <p>
+    在为电子商务应用使用自定义表单时，请确保正确转义客户发送的输出数据。请参阅以下<a href="https://developer.wordpress.org/apis/security/escaping/" target="_blank">指南</a>获取更多信息。
+  </p>
+
+
+  [anchor:ecommerce_protocol_specification]
+
+  <h2>电子商务协议规范</h2>
+
+  <p>
+    <strong>下订单</strong>和<strong>下订单 +</strong> 拼图使用以下协议来处理订单。订单从浏览器使用 HTTP POST 请求发送到服务器，包含以下参数：
+  </p>
+
+  <table>
+    <tr>
+      <th>POST 参数</th>
+      <th>描述</th>
+    </tr>
+    <tr>
+      <td>v3d_items</td>
+      <td>订单项。一个 JSON 编码的订单项数组。</td>
+    </tr>
+    <tr>
+      <td>v3d_attachments[]</td>
+      <td>订单附件。此可选值必须是表示订单附件的 [link:manual/zh/puzzles/HTML.html#data_url Data URL] 数组。
+    </tr>
+  </table>
+
+  <p>
+    订单项具有以下格式之一，具体取决于您使用的拼图。对于<strong>下订单</strong>：
+  </p>
+
+  <table>
+    <tr>
+      <th>字段</th>
+      <th>描述</th>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>订单项标题。</td>
+    </tr>
+    <tr>
+      <td>price</td>
+      <td>订单项价格。</td>
+    </tr>
+    <tr>
+      <td>quantity</td>
+      <td>订单项数量：单位数、重量、长度等。</td>
+    </tr>
+  </table>
+
+  <p>
+    对于<strong>下订单 +</strong>：
+  </p>
+
+  <table>
+    <tr>
+      <th>字段</th>
+      <th>描述</th>
+    </tr>
+    <tr>
+      <td>sku</td>
+      <td>订单项 SKU（库存量单位）。此 SKU 用作 ID 从服务器检索产品信息。</td>
+    </tr>
+    <tr>
+      <td>quantity</td>
+      <td>订单项数量：单位数、重量、长度等。</td>
+    </tr>
+  </table>
+
+  <p>基于 REST API 的更高级协议使用以下参数集：</p>
+
+  <table>
+    <tr>
+      <th>JSON 字段</th>
+      <th>描述</th>
+    </tr>
+    <tr>
+      <td>user_name</td>
+      <td>客户全名（也用作账单姓名）。</td>
+    </tr>
+    <tr>
+      <td>user_email</td>
+      <td>客户电子邮件地址。</td>
+    </tr>
+    <tr>
+      <td>user_phone</td>
+      <td>客户电话号码。</td>
+    </tr>
+    <tr>
+      <td>user_comment</td>
+      <td>可选的订单备注。</td>
+    </tr>
+    <tr>
+      <td>items</td>
+      <td>订单项。一个包含订单项的数组。</td>
+    </tr>
+    <tr>
+      <td>attachments</td>
+      <td>订单附件。此可选值必须是表示订单附件的 [link:manual/zh/puzzles/HTML.html#data_url Data URL] 数组。
+    </tr>
+    <tr>
+      <td>user_address1</td>
+      <td>账单地址 — 第 1 行。要使用此字段，请在 *常规* 选项卡上激活 *账单地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>user_address2</td>
+      <td>账单地址 — 第 2 行。要使用此字段，请在 *常规* 选项卡上激活 *账单地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>user_city</td>
+      <td>账单地址 — 城市。要使用此字段，请在 *常规* 选项卡上激活 *账单地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>user_state</td>
+      <td>账单地址 — 州、县或省。要使用此字段，请在 *常规* 选项卡上激活 *账单地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>user_country</td>
+      <td>账单地址 — 国家。要使用此字段，请在 *常规* 选项卡上激活 *账单地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>user_postcode</td>
+      <td>账单地址 — 邮政编码。要使用此字段，请在 *常规* 选项卡上激活 *账单地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>shipping_address1</td>
+      <td>配送地址 — 第 1 行。要使用此字段，请在 *常规* 选项卡上激活 *配送地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>shipping_address2</td>
+      <td>配送地址 — 第 2 行。要使用此字段，请在 *常规* 选项卡上激活 *配送地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>shipping_city</td>
+      <td>配送地址 — 城市。要使用此字段，请在 *常规* 选项卡上激活 *配送地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>shipping_state</td>
+      <td>配送地址 — 州、县或省。要使用此字段，请在 *常规* 选项卡上激活 *配送地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>shipping_country</td>
+      <td>配送地址 — 国家。要使用此字段，请在 *常规* 选项卡上激活 *配送地址* 选项。</td>
+    </tr>
+    <tr>
+      <td>shipping_postcode</td>
+      <td>配送地址 — 邮政编码。要使用此字段，请在 *常规* 选项卡上激活 *配送地址* 选项。</td>
+    </tr>
+  </table>
+
+
+  <h2>有问题？</h2>
+
+  <p>欢迎在<a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！</p>
+
+
+</article></body>
+</html>

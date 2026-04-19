@@ -21,7 +21,7 @@
     <img src="files/shadows-maya/shadows-example.jpg" class="with-caption" style="max-width: 577px">
 
     <p class="note">
-        Verge3D支持平行光、点光源，聚光灯和区域光的阴影。
+        Verge3D支持 Directional、Point、Spot 和 Area 灯光的阴影。
     </p>
 
 
@@ -39,10 +39,10 @@
 
         <ul>
             <li>
-                <b>照明</b> -> <b>使用全部灯光</b>
+                *Lighting* → *Use All Lights*
             </li>
             <li>
-                <b>照明</b> -> <b>阴影</b>
+                *Lighting* → *Shadows*
             </li>
         </ul>
         
@@ -57,14 +57,14 @@
 
         <h2>阴影过滤类型</h2>
 
-        <p>使用不同的阴影图过滤算法，会在Verge3D场景生成明显差异的阴影。位于<b>Verge3D导出设置</b>面板上的<b>阴影过<b>滤</b>(Shadow filtering)</b>属性是用来指定该算法的。</p>
+        <p>使用不同的阴影图过滤算法，会在Verge3D场景生成明显差异的阴影。位于 *Verge3D Export Settings* 面板上的 *Shadow Filtering* 属性是用来指定该算法的。</p>
 
         <img src="files/shadows-maya/shadow-filtering-settings.jpg" style="max-width: 413px">
 
 
         [anchor:shadow_filtering_basic]
 
-        <h3>Basic - 基本</h3>
+        <h3>Basic</h3>
 
         <p>禁用过滤，按原样渲染阴影贴图。这是渲染阴影的最快的方法。</p>
         
@@ -73,7 +73,7 @@
 
         [anchor:shadow_filtering_bilinear]
 
-        <h3>Bilinear - 双线性</h3>
+        <h3>Bilinear</h3>
 
         <p>使用双线性滤波平滑相邻阴影贴图像素。</p>
         
@@ -84,14 +84,14 @@
 
         <h3>PCF</h3>
 
-        <p>Percentage Closer Filtering，代表 “百分比近距离过滤”。使用多个阴影贴图查询以实现平滑的阴影渲染。质量和性能一般。</p>
+        <p>Percentage Closer Filtering，代表 "百分比近距离过滤"。使用多个阴影贴图查询以实现平滑的阴影渲染。质量和性能一般。</p>
         
         <img src="files/shadows-blender/shadow-filtering-pcf.jpg">
 
 
         [anchor:shadow_filtering_pcf_bilinear]
 
-        <h3>PCF (Bilinear) - 双线性PCF</h3>
+        <h3>PCF (Bilinear)</h3>
 
         <p>与PCF类似，但对每个阴影贴图查询使用双线性插值。在牺牲更多计算能力的情况下提供平滑的阴影。</p>
         
@@ -100,9 +100,9 @@
 
         [anchor:shadow_filtering_pcf_poisson_disk]
 
-        <h3>PCF (Poisson Disk) - 泊松碟采样PCF</h3>
+        <h3>PCF (Poisson Disk)</h3>
 
-        <p>使用伪随机 <em>泊松碟</em> 采样来消除PCF阴影的像素化。这被作为默认设置，因为它最符合您在3D编辑器视口中看到的效果。其性能与<b>双线性PCF</b>算法相当或更好。</p>
+        <p>使用伪随机 <em>泊松碟</em> 采样来消除PCF阴影的像素化。这被作为默认设置，因为它最符合您在3D编辑器视口中看到的效果。其性能与*PCF (Bilinear)*算法相当或更好。</p>
         
         <img src="files/shadows-blender/shadow-filtering-pcf-poisson-disk.jpg">
 
@@ -114,8 +114,8 @@
         <p>
             Exponential Shadow Maps，代表指数阴影贴图。
             阴影是最平滑的，但有可能出现漏光。
-            在灯光上使用 <a href="manual/zh/maya/Shadows.html#esm-bias">ESM偏移</a> 设置来消除漏光伪影。
-            其性能与<b>双线性PCF</b>算法相当。
+            在灯光上使用 <a href="manual/zh/maya/Shadows.html#esm-bias">ESM Bias</a> 设置来消除漏光伪影。
+            其性能与*PCF (Bilinear)*算法相当。
             ESM阴影的设置可能特别棘手，因此请参见 
             <a href="manual/zh/maya/Shadows.html#troubleshooting">故障排除</a> 
             章节中的ESM相关问题。
@@ -133,7 +133,7 @@
             阴影，因为它们具有良好的质量和性能。如果您需要质量较低但速度更快的阴影，请尝试 
             <a href="manual/zh/maya/Shadows.html#shadow_filtering_basic">基础</a>
             或 
-            <a href="manual/zh/maya/Shadows.html#shadow_filtering_bilinear">双线性</a> 。
+            <a href="manual/zh/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a> 。
             如果您需要更好的质量、更柔和的阴影，
             可以尝试 
             <a href="manual/zh/maya/Shadows.html#shadow_filtering_esm">ESM</a> ，
@@ -152,10 +152,10 @@
         <img src="files/shadows-maya/shadow-settings-global.jpg" style="max-width: 431px">
 
         <dl>
-            <dt>阴影过滤</dt>
+            <dt>Shadow Filtering</dt>
             <dd>阴影贴图过滤算法。见 <a href="manual/zh/maya/Shadows.html#shadow_filtering">上文</a>。</dd>
 
-            <dt id="esm-distance-scale">ESM距离比例(ESM Distance Scale)</dt>
+            <dt id="esm-distance-scale">ESM Distance Scale</dt>
             <dd>
                 ESM阴影的缩放系数。
                 由于ESM过滤算法使用的是绝对距离值，
@@ -178,25 +178,24 @@
         <img src="files/shadows-maya/shadow-settings-perlight.jpg" class="with-caption" style="max-width: 616px">
 
         <dl>
-            <dt id="use-depth-map-shadows">使用深度贴图阴影</dt>
+            <dt id="use-depth-map-shadows">Use Depth Map Shadows</dt>
             <dd>
                 必须启用，阴影才会出现在Verge3D中。
             </dd>
-            <dt id="resolution">分辨率</dt>
+            <dt id="resolution">Resolution</dt>
             <dd>
-                控制阴影纹理的大小（在速度和质量之间
-                进行平衡）。
+                控制阴影纹理的大小（在速度和质量之间进行平衡）。
             </dd>
-            <dt id="filter-size">过滤器大小</dt>
+            <dt id="filter-size">Filter Size</dt>
             <dd>
                 控制阴影的模糊度比例。
             </dd>
-            <dt id="bias">偏移(Bias)</dt>
+            <dt id="bias">Bias</dt>
             <dd>
                 可以调节以消除自阴影伪影及"peter-panning"效果。
                 <b>注：</b>Peter Panning这个词的名字来源于童话人物彼得潘（他的影子与身体分离并且可以飞翔），此伪影使对象看起来像是悬浮在地表。
             </dd>
-            <dt id="esm-bias">ESM偏移(ESM Bias)</dt>
+            <dt id="esm-bias">ESM Bias</dt>
             <dd>
                 调整此偏移以减少ESM的 <em>漏光</em> 伪影。
                 只对 
@@ -217,9 +216,9 @@
         <img src="files/shadows-maya/shadow-settings-perobject.jpg" style="max-width: 422px">
 
         <dl>
-            <dt id="casts-shadows">投射阴影</dt>
+            <dt id="casts-shadows">Casts Shadows</dt>
             <dd>启用/禁用此对象的阴影投射。</dd>
-            <dt>接收阴影(Rceive Shadows)</dt>
+            <dt>Receive Shadows</dt>
             <dd>启用/禁用此对象的阴影接收。</dd>
         </dl>
         
@@ -253,7 +252,7 @@
         <h3>阴影看起来太像素化了</h3>
         <ul>
             <li>
-                使用较高 <a href="manual/zh/maya/Shadows.html#resolution">分辨率</a> 
+                使用较高 <a href="manual/zh/maya/Shadows.html#resolution">Resolution</a> 
                 值。
             </li>
             <li>
@@ -263,7 +262,7 @@
                 和 
                 <a href="manual/zh/maya/Shadows.html#shadow_filtering_esm">ESM</a>
                 这样的阴影过滤技术以及适当调整的 
-                <a href="manual/zh/maya/Shadows.html#filter-size">过滤尺寸</a>
+                <a href="manual/zh/maya/Shadows.html#filter-size">Filter Size</a>
                 可以使像素化不那么突出。
                 </li>
         </ul>
@@ -272,12 +271,12 @@
         <ul>
             <li>
                 要在Verge3D中启用阴影，
-                <a href="manual/zh/maya/Shadows.html#use-depth-map-shadows">使用深度贴图阴影</a>
+                <a href="manual/zh/maya/Shadows.html#use-depth-map-shadows">Use Depth Map Shadows</a>
                 选项必须开启。
             </li>
             <li>
                 非常高的
-                <a href="manual/zh/maya/Shadows.html#bias">偏移</a>
+                <a href="manual/zh/maya/Shadows.html#bias">Bias</a>
                 值，可能可能会部分或完全删除阴影。如果情况如此，请尝试降低这些数值。
             </li>
         </ul>
@@ -286,8 +285,8 @@
         <img src="files/shadows-blender/self-shadow-artifacts.jpg" style="max-width: 485px">
         <ul>
             <li>
-                这种伪影被称为“<b>阴影失真(shadow acne)</b>”或“<b>自影伪影(self-shadow artifacts)</b>”。可通过增加 
-                <a href="manual/zh/maya/Shadows.html#bias">偏移</a> 
+                这种伪影被称为"<b>shadow acne</b>"或"<b>self-shadow artifacts</b>"。可通过增加
+                <a href="manual/zh/maya/Shadows.html#bias">Bias</a> 
                 值来消除。
             </li>
         </ul>
@@ -295,14 +294,14 @@
         <h3>阴影没有半影区或半影区很小</h3>
         <ul>
             <li>
-                在 <a href="manual/zh/maya/Shadows.html#shadow_filtering_basic">基本</a> 
+                在 <a href="manual/zh/maya/Shadows.html#shadow_filtering_basic">Basic</a> 
                 和 
-                <a href="manual/zh/maya/Shadows.html#shadow_filtering_bilinear">双线性</a> 
+                <a href="manual/zh/maya/Shadows.html#shadow_filtering_bilinear">Bilinear</a> 
                 类型中没有半影控制。请选择其他的 
-                <a href="manual/zh/maya/Shadows.html#shadow_filtering">阴影过滤类型</a> 。
+                <a href="manual/zh/maya/Shadows.html#shadow_filtering">shadow filtering types</a> 。
                 </li>
             <li>
-                增加 <a href="manual/zh/maya/Shadows.html#filter-size">过滤器大小</a>。
+                增加 <a href="manual/zh/maya/Shadows.html#filter-size">Filter Size</a>。
             </li>
         </ul>
 
@@ -310,11 +309,11 @@
         <img src="files/shadows-blender/esm-artifacts-light-leaking.jpg" style="max-width: 500px">
         <ul>
             <li>
-                增加 <a href="manual/zh/maya/Shadows.html#esm-bias">ESM偏移</a> 
+                增加 <a href="manual/zh/maya/Shadows.html#esm-bias">ESM Bias</a> 
                 值。
             </li>
             <li>
-                增加 <a href="manual/zh/maya/Shadows.html#esm-distance-scale">ESM距离比例</a> 
+                增加 <a href="manual/zh/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a> 
                 值。
             </li>
         </ul>
@@ -323,14 +322,14 @@
         <img src="files/shadows-blender/esm-sharp-shadows.jpg" style="max-width: 500px">
         <ul>
             <li>
-                增加 <a href="manual/zh/maya/Shadows.html#filter-size">过滤器大小</a>。
+                增加 <a href="manual/zh/maya/Shadows.html#filter-size">Filter Size</a>。
             </li>
             <li>
-                减少 <a href="manual/zh/maya/Shadows.html#esm-bias">ESM偏移</a> 
+                减少 <a href="manual/zh/maya/Shadows.html#esm-bias">ESM Bias</a> 
                 值。
             </li>
             <li>
-                减少 <a href="manual/zh/maya/Shadows.html#esm-distance-scale">ESM距离比例</a> 
+                减少 <a href="manual/zh/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a> 
                 值。
             </li>
             <li>
@@ -340,9 +339,9 @@
                 </li>
             <li>
                 如果一个接受阴影的物体本身不投射阴影（例如，在
-                 <a href="manual/zh/maya/Shadows.html#casts-shadows">投射阴影</a>
+                 <a href="manual/zh/maya/Shadows.html#casts-shadows">Casts Shadows</a>
                  中被禁用），那么无论
-                 <a href="manual/zh/maya/Shadows.html#filter-size">过滤器大小</a> 
+                 <a href="manual/zh/maya/Shadows.html#filter-size">Filter Size</a> 
                  是多少，阴影都没有半影。
                  解决方案是在接收对象上启用阴影投射，
                  或者使用一个额外的阴影投射对象作为底层来修复半影区。
@@ -353,11 +352,11 @@
         <img src="files/shadows-blender/esm-artifacts-self-shadow.jpg" style="max-width: 500px">
         <ul>
             <li>
-                减少 <a href="manual/zh/maya/Shadows.html#esm-bias">ESM偏移</a> 
+                减少 <a href="manual/zh/maya/Shadows.html#esm-bias">ESM Bias</a> 
                 值。
             </li>
             <li>
-                减少 <a href="manual/zh/maya/Shadows.html#esm-distance-scale">ESM距离比例</a> 
+                减少 <a href="manual/zh/maya/Shadows.html#esm-distance-scale">ESM Distance Scale</a> 
                 值。
             </li>
         </ul>

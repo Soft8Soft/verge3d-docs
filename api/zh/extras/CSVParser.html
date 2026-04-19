@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      A parser for CSV (comma-separated value) data. This format is extensively used to retrieve data for further 3D visualization in e-commerce, data analytics, and data science.
+    </p>
+
+
+    <h2>Code Example</h2>
+
+    <code>
+    fetch('mydata.csv').then(response => {
+        if (!response.ok) {
+            throw new Error(response.status);
+        }
+        return response.text();
+    }).then(data => {
+        const rows = v3d.CSVParser.parse(data);
+        rows.forEach(row => {
+            console.log(row);
+        });
+    }).catch(error => {
+        console.error(`Error fetching CSV data: ${error}`);
+    });
+    </code>
+
+
+    <h2>Methods</h2>
+
+    <h3>[method:Array parse]([param:String s], [param:Object dialect])</h3>
+    <ul class="params">
+      <li>[page:String s] — input data in textual form.</li>
+      <li>[page:Object dialect] — (optional) CSV dialect object.</li>
+    </ul>
+    <p>
+      `dialect` is a JavaScript object with the following structure:
+    </p>
+
+    <code>
+    const dialect = {
+        delimiter: ",",         // columns delimeter character
+        doublequote: true,      // allow double quotes
+        lineterminator: "\n",   // line terminator character
+        quotechar: '"',         // quotation character
+        skipinitialspace: true, // skip initial space in input string
+        skipinitialrows: 0      // skip initial row (e.g. used to represet column labels)
+    };
+    </code>
+
+    <p>
+      Parse CSV string and return an array of rows. Each row is also an array which represents columns of the input data.
+    </p>
+
+
+    <h2>Puzzles</h2>
+    <p>
+      Check out the <a href="manual/en/puzzles/Advanced.html#read_CSV">read CSV</a> puzzle to parse CSV data in a visual way.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

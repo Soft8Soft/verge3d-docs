@@ -16,7 +16,10 @@
         这里介绍了在Verge3D中为3ds Max设置漂亮的实时阴影的设置方法和最佳实践。
     </p>
     
-    <iframe class="video-480p" src="https://player.bilibili.com/player.html?aid=48633285&bvid=BV18b411u7yq&cid=85166275&page=1&high_quality=1&danmaku=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <figure style="max-width: 854px">
+      <iframe class="video-480p" src="https://player.bilibili.com/player.html?aid=48633285&bvid=BV18b411u7yq&cid=85166275&page=1&high_quality=1&danmaku=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <figcaption>在 [demoLink:industrial_robot/index] 演示中看到的动态阴影。</figcaption>
+    </figure>
 
 
     <h2>内容</h2>
@@ -36,10 +39,10 @@
     </p>
     <ul>
         <li>
-            <b>照明和阴影</b> -> <b>用场景灯光照亮</b>。
+            *Lighting and Shadows* → *Illuminate with Scene Lights*
         </li>
         <li>
-            <b>照明和阴影</b> -> <b>阴影</b>
+            *Lighting and Shadows* → *Shadows*
         </li>
     </ul>
     
@@ -50,7 +53,7 @@
 
     <h2>阴影过滤类型</h2>
 
-    <p>使用不同的阴影图过滤算法，会在Verge3D场景生成明显差异的阴影。位于<b>Verge3D导出设置</b>面板上的<b>阴影过<b>滤</b>(Shadow filtering)</b>属性是用来指定该算法的。</p>
+    <p>使用不同的阴影图过滤算法，会在Verge3D场景生成明显差异的阴影。位于 *Verge3D Export Settings* 面板上的 *Shadow Filtering* 属性是用来指定该算法的。</p>
 
     <!--<img src="files/shadows-blender/shadow-filtering-settings.jpg" style="max-width: 425px">-->
 
@@ -142,15 +145,15 @@
         阴影的全局设置位于*Verge3D Export Settings*菜单中。
     </p>
     
-    <img src="files/shadows-max/shadow-settings-global-max.jpg" class="with-caption" style="max-width: 251px"></img>
+    <img src="files/shadows-max/shadow-settings-global.jpg" alt="全局阴影设置窗口" style="max-width: 272px">
 
     <dl>
-        <dt>阴影过滤</dt>
+        <dt>Shadow Filtering</dt>
         <dd>
             阴影贴图过滤算法。见 
             <a href="manual/zh/max/Shadows.html#shadow_filtering">上文</a>。
         </dd>
-        <dt id="esm-distance-scale">ESM距离比例(ESM Distance Scale)</dt>
+        <dt id="esm-distance-scale">ESM Distance Scale</dt>
         <dd>
             ESM阴影的缩放系数。
             由于ESM过滤算法使用的是绝对距离值，
@@ -170,56 +173,76 @@
         可以使用3ds Max的原生面板为每个单独的灯光启用或禁用阴影。支持的阴影设置以绿色突出显示。
     </p>
     
-    <img src="files/shadows-max/shadow-settings-perlight-max.jpg" class="with-caption" style="max-width: 432px">
+    <img src="files/shadows-max/shadow-settings-perlight-max.jpg" alt="3ds Max灯光阴影设置" style="max-width: 408px">
     
     <br>
 
     <dl>
-        <dt id="target-distance">目标距离</dt>
+        <dt id="target-distance">Target Distance</dt>
         <dd>
             可以影响阴影停止渲染的距离。
             只适用于聚光灯和平行光。只有在处理
             <a href="manual/zh/max/Shadows.html#troubleshooting">故障排除</a>
             部分中的阴影剪切问题时才需调整它。
         </dd>
-        <dt>开启</dt>
+        <dt>On</dt>
         <dd>
             启用/禁用阴影。
         </dd>
-        <dt id="shadow-map-type">阴影贴图</dt>
+        <dt id="shadow-map-type">Shadow Map</dt>
         <dd>
             必须在下拉菜单中选择阴影，才能在Verge3D中出现。
         </dd>
-        <dt id="falloff-field">衰减区/区域</dt>
+        <dt id="falloff-field">Falloff/Field</dt>
         <dd>
             定义阴影量（越少越好）。
             只适用于聚光灯和平行光。
         </dd>
-        <dt id="bias">偏移(Bias)</dt>
+        <dt id="bias">Bias</dt>
         <dd>
             可以调节以消除自阴影伪影及 "peter-panning" 效果。
             <b>注：</b>Peter Panning这个词的名字来源于童话人物彼得潘（他的影子与身体分离并且可以飞翔），此伪影使对象看起来像是悬浮在地表。
         </dd>
-        <dt id="size">尺寸</dt>
+        <dt id="size">Size</dt>
         <dd>
             控制阴影纹理的大小
             （在速度和质量之间进行平衡）。
         </dd>
-        <dt id="sample-range">采样范围</dt>
+        <dt id="sample-range">Sample Range</dt>
         <dd>
             控制阴影的模糊度比例。
         </dd>
-        <dt id="shadow-bias">阴影偏移(Shadow Bias)</dt>
+        <dt id="shadow-bias">Shadow Bias</dt>
         <dd>
             类似于
             <a href="manual/zh/max/Shadows.html#bias">偏移</a>
             的额外偏移设置。用于消除自阴影伪影及 "peter-panning" 效果。
         </dd>
-        <dt id="esm-bias">ESM偏移(ESM Bias)</dt>
+        <dt id="esm-bias">ESM Bias</dt>
         <dd>
             偏离一定数值以减少ESM的 <em>漏光</em> 伪影。只对 
             <a href="manual/zh/max/Shadows.html#shadow_filtering_esm">ESM</a> 
             阴影作用。
+        </dd>
+        <dt id="csm-count">Count</dt>
+        <dd>
+            要使用的级联数量。更多级联意味着更好的阴影精度，但帧率更低。
+        </dd>
+        <dt id="csm-fade">Fade</dt>
+        <dd>
+            如果大于 `0`，则每个级联的大小（距离间隔）会增加，以使相邻级联重叠。然后在重叠区域应用淡入淡出以提供级联之间的平滑过渡。较高的值意味着级联大小增加更多，这会减少级联内可用的阴影分辨率，因为其中一部分用于重叠区域。如果不需要此参数，请不要使用（设置为 `0`）。
+        </dd>
+        <dt id="csm-distribution">Distribution</dt>
+        <dd>
+            将更多分辨率放到近裁剪面。仅在透视视图中有效。
+        </dd>
+        <dt id="csm-light-cascade-margin">Cascade Margin</dt>
+        <dd>
+            仅当高或大的对象的阴影出现截断时才设置较大的值。
+        </dd>
+        <dt id="csm-max-distance">Max Distance</dt>
+        <dd>
+            控制阴影从摄影机可见的距离。保持较低值以维持更好的分辨率。
         </dd>
     </dl>
 
@@ -237,9 +260,9 @@
     <img src="files/shadows-max/shadows-per-object-settings.jpg" style="max-width: 400px">
 
         <dl>
-            <dt>接收阴影(Rceive Shadows)</dt>
+            <dt>Receive Shadows</dt>
             <dd>启用/禁用此对象的阴影接收。</dd>
-            <dt id="cast-shadows">投影</dt>
+            <dt id="cast-shadows">Cast Shadows</dt>
             <dd>启用/禁用此对象的阴影投射。</dd>
             <dd></dd>
         </dl>
@@ -317,7 +340,7 @@
         <img src="files/shadows-blender/self-shadow-artifacts.jpg" style="max-width: 485px">
         <ul>
             <li>
-                这种伪影被称为"<b>阴影失真(shadow acne)"</b>或"<b>自影伪影(self-shadow artifacts)</b>"。增加
+                这种伪影被称为"<b>shadow acne</b>"或"<b>self-shadow artifacts</b>"。增加
                 <a href="manual/zh/max/Shadows.html#bias">偏移</a> 和/或
                 <a href="manual/zh/max/Shadows.html#shadow-bias">阴影偏移</a>
                 值来消除它们。
@@ -401,7 +424,29 @@
                 减少 
                 <a href="manual/zh/max/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。
             </li>
-            </ul>
+        </ul>
+
+        <h3>级联阴影贴图，阴影在某个角度被剪裁</h3>
+        <img src="files/shadows-blender/csm-artifacts-clipped-shadow.jpg" style="max-width: 500px">
+        <ul>
+            <li>
+                增加 <a href="manual/zh/max/Shadows.html#csm-light-cascade-margin">Cascade Margin</a>。
+            </li>
+        </ul>
+
+        <h3>级联阴影贴图和ESM阴影，阴影在级联交叉处看起来变淡</h3>
+        <img src="files/shadows-blender/esm-csm-artifacts-light-leaking.jpg" style="max-width: 500px">
+        <ul>
+            <li>
+                增加 <a href="manual/zh/max/Shadows.html#csm-light-cascade-margin">Cascade Margin</a>。
+            </li>
+            <li>
+                增加 <a href="manual/zh/max/Shadows.html#esm-bias">ESM偏移</a> 值。
+            </li>
+            <li>
+                增加 <a href="manual/zh/max/Shadows.html#esm-distance-scale">ESM距离比例</a> 值。
+            </li>
+        </ul>
 
 
         <h2>遇到问题？</h2>

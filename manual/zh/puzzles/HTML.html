@@ -3,7 +3,7 @@
   <head>
     <title>HTML类拼图参考 - Soft8Soft</title>
     <meta charset="utf-8">
-    <meta name="description" content="如何使用拼图来控制HTML DOM元素。">
+    <meta name="description" content="如何使用 Verge3D 拼图来操作 HTML DOM 元素。">
     <base href="../../../">
     <script src="page.js"></script>
     <link type="text/css" rel="stylesheet" href="page.css">
@@ -11,9 +11,11 @@
   <body><article>
     <h1>HTML拼图</h1>
 
-    <p>这些拼图可以操作HTML DOM元素。</p>
+    <p>
+      这些拼图用于创建和修改HTML元素、调整页面外观，或执行3D Web应用网页上的其他任务（例如处理用户事件、截屏、下载文件等）。
+    </p>
 
-    <img src="files/puzzles/puzzles-html.jpg">
+    <img src="files/puzzles/puzzles-html.webp" alt="HTML拼图可视化编程块">
 
     <h2>内容</h2>
 
@@ -25,7 +27,7 @@
     <h2>什么是HTML DOM？</h2>
 
     <p>
-      HTML DOM（文档对象模型，见 <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank">技术文档</a>）是一个HTML页面的程序化接口。基本上，这意味着除了通过直接编辑文本代码，还可以通过执行拼图模块来修改应用。例如，您可以添加新的HTML元素来自定义页面外观、在模型上画图、屏幕截图、下载文件等。
+      HTML DOM（文档对象模型，参见<a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank">技术文档</a>）是HTML的编程接口。这意味着您不仅可以在创建页面时（通过编辑源代码）编辑网页，还可以在页面已在浏览器中打开时进行编辑。DOM将页面内容表示为一组基本对象，可以通过拼图（或JavaScript）轻松操作。
     </p>
 
     [anchor:puzzles_reference]
@@ -38,12 +40,144 @@
     <h3>add HTML element(添加HTML元素)</h3>
 
     <p>
-      创建一个具有指定 <a href="https://www.w3schools.com/tags/default.asp" target="_blank">类型</a> 和
-      标识符（对应于 "id" 属性）的HTML元素，
-      并将其添加到指定的现有HTML元素之前或之后。
+      创建一个具有指定类型和标识符（对应于 *id* 属性）的HTML元素，并将其添加 *to*（到）、right *before*（紧邻之前）或 right *after*（紧邻之后）指定的现有HTML元素。
+    </p>
+    <p>
+      如果创建的元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <img src="files/puzzles/puzzles-html-add-html-elem.jpg">
+    <img src="files/puzzles/puzzles-html-add-html-elem.webp" alt="使用可视化编程块添加HTML元素">
+
+    <p>
+      例如，要创建一个指向 Soft8Soft 网站的红色链接，您可以使用以下拼图：
+    </p>
+
+    <img src="files/puzzles/puzzles-html-add-html-elem-example.webp" alt="添加页面链接">
+
+    <p>支持的元素：</p>
+
+    <table>
+      <tr>
+        <th>元素</th>
+        <th>描述</th>
+      </tr>
+      <tr>
+        <td>a</td>
+        <td>超链接。使用 `"href"` 属性定义链接目标，使用 `"textContent"` 或 `"innerHTML"` 定义链接文本。或者，您可以使用相同的 <em>add HTML element</em> 拼图直接向此元素添加任何可点击的元素。</td>
+      </tr>
+      <tr>
+        <td>b</td>
+        <td>以粗体显示内部文本（通过 `"textContent"` 或 `"innerHTML"` 属性指定）。</td>
+      </tr>
+      <tr>
+        <td>br</td>
+        <td>插入换行符。</td>
+      </tr>
+      <tr>
+        <td>button</td>
+        <td>创建一个可点击的按钮。</td>
+      </tr>
+      <tr>
+        <td>canvas</td>
+        <td>用于渲染2D或3D图形的底层元素。</td>
+      </tr>
+      <tr>
+        <td>dialog</td>
+        <td>定义一个对话框元素。</td>
+      </tr>
+      <tr>
+        <td>div</td>
+        <td>定义一个用于包含其他元素的容器。此外，通过使用CSS，它可以被修改为表示几乎一切——图标、图像、按钮、预加载器等。</td>
+      </tr>
+      <tr>
+        <td>form</td>
+        <td>定义一个表单，即 `&lt;input&gt;` 或 `&lt;textarea&gt;` 元素的容器元素，用于表示用户输入。</td>
+      </tr>
+      <tr>
+        <td>h1..h6</td>
+        <td>从大到小的页面标题。标题文本通过 `"textContent"` 属性指定。</td>
+      </tr>
+      <tr>
+        <td>iframe</td>
+        <td>定义一个内联框架，即子页面。子页面的URL由 `"src"` 属性定义。</td>
+      </tr>
+      <tr>
+        <td>img</td>
+        <td>图像元素。图像资源的URL应在 `"src"` 属性中提供。</td>
+      </tr>
+      <tr>
+        <td>input</td>
+        <td>输入元素。使用 `"type"` 属性指定此元素的类型，例如：`"text"`、`"checkbox"`、`"file"`、`"radio"`、`"number"` 等。</td>
+      </tr>
+      <tr>
+        <td>label</td>
+        <td>标签元素。用于为 `&lt;input&gt;` 或 `&lt;textarea&gt;` 等表单字段指定文本标签。</td>
+      </tr>
+      <tr>
+        <td>li</td>
+        <td>列表项。应插入到 `&lt;ul&gt;` 或 `&lt;ol&gt;` 中以定义无序或有序列表。</td>
+      </tr>
+      <tr>
+        <td>link</td>
+        <td>用于包含CSS样式文件或定义浏览器图标的元素。</td>
+      </tr>
+      <tr>
+        <td>ol</td>
+        <td>有序列表。使用 `&lt;li&gt;` 元素定义列表项。</td>
+      </tr>
+      <tr>
+        <td>option</td>
+        <td>`&lt;select&gt;` 元素中的选项项。</td>
+      </tr>
+      <tr>
+        <td>p</td>
+        <td>定义一个段落。段落文本可以通过 `"textContent"` 属性指定。</td>
+      </tr>
+      <tr>
+        <td>script</td>
+        <td>用于包含（并运行）JavaScript。脚本的URL应在 `"src"` 属性中提供。</td>
+      </tr>
+      <tr>
+        <td>select</td>
+        <td>定义一个选择列表。使用 `&lt;option&gt;` 元素定义列表项。</td>
+      </tr>
+      <tr>
+        <td>span</td>
+        <td>定义一个用于包含某些文本的容器。</td>
+      </tr>
+      <tr>
+        <td>style</td>
+        <td>用于将CSS样式直接包含到页面中。要提供CSS代码，请使用 `"textContent"` 属性。</td>
+      </tr>
+      <tr>
+        <td>table</td>
+        <td>表格元素。</td>
+      </tr>
+      <tr>
+        <td>td</td>
+        <td>定义 `&lt;table&gt;` 中的一个单元格。</td>
+      </tr>
+      <tr>
+        <td>th</td>
+        <td>定义 `&lt;table&gt;` 中的一个标题单元格。</td>
+      </tr>
+      <tr>
+        <td>tr</td>
+        <td>定义 `&lt;table&gt;` 中的一行。</td>
+      </tr>
+      <tr>
+        <td>textarea</td>
+        <td>多行文本输入。</td>
+      </tr>
+      <tr>
+        <td>ul</td>
+        <td>无序列表。使用 `&lt;li&gt;` 元素定义列表项。</td>
+      </tr>
+      <tr>
+        <td>video</td>
+        <td>视频元素。视频文件的URL应在 `"src"` 属性中提供。</td>
+      </tr>
+    </table>
 
 
     [anchor:remove_html_element]
@@ -51,26 +185,30 @@
     <h3>remove HTML element(移除HTML元素)</h3>
 
     <p>
-      移除一个具有指定标识符的HTML元素。
+      移除一个具有指定标识符的HTML元素。如果移除的元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <img src="files/puzzles/puzzles-html-remove-html-elem.jpg">
+    <img src="files/puzzles/puzzles-html-remove-html-elem.jpg" alt="使用可视化编程移除HTML元素">
 
 
-    [anchor:set_attribute]
+    [anchor:set_property]
 
     <h3>set property(设置属性)</h3>
 
     <p>
-        为具有指定id的HTML元素设置 <a href="https://www.w3schools.com/tags/ref_attributes.asp" target="_blank">属性</a> 。如果HTML元素位于外部HTML文档（其中使用 <strong>iframe</strong> 嵌入Verge3D应用的 <strong>.html</strong> 文件）中，则应启用 "in parent doc(在父文档中)" 复选框。也适用于元素ID列表。
+      为具有指定 *id* 的HTML元素设置属性。如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。此拼图也适用于元素ID列表。
     </p>
 
-    <img src="files/puzzles/puzzles-html-set-attr.jpg">
+    <img src="files/puzzles/puzzles-html-set-prop.webp" alt="set property 拼图">
 
     <table>
       <tr>
         <th>属性</th>
         <th>描述</th>
+      </tr>
+      <tr>
+        <td>action</td>
+        <td>指定 `&lt;form&gt;` 元素的操作URL。</td>
       </tr>
       <tr>
         <td>alt</td>
@@ -85,40 +223,80 @@
         <td>设置元素的 *class* 属性的值。</td>
       </tr>
       <tr>
-        <td>download</td>
-        <td>指定当用户单击超链接时将下载目标。</td>
+        <td>cols</td>
+        <td>指定 `&lt;textarea&gt;` 元素的宽度（以字符为单位）。</td>
       </tr>
       <tr>
         <td>disabled</td>
         <td>指定应禁用指定的元素/元素组。</td>
       </tr>
       <tr>
+        <td>download</td>
+        <td>指定当用户单击超链接时将下载目标。</td>
+      </tr>
+      <tr>
         <td>height</td>
-        <td>指定元素的高度。</td>
+        <td>指定 `&lt;img&gt;`、`&lt;audio&gt;`、`&lt;video&gt;`、`&lt;canvas&gt;` 或 `&lt;iframe&gt;` 元素的高度。要指定其他元素的尺寸，请使用CSS属性。</td>
       </tr>
       <tr>
         <td>href</td>
-        <td>指定链接转到的页面的 URL。</td>
+        <td>指定链接转到的页面的URL。</td>
+      </tr>
+      <tr>
+        <td>htmlFor</td>
+        <td>指定 `&lt;label&gt;` 元素的目标元素ID。</td>
       </tr>
       <tr>
         <td>id</td>
-        <td>指定元素的唯一 ID。</td>
+        <td>指定元素的唯一ID。</td>
       </tr>
       <tr>
         <td>innerHTML</td>
-        <td>设置元素的 HTML 内容。</td>
+        <td>设置元素的HTML内容。</td>
       </tr>
       <tr>
         <td>loop</td>
-        <td>指定音频/视频在每次完成时将重新开始。</td>
+        <td>指定 `&lt;audio&gt;`/`&lt;video&gt;` 在每次完成时将重新开始。</td>
+      </tr>
+      <tr>
+        <td>max</td>
+        <td>指定 `&lt;input&gt;` 元素的最大值。</td>
+      </tr>
+      <tr>
+        <td>method</td>
+        <td>指定如何将 `&lt;form&gt;` 元素的内容提交到服务器。也可以设置为 `"dialog"` 用于特殊的 <em>dialog forms</em>（对话框表单）。</td>
+      </tr>
+      <tr>
+        <td>min</td>
+        <td>指定 `&lt;input&gt;` 元素的最小值。</td>
       </tr>
       <tr>
         <td>muted</td>
-        <td>指定音频/视频静音。</td>
+        <td>指定 `&lt;audio&gt;`/`&lt;video&gt;` 元素应静音。</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>指定元素名称。此名称用于表单提交。</td>
+      </tr>
+      <tr>
+        <td>placeholder</td>
+        <td>描述应在 `&lt;input&gt;` 或 `&lt;textarea&gt;` 元素中输入的内容的提示。</td>
       </tr>
       <tr>
         <td>rel</td>
-        <td>指定当前文档和链接文档之间的关系。</td>
+        <td>指定当前文档和链接文档之间的关系。可用于 `&lt;a&gt;`、`&lt;form&gt;` 或 `&lt;link&gt;` 元素。</td>
+      </tr>
+      <tr>
+        <td>required</td>
+        <td>布尔值，指定表单元素值是否为必填。</td>
+      </tr>
+      <tr>
+        <td>returnValue</td>
+        <td>`&lt;dialog&gt;` 元素关闭时返回的值。</td>
+      </tr>
+      <tr>
+        <td>rows</td>
+        <td>指定 `&lt;textarea&gt;` 元素中的行数。</td>
       </tr>
       <tr>
         <td>scrollLeft</td>
@@ -130,15 +308,27 @@
       </tr>
       <tr>
         <td>src</td>
-        <td>指定已加载文件的 URL。</td>
+        <td>指定 `&lt;img&gt;`、`&lt;video&gt;`、`&lt;script&gt;` 或 `&lt;iframe&gt;` 元素加载文件的URL。</td>
+      </tr>
+      <tr>
+        <td>step</td>
+        <td>设置类型为 `"number"`、`"range"` 或 `"date"` 的 `&lt;input&gt;` 元素的增减值。</td>
       </tr>
       <tr>
         <td>style</td>
-        <td>指定元素的内联 CSS 样式。</td>
+        <td>指定元素的内联CSS样式。</td>
+      </tr>
+      <tr>
+        <td>tabIndex</td>
+        <td>设置元素的 <a href="https://www.w3schools.com/jsref/prop_html_tabindex.asp" target="_blank">tabIndex</a> 属性。</td>
       </tr>
       <tr>
         <td>target</td>
-        <td>指定打开链接文档的位置或提交表单的位置的目标。</td>
+        <td>指定打开链接文档或提交表单的目标位置。</td>
+      </tr>
+      <tr>
+        <td>textContent</td>
+        <td>设置元素的文本内容。</td>
       </tr>
       <tr>
         <td>title</td>
@@ -146,139 +336,263 @@
       </tr>
       <tr>
         <td>type</td>
-        <td>指定元素的类型。</td>
+        <td>指定 `&lt;input&gt;` 元素的类型，例如 `"number"`、`"text"`、`"file"`、`"radio"`。</td>
       </tr>
       <tr>
         <td>value</td>
-        <td>指定元素的值。</td>
+        <td>指定 `&lt;input&gt;`、`&lt;button&gt;` 或 `&lt;option&gt;` 元素的值。</td>
       </tr>
       <tr>
         <td>volume</td>
-        <td>指定音频/视频元素的音量。</td>
+        <td>指定 `&lt;audio&gt;`/`&lt;video&gt;` 元素的音量。</td>
       </tr>
       <tr>
         <td>width</td>
-        <td>指定元素的宽度。</td>
+        <td>指定 `&lt;img&gt;`、`&lt;audio&gt;`、`&lt;video&gt;`、`&lt;canvas&gt;` 或 `&lt;iframe&gt;` 元素的宽度。要指定其他元素的尺寸，请使用CSS属性。</td>
       </tr>
     </table>
 
 
-    [anchor:get_attribute]
+    [anchor:get_property]
 
     <h3>get property(获取属性)</h3>
 
     <p>
-        从具有指定 ID 的 HTML 元素中获取 <a href="https://www.w3schools.com/tags/ref_attributes.asp" target="_blank">属性</a> 。如果HTML元素位于外部HTML文档（其中使用 <strong>iframe</strong> 嵌入Verge3D应用的 <strong>.html</strong> 文件）中，则应启用 "in parent doc(在父文档中)" 复选框。
+      从具有指定 *id* 的HTML元素获取属性。如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <img src="files/puzzles/puzzles-html-get-attr.jpg">
+    <img src="files/puzzles/puzzles-html-get-prop.webp" alt="获取HTML元素属性的可视化编程块">
 
     <table>
-        <tr>
-          <th>属性</th>
-          <th>描述</th>
-        </tr>
-        <tr>
-          <td>alt</td>
-          <td>获取原始元素无法显示时的替代文本。</td>
-        </tr>
-        <tr>
-          <td>checked</td>
-          <td>获取复选框/单选元素的选中状态。</td>
-        </tr>
-        <tr>
-          <td>className</td>
-          <td>获取元素的 *class* 属性的值。</td>
-        </tr>
-        <tr>
-          <td>download</td>
-          <td>获取当用户单击超链接时将下载目标。</td>
-        </tr>
-        <tr>
-          <td>disabled</td>
-          <td>指定应禁用指定的元素/元素组。</td>
-        </tr>
-        <tr>
-          <td>height</td>
-          <td>获取元素的高度。</td>
-        </tr>
-        <tr>
-          <td>href</td>
-          <td>获取链接转到的页面的 URL。</td>
-        </tr>
-        <tr>
-          <td>id</td>
-          <td>获取元素的唯一 ID。</td>
-        </tr>
-        <tr>
-          <td>innerHTML</td>
-          <td>获取元素的 HTML 内容。</td>
-        </tr>
-        <tr>
-          <td>loop</td>
-          <td>获取音频/视频循环播放的状态。</td>
-        </tr>
-        <tr>
-          <td>muted</td>
-          <td>获取音视频元素静音的状态。</td>
-        </tr>
-        <tr>
-          <td>rel</td>
-          <td>获取当前文档和链接文档之间的关系。</td>
-        </tr>
-        <tr>
-          <td>scrollLeft</td>
-          <td>获取元素内容水平滚动的像素数。</td>
-        </tr>
-        <tr>
-          <td>scrollTop</td>
-          <td>获取元素内容垂直滚动的像素数。</td>
-        </tr>
-        <tr>
-          <td>src</td>
-          <td>获取已加载文件的 URL。</td>
-        </tr>
-        <tr>
-          <td>style</td>
-          <td>获取一个元素的内联 CSS 样式。</td>
-        </tr>
-        <tr>
-          <td>target</td>
-          <td>获取打开链接文档的位置或提交表单的位置的目标。</td>
-        </tr>
-        <tr>
-          <td>title</td>
-          <td>获取有关元素的额外信息。</td>
-        </tr>
-        <tr>
-          <td>type</td>
-          <td>获取元素的类型。</td>
-        </tr>
-        <tr>
-          <td>value</td>
-          <td>获取元素的值。</td>
-        </tr>
-        <tr>
-          <td>volume</td>
-          <td>获取音频/视频元素的音量。</td>
-        </tr>
-        <tr>
-          <td>width</td>
-          <td>获取元素的宽度。</td>
-        </tr>
-      </table>
+      <tr>
+        <th>属性</th>
+        <th>描述</th>
+      </tr>
+      <tr>
+        <td>action</td>
+        <td>获取 `&lt;form&gt;` 元素的操作URL。</td>
+      </tr>
+      <tr>
+        <td>alt</td>
+        <td>获取原始元素无法显示时的替代文本。</td>
+      </tr>
+      <tr>
+        <td>checked</td>
+        <td>获取复选框/单选元素的选中状态。</td>
+      </tr>
+      <tr>
+        <td>className</td>
+        <td>获取元素的 *class* 属性的值。</td>
+      </tr>
+      <tr>
+        <td>clientHeight</td>
+        <td>获取元素的高度，包括内边距，但不包括边框、滚动条或外边距。</td>
+      </tr>
+      <tr>
+        <td>clientWidth</td>
+        <td>获取元素的宽度，包括内边距，但不包括边框、滚动条或外边距。</td>
+      </tr>
+      <tr>
+        <td>cols</td>
+        <td>获取 `&lt;textarea&gt;` 元素的宽度（以字符为单位）。</td>
+      </tr>
+      <tr>
+        <td>disabled</td>
+        <td>获取元素的禁用状态。</td>
+      </tr>
+      <tr>
+        <td>download</td>
+        <td>获取元素上的download属性。</td>
+      </tr>
+      <tr>
+        <td>duration</td>
+        <td>获取 `&lt;audio&gt;`/`&lt;video&gt;` 元素的播放时长。</td>
+      </tr>
+      <tr>
+        <td>ended</td>
+        <td>如果 `&lt;audio&gt;`/`&lt;video&gt;` 播放已结束，则返回 `true`。</td>
+      </tr>
+      <tr>
+        <td>height</td>
+        <td>获取为 `&lt;img&gt;`、`&lt;audio&gt;`、`&lt;video&gt;`、`&lt;canvas&gt;` 或 `&lt;iframe&gt;` 元素指定的高度。</td>
+      </tr>
+      <tr>
+        <td>href</td>
+        <td>获取链接转到的页面的URL。</td>
+      </tr>
+      <tr>
+        <td>htmlFor</td>
+        <td>获取 `&lt;label&gt;` 元素的目标元素ID。</td>
+      </tr>
+      <tr>
+        <td>id</td>
+        <td>获取元素的唯一ID。</td>
+      </tr>
+      <tr>
+        <td>innerHTML</td>
+        <td>获取元素的HTML内容。</td>
+      </tr>
+      <tr>
+        <td>innerHeight</td>
+        <td>获取浏览器窗口视口的高度，包括滚动条（如果有）。</td>
+      </tr>
+      <tr>
+        <td>innerWidth</td>
+        <td>获取浏览器窗口视口的宽度，包括滚动条（如果有）。</td>
+      </tr>
+      <tr>
+        <td>loop</td>
+        <td>获取 `&lt;audio&gt;`/`&lt;video&gt;` 元素的循环播放状态。</td>
+      </tr>
+      <tr>
+        <td>max</td>
+        <td>获取 `&lt;input&gt;` 元素的最大值。</td>
+      </tr>
+      <tr>
+        <td>method</td>
+        <td>显示 `&lt;form&gt;` 元素内容的提交方式：`"get"`、`"post"` 或 `"dialog"`。</td>
+      </tr>
+      <tr>
+        <td>min</td>
+        <td>获取 `&lt;input&gt;` 元素的最小值。</td>
+      </tr>
+      <tr>
+        <td>muted</td>
+        <td>获取 `&lt;audio&gt;`/`&lt;video&gt;` 元素的静音状态。</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>元素名称。</td>
+      </tr>
+      <tr>
+        <td>offsetHeight</td>
+        <td>获取元素的高度，包括内边距、边框和滚动条，但不包括外边距。</td>
+      </tr>
+      <tr>
+        <td>offsetWidth</td>
+        <td>获取元素的宽度，包括内边距、边框和滚动条，但不包括外边距。</td>
+      </tr>
+      <tr>
+        <td>paused</td>
+        <td>如果 `&lt;audio&gt;`/`&lt;video&gt;` 播放已暂停，则返回 `true`。</td>
+      </tr>
+      <tr>
+        <td>placeholder</td>
+        <td>描述应在 `&lt;input&gt;` 或 `&lt;textarea&gt;` 元素中输入的内容的提示。</td>
+      </tr>
+      <tr>
+        <td>rel</td>
+        <td>获取当前文档和链接文档之间的关系。此属性可从 `&lt;a&gt;`、`&lt;form&gt;` 或 `&lt;link&gt;` 元素获取。</td>
+      </tr>
+      <tr>
+        <td>required</td>
+        <td>布尔值，指定表单元素值是否为必填。</td>
+      </tr>
+      <tr>
+        <td>returnValue</td>
+        <td>`&lt;dialog&gt;` 元素关闭时返回的值。</td>
+      </tr>
+      <tr>
+        <td>rows</td>
+        <td>`&lt;textarea&gt;` 元素中的行数。</td>
+      </tr>
+      <tr>
+        <td>scrollHeight</td>
+        <td>获取元素的高度，包括内边距，但不包括边框、滚动条或外边距。与 `clientHeight` 不同，此值包括元素的<em>总高度</em>，包括因滚动而不可见的内容。</td>
+      </tr>
+      <tr>
+        <td>scrollLeft</td>
+        <td>获取元素内容水平滚动的像素数。</td>
+      </tr>
+      <tr>
+        <td>scrollTop</td>
+        <td>获取元素内容垂直滚动的像素数。</td>
+      </tr>
+      <tr>
+        <td>scrollWidth</td>
+        <td>获取元素的宽度，包括内边距，但不包括边框、滚动条或外边距。与 `clientWidth` 不同，此值包括元素的<em>总宽度</em>，包括因滚动而不可见的内容。</td>
+      </tr>
+      <tr>
+        <td>scrollX</td>
+        <td>获取浏览器窗口水平滚动的像素数。</td>
+      </tr>
+      <tr>
+        <td>scrollY</td>
+        <td>获取浏览器窗口垂直滚动的像素数。</td>
+      </tr>
+      <tr>
+        <td>src</td>
+        <td>获取已加载文件的URL。</td>
+      </tr>
+      <tr>
+        <td>step</td>
+        <td>获取类型为 `"number"`、`"range"` 或 `"date"` 的 `&lt;input&gt;` 元素的增减值。</td>
+      </tr>
+      <tr>
+        <td>style</td>
+        <td>获取元素的内联CSS样式。</td>
+      </tr>
+      <tr>
+        <td>tabIndex</td>
+        <td>获取元素的 <a href="https://www.w3schools.com/jsref/prop_html_tabindex.asp" target="_blank">tabIndex</a> 属性。</td>
+      </tr>
+      <tr>
+        <td>target</td>
+        <td>获取打开链接文档或提交表单的目标位置。</td>
+      </tr>
+      <tr>
+        <td>textContent</td>
+        <td>获取元素的文本内容（及其所有子元素）。</td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>获取有关元素的额外信息。</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>获取 `&lt;input&gt;` 元素的类型。</td>
+      </tr>
+      <tr>
+        <td>value</td>
+        <td>获取 `&lt;input&gt;`、`&lt;button&gt;` 或 `&lt;option&gt;` 元素的值。</td>
+      </tr>
+      <tr>
+        <td>volume</td>
+        <td>获取 `&lt;audio&gt;`/`&lt;video&gt;` 元素的音量。</td>
+      </tr>
+      <tr>
+        <td>width</td>
+        <td>获取为 `&lt;img&gt;`、`&lt;audio&gt;`、`&lt;video&gt;`、`&lt;canvas&gt;` 或 `&lt;iframe&gt;` 元素指定的宽度。</td>
+      </tr>
+    </table>
 
 
     [anchor:create_css_rule]
 
-    <h3>create css rule(创建css规则)</h3>
+    <h3>create css rule(创建CSS规则)</h3>
 
     <p>
-      创建一个新的 <a href="https://www.w3schools.com/css/css_syntax.asp" target="_blank">CSS规则</a>。如果样式表属于外部HTML文档（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong>嵌入其中），应启用 "in parent doc" 复选框。
+      创建一个新的 <a href="https://www.w3schools.com/css/css_syntax.asp" target="_blank">CSS规则</a>。如果样式表属于外部HTML文档（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <img src="files/puzzles/puzzles-html-create-css-rule.jpg">
+    <img src="files/puzzles/puzzles-html-create-css-rule.jpg" alt="使用可视化编程块创建CSS规则">
 
+
+    [anchor:style_constructor]
+
+    <h3>style constructor(样式构造器)</h3>
+
+    <p>
+      创建一个由分号分隔的CSS样式声明字符串。
+    </p>
+
+    <img src="files/puzzles/puzzles-html-style-constructor.webp" alt="创建CSS声明的可视化编程块">
+
+    <p>
+      例如，您可以使用以下拼图创建一个位于左上角的绿色按钮：
+    </p>
+
+    <img src="files/puzzles/puzzles-html-style-constructor-example.webp" alt="创建CSS声明示例">
 
 
     [anchor:set_style]
@@ -286,10 +600,10 @@
     <h3>set style(设置样式)</h3>
 
     <p>
-      为具有指定id的HTML元素设置一个 <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS属性</a> 。 如果HTML元素位于一个外部的HTML文档中（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong> 嵌入其中），应启用 "in parent doc" 复选框。也适用于元素ID的列表。
+      为具有指定id的HTML元素设置一个 <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS属性</a>。如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。此拼图也适用于元素ID列表。
     </p>
 
-    <img src="files/puzzles/puzzles-html-set-style.jpg">
+    <img src="files/puzzles/puzzles-html-set-style.jpg" alt="为HTML元素设置样式的可视化编程块">
 
 
     [anchor:get_style]
@@ -297,40 +611,206 @@
     <h3>get style(获取样式)</h3>
 
     <p>
-      从指定id的HTML元素获取一个 <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS属性</a> 。 如果HTML元素位于一个外部的HTML文档中（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong> 嵌入其中），应启用 "in parent doc" 复选框。
+      从具有指定id的HTML元素获取一个 <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS属性</a>。如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <img src="files/puzzles/puzzles-html-get-style.jpg">
+    <img src="files/puzzles/puzzles-html-get-style.jpg" alt="从HTML元素获取样式的可视化编程块">
 
     <p>
-      这个拼图在制作3D配置器类应用时非常有用。例如，你可以使用下面的设置，从一些HTML元素的背景颜色中指定材质颜色：
+      这个拼图在制作3D配置器类应用时非常有用。例如，您可以使用以下设置，从一些HTML元素的背景颜色中指定材质颜色：
     </p>
 
-    <img src="files/puzzles/puzzles-html-get-style-example.jpg">
+    <img src="files/puzzles/puzzles-html-get-style-example.jpg" alt="使用可视化编程块分配HTML元素的背景颜色">
 
 
     [anchor:set_css_rule]
 
-    <h3>set css rule(设置css规则)</h3>
+    <h3>set css rule(设置CSS规则)</h3>
 
     <p>
-      为指定的CSS规则（可在应用的 <strong>.css</strong> 文件中找到）设置一个 <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS属性</a> 。如果样式表属于外部HTML文档（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong>嵌入其中），应启用 "in parent doc" 复选框。
+      为指定的CSS规则（可在应用的 <strong>.css</strong> 文件中找到）设置一个 <a href="https://www.w3schools.com/cssref/default.asp" target="_blank">CSS属性</a>。如果样式表属于父HTML文档（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <img src="files/puzzles/puzzles-html-set-css-rule.jpg">
+    <img src="files/puzzles/puzzles-html-set-css-rule.jpg" alt="设置CSS规则属性的可视化编程块">
 
+    <!-- COMPAT: < 4.10 -->
+    <a href="#" id="event"></a>
+    [anchor:on_event_of]
 
-
-    [anchor:event]
-
-    <h3>event(事件)</h3>
+    <h3>on event of(在事件发生时)</h3>
 
     <p>
-      为一个具有指定id的HTML元素注册一个 <a href="https://www.w3schools.com/jsref/dom_obj_event.asp" target="_blank">事件监听器</a> 。 如果该HTML元素位于一个外部的HTML文档中（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong>嵌入其中），应启用 "in parent doc" 复选框。一旦有事件发生，放在 "do" 插槽中的对象就会被触发。也适用于元素ID的列表。
+      为具有指定id的HTML元素注册一个事件监听器。如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。一旦有事件发生，放在 *do* 插槽中的拼图就会被触发。也适用于元素ID列表。
     </p>
 
-    <img src="files/puzzles/puzzles-html-on-event.jpg">
+    <img src="files/puzzles/puzzles-html-on-event.jpg" alt="处理DOM事件的可视化编程块">
 
+    <table>
+      <tr>
+        <th>事件</th>
+        <th>描述</th>
+      </tr>
+      <tr>
+        <td>beforeunload</td>
+        <td>页面即将卸载时发生。</td>
+      </tr>
+      <tr>
+        <td>blur</td>
+        <td>某个元素失去焦点时发生。在大多数情况下，此事件注册在 <a href="manual/zh/puzzles/HTML.html#DOM_object_selector">window</a> 对象上，以检测浏览器标签何时不再活动。</td>
+      </tr>
+      <tr>
+        <td>change</td>
+        <td>`&lt;input&gt;`、`&lt;select&gt;` 或 `&lt;textarea&gt;` 发生变化时发生。</td>
+      </tr>
+      <tr>
+        <td>click</td>
+        <td>元素被点击时发生的事件。这是最常用的事件。</td>
+      </tr>
+      <tr>
+        <td>contextmenu</td>
+        <td>浏览器标准右键菜单被调用时发生的事件。它允许您覆盖或禁用此菜单。</td>
+      </tr>
+      <tr>
+        <td>dblclick</td>
+        <td>元素被双击时发生的事件。</td>
+      </tr>
+      <tr>
+        <td>deviceready</td>
+        <td>仅用于 <a href="manual/zh/introduction/Creating-Mobile-Apps.html">Cordova</a> 应用。应用完全加载时触发。</td>
+      </tr>
+      <tr>
+        <td>ended</td>
+        <td>`&lt;audio&gt;` 或 `&lt;video&gt;` 播放结束时触发。</td>
+      </tr>
+      <tr>
+        <td>focus</td>
+        <td>某个元素获得焦点时发生。在大多数情况下，此事件注册在 <a href="manual/zh/puzzles/HTML.html#DOM_object_selector">window</a> 对象上，以检测浏览器标签何时再次活动。</td>
+      </tr>
+      <tr>
+        <td>fullscreenchange</td>
+        <td>元素切换到（或退出）全屏模式时发生。在大多数情况下，此事件注册在 <a href="manual/zh/puzzles/HTML.html#DOM_object_selector">document</a> 对象上。</td>
+      </tr>
+      <tr>
+        <td>input</td>
+        <td>`&lt;input&gt;` 或 `&lt;textarea&gt;` 发生变化时发生。</td>
+      </tr>
+      <tr>
+        <td>keydown</td>
+        <td>用户按下某个键盘按键时触发。事件的 `key` 属性包含按下的键。参见 <a href="manual/zh/puzzles/Library.html#keyboard_controls">Keyboard Controls</a> 库中的工作方式。</td>
+      </tr>
+      <tr>
+        <td>keypress</td>
+        <td>用户按下某个键盘按键时触发。此事件已被弃用，请始终使用 `keydown` 事件代替。</td>
+      </tr>
+      <tr>
+        <td>keyup</td>
+        <td>用户释放某个键盘按键时触发。事件的 `key` 属性包含释放的键。参见 <a href="manual/zh/puzzles/Library.html#keyboard_controls">Keyboard Controls</a> 库中的工作方式。</td>
+      </tr>
+      <tr>
+        <td>load</td>
+        <td>页面或元素加载完成时发生。最常用于注册此事件的实体是 <a href="manual/zh/puzzles/HTML.html#DOM_object_selector">window</a>（整个页面）和 `&lt;img&gt;`（处理图像完全加载的时刻）。</td>
+      </tr>
+      <tr>
+        <td>message</td>
+        <td>用于处理来自其他框架的传入消息，可能位于不同的主机上。事件的 `data` 属性包含接收到的消息。</td>
+      </tr>
+      <tr>
+        <td>mousedown</td>
+        <td>鼠标按钮在元素上按下时发生。</td>
+      </tr>
+      <tr>
+        <td>mouseenter</td>
+        <td>鼠标指针移入元素时发生。</td>
+      </tr>
+      <tr>
+        <td>mouseleave</td>
+        <td>鼠标指针移出元素时发生。</td>
+      </tr>
+      <tr>
+        <td>mousemove</td>
+        <td>鼠标指针在元素上移动时发生。</td>
+      </tr>
+      <tr>
+        <td>mouseout</td>
+        <td>鼠标指针移出元素时发生。</td>
+      </tr>
+      <tr>
+        <td>mouseover</td>
+        <td>鼠标指针移入元素时发生。</td>
+      </tr>
+      <tr>
+        <td>mouseup</td>
+        <td>鼠标按钮在元素上释放时发生。</td>
+      </tr>
+      <tr>
+        <td>pause</td>
+        <td>`&lt;audio&gt;` 或 `&lt;video&gt;` 播放暂停时触发。</td>
+      </tr>
+      <tr>
+        <td>pointercancel</td>
+        <td>不太可能再有更多指针事件时发生。</td>
+      </tr>
+      <tr>
+        <td>pointerdown</td>
+        <td>指针在元素上按下时发生。</td>
+      </tr>
+      <tr>
+        <td>pointerenter</td>
+        <td>指针移入元素时触发。</td>
+      </tr>
+      <tr>
+        <td>pointerleave</td>
+        <td>指针移出元素时发生。</td>
+      </tr>
+      <tr>
+        <td>pointermove</td>
+        <td>指针在元素上移动时发生。</td>
+      </tr>
+      <tr>
+        <td>pointerout</td>
+        <td>指针移出元素时发生。</td>
+      </tr>
+      <tr>
+        <td>pointerover</td>
+        <td>指针移入元素时触发。</td>
+      </tr>
+      <tr>
+        <td>pointerup</td>
+        <td>指针在元素上释放时发生。</td>
+      </tr>
+      <tr>
+        <td>resize</td>
+        <td>浏览器窗口调整大小时发生。应注册在 <a href="manual/zh/puzzles/HTML.html#DOM_object_selector">body</a> 元素上。</td>
+      </tr>
+      <tr>
+        <td>resume</td>
+        <td>`&lt;audio&gt;` 或 `&lt;video&gt;` 播放恢复时触发。</td>
+      </tr>
+      <tr>
+        <td>scroll</td>
+        <td>滚动条被滚动时发生。</td>
+      </tr>
+      <tr>
+        <td>submit</td>
+        <td>`&lt;form&gt;` 提交时发生。</td>
+      </tr>
+      <tr>
+        <td>touchend</td>
+        <td>手指从触摸屏上移开时发生。</td>
+      </tr>
+      <tr>
+        <td>touchemove</td>
+        <td>手指在屏幕上拖动时触发。</td>
+      </tr>
+      <tr>
+        <td>touchstart</td>
+        <td>手指放在触摸屏上时发生。</td>
+      </tr>
+      <tr>
+        <td>wheel</td>
+        <td>鼠标滚轮在元素上滚动时发生。</td>
+      </tr>
+    </table>
 
 
     [anchor:get_event_property]
@@ -338,67 +818,205 @@
     <h3>get event property(获取事件属性)</h3>
 
     <p>
-      输出由 "event(事件)" 拼图产生的事件 <a href="https://www.w3schools.com/jsref/obj_events.asp" target="_blank">属性</a> 值。
+      输出由 <a href="manual/zh/puzzles/HTML.html#on_event_of">on event of</a> 拼图生成的事件属性值。也支持在 <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a>、<a href="manual/zh/puzzles/Events.html#when_hovered">when hovered</a> 和 <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> 拼图中使用。
     </p>
 
-    <img src="files/puzzles/puzzles-html-get-event-property.jpg">
+    <img src="files/puzzles/puzzles-html-get-event-property.jpg" alt="获取DOM事件属性的可视化编程块">
+
+    <table>
+      <tr>
+        <th>事件属性</th>
+        <th>描述</th>
+      </tr>
+      <tr>
+        <td>button</td>
+        <td>按下的鼠标按钮：`0` — 左键，`1` — 中键（滚轮），`2` — 右键。</td>
+      </tr>
+      <tr>
+        <td>code</td>
+        <td>触发 `keydown`、`keypress` 或 `keyup` 事件的键的代码。例如，代码 `"ArrowLeft"` 用于左箭头键，而 `"KeyA"` 用于 *A* 键（大写或小写）。</td>
+      </tr>
+      <tr>
+        <td>data</td>
+        <td>事件数据。为 `input` 或 `message` 事件设置。</td>
+      </tr>
+      <tr>
+        <td>deltaY</td>
+        <td>`wheel` 事件的垂直滚动量（以像素为单位）。</td>
+      </tr>
+      <tr>
+        <td>isPrimary</td>
+        <td>指示主指针。为指针事件分配，例如 `pointerdown`。</td>
+      </tr>
+      <tr>
+        <td>pageX, pageY</td>
+        <td>鼠标指针或触摸的X和Y坐标。适用于 `click`、`dblclick`、`mouse...` 或 `pointer...` 事件。不适用于 `touch...` 事件（请改用 touches[].pageX/pageY 或 targetTouches[].pageX/pageY 属性）。</td>
+      </tr
+      <tr>
+        <td>key</td>
+        <td>触发 `keydown`、`keypress` 或 `keyup` 事件的键盘键名称。例如，`"ArrowLeft"` 用于左箭头键，而 `"а"` 用于小写 *A* 键。</td>
+      </tr>
+      <tr>
+        <td>offsetX, offsetY</td>
+        <td>鼠标指针或触摸的X和Y坐标。适用于 `click`、`dblclick`、`mouse...` 或 `pointer...` 事件。不适用于 `touch...` 事件。</td>
+      </tr>
+      <tr>
+        <td>pointerId</td>
+        <td>指针标识符。用于处理多点触控交互。</td>
+      </tr>
+      <tr>
+        <td>pointerType</td>
+        <td>指针设备类型：`"mouse"`、`"pen"` 或 `"touch"`。</td>
+      </tr>
+      <tr>
+        <td>target.checked</td>
+        <td>发生事件的复选框/单选元素的选中状态。</td>
+      </tr>
+      <tr>
+        <td>target.id</td>
+        <td>发生事件的元素的ID。</td>
+      </tr>
+      <tr>
+        <td>target.value</td>
+        <td>发生事件的 `&lt;input&gt;`、`&lt;button&gt;` 或 `&lt;option&gt;` 元素的值。</td>
+      </tr>
+      <tr>
+        <td>touches.length</td>
+        <td>当前与表面接触的触摸点数量。</td>
+      </tr>
+      <tr>
+        <td>touches[0].pageX, touches[0].pageY<br>touches[1].pageX, touches[1].pageY</td>
+        <td>第一个/第二个指针的X和Y坐标。</td>
+      </tr>
+      <tr>
+        <td>targetTouches.length</td>
+        <td>当前与表面接触的触摸点数量。</td>
+      </tr>
+      <tr>
+        <td>targetTouches[0].pageX, targetTouches[0].pageY<br>targetTouches[1].pageX, targetTouches[1].pageY</td>
+        <td>第一个/第二个指针的X和Y坐标。</td>
+      </tr>
+      <tr>
+        <td>which</td>
+        <td>按下的鼠标按钮：`1` — 左键，`2` — 中键（滚轮），`3` — 右键。此属性已被弃用，请始终使用 `button` 属性代替。</td>
+      </tr>
+    </table>
 
 
     [anchor:DOM_object_selector]
 
-    <!--COMPAT-->
-    <p><a href="manual/zh/puzzles/HTML.html#window" id="window" class="permalink"></a></p>
-    <p><a href="manual/zh/puzzles/HTML.html#document" id="document" class="permalink"></a></p>
-    <p><a href="manual/zh/puzzles/HTML.html#body" id="body" class="permalink"></a></p>
-
     <h3>DOM object selector(DOM对象选择器)</h3>
 
     <p>
-      *container* 代表画布容器元素——包含渲染场景的HTML元素；*window* 代表 <a href="https://www.w3schools.com/jsref/obj_window.asp" target="_blank">DOM窗口对象</a> ——浏览器标签或加载HTML文档的iframe；*document*代表 <a href="https://www.w3schools.com/jsref/dom_obj_document.asp" target="_blank">DOM文档对象</a> ——HTML文档的根节点；*body*代表 <a href="https://www.w3schools.com/jsref/dom_obj_body.asp" target="_blank">DOM主体对象</a> ——HTML文档的&lt;body&gt;元素。
+      根据选择的实体，此拼图返回：
     </p>
 
-    <img src="files/puzzles/puzzles-html-DOM-object-selector.jpg">
+    <dl>
+      <dt>container</dt>
+      <dd>画布容器元素——包含渲染场景的HTML元素。</dd>
+      <dt>window</dt>
+      <dd><a href="https://www.w3schools.com/jsref/obj_window.asp" target="_blank">DOM窗口对象</a>——浏览器标签或加载HTML文档的 `&lt;iframe&gt;`。</dd>
+      <dt>document</dt>
+      <dd><a href="https://www.w3schools.com/jsref/dom_obj_document.asp" target="_blank">DOM文档对象</a>——HTML文档的根节点。</dd>
+      <dt>body</dt>
+      <dd><a href="https://www.w3schools.com/jsref/dom_obj_body.asp" target="_blank">DOM主体对象</a>——HTML文档的 `&lt;body&gt;` 元素。</dd>
+    </dl>
+
+    <img src="files/puzzles/puzzles-html-DOM-object-selector.jpg" alt="DOM对象选择器可视化编程块">
 
 
     [anchor:query_selector]
 
     <h3>query selector(查询选择器)</h3>
 
-    <p>返回第一个符合指定的 <a href="https://www.w3schools.com/cssref/css_selectors.asp" target="_blank">CSS选择器</a>的HTML元素。</p>
+    <p>
+      返回第一个匹配指定 <a href="https://www.w3schools.com/cssref/css_selectors.php" target="_blank">CSS选择器</a> 的HTML元素。
+    </p>
 
-    <img src="files/puzzles/puzzles-html-query-selector.jpg">
+    <img src="files/puzzles/puzzles-html-query-selector.jpg" alt="查询选择器可视化编程块">
+
+
+    [anchor:dom_object_call]
+
+    <h3>call method(调用方法)</h3>
+
+    <p>
+      为指定的DOM对象调用方法：元素或事件。
+    </p>
+
+    <img src="files/puzzles/puzzles-html-dom-object-call.webp" alt="调用DOM对象方法的拼图">
+
+    <p>
+      支持的方法包括：
+    </p>
+
+    <dl>
+      <dt>blur</dt>
+      <dd>使指定的HTML元素失去焦点。</dd>
+      <dt>click</dt>
+      <dd>模拟点击元素。</dd>
+      <dt>close</dt>
+      <dd>关闭元素。此方法仅适用于 `&lt;dialog&gt;` 元素和 `window` 对象。</dd>
+      <dt>focus</dt>
+      <dd>将焦点设置到指定的HTML元素。获得焦点的元素会接收键盘输入，例如当用户按下 Enter/Space 键时。</dd>
+      <dt>postMessage</dt>
+      <dd>向指定的 `&lt;iframe&gt;` 元素或 `window` 对象发送消息。消息可以是任何类型：字符串、数字、数组、字典等。</dd>
+      <dt>preventDefault</dt>
+      <dd>
+        <p>
+          应在 <a href="manual/zh/puzzles/HTML.html#on_event_of">事件处理器</a> 内调用。执行后，浏览器不会对当前事件做出反应。例如，如果您为某个复选框分配了 `click` 事件处理器并调用 `preventDefault`，则复选框不会做出反应。
+        </p>
+
+        <img src="files/puzzles/puzzles-html-dom-object-call-prevent-default.webp" alt="prevent default 拼图" style="max-width: 500px;">
+      </dd>
+      <dt>show</dt>
+      <dd>显示 `&lt;dialog&gt;` 窗口。</dd>
+      <dt>showModal</dt>
+      <dd>显示 `&lt;dialog&gt;` 窗口并阻止与页面的任何交互，直到对话框关闭。</dd>
+      <dt>stopPropagation</dt>
+      <dd>
+        <p>
+          应在 <a href="manual/zh/puzzles/HTML.html#on_event_of">事件处理器</a> 内调用。执行后，浏览器禁止当前事件的传播（例如调用其他元素的事件处理器）。例如，如果您为 `document` 分配了 `keydown` 事件处理器并调用 `stopPropagation`，键盘将不会对场景起作用（例如 WASD 或箭头键不会移动摄像机）。
+        </p>
+        <img src="files/puzzles/puzzles-html-dom-object-call-stop-propagation.webp" alt="stop propagation 拼图" style="max-width: 500px;">
+      </dd>
+    </dl>
 
 
     [anchor:create_canvas_elem]
 
     <h3>create canvas elem(创建canvas元素)</h3>
 
-    <p>创建一个具有 *id* 、 *width* 和 *height* 属性的canvas元素。将此对象与 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a> 拼图一起使用，可用于创建画布纹理。</p>
+    <p>
+      创建一个具有 *id*、*width* 和 *height* 属性的canvas元素。将此拼图与 <a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a> 拼图一起使用，可用于创建画布纹理。
+    </p>
 
-    <img src="files/puzzles/puzzles-html-create-canvas-elem.jpg">
+    <img src="files/puzzles/puzzles-html-create-canvas-elem.jpg" alt="创建HTML画布的可视化编程块">
 
     <p>
       画布创建完成后，即可通过JavaScript在上面绘图了。您可以在 <em>your_app_name.js</em> 模块的 <em>runCode()</em> 函数中更新画布，或者使用 <a href="manual/zh/puzzles/Advanced.html#exec_script">exec script(执行脚本)</a> 拼图。
     </p>
 
     <p>
-      要更新画布，可通过ID（指定的*id*属性）检索画布纹理。
+      要更新画布，可通过ID（指定的 *id* 属性）检索画布纹理：
     </p>
 
     <code>
-      var canvasTex = puzzles.canvasTextures['my_canvas'];
+    const canvasTex = puzzles.canvasTextures['my_canvas'];
     </code>
 
     <p>之后，您可以按以下方式访问HTML画布元素：</p>
 
     <code>
-        var canvas = canvasTex.image;
+    const canvas = canvasTex.image;
     </code>
 
-    <p>您可以使用可用于在HTML画布上绘图的标准方法。例如，下方代码在白色背景上绘制了一张蓝色的笑脸：</p>
+    <p>
+      您可以使用可用于在HTML画布上绘图的标准方法。例如，以下代码在白色背景上绘制了一张蓝色的笑脸：
+    </p>
 
     <code>
-    var ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
     ctx.fillStyle = 'white';
     ctx.strokeStyle = 'blue';
@@ -406,24 +1024,25 @@
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.beginPath();
-    ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // Outer circle
+    ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // 外圆
     ctx.moveTo(110, 75);
-    ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
+    ctx.arc(75, 75, 35, 0, Math.PI, false);  // 嘴巴（顺时针）
     ctx.moveTo(65, 65);
-    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
+    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // 左眼
     ctx.moveTo(95, 65);
-    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
+    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // 右眼
     ctx.stroke();
-
     </code>
 
-    <p>最后，如果您想让更新在3D渲染中立即可见需将画布纹理标记为动态。</p>
+    <p>
+      最后，如果您想让更新在3D渲染中立即可见，应将画布纹理标记如下：
+    </p>
 
-<code>
+    <code>
     canvasTex.needsUpdate = true;
-</code>
+    </code>
 
-    <img src="files/puzzles/puzzles-html-create-canvas-elem-example.jpg">
+    <img src="files/puzzles/puzzles-html-create-canvas-elem-example.jpg" alt="使用可视化逻辑块操作HTML画布">
 
     [demo:canvas_texture]
 
@@ -433,11 +1052,20 @@
     <h3>draw line(画线)</h3>
 
     <p>
-      通过一个动态更新的线条将指定的3D对象与指定的HTML元素连接起来。如果HTML元素位于一个外部HTML文档中（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong>) 嵌入其中），应启用 "in parent doc" 复选框。您也可以为该行设置宽度、颜色和偏移。
+      通过一个动态更新的线条将指定的3D对象与指定的HTML元素连接起来。
     </p>
 
-    <img src="files/puzzles/puzzles-html-draw-line.jpg">
+    <img src="files/puzzles/puzzles-html-draw-line.webp" alt="画线可视化编程块">
 
+    <p>
+      如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。您也可以为线条设置宽度（以像素为单位）、颜色（CSS）和偏移（以像素为单位）。此拼图也适用于对象列表、组（或组列表）或与 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a> 拼图一起使用。
+    </p>
+
+    <img src="files/puzzles/puzzles-html-draw-line-example.webp" alt="使用可视化逻辑块画线">
+
+    <p>
+      此拼图对单个对象仅支持一条线。创建的线对象将获得一个独特的名称，例如如果原始对象名为 `"Cube"`，则为 `"CubeLine"`。线对象将作为该对象的子对象添加。
+    </p>
 
 
     [anchor:remove_line]
@@ -445,11 +1073,10 @@
     <h3>remove line(移除线)</h3>
 
     <p>
-      从指定的对象中移除一条先前创建的线。
+      从指定对象中移除一条先前创建的线。
     </p>
 
-    <img src="files/puzzles/puzzles-html-remove-line.jpg">
-
+    <img src="files/puzzles/puzzles-html-remove-line.webp" alt="移除线的可视化编程块">
 
 
     [anchor:bind_element]
@@ -457,19 +1084,17 @@
     <h3>bind element(绑定元素)</h3>
 
     <p>
-      使一个指定的HTML元素在屏幕空间中跟随一个指定的3D对象的中心。如果HTML元素位于一个外部HTML文档中（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong>) 嵌入其中），应启用 "in parent doc" 复选框。
+      使一个指定的HTML元素在屏幕空间中跟随一个指定的3D对象的中心。如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <img src="files/puzzles/puzzles-html-bind-element.jpg">
+    <img src="files/puzzles/puzzles-html-bind-element.jpg" alt="绑定HTML元素的可视化编程块">
 
     <p>
       *注意*：
     </p>
-
     <p>
-      您可以使用 <a href="manual/zh/puzzles/Objects.html#add_annotation">add annotation(添加注解)</a> 拼图来代替，并参照 <a href="/manual/zh/introduction/Personalizing-Verge3D-Apps.html#annotations" target="_parent">这里</a>的描述定制注解的外观。
+      您可以使用 <a href="manual/zh/puzzles/Objects.html#add_annotation">add annotation(添加注解)</a> 拼图来代替，并参照 <a href="manual/zh/introduction/Personalizing-Verge3D-Apps.html#annotations" target="_parent">这里</a> 的描述定制注解的外观。
     </p>
-
 
 
     [anchor:unbind_element]
@@ -477,11 +1102,10 @@
     <h3>unbind element(解除绑定元素)</h3>
 
     <p>
-    取消绑定以前 <a href="manual/zh/puzzles/HTML.html#bind_element">绑定</a> 到对象的指定HTML元素。如果HTML元素位于一个外部HTML文档中（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong>) 嵌入其中），应启用 "in parent doc" 复选框。
+      取消绑定以前<a href="manual/zh/puzzles/HTML.html#bind_element">绑定</a>到对象的指定HTML元素。如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <img src="files/puzzles/puzzles-html-unbind-element.jpg">
-
+    <img src="files/puzzles/puzzles-html-unbind-element.jpg" alt="解除绑定HTML元素的可视化编程块">
 
 
     [anchor:init_fullscreen]
@@ -489,10 +1113,10 @@
     <h3>init fullscreen(初始化全屏)</h3>
 
     <p>
-      设置一个指定的HTML元素为全屏模式按钮——第一次点击进入全屏模式，第二次点击退出全屏。放在 "on enter do" 和 "on exit do" 插槽里的对象会在进入或退出全屏模式时被触发。如果浏览器不支持全屏，放在 "if unavailable do" 插槽中的对象会被触发（例如在iOS Safari中）。
+      设置一个指定的HTML元素为全屏模式按钮——第一次点击进入全屏模式，第二次点击退出全屏。放在 *on enter do* 和 *on exit do* 插槽里的拼图会在进入或退出全屏模式时被触发。如果浏览器不支持全屏（例如iPhone上的Safari浏览器），放在 *if unavailable do* 插槽中的拼图会被触发。
     </p>
 
-    <img src="files/puzzles/puzzles-html-init-fullscreen.jpg">
+    <img src="files/puzzles/puzzles-html-init-fullscreen.jpg" alt="使用可视化逻辑块进入全屏模式">
 
 
     [anchor:open_web_page]
@@ -503,19 +1127,19 @@
       当此拼图被触发时，根据下拉选择，一个指定的URL会在一个新的或同一浏览器标签内打开。当从拼图编辑器中触发时，跳出当前页面前会弹出确认提示。
     </p>
 
-    <img src="files/puzzles/puzzles-html-open-web-page.jpg">
+    <img src="files/puzzles/puzzles-html-open-web-page.jpg" alt="打开新页面的可视化编程块">
 
     <p>选项：</p>
 
     <dl>
       <dt>a new tab</dt>
-      <dd>在新标签中打开URL。为避免被浏览器的新标签页面规则限制，您只能在 <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked(当点击时)</a> 或 <a href="manual/zh/puzzles/HTML.html#on_event_of">on event of(事件)</a> 拼图中使用。</dd>
+      <dd>在新标签中打开URL。为克服浏览器阻止打开新标签的限制，您必须在 <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked(当点击时)</a> 或 <a href="manual/zh/puzzles/HTML.html#on_event_of">on event of(在事件发生时)</a> 拼图中使用此拼图。</dd>
       <dt>the same tab</dt>
       <dd>在同一标签内打开。</dd>
       <dt>the same tab (ignore frames)</dt>
-      <dd>在同一标签内打开。 用于让嵌入的iframe页面在其最顶层的浏览上下文中打开页面。</dd>
+      <dd>在同一标签内打开。用于让嵌入的iframe应用在最顶层的浏览上下文中打开页面。</dd>
       <dt>the same tab (parent frame)</dt>
-      <dd>在同一标签内打开。 用于让嵌入的iframe页面在其父级浏览上下文中打开页面。</dd>
+      <dd>在同一标签内打开。用于让嵌入的iframe应用在父级浏览上下文中打开页面。</dd>
       <dt>replace URL (no reload)</dt>
       <dd>仅将指定的URL放入浏览器地址栏中。</dd>
     </dl>
@@ -529,7 +1153,11 @@
       生成一个链接，以便在主流社交媒体上分享你的应用。
     </p>
 
-    <img src="files/puzzles/puzzles-html-social-share-link.jpg">
+    <img src="files/puzzles/puzzles-html-social-share-link.jpg" alt="使用可视化编程块创建社交媒体链接">
+
+    <p>
+      在大多数情况下，此拼图用于将链接作为输入传递给 <a href="manual/zh/puzzles/HTML.html#open_web_page">open web page(打开网页)</a> 拼图，或指定 `&lt;a&gt;` 元素的 `href` <a href="manual/zh/puzzles/HTML.html#set_property">属性</a>。
+    </p>
 
 
     [anchor:set_url_param]
@@ -540,26 +1168,23 @@
       如有必要，可通过自动形成一个有效的 <a href="https://en.wikipedia.org/wiki/Query_string" target="_blank">查询字符串</a> 来分配或更新指定URL中的参数值，并返回更新的URL。
     </p>
 
-    <img src="files/puzzles/puzzles-html-set-url-param.jpg">
+    <img src="files/puzzles/puzzles-html-set-url-param.jpg" alt="设置URL参数的可视化编程块">
 
     <p>
-      当一个应用的配置数据被存储在其URL中时，此对象会很有用。例如，您可以通过以下方式指定一张图片作为纹理使用：
+      当一个应用的配置数据被存储在其URL中时，此拼图会很有用。例如，您可以通过以下方式指定一张图片作为纹理使用：
     </p>
 
-    <pre class="prettyprint"><code class="lang-html">
-      https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
-    </code></pre>
+    <code class="lang-html">
+    https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
+    </code>
 
     <p>
-      上传一个纹理，检索其服务器端的路径，并将其保存到应用URL的 *image_url* 参数中，如下所示：
+      您可以上传一个纹理，检索其服务器端的路径，并将其保存到应用URL的 *image_url* 参数中，如下所示：
     </p>
 
-    <img src="files/puzzles/puzzles-html-set-url-param-example.jpg">
+    <img src="files/puzzles/puzzles-html-set-url-param-example.jpg" alt="使用逻辑块设置URL参数示例">
 
-    <p>
-      请参阅Verge3D发行版中的 *Custom Image* 演示案例，了解其完整的工作方式。
-    </p>
-
+    [demo:custom_image]
 
 
     [anchor:take_screenshot]
@@ -567,21 +1192,20 @@
     <h3>take screenshot(截屏)</h3>
 
     <p>
-      获取视口的截图并以 <a href="manual/zh/puzzles/HTML.html#data_url">数据URL</a> 格式输出。
+      获取视口的截图并以 <a href="manual/zh/puzzles/HTML.html#data_url">Data URL</a> 格式输出。在下拉列表中可以指定结果图像的格式。
     </p>
 
-    <img src="files/puzzles/puzzles-html-take-screenshot.jpg">
+    <img src="files/puzzles/puzzles-html-take-screenshot.webp" alt="使用可视化编程块截屏">
 
     <p>
-      *注意*：
+      例如，您可以向用户提供保存产品"照片"的功能：
     </p>
 
-    <p>
-      您需要使用 <a href="manual/zh/puzzles/Initialization.html#configure_application">configure application(配置应用)</a> 拼图为应用启用屏幕截图，否则将会生成全黑的图像。
+    <img src="files/puzzles/puzzles-html-take-screenshot-example.webp" alt="截屏示例用法">
+
+    <p class="note">
+      您还需要使用 <a href="manual/zh/puzzles/Initialization.html#configure_application">configure application(配置应用)</a> 拼图为应用启用截屏，否则将会生成全黑的图像。
     </p>
-
-
-
 
 
     [anchor:get_url_data]
@@ -589,45 +1213,41 @@
     <h3>get URL data(获取URL数据)</h3>
 
     <p>
-      检索应用被加载到的窗口的URL数据。
+      检索应用被加载到的窗口的URL数据：
     </p>
 
-    <p>
-    <ul>
-    <li>
-      *Entire URL* - 文本，例如： "https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg"
-    </li>
-    <li>
-      *Parameters* - 字典，例如： {"image_url": "https://www.uploadserver.com/path/to/image.jpg"}
-    </li>
-    <li>
-      *Host name* - 文本，例如： "www.example.com"
-    </li>
-    </ul>
-    如果需要获取外部HTML文档的窗口（Verge3D应用的 <strong>.html</strong> 文件通过 <strong>iframe</strong> 嵌入其中），应启用 "in parent doc" 复选框。
-  </p>
-
-    <img src="files/puzzles/puzzles-html-get-url-data.jpg">
+    <dl>
+      <dt>entire URL</dt>
+      <dd>完整的页面URL，例如 "https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg"。</dd>
+      <dt>page name</dt>
+      <dd>URL的名称部分，例如 "https://www.example.com/my_awesome_app.html" 中的 "my_awesome_app.html"。</dd>
+      <dt>parameters</dt>
+      <dd>页面参数字典，例如 {"image_url": "https://www.uploadserver.com/path/to/image.jpg"}。</dd>
+      <dt>host name</dt>
+      <dd>主机名，例如 "www.example.com"。</dd>
+    </dl>
 
     <p>
-      当一个应用的配置数据被存储在其URL中时，此对象会很有用。例如，您可以通过以下方式指定一张图片作为纹理使用：
+      如果HTML元素位于父HTML文档中（即应用的 <strong>.html</strong> 文件通过 `&lt;iframe&gt;` 嵌入时），应启用 *in parent doc* 复选框。
     </p>
 
-    <pre class="prettyprint"><code class="lang-html">
-      https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
-    </code></pre>
+    <img src="files/puzzles/puzzles-html-get-url-data.jpg" alt="使用可视化编程块获取URL数据">
+
+    <p>
+      当一个应用的配置数据被存储在其URL中时，此拼图会很有用。例如，您可以通过以下方式指定一张图片作为纹理使用：
+    </p>
+
+    <code class="lang-html">
+    https://www.example.com/my_awesome_app.html?image_url=https://www.uploadserver.com/path/to/image.jpg
+    </code>
 
     <p>
       然后您可以检索 *image_url* 参数，加载并应用该纹理，方法如下：
     </p>
 
-    <img src="files/puzzles/puzzles-html-get-url-data-example.jpg">
+    <img src="files/puzzles/puzzles-html-get-url-data-example.jpg" alt="使用可视化编程块获取URL数据示例">
 
-    <p>
-      请参阅Verge3D发行版中的 *Custom Image* 演示案例，了解其完整的工作方式。
-    </p>
-
-
+    [demo:custom_image]
 
 
     [anchor:download_file]
@@ -635,24 +1255,23 @@
     <h3>download file(下载文件)</h3>
 
     <p>
-      下载以 <a href="manual/zh/puzzles/HTML.html#data_url">数据URL</a> 格式指定的内容到一个文件中。您也可以传递文本、 <a href="manual/zh/puzzles/Dictionaries.html">字典</a>、或 <a href="manual/zh/puzzles/Lists.html">列表</a> 数据，作为文本或JSON文件下载。在这种情况下，给定的对象将被自动转换为适当的数据URL。
+      下载以 <a href="manual/zh/puzzles/HTML.html#data_url">Data URL</a> 格式指定的内容到一个文件中。您也可以传递文本、<a href="manual/zh/puzzles/Dictionaries.html">字典</a>或 <a href="manual/zh/puzzles/Lists.html">列表</a>数据，作为文本或JSON文件下载。在这种情况下，给定的对象将被自动转换为适当的Data URL。
     </p>
 
-    <img src="files/puzzles/puzzles-html-download-file.jpg">
+    <img src="files/puzzles/puzzles-html-download-file.jpg" alt="下载文件的可视化编程块">
 
     <p>
       此拼图可用于以下情境：
     </p>
 
     <ul>
-      <li>保存屏幕截图</li>
+      <li>保存先前截取的屏幕截图</li>
       <li>通过保存字典（或列表）到 <strong>*.json</strong> 文件来保存应用状态</li>
       <li>以glTF格式导出模型，以便进一步处理</li>
-      <li>生成文本式的价格信息、报价、报告等。</li>
+      <li>生成文本式的价格信息、报价、报告等</li>
     </ul>
 
-    <img src="files/puzzles/puzzles-html-download-file-example.jpg">
-
+    <img src="files/puzzles/puzzles-html-download-file-example.jpg" alt="使用可视化编程脚本下载文件">
 
 
     [anchor:open_file]
@@ -660,10 +1279,10 @@
     <h3>open file(打开文件)</h3>
 
     <p>
-      调用浏览器的本地对话窗口，从用户的设备中选择文件。当用户选择了文件后，以 <a href="manual/zh/puzzles/HTML.html#data_url">数据URL</a> 格式返回文件的内容或信息。
+      调用浏览器的本地对话窗口，从用户的设备中选择文件。当用户选择了文件后，通过 <a href="manual/zh/puzzles/HTML.html#opened_file">opened file(打开的文件)</a> 拼图返回文件的内容/信息。
     </p>
 
-    <img src="files/puzzles/puzzles-html-open-file.jpg">
+    <img src="files/puzzles/puzzles-html-open-file.jpg" alt="打开文件的可视化编程块">
 
 
     [anchor:opened_file]
@@ -671,59 +1290,67 @@
     <h3>opened file(打开的文件)</h3>
 
     <p>
-      返回文件内容或元数据(metadata)。
+      返回文件内容或元数据。
     </p>
 
-    <img src="files/puzzles/puzzles-html-opened-file.jpg">
+    <img src="files/puzzles/puzzles-html-opened-file.jpg" alt="打开的文件可视化编程块">
 
     <p>选项：</p>
 
     <dl>
       <dt>data</dt>
-      <dd>以 <a href="manual/zh/puzzles/HTML.html#data_url">Data URI</a> 格式编码的文件内容。</dd>
+      <dd>以 <a href="manual/zh/puzzles/HTML.html#data_url">Data URL</a> 格式编码的文件内容。</dd>
       <dt>name</dt>
       <dd>文件名。</dd>
       <dt>extension</dt>
-      <dd>不带点号的文件扩展名： <em>txt</em>, <em>jpg</em>, <em>mp3</em>等等...</dd>
+      <dd>不带点号的文件扩展名：<em>txt</em>、<em>jpg</em>、<em>mp3</em> 等...</dd>
       <dt>size</dt>
-      <dd>以byte计算的文件体积。</dd>
+      <dd>以字节为单位的文件大小。</dd>
       <dt>mime type</dt>
       <dd>
-        文件媒体类型（又名 MIME 类型）。
-        Verge3D 应用通常使用的 mime 类型列表包括：
-
+        <p>
+          文件媒体类型（又名MIME类型）。Verge3D应用通常使用的MIME类型列表包括：
+        </p>
         <table style="width: auto">
           <tr>
             <td>application/json</td>
-            <td>JSON 文件，也可用于 glTF 资产。</td>
+            <td>JSON文件，也可用于glTF资产。</td>
           </tr>
           <tr>
             <td>application/octet-stream</td>
-            <td>二进制文件(.bin)</td>
+            <td>二进制(.bin)文件。</td>
+          </tr>
+          <tr>
+            <td>application/pdf</td>
+            <td>PDF文档。</td>
           </tr>
           <tr>
             <td>audio/mpeg</td>
-            <td>MP3文件</td>
+            <td>MP3音频。</td>
           </tr>
           <tr>
             <td>image/jpeg</td>
-            <td>JPEG图像</td>
+            <td>JPEG图像。</td>
           </tr>
           <tr>
             <td>image/png</td>
-            <td>PNG图像</td>
+            <td>PNG图像。</td>
+          </tr>
+          <tr>
+            <td>image/webp</td>
+            <td>WebP图像。</td>
           </tr>
           <tr>
             <td>text/csv</td>
-            <td>使用逗号分隔符的(CSV)文件</td>
+            <td>使用逗号分隔值的(CSV)文件。</td>
           </tr>
           <tr>
             <td>text/plain</td>
-            <td>纯文本文件(TXT)</td>
+            <td>纯文本文件(TXT)。</td>
           </tr>
           <tr>
             <td>video/mp4</td>
-            <td>MPEG-4视频</td>
+            <td>MPEG-4视频。</td>
           </tr>
         </table>
       </dd>
@@ -735,10 +1362,10 @@
     <h3>drop file to(将文件拖到)</h3>
 
     <p>
-      返回一个从文件管理器（或其他程序）拖拽的文件，并将其放置在浏览器窗口内给定的HTML元素上。当用户拖放该文件后，将其内容作为 <a href="manual/zh/puzzles/HTML.html#open_file">opened file(打开的文件)</a> 拼图返回（使用 <a href="manual/zh/puzzles/HTML.html#data_url">数据URL</a> 格式）。
+      返回一个从文件管理器（或其他程序）拖拽的文件，并将其放置在浏览器窗口内给定的HTML元素上。当用户拖放该文件后，通过 <a href="manual/zh/puzzles/HTML.html#opened_file">opened file(打开的文件)</a> 拼图返回其内容/信息。
     </p>
 
-    <img src="files/puzzles/puzzles-html-drop-file-to.jpg">
+    <img src="files/puzzles/puzzles-html-drop-file-to.jpg" alt="将文件拖放到HTML页面的可视化编程块">
 
     <p>
       您可以激活可选的 *drag over* 插槽来处理文件移动事件。例如，您可以将其与 <a href="manual/zh/puzzles/Scenes.html#raycast">raycast(射线)</a> 拼图一起使用，以突出光标或触摸点下方的对象。
@@ -747,7 +1374,7 @@
 
     [anchor:url_paths]
 
-    <h2>如何指定 Web 资源的 URL 路径</h2>
+    <h2>如何指定Web资源的URL路径</h2>
 
     <p>
       部分拼图在使用时需指定其所需要使用的Web资源的URL（又叫做URI）路径，例如：
@@ -757,16 +1384,19 @@
       <li><a href="manual/zh/puzzles/HTML.html#open_web_page">open web page(打开网页)</a> — 将要打开的网页地址。</li>
       <li><a href="manual/zh/puzzles/Materials.html#replace_texture">replace texture(替换纹理)</a> — 纹理的路径。</li>
       <li><a href="manual/zh/puzzles/Sound.html#load_sound">load sound(加载声音)</a> — 声音资产的路径。</li>
-      <li><a href="manual/zh/puzzles/Scenes.html#load_scene">load scene(加载场景)</a> — glTF 资产。</li>
+      <li><a href="manual/zh/puzzles/Sound.html#load_video">load video(加载视频)</a> — 视频资产的路径。</li>
+      <li><a href="manual/zh/puzzles/Scenes.html#load_scene">load scene(加载场景)</a> — glTF资产。</li>
       <li><a href="manual/zh/puzzles/Objects.html#create_text_object">create text object(新建文本对象)</a> — 字体。</li>
     </ul>
 
     <p>
-      对于此处提到的URL路径，您必须要了解，其与您在本地计算机中看到的路径完全不同。因为网页上的所有资源都是通过 <em>Web浏览器</em> 从 <em>web服务器</em> 中间接获取的。
+      对于此处提到的URL路径，您需要了解，这些路径与您在本地计算机中看到的路径完全不同，因为Web上的所有资源都是间接访问的——通过 <em>Web浏览器</em> 从 <em>Web服务器</em> 获取资源。
     </p>
 
+    <img src="files/puzzles/proper-url-fetch.svg" alt="基本URL获取" style="max-width: 700px">
+
     <p>
-      因此，您应该牢记永远不要使用这样的URL路径：
+      基本上这意味着您永远不应该使用这样的URL路径：
     </p>
 
     <ul>
@@ -776,90 +1406,114 @@
     </ul>
 
     <p>
-      Web中的路径仅使用正斜杠(<strong>/</strong>)指定，类似这样：
+      Web中的路径仅使用正斜杠(<strong>/</strong>)指定，可以是：
     </p>
 
     <dl>
       <dt>相对路径</dt>
       <dd>
-        相对于应用HTML指定的路径：
+        <p>
+          这些路径是相对于应用主HTML文件指定的：
+        </p>
         <ul>
-          <li><em>my_scene.gltf</em> or <em>./my_scene.gltf</em> — 该场景文件位于与应用HTML文件相同的目录中。</li>
-          <li><em>sounds/my_sound.mp3</em> — 声音文件位于与应用HTML存储目录对应的 <em>sounds</em> 子目录中的声音。</li>
-          <li><em>../textures/my_texture.jpg</em> — 位于 <em>textures</em> 目录中的纹理文件，该目录位于应用HTML文件目录的上一层中（因此这里有两个点）。</li>
+          <li><em>my_scene.gltf</em> — 位于与应用HTML文件相同目录中的场景。</li>
+          <li><em>./my_scene.gltf</em> — 位于与应用HTML文件相同目录中的场景。</li>
+          <li><em>sounds/my_sound.mp3</em> — 位于应用HTML存储目录的 <em>sounds</em> 子目录中的声音。</li>
+          <li><em>../textures/my_texture.jpg</em> — 位于 <em>textures</em> 目录中的纹理，该目录位于应用HTML文件目录的上一层中（因此这里有两个点）。</li>
         </ul>
+        <p>
+          在大多数相关拼图中，您应该使用相对路径。
+        </p>
       </dd>
 
       <dt>绝对路径</dt>
-      <dd>当您知道资源在 <em>web服务器</em> 上的确切位置时，可以使用绝对路径指定其位置：
+      <dd>
+        <p>
+          当您知道资源在 <em>Web服务器</em> 上的确切位置时，可以使用绝对路径：
+        </p>
         <ul>
-          <li><em>https://www.my_host.com/my_app/my_scene.gltf</em> — 场景文件存储在 <em>my_host</em> 服务器中的 <em>my_app</em> 中。</li>
-          <li><em>/my_app/fonts/my_font.woff</em> — 字体文件存储在任意主机（名称未知或无关紧要）的 <em>my_app</em> 目录的 <em>fonts</em> 子目录中。</li>
+          <li><em>https://www.my-host.com/my_app/my_scene.gltf</em> — 存储在 <em>my-host</em> 服务器上 <em>my_app</em> 目录中的场景。</li>
+          <li><em>/my_app/fonts/my_font.woff</em> — 存储在任意主机（名称未知或无关紧要）的 <em>my_app</em> 目录的 <em>fonts</em> 子目录中的字体。</li>
         </ul>
       </dd>
 
-      <dt>Data URI</dt>
-      <dd>表示未存储在Web服务器上的编码资源的特殊类型的数据URL。我们用此类链接返回由某些拼图生成或检索的数据。点击 <a href="manual/zh/puzzles/HTML.html#data_url">此处</a> ，了解更多。
+      <dt>Data URL</dt>
+      <dd>
+        一种特殊类型的URL，表示未存储在Web服务器上的编码资源。我们用此类链接返回由某些拼图生成或检索的数据。在<a href="manual/zh/puzzles/HTML.html#data_url">下方</a>了解更多。
       </dd>
     </dl>
 
+    <p>
+      此外，由于大多数服务器运行Linux，其文件系统是 <em>区分大小写</em> 的（Verge3D Network也是如此），您应始终注意资源的命名方式。例如，以下路径：
+    </p>
 
-    [anchor:data_urL]
-
-    <h2>Data URI Links(数据URL链接)</h2>
+    <ul>
+      <li><em>my_texture.jpeg</em></li>
+      <li><em>My_texture.jpeg</em></li>
+      <li><em>My_Texture.jpeg</em></li>
+    </ul>
 
     <p>
-      数据URL（又称为数据URI）是一种方便的方法，可以嵌入各种资产，如图片、glTF模型、声音、JSON或CSV的链接（<a href="https://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">技术资料</a>）。
+      代表不同的纹理！
+    </p>
+
+
+    <!-- COMPAT < 4.7 -->
+    <p><a href="manual/zh/puzzles/HTML.html#data_uri" class="permalink"></a></p>
+    [anchor:data_url]
+
+    <h2>Data URL链接</h2>
+
+    <p>
+      Data URL（又称为Data URI）是一种方便的方法，可以将各种资产（如图像、glTF场景（模型）、声音、JSON或CSV）嵌入到链接中（<a href="https://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">技术资料</a>）。
     </p>
 
     <p>
-      例如，下面的链接代表了Verge3D的logo：
+      例如，下面的链接代表了小的Verge3D logo：
     </p>
 
     <code class="lang-html">
-      data:image/png;base64,
-      iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
-      AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABvFBMVEUAAAAASKUAAFsAvukA
-      RaMA3voAAEoARaQARKMARqQARqQARKMARaQARqQAQ6IATagCcLwCcbwATagARqQASaYARqQASKUC
-      argASKUARqQASqYASKUAR6QAT6kAT6kAR6QAR6UASaUASaUAR6UARKMBWq8BWq8ARKMAQqECaLcC
-      abgAQqEAQaECbboCbroAQaECbrsCbroCabcCa7kCb7sCbrsARaQARaQElNAEldEGrd4GseEDg8cD
-      hcgGtOIGrt8Eks8I1/cFqNwBUqsAQ6IBVKwGrN4Ekc8El9IJ5/8HvOcBU6sASqYDdb8CdL4ASaYB
-      VawHv+gJ5/4EltII0PIJ4PsCc70ARqQEjs0J4vwJ4fsEi8sARaMDdr8J4fwI0fIJ3/sGuuYATKcC
-      ZbYI1fUHyfMHyPMI0/QCYrQATagHvecJ4PwEj80ARKMFnNQHyvMBU8IBUsEFmNII3PkHwuoIyvQH
-      vugAS6cDecEI1/YCbrsBWK4I0vMJ5v8HyPIIz/ICcr0I2PcIz/EDgMUBXrEJ6P8I1vYBW7ADhMcC
-      cb0Hv+kFmNMEkM4GueUJ4PoJ3/oJ3voI3foEltH///+98SuhAAAAOHRSTlMAAAAAAAAAJJPu8Jgn
-      EWjT/v7VEAVLvvq8RwQFe/LweDXn6DdT9/hXWvn6XVv5+lz6+fn6/v7w7sPq7QcAAAABYktHRJPh
-      A9+2AAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QsCEC4OPIwcRgAAAQpJREFUGNNjYGBg
-      YGRi5+Dk4uZhZmQAAUYWXj5+AQtLQSE+YRagEKOIqJi4lbWNrZ29uISkFCODtIysg6OTs4uLq5uj
-      u5y8NIOCooenl7ePr59/QGBQsJIyg4pqSGhYeERkVHRMbFy8mjqDhmZCYlJySmpaekZmVoKWNoOO
-      bnZObl5+QWFqUa5DnJ4+g75BsW9SSWlBQX5ZeUWxoQ6DtnhlVXVNbVpdbX1AQ6ORBoO6WlNzS6Nn
-      a6tnW3tHk6oKg7JSkVdYpWdtrWdKZ1e3ogKDtLxcT28fSKA/0UFWRpqBUUpSwth+QmvrRHtjMVER
-      kGdYhPmETCZZmvLz8bJA/cvKw21mzsHOBuICAHx4PYwwa1fDAAAAJXRFWHRkYXRlOmNyZWF0ZQAy
-      MDE3LTExLTAyVDE2OjQ2OjE0KzAxOjAwKvGBdAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0xMS0w
-      MlQxNjo0NjoxNCswMTowMFusOcgAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
-      AAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAHic4/IMCHFWKCjKT8vMSeVSAAMjCy5jCxMj
-      E0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC
-          </code>
+data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABvFBMVEUAAAAASKUAAFsAvukA
+RaMA3voAAEoARaQARKMARqQARqQARKMARaQARqQAQ6IATagCcLwCcbwATagARqQASaYARqQASKUC
+argASKUARqQASqYASKUAR6QAT6kAT6kAR6QAR6UASaUASaUAR6UARKMBWq8BWq8ARKMAQqECaLcC
+abgAQqEAQaECbboCbroAQaECbrsCbroCabcCa7kCb7sCbrsARaQARaQElNAEldEGrd4GseEDg8cD
+hcgGtOIGrt8Eks8I1/cFqNwBUqsAQ6IBVKwGrN4Ekc8El9IJ5/8HvOcBU6sASqYDdb8CdL4ASaYB
+VawHv+gJ5/4EltII0PIJ4PsCc70ARqQEjs0J4vwJ4fsEi8sARaMDdr8J4fwI0fIJ3/sGuuYATKcC
+ZbYI1fUHyfMHyPMI0/QCYrQATagHvecJ4PwEj80ARKMFnNQHyvMBU8IBUsEFmNII3PkHwuoIyvQH
+vugAS6cDecEI1/YCbrsBWK4I0vMJ5v8HyPIIz/ICcr0I2PcIz/EDgMUBXrEJ6P8I1vYBW7ADhMcC
+cb0Hv+kFmNMEkM4GueUJ4PoJ3/oJ3voI3foEltH///+98SuhAAAAOHRSTlMAAAAAAAAAJJPu8Jgn
+EWjT/v7VEAVLvvq8RwQFe/LweDXn6DdT9/hXWvn6XVv5+lz6+fn6/v7w7sPq7QcAAAABYktHRJPh
+A9+2AAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QsCEC4OPIwcRgAAAQpJREFUGNNjYGBg
+YGRi5+Dk4uZhZmQAAUYWXj5+AQtLQSE+YRagEKOIqJi4lbWNrZ29uISkFCODtIysg6OTs4uLq5uj
+u5y8NIOCooenl7ePr59/QGBQsJIyg4pqSGhYeERkVHRMbFy8mjqDhmZCYlJySmpaekZmVoKWNoOO
+bnZObl5+QWFqUa5DnJ4+g75BsW9SSWlBQX5ZeUWxoQ6DtnhlVXVNbVpdbX1AQ6ORBoO6WlNzS6Nn
+a6tnW3tHk6oKg7JSkVdYpWdtrWdKZ1e3ogKDtLxcT28fSKA/0UFWRpqBUUpSwth+QmvrRHtjMVER
+kGdYhPmETCZZmvLz8bJA/cvKw21mzsHOBuICAHx4PYwwa1fDAAAAJXRFWHRkYXRlOmNyZWF0ZQAy
+MDE3LTExLTAyVDE2OjQ2OjE0KzAxOjAwKvGBdAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0xMS0w
+MlQxNjo0NjoxNCswMTowMFusOcgAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+AAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAHic4/IMCHFWKCjKT8vMSeVSAAMjCy5jCxMj
+E0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC
+    </code>
 
     <p>
-      复制整个片段并粘贴到浏览器地址栏中打开即可在页面显示该图标。
+      复制整个片段并粘贴到浏览器地址栏中即可显示该logo：
     </p>
 
-    <img src="files/puzzles/data-url-logo.jpg">
+    <img src="files/puzzles/data-url-logo.jpg" alt="作为Data URL图像的公司logo">
 
     <p>
-      在拼图中，我们广泛使用数据URL链接，因为它们提供了在不同拼图块之间传递类似于文件的数据的便捷方式。例如，您可以使用 <a href="manual/zh/puzzles/HTML.html#open_file">open file(打开文件)</a> 或 <a href="manual/zh/puzzles/HTML.html#drop_file_to">drag file to(将文件拖到)</a> 拼图加载文件（图像或数据）。然后您可以根据该文件对您的场景进行修改。之后，您可以通过 <a href="manual/zh/puzzles/HTML.html#download_file">download file(下载文件)</a>拼图将修改后的场景（或数据，比如价格表文件）上传到用户机器上，或通过 <a href="manual/zh/puzzles/Advanced.html#send_data">send data(发送数据)</a> 拼图将该文件上传到服务器。在所有这些情况中，数据都将使用数据URL格式传输。
+      在拼图中，我们广泛使用Data URL链接，因为它们提供了在不同拼图块之间传递类文件数据的便捷方式。例如，您可以使用 <a href="manual/zh/puzzles/HTML.html#open_file">open file(打开文件)</a> 或 <a href="manual/zh/puzzles/HTML.html#drop_file_to">drop file to(将文件拖到)</a> 拼图加载某些文件（图像或数据）。然后您可以根据该文件对您的场景进行修改。之后，您可以通过 <a href="manual/zh/puzzles/HTML.html#download_file">download file(下载文件)</a> 拼图将修改后的场景（或数据，比如价格表文件）上传到用户机器上，或通过 <a href="manual/zh/puzzles/Advanced.html#send_data">send data(发送数据)</a> 拼图将该文件上传到服务器。在所有这些情况中，数据都将使用Data URL格式传输。
     </p>
 
-    <p class="note">
-      请参阅Verge3D发行版中的 *Custom Image* 演示案例，了解数据URL的使用方法。
-    </p>
+    [demo:custom_image]
 
     <p>
-      调试Data URI格式的数据也很容易。只需使用 <a href="manual/zh/puzzles/System.html#print_to_console">print to console(打印到控制台)</a> 拼图，然后打开 <a href="manual/zh/introduction/FAQ.html#browser_console">browser console(浏览器控制台)</a> 来观察输出，然后点击控制台内打印的URI，在单独的浏览器标签中预览数据。
+      调试Data URL格式的数据也很容易。只需使用 <a href="manual/zh/puzzles/System.html#print_to_console">print to console(打印到控制台)</a> 拼图，然后打开 <a href="manual/zh/introduction/FAQ.html#browser_console">浏览器控制台</a> 来观察输出，然后点击控制台内打印的URL，在单独的浏览器标签中预览数据。
     </p>
 
-    <img src="files/puzzles/data-url-debugging.jpg">
+    <img src="files/puzzles/data-url-debugging.jpg" alt="在Chrome中调试Data URL链接">
 
 
     <h2>在使用拼图时遇到困难？</h2>

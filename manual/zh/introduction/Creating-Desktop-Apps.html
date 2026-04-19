@@ -15,66 +15,57 @@
     <h1>用Electron创建桌面应用程序</h1>
 
     <p>
-      Electronic是一个可以将网页应用打包成为跨平台桌面应用的工具。Electronic可以为Windows、macOS（同时支持Intel和Apple的芯片架构）和Linux创建应用程序。该工具完全免费，易于使用，并允许用JavaScript进行高级定制（如果需要）。
+      Electron是一个可以将网页应用打包成为跨平台桌面应用的工具。Electron可以为Windows、macOS（同时支持Intel和Apple Silicon架构）和Linux创建应用程序。该工具完全免费，易于使用，并允许用JavaScript进行高级定制（如果需要）。
     </p>
 
     [contents]
-	
 
-	[anchor:creating_app]
+
+    [anchor:creating_app]
 
     <h2>创建应用</h2>
 
     <p>
-        可以通过NPM安装Electron，也可以从GitHub Repo下载。为了简化操作，我们在应用管理器中集成了Electron应用构建工具。
+      可以通过NPM安装Electron，也可以从互联网下载。为了简化操作，我们在应用管理器中集成了Electron应用构建工具。
     </p>
-    
+
     <img src="files/creating-desktop-apps/app-manager-create-native-app.jpg" alt="运行Electron转换器的按钮">
 
     <p>
-        通过它，您可以为选定的目标平台直接下载Electron二进制文件，然后从您的Verge3D应用中打包一个对应平台的应用程序。
+      通过它，您可以为选定的目标平台下载Electron二进制文件，然后从您的Verge3D应用中打包一个对应平台的应用程序。
     </p>
-    
-    <img src="files/creating-desktop-apps/app-manager-electron.jpg">
-    
+
+    <img src="files/creating-desktop-apps/app-manager-electron.jpg" alt="Electron设置">
+
     <p>
-        因为其可用于多种系统平台，请参考如下备忘录下载您所需的版本：
+      由于可用平台众多，请参考以下备忘录选择您所需的版本：
     </p>
 
     <dl>
-      <dt><b>None</b></dt>
-      <dd>不安装任何二进制文件。使用NPM实用工具和下方 <a href="manual/zh/introduction/Creating-Desktop-Apps.html#using_npm">说明</a> 继续构建应用。</dd>
-
+      <dt>None (npm package)</dt>
+      <dd>构建npm包而非即用型可执行文件。此选项适用于熟悉NPM实用工具的高级用户。请按照<a href="manual/zh/introduction/Creating-Desktop-Apps.html#using_npm">下方</a>的说明继续构建应用。</dd>
       <dt>Windows (64-bit)</dt>
-      <dd>64位Windows版，适用于Windows 7之后的系统。</dd>
-      <dt>macOS (64-bit)</dt>
-      <dd>系统版本高于macOS 10.10 (Yosemite)的Intel芯片Mac电脑。</dd>
-      <dt>macOS App Store (64-bit)</dt>
-      <dd>针对Mac应用商店的缩小版本。运行于系统版本高于macOS 10.10 (Yosemite)的Intel芯片Mac电脑。</dd>
-      <dt>Linux (64-bit)</dt>
-      <dd>64位Linux，例如Ubuntu, Fedora, OpenSuse 或 ARCH。</dd>
-
+      <dd>Windows 10或更高版本，64位。</dd>
       <dt>Windows (ARM)</dt>
-      <dd>在带有64位ARM处理器的设备上运行的Windows10。</dd>
-      <dt>macOS (ARM)</dt>
-      <dd>系统版本高于macOS 11（Big Sur）的苹果芯片（M1芯片）Mac电脑。</dd>
-      <dt>macOS App Store (ARM)</dt>
-      <dd>针对Mac应用商店的缩小版本。系统版本高于macOS 11（Big Sur）的苹果芯片（M1芯片）Mac电脑。</dd>
+      <dd>在带有64位ARM处理器的设备上运行的Windows 10+。</dd>
+      <dt>Windows (32-bit)</dt>
+      <dd>Windows 10或更高版本，32位。</dd>
+      <dt>macOS (64-bit)</dt>
+      <dd>macOS 11 (Big Sur)或更高版本，Intel芯片Mac电脑。</dd>
+      <dt>macOS (Apple Silicon)</dt>
+      <dd>macOS 11 (Big Sur)或更高版本，Apple Silicon（即M1-M4）芯片Mac电脑。</dd>
+      <dt>Linux (64-bit)</dt>
+      <dd>64位Linux，例如Ubuntu、Fedora或Red Hat。</dd>
       <dt>Linux (ARM)</dt>
       <dd>64位ARM设备上的Linux。</dd>
-
-      <dt>Windows (32-bit)</dt>
-      <dd>32位Windows版，适用于Windows 7之后的系统。</dd>
-      <dt>Linux (32-bit)</dt>
-      <dd>Linux ，32bit版本 </dd>
     </dl>
 
     <p class="note">
-        由于Windows操作系统的体系结构限制，不可在该系统上构建macOS应用。请改用macOS或Linux。
+      由于Windows操作系统的体系结构限制，不可在该系统上构建macOS应用。请改用macOS或Linux。
     </p>
 
     <p>
-        当应用准备就绪后即可下载，然后将zip文件解压到某个自定义的目录中。    
+      当应用准备就绪后即可下载，然后将zip文件解压到某个目录中。
     </p>
 
 
@@ -83,19 +74,37 @@
     <h2>运行您的应用</h2>
 
     <p>
-        通过运行位于应用目录下的*electron.exe*（或macOS上的*electron.app*，或Linux上的*electron*)来运行应用。
+      通过运行位于应用目录下的*app_name.exe*（或macOS上的*AppName.app*，或Linux上的*app_name*）来运行应用。
     </p>
-    
-    <img src="files/creating-desktop-apps/electron-new-app.jpg" style="max-width: 827px">
+
+    <img src="files/creating-desktop-apps/electron-new-app.jpg" alt="将Verge3D内容作为桌面应用运行" style="max-width: 827px">
 
     <p>
-        请记住，由于您的应用程序是 <em>未签名</em>的版本，Windows和macOS（但Linux不会）会阻止它的直接运行。例如，在Windows上，您将看到以下 *Windows已经保护你的电脑* 对话框：
+      请记住，由于您的应用程序是<em>未签名</em>的版本，Windows和macOS（但Linux不会）会阻止它的直接运行。例如，在Windows上，您将看到以下 *Windows protected your PC* 对话框：
     </p>
-    
-    <img src="files/creating-desktop-apps/windows-protected-your-pc.jpg">
+
+    <img src="files/creating-desktop-apps/windows-protected-your-pc.jpg" alt="Windows protected your PC 对话框">
 
     <p>
-        单击 *更多信息* 链接，然后点击 *仍要运行* 来启动您的应用。为避免此问题，特别是当您将您的工作分发到最终用户时，您必须签署应用。请参阅Electron文档的 <a href="https://www.electronjs.org/docs/tutorial/code-signing" target="_blank">code signing(代码签名)</a> 部分。
+      单击 *More info* 链接，然后点击 *Run anyway* 来启动您的应用。为避免此问题，特别是当您将工作分发给最终用户时，您必须签署应用。请参阅Electron文档的 <a href="https://www.electronjs.org/docs/tutorial/code-signing" target="_blank">code signing(代码签名)</a> 部分。
+    </p>
+
+    <p>
+      在macOS上，您甚至可能会收到应用已损坏的错误提示（实际上并非如此）：
+    </p>
+
+    <img src="files/creating-desktop-apps/macos-app-is-demaged.webp" alt="macOS应用已损坏对话框" style="max-width: 378px">
+
+    <p>
+      在这种情况下，您需要清除ZIP归档文件的隔离属性（使用终端应用）：
+    </p>
+
+    <code>
+      xattr -r -d com.apple.quarantine my_awesome_app.zip
+    </code>
+
+    <p>
+      然后重新解压/启动您的应用。
     </p>
 
 
@@ -109,7 +118,7 @@
     <h3>修改应用名称和图标</h3>
 
     <p>
-        请参阅 <a href="https://www.electronjs.org/docs/tutorial/application-distribution#rebranding-with-downloaded-binaries" target="_blank">Electron官方指南</a> 了解如何重命名您的应用二进制文件，以及指定自定义图标。
+      请参阅 <a href="https://www.electronjs.org/docs/tutorial/application-distribution#rebranding-with-downloaded-binaries" target="_blank">Electron官方指南</a> 了解如何重命名您的应用构建并指定自定义图标。
     </p>
 
 
@@ -118,35 +127,35 @@
     <h3>自定义菜单</h3>
 
     <p>
-        要完全禁用application菜单，请在*main.js*中的*loadFile()*方法后面插入以下一行：
+      要完全禁用应用菜单，请在 ``main.js`` 中的 `loadFile()` 方法后面插入以下一行：
     </p>
 
     <code>
-        win.removeMenu();
+    win.removeMenu();
     </code>
 
     <p>
-        要创建自己的菜单，首先将*menu*模块连接到应用程序：
+      要创建自己的菜单，首先将 `Menu` 模块连接到应用程序：
     </p>
 
     <code>
-        const { Menu } = require(&apos;electron&apos;);
+    const { Menu } = require('electron');
     </code>
 
     <p>
-        我们将使用*shell*模块，在点击菜单时打开外部网站。因此，在这里也添加*shell*模块：
+      我们将使用 `shell` 模块，在点击菜单时打开外部网站。因此，在这里也添加 `shell` 模块：
     </p>
 
     <code>
-        const { shell } = require(&apos;electron&apos;);
+    const { shell } = require('electron');
     </code>
 
     <p>
-        然后在*main.js*中的*loadFile()*方法后面添加以下代码：
+      然后在 ``main.js`` 中的 `loadFile()` 方法后面添加以下代码：
     </p>
 
     <code>
-    var menu = Menu.buildFromTemplate([{
+    const menu = Menu.buildFromTemplate([{
         label: 'Menu',
         submenu: [
             {
@@ -167,26 +176,74 @@
     </code>
 
     <p>
-        请参阅 <a href="files/creating-desktop-apps/menu-template/main.js" download>这里</a> 修改后的*main.js*文件的示例：
+      请参阅<a href="files/creating-desktop-apps/menu-template/main.js" download>这里</a>修改后的 ``main.js`` 文件示例。
     </p>
 
     <p>
-        运行应用，您会得到以下内容：
+      将修改后的 ``main.js`` 放入应用文件夹中，然后再次运行应用构建器。您应该会看到以下效果：
     </p>
-    
-    <img src="files/creating-desktop-apps/electron-app-with-menu.jpg" style="max-width: 800px">
+
+    <img src="files/creating-desktop-apps/electron-app-with-menu.jpg" alt="带菜单的Verge3D应用" style="max-width: 800px">
 
 
     [anchor:using_npm]
 
-    <h2>使用NPM进行Electron高级开发实践</h2>
+    <h2>使用NPM进行Electron高级开发</h2>
 
     <p>
-        要使用Electron，您需要 *npm* 实用程序，它是*node.js*运行时的一部分。您可以参照 <a href="https://nodejs.org/en/download/" target="_blank">如下说明</a>安装 *npm* 。
+      通过使用 *npm* 实用工具，您可以提高基于Electron的开发流程效率。您可以按照<a href="https://nodejs.org/en/download/" target="_blank">这些说明</a>进行安装。
     </p>
 
     <p>
-        请参阅 <a href="https://www.electronjs.org/docs" target="_blank">文档</a> 了解如何在Electron中使用NPM的更多信息。
+      请参阅<a href="https://www.electronjs.org/docs" target="_blank">Electron文档</a>了解如何使用 *npm* 的更多信息。
+    </p>
+
+
+    [anchor:overriding_template_files]
+
+    <h2>覆盖模板文件</h2>
+
+    <p>
+      基于Electron的构建模板文件位于Verge3D安装文件夹内的 *manager/templates/Electron* 目录中。不建议编辑这些文件，但您可以通过在应用文件夹中放置同名文件来轻松覆盖它们。例如，要提供您自己的负责应用初始化的 *main.js* 脚本实现，只需将其从模板文件夹复制（或从头创建一个新文件）并放入应用文件夹中：
+    </p>
+
+    <img src="files/creating-desktop-apps/override-main.webp" alt="覆盖Electron的main.js文件">
+
+
+    [anchor:no_internet_connection]
+
+    <h2>在无互联网连接时创建应用</h2>
+
+    <p>
+      要创建即用型桌面应用，App Manager需要互联网连接以从Soft8Soft服务器下载Electron构建文件。如果您没有或互联网连接受限（例如在代理或防火墙后面），您可以预先下载Electron构建文件，以便App Manager从本地文件中获取。
+    </p>
+
+    <p>
+      使用以下列表下载Electron二进制文件。根据目标平台，您可能只需要下载一个或多个。
+    </p>
+
+    <ul>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-x64.zip">Windows (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-arm64.zip">Windows (ARM)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-win32-ia32.zip">Windows (32-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-darwin-x64.zip">macOS (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-darwin-arm64.zip">macOS (Apple Silicon)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-linux-x64.zip">Linux (64-bit)</a></li>
+      <li><a href="https://cdn.soft8soft.com/electron/v37.2.3/electron-v37.2.3-linux-arm64.zip">Linux (ARM)</a></li>
+    </ul>
+
+    <p>
+      将下载的Electron二进制文件复制到位于用户文件夹内的App Manager配置目录中。保持原样放入（不要解压！）：
+    </p>
+
+    <ul>
+      <li>Windows — ``AppData\Roaming\Soft8Soft\Product Name``</li>
+      <li>macOS — ``Library/Application Support/Product Name``</li>
+      <li>Linux — ``.config/product_name``</li>
+    </ul>
+
+    <p>
+      从现在起，App Manager将使用这些构建文件来创建桌面应用，而不是从互联网下载。
     </p>
 
 

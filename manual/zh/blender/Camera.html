@@ -17,86 +17,215 @@
     </p>
 
     [contents]
-    
-    
+
+
     [anchor:setting_up_in_blender]
 
     <h2>在Blender中的设置</h2>
 
-    <p>只需将摄影机添加到场景中，并将其在<b>场景属性</b>中指定为 <em>活动</em>状态。</p>
-    
-    <img src="files/camera-blender/active-camera.jpg" alt="为Verge3D for Blender设置活动摄影机" style="max-width: 309px">
-    
-    <p>默认情况下，此摄影机将用于渲染场景，但您可以添加更多摄影机，并在运行时中使用<a href="manual/zh/puzzles/Camera.html#set_active_camera">设置活动摄影机</a>拼图来进行切换。</p>
+    <p>
+      只需将摄影机添加到场景中，并将其在*场景属性*中指定为 <em>活动</em> 状态：
+    </p>
+
+    <img src="files/camera-blender/active-camera.jpg" alt="在Blender中设置活动摄影机" style="max-width: 309px">
+
+    <p>
+      默认情况下，此摄影机将用于渲染场景，但您可以添加更多摄影机，并在运行时中使用<a href="manual/zh/puzzles/Camera.html#set_active_camera">设置活动摄影机</a>拼图来进行切换。
+    </p>
 
     <p>Verge3D支持以下摄影机类型：</p>
 
     <ul>
-      <li><b>透视</b></li>
-      <li><b>正交</b></li>
+      <li>*Perspective* - 透视</li>
+      <li>*Orthographic* - 正交</li>
     </ul>
+
+    <div class="note">
+      <p>
+        不建议在Verge3D中使用大于1或小于1的摄影机缩放值。请确保将摄影机的缩放系数设置为1：
+      </p>
+      <img src="files/camera-blender/zero-scaling.webp" alt="在Blender中设置摄影机零缩放" style="max-width: 750px">
+    </div>
+
 
     [anchor:camera_settings]
 
     <h2>摄影机设置</h2>
 
     <p>Verge3D支持以下摄影机设置：</p>
-    
-    <img src="files/camera-blender/camera-settings.jpg" alt="Verge3D for Blender中的摄影机设置" style="max-width: 627px">
-    
-    <p>*Type* - 摄影机类型，透视或正交。</p>
 
-    <p>*Clip Start* and *Clip End* - 剪切开始和剪切结束，摄影机的可见范围。</p>
+    <img src="files/camera-blender/camera-settings.jpg" alt="Blender中的摄影机设置" style="max-width: 627px">
 
-    <p>*Sensor Fit* - 传感器适应，视口在改变尺寸（或旋转设备方向）时做出怎样的反应。</p>
+    <dl>
+      <dt>类型</dt>
+      <dd>摄影机类型，*Perspective*（透视）或*Orthographic*（正交）。</dd>
 
-    <p>*Controls* - 控制，指定在Verge3D中为摄影机分配什么类型的控制方式：</p>
+      <dt>Clip Start / Clip End</dt>
+      <dd>摄影机可见范围（又称剪切距离）。为了消除<a href="manual/zh/introduction/Hardware-Related-Issues.html#z_fighting">Z向冲突伪影</a>，请将*Clip Start*值设置得尽可能高，将*Clip End*值设置得尽可能低。</dd>
 
-    <ul>
-      <li>*Orbit* - 正交，有针对性的三维视图。</li>
-      <li>*Flying* - 飞行，自由飞行视角。</li>
-      <li>*First-Person* - 第一人称，第一人称视角，熟悉的角色控制方式。</li>
-      <li>*Disable* - 禁用，禁止任何控制。指定您是否要通过动画、拼图或JavaScript来移动摄影机。</li>
-    </ul>
+      <dt>Sensor Fit</dt>
+      <dd>
+        视口在改变尺寸（或设备方向）时做出怎样的反应。此设置在Verge3D中有一些不同的含义。
+        <dl>
+          <dt>Auto</dt>
+          <dd>在横向视口使用*Vertical*适应，在纵向视口使用*Horizontal*适应。此模式适用于水平和垂直尺寸相等的场景，因为它可以防止物体被摄影机裁切。</dd>
+          <dt>Horizontal</dt>
+          <dd>适应水平视野。此模式适用于<em>宽阔的</em>场景。通过固定水平视野，您可以确保物体在横向（台式机/笔记本电脑）和纵向（手机）模式下都能适应摄影机。</dd>
+          <dt>Vertical</dt>
+          <dd>适应垂直视野。与*Horizontal*相反，此模式适用于<em>高大的</em>场景。</dd>
+        </dl>
+      </dd>
 
-    <p>*Allow Panning* - 允许平移，允许或禁用摄影机平移。</p>
+      <dt>Controls</dt>
+      <dd>
+        指定在Verge3D中为摄影机分配什么类型的控制方式：
 
-    <p>*Rotation Speed* - 旋转速度，摄影机旋转速度系数。</p>
+        <ul>
+          <li>*Orbit* - 正交，有针对性的三维视图。参见<a href="manual/zh/blender/Camera.html#orbit_camera_settings">下文</a>。</li>
+          <li>*Flying* - 飞行，自由飞行视角。</li>
+          <li>*First-Person* - 第一人称，第一人称视角，熟悉的角色控制方式（WASD）。</li>
+          <li>*Disable* - 禁用，禁止任何控制。指定您是否要通过动画、拼图或JavaScript来移动摄影机。</li>
+        </ul>
+      </dd>
 
-    <p>*Movement Speed* - 移动速度，摄影机移动速度系数。</p>
+      <dt>Allow Panning</dt>
+      <dd>启用/禁用摄影机平移。</dd>
+
+      <dt>Rotation Speed</dt>
+      <dd>摄影机旋转速度系数。</dd>
+
+      <dt>Movement Speed</dt>
+      <dd>摄影机移动速度系数。</dd>
+    </dl>
 
 
     [anchor:orbit_camera_settings]
 
-    <h3>Orbit Camera Settings - 正交摄影机设置：</h3>
-
-    <p>*Target Object/Point* - 目标对象或目标点，指定将用于正交摄影机的目标中心点或用作目标中心点的对象。</p>
+    <h3>轨道摄影机设置</h3>
 
     <p>
-      *Min Dist* and *Max Dist* - 最小距离和最大距离，透视摄影机的的距离限制。
+      使用<strong>目标对象/点</strong>子面板来调整轨道摄影机的设置。
     </p>
-    <p>
-      *Min Zoom* and *Max Zoom* - 最小变焦和最大变焦，正交摄影机的变焦限制。
-    </p>
-    <p>
-      *Vertical Rotation Limits* - 垂直旋转限制：*Min Angle* and *Max Angle* -最小角度和最大角度，限制垂直角度。
-    </p>
-    <p>
-      *Horizontal Rotation Limits* - 水平旋转限制：*Min Angle* and *Max Angle* - 最小角度和最大角度，限制水平角度。
-    </p>
+
+    <img src="files/camera-blender/orbit-camera-settings.jpg" alt="Blender中的轨道摄影机设置" style="max-width: 325px">
+
+    <dl>
+      <dt>Manual</dt>
+      <dd>您可以使用这些数值字段手动设置枢轴点（又称目标）的XYZ坐标。为方便起见，您可以使用*From Cursor*按钮复制Blender 3D光标的当前坐标。</dd>
+
+      <dt>From Object</dt>
+      <dd>摄影机枢轴对象。如果指定，Verge3D将使用该对象的坐标作为摄影机枢轴点。请注意，此指定仅在导出时发生，因此枢轴对象的任何运动（例如因动画产生的运动）在Verge3D中不会影响摄影机。</dd>
+
+      <dt>Update View</dt>
+      <dd>如果您移动了摄影机，可使用此按钮恢复摄影机的枢轴点。</dd>
+
+      <dt>Min Dist, Max Dist</dt>
+      <dd>
+        <p>
+          透视摄影机的距离限制。在Verge3D中，透视轨道摄影机的"缩放"意味着"向前/向后移动"，因此分配给此类摄影机的距离限制间接影响缩放的最小/最大限制。
+        </p>
+        <p class="note">
+          如果您需要通过改变摄影机视野（FOV）来执行缩放，同时保持摄影机位置不变，请使用<a href="manual/zh/puzzles/Camera.html#set_camera_param">设置摄影机参数</a>拼图。
+        </p>
+      </dd>
+
+      <dt>Min Zoom, Max Zoom</dt>
+      <dd>正交摄影机的缩放限制。在Verge3D中，正交轨道摄影机的"缩放"意味着"使摄影机体积变大/变小"。摄影机本身不移动。</dd>
+
+      <dt>Vertical Rotation Limits: Min Angle, Max Angle</dt>
+      <dd>这些值限制垂直（上下）摄影机旋转。</dd>
+
+      <dt>Horizontal Rotation Limits: Min Angle, Max Angle</dt>
+      <dd>这些值限制水平（左右）摄影机旋转。</dd>
+    </dl>
 
 
     [anchor:firstperson_camera_settings]
 
     <h3>第一人称摄影机设置</h3>
 
-    <p>*Collision Material* - 碰撞材质，是用于与摄影机产生碰撞的材质。</p>
+    <p>以下设置允许您在不使用拼图或JavaScript的情况下设置第一人称摄影机控制。</p>
 
-    <p>*Gaze Level* - 注视水平，第一人称摄影机的“注视”（或“头部” / “眼睛”）水平。</p>
+    <img src="files/camera-blender/firstperson-camera-settings.jpg" alt="Blender中的第一人称摄影机设置" style="max-width: 323px">
 
-    <p>*Story Height* - 楼层高度。</p>
+    <dl>
+      <dt>Collision Material</dt>
+      <dd>
+        <p>
+          用于控制摄影机可移动区域的碰撞材质。基本上，此材质上方的区域是可步行的，而其外部的一切都是禁止移动的。如果不指定此值，摄影机将以自由飞行模式运行 — *Flying*。
+        </p>
+        <p>
+          如果您不希望碰撞对象对用户可见，只需在Blender中隐藏它（使用带有摄影机图标的渲染切换器）。
+        </p>
+        <img src="files/camera-blender/firstperson-hide-render.jpg" alt="在Blender中隐藏第一人称碰撞对象" style="max-width: 325px">
+      </dd>
 
-    <p>*Enable PointerLock* - 启用光标锁定，捕捉鼠标光标。</p>
+      <dt>Gaze Level</dt>
+      <dd>第一人称摄影机的"注视"（或"头部"/"眼睛"）水平。</dd>
+
+      <dt>Story Height</dt>
+      <dd>楼层的最大高度。如果场景中需要多层楼，如复式小屋或大型购物中心，请指定此值。</dd>
+
+      <dt>Enable PointerLock</dt>
+      <dd>启用光标锁定功能，在应用启动时捕获鼠标指针。用户需要点击屏幕上的某个位置来锁定光标，然后无需点击/拖动鼠标按钮即可在3D空间中移动。</dd>
+    </dl>
+
+    <p>
+      请看以下基本示例。用户在以下地图上移动，其中白色区域（*AllowedZone*）是允许的，红色表示禁止区域。您可以在红色区域上方设计一些墙壁，或者通往二楼的楼梯，前提是上一层楼的高度超过3米。从地板到角色眼睛的距离为1.75米。
+    </p>
+
+    <img src="files/camera-blender/firstperson-camera-setup.jpg" alt="在Blender中设置第一人称摄影机">
+
+    <p>
+      在此示例中，我们还使用了光标锁定功能，使用户更容易导航。
+    </p>
+
+    <p class="note">
+      第一人称碰撞由Verge3D运行时处理，因此不需要激活<a href="manual/zh/introduction/App-Manager.html#Creating_Applications">物理引擎</a>模块。
+    </p>
+
+    <p>
+      另请参见更高级的房地产体验示例 [demoLink:firstperson_camera]。
+    </p>
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>贴合摄影机边缘</h2>
+
+    <p>
+      <em>贴合摄影机边缘</em>是一种基于Blender模型绘制屏幕空间UI元素的技术。与使用HTML/CSS相比，这种UI设计方法对于3D艺术家来说更"原生"，并且不需要外部工具。但更重要的是：由于UI元素是真正的3D对象，您可以应用着色器、光照、动画、变形等技术，使它们真正具有交互性并无缝集成到场景中。
+    </p>
+
+    <p>
+      当您将某个对象设置为摄影机的子对象时，*对象属性*面板中会出现以下设置：
+    </p>
+
+    <img src="files/camera-blender/fit-to-camera-edge-properties.jpg" alt="贴合摄影机边缘属性" style="max-width: 325px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        对象要贴合的画布水平边界。*None* - 水平方向不贴合，*Left* - 贴合左侧边界，*Right* - 贴合右侧边界，*Stretch* - 水平缩放对象以贴合屏幕。
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        对象要贴合的画布垂直边界。*None* - 垂直方向不贴合，*Top* - 贴合顶部边界，*Bottom* - 贴合底部边界，*Stretch* - 垂直缩放以贴合屏幕。
+      </dd>
+      <dt>Shape</dt>
+      <dd>
+        画布贴合形状。*Box* - 使用对象的边界框，*Sphere* - 使用对象的边界球体以贴合屏幕上的对象，*Point* - 忽略对象边界并使用其中心来贴合屏幕上的对象。
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        在屏幕上贴合对象时的附加偏移量。实际上，此值按指定的绝对值扩展对象边界（框或球体）。
+      </dd>
+    </dl>
+
+    <div class="note">
+      <p>要修复可能出现的摄影机贴合问题，请清除对象的父级反校正（逆矩阵）：</p>
+      <img src="files/lighting-blender/clear-parent-inverse.jpg" alt="在Blender中清除父级反校正" style="max-width: 266px">
+    </div>
+
 
 
     [anchor:camera_control_with_puzzles]

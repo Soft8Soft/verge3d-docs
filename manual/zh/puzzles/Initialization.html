@@ -9,80 +9,82 @@
   <link type="text/css" rel="stylesheet" href="page.css">
 </head>
 <body><article>
-    <h1>初始化｜Initialization</h1>
+    <h1>初始化 | Initialization</h1>
 
     <p>
-      这些拼图位于<strong>init</strong>标签下，在Verge3D应用被初始化之前进行解释。
+      这些拼图应放置在 <strong><em>Init</em></strong> 标签下，并在Verge3D应用初始化之前进行解释。
     </p>
-      
-    <img src="files/puzzles/puzzles-init.jpg">
+
+    <img src="files/puzzles/puzzles-init.webp" alt="初始化可视化编程块">
 
     <h2>内容</h2>
 
     [contents]
-    
-    
+
+
     [anchor:puzzles_reference]
 
     <h2>拼图参考</h2>
 
     [anchor:configure_application]
 
-    <h3>configure application(配置应用)</h3>
+    <h3>configure application</h3>
 
     <p>
-      可设置应用的初始化参数，包括WebGL上下文创建参数。
+      可设置应用初始化参数，包括一些WebGL上下文创建参数。
     </p>
 
-    <dl>
-      <dt>compressed assets(压缩资产)</dt>
-      <dd>设置应用加载<strong>.xz</strong>格式的压缩场景，而不是常规的<strong>.gltf</strong>文件。参见<a href="manual/zh/introduction/Asset-compression.html">资产压缩</a>了解详情。</dd>
+    <img src="files/puzzles/puzzles-init-configure-app.jpg" alt="配置应用可视化编程块">
 
-      <dt>default fullscreen button(默认全屏按钮)</dt>
+    <dl>
+      <dt>compressed assets</dt>
+      <dd>设置应用加载 <strong>.xz</strong> 格式的压缩场景，而不是常规的 <strong>.gltf</strong> 文件。参见<a href="manual/zh/introduction/Asset-compression.html">资产压缩</a>了解详情。</dd>
+
+      <dt>default fullscreen button</dt>
       <dd>启用位于右上角的默认全屏按钮。</dd>
 
-      <dt>transparent background(透明背景)</dt>
+      <dt>transparent background</dt>
       <!-- enabling transparency for AR is a hack for WebXR Viewer -->
-      <dd>使背景透明，这样就可以透过WebGL画布看到网页的背景。启用此参数可在网页中内嵌您的3D内容或将其用于增强现实功能。</dd>
+      <dd>使背景透明，这样就可以透过WebGL画布看到网页的底层内容。启用此参数可在网页中内嵌您的3D内容或将其用于增强现实功能。</dd>
 
-      <dt>enable screenshots(启用屏幕截图)</dt>
-      <dd>可对WebGL画布进行屏幕截图（将WebGL上下文的<strong>preserveDrawingBuffer</strong>属性设置为*true*）。</dd>
+      <dt>enable screenshots</dt>
+      <dd>可对WebGL画布进行正确的屏幕截图（将WebGL上下文的 <code>preserveDrawingBuffer</code> 属性设置为 <code>true</code>）。如果您打算使用 <a href="manual/zh/puzzles/HTML.html#take_screenshot">take screenshot</a> 拼图，请启用此参数。</dd>
 
-      <dt>fade annotations(淡出注解)</dt>
+      <dt>fade annotations</dt>
       <dd>当注解被场景对象挡住时淡出。</dd>
     </dl>
-    
-    <img src="files/puzzles/puzzles-init-configure-app.jpg">
-
 
 
     [anchor:setup_preloader]
 
-    <h3>setup preloader + percentage(设置预加载器+百分比)</h3>
+    <h3>setup preloader + percentage</h3>
 
     <p>
       移除默认的预加载器并公开事件回调，以便于处理预加载进度事件。
     </p>
-      
-    <img src="files/puzzles/puzzles-init-setup-preloader.jpg">
+
+    <img src="files/puzzles/puzzles-init-setup-preloader.jpg" alt="设置预加载器和百分比可视化编程块">
 
     <p>
-      在下方示例中，自定义预加载器用一个id为 "preloader" 的容器HTML元素（例如，一个&lt;div&gt;）来表示。在它里面，还有一个id为 "loading progress " 的元素（例如，一个&lt;span&gt;），其中加载的百分比使用*percentage*拼图来打印。除此之外，第三个元素（例如，&lt;div&gt;）的宽度也是动态变化的，以图形化的方式表示加载进度。
+      在下方示例中，自定义预加载器用一个id为"preloader"的容器HTML元素（例如，一个 <code>&lt;div&gt;</code>）来表示。在它里面，还有一个id为"loading progress"的元素（例如，一个 <code>&lt;span&gt;</code>），其中加载的百分比使用 *percentage* 拼图来打印。除此之外，第三个元素（例如，一个 <code>&lt;div&gt;</code>）的宽度也是动态变化的，以图形化的方式表示加载进度。
     </p>
-    
-    <img src="files/puzzles/puzzles-init-setup-preloader-example.jpg">
 
+    <img src="files/puzzles/puzzles-init-setup-preloader-example.jpg" alt="设置预加载器示例">
 
 
     [anchor:load_font]
 
-    <h3>load font(加载字体)</h3>
+    <h3>load font</h3>
 
     <p>
-      从指定的URL中加载字体，并使其可通过*font-family* CSS规则访问。
+      从指定的<a href="manual/zh/puzzles/HTML.html#url_paths">URL</a>中加载字体，并使其可通过 *font-family* CSS规则访问。
     </p>
-      
-    <img src="files/puzzles/puzzles-init-load-font.jpg">
+
+    <img src="files/puzzles/puzzles-init-load-font.jpg" alt="加载CSS字体的可视化编程块">
+
+    <p>
+      您可以在<a href="manual/zh/puzzles/HTML.html">HTML拼图</a>中使用自定义字体，也可以用于生成<a href="manual/zh/puzzles/Materials.html#texture_from_text">文字纹理</a>。
+    </p>
 
 
     <h2>在使用拼图时遇到困难？</h2>
