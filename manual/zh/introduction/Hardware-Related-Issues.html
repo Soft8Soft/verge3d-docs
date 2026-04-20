@@ -51,6 +51,25 @@
     [contents]
 
 
+    [anchor:banding_artifacts]
+
+    <h2>使用渐变或暗光环境时出现条带伪影</h2>
+
+    <p>在使用渐变或较暗环境中着色时，您可能会遇到类似以下的条带伪影：</p>
+
+    <img src="files/hardware-related-issues/dithering_off.jpg" alt="未启用抖动时的渲染">
+
+    <p>
+      这些伪影是由颜色缓冲区的精度有限引起的，可以通过使用<a href="https://en.wikipedia.org/wiki/Dither" target="_blank">抖动技术</a>来缓解（或大幅减少）：
+    </p>
+
+    <img src="files/hardware-related-issues/dithering_on.jpg" alt="启用抖动后的渲染">
+
+    <p>
+      获取在<a href="manual/zh/blender/Lighting-and-Rendering.html#material_verge3d_panel">Blender</a>、<a href="manual/zh/max/Materials-Maps-Reference.html#Physical">3ds Max</a>或<a href="manual/zh/maya/Materials.html#standardSurface">Maya</a>中启用抖动的说明。
+    </p>
+
+
     [anchor:too_many_attributes]
 
     <h2>Too Many Attributes</h2>
@@ -94,7 +113,7 @@
             <tbody>
                 <tr>
                     <td>3</td>
-                    <td>必要属性： <b>位置</b>， <b>法线</b>， <b>uv</b>。</td>
+                    <td>必要属性： <b>position</b>， <b>normal</b>， <b>uv</b>。</td>
                 </tr>
                 <tr>
                     <td>+2x</td>
@@ -115,7 +134,7 @@
                         <a href="manual/zh/introduction/Hardware-Related-Issues.html#attribute-table0">*</a> 顶点颜色时，
                         为以下节点增加一个属性:
                         <ul>
-                            <li>Blender: <b>属性</b>， <b>顶点颜色</b></li>
+                            <li>Blender: <b>Attribute</b>， <b>Vertex Color</b></li>
                         </ul>
                     </td>
                 </tr>
@@ -141,8 +160,8 @@
                     <td>
                         如果对象材质有任意以下节点，每个增加1个属性：
                         <ul>
-                            <li>Blender: <b>Normal Map（法线贴图）</b>, <b>Tangent（切线）</b>， (仅计"UV Map"模式)</li>
-                            <li>3ds Max: <b>法线凹凸</b></li>
+                            <li>Blender: <b>Normal Map</b>, <b>Tangent</b>， (仅计"UV Map"模式)</li>
+                            <li>3ds Max: <b>Normal Bump</b></li>
                             <li><b>aiNormalMap</b>, <b>bump2d</b> (仅在"Bump Interp"输入 > 0时计算), <b>samplerInfo</b></li>
                         </ul>
                     </td>
@@ -182,10 +201,10 @@
         <img src="files/hardware-related-issues/aa_msaa.jpg">
 
         <p>
-            当 *Anti-Aliasing(抗锯齿)* 输出设置为 MSAA 或 Auto 时，这种情况就会发生(在任意)容硬件上，这里默认设置为 MSAA 4x）。MSAA（多样本抗锯齿）技术可产生不错的图像质量，并且对性能的影响较小。但对于对象颜色突然变化的程序纹理效果不佳。
+            当 *Anti-Aliasing* 导出设置为 *MSAA* 或 *Auto* 时，这种情况就会发生（在任意兼容硬件上，默认设置为 MSAA 4x）。MSAA（多样本抗锯齿）技术可产生不错的图像质量，并且对性能的影响较小。但对于对象颜色突然变化的程序纹理效果不佳。
         </p>
 
-        <p>将 *Anti-Aliasing(抗锯齿)* 技术切换为 FXAA 可解决该问题：</p>
+        <p>将 *Anti-Aliasing* 技术切换为 *FXAA* 可解决该问题：</p>
         
         <img src="files/hardware-related-issues/aa_fxaa.jpg">
 
@@ -212,8 +231,8 @@
 
         <ul>
             <li>最直接且简单的解决办法是：将对象彼此位置放远一点。</li>
-            <li>增大摄影机的 <em>近</em> 距离（<em>裁切起点</em>），或减小 <em>远</em> 距离（<em>裁剪结束点</em>）。这将使摄影机的距离范围缩小，从而提高深度缓冲区中存储数值的精度。</li>
-            <li>如果您需要在某个表面上放置billboard纹理——请禁用其材质上的 *Depth Test(深度测试)* 参数，并增大billboard对象的 *Rendering Order(渲染顺序)* 参数。这样billboard对象将在表面对象渲染完成后再渲染，并且忽略了该对象存储的深度。这样可以有效消除两个对象之间可能发生的 *z-fighting(z缓冲冲突)* 。</li>
+            <li>增大摄影机的 <em>near</em>（或 <em>Clip Start</em>）距离，或减小 <em>far</em>（或 <em>Clip End</em>）距离。这将使摄影机的距离范围缩小，从而提高深度缓冲区中存储数值的精度。</li>
+            <li>如果您需要在某个表面上放置billboard纹理——请禁用其材质上的 *Depth Test* 参数，并增大billboard对象的 *Rendering Order* 参数。这样billboard对象将在表面对象渲染完成后再渲染，并且忽略了该对象存储的深度。这样可以有效消除两个对象之间可能发生的 *z-fighting* 。</li>
         </ul>
 
 

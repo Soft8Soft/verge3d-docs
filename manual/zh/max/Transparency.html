@@ -13,14 +13,13 @@
     <h1>透明度 / 3ds Max</h1>
 
     <p>
-      在这里，我们展示了如何在3ds Max中为标准材、物理材质和glTF兼容的PBR材质启用透明特性。
+      在这里，我们展示了如何在3ds Max中为Physical、OpenPBR、Standard和glTF兼容的PBR材质启用和调整透明特性。
     </p>
 
     [demo:transparency]
-    
 
     [contents]
-    
+
 
     [anchor:blended_vs_masked]
 
@@ -29,32 +28,73 @@
     <p>
       作为一个实时渲染3D引擎，Verge3D提供了两种主要的方法来处理透明物体：alpha混合和alpha剪切（通常需要一个图像蒙版）。<b>混合法(blending)</b>可以将一个半透明的前景色与背景色结合起来，使用前景色的alpha作为混合系数。相对而言，<b>剪切法(clipping)</b>只是简单地丢弃所有alpha值小于某个预定义阈值的像素（在Verge3D for 3ds Max中总是等于0.5）。
     </p>
-    
-    <img src="files/transparency-common/blending-vs-clipping.jpg">
-    
+
+    <img src="files/transparency-common/blending-vs-clipping.jpg" alt="Alpha Blend与Alpha Clip对比">
+
     <p>
-      混合可以实现平滑过渡，通常看起来更漂亮，但计算成本比剪切高。当多边形以错误的顺序被渲染时，它也可能产生Z向排序的伪影。剪切法更适合用于可视化大量小物体的场景（如草和树叶）。但它会产生没有任何过渡的硬边缘，可能会出现锯齿。 
+      混合可以实现平滑过渡，通常看起来更漂亮，但计算成本比剪切高。当多边形以错误的顺序被渲染时，它也可能产生Z向排序的伪影。剪切法更适合用于可视化大量小物体的场景（如草和树叶）。但它会产生没有任何过渡的硬边缘，可能会出现锯齿。
     </p>
 
     <p>
       使用材质设置中的 <strong>Alpha Mode</strong> 下拉菜单，在混合和遮蔽之间进行选择。
     </p>
-    
-    <img src="files/transparency-max/alpha-mode.jpg" style="max-width: 338px">
+
+    <img src="files/transparency-max/alpha-mode.jpg" alt="在3ds Max中选择透明模式" style="max-width: 368px">
+
+    <p>
+      还有一种 *Mask* 模式的变体称为 *Coverage*。它使用MSAA渲染来提高alpha剪切的质量。
+    </p>
+
 
     [anchor:alpha_add]
 
-    <h2>加法合成（又称无深度写入）。</h2>
+    <h2>加法合成（又称加法混合）</h2>
 
     <p>
-      Verge3D还提供了一种特殊的模式，用于在渲染时禁止向深度缓冲区写入数据。这会导致多边形被排除在像素深度比较之外。这样多边形将以加法方式合成，有时会有助于消除混合的伪影。
+      Verge3D还提供了一种特殊的透明表面渲染方法，称为加法合成。通过以加法方式混合并将多边形排除在像素深度比较之外，可以消除透明度伪影。
     </p>
-    
-    <img src="files/transparency-common/no-depth-writes.jpg">
-    
+
+    <img src="files/transparency-common/no-depth-writes.jpg" alt="Alpha Blend与加法合成对比">
+
     <p>
-      在*Alpha Mode*下拉菜单中选择*Add*或*Blend*，并取消勾选材质设置中的*Depth Write*选项以启用该模式。此外，如果您希望透明对象的渲染在所有其他对象之上，请增大 <a href="manual/zh/max/Lighting-and-Rendering.html#per_object_rendering_settings">对象设置</a> 中的*Rendering Order*值。 
+      在 *Alpha Mode* 下拉菜单中选择 *Add*，并取消勾选材质设置中的 *Depth Write* 选项以启用该模式。此外，您还需要增大 <a href="manual/zh/max/Lighting-and-Rendering.html#per_object_rendering_settings">对象设置</a> 中的 *Rendering Order* 值，使透明对象渲染在所有其他对象之上。
     </p>
+
+
+    [anchor:oit_rendering]
+
+    <h2>顺序无关透明度（OIT）</h2>
+
+    <p>
+      Verge3D允许使用近似的顺序无关透明度技术，该技术不需要按排序顺序渲染几何体，因此无需上述任何考虑即可解决大多数透明度问题。
+    </p>
+
+    <img src="files/transparency-common/oit-example.jpg" alt="顺序无关透明度示例">
+
+    <p>
+      OIT可以在 <a href="manual/zh/max/Lighting-and-Rendering.html#global_rendering_settings">Verge3D导出设置</a> 对话框中启用。
+    </p>
+
+    <img src="files/transparency-max/oit.jpg" alt="3ds Max中的顺序无关透明度设置" style="max-width: 340px">
+
+    <p>
+      已知限制：
+    </p>
+
+    <ul>
+      <li>
+        OIT仅兼容WebGL 2，否则无效。
+      </li>
+      <li>
+        OIT被<a href="manual/zh/max/Lighting-and-Rendering.html#light_probes">反射立方体贴图光照探针</a>和<a href="manual/zh/max/Lighting-and-Rendering.html#reflection_plane_light_probes">反射平面光照探针</a>忽略。
+      </li>
+      <li>
+        在高不透明度对象上可能效果不佳。
+      </li>
+      <li>
+        不应与包含2个或更多不透明对象的场景中的 *MSAA*（多重采样抗锯齿）一起使用。相反，您可以使用 *FXAA*（快速近似抗锯齿），它与OIT完全兼容。
+      </li>
+    </ul>
 
 
     [anchor:physical_materials]
@@ -62,27 +102,66 @@
     <h2>物理材质的透明度</h2>
 
     <p>
-      物理材质可在材质属性中设置和调整透明度。
+      Physical（以及OpenPBR）材质的透明度可以通过同名的材质设置进行调整。
     </p>
-    
-    <img src="files/transparency-max/physical-transparency.jpg" style="max-width: 342px">
-    
+
+    <img src="files/transparency-max/physical-transparency.webp" alt="Physical材质的透明度设置" style="max-width: 650px">
+
     <p>参数：</p>
 
-    <ul>
-      <li><b>透明度</b> - 透明度的权重、颜色和粗糙度。颜色和粗糙度参数只支持基于折射的透明度（<b>薄壁</b>关闭时）。</li>
-      <li><b>薄壁</b> - 使用通用的（<b>薄壁</b>打开时）或基于折射的（<b>薄壁</b>关闭时）透明度。</li>
-      <li>*Alpha Mode* - 材质的透明度模式。</li>
-      <li>*Depth Write* - 禁用加法透明度合成（见 <a href="manual/zh/max/Transparency.html#alpha_add">上文</a>）。</li>
-    </ul>
+    <dl>
+      <dt>Transparency</dt>
+      <dd>
+        透明度的权重、颜色和粗糙度。颜色和粗糙度参数只支持基于折射的透明度（*Thin-walled* 关闭时）。
+      </dd>
+      <dt>Thin-walled</dt>
+      <dd>
+        使用通用的（*Thin-walled* 打开时）或基于折射的（*Thin-walled* 关闭时）透明度。
+      </dd>
+      <dt>Alpha Mode</dt>
+      <dd>
+        材质的透明度模式。
+        <dl>
+          <dt>Auto</dt>
+          <dd>查看材质以解析可能的透明度方法：*Opaque* 或 *Blend*。</dd>
+          <dt>Opaque</dt>
+          <dd>渲染材质时不带透明度。</dd>
+          <dt>Blend</dt>
+          <dd>混合透明度（参见<a href="manual/zh/max/Transparency.html#blended_vs_masked">上文</a>）。</dd>
+          <dt>Add</dt>
+          <dd>加法透明度合成（参见<a href="manual/zh/max/Transparency.html#alpha_add">上文</a>）。</dd>
+          <dt>Mask</dt>
+          <dd>蒙版透明度（参见<a href="manual/zh/max/Transparency.html#blended_vs_masked">上文</a>）。</dd>
+          <dt>Coverage</dt>
+          <dd>哈希透明度，又称alpha to coverage。此方法介于蒙版和混合透明度之间。它使用MSAA渲染来提高alpha剪切的质量。</dd>
+        </dl>
+      </dd>
+      <dt>Transparency Hack</dt>
+      <dd>
+        启用两种非标准渲染方法之一来消除透明度伪影：
+        <dl>
+          <dt>Nearest Layer</dt>
+          <dd>通过使用单独的深度缓冲区进行剔除（又称"深度预处理"），仅渲染最靠近摄影机的透明层。</dd>
+          <dt>Two-Pass</dt>
+          <dd>先渲染背面表面，然后渲染正面表面。此方法仅适用于双面材质，即应设置 *2-Sided* 属性。</dd>
+        </dl>
+        两种透明度技巧都会降低性能，因此仅在真正需要时使用。
+      </dd>
+      <dt>Depth Write</dt>
+      <dd>
+        禁用以启用加法透明度合成（参见<a href="manual/zh/max/Transparency.html#alpha_add">上文</a>）。
+      </dd>
+    </dl>
 
-    <p class="note">在3ds Max中，默认情况下<b>薄壁</b>参数时关闭的，这会使得在网页应用中的渲染与您的预期不同，最典型的透明度渲染会失效。当您处理透明的物理材质时，一定要开启这个设置。</p>
+    <p class="note">
+      在3ds Max中，默认情况下 *Thin-walled* 参数是关闭的，这会使得在网页应用中的渲染与您的预期不同，最典型的透明度渲染会失效。当您处理透明的物理材质时，一定要留意这个设置。
+    </p>
 
     <p>
-      可以将贴图和图像的任意组合连接到 <strong>透明度贴图</strong> 输入节点，来影响透明度。
+      可以将贴图和图像的任意组合连接到 <strong>Transparency Map</strong> 输入节点，来影响透明度。
     </p>
-    
-    <img src="files/transparency-max/physical-transparency-with-map.jpg">
+
+    <img src="files/transparency-max/physical-transparency-with-map.jpg" alt="使用贴图的透明物理材质">
 
 
     [anchor:standard_materials]
@@ -90,40 +169,42 @@
     <h2>标准材质的透明度</h2>
 
     <p>
-      标准材质的透明度可以通过材质设置中的 <strong>不透明度</strong> 进行调整。
+      标准材质的透明度可以通过材质设置中的 <strong>Opacity</strong> 进行调整。
     </p>
-    
-    <img src="files/transparency-max/standard-simple.jpg">
-    
+
+    <img src="files/transparency-max/standard-simple.jpg" alt="在3ds Max中调整标准材质的透明度">
+
     <p>
-      可以用标准材质的 <strong>不透明度</strong> 输入创建有趣的依赖关系，以获得更好的真实感。
+      可以用标准材质的 <strong>Opacity</strong> 输入创建有趣的依赖关系，以获得更好的真实感。
     </p>
-    
-    <img src="files/transparency-max/standard-falloff.jpg">
-    
+
+    <img src="files/transparency-max/standard-falloff.jpg" alt="使用Falloff贴图调整3ds Max中的透明度">
+
     <p>
-      可使用在alpha通道中含有透明信息的图像可以作为输入。也可以使用一个单独的阿尔法图像。
+      可使用在alpha通道中含有透明信息的图像作为输入。也可以使用一个单独的alpha图像。
     </p>
-    
-    <img src="files/transparency-max/texture-settings-standard.jpg">
-    
+
+    <img src="files/transparency-max/texture-settings-standard.jpg" alt="带有透明度的3ds Max标准材质">
+
     <p>
       使用 <strong>Alpha Mode</strong> 下拉菜单来选择透明模式。
     </p>
+
 
     [anchor:gltf_materials]
 
-    <h2>glTF兼容的的PBR材质的透明度</h2>
+    <h2>glTF兼容的PBR材质的透明度</h2>
 
     <p>
-      为了使此类材质具有透明度，需要使用一个 <i>单独的</i> alpha贴图与物理材质的 <strong>透明度贴图</strong> 输入相连。
+      为了使此类材质具有透明度，需要使用一个 <em>单独的</em> alpha贴图与物理材质的 <strong>Transparency Map</strong> 输入相连。
     </p>
-    
-    <img src="files/transparency-max/gltf-pbr-transparency.jpg">
-    
+
+    <img src="files/transparency-max/gltf-pbr-transparency.jpg" alt="3ds Max中的glTF 2.0兼容材质设置">
+
     <p>
-      使用 <strong>Alpha Mode</strong> 下拉菜单来选择透明模式。
+      使用 <strong>Alpha Mode</strong> 下拉菜单来选择支持的透明模式：*Auto*、*Opaque*、*Blend* 或 *Mask*。
     </p>
+
 
     <h2>遇到问题？</h2>
 

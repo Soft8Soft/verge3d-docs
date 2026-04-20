@@ -10,14 +10,14 @@
 </head>
 <body><article>
 
-    <h1>使用摄影机 / 3dsMax</h1>
+    <h1>使用摄影机 / 3ds Max</h1>
 
     <p>
       本页包含有关如何为Verge3D for 3ds Max设置摄影机的信息。
     </p>
 
     [contents]
-    
+
 
     [anchor:setting_up_in_3ds_max]
 
@@ -28,10 +28,16 @@
     </p>
 
     <ul>
-      <li><b>物理</b></li>
-      <li><b>目标</b></li>
-      <li><b>自由</b></li>
+      <li>*Physical*</li>
+      <li>*Target*</li>
+      <li>*Free*</li>
     </ul>
+
+    <img src="files/camera-max/supported-camera-types.jpg" alt="Verge3D for 3ds Max支持的摄影机类型" style="max-width: 500px">
+
+    <p class="note">
+      不建议在Verge3D中使用大于或小于100的摄影机缩放值。请确保将摄影机的缩放因子设置为100。
+    </p>
 
 
     [anchor:camera_settings]
@@ -39,38 +45,151 @@
     <h2>摄影机设置</h2>
 
     <p>
-      3ds Max中的每个摄影机都被分配了以下Verge3D设置。
+      3ds Max中的每个摄影机都被分配了以下Verge3D设置：
     </p>
-    
-    <img src="files/camera-max/camera-settings.jpg" alt="Verge3D for 3ds Max中的摄影机设置" style="max-width: 329px">
-    
-    <p>*Allow Panning* - 允许摄影机平移。</p>    
-    <p>*Rot. Speed* -<b> 旋转速度</b>，摄影机的旋转速度系数。</p>
-    <p>*Mov. Speed* - <b>移动速度</b>，摄影机移动的速度系数。</p>
-    <p>*Disable Controls* - 禁止任何控制。指定您是否要通过动画、拼图或JavaScript来移动摄影机。</p>
 
+    <img src="files/camera-max/camera-settings.jpg" alt="Verge3D for 3ds Max中的摄影机设置" style="max-width: 360px">
 
-    [anchor:orbit_settings]
+    <dl>
+      <dt>Viewport Fit</dt>
+      <dd>
+        视口如何响应尺寸变化（或设备方向）。
+        <dl>
+          <dt>Vertical</dt>
+          <dd>适配垂直视野。此模式适合<em>高</em>场景。通过固定垂直视野，您可以确保对象在横屏（桌面/笔记本电脑）和竖屏（手机）模式下都能适配摄影机。</dd>
+          <dt>Horizontal</dt>
+          <dd>适配水平视野。与 *Horizontal* 相反，此模式适合<em>宽</em>场景。</dd>
+        </dl>
+      </dd>
 
-    <h3>Orbit Camera Settings - 正交摄影机设置：</h3>
+      <dt>Allow Panning</dt>
+      <dd>启用/禁用摄影机平移。</dd>
 
-    <p>*Persp Min Dist* 和 *Persp Max Dist* - 透视摄影机的距离限制。</p>
-    <p>*Ortho Min Zoom* 和 *Ortho Max Zoom* - 正交摄影机的变焦限制。</p>
-    <p>*Min Vertical Angle* 和 *Max Vertical Angle* - 垂直（向上-向下）角度限制。</p>
-    <p>*Min Horizon Angle* 和 *Max Horizon Angle* - 水平（左-右）角度限制。</p>
+      <dt>Rot. Speed</dt>
+      <dd>摄影机旋转速度系数。</dd>
+
+      <dt>Mov. Speed</dt>
+      <dd>摄影机移动速度系数。</dd>
+
+      <dt>Targeted Camera Limits</dt>
+      <dd>目标（即轨道）摄影机的设置，参见<a href="manual/zh/max/Camera.html#targeted_camera_settings">下方</a>。</dd>
+
+      <dt>First-Person</dt>
+      <dd>第一人称摄影机的设置，参见<a href="manual/zh/max/Camera.html#firstperson_settings">下方</a>。</dd>
+
+      <dt>Disable Controls</dt>
+      <dd>禁用所有摄影机控制——鼠标、触摸、键盘。指定您是否要通过动画、拼图或JavaScript来移动摄影机。</dd>
+    </dl>
+
+    [anchor:targeted_camera_settings]
+
+    <h3>Targeted Camera Settings - 目标摄影机设置</h3>
+
+    <p>
+      使用以下设置来控制 *Target* 和目标 *Physical* 摄影机的参数。
+    </p>
+
+    <img src="files/camera-max/targeted-camera-settings.jpg" alt="3ds Max中的目标摄影机设置" style="max-width: 347px">
+
+    <dl>
+      <dt>Persp Min Dist, Persp Max Dist</dt>
+      <dd>
+        <p>
+          透视摄影机的距离限制。在Verge3D中，透视轨道摄影机的"缩放"意味着"向前/向后移动"，因此分配给此类摄影机的距离限制间接影响缩放的最小/最大限制。
+        </p>
+        <p class="note">
+          如果您需要通过改变摄影机视野（FOV）来执行缩放，同时保持摄影机位置不变，请使用 <a href="manual/zh/puzzles/Camera.html#set_camera_param">set camera param</a> 拼图。
+        </p>
+      </dd>
+
+      <dt>Ortho Min Zoom, Ortho Max Zoom</dt>
+      <dd>正交摄影机的变焦限制。在Verge3D中，正交轨道摄影机的"缩放"意味着"使摄影机体积变大/变小"。摄影机本身不移动。</dd>
+
+      <dt>Min Vertical Angle, Max Vertical Angle</dt>
+      <dd>垂直（向上-向下）角度限制。</dd>
+
+      <dt>Min Horizon Angle, Max Horizon Angle</dt>
+      <dd>水平（左-右）角度限制。</dd>
+    </dl>
+
+    <p class="note">
+      请注意，在拼图编辑器和JavaScript API中，"Targeted"摄影机被称为"Orbit"。
+    </p>
 
     [anchor:firstperson_settings]
 
     <h3>第一人称摄影机设置</h3>
 
-    <p>*Enabled* - 启用第一人称摄影机。</p>
+    <p>
+      以下设置允许您在不使用拼图或JavaScript的情况下设置第一人称摄影机控制。
+    </p>
 
-    <p>*Collision Material* - 碰撞材质，是用于与摄影机产生碰撞的材质。</p>
+    <img src="files/camera-max/firstperson-camera-settings.jpg" alt="3ds Max中的第一人称角色设置" style="max-width: 350px">
 
-    <p>*Gaze Level* - 注视水平，第一人称摄影机的"注视"（或"头部"/"眼睛"）水平。</p>
+    <dl>
+      <dt>Enabled</dt>
+      <dd>启用第一人称摄影机控制模式。</dd>
 
-    <p>*Story Height* - 楼层高度。</p>
+      <dt>Collision Material</dt>
+      <dd>
+        <p>
+          碰撞材质，用于控制摄影机可以移动的区域。基本上，该材质上方的区域是允许的，所有其他位置（包括空白区域）是禁止的。如果不指定此值，摄影机将以自由飞行模式运行。
+        </p>
+        <p>
+          如果您不希望碰撞对象对用户可见，只需在3ds Max中将其隐藏（使用带有眼睛图标的开关）。
+        </p>
+        <img src="files/camera-max/firstperson-hide-render.jpg" alt="在3ds Max中隐藏第一人称碰撞对象" style="max-width: 315px">
+      </dd>
 
+      <dt>Gaze Level</dt>
+      <dd>第一人称摄影机的"注视"（或"头部"/"眼睛"）水平。</dd>
+
+      <dt>Story Height</dt>
+      <dd>楼层的最大高度。如果您需要在场景中设置多层楼层，例如复式小屋或大型购物中心，请指定此值。</dd>
+
+      <dt>Enable PointerLock</dt>
+      <dd>启用指针锁定功能，在应用启动时捕获鼠标指针。用户应点击屏幕上的某个位置来锁定光标，并无需点击/拖动鼠标按钮即可在3D空间中移动。</dd>
+    </dl>
+
+    <p class="note">
+      第一人称碰撞由Verge3D运行时处理，因此不需要激活<a href="manual/zh/introduction/App-Manager.html#Creating_Applications">物理引擎</a>模块。
+    </p>
+
+    [demo:firstperson_camera]
+
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>适配摄影机边缘</h2>
+
+    <p>
+      <em>Fit to Camera Edge</em> 是一种基于3ds Max模型绘制屏幕空间UI元素的技术。这种UI设计方法对3D艺术家来说比使用HTML/CSS更"原生"，不需要外部工具。但不仅如此：由于UI元素是真正的3D对象，您可以对其应用着色器、灯光、动画、变形——应有尽有——使它们真正具有交互性并无缝集成到场景中。
+    </p>
+
+    <p>
+      当您将某个对象作为摄影机的子对象时，*Verge3D Adv. Rendering Params* 面板上将出现以下设置：
+    </p>
+
+    <img src="files/lighting-max/fit-to-camera-edge-properties.jpg" alt="3ds Max中的适配摄影机边缘设置" style="max-width: 362px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        要适配对象的水平画布边缘。*None* — 不进行水平适配，*Left* — 适配左边缘，*Right* — 适配右边缘，*Stretch* — 水平缩放对象以适应屏幕。
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        要适配对象的垂直画布边缘。*None* — 不进行垂直适配，*Top* — 适配上边缘，*Bottom* — 适配下边缘，*Stretch* — 垂直缩放对象以适应屏幕。
+      </dd>
+      <dt>Shape</dt>
+      <dd>
+        画布适配形状。*Box* — 使用对象的边界框，*Sphere* — 使用对象的边界球来适配屏幕上的对象，*Point* — 忽略对象边界并使用其中心来适配屏幕上的对象。
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        用于将对象适配到屏幕上的额外偏移。实际上，此值通过指定的绝对值扩展对象边界（框或球）。
+      </dd>
+    </dl>
 
 
     [anchor:camera_control_with_puzzles]
@@ -80,6 +199,7 @@
     <p>
       您可以使用 <a href="manual/zh/puzzles/Camera.html">摄影机拼图</a> 来实时控制摄影机。
     </p>
+
 
     <h2>遇到问题？</h2>
 

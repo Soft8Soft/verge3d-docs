@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    <h1>[name]</h1>
+
+    <p>
+      This class is mainly intended for use internally by [page:DirectionalLightShadowCSM DirectionalLightShadowCSM] for calculating subfrustums.
+    </p>
+
+
+    <h2>Constructor</h2>
+
+    <h3>[name]()</h3>
+    <p>
+      Creates a new [name].
+    </p>
+
+
+    <h2>Properties</h2>
+
+    <h3>[property:Object vertices]</h3>
+    <p>
+      Contains 8 points forming the frustum.
+    </p>
+    <ul class="params">
+      <li>[page:Array near] — array of [page:Vector3 points] forming the near plane.</li>
+      <li>[page:Array far] — array of [page:Vector3 points] forming the far plane.</li>
+    </ul>
+
+
+    <h2>Methods</h2>
+
+    <h3>[method:this setFromProjectionMatrix]([param:Matrix4 matrix], [param:Float maxFar])</h3>
+    <ul class="params">
+      <li>[page:Matrix4 matrix] — view [page:Camera camera]'s projection matrix.</li>
+      <li>[page:Float maxFar] — frustum far plane distance.</li>
+    </ul>
+    <p>
+      Sets frustum points from projection matrix.
+    </p>
+
+    <h3>[method:this split]([param:Array breaks], [param:Array target], [param:Boolean fitToScene])</h3>
+    <ul class="params">
+      <li>[page:Array breaks] — array of split intervals.</li>
+      <li>[page:Array target] — array of [page:CSMFrustum subfrustums], should be `target.length <= breaks.length`.</li>
+      <li>[page:Boolean fitToScene] — if `true`, uses <em>fit to scene</em> else <em>fit to cascade</em> method.</li>
+    </ul>
+    <p>
+      Splits this frustum into subfrustums.
+    </p>
+
+    <h3>[method:this toSpace]([param:Matrix4 matrix], [param:this target])</h3>
+    <ul class="params">
+      <li>[page:Matrix4 matrix] — matrix applied to each frustum point.</li>
+      <li>[page:this target] — [page:CSMFrustum frustum] to which the results will be written.</li>
+    </ul>
+    <p>
+      Multiplies each frustum point by a matrix and write the results to the target.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

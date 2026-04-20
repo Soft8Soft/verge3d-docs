@@ -10,15 +10,15 @@
 </head>
 <body><article>
 
-    <h1>使用摄影机/Maya</h1>
+    <h1>使用摄影机 / Maya</h1>
 
     <p>
       本页包含有关如何为Verge3D for Maya设置摄影机的信息。
     </p>
 
     [contents]
-    
-    
+
+
     [anchor:Setting_Up]
 
     <h2>在Maya中的设置</h2>
@@ -28,71 +28,208 @@
     </p>
 
     <ul>
-      <li><b>摄影机</b> -因为此摄影机指定明确的目标，您应该用Maya的”<b>注视当前选择</b>“来设定该摄影机的兴趣中心点。</li>
-      <li><b>摄影机和目标</b></li>
-      <li><b>摄影机、目标和上方向</b></li>
+      <li>*Camera* — 因为此摄影机没有明确的目标，您应该用Maya的 *Look at Selection* 来设定该摄影机的兴趣中心点。</li>
+      <li>*Camera and Aim*</li>
+      <li>*Camera, Aim and Up*</li>
     </ul>
 
     <p>
       或者，您可以配置Maya的默认摄影机，如*persp*。
     </p>
 
-
-    [anchor:per_object_settings]
-
-    <h2>逐一对摄影机设置Verge3D参数</h2>
-
-    <p>
-      Maya的每个摄影机都分配了Verge3D设置：
+    <p class="note">
+      摄影机缩放值大于1或小于1时不建议在Verge3D中使用。请确保将摄影机的缩放因子设置为1。
     </p>
 
-    <img src="files/camera-maya/camera-settings.jpg" alt="Verge3D for Maya中的摄影机设置" style="max-width: 405px">
+
+    [anchor:object_settings]
+
+    <h2>摄影机设置</h2>
 
     <p>
-      *Controls* - 控制，指定在Verge3D中为摄影机分配什么类型的控制方式：
+      Verge3D支持以下摄影机设置：
     </p>
 
-    <ul>
-      <li>*Orbit* - 正交，有针对性的三维视图。</li>
-      <li>*Flying* - 飞行，自由飞行视角。</li>
-      <li>*First-Person* - 第一人称，第一人称视角，熟悉的角色控制方式。</li>
-      <li>*Disable* - 禁用，禁止任何控制。指定您是否要通过动画、拼图或JavaScript来移动摄影机。</li>
-    </ul>
+    <img src="files/camera-maya/camera-settings.webp" alt="Maya中的摄影机设置" style="max-width: 424px">
+
+    <dl>
+      <dt>Controls</dt>
+      <dd>见 <a href="manual/zh/maya/Camera.html#Setting_Up">上文</a>。</dd>
+      <dt>Angle of View / Focal Length</dt>
+      <dd>透视摄影机的视野角度。</dd>
+      <dt>Near Clip Plane / Far Clip Plane</dt>
+      <dd>近裁剪面和远裁剪面距离。为消除 <a href="manual/zh/introduction/Hardware-Related-Issues.html#z_fighting">Z-fighting 伪影</a>，请将 *Near Clip Plane* 值设得尽可能高，*Far Clip Plane* 值设得尽可能低。</dd>
+      <dt>Fit Resolution Gate</dt>
+      <dd>
+        视口在改变尺寸（或设备方向）时如何响应。此设置在Verge3D中的含义略有不同。
+        <dl>
+          <dt>Fill</dt>
+          <dd>将分辨率门适配到胶片门内。</dd>
+          <dt>Horizontal</dt>
+          <dd>适配水平视野。此模式适用于<em>宽</em>场景。通过固定水平视野，您可以确保对象在横向（桌面/笔记本）和纵向（手机）模式下都能在摄影机中完整显示。</dd>
+          <dt>Vertical</dt>
+          <dd>适配垂直视野。与 *Horizontal* 相反，此模式适用于<em>高</em>场景。</dd>
+          <dt>Overscan</dt>
+          <dd>将胶片门适配到分辨率门内。</dd>
+        </dl>
+      </dd>
+    </dl>
+
+    <img src="files/camera-maya/camera-settings-next.webp" alt="Maya中的摄影机设置" style="max-width: 410px">
+
+    <dl>
+      <dt>Background Color</dt>
+      <dd>当 *Render Background* 设置启用时使用的背景颜色。有关此功能的更多信息请参见 <a href="manual/zh/maya/Lighting-and-Rendering.html#background">此处</a>。</dd>
+      <dt>Orthographic</dt>
+      <dd>将摄影机切换到正交模式。</dd>
+      <dt>Orthographic Width</dt>
+      <dd>正交模式下的摄影机缩放。</dd>
+    </dl>
+
+
+    [anchor:verge3d_camera_settings]
+
+    <h3>Common Verge3D Settings</h3>
 
     <p>
-      *Rotation Speed* - 旋转速度，摄影机旋转速度系数。
-    </p>
-    <p>
-      *Movement Speed* - 移动速度，摄影机移动速度系数。
-    </p>
-    <p>
-      *Perspective Distance Limits* - <b>透视距离限制</b>，透视轨道摄影机的距离限制。
-    </p>
-    <p>
-      *Orthographic Zoom Limits* - <b>正交变焦限制</b>，正交轨道摄影机的变焦限制。
-    </p>
-    <p>
-      *Vertical Angle Limits* - <b>垂直角度限制</b>，轨道摄影机的垂直角度限制。
-    </p>
-    <p>
-      *Horizontal Angle Limits* - <b>水平角度限制</b>，轨道摄影机的水平角度限制。
+      Maya中的每个摄影机都分配了额外的Verge3D设置：
     </p>
 
+    <img src="files/camera-maya/camera-settings.jpg" alt="Maya中的Verge3D摄影机设置" style="max-width: 405px">
+
+    <dl>
+      <dt>Controls</dt>
+      <dd>
+        指定在Verge3D中为摄影机分配什么类型的控制方式：
+
+        <ul>
+          <li>*Orbit* — 有针对性的（即旋转、环绕的）摄影机视图。参见 <a href="manual/zh/maya/Camera.html#orbit_camera_settings">下文</a>。</li>
+          <li>*Flying* — 自由飞行视角。</li>
+          <li>*First-Person* — 第一人称视角，熟悉的角色控制方式（WASD）。</li>
+          <li>*Disable* — 禁止任何控制。指定您是否要通过动画、拼图或JavaScript来移动摄影机。</li>
+        </ul>
+      </dd>
+
+      <dt>Panning Enabled</dt>
+      <dd>启用/禁用摄影机平移。</dd>
+
+      <dt>Rotation Speed</dt>
+      <dd>摄影机旋转速度系数。</dd>
+
+      <dt>Movement Speed</dt>
+      <dd>摄影机移动速度系数。</dd>
+    </dl>
+
+
+    [anchor:orbit_camera_settings]
+
+    <h3>Orbit Camera Settings</h3>
+
+    <img src="files/camera-maya/orbit-camera-settings.jpg" alt="Maya中的Orbit摄影机设置" style="max-width: 445px">
+
+    <dl>
+      <dt>Perspective Distance Limits</dt>
+      <dd>
+        <p>
+          <em>透视</em>摄影机的距离限制。在Verge3D中，透视轨道摄影机的"变焦"意味着"向前/向后移动"，因此分配给此类摄影机的距离限制间接影响变焦的最小/最大限制。
+        </p>
+        <p class="note">
+          如果您需要通过改变摄影机视野（FOV）来执行变焦，同时保持摄影机位置不变，请使用 <a href="manual/zh/puzzles/Camera.html#set_camera_param">set camera param</a> 拼图。
+        </p>
+      </dd>
+
+      <dt>Orthographic Zoom Limits</dt>
+      <dd><em>正交</em>摄影机的变焦限制。在Verge3D中，正交轨道摄影机的"变焦"意味着"使摄影机体积变大/变小"，摄影机本身不移动。</dd>
+
+      <dt>Vertical Angle Limits</dt>
+      <dd>这些值限制垂直（上下）的摄影机旋转。</dd>
+
+      <dt>Horizontal Angle Limits</dt>
+      <dd>这些值限制水平（左右）的摄影机旋转。</dd>
+    </dl>
+
+
+    [anchor:firstperson_camera_settings]
 
     <h3>第一人称设置</h3>
-    
-    <p>*Collision Material* - <b>碰撞材质</b>，是用于与摄影机产生碰撞的材质。</p>
 
-    <p>*Gaze Level* - 注视水平，第一人称摄影机的“注视”（或“头部”/“眼睛”）水平。</p>
+    <p>
+      以下设置允许您在不使用拼图或JavaScript的情况下配置第一人称摄影机控制。
+    </p>
 
-    <p>*Story Height* - <b>层高</b>，第一人称摄影机的楼层高度。</p>
+    <img src="files/camera-maya/firstperson-camera-settings.jpg" alt="Maya中的第一人称摄影机设置" style="max-width: 446px">
 
+    <dl>
+      <dt>Collision Material</dt>
+      <dd>
+        <p>
+          用于控制摄影机可移动区域的碰撞材质。基本上，该材质上方的区域是允许的，所有其他位置（包括空白区域）都是禁止的。如果不指定此值，摄影机将以自由飞行模式——即 *Flying* 模式运行。
+        </p>
+        <p>
+          如果您不希望碰撞对象对用户可见，只需在Maya中将其隐藏即可。
+        </p>
+        <img src="files/camera-maya/firstperson-hide-render.jpg" alt="在Maya中隐藏第一人称碰撞对象">
+      </dd>
+
+      <dt>Gaze Level</dt>
+      <dd>第一人称摄影机的"注视"（或"头部"/"眼睛"）水平。</dd>
+
+      <dt>Story Height</dt>
+      <dd>楼层的最大高度。如果您的场景需要多层楼，例如两层别墅或大型购物中心，请指定此值。</dd>
+
+      <dt>Enable PointerLock</dt>
+      <dd>启用指针锁定功能，在应用启动时捕获鼠标指针。用户需要点击屏幕上的某个位置来锁定光标，然后无需点击/拖动鼠标按钮即可在3D空间中移动。</dd>
+    </dl>
+
+    <p class="note">
+      第一人称碰撞由Verge3D运行时处理，因此不需要激活 <a href="manual/zh/introduction/App-Manager.html#Creating_Applications">物理引擎</a> 模块。
+    </p>
+
+    [demo:firstperson_camera]
+
+
+    [anchor:rendering_camera_settings]
 
     <h3>渲染设置</h3>
 
+    <dl>
+      <dt>Render Background</dt>
+      <dd>启用以在Verge3D中配置背景颜色。有关此功能的更多信息请参见 <a href="manual/zh/maya/Lighting-and-Rendering.html#background">此处</a>。</dd>
+    </dl>
+
+
+    [anchor:fit_to_camera_edge]
+
+    <h2>贴合摄影机边缘</h2>
+
     <p>
-      *Render Background* - <b>渲染背景</b>，启用该选项以在Verge3D中配置背景颜色。在 <a href="manual/zh/maya/Lighting-and-Rendering.html#background">这里</a>查看有关此功能的更多信息。
+      <em>Fit to Camera Edge</em> 是一种基于Maya模型绘制屏幕空间UI元素的技术。与使用HTML/CSS相比，这种UI设计方法对3D艺术家来说更"原生"，并且不需要外部工具。但其中还有更多内容：因为UI元素是真正的3D对象，所以您可以应用着色器、照明、动画、变形——使它们真正交互式并无缝集成到场景中。
     </p>
+
+    <p>
+      当您将某个对象设为摄影机的子对象时，*Advanced Rendering* 面板上将出现以下设置：
+    </p>
+
+    <img src="files/lighting-maya/fit-to-camera-edge-properties.jpg" alt="Maya中的贴合摄影机边缘设置" style="max-width: 423px">
+
+    <dl>
+      <dt>Horizontal</dt>
+      <dd>
+        贴合对象的水平画布边缘。*None* — 无水平贴合，*Left* — 贴合左边缘，*Right* — 贴合右边缘，*Stretch* — 水平缩放对象以贴合屏幕。
+      </dd>
+      <dt>Vertical</dt>
+      <dd>
+        垂直画布边缘适合对象。*None* — 无垂直贴合，*Top* — 贴合上边缘，*Bottom* — 贴合下边缘，*Stretch* — 垂直缩放对象以贴合屏幕。
+      </dd>
+      <dt>Shape</dt>
+      <dd>
+        画布贴合形状。*Box* — 使用对象的边界框，*Sphere* — 使用对象的边界球来贴合屏幕上的对象，*Point* — 忽略对象边界并使用其中心来贴合屏幕上的对象。
+      </dd>
+      <dt>Fit Offset</dt>
+      <dd>
+        用于在屏幕上贴合对象的额外偏移量。实际上，该值按指定的绝对值扩展对象边界（长方体或球体）。
+      </dd>
+    </dl>
 
 
     [anchor:Camera_Puzzles]

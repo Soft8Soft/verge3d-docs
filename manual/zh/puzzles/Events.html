@@ -13,152 +13,217 @@
     <h1>事件｜Events</h1>
 
     <p>
-      此类拼图处理用户产生的事件：鼠标点击/触摸，悬停和拖动等。
+      此类拼图处理用户产生的事件：鼠标点击/触摸，悬停和拖动。
     </p>
-      
-    <img src="files/puzzles/puzzles-events.jpg">
+
+    <img src="files/puzzles/puzzles-events.webp" alt="处理用户事件的可视化编程积木">
 
     <h2>内容</h2>
 
     [contents]
-    
-    
+
+
     [anchor:puzzles_reference]
 
     <h2>拼图参考</h2>
 
     [anchor:when_clicked]
 
-    <h3>when clicked(当点击时)</h3>
+    <h3>when clicked（当点击时）</h3>
 
     <p>
-      等待用户点击指定的3D对象 - 然后执行 "do" 插槽中的拼图，如果用户点击了其他东西或者背景，则执行 "missed: do" 插槽中的拼图。该指定对象还可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(全部对象)</a>拼图，则可以是场景中的任何对象。
+      等待用户点击指定的3D对象（或指定列表或组中的任何对象，或如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects（全部对象）</a>拼图则为场景中的任何对象）— 然后运行 *do* 插槽中的拼图。
     </p>
-      
-    <img src="files/puzzles/puzzles-events-when-clicked.jpg">
 
-    <p>点击齿轮按钮会弹出 "advanced event opinions(高级事件选项)" ，选中后会在该拼图中激活如下属性：</p>
+    <img src="files/puzzles/puzzles-events-when-clicked.webp" alt="when clicked拼图">
+
+    <p>
+      如果在齿轮弹出菜单中启用了 *enable "if missed" action* 复选框，则会出现额外的 <strong>if missed: do</strong> 插槽。当用户点击其他对象或背景时，将触发此插槽中的拼图。
+    </p>
+
+    <img src="files/puzzles/puzzles-events-when-clicked-missed.webp" alt="when clicked拼图已激活missed插槽">
+
+    <p>
+      齿轮弹出菜单中的 *advanced event options* 复选框会激活以下属性：
+    </p>
+
+    <img src="files/puzzles/puzzles-events-when-clicked-advanced.webp" alt="when clicked拼图的高级事件选项">
 
     <dl>
       <dt>x-ray</dt>
-      <dd>允许点击任何无法点击的对象后面的物体。对于点击位于半透明表面后面的或在位于最顶层渲染对象(贴花或X射线几何图形)后面的物体时很有用。<dd>
+      <dd>允许点击任何不可点击对象后面的物体。对于点击位于半透明表面后面的或在最顶层渲染对象（贴花或X射线几何图形）后面的物体时很有用。<dd>
 
-      <dt>double click / tap(双击/连点)</dt>
-      <dd>响应桌面端双击事件(double click)或移动端连续点击事件(double tap)来执行拼图。<dd>
+      <dt>double click / tap</dt>
+      <dd>响应桌面端双击（double click）或移动端连续点击（double tap）事件来执行拼图。<dd>
 
-      <dt>mouse buttons(鼠标按键)</dt>
-      <dd>只对指定的鼠标按键执行拼图：左键，中键，或右键。<dd>
+      <dt>mouse buttons</dt>
+      <dd>只对指定的鼠标按键执行拼图：左键、中键或右键。<dd>
     </dl>
+
+    <p>
+      当在齿轮弹出菜单中激活 *unique picked object id* 复选框时，该拼图将向附属的 <a href="manual/zh/puzzles/Events.html#picked_object">picked object</a> 拼图传递唯一ID，而不是对象名称。这允许您在具有相同名称的模型（由于动态追加或克隆而产生）上分配点击监听器：
+    </p>
+
+    <img src="files/puzzles/puzzles-events-when-clicked-id.webp" alt="when clicked拼图将对象ID传递给picked object拼图">
+
 
     [anchor:picked_object]
 
-    <h3>picked object - 选中的对象</h3>
+    <h3>picked object（选中的对象）</h3>
 
     <p>
-      返回用户所点击的对象。适用于 "when clicked(当点击...时)" 拼图。
+      返回用户所点击的对象。适用于 <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a> 拼图。
     </p>
-      
-    <img src="files/puzzles/puzzles-events-picked-object.jpg">
 
+    <img src="files/puzzles/puzzles-events-picked-object.webp" alt="picked object可视化编程积木">
 
 
     [anchor:when_hovered]
 
-    <h3>when hovered(当悬停时)</h3>
-    
-    <p>
-      等待用户将鼠标悬停在指定的3D对象上时，执行在"over/out: do" 插槽里的拼图。悬停对象还可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(全部对象)</a> 拼图，则可以是场景中的任何对象。
-    </p>
-      
-    <img src="files/puzzles/puzzles-events-when-hovered.jpg">
+    <h3>when hovered（当悬停时）</h3>
 
-    <p>点击齿轮按钮会弹出 "advanced event opinions(高级事件选项)" ，选中后会在该拼图中激活如下属性：<p>
+    <p>
+      等待用户将鼠标悬停在/移出指定的3D对象（或指定列表或组中的任何对象，或如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects（全部对象）</a>拼图则为场景中的任何对象）— 然后运行 <strong>over/out: do</strong> 插槽中的拼图。
+    </p>
+
+    <img src="files/puzzles/puzzles-events-when-hovered.jpg" alt="when hovered事件的可视化编程积木">
+
+    <p>
+      此拼图仅在由鼠标光标控制的设备上有效，即台式机和笔记本电脑。在触摸屏设备上将不起作用。
+    </p>
+
+    <p>
+      齿轮弹出菜单中的 *advanced event options* 复选框会激活以下属性：
+    </p>
 
     <dl>
       <dt>x-ray</dt>
-      <dd>允许在其他对象后面悬停。用于勾勒位于半透明表面后面的，或位于最顶层渲染对象(贴花或X射线几何图形)后面的物体轮廓时很有用。<dd>
+      <dd>允许在其他对象后面悬停。用于勾勒位于半透明表面后面的，或位于最顶层渲染对象（贴花或X射线几何图形）后面的物体轮廓时很有用。<dd>
     </dl>
 
 
     [anchor:hovered_object]
 
-    <h3>hovered object(悬停的对象)</h3>
+    <h3>hovered object（悬停的对象）</h3>
 
     <p>
-      返回用户悬停的对象。适用于"when hovered(当悬停于...时)"拼图。
+      返回用户悬停的对象。适用于 <a href="manual/zh/puzzles/Events.html#when_hovered">when hovered</a> 拼图。
     </p>
-      
-    <img src="files/puzzles/puzzles-events-hovered-object.jpg">
 
+    <img src="files/puzzles/puzzles-events-hovered-object.webp" alt="hovered object可视化编程积木">
+
+    <p>
+      此拼图仅在由鼠标光标控制的设备上有效，即台式机和笔记本电脑。在触摸屏设备上将不起作用。
+    </p>
 
 
     [anchor:when_moved]
 
-    <h3>when moved(当移动时)</h3>
+    <h3>when moved（当移动时）</h3>
 
     <p>
-      追踪指定对象的任何移动，包括位置、旋转和比例。该指定对象还可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all bjects(全部对象)</a> ，则可以是场景中的任何对象。如果对象开始移动，则运行 "start: do" 插槽中的拼图，然后在对象持续移动时继续运行 "while moving: do" 插槽中的拼图，直到对象停止移动，然后运行 "stop: do" 插槽中的拼图。*velocity* 参数表示当位置、旋转或缩放的任何坐标（x、y 或 z）的每秒变化当大于此值时，就触发此拼图。
+      追踪指定对象（或指定列表或组中的任何对象，或如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects（全部对象）</a>拼图则为场景中的任何对象）的任何移动（位置、旋转和缩放）。如果对象开始移动，则运行 <strong>start: do</strong> 插槽中的拼图，在对象持续移动期间继续运行 <strong>while moving: do</strong> 插槽中的拼图，直到对象停止移动，然后运行 <strong>stop: do</strong> 插槽中的拼图。*velocity* 参数表示位置、旋转或缩放的任何坐标（x、y 或 z）的每秒变化量，超过此值即触发此拼图。
     </p>
 
-    <img src="files/puzzles/puzzles-events-when-moved.jpg">
-
+    <img src="files/puzzles/puzzles-events-when-moved.jpg" alt="捕捉3D对象移动的可视化编程积木">
 
 
     [anchor:when_dragged]
 
-    <h3>when dragged(当拖动时)</h3>
+    <h3>when dragged（当拖动时）</h3>
 
     <p>
-      等待用户用鼠标或触摸手势拖动指定的3D对象，然后生成移动数据，用于 "drag move(拖移)", "drag rotate(拖动旋转)" or "drag scale(拖动缩放)" 拼图。被指定的3D对象也可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(全部对象)</a> 拼图，则可以是场景中的任何对象。也可以捕捉开始拖动和停止拖动事件。
+      等待用户用鼠标或触摸手势拖动指定的3D对象（或指定列表或组中的任何对象，或如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects（全部对象）</a>拼图则为场景中的任何对象）— 然后生成移动数据，用于 <a href="manual/zh/puzzles/Events.html#drag_move">drag move</a>、<a href="manual/zh/puzzles/Events.html#drag_rotate">drag rotate</a> 或 <a href="manual/zh/puzzles/Events.html#drag_scale">drag scale</a> 拼图。
     </p>
-        
-    <img src="files/puzzles/puzzles-events-when-dragged-over.jpg">
 
+    <img src="files/puzzles/puzzles-events-when-dragged-over.webp" alt="处理对象拖动的可视化编程积木">
 
-    <p>点击齿轮按钮会弹出 "advanced event opinions(高级事件选项)" ，选中后会在该拼图中激活如下属性：</p>
+    <p>
+      齿轮弹出菜单中的 *advanced event options* 复选框会激活以下属性：
+    </p>
+
+    <img src="files/puzzles/puzzles-events-when-dragged-over-advanced.webp" alt="对象拖动的高级选项">
 
     <dl>
       <dt>x-ray</dt>
-      <dd>允许拖动在其他对象后面的物体。对于拖动位于半透明表面后面的或在位于最顶层渲染对象(贴花或X射线几何图形)后面的物体时很有用。<dd>
+      <dd>允许拖动在其他对象后面的物体。对于拖动位于半透明表面后面的或在最顶层渲染对象（贴花或X射线几何图形）后面的物体时很有用。<dd>
 
-      <dt>mouse buttons(鼠标按键)</dt>
-      <dd>只使用指定的鼠标按键拖拽：左键，中键，或右键。<dd>
+      <dt>mouse buttons</dt>
+      <dd>只使用指定的鼠标按键拖拽：左键、中键或右键。<dd>
     </dl>
+
+    <p>
+      *enable start action* 和 *enable drop action* 复选框会激活相应的插槽，用于捕获开始拖动和停止拖动的事件。
+    </p>
+
+    <img src="files/puzzles/puzzles-events-when-dragged-over-slots.webp" alt="对象拖动积木的额外插槽">
 
 
     [anchor:drag_move]
 
-    <h3>drag move(拖移)</h3>
+    <h3>drag move（拖移）</h3>
 
     <p>
-      根据 <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged(当拖动时)</a> 拼图时生成的拖移数据来移动指定的3D对象，被指定的3D对象也可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(全部对象)</a>拼图，则可以是场景中的任何对象。使用下拉菜单设置限制运动的轴或平面，也可以不做限制。
+      根据 <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> 拼图生成的拖动移动数据来移动指定的3D对象（或指定列表或组中的所有对象，或如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects（全部对象）</a>拼图则为场景中的所有对象）。使用 *mode* 下拉菜单将移动限制为特定轴或平面，或设置为 *XYZ* 以在所有方向上自由移动。
     </p>
-      
-    <img src="files/puzzles/puzzles-events-drag-move.jpg">
 
+    <img src="files/puzzles/puzzles-events-drag-move.webp" alt="drag move可视化编程积木">
+
+    <p>
+      齿轮弹出菜单中的 *use "space" option* 复选框会激活 *space* 下拉菜单：
+    </p>
+
+    <img src="files/puzzles/puzzles-events-drag-move-advanced.webp" alt="drag move的高级选项">
+
+    <dl>
+      <dt>world</dt>
+      <dd>在世界坐标中执行移动，即忽略对象的任何父子关系。此模式为默认使用。<dd>
+
+      <dt>parent</dt>
+      <dd>相对于父对象执行移动。<dd>
+
+      <dt>local</dt>
+      <dd>相对于对象自身执行移动。<dd>
+    </dl>
 
 
     [anchor:drag_rotate]
 
-    <h3>drag rotate(拖动旋转)</h3>
+    <h3>drag rotate（拖动旋转）</h3>
 
     <p>
-      根据 <a href="manual/zh/puzzles/Events.html#when_dragged">拖动</a> 拼图时产生的拖动数据，旋转一个指定的三维物体，被指定的3D对象也可以是在列表或组中指定的任何对象，如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(全部对象)</a> 拼图，则可以是场景中的任何对象。使用下拉菜单可以将旋转限制在一个特定的轴上。开启 "space(空间)" 选项激活设定 "local(自身)" 和 "parent(父级)" 坐标空间切换的高级选项。
+      根据 <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> 拼图生成的拖动移动数据来旋转指定的3D对象（或指定列表或组中的所有对象，或如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects（全部对象）</a>拼图则为场景中的所有对象）。使用 *mode* 下拉菜单将旋转限制为特定轴。
     </p>
-    
-    <img src="files/puzzles/puzzles-events-drag-rotate.jpg">
 
+    <img src="files/puzzles/puzzles-events-drag-rotate.webp" alt="drag rotate可视化编程积木">
+
+    <p>
+      齿轮弹出菜单中的 *use "space" option* 复选框会激活 *space* 下拉菜单：
+    </p>
+
+    <img src="files/puzzles/puzzles-events-drag-rotate-advanced.webp" alt="drag rotate的高级选项积木">
+
+    <dl>
+      <dt>world</dt>
+      <dd>在世界坐标中执行旋转，即忽略对象的任何父子关系。此模式为默认使用。<dd>
+
+      <dt>parent</dt>
+      <dd>相对于父对象执行旋转。<dd>
+
+      <dt>local</dt>
+      <dd>相对于对象自身执行旋转。<dd>
+    </dl>
 
 
     [anchor:drag_scale]
 
-    <h3>drag scale(拖动缩放)</h3>
+    <h3>drag scale（拖动缩放）</h3>
 
     <p>
-      根据 <a href="manual/zh/puzzles/Events.html#when_dragged">拖动</a> 拼图时产生的拖动数据，缩放指定的三维物体（或者指定列表或组中的所有物体，或者如果使用 <a href="manual/zh/puzzles/Selectors.html#all_objects">所有物体</a> 拼图，则缩放场景中的所有物体）。使用下拉菜单可以将缩放比例限制在某个特定的轴上。
-      </p>
-      
-    <img src="files/puzzles/puzzles-events-drag-scale.jpg">
+      根据 <a href="manual/zh/puzzles/Events.html#when_dragged">when dragged</a> 拼图生成的拖动移动数据来缩放指定的3D对象（或指定列表或组中的所有对象，或如果使用了 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects（全部对象）</a>拼图则为场景中的所有对象）。使用 *mode* 下拉菜单将缩放限制为特定轴，或设置为 *XYZ* 以均匀缩放对象。
+    </p>
+
+    <img src="files/puzzles/puzzles-events-drag-scale.webp" alt="drag scale可视化编程积木">
 
 
     <h2>在使用拼图时遇到困难？</h2>

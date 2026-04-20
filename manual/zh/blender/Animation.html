@@ -89,6 +89,21 @@
     <img src="files/animation-blender/node-material-animation-insert-keyframes.jpg" alt="在Verge3D for Blender的节点材质动画中插入关键帧" style="max-width: 200px">
 
 
+    [anchor:light_animation]
+
+    <h3>灯光动画</h3>
+
+    <p>
+      您可以为 Blender 灯光的强度制作动画（Point - 点光源、Spot - 聚光灯和 Area - 面光源称为 *Power*，Sun - 日光称为 *Strength*），并在 Verge3D 中重现。
+    </p>
+
+    <img src="files/animation-blender/light-animation.jpg" alt="在Blender中为灯光强度制作动画" style="max-width: 500px">
+
+    <p>
+      还有 <a href="manual/zh/puzzles/Camera.html#set_light_param">set light param</a> 拼图，可用于以程序化方式控制灯光的各种参数。
+    </p>
+
+
     [anchor:Path_Animation]
 
     <h3>路径动画</h3>
@@ -132,25 +147,23 @@
     <p>
       动画设置：
     </p>
-    <p>
-    <ul>
-    <li>
-      *Auto Start* - 自动开始，在场景加载后是否自动启动该对象的动画。
-    </li>
-    <li>
-      *Loop Mode* - 动画播放模式：*Repeat* - 从头到尾并一直重复播放，*once* - 播放一次并停止，*pingpong* - 从头到尾再反反向播放，循环往复。
-    </li>
-    <li>
-      *Repeat Infinitely* - 无限重复，是否持续重复播放此对象的动画。仅对 *repeat* 和 *pingpong* 模式有效。
-    </li>
-    <li>
-      *Repeat Count* - 计数重复，动画将播放多少次。如果禁用了 *repeat infinitely*，则仅对 *repeat* 和 *pingpong* 模式有效。
-    </li>
-    <li>
-      *Offset* - 偏移，动画开始前将跳过多少帧。
-    </li>
-    </ul>
-    </p>
+
+    <dl>
+      <dt>Auto Start</dt>
+      <dd>在场景加载后是否自动启动该对象的动画。</dd>
+
+      <dt>Loop Mode</dt>
+      <dd>播放模式：*Repeat* - 从头到尾重复播放，*Once* - 播放一次并停止，*Ping Pong* - 从头到尾播放然后反向播放。</dd>
+
+      <dt>Repeat Infinitely</dt>
+      <dd>是否持续重复播放此对象的动画。仅对 *Repeat* 和 *Ping Pong* 模式有效。</dd>
+
+      <dt>Repeat Count</dt>
+      <dd>动画将播放多少次。仅在禁用 *Repeat Infinitely* 时对 *Repeat* 和 *Ping Pong* 模式有效。</dd>
+
+      <dt>Offset</dt>
+      <dd>动画开始前将跳过多少帧。</dd>
+    </dl>
 
 
     [anchor:Interpolation]
@@ -192,6 +205,24 @@
     <p>
       动画也可以用其他可视化脚本块来实现。请参阅 <a href="manual/zh/puzzles/Camera.html">摄影机</a> 和 <a href="manual/zh/puzzles/Time.html">时间</a> 拼图。
     </p>
+
+
+    [anchor:limitations]
+
+    <h2>限制</h2>
+
+    <p>
+      在 Verge3D 中，确定哪些动画与给定对象兼容并不容易。因此您不能对同一对象使用多个动画动作。相反，您应该将所有动画关键帧放在同一时间线上，并使用 <a href="manual/zh/puzzles/Animation.html#play_animation">play animation</a> 拼图的播放范围功能：
+    </p>
+
+    <img src="files/animation-blender/puzzles-frame-range.webp" alt="拼图帧范围">
+
+    <p>
+      为了简化分配播放范围的任务，您可以在 Blender 中添加动画标记并为它们命名以便识别：
+    </p>
+
+    <img src="files/animation-blender/keyframe-markers.webp" alt="Blender中的关键帧标记">
+
 
     <h2>遇到问题？</h2>
 

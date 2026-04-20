@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:BufferGeometry] &rarr;
+
+    <h1>[name]</h1>
+
+    <p>A class for generating Utah teapot geometry.</p>
+
+    <h2>Code Example</h2>
+
+    <code>
+    const geometry = new v3d.TeapotGeometry(2);
+    const material = v3d.MaterialUtils.createStandardPBRMaterial('blender', {
+        color: 'gold',
+        roughness: 0.2,
+        metalness: 1
+    });
+    const teapot = new v3d.Mesh(geometry, material);
+    app.scene.add(teapot);
+    </code>
+
+    <h2>Constructor</h2>
+
+    <h3>[name]([param:Float size], [param:Integer segments], [param:Boolean bottom], [param:Boolean lid], [param:Float body], [param:Boolean fitLid], [param:Boolean blinn])</h3>
+    <ul class="params">
+      <li>[page:Float size] — radius of the teapot. Default is `1`.</li>
+      <li>[page:Integer segments] — number of segmented used to generate teapot. Default is `10`.</li>
+      <li>[page:Boolean bottom] — generate bottom geometry. Default is `true`.</li>
+      <li>[page:Boolean lid] — generate lid geometry. Default is `true`.</li>
+      <li>[page:Boolean body] — generate body geometry. Default is `true`.</li>
+      <li>[page:Boolean fitLid] — stretch lid a bit so no gap left. Default is `false`.</li>
+      <li>[page:Boolean blinn] — Jim Blinn vertical scaling. With this scaling applied the teapot will look nicer. Default is `true`.</li>
+    </ul>
+
+    <p class="note">
+      Procedural geometry is fun. However, in real life applications this feature is rarely needed. It would be more efficient do design teapots in the preferred modelling suite and export/load to Verge3D via glTF.
+    </p>
+
+    <h2>Properties</h2>
+    <p>
+      See the base [page:BufferGeometry] class for common properties.
+    </p>
+
+    <h3>[property:Object parameters]</h3>
+    <p>
+      An object with a property for each of the constructor parameters. Any modification after instantiation does not change the geometry.
+    </p>
+
+    <h2>Methods</h2>
+    <p>
+      See the base [page:BufferGeometry] class for common methods.
+    </p>
+
+
+    <h2>Puzzles</h2>
+
+    <p>
+      The <a href="manual/en/puzzles/Objects.html#create_object">create object</a> puzzle can be used to create teapots in a code-less manner.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

@@ -15,14 +15,14 @@
     <p>
       此类拼图用于对动画片断进行操作，做程序化的动画，以及限制对象的运动。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation.jpg">
+
+    <img src="files/puzzles/puzzles-animation.webp" alt="动画拼图">
 
 
     <h2>内容</h2>
 
     [contents]
-    
+
 
     [anchor:puzzles_reference]
 
@@ -33,18 +33,22 @@
     <h3>play animation(播放动画)</h3>
 
     <p>
-      播放一个动画片段。动画片段的名称对应于在Blender、3ds Max或Maya中被指定动画的对象（每个对象只能指定一个动画片段）。使用 <a href="manual/zh/puzzles/Selectors.html#select_animation" target="_parent">animation selector(动画选择器)</a>为这个拼图提供一个动画片段。
+      播放一个动画片段。动画片段的名称对应于在Blender、3ds Max或Maya中被指定动画的对象（每个对象只能指定一个动画片段）。使用 <a href="manual/zh/puzzles/Selectors.html#select_animation" target="_parent">animation selector(动画选择器)</a> 拼图为这个拼图提供一个动画片段。下拉菜单可用于更改动画模式 — *auto* 允许使用三维软件中指定的动画模式，而其他模式则会覆盖 <a href="manual/zh/blender/Animation.html#per_object_settings">Blender</a>、<a href="manual/zh/max/Animation.html#per_object_settings">3ds Max</a> 或 <a href="manual/zh/maya/Animation.html#per_object_settings">Maya</a> 中的设置。如果动画已经在播放，此拼图不会产生任何效果。
     </p>
 
-    <p>
-      使用 "from" 和 "to" 字段来指定帧范围。使用 "speed" 字段来指定播放速度。选中 "reversed" 复选框可以实现倒放。下拉菜单可以用来改变动画模式： "auto" 允许使用三维软件中指定的动画模式，而其他模式则会覆盖Blender、3ds Max或Maya中的设置。
-    </p>
+    <img src="files/puzzles/puzzles-animation-play.webp" alt="播放动画拼图">
 
     <p>
-      动画完成后， <strong>when finished: do</strong> 插槽中的拼图将被执行（这仅对 "once" 动画模式有效）。
+      此拼图支持通过齿轮图标激活的附加选项。使用 *from* 和 *to* 字段来指定帧范围。使用 *speed* 字段来指定播放速度。*reversed* 复选框启用倒放。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-play.jpg">
+
+    <img src="files/puzzles/puzzles-animation-play-advanced.webp" alt="播放高级动画的可视化编程块">
+
+    <p>
+      动画完成后，<strong>when finished do</strong> 插槽中的拼图将被执行（这仅对 *once* 动画模式有效）。
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-play-finished.webp" alt="动画完成时执行操作的拼图">
 
     <p>
       此拼图也适用于动画片段列表。
@@ -56,11 +60,14 @@
     <h3>stop animation(停止动画)</h3>
 
     <p>
-      停止播放一个动画片段。也适用于一个动画片段列表。
+      停止播放一个动画片段，并将当前帧重置为零。也适用于动画片段列表。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-stop.jpg">
 
+    <img src="files/puzzles/puzzles-animation-stop.webp" alt="停止动画拼图">
+
+    <p class="note">
+      它不会触发 <a href="manual/zh/puzzles/Animation.html#play_animation">play animation(播放动画)</a> 拼图中 *when finished do* 插槽内的任何拼图。
+    </p>
 
 
     [anchor:pause_animation]
@@ -68,11 +75,10 @@
     <h3>pause animation(暂停动画)</h3>
 
     <p>
-      暂停一个动画片断的播放，以便以后可以从暂停的那一帧开始继续播放。也适用于一个动画片段列表。
+      暂停一个动画片断的播放，以便以后可以从暂停的那一帧开始继续播放。也适用于动画片段列表。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-pause.jpg">
 
+    <img src="files/puzzles/puzzles-animation-pause.webp" alt="暂停动画拼图">
 
 
     [anchor:resume_animation]
@@ -80,11 +86,10 @@
     <h3>resume animation(恢复动画)</h3>
 
     <p>
-      恢复之前暂停的动画片断。也适用于一个动画片段列表。
+      恢复之前暂停的动画片断。也适用于动画片段列表。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-resume.jpg">
 
+    <img src="files/puzzles/puzzles-animation-resume.webp" alt="恢复动画拼图">
 
 
     [anchor:set_animation_frame]
@@ -92,19 +97,25 @@
     <h3>set animation frame(设置动画帧)</h3>
 
     <p>
-      设置一个动画片段到指定的帧。也适用于一个动画片段列表。
+      设置一个动画片段到指定的帧。也适用于动画片段列表。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-set-animation-frame.jpg">
+
+    <img src="files/puzzles/puzzles-animation-set-animation-frame.webp" alt="设置动画帧拼图">
+
+    <p>
+      如果动画片段正在运行，此拼图会将其暂停。使用 <a href="manual/zh/puzzles/Animation.html#resume_animation">resume animation(恢复动画)</a> 拼图来恢复它。
+    </p>
 
 
     [anchor:get_animation_frame]
 
     <h3>get animation frame(获取动画帧)</h3>
 
-    <p>获取一个动画片段的当前帧。</p>
-      
-    <img src="files/puzzles/puzzles-animation-get-animation-frame.jpg">
+    <p>
+      获取一个动画片段的当前帧。
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-get-animation-frame.jpg" alt="获取动画帧拼图">
 
 
     [anchor:is_animation_playing]
@@ -112,10 +123,10 @@
     <h3>is animation playing(动画正在播放)</h3>
 
     <p>
-      检查一个动画片断（或列表中的动画）是否正在播放。
+      检查一个动画片断（或列表中的任一动画）是否正在播放。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-is-playing.jpg">
+
+    <img src="files/puzzles/puzzles-animation-is-playing.jpg" alt="动画是否正在播放拼图">
 
 
     [anchor:set_animation_speed]
@@ -123,10 +134,10 @@
     <h3>set animation speed(设置动画速度)</h3>
 
     <p>
-      改变动画播放速度。动画不会在速度变化时重新播放。开启“reversed”选项可反转动画播放速度（即速度乘以-1）。也适用于动画剪辑列表。
+      改变动画播放速度。动画不会在速度变化时重新播放。*reversed* 复选框可反转动画速度（即速度乘以-1）。也适用于动画剪辑列表。
     </p>
 
-    <img src="files/puzzles/puzzles-animation-set-animation-speed.jpg" style="max-width: 1104px;">
+    <img src="files/puzzles/puzzles-animation-set-animation-speed.jpg" alt="设置动画速度拼图" style="max-width: 1104px;">
 
 
     [anchor:get_animation_speed]
@@ -137,7 +148,7 @@
       获取动画播放的速度。
     </p>
 
-    <img src="files/puzzles/puzzles-animation-get-animation-speed.jpg">
+    <img src="files/puzzles/puzzles-animation-get-animation-speed.jpg" alt="获取动画速度拼图">
 
 
     [anchor:on_animation_frame_do]
@@ -145,21 +156,60 @@
     <h3>on animation frame do(在动画的第...帧执行)</h3>
 
     <p>
-      在指定帧时执行 *do*  插槽中的拼图。
+      在动画帧时执行 *do* 插槽中指定的拼图。
     </p>
 
-    <img src="files/puzzles/puzzles-animation-on-animation-frame-do.jpg">
+    <img src="files/puzzles/puzzles-animation-on-animation-frame-do.jpg" alt="在动画帧执行拼图">
 
 
     [anchor:get_animation]
 
-    <h3>get animation(获取动画)</h3>
+    <h3>get animation of(获取动画)</h3>
 
     <p>
       检索一个指定对象的动画片段。也适用于对象列表，组（或者组的列表）以及 <a href="manual/zh/puzzles/Selectors.html#all_objects">all objects(所有对象)</a> 拼图。返回值始终是一个动画片段列表（即使只有一个动画片段）。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-get-animation.jpg">
+
+    <img src="files/puzzles/puzzles-animation-get-animation.webp" alt="获取对象动画拼图">
+
+    <p>
+      基本用法示例：
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-get-animation-example.webp" alt="使用获取动画拼图播放动画的各种示例">
+
+    <p>
+      齿轮弹窗中的 *return unique animation id(s)* 复选框可用于检索唯一的动画ID而非名称：
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-get-animation-id.webp" alt="返回动画ID的获取动画拼图">
+
+    <p>
+      此选项在仅有名称不够的情况下非常重要 — 即当动画从另一个glTF文件动态追加并恰好具有相同名称时。
+    </p>
+
+    <p>
+      您可以使用此拼图获取的ID（看起来像这样：5c464bf0-043a-40ee-b864-5c026436d7de）将它们传递给其他动画拼图。
+    </p>
+
+
+    [anchor:assign_animation]
+
+    <h3>assign animation(分配动画)</h3>
+
+    <p>
+      将指定的动画片段应用到不同的对象，并返回生成的动画片段名称。
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-assign-animation.webp" alt="分配动画拼图">
+
+    <p>
+      此拼图支持整体对象、形态键、材质和灯光强度动画。不支持蒙皮动画。
+    </p>
+
+    <p>
+      如果目标对象已经分配了某些动画，它将被新动画替换。
+    </p>
 
 
     [anchor:clone_animation]
@@ -167,10 +217,10 @@
     <h3>clone animation(克隆动画)</h3>
 
     <p>
-      在指定的范围内克隆一个动画片段（或一个动画列表）。
+      在指定的范围内（两端包含）克隆一个动画片段（或动画列表）。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-clone-animation.jpg">
+
+    <img src="files/puzzles/puzzles-animation-clone-animation.jpg" alt="克隆动画拼图">
 
 
     [anchor:animate_param]
@@ -178,27 +228,27 @@
     <h3>animate param(动画参数)</h3>
 
     <p>
-      在用 *duration* 指定（以秒为单位）的时间内，将在 *from* 和 *to* 之间的数字参数（或列表中的所有参数，或 <a href="manual/zh/puzzles/Dictionaries.html">字典</a>）动画化。*easing*下拉菜单允许您指定动画模式（见下文）。
+      在用 *duration* 指定（以秒为单位）的时间内，将在 *from* 和 *to* 之间的数字参数（或列表中的所有参数，或 <a href="manual/zh/puzzles/Dictionaries.html">字典</a>）动画化。*easing* 下拉菜单允许您指定动画模式（见下文）。
     </p>
 
     <p>
-      *repeat*字段指定了第一个动画完成后的重复次数。复选框 *yoyo* 可以实现往复运动（当 *repeat* > 1 时有效）。
+      *repeat* 字段指定了第一个动画完成后的重复次数。*yoyo* 复选框可以实现往复运动（当 *repeat* > 1 时有效）。
     </p>
 
     <p>
       在 *on update do* 插槽中的拼图在参数被动画化时，每一个渲染帧都会被触发。在 *when finished do* 插槽中的拼图会在动画结束后被触发。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-animate-param.jpg">
+
+    <img src="files/puzzles/puzzles-animation-animate-param.jpg" alt="动画参数拼图">
 
     <p>
-      此拼图包装了 <a href="https://github.com/tweenjs/tween.js/blob/master/docs/user_guide.md" target="_blank">Tween.js</a> 库，暴露了它所有的 <a href="http://tweenjs.github.io/tween.js/examples/03_graphs.html" target="_blank">31种缓动模式</a>（如图），持续时间，重复和yoyo设置，以及更新与完成回调。
+      此拼图封装了 <a href="https://github.com/tweenjs/tween.js/blob/master/docs/user_guide.md" target="_blank">Tween.js</a> 库，暴露了其所有的 <a href="http://tweenjs.github.io/tween.js/examples/03_graphs.html" target="_blank">31种缓动模式</a>（如图），持续时间、重复和yoyo设置，以及更新与完成回调。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-animate-param-easing-modes.jpg">
+
+    <img src="files/puzzles/puzzles-animation-animate-param-easing-modes.jpg" alt="各种动画缓动模式">
 
     <p>
-      中间值可以用一个 <a href="manual/zh/puzzles/Animation.html#updated_value">更新值</a> 拼图来检索，通常放在 *on update do* 槽内。
+      中间值可以用一个 <a href="manual/zh/puzzles/Animation.html#updated_value">updated value(更新值)</a> 拼图来检索，通常放在 *on update do* 插槽内。
     </p>
 
 
@@ -207,15 +257,25 @@
     <h3>updated value(更新值)</h3>
 
     <p>
-      返回由 <a href="manual/zh/puzzles/Animation.html#animate_param">animate param</a> 拼图生成的中间值。根据动画参数的类型，可以是一个数字，一个列表或者一个 <a href="manual/zh/puzzles/Dictionaries.html">字典</a>。
+      返回由 <a href="manual/zh/puzzles/Animation.html#animate_param">animate param(动画参数)</a> 拼图生成的中间值。根据动画参数的类型，可以是一个数字，一个列表或者一个 <a href="manual/zh/puzzles/Dictionaries.html">字典</a>。
     </p>
-      
-    <img src="files/puzzles/puzzles-animation-updated-value.jpg">
+
+    <img src="files/puzzles/puzzles-animation-updated-value.jpg" alt="更新值拼图">
 
     <p>
-      此拼图可以放在场景中的任何地方，但通常放在 <a href="manual/zh/puzzles/Animation.html#animate_param">animate param</a> 拼图的 *on update do* 插槽中工作，以执行逐帧刷新操作。
+      此拼图可以放在场景中的任何地方，但通常放在 <a href="manual/zh/puzzles/Animation.html#animate_param">animate param(动画参数)</a> 拼图的 *on update do* 插槽中工作，在这里它每一帧都会更新。
     </p>
 
+
+    [anchor:animate_param_stop]
+
+    <h3>stop animate param(停止动画参数)</h3>
+
+    <p>
+      停止由 <a href="manual/zh/puzzles/Animation.html#animate_param">animate param(动画参数)</a> 拼图产生的动画。
+    </p>
+
+    <img src="files/puzzles/puzzles-animation-animate-param-stop.jpg" alt="停止动画参数拼图">
 
 
     [anchor:constraints_puzzles_reference]
@@ -232,11 +292,10 @@
     <h3>limit transform(限制变换)</h3>
 
     <p>
-      创建一个约束，以限制对象沿选定轴的位置、旋转或缩放。约束的 *id* 应该是唯一的，否则将会替换现有相同id的约束。在 *min* 和 *max* 插槽中指定允许移动的范围。 约束可以限制两个对象之间的距离，因此*距离*槽指定距离限制，即约束球体的半径， *等于* ， *最大* ， *最小* 模式分别约束 <i>在球面，在球内，在球外</i> 。
+      创建一个约束，以限制对象沿选定轴的位置、旋转或缩放。约束的 *id* 应该是唯一的，否则将会替换现有相同id的约束。*min* 和 *max* 插槽指定允许移动的范围。约束可以限制两个对象之间的距离，因此 *distance* 插槽指定距离限制，即约束球体的半径，*equal*、*max*、*min* 模式分别约束 <i>在球面上、在球内、在球外</i>。
     </p>
-      
-    <img src="files/puzzles/puzzles-constraints-limit-transform.jpg">
 
+    <img src="files/puzzles/puzzles-constraints-limit-transform.jpg" alt="限制变换拼图">
 
 
     [anchor:copy_transform]
@@ -244,15 +303,11 @@
     <h3>copy transform(复制变换)</h3>
 
     <p>
-      创建一个约束，从另一个对象复制对象的位置、旋转、比例或所有变换。约束的 *id* 应该是唯一的，否则将会替换现有相同id的约束。
+      创建一个约束，从另一个对象复制对象的位置、旋转、缩放或所有变换。约束的 *id* 应该是唯一的，否则将会替换现有相同id的约束。
     </p>
-      
-    <img src="files/puzzles/puzzles-constraints-copy-transform.jpg">
 
+    <img src="files/puzzles/puzzles-constraints-copy-transform.jpg" alt="复制变换拼图">
 
-
-    <!--for compatibility-->
-    <p><a href="manual/zh/puzzles/Physics.html#operations" id="operations" class="permalink"></a></p>
 
     [anchor:remove_mute_unmute_constraint]
 
@@ -261,15 +316,13 @@
     <p>
       将对象上指定的约束删除、静音或取消静音。如果对象上指定有其他约束，将保持不变。
     </p>
-      
-    <img src="files/puzzles/puzzles-constraints-remove-mute-unmute-constraint.jpg">
 
-    
+    <img src="files/puzzles/puzzles-constraints-remove-mute-unmute-constraint.jpg" alt="删除、静音或取消静音约束的拼图">
+
 
     <h2>在使用拼图时遇到困难？</h2>
-    
-    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
+    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
   </article></body>
 </html>

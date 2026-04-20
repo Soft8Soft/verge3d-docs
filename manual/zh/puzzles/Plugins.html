@@ -62,7 +62,7 @@
     
     [anchor:init_plug_file_format]
 
-    <h3>init.plug文件格式</h3>
+    <h3>init.plug File Format</h3>
 
     <p>
         *init.plug*是一个强制性的插件文件，它用于
@@ -89,7 +89,7 @@
 
     [anchor:init_plug_category]
 
-    <h4>Category(类目)</h4>
+    <h4>Category</h4>
 
     <p>
         *category*部分是一个XML树，它定义了插件及其
@@ -194,7 +194,7 @@
         为查找出某个拼图模块的类型，您可以使用拼图上下文
         菜单中的 "Print Puzzle XML Tree(打印拼图XML树)" 选项：
     </p>
-    <img src="files/puzzles/puzzles-plugins-print-puzzle-xml-tree.png" class="width-clear border-gray">
+    <img src="files/puzzles/puzzles-plugins-print-puzzle-xml-tree.png" alt="打印可视化逻辑模块的XML树" class="width-clear border-gray">
     
     <p>
         该菜单选项可将拼图的XML树打印到
@@ -202,7 +202,7 @@
         以及整个XML结构，可用于在设置 <a href="manual/zh/puzzles/Plugins.html#init_plug_default_input_field_values">默认的
         输入和字段值</a> 时参考。
     </p>
-    <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree.png" class="width-clear border-gray">
+    <img src="files/puzzles/puzzles-plugins-puzzle-xml-tree.png" alt="XML树示例" class="width-clear border-gray">
     
     <p>
         "Print Puzzle XML Tree(打印拼图XML树)" 菜单选项
@@ -566,7 +566,7 @@
 
     [anchor:init_plug_script]
 
-    <h4>脚本</h4>
+    <h4>Script</h4>
 
     <p>
         <b>&lt;script&gt;</b> 元素是 *init.plug* 的一个可选的部分。
@@ -600,7 +600,7 @@ function code() {
 
     [anchor:block_file_format]
 
-    <h3>.block文件格式</h3>
+    <h3>.block File Format</h3>
 
     <p>
         以 <b>.block</b> 为扩展名的插件文件是用来定义
@@ -647,7 +647,7 @@ function code() {
 
     [anchor:block_file_template]
 
-    <h4>Block模板</h4>
+    <h4>Block Template</h4>
 
     <p>
         拼图模块的外观可以通过两种方式定义：
@@ -1782,7 +1782,7 @@ function code(block) {
     并导致产生的visual_logic.js文件变得臃肿。<br/><br/>
 
     为了解决这个问题，
-    您可以利用 *code()* 函数中的一个特殊方法——*Plug.provision()* 。
+    您可以利用 *code()* 函数中的一个特殊方法——*Plug.provide()* 。
     我们通过下方的示例来演示如何使用：
 
     <code>
@@ -1811,9 +1811,47 @@ function code(block) {
  但也可以不同，因为拼图编辑器需要确保
  这个名称是有效的，并且与工作区使用的其他函数/变量没有冲突）。
  应该使用该名称（而不是原始的 "myFunction" ）
- 来调用提供的函数 - 这就是它在 return 语句下的
- 部分中的完成方式。<br/><br/>
+来调用提供的函数 - 这就是它在 return 语句下的
+    部分中的完成方式。<br/><br/>
 </p>
+
+
+    [anchor:using_pzlib_api]
+
+    <h5>Using PzLib API</h5>
+
+    <div class="indented">
+      <p>
+        有一个为插件开发者提供的丰富的API，称为PzLib。此API的使用方式如下：
+      </p>
+
+      <code>
+    function code(block) {
+        // 首先像这样声明所需的方法
+        Plug.pzlib('getAllObjectNames');
+        Plug.pzlib('getObjectByName');
+        Plug.pzlib('generateUniqueName');
+
+        // 或者像这样
+        Plug.pzlib('getAllObjectNames', 'getObjectByName', 'generateUniqueName');
+
+        // ...
+
+        // 然后按如下方式使用
+        const fun = Plug.provide('myFunction', function() {
+            const objNames = PzLib.getAllObjectNames();
+            const cubeObj = PzLib.getObjectByName('Cube');
+            const uniqueName = PzLib.generateUniqueName('Cube');
+        });
+
+        return `${fun}();`;
+    }
+      </code>
+
+      <p>
+        请查看<a href="https://www.soft8soft.com/docs/pzlib_api/" target="_blank">此处</a>获取更多示例和完整的PzLib API参考。
+      </p>
+    </div>
 
 
     [anchor:block_file_code_inputs_fields]

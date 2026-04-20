@@ -12,61 +12,69 @@
 </head>
 <body><article>
 
-    <h1>使用Apache Cordova创建手机应用 </h1>
+    <h1>使用Apache Cordova创建手机应用 | Creating Mobile Applications with Apache Cordova</h1>
 
     <p>
-        Apache Cordova是一个可以将网页应用打包成为跨平台手机应用的工具。Cordova主要用于为Android和iOS平台创建应用程序，但也可以开发Windows、macOS和Linux应用程序。该工具完全免费，易于使用，并允许用JavaScript进行高级定制（如果需要）。
+      Apache Cordova是一个将网页应用转换为跨平台手机应用的工具。Cordova主要用于为Android和iOS平台创建应用程序，但也可以开发Windows、macOS和Linux应用程序。该工具完全免费，易于使用，并允许通过拼图或JavaScript进行高级定制（如果需要）。
+    </p>
+
+    <p class="demoNote">
+      要查看Cordova的实际效果，请从 <a href="https://apps.apple.com/us/app/farmers-journey/id1565673160" target="_blank">App Store</a> 下载Farmer's Journey游戏。
     </p>
 
 
     [contents]
-    
-    
+
+
     [anchor:preliminary_considerations]
 
-    <h2>初步考虑</h2>
+    <h2>Preliminary Considerations</h2>
 
     <p>
-        在开始使用Cordova之前，请确保具备以下条件：
+      在开始使用Cordova之前，请确保具备以下条件：
     </p>
 
     <ul>
       <li>
         硬件。您可以在任何运行Windows、macOS或Linux的电脑上开发Android应用程序，而为苹果设备开发应用则需要一台像样的Mac系统。
-    </li>
+      </li>
 
       <li>
-        基本的windows/macos/linux控制台（命令提示符）使用技能。如果您不会，请在互联网上搜索相关的新手教程。
-    </li>
+        基本的Windows/macOS/Linux控制台（命令提示符）使用技能。如果您不会，请在互联网上搜索相关的新手教程。
+      </li>
 
       <li>
-        时间。通过遵循本指南，您可以非常快速地构建您的第一个应用。但要获得开发者帐户的批准，可能需要数小时甚至几天。在这之后，您才可以并在苹果应用商店或Google Play中发布应用。
-    </li>
+        时间。通过遵循本指南，您可以非常快速地构建您的第一个应用。但要获得开发者帐户的批准，可能需要数小时甚至几天，在这之后，您才能在App Store / Google Play中发布应用。
+      </li>
 
       <li>
-        钱。在自己的设备上创建和运行应用是完全免费的。但要在Google Play上发布，需要支付25美元（一次性付费），而在苹果应用商店，则需要每年支付99美元。
-    </li>
+        资金。在自己的设备上创建和运行应用是完全免费的。但要在Google Play上发布，需要支付25美元（一次性付费），而在App Store，则需要每年支付99美元。
+      </li>
     </ul>
 
     <p>
-        但好的一点，您不需要成为安卓或iOS开发者，就可以为这些平台创建应用。一旦您的开发系统启动并运行，创建Verge3D应用的移动版本将是非常容易的！
+      好的一点是，您不需要成为Android或iOS开发者，就可以为这些平台创建应用。一旦您的开发系统启动并运行，创建Verge3D应用的移动版本将是非常容易的！
+    </p>
+
+    <p class="note">
+      另一种在各种移动和桌面平台上分发应用的方法是使用可安装的 <a href="manual/zh/introduction/App-Manager.html#app_settings_pwa_tab">渐进式Web应用</a>。
     </p>
 
 
     [anchor:getting_cordova]
 
-    <h2>Apache Cordova入门</h2>
+    <h2>Getting Started with Apache Cordova</h2>
 
     <p>
-        要使用 Cordova，您需要 *npm* 实用程序，它是*node.js*运行时的一部分。您可以参照 <a href="https://nodejs.org/en/download/" target="_blank">如下说明</a> 安装 *npm* 。
+      要使用Cordova，您需要 *npm* 实用程序，它是 *Node.js* 运行时的一部分。您可以参照 <a href="https://nodejs.org/en/download/" target="_blank">这些说明</a> 安装。
     </p>
 
     <p class="note">
-        对于Linux，推荐您通过软件包管理器获取npm。参见 <a href="https://nodejs.org/en/download/package-manager/" target="_blank">这里</a> 了解详情。
+      对于Linux，推荐您通过软件包管理器获取npm。参见 <a href="https://nodejs.org/en/download/package-manager/" target="_blank">这里</a> 了解详情。
     </p>
 
     <p>
-        安装npm后，可使用以下命令来安装Cordova二进制文件。
+      安装npm后，可使用以下命令来安装Cordova二进制文件。
     </p>
 
     <p>在macOS/Linux上：</p>
@@ -77,78 +85,121 @@
 
     <code>npm install -g cordova</code>
 
+    <div class="note">
+      <p>除了全局安装Cordova，您还可以使用 *npx* 实用程序，例如：</p>
+      <code>npx cordova platform add android</code>
+    </div>
+
 
     [anchor:creating_app_tempalte]
 
-    <h2>创建应用模板</h2>
+    <h2>Creating Application Template</h2>
 
     <p>
-        您可以手动或使用Cordova命令行工具创建您的移动应用。为简化操作，我们在应用管理器中集成了Cordova模板。
-    </p>
-    
-    <img src="files/creating-mobile-apps/app-manager-create-native-app.jpg">
-
-    <p>
-        通过它您可以从Verge3D应用中直接创建一个Cordova应用模板。
-    </p>
-    
-    <img src="files/creating-mobile-apps/app-manager-cordova.jpg">
-    
-    <p>
-        模板准备就绪后，请下载并将zip文件解压到某个自定义的目录中。
+      您可以手动或使用Cordova命令行工具创建您的移动应用。为简化操作，我们在应用管理器中集成了Cordova模板构建器。
     </p>
 
-    
+    <img src="files/creating-mobile-apps/app-manager-create-native-app.jpg" alt="在应用管理器中创建手机应用">
+
+    <p>
+      通过它您可以从Verge3D应用中直接创建一个Cordova应用模板。
+    </p>
+
+    <img src="files/creating-mobile-apps/app-manager-cordova.jpg" alt="Cordova设置">
+
+    <p>
+      模板准备就绪后，请下载并将zip文件解压到某个目录中。
+    </p>
+
+
     [anchor:creating_android_app]
 
-    <h2>创建Android应用</h2>
+    <h2>Creating Android App</h2>
 
     <p>
-        转到Cordova应用模板所在目录，然后添加Android平台：
+      转到Cordova应用模板所在目录，然后添加Android平台：
     </p>
-    
+
     <code>cordova platform add android</code>
 
     <p>
-        现在到了最难的部分。为了能够在Android模拟器或真实设备中构建和测试应用，您需要安装和配置额外的软件。
+      现在到了最难的部分。为了能够在Android模拟器或真实设备中构建和测试应用，您需要安装和配置额外的软件。
     </p>
 
     <p>
-        首先，您需要安装Android Studio，从 <a href="https://developer.android.com/studio">这里</a> 下载。
+      首先，您需要安装Android Studio，从 <a href="https://developer.android.com/studio">这里</a> 下载。
     </p>
 
     <p>
-        安装Android Studio后，需要在 *Android_SDK_ROOT* 环境变量中指定路径。在Windows上，您还需要用Java目录的路径设置 *JAVA_HOME* 变量。
+      安装Android Studio后，您需要在 *ANDROID_HOME* 环境变量中指定路径。在Windows上，您还需要用Java目录的路径设置 *JAVA_HOME* 变量。
     </p>
 
     <p>
-        查看 <a href="https://cordova.apache.org/docs/en/10.x/guide/platforms/android/index.html#setting-environment-variables">这里</a> 了解如何设置这些变量。
+      查看 <a href="https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#setting-environment-variables">这里</a> 了解如何设置这些变量。
     </p>
 
     <p>
-        您需要的最后一件事是 *Gradle* 构建工具。请查阅 <a href="https://gradle.org/install/">这里</a> 的指引。
+      您需要的最后一件事是 *Gradle* 构建工具。请查阅 <a href="https://gradle.org/install/">这里</a> 的指引。
     </p>
 
     <p>
-        要检查您是否满足构建要求，请在应用目录中执行以下命令：
+      要检查您是否满足构建要求，请在应用目录中执行以下命令：
     </p>
 
     <code>cordova requirements</code>
 
     <p>
-        要建立您的应用，请执行：
+      如果某些依赖缺失，此命令会告知您，例如：
+    </p>
+
+    <code>
+    Requirements check results for android:
+    Java JDK: installed 1.8.0
+    Android SDK: installed true
+    Android target: not installed
+    Please install the Android SDK Platform "platforms;android-30"
+    Gradle: installed /home/alex/Downloads/gradle-6.3/bin/gradle
+    Some of requirements check failed
+    </code>
+
+    <p>
+      这里说您需要安装（或升级）Android SDK平台，在Android Studio中操作：
+    </p>
+
+    <img src="files/creating-mobile-apps/installing-android-sdk.webp" alt="安装Android SDK" style="max-width: 986px">
+
+    <p>
+      如果一切就绪，输出将如下所示：
+    </p>
+
+    <code>
+    Requirements check results for android:
+    Java JDK: installed 1.8.0
+    Android SDK: installed true
+    Android target: installed android-30
+    Gradle: installed /home/alex/Downloads/gradle-6.3/bin/gradle
+    </code>
+
+    <p>
+      要构建应用，请执行：
     </p>
 
     <code>cordova build android</code>
 
     <p>
-        要在Android模拟器中运行应用，请执行：
+      要在Android模拟器中运行应用，请确保您已在Android Studio的 *Device Manager* 中添加了虚拟设备（它应与之前安装的SDK平台版本匹配）：
+    </p>
+
+    <img src="files/creating-mobile-apps/android-studio-device-manager.webp" alt="Device Manager" style="max-width: 803px">
+
+    <p>
+      然后执行以下命令：
     </p>
 
     <code>cordova emulate android</code>
 
     <p>
-        要在连接到系统的真实手机上运行应用，请运行：
+      要在连接到系统的真实手机上运行应用（例如通过USB线），请运行：
     </p>
 
     <code>cordova run android</code>
@@ -156,134 +207,156 @@
 
     [anchor:creating_ios_app]
 
-    <h2>创建iOS应用</h2>
+    <h2>Creating iOS App</h2>
 
     <p>
-        转到Cordova应用模板所在目录，然后添加iOS平台：
+      转到Cordova应用模板所在目录，然后添加iOS平台：
     </p>
 
     <code>cordova platform add ios</code>
 
     <p>
-        现在到了最难的部分。为了能够在iOS模拟器或真实设备中构建和测试应用，您需要安装和配置额外的软件。
+      现在到了最难的部分。为了能够在iOS模拟器或真实设备中构建和测试应用，您需要安装和配置额外的软件。
     </p>
 
     <p>
-        首先，您需要安装 *Xcode* ，请从Mac应用商店下载安装。
+      首先，您需要安装 *Xcode*，请从Mac App Store下载安装。
     </p>
 
     <p>
-        接下来，请安装 *HomeBrew* 软件包管理器：
+      然后安装 *Homebrew* 软件包管理器：
     </p>
-        
+
     <code class="lang-sh">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code>
 
     <p>
-        之后，您需要 <strong>ios-deploy</strong> 工具。
+      之后您需要 <strong>ios-deploy</strong> 工具。
     </p>
 
     <code>brew install ios-deploy</code>
 
     <p>
-        然后，您将需要 *CocoaPods* 依赖项管理器：
+      然后您将需要 *CocoaPods* 依赖项管理器：
     </p>
 
     <code>sudo gem install cocoapods</code>
 
     <p>
-        要检查您是否满足构建要求，请在应用目录中执行以下命令：
+      要检查您是否满足构建要求，请在应用目录中执行以下命令：
     </p>
 
     <code>cordova requirements</code>
 
     <p>
-        是时候来运行您的应用了，请执行：
+      是时候运行您的应用了，请执行：
     </p>
 
     <code>cordova emulate ios</code>
 
     <p>
-        在iOS模拟器中构建并运行。
+      在iOS模拟器中构建并运行。
     </p>
-    
-    <img src="files/creating-mobile-apps/farmers-journey-ios.jpg" style="max-width: 415px">
+
+    <img src="files/creating-mobile-apps/farmers-journey-ios.jpg" alt="在iOS上运行Farmers Journey" style="max-width: 415px">
 
     <p>
-        要在连接到系统的真实手机上运行应用，请执行：
+      要在连接到系统的真实手机上运行应用，请执行：
     </p>
 
     <code>cordova run ios</code>
 
     <p>
-        要在真实的设备上运行，您的应用必须通过Xcode签名。请查阅 <a href="https://help.apple.com/xcode/mac/current/#/dev5a825a1ca" target="_blank">这里</a> 的说明。
+      要在真实设备上运行，您的应用必须通过Xcode签名。请查阅 <a href="https://help.apple.com/xcode/mac/current/#/dev5a825a1ca" target="_blank">这里</a> 的说明。
     </p>
 
 
 
     [anchor:beautifying_things]
 
-    <h2>美化</h2>
+    <h2>Beautifying Things</h2>
 
 
     [anchor:modifying_app_icon]
 
-    <h3>修改应用名称和图标</h3>
+    <h3>Modifying App Icon</h3>
 
     <p>
-        请参阅 <a href="https://cordova.apache.org/docs/en/latest/config_ref/images.html" target="_blank">Cordova官方指南</a> 了解如何为应用指定自定义图标。
+      为了能够为您的手机应用生成合适的图标，首先在 <a href="manual/zh/introduction/App-Manager.html#app_settings_general_tab">应用设置</a> 中指定512x512的图片：
     </p>
+
+    <img src="files/creating-mobile-apps/app-icon-512.webp" alt="在应用设置中指定512像素的favicon" style="max-width: 707px">
+
+    <p>
+      每次创建Cordova模板时，此图片将作为源来创建Android/iOS所需的一组图标。实际的调整大小由ImageMagick工具执行。
+    </p>
+
+    <p>
+      对于Verge3D的Windows安装，ImageMagick已包含在发行版中，因此转换将自动进行。
+    </p>
+
+    <p>
+      对于macOS，请使用Homebrew安装ImageMagick：
+    </p>
+
+    <code>brew install imagemagick</code>
+
+    <p>
+      对于Ubuntu Linux，请使用APT软件包管理器：
+    </p>
+
+    <code>sudo apt install imagemagick</code>
 
 
     [anchor:cordova_specific_events]
 
-    <h3>Cordova专属事件</h3>
+    <h3>Cordova-Specific Events</h3>
 
     <p>
-        有3个针对 Cordova的事件可以通过JavaScript或拼图来实现，您可以用它来使应用更适合移动端。
+      有3个Cordova特定的事件可以通过JavaScript或拼图使用，您可以用它们使应用更适合移动端：
     </p>
 
     <ul>
-      <li>*deviceready* — 在应用完全初始化时触发。还可以用它来检测应用何时在Cordova上运行。</li>
+      <li>*deviceready* — 在应用完全初始化时触发。您也可以用它来检测应用何时在Cordova上运行。</li>
       <li>*pause* — 当应用进入后台或被另一个应用切换时触发。可以使用它来暂停应用渲染/声音播放/视频等。</li>
       <li>*resume* — 当应用被激活时触发。此事件与 *pause* 相反。</li>
     </ul>
-    
-    <img src="files/creating-mobile-apps/cordova-events-puzzles.jpg">
+
+    <img src="files/creating-mobile-apps/cordova-events-puzzles.jpg" alt="拼图中的Cordova事件">
 
     <p>
-        确保您在 *document* 元素上注册了这些事件。此外，如果您的应用运行在iframe中，请使用 *in parent doc* 选项（请在 <a href="manual/zh/introduction/HTML-based-user-interfaces.html">这里</a> 阅读有关此设置的更多信息）。
+      确保您在 *document* 元素上注册了这些事件。此外，如果您的应用运行在iframe中，请使用 *in parent doc* 选项（请在 <a href="manual/zh/introduction/HTML-based-user-interfaces.html">这里</a> 阅读有关此设置的更多信息）。
     </p>
 
     [anchor:native_ui_dialogs]
 
-    <h3>创建原生UI对话框</h3>
+    <h3>Creating Native UI Dialogs</h3>
 
     <p>
-        使用 <a href="https://cordova.apache.org/docs/en/10.x/reference/cordova-plugin-dialogs/index.html" target="_blank">cordova-plugin-dialogs</a> 插件。
+      使用 <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-dialogs/index.html" target="_blank">cordova-plugin-dialogs</a> 插件。
     </p>
 
 
     [anchor:more_features]
 
-    <h3>更多功能</h3>
+    <h3>More Features</h3>
 
     <p>
-        您可以创建功能齐全的应用，包括访问摄影机、电池信息、设备文件、系统、地理位置等。请参阅 <a href="https://cordova.apache.org/docs/en/latest/" target="_blank">Cordova文档</a> 中的相应插件。
+      您可以创建功能齐全的应用，包括访问相机、电池信息、设备文件系统、地理位置等。请参阅 <a href="https://cordova.apache.org/docs/en/latest/" target="_blank">Cordova文档</a> 中的相应插件。
     </p>
 
 
     [anchor:publishing]
 
-    <h2>发布您的应用</h2>
+    <h2>Publishing your App</h2>
 
     <p>
-        请查阅 <a href="https://jackmckew.dev/releasing-cordova-apps-on-google-play-app-store.html" target="_blank">这里</a> 的指引。
+      请查阅 <a href="https://jackmckew.dev/releasing-cordova-apps-on-google-play-app-store.html" target="_blank">这里</a> 的指引。
     </p>
 
 
-    <h2>遇到问题？</h2>
+    <h2>Got Questions?</h2>
 
-    <p>欢迎您随时在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a>上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
+    <p>欢迎在 <a href="https://www.soft8soft.com/forums/" target="_blank">论坛</a> 上提问！您还可以加入中文用户社区<a href="https://shang.qq.com/wpa/qunwpa?idkey=c31cf6597f3ed7ce68bd47aba6bba23049bf973ac6acc59b0a5a7d1bd933b3ea" target="_blank">QQ群(171678760)</a>，在线寻求帮助。</p>
 
   </article></body>
 </html>

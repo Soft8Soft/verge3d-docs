@@ -74,7 +74,7 @@
     </code>
 
     <p>
-      请在Google官方 <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" target="_blank">文档中</a> 了解有关Chrome Headless的更多信息。
+      请在 Google 官方<a href="https://developer.chrome.com/blog/headless-chrome/" target="_blank">文档</a>中了解有关 Chrome Headless 的更多信息。
     </p>
 
 
@@ -119,14 +119,14 @@
     <code>
     #!/usr/bin/node
 
-    const program = require('commander');
-    const puppeteer = require('puppeteer');
+    import { program } from 'commander';
+    import puppeteer from 'puppeteer';
 
     program
         .option('-u, --url [url]', 'URL to open', 'http://localhost:8668/')
         .option('-s, --screenshot-path [path]', 'A path where to save the screenshot', './screenshot.png')
         .option('-t, --timeout [ms]', 'Timeout after page loading before taking the screenshot',
-                function(val) { return parseInt(val); }, 1000)
+                function(val) { return parseInt(val); }, 2000)
         .option('-W, --viewport-width [px]', 'The width of the viewport',
                 function(val) { return parseInt(val); }, 1920)
         .option('-H, --viewport-height [px]', 'The height of the viewport',
@@ -173,7 +173,7 @@
     </p>
 
     <code>
-      node screenshot.js -u https://cdn.soft8soft.com/demo/applications/spinner/spinner.html
+      node screenshot.js -u https://cdn.soft8soft.com/demo/blender/spinner/spinner.html
     </code>
 
     <p>
@@ -219,7 +219,7 @@
     await page.evaluate(() =&gt; {
         const app = window.v3d.apps[0];
         return new Promise(resolve =&gt; {
-            app.addEventListener('onAfterRender', () =&gt; {
+            app.addEventListener('afterRender', () =&gt; {
                 resolve();
             });
         });

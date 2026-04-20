@@ -13,16 +13,50 @@
     <h1>字典 | Dictionaries</h1>
 
     <p>
-      此类拼图允许您有效地存储、传输和检索各种数据。特别是，字典对于存储多个参数，从JavaScript中大量传递参数，以及通过网络传递参数非常有用。
+      此类拼图允许您创建和操作字典值。
     </p>
-      
-    <img src="files/puzzles/puzzles-dictionaries.jpg">
+
+    <img src="files/puzzles/puzzles-dictionaries.jpg" alt="用于操作字典的拼图">
+
 
     <h2>内容</h2>
 
     [contents]
-    
-    
+
+
+    [anchor:introduction]
+
+    <h2>简介</h2>
+
+    <p>
+      当您需要在同一个实体中存储、传输和检索各种数据时，字典非常有用。特别是，字典对于存储多个参数以及将它们批量传递给拼图（如<a href="manual/zh/puzzles/Scenes.html#raycast">射线检测</a>或<a href="manual/zh/puzzles/Physics.html#detect_collisions">碰撞信息</a>）、JavaScript或通过网络传递非常有用。
+    </p>
+
+    <p>
+      例如，您可以用以下字典来定义一辆汽车：
+    </p>
+
+    <img src="files/puzzles/puzzles-dictionaries-example.webp" alt="字典示例">
+
+    <p>
+      ……其内部结构如下：
+    </p>
+
+    <code>
+    {
+      "available": true,
+      "brand": "Tesla",
+      "model": "Model S",
+      "range": 250,
+      "year": 2020
+    }
+    </code>
+
+    <p>
+      花括号内是字典的项目。每个项目都有一个 *key*（如"model"）和一个与之关联的 *value*（"Model S"）。键总是定义为字符串，但值可以是任何类型（字符串、数字、布尔值、列表、其他字典等）。此外，与<a href="manual/zh/puzzles/Lists.html">列表</a>不同，字典项目没有特定的排序顺序，因此您可以按任意顺序添加它们。
+    </p>
+
+
     [anchor:puzzles_reference]
 
     <h2>拼图参考</h2>
@@ -30,118 +64,121 @@
 
     [anchor:create_empty_dict]
 
-    <h3>create empty dict(创建空字典)</h3>
+    <h3>create empty dict</h3>
 
     <p>
-      返回一个不包含任何数据记录的字典。
+      返回一个不包含任何项目的字典。
     </p>
-      
-    <img src="files/puzzles/puzzles-dictionaries-create-empty-dict.jpg">
+
+    <img src="files/puzzles/puzzles-dictionaries-create-empty-dict.jpg" alt="在可视化编程编辑器中创建空字典">
 
     <p>
-      在 JavaScript 中，一个 dictionary 是由一个没有任何属性的 *Object* 表示的，也就是 { } 。
+      在JavaScript中，空字典由一个没有任何属性的对象表示，即 <code>{ }</code>。
     </p>
 
 
     [anchor:create_dict_with]
 
-    <h3>create dict with（使用...创建字典）</h3>
+    <h3>create dict with</h3>
 
     <p>
       返回具有给定键和值的字典。
     </p>
 
-    <img src="files/puzzles/puzzles-dictionaries-create-dict-with.jpg">
+    <img src="files/puzzles/puzzles-dictionaries-create-dict-with.jpg" alt="创建具有给定键值对的字典的块">
 
     <p>
-      Keys/values 键值可用列表：
+      键/值可以是列表：
     </p>
 
-    <img src="files/puzzles/puzzles-dictionaries-create-dict-with-lists.jpg">
+    <img src="files/puzzles/puzzles-dictionaries-create-dict-with-lists.jpg" alt="字典的键和值作为列表">
 
     <p>
       或多行文本，其中每行代表一个键或值：
     </p>
 
-    <img src="files/puzzles/puzzles-dictionaries-create-dict-with-texts.jpg">
+    <img src="files/puzzles/puzzles-dictionaries-create-dict-with-texts.jpg" alt="字典的键和值作为文本字符串">
 
 
     [anchor:dict_set_key]
 
-    <h3>dict set key(在字典中设置键)</h3>
+    <h3>dict set key</h3>
 
     <p>
-      设置项目，使其与字典中的指定键相关联。这个键必须是一个文本，而分配的值可以是任何类型（文本、数字、列表、其他字典等）。
+      设置项目，使其与字典中的指定键相关联。键必须是文本，而分配的值可以是任何类型（文本、数字、列表、其他字典等）。
     </p>
-      
-    <img src="files/puzzles/puzzles-dictionaries-dict-set-key.jpg">
 
+    <img src="files/puzzles/puzzles-dictionaries-dict-set-key.jpg" alt="设置字典键的拼图">
 
 
     [anchor:dict_get_key]
 
-    <h3>dict get key(在字典中获取键)</h3>
+    <h3>dict get key</h3>
 
     <p>
-      返回与字典中指定键相关的项目。
+      返回与字典中指定键相关联的项目。
     </p>
 
-    <img src="files/puzzles/puzzles-dictionaries-dict-get-key.jpg">
+    <img src="files/puzzles/puzzles-dictionaries-dict-get-key.jpg" alt="从字典中检索值的拼图">
 
+    <p>
+      如果没有与指定键相关联的项目，此拼图返回 <code>undefined</code>。
+    </p>
 
 
     [anchor:get_keys]
 
-    <h3>get keys(获取键的列表)</h3>
+    <h3>get keys</h3>
 
     <p>
-      返回一个字典中所有键的列表。
+      返回字典中所有键的列表。
     </p>
 
-    <img src="files/puzzles/puzzles-dictionaries-get-keys.jpg">
-
+    <img src="files/puzzles/puzzles-dictionaries-get-keys.jpg" alt="从字典中检索所有键的拼图">
 
 
     [anchor:dict_check_key]
 
-    <h3>dict check key(在字典中检查键)</h3>
+    <h3>dict check key</h3>
 
     <p>
-      检查一个指定的键是否存在于一个字典中，并返回布尔类型的结果 *true* 或 *false*。
+      检查一个指定的键是否存在于字典中，并返回布尔类型的结果 <code>true</code> 或 <code>false</code>。
     </p>
-      
-    <img src="files/puzzles/puzzles-dictionaries-dict-check-key.jpg">
 
+    <img src="files/puzzles/puzzles-dictionaries-dict-check-key.jpg" alt="使用可视化编程检查字典键">
 
 
     [anchor:dict_remove_key]
 
-    <h3>dict remove key(从字典中移除键)</h3>
+    <h3>dict remove key</h3>
 
     <p>
-      删除与字典中指定键相关的项目，并删除键本身。
+      删除与字典中指定键相关联的值，并删除键本身。
     </p>
-      
-    <img src="files/puzzles/puzzles-dictionaries-dict-remove-key.jpg">
 
+    <img src="files/puzzles/puzzles-dictionaries-dict-remove-key.jpg" alt="移除字典键的块">
 
 
     [anchor:is_empty]
 
-    <h3>is empty(为空)</h3>
+    <h3>is empty</h3>
 
     <p>
-      检查指定的字典是否不包含键，并返回布尔类型的结果 *true* 或 *false*。
+      检查指定的字典是否不包含任何键，并返回布尔类型的结果 <code>true</code> 或 <code>false</code>。
     </p>
 
-    <img src="files/puzzles/puzzles-dictionaries-is-empty.jpg">
+    <img src="files/puzzles/puzzles-dictionaries-is-empty.jpg" alt="检查字典是否为空的拼图">
 
 
     [anchor:see_also]
 
     <h2>另请参阅</h2>
-    
-    <p>字典按名称存储元素。如果您需要一个带有索引元素的有序存储，请参考<a href="manual/zh/puzzles/Lists.html">列表</a>。</p>
+
+    <ul>
+      <li><a href="manual/zh/puzzles/Lists.html">列表</a> — 如果您需要一个带有索引项目的有序存储。</li>
+      <li><a href="manual/zh/puzzles/Loops.html#for_each_in_dict">for each in dict</a> — 遍历字典项目。</li>
+      <li><a href="manual/zh/puzzles/Advanced.html#send_data">send data</a> — 通过网络发送字典。</li>
+    </ul>
 
 
     <h2>在使用拼图时遇到困难？</h2>

@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
-  <title>拼图库参考 - Soft8Soft</title>
-  <meta charset="utf-8">
-  <meta name="description" content="使用Verge3D拼图库来长期保存拼图模组，并在不同应用间复用。">
-  <base href="../../../">
-  <script src="page.js"></script>
-  <link type="text/css" rel="stylesheet" href="page.css">
-</head>
-<body><article>
+  <head>
+    <title>拼图库参考 - Soft8Soft</title>
+    <meta charset="utf-8">
+    <meta name="description" content="使用Verge3D拼图库来长期保存拼图模组，并在不同应用间复用。">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body><article>
 
     <h1>为您的拼图建立库(Library)</h1>
 
     <p>拼图库里可以长期存储拼图模组，并在不同项目间复用您存储的自定义模组。</p>
-      
-    <img src="files/puzzles/puzzles-library.jpg">
+
+    <img src="files/puzzles/puzzles-library.jpg" alt="可视化编程库概览">
 
     <h2>内容</h2>
 
     [contents]
-    
-    
+
+
     [anchor:introduction]
 
     <h2>简介</h2>
 
-    <p>Verge3D中有两个库。</p>
+    <p>Verge3D中有两个库：</p>
 
     <ul>
-      <li>*系统库* - 存储在安装目录的 *puzzles* 子目录中的 *library.xml* 文件中。这是Verge3D自带的只读拼图库。</li>
-      <li>*用户库* - 存储在指定应用目录下的 *my_library.xml* 文件中。您可以使用这个库来添加您自己的拼图。</li>
+      <li>*系统库(Stock Library)* — 存储在安装目录的 *puzzles* 子目录中的 *library.xml* 文件中。这是Verge3D自带的只读拼图库。参考<a href="manual/zh/puzzles/Library.html#stock_library_reference">下文</a>。</li>
+      <li>*用户库(User Library)* — 存储在指定应用目录下的 *my_library.xml* 文件中。您可以使用这个库来添加您自己的拼图。</li>
     </ul>
 
 
@@ -38,19 +38,19 @@
     <h2>添加条目</h2>
 
     <p>
-      您可以通过右键单击拼图组并选择选项 <strong>Save N Puzzles to Library(将 N 个拼图保存到库)</strong>来将拼图组添加到 <em>用户库</em> 。在模式窗口中输入组的名称，随后它将出现在库的条目列表中。用拼图编辑器重新加载页面即可更新条目列表。
+      您可以通过右键单击拼图组并选择选项 <strong>Save N Puzzles to Library</strong> 来将拼图组添加到 <em>用户库</em> 。在模式窗口中输入组的名称，随后它将出现在库的条目列表中。用拼图编辑器重新加载页面即可更新条目列表。
     </p>
-      
-    <img src="files/puzzles/puzzles-library-save.jpg">
+
+    <img src="files/puzzles/puzzles-library-save.jpg" alt="将拼图块添加到拼图库">
 
 
     [anchor:using_entries]
 
     <h2>使用条目</h2>
 
-    <p>已保存的拼图组可以从库中直接通放到工作区。</p>
-      
-    <img src="files/puzzles/puzzles-library-retrieve.jpg">
+    <p>已保存的拼图组可以从库中拖放到工作区来使用。</p>
+
+    <img src="files/puzzles/puzzles-library-retrieve.jpg" alt="从拼图库中获取拼图块">
 
 
     [anchor:renaming_entries]
@@ -58,10 +58,10 @@
     <h2>重命名条目</h2>
 
     <p>
-      您无法直接对库中的条目进行重命名。但您可以编辑 *my_library.xml* 文件，修改其中两处名称的方式来重命名条目。
+      库中没有专门的重命名控件。但您可以通过编辑 *my_library.xml* 文件（两处位置）来轻松重命名条目。
     </p>
-      
-    <img src="files/puzzles/puzzles-library-rename.jpg" style="max-width: 895px">
+
+    <img src="files/puzzles/puzzles-library-rename.jpg" alt="重命名拼图库" style="max-width: 895px">
 
     <p>重命名后，拼图库条目名称将在刷新编辑器后更新。</p>
 
@@ -70,7 +70,7 @@
 
     <h2>删除条目</h2>
 
-    <p>点击 ❌ 按钮即可从<em>用户库</em>中删除一个条目。</p>
+    <p>点击 ❌ 按钮即可从用户库中删除一个条目。</p>
 
 
     [anchor:backup]
@@ -80,11 +80,198 @@
     <p>
       每次保存或删除条目时，之前保存的文件 *my_library.xml* 都会复制到名为 *library_backup* 的文件夹中，并在文件名中添加时间戳。
     </p>
-      
-    <img src="files/puzzles/puzzles-library-backup.jpg" style="max-width: 776px">
+
+    <img src="files/puzzles/puzzles-library-backup.jpg" alt="可视化编程库备份" style="max-width: 776px">
 
     <p>
-      这样，当您在需要时恢复用户<em>库</em>时，都可以找到先前保存的修订版本。将对应的文件复制回应用程序目录，重命名删除时间戳即可恢复。刷新编辑器后，您的库将会更新。
+      这样，当您需要时可以恢复用户库之前保存的任何修订版本。只需将文件复制回应用程序目录，并从文件名中删除时间戳即可。刷新编辑器后，您的库将会更新。
+    </p>
+
+
+    [anchor:stock_library_reference]
+
+    <h2>系统库参考</h2>
+
+    <p>
+      以下是Verge3D自带的系统拼图库中各条目的参考。
+    </p>
+
+    [anchor:hovered_cursor]
+
+    <h3>Hovered Cursor</h3>
+
+    <p>
+      检测鼠标光标是否恰好位于目标对象上方，然后将鼠标光标更改为"指针"样式，从而提示用户该对象是可点击的。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-hovered-cursor.jpg" alt="Hovered Cursor 拼图库">
+
+    <p>
+      将 <em>Cube</em> 替换为实际的对象名称。如果您需要在应用中执行除简单光标样式之外的其他操作，也可以替换 <em>set style</em> 拼图。
+    </p>
+
+    [demo:ring]
+
+
+    [anchor:context_menu]
+
+    <h3>Context Menu</h3>
+
+    <p>
+      禁用浏览器默认的右键菜单，替换为自定义菜单（当用户右键点击3D对象时弹出）。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-context-menu.webp" alt="Context Menu 拼图库">
+
+    <p>
+      将 <em>Cube</em>、菜单项和事件处理程序替换为实际应用中的内容。
+    </p>
+
+
+    [anchor:detect_pressed_released]
+
+    <h3>Detect Pressed/Released</h3>
+
+    <p>
+      <a href="manual/zh/puzzles/Events.html#when_clicked">when clicked</a> 拼图无法分离鼠标按钮的"按下"和"松开"动作（或触摸屏上手指的按下/松开），因此无法捕捉鼠标实际被按下（或松开）的时刻。以下拼图组可以实现此功能：
+    </p>
+
+    <img src="files/puzzles/puzzles-library-detect-pressed-released.jpg" alt="Detect Pressed/Released 拼图库">
+
+    <p>
+      将 <em>Cube</em> 替换为实际的对象名称，将 <em>print to console</em> 拼图替换为应用中实际需要的拼图块。
+    </p>
+
+
+    [anchor:keyboard_controls]
+
+    <h3>Keyboard Controls</h3>
+
+    <p>
+      使用此库条目来检测键盘按键。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-keyboard-controls.jpg" alt="Keyboard Controls 拼图库">
+
+    <p>
+      将 <em>ArrowLeft/ArrowRight</em> 替换为实际的按键，将 <em>print to console</em> 拼图替换为应用中需要执行的实际拼图块。
+    </p>
+
+    <p>
+      按键值就是您在键盘上输入的字母（例如"w"、"a"、"s"、"d"）。也可以是特殊值，如"ArrowLeft"、"ArrowRight"、"ArrowUp"、"ArrowDown"、"Enter"、"Tab"、"Home"、"End"、"Delete"、"Escape"、" "（空格）等。完整按键列表请参阅<a href="https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values" target="_blank">这里</a>。
+    </p>
+
+    [demo:farmers_journey]
+
+
+    [anchor:performance_tweaks]
+
+    <h3>Performance Tweaks</h3>
+
+    <p>
+      使用此库条目来优化应用的质量和性能。在带有 HiDPI 屏幕的高端设备上，此拼图组会增加像素密度以获得更好的渲染质量。对于中端和低端设备，此拼图组会移除所有后处理效果并禁用阴影，这可以大幅提升此类设备的渲染性能。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-performance-tweaks.jpg" alt="Performance Tweaks 拼图库">
+
+    <p>
+      此库条目无需任何额外调整，推荐在所有 Verge3D 应用中使用。
+    </p>
+
+    [anchor:setup_fullscreen_iframe]
+
+    <h3>Setup Fullscreen iFrame</h3>
+
+    <p>
+      用您为应用设计的自定义元素替换默认的全屏图标。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-setup-fullscreen-iframe.jpg" alt="Setup Fullscreen iFrame 拼图库">
+
+    <p>
+      为了使这组拼图正常工作，请将图标容器元素的新 ID 替换 <em>fs_button</em>，将图标元素的新 ID 替换 <em>fs_image</em>，并将新的进入/退出图标替换 <em>enter.png/exit.png</em>。
+    </p>
+
+    <p>
+      这组拼图设计用于 iframe 嵌入的应用，其中您在父页面上修改了全屏容器元素（大多数情况下为 &lt;a&gt; 或 &lt;div&gt; 元素）（这就是启用 <strong>in parent doc</strong> 的原因）。此外，修改 <strong>src</strong> 属性意味着子元素应为 &lt;img&gt;。然而，这种特定的 HTML 元素设置并非强制要求，您可以自由修改拼图。有关更多信息，请参阅 <a href="manual/zh/puzzles/HTML.html#init_fullscreen">init fullscreen</a> 拼图参考。
+    </p>
+
+    [demo:teapot_heater/index]
+
+
+    [anchor:sound_ios_workaround]
+
+    <h3>Sound iOS Workaround</h3>
+
+    <p>
+      此库条目帮助解决 iOS/Android 设备上播放声音的<a href="manual/zh/introduction/Workflow.html#Audio_">限制</a>。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-sound-ios-workaround.jpg" alt="Sound iOS Workaround 拼图库">
+
+    <p>
+      将 <em>mySound.mp3</em> 替换为应用中实际使用的声音文件。
+    </p>
+
+
+    [anchor:alert_message]
+
+    <h3>Alert Message</h3>
+
+    <p>
+      在屏幕底部显示提醒消息。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-alert-message.webp" alt="Alert Message 拼图库">
+
+    <p>
+      您可以指定提醒消息中显示的文本及其样式。
+    </p>
+
+    [demo:custom_image]
+
+
+    [anchor:inquiry_form]
+
+    <h3>Inquiry Form</h3>
+
+    <p>
+      显示一个带有查询表单的对话框，可以通过 <a href="manual/zh/programmers_guide/Wordpress-Advanced-Guide.html#sending_forms">WordPress 插件</a>或其他<a href="https://www.soft8soft.com/wiki/index.php?title=Headless_Form_Solutions" target="_blank">表单处理服务</a>发送。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-inquiry-form.webp" alt="Inquiry Form 拼图库">
+
+    <p>
+      默认情况下，点击 <em>Cube</em> 对象时会出现对话框，显示包含 *Name* 和 *Email* 字段的表单：
+    </p>
+
+    <img src="files/puzzles/puzzles-library-inquiry-form-look.webp" alt="Inquiry Form 外观">
+
+    <p>
+      该表单可以根据您的需要自由自定义。不要忘记为所有表单输入指定 *name* 属性。
+    </p>
+
+    <p class="note">
+      将 <em>sandbox.soft8soft.com</em> 替换为您自己的表单服务！Verge3D Sandbox 会接受您的表单数据，但会立即丢弃。
+    </p>
+
+
+    [anchor:vr_controls]
+
+    <h3>VR Controls</h3>
+
+    <p>
+      使用设备控制器（触摸板或摇杆）在 VR 模式下移动。这组拼图适用于市场上大多数符合 <a href="manual/zh/puzzles/System.html#get_gamepad_prop">xr-standard</a> 布局的 VR 控制器。
+    </p>
+
+    <img src="files/puzzles/puzzles-library-vr-controls.jpg" alt="VR Controls 拼图库">
+
+    <p>
+      将 <em>collision_mesh</em> 替换为用于控制相机可移动区域的实际碰撞网格。基本上，该材质 <em>上方</em> 的区域是可行走的，而区域外的所有空间都是禁止移动的。
+    </p>
+
+    <p>
+      此外，请确保您已启用 *sitting or standing* VR 定位模式。查看 <a href="manual/zh/puzzles/AR_VR.html#enter_vr_mode">enter VR mode</a> 拼图以获取更多信息。
     </p>
 
 
