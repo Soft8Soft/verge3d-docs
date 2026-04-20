@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:Curve] &rarr;
+
+    <h1>[name]</h1>
+
+    <p>
+      Создаёт гладкую трёхмерную сплайн-кривую из серии точек с помощью алгоритма [link:https://en.wikipedia.org/wiki/Centripetal_Catmull-Rom_spline Катмулла-Рома].
+    </p>
+
+
+    <h2>Пример</h2>
+
+    <code>
+    // создаём волнистую замкнутую кривую
+    const curve = new v3d.CatmullRomCurve3([
+        new v3d.Vector3(-10, 0, 10),
+        new v3d.Vector3(-5, 5, 5),
+        new v3d.Vector3(0, 0, 0),
+        new v3d.Vector3(5, -5, 5),
+        new v3d.Vector3(10, 0, 10)
+    ], true);
+
+    const points = curve.getPoints(50);
+    const geometry = new v3d.BufferGeometry().setFromPoints(points);
+
+    const material = new v3d.LineBasicMaterial({ color : 0xff0000 });
+
+    // создаём объект кривой и добавляем его на сцену
+    const curveObject = new v3d.Line(geometry, material);
+    app.scene.add(curveObject);
+    </code>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:Array points], [param:Boolean closed], [param:String curveType], [param:Float tension])</h3>
+    <ul class="params">
+      <li>points – массив [page:Vector3 точек].</li>
+      <li>closed – является ли кривая замкнутой. По умолчанию `false`.</li>
+      <li>curveType – тип кривой. По умолчанию `"centripetal"`.</li>
+      <li>tension – натяжение кривой. По умолчанию `0.5`.</li>
+    </ul>
+
+
+    <h2>Свойства</h2>
+
+    <p>
+      Общие свойства смотрите в базовом классе [page:Curve].
+    </p>
+
+    <h3>[property:Array points]</h3>
+    <p>
+      Массив точек [page:Vector3], определяющих кривую. Должен содержать не меньше двух элементов.
+    </p>
+
+    <h3>[property:Boolean closed]</h3>
+    <p>
+      Если `true`, кривая будет замыкаться сама на себя.
+    </p>
+
+    <h3>[property:String curveType]</h3>
+    <p>
+      Возможные значения: `"centripetal"`, `"chordal"` и `"catmullrom"`.
+    </p>
+
+    <h3>[property:Float tension]</h3>
+    <p>
+      Если [page:.curveType] равен `"catmullrom"`, определяет напряжение кривой.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>
+      Общие методы смотрите в базовом классе [page:Curve].
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

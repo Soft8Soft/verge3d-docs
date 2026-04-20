@@ -199,7 +199,7 @@
       Sets a property for an HTML element with a specified *id*. The *in parent doc* checkbox should be enabled if the HTML element is located in the parent HTML document (i.e. when app's <strong>.html</strong> file is embedded using `&lt;iframe&gt;`). This puzzle also works with lists of element ids.
     </p>
 
-    <img src="files/puzzles/puzzles-html-set-prop.webp" alt="set property puzzle">
+    <img src="files/puzzles/puzzles-html-set-prop.webp" alt="Puzzle to set propertes for HTML elements">
 
     <table>
       <tr>
@@ -220,7 +220,7 @@
       </tr>
       <tr>
         <td>className</td>
-        <td>Sets the value of the *class* attribute of an element.</td>
+        <td>Sets the value of the `class` attribute of an element.</td>
       </tr>
       <tr>
         <td>cols</td>
@@ -276,7 +276,7 @@
       </tr>
       <tr>
         <td>name</td>
-        <td>Specifies element name. This name is used for form submissions.</td>
+        <td>Specifies element name. In most cases this name is used to reference data upon form submissions.</td>
       </tr>
       <tr>
         <td>placeholder</td>
@@ -361,7 +361,7 @@
       Gets a property from an HTML element with a specified *id*. The *in parent doc* checkbox should be enabled if the HTML element is located in the parent HTML document (i.e. when app's <strong>.html</strong> file is embedded using `&lt;iframe&gt;`).
     </p>
 
-    <img src="files/puzzles/puzzles-html-get-prop.webp" alt="Visual programming block to get HTML element property">
+    <img src="files/puzzles/puzzles-html-get-prop.webp" alt="Puzzle to get propertes of HTML elements">
 
     <table>
       <tr>
@@ -381,8 +381,12 @@
         <td>Gets the checked state of the checkbox/radio element.</td>
       </tr>
       <tr>
+        <td>children</td>
+        <td>Gets the <a href="manual/en/puzzles/Lists.html">list</a> of parented HTML elements. It returns an iterable list of ids, so naturally the result includes only elements with an id.</td>
+      </tr>
+      <tr>
         <td>className</td>
-        <td>Gets the value of the *class* attribute of an element.</td>
+        <td>Gets the value of the `class` attribute of an element.</td>
       </tr>
       <tr>
         <td>clientHeight</td>
@@ -395,6 +399,10 @@
       <tr>
         <td>cols</td>
         <td>Gets width of the `&lt;textarea&gt;` element (in characters).</td>
+      </tr>
+      <tr>
+        <td>dataset</td>
+        <td>Gets a <a href="manual/en/puzzles/Dictionaries.html">dictionary</a> with the `data-` attributes assigned on the HTML element. Very useful to attach/obtain custom data right on the elements (without using additional variables). For example, you can create a configurator with a swatch of textures, with URLs of the corresponding images assigned on the swatch's clickable HTML elements.</td>
       </tr>
       <tr>
         <td>disabled</td>
@@ -462,7 +470,7 @@
       </tr>
       <tr>
         <td>name</td>
-        <td>Element name.</td>
+        <td>Element name. In most cases this name is used to reference data upon form submissions.</td>
       </tr>
       <tr>
         <td>offsetHeight</td>
@@ -851,7 +859,7 @@
       <tr>
         <td>pageX, pageY</td>
         <td>The X and Y coordinates of the mouse pointer or touch. Works with `click`, `dblclick`, `mouse...`, or `pointer...` events. Does not work with `touch...` events (use touches[].pageX/pageY or targetTouches[].pageX/pageY properties instead).</td>
-      </tr
+      </tr>
       <tr>
         <td>key</td>
         <td>The name of keyboard key that triggered the `keydown`, `keypress`, or `keyup` event. For example, `"ArrowLeft"` is used for the left arrow key, while `"а"` is used for the lowercase *A* key.</td>
@@ -933,7 +941,65 @@
       Returns the first HTML element that matches a specified <a href="https://www.w3schools.com/cssref/css_selectors.php" target="_blank">CSS selector</a>.
     </p>
 
-    <img src="files/puzzles/puzzles-html-query-selector.jpg" alt="Query selector visual programming block">
+    <img src="files/puzzles/puzzles-html-query-selector.jpg" alt="query selector puzzle">
+
+    <p>
+      The *query all elements* checker in the gear popup activates the *query selector all* mode in which <em>all</em> matched HTML elements are returned:
+    </p>
+
+    <img src="files/puzzles/puzzles-html-query-selector-all.webp" alt="query selector all puzzle">
+
+    <p>
+      Here is the list of most commonly used selectors (can be combined together):
+    </p>
+
+    <table>
+      <tr>
+        <th>Selector</th>
+        <th>Example</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>element</td>
+        <td>div</td>
+        <td>Selects elements by type, e.g. `div`, `button`, `p`, `form`, `span`.</td>
+      </tr>
+      <tr>
+        <td>.class</td>
+        <td>.myClass</td>
+        <td>Selects elements by class name.</td>
+      </tr>
+      <tr>
+        <td>#id</td>
+        <td>#myElem</td>
+        <td>Selects elements by id.</td>
+      </tr>
+      <tr>
+        <td>elementA elementB</td>
+        <td>div span</td>
+        <td>Selects "B" elements inside "A" element.</td>
+      </tr>
+      <tr>
+        <td>element *</td>
+        <td>div *</td>
+        <td>Selects all elements inside given element.</td>
+      </tr>
+      <tr>
+        <td>elementA &gt; elementB</td>
+        <td>div &gt; span</td>
+        <td>Selects "B" elements which are direct children of "A" element.</td>
+      </tr>
+      <tr>
+        <td>elementA, elementB</td>
+        <td>div, span</td>
+        <td>Selects elements A and B (independently).</td>
+      </tr>
+      <tr>
+        <td>[attribute=value]</td>
+        <td>input[type="password"]</td>
+        <td>Selects elements by attribute name and value.</td>
+      </tr>
+    </table>
 
 
     [anchor:dom_object_call]

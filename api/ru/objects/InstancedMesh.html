@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <base href="../../../">
+    <script src="page.js"></script>
+    <link type="text/css" rel="stylesheet" href="page.css">
+  </head>
+  <body>
+    [page:Mesh] &rarr;
+
+    <h1>[name]</h1>
+
+    <p>
+      Специальная версия [page:Mesh] с поддержкой экземплярного рендеринга. Используйте [name] если вам необходимо отрендерить большое количество объектов с одинаковой геометрией и материалом, но с разными мировыми преобразованиями. Использование [name] поможет вам уменьшить количество вызовов отрисовки и тем самым улучшить общую производительность рендеринга в вашем приложении.
+    </p>
+
+
+    <h2>Конструктор</h2>
+
+    <h3>[name]([param:BufferGeometry geometry], [param:Material material], [param:Integer count])</h3>
+    <ul class="params">
+      <li>[page:BufferGeometry geometry] — экземпляр [page:BufferGeometry].</li>
+      <li>[page:Material material] — экземпляр [page:Material]. По умолчанию это новый [page:MeshBasicMaterial].</li>
+      <li>[page:Integer count] — количество экземпляров.</li>
+    </ul>
+
+
+    <h2>Свойства</h2>
+
+    <p>
+      Общие свойства см. в базовом классе [page:Mesh].
+    </p>
+
+    <h3>[property:Integer count]</h3>
+    <p>
+      Количество экземпляров. Значение `count`, переданное в конструктор, представляет собой максимальное количество экземпляров этого меша. Вы можете изменить количество экземпляров во время выполнения на целочисленное значение в диапазоне [0, count].
+    </p>
+    <p>
+      Если вам нужно больше экземпляров, чем первоначальное значение подсчета, вы должны создать новый [name].
+    </p>
+
+    <h3>[property:BufferAttribute instanceColor]</h3>
+    <p>
+      Представляет цвета экземпляров. По умолчанию `null`. Вы должны установить параметр [page:BufferAttribute.needsUpdate needsUpdate] в `true`, если вы изменяете данные экземпляра через [page:.setColorAt]().
+    </p>
+
+    <h3>[property:BufferAttribute instanceMatrix]</h3>
+    <p>
+      Представляет собой локальное преобразование экземпляров. Вы должны установить параметр [page:BufferAttribute.needsUpdate needsUpdate] в `true`, если вы изменяете данные экземпляра через [page:.setMatrixAt]().
+    </p>
+
+    <h3>[property:Boolean isInstancedMesh]</h3>
+    <p>
+      Флаг, указывающий, что данный объект является экземпляром [name]. Только для чтения.
+    </p>
+
+
+    <h2>Методы</h2>
+
+    <p>
+      Общие методы см. в базовом классе [page:Mesh].
+    </p>
+
+    <h3>[method:undefined dispose]()</h3>
+    <p>
+      Освобождает все связанные с GPU ресурсы, используемые экземпляром [name]. Этот метод следует вызвать, если [name] больше не используется в приложении.
+    </p>
+
+    <h3>[method:undefined getColorAt]([param:Integer index], [param:Color color])</h3>
+    <ul class="params">
+      <li>[page:Integer index] — индекс экземпляра. Значения должны находиться в диапазоне [0, count].</li>
+      <li>[page:Color color] — этот цвет объекта будет установлен как цвет определяемого экземпляра.</li>
+    </ul>
+    <p>
+      Получить цвет указанного экземпляра.
+    </p>
+
+    <h3>[method:undefined getMatrixAt]([param:Integer index], [param:Matrix4 matrix])</h3>
+    <ul class="params">
+      <li>[page:Integer index] — индекс экземпляра. Значения должны находиться в диапазоне [0, count].</li>
+      <li>[page:Matrix4 matrix] — эта матрица 4x4 будет установлена в локальную матрицу преобразования определенного экземпляра.</li>
+    </ul>
+    <p>
+      Получить локальную матрицу преобразования указанного экземпляра.
+    </p>
+
+    <h3>[method:undefined setColorAt]([param:Integer index], [param:Color color])</h3>
+    <ul class="params">
+      <li>[page:Integer index] — индекс экземпляра. Значения должны находиться в диапазоне [0, count].</li>
+      <li>[page:Color color] — цвет отдельного экземпляра.</li>
+    </ul>
+    <p>
+      Устанавливает цвет для указанного экземпляра. Убедитесь, что значение параметра [page:.instanceColor][page:BufferAttribute.needsUpdate .needsUpdate] равно `true` после обновления всех цветов.
+    </p>
+
+    <h3>[method:undefined setMatrixAt]([param:Integer index], [param:Matrix4 matrix])</h3>
+    <ul class="params">
+      <li>[page:Integer index] — индекс экземпляра. Значения должны находиться в диапазоне [0, count].</li>
+      <li>[page:Matrix4 matrix] — матрица 4x4, представляющая локальную трансформацию одного экземпляра.</li>
+    </ul>
+    <p>
+      Устанавливает локальную матрицу преобразования для указанного экземпляра. Убедитесь, что после обновления всех матриц вы установили параметр [page:.instanceMatrix][page:BufferAttribute.needsUpdate .needsUpdate] в `true`.
+    </p>
+
+
+    <h2>Пазлы</h2>
+
+    <p>
+      Используйте следующий пазл для создания экземплярных объектов без программирования: <a href="manual/ru/puzzles/Objects.html#create_instances">create instances</a>.
+    </p>
+
+    [sourceHint]
+  </body>
+</html>

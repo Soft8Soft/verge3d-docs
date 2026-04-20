@@ -12,7 +12,9 @@
 
     <h1>Workflow</h1>
 
-    <p>Below is documented a typical workflow that is used internally by the Soft8Soft team and by Verge3D users (examples include <a href="https://cdn.soft8soft.com/demo/blender/scooter/index.html" target="_blank">Scooter Configurator</a>, <a href="https://cdn.soft8soft.com/demo/max/teapot_heater/index.html" target="_blank">Teapot Heater</a>, <a href="https://cdn.soft8soft.com/demo/maya/industrial_robot/index.html" target="_blank">Industrial Robot</a>, <a href="https://cdn.soft8soft.com/demo/blender/jewelry_configurator/index.html" target="_blank">Jewelry Configurator</a> among others).</p>
+    <p>
+      Below is documented a typical workflow that is used internally by the Soft8Soft team and by Verge3D users (examples include <a href="https://cdn.soft8soft.com/demo/blender/scooter/index.html" target="_blank">Scooter Configurator</a>, <a href="https://cdn.soft8soft.com/demo/max/teapot_heater/index.html" target="_blank">Teapot Heater</a>, <a href="https://cdn.soft8soft.com/demo/maya/industrial_robot/index.html" target="_blank">Industrial Robot</a>, <a href="https://cdn.soft8soft.com/demo/blender/jewelry_configurator/index.html" target="_blank">Jewelry Configurator</a> among others).
+    </p>
 
     <figure>
       <img src="files/workflow/teapot-heater.webp" alt="Steampunk WebGL-based visualization of teapot heater">
@@ -21,7 +23,9 @@
 
     [contents]
 
-    <p>To create interactive 3D web content you can use Blender, 3ds Max, or Maya version of Verge3D with equal success. On the chart below you can see the main stages for creating a typical Verge3D application. Virtually all work can be done by only one person with basic 3D generalist skills.</p>
+    <p>
+      To create interactive 3D web content you can use Blender, 3ds Max, or Maya version of Verge3D with equal success. On the chart below you can see the main stages for creating a typical Verge3D application. Virtually all work can be done by only one person with basic 3D generalist skills.
+    </p>
 
     <img src="files/workflow/verge3d_workflow.svg" alt="Verge3D workflow chart">
 
@@ -60,37 +64,63 @@
 
     <h3>PNG or JPEG</h3>
 
-    <p>For best efficiency, we recommend you to use web-friendly formats for your textures: lossless PNG with maximum compression, or lossy JPEG (although Verge3D also supports WebP, GIF, BMP, TIFF). As a rule of thumb, if you don't need the alpha channel in your texture, prefer using JPEG over PNG.</p>
+    <p>
+      For best efficiency, we recommend you to use web-friendly formats for your textures: lossless PNG with maximum compression, or lossy JPEG. As a rule of thumb, if you don't need the alpha channel in your texture, prefer using JPEG over PNG.
+    </p>
+
+    <p>
+      To Verge3D for Blender users, we recommend using the more efficient WebP format. This format provides both lossy (similar to JPEG) and lossless (similar to PNG) compression modes. In either mode, it offers a better compression ratio, thus significantly reducing the size and loading time for your apps. Another benefit of WebP is that you can use the alpha channel in both lossy and lossless modes.
+    </p>
+
+    <p class="note">
+      Consider all info about PNG below valid for the lossless WebP, while the info about JPEG is valid for the lossy WebP.
+    </p>
 
     <h3>Normal Maps</h3>
 
-    <p>The normal maps should be saved as PNG even if the alpha channel is wasted, because normal maps loaded in JPEG format often produce visible shading artifacts. The images in PNG format, however, may be too heavy in regards to file size, so use normal maps only if there is a strong need in them.</p>
+    <p>
+      The normal maps should be saved as PNG even if the alpha channel is wasted, because normal maps loaded in JPEG format often produce visible shading artifacts. The images in PNG format, however, may be too heavy in regards to file size, so use normal maps only if there is a strong need in them.
+    </p>
 
     <h3>Resolution</h3>
 
-    <p>Be careful to not use too detailed textures unless you really need them. Big images can adversely impact the performance, drain video memory which is scarce on handheld devices (all the way down to crash) and significantly prolong the loading. The resolution of most of your textures should be 1024 px or below.</p>
+    <p>
+      Be careful to not use too detailed textures unless you really need them. Big images can adversely impact the performance, drain video memory which is scarce on handheld devices (all the way down to crash) and significantly prolong the loading. The resolution of most of your textures should be 1024 px or below.
+    </p>
 
     <h3>Beware of NPOT</h3>
 
-    <p>The resolution of the textures should follow power the <i>power-of-two</i> rule (256, 512, 1024 px is great while 1000 px is bad). The engine re-scales all non-power-of-two (NPOT) images upon loading anyway, so consider carefully reviewing your textures in order to achieve maximum efficiency with regard to file size and loading time.</p>
+    <p>
+      The resolution of the textures should follow power the <i>power-of-two</i> rule (256, 512, 1024 px is great while 1000 px is bad). The engine re-scales all non-power-of-two (NPOT) images upon loading anyway, so consider carefully reviewing your textures in order to achieve maximum efficiency with regard to file size and loading time.
+    </p>
 
     <h3>Aspect</h3>
 
-    <p>Textures may be square or rectangular such as 1024x512 px.</p>
+    <p>
+      Textures may be square or rectangular such as 1024x512 px.
+    </p>
 
     <h3>Reuse</h3>
 
-    <p>Always try re-using image files in your materials, and texture maps/nodes in your shaders, rather than making copies.</p>
+    <p>
+      Always try re-using image files in your materials, and texture maps/nodes in your shaders, rather than making copies.
+    </p>
 
-    <p class="note">Resist the impulse to reuse textures as UI icons — those should be pre-scaled even if it means more files.</p>
+    <p class="note">
+      Resist the impulse to reuse textures as UI icons — those should be pre-scaled even if it means more files.
+    </p>
 
     <h3>Pack BW in RGBA</h3>
 
-    <p>If you have several black and white images (AO, light maps, transparency masks, color masks, etc), consider <a href="manual/en/introduction/Optimizing-WebGL-performance.html#Texturing">packing</a> them in the RGBA channels of a single texture.</p>
+    <p>
+      If you have several black and white images (AO, light maps, transparency masks, color masks, etc), consider <a href="manual/en/introduction/Optimizing-WebGL-performance.html#Texturing">packing</a> them in the RGBA channels of a single texture.
+    </p>
 
     <h3>Load on Demand</h3>
 
-    <p>If you are developing a customizer or a similar app, you may consider loading only a limited set of textures on startup. The other textures can be loaded and applied to your models on demand with the <a href="manual/en/puzzles/Materials.html#replace_texture">replace texture</a> puzzle. Another method is to load parts of your scenes dynamically with the <a href="manual/en/puzzles/Scenes.html#append_scene">append scene</a> puzzle.</p>
+    <p>
+      If you are developing a customizer or a similar app, you may consider loading only a limited set of textures on startup. The other textures can be loaded and applied to your models on demand with the <a href="manual/en/puzzles/Materials.html#replace_texture">replace texture</a> puzzle. Another method is to load parts of your scenes dynamically with the <a href="manual/en/puzzles/Scenes.html#append_scene">append scene</a> puzzle.
+    </p>
 
 
     [anchor:Environment_Map]

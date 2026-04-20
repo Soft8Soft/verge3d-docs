@@ -422,7 +422,7 @@
     </p>
 
     <code>
-    npm run serve
+    npm run dev
     </code>
 
     <p>
@@ -437,75 +437,23 @@
     <p>
       Нет прямой интеграции между React/Vue и <a href="manual/ru/introduction/Puzzles-Visual-Logic-Editor.html">редактором пазлов</a>/ <a href="manual/ru/introduction/App-Manager.html">диспетчером приложений</a>. Тем не менее, вы по-прежнему можете использовать пазлы для добавления сценариев поведения в ваши React/Vue-приложения. В этом разделе объясняется, как это сделать и каковы ограничения данного подхода.
     </p>
-    <p>
-      Диспетчер приложений не знает, как может выглядеть структура каталогов типичного проекта React/Vue. Однако после некоторой настройки диспетчер может, по крайней мере, скрипты визуальной логики пазлов. Это означает, что вы можете просматривать соответствующие ресурсы сцены и запускать редактор пазлов из <a href="manual/ru/introduction/App-Manager.html#Exploring_Applications">веб-страницы диспетчера приложений</a>.
-    </p>
-    <p>
-      Недостатком здесь является то, что просмотр файлов .gltf и работа с пазлами может осуществляться только через стандартные приложения «Вердж3Д» <a href="manual/ru/introduction/App-Manager.html#Creating_Applications">созданные внутри диспетчера приложений</a>. Таким образом, нет доступа к React/Vue функциям, компонентам, логике и т.д... и пазлы могут быть добавлены только отдельным образом. Тем не менее, полноценное приложение React/Vue может загружаться, запускаться и взаимодействовать с логическим сценарием, созданным в редакторе пазлов.
-    </p>
 
     <h3>Настройка диспетчера приложений</h3>
 
     <p>
-      Предположим, у нас есть приложение React или Vue, созданное в соответствии с руководством, описанным в этом справочнике.  Для того чтобы "соединить" App Manager и проект React/Vue, нам необходимо создать специальное приложение-адаптер. Имеется <a href="manual/ru/introduction/App-Manager.html#Templates">шаблон</a> приложения, отсутствующий в диспетчере приложений по умолчанию, но который может быть добавлен в настройках. Для этого используйте <a href="manual/ru/introduction/App-Manager.html#Creating_Templates">руководство по созданию шаблонов</a> и назовите шаблон *Embeddable/adapter*, введя это имя в поле с именем. Дальше нажмите на кнопку *Apply Changes*, чтобы добавить новый шаблон:
+      Предположим, у нас есть приложение React или Vue, созданное в соответствии с руководством, описанным в этом справочнике.  Для того чтобы "соединить" App Manager и проект React/Vue, нам необходимо скопировать специальное приложение-адаптер ``adapter`` из папки "Embeddable" с шаблоном приложения в ваш проект на React/Vue. Кроме того, вам потребуется скопировать рантайм «Вердж3Д» ``v3d.js`` в папку ``adapter``.
     </p>
 
-    <img src="files/integration-with-reactjs-vuejs/adding-embeddable-adapter-template.png" style="max-width: 800px">
+    <code>
+    cp -rv manager/template/Embeddable/adapter /path/to/my_awesome_app
+    cp build/v3d.js /path/to/my_awesome_app/adapter
+    </code>
 
     <p>
-      Далее создайте новое приложение, используя новый шаблон. Назовём его для примера *my_awesome_app*:
+      Теперь вы можете видеть свой проект в диспетчере приложений и использовать редактор пазлов.
     </p>
 
-    <img src="files/integration-with-reactjs-vuejs/embeddable-adapter-template-create-app.png" style="max-width: 570px">
-
-    <p>
-      Затем вам потребуется добавить символические ссылки, указывающие на ресурсы внутри проекта React/Vue, чтобы диспетчер приложений мог запустить редактор пазлов. Допустим, ваш проект React/Vue находится по пути *MY_PATH*, в то время как папка с приложениями по пути *V3D_APPS_PATH*.
-    </p>
-    <p class="note">
-      Вы можете узнать, где диспетчер приложений сохраняет приложения, посмотрев настройку <a href="manual/ru/introduction/App-Manager.html#settings_general_tab">App Manager Settings</a> → *General* → *Applications Folder*.
-    </p>
-    <p>
-      Мы создадим символически ссылки указывающие из *V3D_APPS_PATH/my_awesome_app/v3dApp* на *MY_PATH/public/v3dApp* — последнее это место, где в проекте React/Vue сохраняются ресурсы «Вердж3Д»-приложения. Также вам потребуется создать пару ссылок на JS и XML файлы логики приложения. Всё это делается следующим образом:
-    </p>
-
-    <v3d-tabs style="width: 1400px;">
-      <label>Линукс / Мак ОС / Хром ОС</label>
-      <div>
-        <p>
-          *V3D_APPS_PATH* и *MY_PATH* это папка приложений «Вердж3Д» и папка React/Vue приложения соответственно. Также замените *my_awesome_app* на имя приложения, которое вы указали при его создании в диспетчере приложений.
-        </p>
-        <code class="lang-sh">
-    V3D_APPS_PATH=/path/to/v3d/applications
-    MY_PATH=/path/to/my/app
-    ln -s $MY_PATH/public/v3dApp $V3D_APPS_PATH/my_awesome_app/v3dApp
-    ln -s $MY_PATH/src/v3dApp/visual_logic.js $V3D_APPS_PATH/my_awesome_app/visual_logic.js
-    ln -s $MY_PATH/src/v3dApp/visual_logic.xml $V3D_APPS_PATH/my_awesome_app/visual_logic.xml
-        </code>
-      </div>
-
-      <label>Виндоус (PowerShell)</label>
-      <div>
-        <p class="note">
-          Следующие команды PowerShell требуют привилегий администратора.
-        </p>
-        <p>
-          *V3D_APPS_PATH* и *MY_PATH* это папка приложений «Вердж3Д» и папка React/Vue приложения соответственно. Также замените *my_awesome_app* на имя приложения, которое вы указали при его создании в диспетчере приложений.
-        </p>
-        <code class="lang-sh">
-    $V3D_APPS_PATH = "path\to\v3d\applications"
-    $MY_PATH = "path\to\my\app"
-    cmd /c mklink /D $V3D_APPS_PATH\my_awesome_app\v3dApp (Resolve-Path $MY_PATH\public\v3dApp)
-    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.js (Resolve-Path $MY_PATH\src\v3dApp\visual_logic.js)
-    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.xml (Resolve-Path $MY_PATH\src\v3dApp\visual_logic.xml)
-        </code>
-      </div>
-    </v3d-tabs>
-
-    <p>
-      Теперь вы можете увидеть свой проект в диспетчере приложений и использовать редактор пазлов.
-    </p>
-
-    <img src="files/integration-with-reactjs-vuejs/app-manager.png" style="max-width: 800px">
+    <img src="files/integration-with-reactjs-vuejs/app-manager.webp">
 
     <h3>Loading Resources in Puzzles</h3>
 

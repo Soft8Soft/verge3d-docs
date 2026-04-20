@@ -118,7 +118,7 @@
       Internally this feature uses a 3D-transformed `&lt;iframe&gt;` element which has the width (in pixels) specified in the *res* input.
     </p>
 
-    [demo:htmlmixer]
+    [demo:webpage_inside_3d]
 
 
     [anchor:remove]
@@ -631,9 +631,48 @@
     <img src="files/puzzles/puzzles-object-update-light-probe.png" alt="Visual logic block to update light probe objects">
 
 
+    [anchor:create_instances]
+
+    <h3>create instances</h3>
+
+    <p>
+      Create GPU instances for the given object. Unlike the <a href="manual/en/puzzles/Objects.html#clone">clone object</a> puzzle it does not create a copy of an object but rather uses the capability of graphics hardware to generate geometry on the fly. This is much more efficient than rendering separate objects, as you can have dozens or even hundreds of thousands of objects easily rendered on a low-end device.
+    </p>
+
+    <img src="files/puzzles/puzzles-object-create-instances.webp" alt="Visual logic block to create object instances">
+
+    <p>
+      This puzzle can work with two types of inputs depending on what's more convenient for you. First, *positions*, *rotations*, *scales* can be <a href="manual/en/puzzles/Selectors.html#select_group">groups</a>. Individual objects from these groups will be used as instance transformations (in most cases you should just use empties/dummies).
+    </p>
+
+    <img src="files/puzzles/puzzles-object-create-instances-groups.webp" alt="Visual logic block to create object instances from groups">
+
+    <p>
+      Alternatively, you can specify lists of vectors for the corresponding inputs:
+    </p>
+
+    <img src="files/puzzles/puzzles-object-create-instances-vectors.webp" alt="Visual logic block to create object instances from vectors">
+
+    <p>
+      When using uniform scaling (same values for X, Y, Z coordinates), you can simplify the *scales* input to a list of numbers:
+    </p>
+
+    <img src="files/puzzles/puzzles-object-create-instances-uniform-scale.webp" alt="Visual logic block to create object instances with uniform scales">
+
+    <p>
+      Whatever you choose, the *rotations* and *scales* inputs are optional and can be safely omitted. In such the case, the rotations and scales for instances will be inherited from the source object (so they will be the same for all instances).
+    </p>
+
+    <p>
+      Possible use-cases include grass, foliage, nature objects, city landscapes, fences, you name it. Basically any repeated static objects will benefit from this feature.
+    </p>
+
+
     <h2>Having Troubles with Puzzles?</h2>
 
-    <p>Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!</p>
+    <p>
+      Seek help on the <a href="https://www.soft8soft.com/forums/" target="_blank">forums</a>!
+    </p>
 
   </article></body>
 </html>

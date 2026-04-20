@@ -436,77 +436,25 @@
     <h2>Using the Puzzles Editor</h2>
 
     <p>
-      There's no direct integration between React/Vue and the <a href="manual/en/introduction/Puzzles-Visual-Logic-Editor.html">Puzzles Editor</a>/<a href="manual/en/introduction/App-Manager.html">Application Manager</a>. Nevertheless, you can still use Puzzles for adding behavior scenarios to your React/Vue applications. This section explains how to do that and what are the limitations of the chosen approach.
-    </p>
-    <p>
-      The Application Manager doesn't know what directory structure of a typical React/Vue project can look like. However, after some tweaking the manager can at least recognize the Puzzles' visual logic scripts. That means you can launch the Puzzles Editor from within the <a href="manual/en/introduction/App-Manager.html#Exploring_Applications">App Manager's web-page</a>.
-    </p>
-    <p>
-      The drawback here is that working with Puzzles can only be done via a standard Verge3D application <a href="manual/en/introduction/App-Manager.html#Creating_Applications"> created within the App Manager</a>. So, there's no access to React/Vue features, components, logic, etc... and Puzzles can be added only in a separate manner. Still a complete React/Vue application can load, run and communicate with logic scripts created in the Puzzles Editor.
+      There's no direct integration between React/Vue and the <a href="manual/en/introduction/Puzzles-Visual-Logic-Editor.html">Puzzles Editor</a>/<a href="manual/en/introduction/App-Manager.html">App Manager</a>. Nevertheless, you can still use Puzzles for adding behavior scenarios to your React/Vue applications. This section explains how to do that and what are the limitations of the chosen approach.
     </p>
 
     <h3>App Manager Setup</h3>
 
     <p>
-      Suppose we have a React or a Vue application created according to the guide described in this manual. In order to "connect" the App Manager and the React/Vue project we need to create a dedicated "adapter" application. That's a custom app <a href="manual/en/introduction/App-Manager.html#Templates">template</a>, which is not present by default in the App Manager but can be added in the App Manager Settings. Let's do that by following the <a href="manual/en/introduction/App-Manager.html#Creating_Templates">Creating Templates</a> tutorial but when it comes to naming the new template let's put *Embeddable/adapter* into the name field. Next, let's hit the *Apply Changes* button and the template will be successfully added to the App Manager:
+      Suppose you have a React or a Vue application created according to the guide described in this manual. In order to "connect" the App Manager and the React/Vue project you need to copy a dedicated ``adapter`` application from the "Embeddable" template directory to your Vue/React project. Additionally, copy ``v3d.js`` engine runtime to the ``adapter`` folder.
     </p>
 
-    <img src="files/integration-with-reactjs-vuejs/adding-embeddable-adapter-template.png" style="max-width: 800px">
+    <code>
+    cp -rv manager/template/Embeddable/adapter /path/to/my_awesome_app
+    cp build/v3d.js /path/to/my_awesome_app/adapter
+    </code>
 
     <p>
-      Then, we need to create a new application using the newly added template. Let's call it *my_awesome_app*:
+      Now you can see your project in the App Manager and you can use the Puzzles Editor.
     </p>
 
-    <img src="files/integration-with-reactjs-vuejs/embeddable-adapter-template-create-app.png" style="max-width: 570px">
-
-    <p>
-      Finally, we need to create symbolic links pointing to resources in the React/Vue project that the App Manager needs to be able to launch the Puzzles Editor. Suppose that the React/Vue project is located at the path *MY_PATH* and your Verge3D *applications* folder is located at the path *V3D_APPS_PATH*.
-    </p>
-    <p class="note">
-      You can check where Verge3D stores your applications in <a href="manual/en/introduction/App-Manager.html#settings_general_tab">App Manager Settings</a> → *General* → *Applications Folder*.
-    </p>
-    <p>
-      We'll create a symbolic link pointing from *V3D_APPS_PATH/my_awesome_app/v3dApp* to *MY_PATH/public/v3dApp* — the latter is the place inside the React/Vue project where verge3d-related scene resources are stored. Also, we need to create a couple more symbolic links for Puzzles' logic JS and XML files. Here's how this can be done:
-    </p>
-
-    <v3d-tabs style="width: 1400px;">
-      <label>Linux/macOS/ChromeOS</label>
-      <div>
-        <p>
-          Change *V3D_APPS_PATH* and *MY_PATH* to where the Verge3D *applications* folder and your React/Vue application are located respectively. Also, replace *my_awesome_app* with the name you specified when created the app in the App Manager.
-        </p>
-        <code class="lang-sh">
-    V3D_APPS_PATH=/path/to/v3d/applications
-    MY_PATH=/path/to/my/app
-    ln -s $MY_PATH/public/v3dApp $V3D_APPS_PATH/my_awesome_app/v3dApp
-    ln -s $MY_PATH/src/v3dApp/visual_logic.js $V3D_APPS_PATH/my_awesome_app/visual_logic.js
-    ln -s $MY_PATH/src/v3dApp/visual_logic.xml $V3D_APPS_PATH/my_awesome_app/visual_logic.xml
-        </code>
-      </div>
-
-      <label>Windows (PowerShell)</label>
-      <div>
-        <p class="note">
-          The following commands require PowerShell with administrator privileges.
-        </p>
-        <p>
-          Change *V3D_APPS_PATH* and *MY_PATH* to where the Verge3D *applications* folder and your React/Vue application are located respectively. Also, change *my_awesome_app* to the name you specified when creating the app in the App Manager.
-        </p>
-        <code class="lang-sh">
-    $V3D_APPS_PATH = "path\to\v3d\applications"
-    $MY_PATH = "path\to\my\app"
-    cmd /c mklink /D $V3D_APPS_PATH\my_awesome_app\v3dApp (Resolve-Path $MY_PATH\public\v3dApp)
-    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.js (Resolve-Path $MY_PATH\src\v3dApp\visual_logic.js)
-    cmd /c mklink $V3D_APPS_PATH\my_awesome_app\visual_logic.xml (Resolve-Path $MY_PATH\src\v3dApp\visual_logic.xml)
-        </code>
-      </div>
-    </v3d-tabs>
-
-    <p>
-      Now you can see your project in the Application Manager and you can use the Puzzles Editor.
-    </p>
-
-    <img src="files/integration-with-reactjs-vuejs/app-manager.png" style="max-width: 800px">
+    <img src="files/integration-with-reactjs-vuejs/app-manager.webp">
 
     <h3>Loading Resources in Puzzles</h3>
 
